@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": ""
+        },
+        "background": {
+          "beginsPattern": "started server",
+          "endsPattern": "Debugger listening on"
+        }
+      },
+      "label": "dev"
+    }
+  ]
+}
