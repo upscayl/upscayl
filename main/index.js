@@ -10,6 +10,7 @@ const url_1 = require("url");
 const electron_1 = require("electron");
 const electron_is_dev_1 = __importDefault(require("electron-is-dev"));
 const electron_next_1 = __importDefault(require("electron-next"));
+const { dialog } = require('electron');
 // Prepare the renderer once the app is ready
 electron_1.app.on('ready', async () => {
     await (0, electron_next_1.default)('./renderer');
@@ -34,7 +35,14 @@ electron_1.app.on('ready', async () => {
 // Quit the app once all windows are closed
 electron_1.app.on('window-all-closed', electron_1.app.quit);
 // listen the channel `message` and resend the received message to the renderer process
-electron_1.ipcMain.on('message', (event, message) => {
-    console.log(message);
-    setTimeout(() => event.sender.send('message', 'hi from electron'), 500);
+electron_1.ipcMain.on('file', async (event) => {
+    const { canceled, filePaths } = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] });
+    if (canceled) {
+        console.log('operation cancelled');
+        setTimeout(() => event.sender.send('filename', 'operation cancelled'), 500);
+    }
+    else {
+        console.log(filePaths[0]);
+        setTimeout(() => event.sender.send('filename', filePaths[0]), 500);
+    }
 });

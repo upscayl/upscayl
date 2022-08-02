@@ -6,6 +6,7 @@ import { format } from 'url'
 import { BrowserWindow, app, ipcMain, IpcMainEvent } from 'electron'
 import isDev from 'electron-is-dev'
 import prepareNext from 'electron-next'
+const { dialog } = require('electron')
 
 // Prepare the renderer once the app is ready
 app.on('ready', async () => {
@@ -36,7 +37,15 @@ app.on('ready', async () => {
 app.on('window-all-closed', app.quit)
 
 // listen the channel `message` and resend the received message to the renderer process
-ipcMain.on('message', (event: IpcMainEvent, message: any) => {
-  console.log(message)
-  setTimeout(() => event.sender.send('message', 'hi from electron'), 500)
+ipcMain.on('file', async (event: IpcMainEvent) => {
+  const {canceled, filePaths} = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] })
+  if (canceled) {
+    console.log('operation cancelled')
+    setTimeout(() => event.sender.send('filename', 'operation cancelled'), 500)
+  }
+  else {
+    console.log(filePaths[0])
+    setTimeout(() => event.sender.send('filename', filePaths[0]), 500)
+  }
+  
 })
