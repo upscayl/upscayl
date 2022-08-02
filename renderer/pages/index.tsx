@@ -6,7 +6,7 @@ const IndexPage = () => {
   useEffect(() => {
     const handleMessage = (_event:any, args:any) => console.log(args)
 
-    // add a listener to 'message' channel
+    // add a listener to 'filename' channel
     global.ipcRenderer.addListener('filename', handleMessage)
 
     return () => {

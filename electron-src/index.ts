@@ -36,7 +36,7 @@ app.on('ready', async () => {
 // Quit the app once all windows are closed
 app.on('window-all-closed', app.quit)
 
-// listen the channel `message` and resend the received message to the renderer process
+// listen the channel `file` and resend the received message to the renderer process
 ipcMain.on('file', async (event: IpcMainEvent) => {
   const {canceled, filePaths} = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] })
   if (canceled) {
