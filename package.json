@@ -1,0 +1,89 @@
+{
+  "name": "electron-react-typescript-webpack-boilerplate",
+  "version": "4.0.0",
+  "description": "Pre-configured boilerplate for Electron + React + TypeScript",
+  "main": "./dist/main.bundle.js",
+  "scripts": {
+    "start": "electron ./dist/main.bundle.js",
+    "webpack:dev": "rimraf dist && cross-env NODE_ENV=development webpack --watch --progress --color",
+    "prod": "rimraf dist && cross-env NODE_ENV=production webpack --progress --color",
+    "test": "cross-env NODE_ENV=test jest",
+    "watch-test": "npm run test -- --watchAll",
+    "next-rc": "npm --no-git-tag-version version prerelease --preid=rc",
+    "next-patch": "npm --no-git-tag-version version patch",
+    "next-minor": "npm --no-git-tag-version version minor",
+    "next-major": "npm --no-git-tag-version version major",
+    "build:win": "electron-builder build --win",
+    "build:mac": "electron-builder build --mac"
+  },
+  "build": {
+    "appId": "com.devtography.electron_boilerplate",
+    "productName": "Electron+React+TypeScript Boilerplate",
+    "directories": {
+      "app": "./dist/",
+      "output": "./out/"
+    },
+    "mac": {
+      "target": {
+        "target": "dmg",
+        "arch": "universal"
+      }
+    },
+    "win": {
+      "target": {
+        "target": "nsis",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      }
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "buildVersion": "1"
+  },
+  "author": "Wing Chau @Devtography",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow/tfjs": "^3.19.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.2",
+    "upscaler": "^1.0.0-beta.5"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.6",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "cross-env": "^7.0.3",
+    "electron": "^19.0.9",
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.7.4"
+  },
+  "optionalDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "electron-builder": "^23.1.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "lodash": "^4.17.21",
+    "rimraf": "^3.0.2",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.1",
+    "tsconfig-paths": "^4.0.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devtography/electron-react-typescript-webpack-boilerplate"
+  },
+  "bugs": {
+    "url": "https://github.com/Devtography/electron-react-typescript-webpack-boilerplate/issues"
+  },
+  "homepage": "https://github.com/Devtography/electron-react-typescript-webpack-boilerplate#readme"
+}

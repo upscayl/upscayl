@@ -1,0 +1,121 @@
+body {
+  padding: 40px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+}
+* {
+  box-sizing: border-box;
+}
+#root {
+  display: flex;
+}
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.dropzone {
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 40px;
+  border: 5px dotted #ddd;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+.app {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.original-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.original img {
+  transition-duration: 1.2s;
+  position: relative;
+}
+
+button {
+  background: #ddd;
+  padding: 5px 10px;
+  border: 1px solid #aaa;
+}
+button:first-child {
+  border-radius: 5px 0 0 5px;
+  border-right: none;
+}
+button:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+button.active {
+  background: #c4c4ff;
+}
+
+.display {
+  position: relative;
+  margin-top: 5px;
+}
+.display .image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.display .scaled-up img {
+  display: block;
+  margin: 0;
+  position: absolute;
+  left: 0%;
+}
+
+.dragOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.dragger {
+  cursor: pointer;
+  height: 100%;
+  width: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  transform: translate(50px 0);
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  min-height: 40px;
+}
+.interpolation {
+  flex: 1;
+  display: flex;
+}
