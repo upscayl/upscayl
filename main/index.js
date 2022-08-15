@@ -5,7 +5,7 @@ const { exec } = require("child_process");
 const fs = require("fs");
 
 // Packages
-const { BrowserWindow, app, ipcMain } = require("electron");
+const { BrowserWindow, app, ipcMain, dialog } = require("electron");
 const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
 
@@ -42,3 +42,15 @@ app.on("window-all-closed", app.quit);
 ipcMain.on("sendMessage", (_, message) => {
   console.log(message);
 });
+
+ipcMain.handle("open", async () => {
+  const {canceled, filePaths} = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] })
+  if (canceled) {
+    console.log('operation cancelled')
+    return("cancelled")
+  }
+  else {
+    console.log(filePaths[0])
+    return(filePaths[0])
+  }
+})
