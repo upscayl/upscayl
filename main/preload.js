@@ -1,5 +1,4 @@
 const { ipcRenderer, contextBridge } = require("electron");
 
-contextBridge.exposeInMainWorld("electron", {
-  message: (data) => ipcRenderer.send("message", data),
-});
+// 'ipcRenderer' will be available in index.js with the method 'window.electron'
+contextBridge.exposeInMainWorld("electron", ipcRenderer);

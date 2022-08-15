@@ -14,8 +14,8 @@ app.on("ready", async () => {
   await prepareNext("./renderer");
 
   const mainWindow = new BrowserWindow({
-    width: 400,
-    height: 750,
+    width: 1100,
+    height: 700,
     webPreferences: {
       autoHideMenuBar: true,
       nodeIntegration: false,
@@ -31,7 +31,7 @@ app.on("ready", async () => {
       });
 
   mainWindow.setMenuBarVisibility(false);
-  mainWindow.setResizable(false);
+  mainWindow.maximize();
   mainWindow.loadURL(url);
 });
 
@@ -39,43 +39,6 @@ app.on("ready", async () => {
 app.on("window-all-closed", app.quit);
 
 // listen the channel `message` and resend the received message to the renderer process
-ipcMain.on("message", (event, message) => {
+ipcMain.on("sendMessage", (_, message) => {
   console.log(message);
-  let text = `[Desktop Entry]
-Encoding=UTF-8
-Name=${message.name}
-Comment=${message.comment}
-Exec=${message.exec}
-Icon=${message.icon}
-Terminal=${message.terminal}
-Type=Application
-Categories=GNOME;Application;Utility;
-`;
-
-  try {
-    const homePath = app.getPath("home");
-    let filePath =
-      homePath +
-      "/.local/share/applications/" +
-      message.name.replace(/[^A-Z0-9]+/gi, "_") +
-      ".desktop";
-
-    console.log(filePath);
-
-    fs.writeFileSync(filePath, text, "utf-8");
-
-    exec(`chmod +x ${filePath}`, (error, stdout, stderr) => {
-      if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
-    });
-  } catch (e) {
-    alert("Failed to save the file !");
-  }
 });

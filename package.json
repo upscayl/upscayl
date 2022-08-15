@@ -1,12 +1,12 @@
 {
-  "name": "deskcut",
+  "name": "upscayl",
   "private": true,
   "version": "1.5.1",
-  "productName": "DeskCut",
+  "productName": "Upscayl",
   "author": "Nayam Amarshe <nayam@nay.am>",
   "email": "nay@am.com",
   "license": "GPLv2",
-  "description": "DeskCut is an extremely easy to use desktop shortcut creator app for Linux",
+  "description": "Upscayl - Linux first image upscale app",
   "keywords": [
     "Linux",
     "Gnome",
@@ -43,20 +43,19 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.2",
-    "electron": "^12.0.2",
-    "electron-builder": "^22.14.5",
-    "next": "latest",
-    "postcss": "^8.4.6",
-    "prettier": "^2.5.1",
-    "prettier-plugin-tailwindcss": "^0.1.5",
+    "autoprefixer": "^10.4.8",
+    "electron": "^20.0.2",
+    "electron-builder": "^23.3.3",
+    "next": "^12.2.5",
+    "postcss": "^8.4.16",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "tailwindcss": "^3.0.18"
+    "tailwindcss": "^3.1.8"
   },
   "dependencies": {
-    "electron-is-dev": "^1.1.0",
-    "electron-next": "^3.1.5",
-    "next-themes": "^0.0.15"
+    "electron-is-dev": "^2.0.0",
+    "electron-next": "^3.1.5"
   }
 }
