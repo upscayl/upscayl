@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",
-    "electron": "^12.0.2",
+    "electron": "^15.5.5",
     "electron-builder": "^22.14.5",
     "next": "latest",
     "postcss": "^8.4.6",
