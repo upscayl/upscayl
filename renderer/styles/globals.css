@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  input,
+  button,
+  .picker {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  input[type="text"] {
+    @apply p-4 ring-offset-0 ring-slate-400 dark:ring-slate-400 focus:ring-2 bg-slate-200 dark:bg-slate-500 placeholder-slate-400 text-slate-700 dark:text-slate-100 rounded-lg outline-none text-center hover:shadow-lg hover:shadow-slate-300 hover:dark:shadow-slate-600 focus:shadow-lg focus:shadow-slate-300 focus:dark:shadow-slate-600 focus:scale-105 hover:scale-105;
+  }
+  button[type="submit"] {
+    @apply outline-none hover:ring-2 ring-green-600 p-4 rounded-lg bg-green-500 text-slate-50 hover:shadow-lg hover:shadow-green-400 hover:dark:shadow-green-700 focus:dark:shadow-green-700 hover:scale-105 ;
+  }
+  .picker {
+    @apply focus:scale-105 outline-none hover:ring-2 ring-red-600 p-4 bg-red-400 rounded-lg text-slate-50 w-full hover:shadow-lg hover:shadow-red-300 hover:dark:shadow-red-700 hover:scale-105 focus:shadow-lg focus:shadow-red-300 focus:dark:shadow-red-700;
+  }
+}
+
+@layer utilities {
+  .animate {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  .checkbox-bg {
+    @apply hover:ring-2 outline-none cursor-pointer flex flex-row gap-2 items-center p-4 rounded-lg hover:shadow-lg hover:scale-105;
+  }
+  .checkbox-on {
+    @apply bg-yellow-400 ring-yellow-600 shadow-blue-100 hover:shadow-yellow-400 hover:dark:shadow-yellow-600 text-yellow-700;
+  }
+  .checkbox-off {
+    @apply bg-purple-500 hover:dark:shadow-purple-700 ring-purple-600 hover:shadow-purple-400 text-purple-100;
+  }
+}

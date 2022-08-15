@@ -1,0 +1,62 @@
+{
+  "name": "deskcut",
+  "private": true,
+  "version": "1.5.1",
+  "productName": "DeskCut",
+  "author": "Nayam Amarshe <nayam@nay.am>",
+  "email": "nay@am.com",
+  "license": "GPLv2",
+  "description": "DeskCut is an extremely easy to use desktop shortcut creator app for Linux",
+  "keywords": [
+    "Linux",
+    "Gnome",
+    "Desktop",
+    "Shortcut"
+  ],
+  "main": "main/index.js",
+  "scripts": {
+    "clean": "rimraf dist renderer/.next renderer/out",
+    "start": "electron .",
+    "build": "next build renderer && next export renderer",
+    "pack-app": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder"
+  },
+  "build": {
+    "productName": "DeskCut",
+    "appId": "com.nayam.deskcut",
+    "asar": true,
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm",
+        "flatpak",
+        "snap"
+      ]
+    },
+    "snap": {
+      "confinement": "classic"
+    },
+    "files": [
+      "main",
+      "renderer/out"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "electron": "^12.0.2",
+    "electron-builder": "^22.14.5",
+    "next": "latest",
+    "postcss": "^8.4.6",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "tailwindcss": "^3.0.18"
+  },
+  "dependencies": {
+    "electron-is-dev": "^1.1.0",
+    "electron-next": "^3.1.5",
+    "next-themes": "^0.0.15"
+  }
+}
