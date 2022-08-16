@@ -1,23 +1,28 @@
 import { useState, useEffect, useRef } from "react";
 
 const Home = () => {
+  const [imagePath, SetImagePath] = useState();
+
   useEffect(() => {
     // send(command, payload)
     window.electron.send("sendMessage", { message: "Hello!" });
   }, []);
-  const [imagePath, SetImagePath] = useState()
+
   const imageHandler = async () => {
-    var path = await window.electron.invoke("open")
-    SetImagePath(path)
-    console.log(imagePath)
-  }
+    var path = await window.electron.invoke("open");
+    SetImagePath(path);
+    console.log(imagePath);
+  };
+
   return (
     <div className="flex h-screen w-screen flex-row bg-neutral-900">
       <div className="flex h-screen w-96 flex-col bg-neutral-800 p-5">
         <h1 className="text-3xl font-bold text-neutral-50">Upscayl</h1>
         <div className="mt-10">
           <p className="mb-2 font-medium text-neutral-100">Step 1</p>
-          <button className="rounded-lg bg-sky-400 p-3" onClick={imageHandler} >Select Image</button>
+          <button className="rounded-lg bg-sky-400 p-3" onClick={imageHandler}>
+            Select Image
+          </button>
         </div>
         <div className="mt-10">
           <p className="mb-2 font-medium text-neutral-100">Step 2</p>

@@ -1,8 +1,10 @@
 // Native
 const { join } = require("path");
 const { format } = require("url");
-const { exec } = require("child_process");
+const { spawn } = require("child_process");
 const fs = require("fs");
+
+const { execPath, modelsPath } = require("./binaries");
 
 // Packages
 const { BrowserWindow, app, ipcMain, dialog } = require("electron");
@@ -18,7 +20,7 @@ app.on("ready", async () => {
     height: 700,
     webPreferences: {
       autoHideMenuBar: true,
-      nodeIntegration: false,
+      nodeIntegration: true,
       preload: join(__dirname, "preload.js"),
     },
   });
@@ -44,13 +46,56 @@ ipcMain.on("sendMessage", (_, message) => {
 });
 
 ipcMain.handle("open", async () => {
-  const {canceled, filePaths} = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] })
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ["openFile", "multiSelections"],
+  });
+
   if (canceled) {
-    console.log('operation cancelled')
-    return("cancelled")
+    console.log("operation cancelled");
+    return "cancelled";
+  } else {
+    console.log(filePaths[0]);
+    // CREATE input AND upscaled FOLDER
+    let inputDir = "./input";
+    if (!fs.existsSync(inputDir)) {
+      fs.mkdirSync(inputDir);
+    }
+    let outputDir = "./upscaled";
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir);
+    }
+
+    // COPY IMAGE TO upscaled FOLDER
+    const fileName = filePaths[0].split("/").slice(-1)[0];
+    console.log("🚀 => ipcMain.handle => fileName", fileName);
+    fs.copyFile(filePaths[0], inputDir + "/" + fileName, (err) => {
+      if (err) throw err;
+      console.log("File Copy Successfully.");
+    });
+
+    // UPSCALE
+    console.log(execPath);
+    console.log(modelsPath);
+    let command = spawn(execPath, [
+      "-i",
+      inputDir,
+      "-o",
+      outputDir,
+      "-s",
+      4,
+      "-m",
+      modelsPath,
+    ]);
+    command.stdout.on("data", (data) => {
+      console.log("stdout: ", data.toString());
+    });
+    command.on("error", (error) => {
+      console.log(error);
+    });
+    command.on("exit", (code, signal) => {
+      console.log("Exit: ", code, signal);
+    });
+
+    return filePaths[0];
   }
-  else {
-    console.log(filePaths[0])
-    return(filePaths[0])
-  }
-})
+});
