@@ -7,7 +7,13 @@ const fs = require("fs");
 const { execPath, modelsPath } = require("./binaries");
 
 // Packages
-const { BrowserWindow, app, ipcMain, dialog } = require("electron");
+const {
+  BrowserWindow,
+  app,
+  ipcMain,
+  dialog,
+  ipcRenderer,
+} = require("electron");
 const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
 
@@ -33,7 +39,7 @@ app.on("ready", async () => {
       });
 
   mainWindow.setMenuBarVisibility(false);
-  mainWindow.maximize();
+  // mainWindow.maximize();
   mainWindow.loadURL(url);
 });
 
@@ -45,7 +51,7 @@ ipcMain.on("sendMessage", (_, message) => {
   console.log(message);
 });
 
-ipcMain.handle("open", async () => {
+ipcMain.on("open", async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openFile", "multiSelections"],
   });
@@ -67,33 +73,41 @@ ipcMain.handle("open", async () => {
 
     // COPY IMAGE TO upscaled FOLDER
     const fileName = filePaths[0].split("/").slice(-1)[0];
-    console.log("🚀 => ipcMain.handle => fileName", fileName);
     fs.copyFile(filePaths[0], inputDir + "/" + fileName, (err) => {
       if (err) throw err;
-      console.log("File Copy Successfully.");
     });
 
     // UPSCALE
-    console.log(execPath);
-    console.log(modelsPath);
-    let command = spawn(execPath, [
-      "-i",
-      inputDir,
-      "-o",
-      outputDir,
-      "-s",
-      4,
-      "-m",
-      modelsPath,
-    ]);
-    command.stdout.on("data", (data) => {
-      console.log("stdout: ", data.toString());
+    let upscayl = spawn(
+      execPath,
+      [
+        "-i",
+        inputDir,
+        "-o",
+        outputDir,
+        "-s",
+        "4",
+        "-m",
+        modelsPath,
+        "-n",
+        "realesrgan-x4plus",
+      ],
+      {
+        cwd: null,
+        detached: false,
+      }
+    );
+    upscayl.stdout.on("data", (stdout) => {
+      console.log("UPSCAYL: ", stdout.toString());
+      // TODO: SEND THE STDOUT TO RENDERER FROM HERE
     });
-    command.on("error", (error) => {
-      console.log(error);
+
+    upscayl.stderr.on("data", (stderr) => {
+      console.log(stderr.toString());
     });
-    command.on("exit", (code, signal) => {
-      console.log("Exit: ", code, signal);
+
+    upscayl.on("close", (code) => {
+      console.log("Done upscaling", code);
     });
 
     return filePaths[0];

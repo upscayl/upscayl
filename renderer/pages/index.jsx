@@ -2,15 +2,22 @@ import { useState, useEffect, useRef } from "react";
 
 const Home = () => {
   const [imagePath, SetImagePath] = useState();
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     // send(command, payload)
     window.electron.send("sendMessage", { message: "Hello!" });
+    setLoaded(true);
+
+    window.electron.on("done", () => {
+      console.log("DONE");
+    });
   }, []);
 
   const imageHandler = async () => {
-    var path = await window.electron.invoke("open");
+    var path = await window.electron.send("open");
     SetImagePath(path);
+
     console.log(imagePath);
   };
 
