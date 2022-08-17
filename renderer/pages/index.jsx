@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 const Home = () => {
   const [imagePath, SetImagePath] = useState();
+  const [outputPath, SetOutputPath] = useState();
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -24,8 +25,24 @@ const Home = () => {
   }, []);
 
   const imageHandler = async () => {
-    var path = await window.electron.send("open");
-    SetImagePath(path);
+    var path = await window.electron.invoke("open");
+    if (path != "cancelled") {
+      SetImagePath(path);
+      var dirname = path.match(/(.*)[\/\\]/)[1]||''
+      SetOutputPath(dirname)
+    }
+  };
+  const outputHandler = async () => {
+    var path = await window.electron.invoke("output");
+    if (path != "cancelled") {
+      SetOutputPath(path)
+    }
+    else{
+      console.log("Getting output path from input file")
+    }
+  };
+  const upscaylHandler = async () => {
+    window.electron.send("upscayl", [imagePath, outputPath]);
   };
 
   return (
@@ -49,13 +66,13 @@ const Home = () => {
         </div>
         <div className="mt-10">
           <p className="mb-2 font-medium text-neutral-100">Step 3</p>
-          <button className="rounded-lg bg-violet-400 p-3">
+          <button className="rounded-lg bg-violet-400 p-3" onClick={outputHandler}>
             Set Output Folder
           </button>
         </div>
         <div className="mt-10">
           <p className="mb-2 font-medium text-neutral-100">Step 4</p>
-          <button className="rounded-lg bg-green-400 p-3">Upscayl</button>
+          <button className="rounded-lg bg-green-400 p-3" onClick={upscaylHandler}>Upscayl</button>
         </div>
       </div>
       <div className="flex h-screen w-full flex-col items-center justify-center p-5">
