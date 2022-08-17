@@ -99,13 +99,6 @@ ipcMain.on("open", async () => {
       }
     );
 
-    // let stdoutSave = "";
-    // upscayl.stdout.on("data", (data) => {
-    //   // TODO: SEND THE STDOUT TO RENDERER FROM HERE
-    //   data = data.toString();
-    //   stdoutSave += data;
-    // });
-
     upscayl.stderr.on("data", (stderr) => {
       console.log(stderr.toString());
       stderr = stderr.toString();
@@ -115,7 +108,6 @@ ipcMain.on("open", async () => {
     upscayl.on("close", (code) => {
       console.log("Done upscaling", code);
       mainWindow.webContents.send("done");
-      console.log(stdoutSave);
     });
 
     return filePaths[0];
