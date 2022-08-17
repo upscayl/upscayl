@@ -18,10 +18,11 @@ const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
 
 // Prepare the renderer once the app is ready
+let mainWindow;
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1100,
     height: 700,
     webPreferences: {
@@ -97,17 +98,24 @@ ipcMain.on("open", async () => {
         detached: false,
       }
     );
-    upscayl.stdout.on("data", (stdout) => {
-      console.log("UPSCAYL: ", stdout.toString());
-      // TODO: SEND THE STDOUT TO RENDERER FROM HERE
-    });
+
+    // let stdoutSave = "";
+    // upscayl.stdout.on("data", (data) => {
+    //   // TODO: SEND THE STDOUT TO RENDERER FROM HERE
+    //   data = data.toString();
+    //   stdoutSave += data;
+    // });
 
     upscayl.stderr.on("data", (stderr) => {
       console.log(stderr.toString());
+      stderr = stderr.toString();
+      mainWindow.webContents.send("output", stderr.toString());
     });
 
     upscayl.on("close", (code) => {
       console.log("Done upscaling", code);
+      mainWindow.webContents.send("done");
+      console.log(stdoutSave);
     });
 
     return filePaths[0];

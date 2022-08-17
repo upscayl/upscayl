@@ -9,16 +9,18 @@ const Home = () => {
     window.electron.send("sendMessage", { message: "Hello!" });
     setLoaded(true);
 
-    window.electron.on("done", () => {
-      console.log("DONE");
+    window.electron.on("output", (_, data) => {
+      if (data.length > 0 && data.length < 10) console.log(data);
+    });
+
+    window.electron.on("done", (_, data) => {
+      console.log("DONE!");
     });
   }, []);
 
   const imageHandler = async () => {
     var path = await window.electron.send("open");
     SetImagePath(path);
-
-    console.log(imagePath);
   };
 
   return (
