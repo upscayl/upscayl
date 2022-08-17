@@ -106,7 +106,7 @@ ipcMain.on("open", async () => {
     });
 
     upscayl.on("close", (code) => {
-      console.log("Done upscaling", code);
+      console.log("Done upscaling");
       mainWindow.webContents.send("done");
     });
 
