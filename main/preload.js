@@ -7,4 +7,10 @@ contextBridge.exposeInMainWorld("electron", {
     ipcRenderer.on(command, (event, args) => {
       func(event, args);
     }),
+  startListen: (func) => {
+    ipcRenderer.addListener("stdout",func)
+  },
+  stopListen: (func) => {
+    ipcRenderer.removeListener("stdout",func)
+  },
 });
