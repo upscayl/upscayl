@@ -1,7 +1,7 @@
 // Native
 const { join } = require("path");
 const { format } = require("url");
-const { spawn } = require("child_process");
+const { spawn, spawnSync, execFile } = require("child_process");
 const fs = require("fs");
 
 const { execPath, modelsPath } = require("./binaries");
@@ -51,7 +51,7 @@ ipcMain.on("sendMessage", (_, message) => {
   console.log(message);
 });
 
-ipcMain.on("open", async () => {
+ipcMain.on("open", async (command, payload) => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openFile", "multiSelections"],
   });
@@ -78,7 +78,7 @@ ipcMain.on("open", async () => {
     });
 
     // UPSCALE
-    let upscayl = spawn(
+    let upscayl = execFile(
       execPath,
       [
         "-i",
@@ -94,12 +94,15 @@ ipcMain.on("open", async () => {
       ],
       {
         cwd: null,
-        detached: false,
+        detached: true,
+        //stdio: 'ignore',
       }
     );
-    upscayl.stdout.on("data", (stdout) => {
-      console.log("UPSCAYL: ", stdout.toString());
+    //upscayl.unref()
+    upscayl.stdout.on('data', (stdout) => {
+      console.log("SOME SAMPLE OUTPUT")
       // TODO: SEND THE STDOUT TO RENDERER FROM HERE
+      command.sender.send("stdout", "this is not working")
     });
 
     upscayl.stderr.on("data", (stderr) => {
@@ -108,6 +111,7 @@ ipcMain.on("open", async () => {
 
     upscayl.on("close", (code) => {
       console.log("Done upscaling", code);
+      command.sender.send("stdout", "gelbana")
     });
 
     return filePaths[0];

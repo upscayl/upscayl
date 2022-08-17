@@ -5,6 +5,8 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    const handleMessage = (_event, args) => console.log(args)
+    window.electron.startListen(handleMessage)
     // send(command, payload)
     window.electron.send("sendMessage", { message: "Hello!" });
     setLoaded(true);
@@ -12,6 +14,9 @@ const Home = () => {
     window.electron.on("done", () => {
       console.log("DONE");
     });
+    return () => {
+        window.electron.stopListen(handleMessage)
+    }
   }, []);
 
   const imageHandler = async () => {
