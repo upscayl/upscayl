@@ -3,6 +3,7 @@ const { join, parse } = require("path");
 const { format } = require("url");
 const { spawn } = require("child_process");
 const fs = require("fs");
+const sizeOf = require("image-size");
 
 const { execPath, modelsPath } = require("./binaries");
 
@@ -13,9 +14,12 @@ const {
   ipcMain,
   dialog,
   ipcRenderer,
+  shell,
 } = require("electron");
 const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
+const commands = require("../constants/commands");
+const sharp = require("sharp");
 
 // Prepare the renderer once the app is ready
 let mainWindow;
@@ -25,9 +29,12 @@ app.on("ready", async () => {
   mainWindow = new BrowserWindow({
     width: 1100,
     height: 700,
+    minHeight: 500,
+    minWidth: 500,
     webPreferences: {
       autoHideMenuBar: true,
       nodeIntegration: true,
+      webSecurity: false,
       preload: join(__dirname, "preload.js"),
     },
   });
@@ -42,17 +49,19 @@ app.on("ready", async () => {
   mainWindow.setMenuBarVisibility(false);
   // mainWindow.maximize();
   mainWindow.loadURL(url);
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: "deny" };
+  });
 });
 
 // Quit the app once all windows are closed
 app.on("window-all-closed", app.quit);
 
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
-ipcMain.on("sendMessage", (_, message) => {
-  console.log(message);
-});
 
-ipcMain.handle("open", async () => {
+ipcMain.handle(commands.SELECT_FILE, async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openFile", "multiSelections"],
   });
@@ -62,37 +71,40 @@ ipcMain.handle("open", async () => {
     return "cancelled";
   } else {
     console.log(filePaths[0]);
-    // CREATE input AND upscaled FOLDER 
+    // CREATE input AND upscaled FOLDER
     return filePaths[0];
   }
-})
-ipcMain.handle("output", async (event, message) => {
+});
+
+ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
   });
   if (canceled) {
     console.log("operation cancelled");
     return "cancelled";
-  }
-  else {
-    console.log(filePaths[0])
+  } else {
+    console.log(filePaths[0]);
     return filePaths[0];
   }
-})
+});
 
-ipcMain.on("upscayl", async (event, paths) => {
-  const scale = "4";
-  let inputDir = paths[0].match(/(.*)[\/\\]/)[1]||'';
+ipcMain.on(commands.UPSCAYL, async (event, payload) => {
+  console.log(payload);
+  const model = payload.model;
+  const scale = payload.scaleFactor;
+  let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
   /*if (!fs.existsSync(inputDir)) {
     fs.mkdirSync(inputDir);
   }*/
-  let outputDir = paths[1];
-  /*if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir);
-  }*/
+  let outputDir = payload.outputPath;
+
+  // if (!fs.existsSync(outputDir)) {
+  //   fs.mkdirSync(outputDir);
+  // }
 
   // COPY IMAGE TO upscaled FOLDER
-  const fullfileName = paths[0].split("/").slice(-1)[0];
+  const fullfileName = payload.imagePath.split("/").slice(-1)[0];
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
 
@@ -101,15 +113,17 @@ ipcMain.on("upscayl", async (event, paths) => {
     execPath,
     [
       "-i",
-      inputDir+'/'+fullfileName,
+      inputDir + "/" + fullfileName,
       "-o",
-      outputDir+'/'+fileName+"_upscaled_"+scale+'x'+fileExt,
+      outputDir + "/" + fileName + "_upscayled_" + scale + "x" + fileExt,
       "-s",
-      scale,
+      scale === 2 ? 4 : scale,
       "-m",
-      modelsPath,
+      modelsPath, // if (!fs.existsSync(outputDir)) {
+      //   fs.mkdirSync(outputDir);
+      // }
       "-n",
-      "realesrgan-x4plus",
+      model,
     ],
     {
       cwd: null,
@@ -120,11 +134,14 @@ ipcMain.on("upscayl", async (event, paths) => {
   upscayl.stderr.on("data", (stderr) => {
     console.log(stderr.toString());
     stderr = stderr.toString();
-    mainWindow.webContents.send("output", stderr.toString());
+    mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, stderr.toString());
   });
 
   upscayl.on("close", (code) => {
     console.log("Done upscaling");
-    mainWindow.webContents.send("done");
+    mainWindow.webContents.send(
+      commands.UPSCAYL_DONE,
+      outputDir + "/" + fileName + "_upscayled_" + scale + "x" + fileExt
+    );
   });
-})
+});

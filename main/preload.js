@@ -8,10 +8,4 @@ contextBridge.exposeInMainWorld("electron", {
       func(event, args);
     }),
   invoke: (command, payload) => ipcRenderer.invoke(command, payload),
-  startListen: (func) => {
-    ipcRenderer.addListener("stdout",func)
-  },
-  stopListen: (func) => {
-    ipcRenderer.removeListener("stdout",func)
-  },
 });

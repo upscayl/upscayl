@@ -3,6 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  ::-webkit-scrollbar {
+    @apply w-3;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply rounded-full bg-neutral-700;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-neutral-500;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply rounded-full bg-neutral-400;
+  }
 
 }
 
@@ -10,5 +25,4 @@
   .animate {
     @apply transition-all duration-300 ease-in-out;
   }
-  
 }
