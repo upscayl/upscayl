@@ -43,6 +43,9 @@ const Home = () => {
     if (e.target.checked) {
       setModel("realesrgan-x4plus-anime")
     }
+    else {
+      setModel("realesrgan-x4plus")
+    }
   }
 
   const outputHandler = async () => {
