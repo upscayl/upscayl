@@ -1,9 +1,9 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "1.5.1",
+  "version": "1.0.0",
   "productName": "Upscayl",
-  "author": "Nayam Amarshe <nayam@nay.am>",
+  "author": "TGS963 <nayam@nay.am>",
   "email": "nay@am.com",
   "license": "GPLv2",
   "description": "Upscayl - Linux first image upscale app",
@@ -19,11 +19,11 @@
     "start": "electron .",
     "build": "next build renderer && next export renderer",
     "pack-app": "npm run build && electron-builder --dir",
-    "dist": "npm run build && electron-builder"
+    "dist": "npm run build && electron-builder -l --publish always"
   },
   "build": {
-    "productName": "DeskCut",
-    "appId": "com.nayam.deskcut",
+    "productName": "Upscayl",
+    "appId": "com.tgs963.upscayl",
     "asar": true,
     "extraFiles": [
       {
@@ -35,6 +35,9 @@
       }
     ],
     "linux": {
+      "publish":[
+        "github"
+      ],
       "target": [
         "AppImage",
         "deb",
@@ -68,6 +71,7 @@
     "electron-is-packaged": "^1.0.2",
     "electron-next": "^3.1.5",
     "electron-root-path": "^1.0.16",
+    "electron-updater": "^5.2.1",
     "image-size": "^1.0.2",
     "react-compare-slider": "^2.2.0",
     "sharp": "^0.30.7",
