@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.2",
   "productName": "Upscayl",
   "author": "TGS963 <nayam@nay.am>",
   "email": "nay@am.com",
@@ -26,8 +26,16 @@
     "appId": "com.tgs963.upscayl",
     "asar": true,
     "extraFiles": [
-      "constants",
-      "resources"
+      {
+        "from": "constants",
+        "to": "constants",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "resources",
+        "to": "resources",
+        "filter": ["**/*"]
+      }
     ],
     "linux": {
       "publish": [

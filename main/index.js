@@ -95,6 +95,7 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
 });
 
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
+  console.log(execPath)
   console.log(payload);
   const model = payload.model;
   const scale = payload.scaleFactor;
