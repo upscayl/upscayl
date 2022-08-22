@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "productName": "Upscayl",
   "author": "TGS963 <nayam@nay.am>",
   "email": "nay@am.com",
@@ -42,11 +42,7 @@
         "github"
       ],
       "target": [
-        "AppImage",
-        "deb",
-        "rpm",
-        "flatpak",
-        "snap"
+        "AppImage"
       ],
       "asarUnpack": [
          "**/node_modules/sharp/**"
