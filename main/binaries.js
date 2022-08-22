@@ -5,10 +5,7 @@ const { getPlatform } = require("./getPlatform");
 
 const IS_PROD = process.env.NODE_ENV === "production";
 
-const binariesPath =
-  IS_PROD && isPackaged // the path to a bundled electron app.
-    ? path.join(rootPath, "./Contents", "./Resources", "./bin")
-    : path.join(rootPath, "./resources", getPlatform(), "./bin");
+const binariesPath = path.join("./resources", getPlatform(), "./bin");
 
 const execPath = path.resolve(path.join(binariesPath, "./upscayl"));
 const modelsPath = path.resolve(path.join(binariesPath, "./models"));

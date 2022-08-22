@@ -26,16 +26,11 @@
     "appId": "com.tgs963.upscayl",
     "asar": true,
     "extraFiles": [
-      {
-        "from": "resources/linux/bin",
-        "to": "Resources/bin",
-        "filter": [
-          "**/*"
-        ]
-      }
+      "constants",
+      "resources"
     ],
     "linux": {
-      "publish":[
+      "publish": [
         "github"
       ],
       "target": [
@@ -44,6 +39,9 @@
         "rpm",
         "flatpak",
         "snap"
+      ],
+      "asarUnpack": [
+         "**/node_modules/sharp/**"
       ]
     },
     "snap": {

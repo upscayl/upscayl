@@ -1,9 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import commands from "../../constants/commands";
+import commands from "../../main/commands";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from "react-compare-slider";
+
+import Animated from '../public/loading.svg'
+import Image from 'next/image'
+
 
 const Home = () => {
   const [imagePath, SetImagePath] = useState("");
@@ -190,7 +194,7 @@ const Home = () => {
         {progress.length > 0 && (
           <div className="absolute flex h-full w-full flex-col items-center justify-center bg-black/50 backdrop-blur-lg">
             <div className="flex flex-col items-center gap-2">
-              <img src="/loading.svg" className="w-10" alt="Loading" />
+              <Image src={Animated} />
               <p className="font-bold text-neutral-50">{progress}</p>
             </div>
           </div>
