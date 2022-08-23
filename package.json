@@ -35,19 +35,13 @@
       }
     ],
     "linux": {
-      "publish":[
+      "publish": [
         "github"
       ],
       "target": [
         "AppImage",
-        "deb",
-        "rpm",
-        "flatpak",
-        "snap"
+        "flatpak"
       ]
-    },
-    "snap": {
-      "confinement": "classic"
     },
     "files": [
       "main",

@@ -39,14 +39,9 @@ const Home = () => {
     }
   };
 
-  const handleCheck = (e) => {
-    if (e.target.checked) {
-      setModel("realesrgan-x4plus-anime")
-    }
-    else {
-      setModel("realesrgan-x4plus")
-    }
-  }
+  const handleModelChange = (e) => {
+    setModel(e.target.value);
+  };
 
   const outputHandler = async () => {
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
@@ -66,10 +61,6 @@ const Home = () => {
       model,
     });
   };
-
-  useEffect(() => {
-    console.log(progress);
-  }, [progress]);
 
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-neutral-900">
@@ -92,8 +83,27 @@ const Home = () => {
               Select Image
             </button>
           </div>
-          <input className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" onChange={handleCheck}/>
-          <label className="text-neutral-100" >Anime</label>
+          {/* <input
+            className="float-left mt-1 mr-2 h-4 w-4 cursor-pointer appearance-none rounded-sm border border-gray-300 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none"
+            type="checkbox"
+            onChange={handleCheck}
+          /> */}
+          {/* <label className="text-neutral-100">Anime</label> */}
+
+          <div className="mt-10">
+            <p className="font-medium text-neutral-100">Step 2</p>
+            <p className="mb-2 text-sm text-neutral-400">
+              Select Upscaling Type
+            </p>
+            <select
+              name="select-model"
+              className="rounded-lg bg-slate-300 p-3"
+              onChange={handleModelChange}
+            >
+              <option value="realesrgan-x4plus">General Image</option>
+              <option value="realesrgan-x4plus-anime">Digital Image</option>
+            </select>
+          </div>
 
           {/* STEP 2 */}
           <div className="mt-10">
@@ -120,7 +130,7 @@ const Home = () => {
                 className={`h-12 w-12 rounded-lg ${
                   scaleFactor === 4 ? "bg-yellow-400" : "bg-neutral-400"
                 }`}
-                onClick={() => setScaleFactor(6)}
+                onClick={() => setScaleFactor(4)}
               >
                 4x
               </button>
