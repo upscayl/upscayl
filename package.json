@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.3",
   "productName": "Upscayl",
   "author": "TGS963 <nayam@nay.am>",
   "email": "nay@am.com",
@@ -27,11 +27,14 @@
     "asar": true,
     "extraFiles": [
       {
-        "from": "resources/linux/bin",
-        "to": "Resources/bin",
-        "filter": [
-          "**/*"
-        ]
+        "from": "constants",
+        "to": "constants",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "resources",
+        "to": "resources",
+        "filter": ["**/*"]
       }
     ],
     "linux": {
@@ -39,8 +42,10 @@
         "github"
       ],
       "target": [
-        "AppImage",
-        "flatpak"
+        "AppImage"
+      ],
+      "asarUnpack": [
+         "**/node_modules/sharp/**"
       ]
     },
     "files": [

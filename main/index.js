@@ -19,7 +19,7 @@ const {
 } = require("electron");
 const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
-const commands = require("../constants/commands");
+const commands = require("./commands");
 const sharp = require("sharp");
 
 // Prepare the renderer once the app is ready
@@ -96,6 +96,7 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
 });
 
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
+  //console.log(execPath)
   console.log(payload);
   const model = payload.model;
   const scale = payload.scaleFactor;
