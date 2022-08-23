@@ -1,17 +1,31 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "1.0.3",
+  "version": "1.1.0",
   "productName": "Upscayl",
-  "author": "TGS963 <nayam@nay.am>",
-  "email": "nay@am.com",
+  "contributors": [
+    {
+      "name": "Nayam Amarshe",
+      "email": "nayam@amars.he",
+      "url": "https://github.com/NayamAmarshe"
+    },
+    {
+      "name": "TGS963",
+      "email": "tgs@963.com",
+      "url": "https://github.com/TGS963"
+    }
+  ],
   "license": "GPLv2",
-  "description": "Upscayl - Linux first image upscale app",
+  "description": "Upscayl - Free and Open Source AI Image Upscaler",
   "keywords": [
+    "AI",
+    "Upscaler",
+    "Image Upscale",
+    "Linux image upscale",
+    "Topaz Gigapixel",
     "Linux",
-    "Gnome",
-    "Desktop",
-    "Shortcut"
+    "KDE",
+    "Gnome"
   ],
   "main": "main/index.js",
   "scripts": {
@@ -29,12 +43,16 @@
       {
         "from": "constants",
         "to": "constants",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": "resources",
         "to": "resources",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "linux": {
@@ -45,7 +63,7 @@
         "AppImage"
       ],
       "asarUnpack": [
-         "**/node_modules/sharp/**"
+        "**/node_modules/sharp/**"
       ]
     },
     "files": [

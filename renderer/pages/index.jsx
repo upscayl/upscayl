@@ -5,9 +5,8 @@ import {
   ReactCompareSliderImage,
 } from "react-compare-slider";
 
-import Animated from '../public/loading.svg'
-import Image from 'next/image'
-
+import Animated from "../public/loading.svg";
+import Image from "next/image";
 
 const Home = () => {
   const [imagePath, SetImagePath] = useState("");
@@ -57,7 +56,8 @@ const Home = () => {
   };
 
   const upscaylHandler = async () => {
-    setProgress("0.00%");
+    setUpscaledImagePath("");
+    setProgress("Hold on...");
     await window.electron.send(commands.UPSCAYL, {
       scaleFactor,
       imagePath,
@@ -87,7 +87,6 @@ const Home = () => {
               Select Image
             </button>
           </div>
-
           {/* STEP 2 */}
           <div className="mt-10">
             <p className="font-medium text-neutral-100">Step 2</p>
@@ -103,8 +102,7 @@ const Home = () => {
               <option value="realesrgan-x4plus-anime">Digital Image</option>
             </select>
           </div>
-
-          {/* STEP 3 */}
+          {/* STEP 3
           <div className="mt-10">
             <p className="font-medium text-neutral-100">Step 3</p>
             <p className="mb-2 text-sm text-neutral-400">Select Scale Factor</p>
@@ -134,11 +132,11 @@ const Home = () => {
                 4x
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* STEP 4 */}
           <div className="mt-10">
-            <p className="font-medium text-neutral-100">Step 4</p>
+            <p className="font-medium text-neutral-100">Step 3</p>
             <p className="mb-2 text-sm text-neutral-400">
               Defaults to Image's path
             </p>
@@ -149,8 +147,7 @@ const Home = () => {
               Set Output Folder
             </button>
           </div>
-
-          {/* STEP 5 */}
+          {/* STEP 4 */}
           <div className="mt-10">
             <p className="mb-2 font-medium text-neutral-100">Step 5</p>
             <button
@@ -231,7 +228,7 @@ const Home = () => {
                 alt="Upscayl"
               />
             }
-            className="h-full"
+            className="object-contain"
           />
         )}
       </div>

@@ -29,7 +29,7 @@ app.on("ready", async () => {
 
   mainWindow = new BrowserWindow({
     width: 1100,
-    height: 850,
+    height: 700,
     minHeight: 500,
     minWidth: 500,
     webPreferences: {
@@ -96,19 +96,11 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
 });
 
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
-  //console.log(execPath)
-  console.log(payload);
   const model = payload.model;
   const scale = payload.scaleFactor;
-  let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
-  /*if (!fs.existsSync(inputDir)) {
-    fs.mkdirSync(inputDir);
-  }*/
-  let outputDir = payload.outputPath;
 
-  // if (!fs.existsSync(outputDir)) {
-  //   fs.mkdirSync(outputDir);
-  // }
+  let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
+  let outputDir = payload.outputPath;
 
   // COPY IMAGE TO upscaled FOLDER
   const fullfileName = payload.imagePath.split("/").slice(-1)[0];
@@ -126,9 +118,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       "-s",
       scale === 2 ? 4 : scale,
       "-m",
-      modelsPath, // if (!fs.existsSync(outputDir)) {
-      //   fs.mkdirSync(outputDir);
-      // }
+      modelsPath,
       "-n",
       model,
     ],
