@@ -83,13 +83,8 @@ const Home = () => {
               Select Image
             </button>
           </div>
-          {/* <input
-            className="float-left mt-1 mr-2 h-4 w-4 cursor-pointer appearance-none rounded-sm border border-gray-300 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 checked:border-blue-600 checked:bg-blue-600 focus:outline-none"
-            type="checkbox"
-            onChange={handleCheck}
-          /> */}
-          {/* <label className="text-neutral-100">Anime</label> */}
 
+          {/* STEP 2 */}
           <div className="mt-10">
             <p className="font-medium text-neutral-100">Step 2</p>
             <p className="mb-2 text-sm text-neutral-400">
@@ -105,9 +100,9 @@ const Home = () => {
             </select>
           </div>
 
-          {/* STEP 2 */}
+          {/* STEP 3 */}
           <div className="mt-10">
-            <p className="font-medium text-neutral-100">Step 2</p>
+            <p className="font-medium text-neutral-100">Step 3</p>
             <p className="mb-2 text-sm text-neutral-400">Select Scale Factor</p>
             <div className="animate flex flex-row gap-2">
               <button
@@ -137,9 +132,9 @@ const Home = () => {
             </div>
           </div>
 
-          {/* STEP 3 */}
+          {/* STEP 4 */}
           <div className="mt-10">
-            <p className="font-medium text-neutral-100">Step 3</p>
+            <p className="font-medium text-neutral-100">Step 4</p>
             <p className="mb-2 text-sm text-neutral-400">
               Defaults to Image's path
             </p>
@@ -151,9 +146,9 @@ const Home = () => {
             </button>
           </div>
 
-          {/* STEP 4 */}
+          {/* STEP 5 */}
           <div className="mt-10">
-            <p className="mb-2 font-medium text-neutral-100">Step 4</p>
+            <p className="mb-2 font-medium text-neutral-100">Step 5</p>
             <button
               className="rounded-lg bg-sky-400 p-3"
               onClick={upscaylHandler}
