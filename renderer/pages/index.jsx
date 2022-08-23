@@ -16,6 +16,11 @@ const Home = () => {
   const [progress, setProgress] = useState("");
   const [model, setModel] = useState("realesrgan-x4plus");
   const [loaded, setLoaded] = useState(false);
+  const [version, setVersion] = useState("");
+
+  useEffect(() => {
+    setVersion(navigator.userAgent.match(/Upscayl\/([\d\.]+\d+)/)[1]);
+  }, []);
 
   useEffect(() => {
     setLoaded(true);
@@ -203,9 +208,12 @@ const Home = () => {
         )}
 
         {imagePath.length === 0 ? (
-          <p className="p-5 text-lg font-medium text-neutral-400">
-            Select an Image to Upscale
-          </p>
+          <>
+            <p className="p-5 text-lg font-medium text-neutral-400">
+              Select an Image to Upscale
+            </p>
+            <p className="text-neutral-600">Upscale v{version}</p>
+          </>
         ) : upscaledImagePath.length === 0 ? (
           <img
             className="h-full w-full object-contain"
