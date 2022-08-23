@@ -34,7 +34,7 @@
     "build": "next build renderer && next export renderer",
     "pack-app": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
-    "publish": "GH_TOKEN=<> npm run build && electron-builder -l --publish always"
+    "publish-app": "npm run build && electron-builder -l --publish always"
   },
   "build": {
     "productName": "Upscayl",
