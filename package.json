@@ -33,7 +33,8 @@
     "start": "electron .",
     "build": "next build renderer && next export renderer",
     "pack-app": "npm run build && electron-builder --dir",
-    "dist": "npm run build && electron-builder -l --publish always"
+    "dist": "npm run build && electron-builder",
+    "publish": "GH_TOKEN=<> npm run build && electron-builder -l --publish always"
   },
   "build": {
     "productName": "Upscayl",
@@ -48,8 +49,8 @@
         ]
       },
       {
-        "from": "resources",
-        "to": "resources",
+        "from": "resources/${os}/bin",
+        "to": "resources/Resources/bin",
         "filter": [
           "**/*"
         ]
@@ -84,6 +85,7 @@
     "tailwindcss": "^3.1.8"
   },
   "dependencies": {
+    "app-root-dir": "^1.0.2",
     "electron-is-dev": "^2.0.0",
     "electron-is-packaged": "^1.0.2",
     "electron-next": "^3.1.5",

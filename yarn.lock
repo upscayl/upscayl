@@ -360,6 +360,11 @@ app-builder-lib@23.3.3:
     tar "^6.1.11"
     temp-file "^3.4.0"
 
+app-root-dir@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/app-root-dir/-/app-root-dir-1.0.2.tgz#38187ec2dea7577fff033ffcb12172692ff6e118"
+  integrity sha512-jlpIfsOoNoafl92Sz//64uQHGSyMrD2vYG5d8o2a4qGvyNCvXur7bzIsWtAC/6flI2RYAp3kv8rsfBtaLm7w0g==
+
 app-root-path@>=2.0.1:
   version "3.0.0"
   resolved "https://registry.npmjs.org/app-root-path/-/app-root-path-3.0.0.tgz"
