@@ -43,14 +43,9 @@ const Home = () => {
     }
   };
 
-  const handleCheck = (e) => {
-    if (e.target.checked) {
-      setModel("realesrgan-x4plus-anime")
-    }
-    else {
-      setModel("realesrgan-x4plus")
-    }
-  }
+  const handleModelChange = (e) => {
+    setModel(e.target.value);
+  };
 
   const outputHandler = async () => {
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
@@ -70,10 +65,6 @@ const Home = () => {
       model,
     });
   };
-
-  useEffect(() => {
-    console.log(progress);
-  }, [progress]);
 
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-neutral-900">
@@ -96,12 +87,26 @@ const Home = () => {
               Select Image
             </button>
           </div>
-          <input className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" onChange={handleCheck}/>
-          <label className="text-neutral-100" >Anime</label>
 
           {/* STEP 2 */}
           <div className="mt-10">
             <p className="font-medium text-neutral-100">Step 2</p>
+            <p className="mb-2 text-sm text-neutral-400">
+              Select Upscaling Type
+            </p>
+            <select
+              name="select-model"
+              className="rounded-lg bg-slate-300 p-3"
+              onChange={handleModelChange}
+            >
+              <option value="realesrgan-x4plus">General Image</option>
+              <option value="realesrgan-x4plus-anime">Digital Image</option>
+            </select>
+          </div>
+
+          {/* STEP 3 */}
+          <div className="mt-10">
+            <p className="font-medium text-neutral-100">Step 3</p>
             <p className="mb-2 text-sm text-neutral-400">Select Scale Factor</p>
             <div className="animate flex flex-row gap-2">
               <button
@@ -124,16 +129,16 @@ const Home = () => {
                 className={`h-12 w-12 rounded-lg ${
                   scaleFactor === 4 ? "bg-yellow-400" : "bg-neutral-400"
                 }`}
-                onClick={() => setScaleFactor(6)}
+                onClick={() => setScaleFactor(4)}
               >
                 4x
               </button>
             </div>
           </div>
 
-          {/* STEP 3 */}
+          {/* STEP 4 */}
           <div className="mt-10">
-            <p className="font-medium text-neutral-100">Step 3</p>
+            <p className="font-medium text-neutral-100">Step 4</p>
             <p className="mb-2 text-sm text-neutral-400">
               Defaults to Image's path
             </p>
@@ -145,9 +150,9 @@ const Home = () => {
             </button>
           </div>
 
-          {/* STEP 4 */}
+          {/* STEP 5 */}
           <div className="mt-10">
-            <p className="mb-2 font-medium text-neutral-100">Step 4</p>
+            <p className="mb-2 font-medium text-neutral-100">Step 5</p>
             <button
               className="rounded-lg bg-sky-400 p-3"
               onClick={upscaylHandler}

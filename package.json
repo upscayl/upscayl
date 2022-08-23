@@ -48,9 +48,6 @@
          "**/node_modules/sharp/**"
       ]
     },
-    "snap": {
-      "confinement": "classic"
-    },
     "files": [
       "main",
       "renderer/out"
