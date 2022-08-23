@@ -28,6 +28,7 @@ app.on("ready", async () => {
   await prepareNext("./renderer");
 
   mainWindow = new BrowserWindow({
+    icon: join(__dirname, "/build/icon.png"),
     width: 1100,
     height: 700,
     minHeight: 500,
