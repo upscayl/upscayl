@@ -33,6 +33,7 @@ app.on("ready", async () => {
     minHeight: 500,
     minWidth: 500,
     webPreferences: {
+      devTools: isDev,
       autoHideMenuBar: true,
       nodeIntegration: true,
       webSecurity: false,
