@@ -1,11 +1,10 @@
 // Native
-const { join, parse, dirname } = require("path");
+const { join, parse } = require("path");
 const { format } = require("url");
 const { spawn } = require("child_process");
 const fs = require("fs");
 const sizeOf = require("image-size");
 const { autoUpdater } = require("electron-updater");
-const appRootDir = require("app-root-dir");
 
 const { execPath, modelsPath } = require("./binaries");
 
@@ -22,13 +21,11 @@ const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
 const commands = require("./commands");
 const sharp = require("sharp");
-const { getPlatform } = require("./getPlatform");
 
 // Prepare the renderer once the app is ready
 let mainWindow;
 app.on("ready", async () => {
   await prepareNext("./renderer");
-  console.log("PATH: ", join(dirname(appRootDir.get()), "Resources", "bin"));
 
   mainWindow = new BrowserWindow({
     width: 1100,
@@ -111,6 +108,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const fileExt = parse(fullfileName).ext;
 
   // UPSCALE
+  console.log("PRODUCTION? :", isDev);
   console.log("EXEC: ", execPath);
   let upscayl = spawn(
     execPath,

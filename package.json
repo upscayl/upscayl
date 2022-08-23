@@ -50,7 +50,7 @@
       },
       {
         "from": "resources/${os}/bin",
-        "to": "resources/Resources/bin",
+        "to": "Resources/bin",
         "filter": [
           "**/*"
         ]
