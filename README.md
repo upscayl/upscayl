@@ -60,6 +60,7 @@ npm run publish-app
 
 - Real-ESRGAN for their wonderful research work.\
 [Real-ESRGAN: Copyright (c) 2021, Xintao Wang](https://github.com/xinntao/Real-ESRGAN/)
+
 - Microsoft™ for their Fluent Emoji used as our logo.
 
 #
