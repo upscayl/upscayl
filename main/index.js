@@ -27,8 +27,9 @@ let mainWindow;
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
+  console.log("ICON: ", join(__dirname, "icon.png"));
   mainWindow = new BrowserWindow({
-    icon: join(__dirname, "/build/icon.png"),
+    icon: join(__dirname, "build", "icon.png"),
     width: 1100,
     height: 700,
     minHeight: 500,

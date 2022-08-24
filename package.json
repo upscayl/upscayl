@@ -42,13 +42,6 @@
     "asar": true,
     "extraFiles": [
       {
-        "from": "constants",
-        "to": "constants",
-        "filter": [
-          "**/*"
-        ]
-      },
-      {
         "from": "resources/${os}/bin",
         "to": "Resources/bin",
         "filter": [
@@ -65,7 +58,8 @@
       ],
       "asarUnpack": [
         "**/node_modules/sharp/**"
-      ]
+      ],
+      "icon": "build/icon.png"
     },
     "files": [
       "main",
