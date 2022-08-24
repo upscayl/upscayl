@@ -4,9 +4,7 @@
 
 #### Free and Open Source AI Image Upscaler
 
-<img src="https://j.gifs.com/lRPzxj.gif">
-
-![](upscayl.mp4)
+https://user-images.githubusercontent.com/25067102/186332548-0d53f02f-d159-4804-8b0e-887d96651fdb.mp4
 
 **Upscayl is a cross-platform application built with the Linux-first philosophy. This means that we prioritize Linux builds over others but that doesn't mean we'll break things for other OSes :)**
 
@@ -67,7 +65,7 @@ npm run publish-app
 
 <div align="center">
 
-Copyright © 2022 - **Upscayl**
+Copyright © 2022 - **Upscayl**\
 Made by Nayam Amarshe and TGS963\
 using 🖱 & ⌨
 
