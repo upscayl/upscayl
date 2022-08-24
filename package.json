@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.1.1",
   "productName": "Upscayl",
+  "homepage": "https://github.com/TGS963/upscayl",
   "contributors": [
     {
       "name": "Nayam Amarshe",
@@ -15,7 +16,8 @@
       "url": "https://github.com/TGS963"
     }
   ],
-  "license": "GPLv2",
+  "email": "simplelogin-newsletter.j1zez@aleeas.com",
+  "license": "AGPL-3.0",
   "description": "Upscayl - Free and Open Source AI Image Upscaler",
   "keywords": [
     "AI",
@@ -33,12 +35,12 @@
     "start": "electron .",
     "build": "next build renderer && next export renderer",
     "pack-app": "npm run build && electron-builder --dir",
-    "dist": "npm run build && electron-builder",
+    "dist": "npm run build && DEBUG=* electron-builder",
     "publish-app": "npm run build && electron-builder -l --publish always"
   },
   "build": {
     "productName": "Upscayl",
-    "appId": "com.tgs963.upscayl",
+    "appId": "org.upscayl.app",
     "asar": true,
     "extraFiles": [
       {
@@ -54,7 +56,8 @@
         "github"
       ],
       "target": [
-        "AppImage"
+        "AppImage",
+        "flatpak"
       ],
       "asarUnpack": [
         "**/node_modules/sharp/**"
