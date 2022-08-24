@@ -6,6 +6,8 @@
 
 <img src="https://j.gifs.com/lRPzxj.gif">
 
+![](upscayl.mp4)
+
 **Upscayl is a cross-platform application built with the Linux-first philosophy. This means that we prioritize Linux builds over others but that doesn't mean we'll break things for other OSes :)**
 
 </div>
