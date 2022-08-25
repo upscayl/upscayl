@@ -51,6 +51,9 @@
         ]
       }
     ],
+    "mac": {
+      "icon": "main/build/icon.icns"
+    },
     "linux": {
       "publish": [
         "github"
@@ -62,7 +65,11 @@
       "asarUnpack": [
         "**/node_modules/sharp/**"
       ],
-      "icon": "build/icon.png"
+      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
+      "maintainer": "TGS963 <tgs@963.com>"
+    },
+    "deb": {
+      "packageCategory": "graphics"
     },
     "files": [
       "main",
