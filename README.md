@@ -58,6 +58,8 @@ npm run dist
 npm run publish-app
 ```
 
+Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and algorithms will come soon.
+
 # Credits ❤
 
 - Real-ESRGAN for their wonderful research work.\
