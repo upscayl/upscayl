@@ -8,7 +8,7 @@ https://user-images.githubusercontent.com/25067102/186332548-0d53f02f-d159-4804-
 
 **Upscayl is a cross-platform application built with the Linux-first philosophy. This means that we prioritize Linux builds over others but that doesn't mean we'll break things for other OSes :)**
 
-> Upscayl does not work without a GPU, sorry. You'll need a Vulkan compatible GPU to upscale images.
+### NOTE: Upscayl does not work without a GPU, sorry. You'll need a Vulkan compatible GPU to upscale images.
 
 </div>
 
