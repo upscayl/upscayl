@@ -131,19 +131,24 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       detached: false,
     }
   );
-
+  let failed = false;
   upscayl.stderr.on("data", (stderr) => {
     console.log(stderr.toString());
     stderr = stderr.toString();
+    if (stderr.includes("invalid gpu")) {
+      failed = true;
+    }
     mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, stderr.toString());
   });
 
   upscayl.on("close", (code) => {
-    console.log("Done upscaling");
-    mainWindow.webContents.send(
-      commands.UPSCAYL_DONE,
-      outputDir + "/" + fileName + "_upscayled_" + scale + "x" + fileExt
-    );
+    if (failed !== true) {
+      console.log("Done upscaling");
+      mainWindow.webContents.send(
+        commands.UPSCAYL_DONE,
+        outputDir + "/" + fileName + "_upscayled_" + scale + "x" + fileExt
+      );
+    }
   });
 });
 

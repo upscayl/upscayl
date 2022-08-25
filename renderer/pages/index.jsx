@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import commands from "../../main/commands";
 import {
   ReactCompareSlider,
@@ -26,7 +26,10 @@ const Home = () => {
     setLoaded(true);
 
     window.electron.on(commands.UPSCAYL_PROGRESS, (_, data) => {
-      if (data.length > 0 && data.length < 10) setProgress(data);
+      if (data.includes("invalid gpu")){
+        alert("Error!!! Please make sure your GPU supports vulkan")
+      }
+      else if (data.length > 0 && data.length < 10) setProgress(data);
     });
 
     window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
@@ -61,14 +64,19 @@ const Home = () => {
   };
 
   const upscaylHandler = async () => {
-    setUpscaledImagePath("");
-    setProgress("Hold on...");
-    await window.electron.send(commands.UPSCAYL, {
-      scaleFactor,
-      imagePath,
-      outputPath,
-      model,
-    });
+    if (imagePath !== "") {
+      setUpscaledImagePath("");
+      setProgress("Hold on...");
+      await window.electron.send(commands.UPSCAYL, {
+        scaleFactor,
+        imagePath,
+        outputPath,
+        model,
+      });
+    }
+    else {
+      alert("Please select an image!!!")
+    }
   };
 
   return (

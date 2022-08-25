@@ -97,6 +97,7 @@
     "electron-updater": "^5.2.1",
     "image-size": "^1.0.2",
     "react-compare-slider": "^2.2.0",
+    "react-dropzone": "^14.2.2",
     "sharp": "^0.30.7",
     "tailwind-scrollbar": "^1.3.1"
   }
