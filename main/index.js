@@ -5,6 +5,7 @@ const { spawn } = require("child_process");
 const fs = require("fs");
 const sizeOf = require("image-size");
 const { autoUpdater } = require("electron-updater");
+const { getPlatform } = require("./getPlatform");
 
 const { execPath, modelsPath } = require("./binaries");
 
@@ -105,7 +106,10 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   let outputDir = payload.outputPath;
 
   // COPY IMAGE TO upscaled FOLDER
-  const fullfileName = payload.imagePath.split("/").slice(-1)[0];
+  const platform = getPlatform()
+  const fullfileName = platform === 'win'
+    ? payload.imagePath.split("\\").slice(-1)[0]
+    : payload.imagePath.split("/").slice(-1)[0]
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
 
