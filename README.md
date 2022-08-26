@@ -58,6 +58,17 @@ npm run dist
 npm run publish-app
 ```
 
+# FAQ 🤓
+
+- How does Upscayl work?
+  - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN (and more in the future) model to achieve this.
+- Is there a CLI available?
+  - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
+- Do I need a GPU for this to work?
+  - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work on iGPU or CPU.
+- How can I contribute?
+  - You can donate more NCNN compatible models or fix code by submitting PRs :)
+
 Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and algorithms will come soon.
 
 # Credits ❤
