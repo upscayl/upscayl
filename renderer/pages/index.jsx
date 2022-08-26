@@ -26,10 +26,19 @@ const Home = () => {
     setLoaded(true);
 
     window.electron.on(commands.UPSCAYL_PROGRESS, (_, data) => {
-      if (data.includes("invalid gpu")){
-        alert("Error!!! Please make sure your GPU supports vulkan")
-      }
-      else if (data.length > 0 && data.length < 10) setProgress(data);
+      if (data.includes("invalid gpu")) {
+        alert(
+          "Error. Please make sure you have a Vulkan compatible GPU (Most modern GPUs support Vulkan). Upscayl does not work with CPU or iGPU sadly."
+        );
+        SetImagePath("");
+        upscaledImagePath("");
+      } else if (data.includes("failed")) {
+        alert(
+          "This image is possibly corrupt or not supported by Upscayl. You could try converting the image into another format and upscaling again. Otherwise, make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely this image is not supported by Upscayl, sorry."
+        );
+        SetImagePath("");
+        upscaledImagePath("");
+      } else if (data.length > 0 && data.length < 10) setProgress(data);
     });
 
     window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
@@ -54,6 +63,58 @@ const Home = () => {
     setModel(e.target.value);
   };
 
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    console.log("drag enter");
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    console.log("drag leave");
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    console.log("drag over");
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const type = e.dataTransfer.items[0].type;
+    const filePath = e.dataTransfer.files[0].path;
+    const extension = e.dataTransfer.files[0].name.split(".").at(-1);
+
+    if (
+      !type.includes("image") &&
+      !["jpeg", "jpg", "png", "webp"].includes(extension.toLowerCase())
+    ) {
+      alert("Please drag and drop an image");
+    } else {
+      SetImagePath(filePath);
+      var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
+      SetOutputPath(dirname);
+    }
+  };
+
+  const handlePaste = (e) => {
+    console.log(e);
+    e.preventDefault();
+    const type = e.clipboardData.items[0].type;
+    const filePath = e.clipboardData.files[0].path;
+    const extension = e.clipboardData.files[0].name.split(".").at(-1);
+
+    if (
+      !type.includes("image") &&
+      !["jpeg", "jpg", "png", "webp"].includes(extension.toLowerCase())
+    ) {
+      alert("Please drag and drop an image");
+    } else {
+      SetImagePath(filePath);
+      var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
+      SetOutputPath(dirname);
+    }
+  };
+
   const outputHandler = async () => {
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
     if (path !== "cancelled") {
@@ -73,9 +134,8 @@ const Home = () => {
         outputPath,
         model,
       });
-    }
-    else {
-      alert("Please select an image!!!")
+    } else {
+      alert("Please select an image to upscale");
     }
   };
 
@@ -108,10 +168,11 @@ const Home = () => {
             </p>
             <select
               name="select-model"
+              onDrop={(e) => handleDrop(e)}
               className="rounded-lg bg-slate-300 p-3"
               onChange={handleModelChange}
             >
-              <option value="realesrgan-x4plus">General Image</option>
+              <option value="realesrgan-x4plus">General Photo</option>
               <option value="realesrgan-x4plus-anime">Digital Art</option>
             </select>
           </div>
@@ -205,8 +266,15 @@ const Home = () => {
       </div>
 
       {/* RIGHT PANE */}
-      <div className="relative flex h-screen w-full flex-col items-center justify-center">
-        {progress.length > 0 && (
+      <div
+        className="relative flex h-screen w-full flex-col items-center justify-center"
+        onDrop={(e) => handleDrop(e)}
+        onDragOver={(e) => handleDragOver(e)}
+        onDragEnter={(e) => handleDragEnter(e)}
+        onDragLeave={(e) => handleDragLeave(e)}
+        onPaste={(e) => handlePaste(e)}
+      >
+        {progress.length > 0 && upscaledImagePath.length === 0 && (
           <div className="absolute flex h-full w-full flex-col items-center justify-center bg-black/50 backdrop-blur-lg">
             <div className="flex flex-col items-center gap-2">
               <Image src={Animated} />
@@ -236,15 +304,21 @@ const Home = () => {
               <ReactCompareSliderImage
                 src={"file://" + imagePath}
                 alt="Original"
+                style={{
+                  objectFit: "contain",
+                }}
               />
             }
             itemTwo={
               <ReactCompareSliderImage
                 src={"file://" + upscaledImagePath}
                 alt="Upscayl"
+                style={{
+                  objectFit: "contain",
+                }}
               />
             }
-            className="object-contain"
+            className="h-screen"
           />
         )}
       </div>

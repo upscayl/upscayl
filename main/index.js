@@ -104,12 +104,14 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
 
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
   let outputDir = payload.outputPath;
+  console.log("🚀 => ipcMain.on => outputDir", outputDir);
 
   // COPY IMAGE TO upscaled FOLDER
-  const platform = getPlatform()
-  const fullfileName = platform === 'win'
-    ? payload.imagePath.split("\\").slice(-1)[0]
-    : payload.imagePath.split("/").slice(-1)[0]
+  const platform = getPlatform();
+  const fullfileName =
+    platform === "win"
+      ? payload.imagePath.split("\\").slice(-1)[0]
+      : payload.imagePath.split("/").slice(-1)[0];
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
 
