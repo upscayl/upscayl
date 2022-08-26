@@ -36,7 +36,8 @@
     "build": "next build renderer && next export renderer",
     "pack-app": "npm run build && electron-builder --dir",
     "dist": "npm run build && DEBUG=* electron-builder",
-    "publish-app": "npm run build && electron-builder -l --publish always"
+    "publish-app": "export GH_TOKEN=<> && npm run build && electron-builder -w --publish always",
+    "publish-win": "set GH_TOKEN=<> && npm run build && electron-builder -w --publish always"
   },
   "build": {
     "productName": "Upscayl",
@@ -46,6 +47,13 @@
       {
         "from": "resources/${os}/bin",
         "to": "Resources/bin",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "resources/models",
+        "to": "Resources/models",
         "filter": [
           "**/*"
         ]
@@ -67,6 +75,18 @@
       ],
       "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
       "maintainer": "TGS963 <tgs@963.com>"
+    },
+    "win": {
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "msi"
+      ],
+      "asarUnpack": [
+        "**/node_modules/sharp/**"
+      ],
+      "icon": "main/build/icon.png"
     },
     "deb": {
       "packageCategory": "graphics"
