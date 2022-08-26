@@ -18,6 +18,11 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
 
+  const resetImagePaths = () => {
+    SetImagePath("");
+    setUpscaledImagePath("");
+  };
+
   useEffect(() => {
     setVersion(navigator.userAgent.match(/Upscayl\/([\d\.]+\d+)/)[1]);
   }, []);
@@ -30,14 +35,12 @@ const Home = () => {
         alert(
           "Error. Please make sure you have a Vulkan compatible GPU (Most modern GPUs support Vulkan). Upscayl does not work with CPU or iGPU sadly."
         );
-        SetImagePath("");
-        upscaledImagePath("");
+        resetImagePaths();
       } else if (data.includes("failed")) {
         alert(
           "This image is possibly corrupt or not supported by Upscayl. You could try converting the image into another format and upscaling again. Otherwise, make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely this image is not supported by Upscayl, sorry."
         );
-        SetImagePath("");
-        upscaledImagePath("");
+        resetImagePaths();
       } else if (data.length > 0 && data.length < 10) setProgress(data);
     });
 
@@ -47,9 +50,7 @@ const Home = () => {
   }, []);
 
   const selectImageHandler = async () => {
-    SetImagePath("");
-    setUpscaledImagePath("");
-    setProgress("");
+    resetImagePaths();
     var path = await window.electron.invoke(commands.SELECT_FILE);
 
     if (path !== "cancelled") {
@@ -80,6 +81,8 @@ const Home = () => {
 
   const handleDrop = (e) => {
     e.preventDefault();
+    resetImagePaths();
+
     const type = e.dataTransfer.items[0].type;
     const filePath = e.dataTransfer.files[0].path;
     const extension = e.dataTransfer.files[0].name.split(".").at(-1);
@@ -98,6 +101,7 @@ const Home = () => {
 
   const handlePaste = (e) => {
     console.log(e);
+    resetImagePaths();
     e.preventDefault();
     const type = e.clipboardData.items[0].type;
     const filePath = e.clipboardData.files[0].path;
@@ -126,7 +130,7 @@ const Home = () => {
 
   const upscaylHandler = async () => {
     if (imagePath !== "") {
-      setUpscaledImagePath("");
+      resetImagePaths();
       setProgress("Hold on...");
       await window.electron.send(commands.UPSCAYL, {
         scaleFactor,
