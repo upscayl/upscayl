@@ -4,6 +4,7 @@ import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from "react-compare-slider";
+import ReactTooltip from "react-tooltip";
 
 import Animated from "../public/loading.svg";
 import Image from "next/image";
@@ -17,6 +18,7 @@ const Home = () => {
   const [model, setModel] = useState("realesrgan-x4plus");
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
+  const [batchMode, setBatchMode] = useState(false);
 
   useEffect(() => {
     setVersion(navigator.userAgent.match(/Upscayl\/([\d\.]+\d+)/)[1]);
@@ -47,6 +49,19 @@ const Home = () => {
   }, []);
 
   const selectImageHandler = async () => {
+    SetImagePath("");
+    setUpscaledImagePath("");
+    setProgress("");
+    var path = await window.electron.invoke(commands.SELECT_FILE);
+
+    if (path !== "cancelled") {
+      SetImagePath(path);
+      var dirname = path.match(/(.*)[\/\\]/)[1] || "";
+      SetOutputPath(dirname);
+    }
+  };
+
+  const selectImagesFolderHandler = async () => {
     SetImagePath("");
     setUpscaledImagePath("");
     setProgress("");
@@ -124,6 +139,10 @@ const Home = () => {
     }
   };
 
+  const handleBatchMode = () => {
+    setBatchMode(!batchMode);
+  };
+
   const upscaylHandler = async () => {
     if (imagePath !== "") {
       setUpscaledImagePath("");
@@ -150,6 +169,29 @@ const Home = () => {
 
         {/* LEFT PANE */}
         <div className="h-screen overflow-auto p-5">
+          <div className="flex flex-row items-end">
+            <p
+              className="mr-1 inline-block cursor-help text-sm text-neutral-400"
+              data-tip="This will let you upscale all files in a folder at once"
+            >
+              Batch Upscale:
+            </p>
+            <div
+              className="animate relative inline-block h-5 w-8 cursor-pointer rounded-full bg-neutral-500"
+              onClick={handleBatchMode}
+            >
+              <div
+                className={`${
+                  batchMode ? "right-1 bg-blue-300" : "left-1 bg-neutral-300"
+                } animate absolute top-1/2 h-3 w-3 -translate-y-1/2 rounded-full`}
+              ></div>
+            </div>
+          </div>
+          <ReactTooltip
+            className="w-72 bg-neutral-900 text-neutral-50"
+            place="top"
+          />
+
           {/* STEP 1 */}
           <div className="mt-5">
             <p className="mb-2 font-medium text-neutral-100">Step 1</p>
@@ -157,7 +199,7 @@ const Home = () => {
               className="rounded-lg bg-rose-400 p-3"
               onClick={selectImageHandler}
             >
-              Select Image
+              Select {batchMode ? "Folder" : "Image"}
             </button>
           </div>
           {/* STEP 2 */}
@@ -223,7 +265,7 @@ const Home = () => {
           </div>
           {/* STEP 4 */}
           <div className="mt-10">
-            <p className="mb-2 font-medium text-neutral-100">Step 5</p>
+            <p className="mb-2 font-medium text-neutral-100">Step 4</p>
             <button
               className="rounded-lg bg-sky-400 p-3"
               onClick={upscaylHandler}

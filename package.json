@@ -118,6 +118,7 @@
     "image-size": "^1.0.2",
     "react-compare-slider": "^2.2.0",
     "react-dropzone": "^14.2.2",
+    "react-tooltip": "^4.2.21",
     "sharp": "^0.30.7",
     "tailwind-scrollbar": "^1.3.1"
   }
