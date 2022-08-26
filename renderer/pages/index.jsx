@@ -112,7 +112,7 @@ const Home = () => {
               onChange={handleModelChange}
             >
               <option value="realesrgan-x4plus">General Image</option>
-              <option value="realesrgan-x4plus-anime">Digital Image</option>
+              <option value="realesrgan-x4plus-anime">Digital Art</option>
             </select>
           </div>
           {/* STEP 3

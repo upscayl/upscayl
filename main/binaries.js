@@ -9,6 +9,6 @@ const binariesPath = isDev
   : join(dirname(appRootDir.get()), "..", "Resources", "bin");
 
 const execPath = path.resolve(path.join(binariesPath, "./upscayl"));
-const modelsPath = path.resolve(path.join(binariesPath, "./models"));
+const modelsPath = path.resolve(path.join(binariesPath, "../../models"));
 
 module.exports = { execPath, modelsPath };
