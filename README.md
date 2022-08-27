@@ -14,7 +14,7 @@ https://user-images.githubusercontent.com/25067102/186332548-0d53f02f-d159-4804-
 
 # Installation 👨‍💻
 
-## Linux 🐧
+## Linux 🐧👑
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
 
@@ -26,11 +26,19 @@ You can also download the flatpak version and double click the flatpak file to i
 
 ## MacOS 🍎
 
-Coming soon...
+1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
+
+2. Download the `.dmg` file.
+
+3. Double click dmg, drag Upscayl icon into Applications folder, profit.
 
 ## Windows 🐌
 
-Coming soon...
+1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
+
+2. Download the `.exe` file.
+
+3. Double click exe file, wait for installation, profit.
 
 # Roadmap 🤫
 
@@ -68,6 +76,8 @@ npm run publish-app
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work on iGPU or CPU.
 - How can I contribute?
   - You can donate more NCNN compatible models or fix code by submitting PRs :)
+- You are not fully open source!!😡
+  - We are, we're using completely free and open source tech. We do ship a binary but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience, if you do not trust it, then you can compile your own since everything is free and open source here :)
 
 Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and algorithms will come soon.
 
