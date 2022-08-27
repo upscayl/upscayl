@@ -21,7 +21,6 @@ const {
 const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
 const commands = require("./commands");
-const sharp = require("sharp");
 
 // Prepare the renderer once the app is ready
 let mainWindow;
