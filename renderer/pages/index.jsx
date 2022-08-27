@@ -152,17 +152,19 @@ const Home = () => {
       <div className="flex h-screen w-96 flex-col bg-neutral-800">
         {imagePath.length > 0 && (
           <button
-            className="absolute bottom-1 right-1 z-10 rounded-full bg-sky-400 p-2 opacity-50"
+            className="absolute bottom-1 right-1 z-10 rounded-full bg-sky-400 py-2 px-4 opacity-50"
             onClick={resetImagePaths}
           >
             Reset
           </button>
         )}
         {/* HEADER */}
-        <h1 className="pl-5 pt-5 text-3xl font-bold text-neutral-50">
-          Upscayl
-        </h1>
-        <p className="mb-2 pl-5 text-neutral-400">AI Image Upscaler</p>
+        <a href="https://github.com/upscayl/upscayl" target="_blank">
+          <h1 className="pl-5 pt-5 text-3xl font-bold text-neutral-50">
+            Upscayl
+          </h1>
+          <p className="mb-2 pl-5 text-neutral-400">AI Image Upscaler</p>
+        </a>
 
         {/* LEFT PANE */}
         <div className="h-screen overflow-auto p-5">
@@ -255,14 +257,14 @@ const Home = () => {
             Copyright © 2022 -{" "}
             <a
               className="font-bold"
-              href="https://github.com/TGS963/upscayl"
+              href="https://github.com/upscayl/upscayl"
               target="_blank"
             >
               Upscayl
             </a>
           </p>
           <p>
-            Made by{" "}
+            By{" "}
             <a
               href="https://github.com/TGS963"
               className="font-bold"
