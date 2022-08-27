@@ -19,6 +19,7 @@ const Home = () => {
   const [version, setVersion] = useState("");
 
   const resetImagePaths = () => {
+    setProgress("");
     SetImagePath("");
     setUpscaledImagePath("");
   };
