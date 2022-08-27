@@ -38,7 +38,7 @@
     "dist": "npm run build && DEBUG=* electron-builder",
     "dist:appimage": "npm run build && DEBUG=* electron-builder build -l AppImage",
     "dist:flatpak": "npm run build && DEBUG=* electron-builder build -l flatpak",
-    "dist:dmg": "npm run build && DEBUG=* electron-builder build -m dmg flatpak",
+    "dist:dmg": "npm run build && DEBUG=* electron-builder build -m dmg",
     "dist:msi": "npm run build && DEBUG=* electron-builder build -w nsis",
     "dist:pkg": "npm run build && DEBUG=* electron-builder build -m pkg",
     "publish-app": "npm run build && electron-builder -wl --publish always",
