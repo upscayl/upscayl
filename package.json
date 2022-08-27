@@ -113,9 +113,6 @@
       "target": [
         "nsis"
       ],
-      "asarUnpack": [
-        "**/node_modules/sharp/**"
-      ],
       "icon": "main/build/icon.png"
     },
     "files": [

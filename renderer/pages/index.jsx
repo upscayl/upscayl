@@ -46,6 +46,7 @@ const Home = () => {
     });
 
     window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
+      setProgress("");
       setUpscaledImagePath(data);
     });
   }, []);
@@ -80,6 +81,8 @@ const Home = () => {
     console.log("drag over");
   };
 
+  const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
+
   const handleDrop = (e) => {
     e.preventDefault();
     resetImagePaths();
@@ -87,10 +90,11 @@ const Home = () => {
     const type = e.dataTransfer.items[0].type;
     const filePath = e.dataTransfer.files[0].path;
     const extension = e.dataTransfer.files[0].name.split(".").at(-1);
+    console.log("🚀 => handleDrop => extension", extension);
 
     if (
-      !type.includes("image") &&
-      !["jpeg", "jpg", "png", "webp"].includes(extension.toLowerCase())
+      !type.includes("image") ||
+      !allowedFileTypes.includes(extension.toLowerCase())
     ) {
       alert("Please drag and drop an image");
     } else {
@@ -110,7 +114,7 @@ const Home = () => {
 
     if (
       !type.includes("image") &&
-      !["jpeg", "jpg", "png", "webp"].includes(extension.toLowerCase())
+      !allowedFileTypes.includes(extension.toLowerCase())
     ) {
       alert("Please drag and drop an image");
     } else {
@@ -146,6 +150,14 @@ const Home = () => {
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-neutral-900">
       <div className="flex h-screen w-96 flex-col bg-neutral-800">
+        {imagePath.length > 0 && (
+          <button
+            className="absolute bottom-1 right-1 z-10 rounded-full bg-sky-400 p-2 opacity-50"
+            onClick={resetImagePaths}
+          >
+            Reset
+          </button>
+        )}
         {/* HEADER */}
         <h1 className="pl-5 pt-5 text-3xl font-bold text-neutral-50">
           Upscayl
@@ -231,8 +243,9 @@ const Home = () => {
             <button
               className="rounded-lg bg-sky-400 p-3"
               onClick={upscaylHandler}
+              disabled={progress.length > 0}
             >
-              Upscayl
+              {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
             </button>
           </div>
         </div>
@@ -300,6 +313,7 @@ const Home = () => {
             src={
               "file://" + `${upscaledImagePath ? upscaledImagePath : imagePath}`
             }
+            draggable="false"
             alt=""
           />
         ) : (
