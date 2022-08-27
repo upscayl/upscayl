@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "1.1.2",
+  "version": "1.2.0",
   "productName": "Upscayl",
   "homepage": "https://github.com/TGS963/upscayl",
   "contributors": [
@@ -41,8 +41,8 @@
     "dist:dmg": "npm run build && DEBUG=* electron-builder build -m dmg flatpak",
     "dist:msi": "npm run build && DEBUG=* electron-builder build -w nsis",
     "dist:pkg": "npm run build && DEBUG=* electron-builder build -m pkg",
-    "publish-app": "export GH_TOKEN=<> && npm run build && electron-builder -w --publish always",
-    "publish-win": "set GH_TOKEN=<> && npm run build && electron-builder -w --publish always"
+    "publish-app": "npm run build && electron-builder -wl --publish always",
+    "publish-mac-app": "npm run build && electron-builder -m --publish always"
   },
   "build": {
     "productName": "Upscayl",
