@@ -194,6 +194,7 @@ const Home = () => {
               <option value="realesrgan-x4plus-anime">Digital Art</option>
             </select>
           </div>
+
           {/* STEP 3
           <div className="mt-10">
             <p className="font-medium text-neutral-100">Step 3</p>
@@ -226,7 +227,7 @@ const Home = () => {
             </div>
           </div> */}
 
-          {/* STEP 4 */}
+          {/* STEP 3 */}
           <div className="mt-10">
             <p className="font-medium text-neutral-100">Step 3</p>
             <p className="mb-2 text-sm text-neutral-400">
@@ -239,9 +240,10 @@ const Home = () => {
               Set Output Folder
             </button>
           </div>
+
           {/* STEP 4 */}
           <div className="mt-10">
-            <p className="mb-2 font-medium text-neutral-100">Step 5</p>
+            <p className="mb-2 font-medium text-neutral-100">Step 4</p>
             <button
               className="rounded-lg bg-sky-400 p-3"
               onClick={upscaylHandler}
