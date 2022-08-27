@@ -341,7 +341,7 @@ const Home = () => {
           <img
             className="h-full w-full object-contain"
             src={
-              "file://" + `${upscaledImagePath ? upscaledImagePath : imagePath}`
+              "local://" + `${upscaledImagePath ? upscaledImagePath : imagePath}`
             }
             draggable="false"
             alt=""
@@ -350,7 +350,7 @@ const Home = () => {
           <ReactCompareSlider
             itemOne={
               <ReactCompareSliderImage
-                src={"file://" + imagePath + "?" + Date.now()}
+                src={"local://" + imagePath + "?" + Date.now()}
                 alt="Original"
                 style={{
                   objectFit: "contain",
@@ -359,7 +359,7 @@ const Home = () => {
             }
             itemTwo={
               <ReactCompareSliderImage
-                src={"file://" + upscaledImagePath + "?" + Date.now()}
+                src={"local://" + upscaledImagePath + "?" + Date.now()}
                 alt="Upscayl"
                 style={{
                   objectFit: "contain",

@@ -70,6 +70,16 @@ app.on("ready", async () => {
 // Quit the app once all windows are closed
 app.on("window-all-closed", app.quit);
 
+// Fix file:// + ? by registering a new protocol
+app.whenReady().then(() => {
+  const { protocol } = require("electron");
+  protocol.registerFileProtocol('local', (request, callback) => {
+    const pathname = decodeURIComponent(request.url.replace('local://', ''));
+    const parts = pathname.split('?');
+    callback(parts[0]);
+  });
+});
+
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
 
 ipcMain.handle(commands.SELECT_FILE, async () => {
@@ -113,8 +123,8 @@ ipcMain.handle(commands.SELECT_OUTPUT, async (event, payload) => {
     return "cancelled";
   } else {
     console.log(filePath);
-    if(fs.existsSync(tmpPath + "/scaled" + fileExt)) {
-      fs.copyFileSync(tmpPath + "/scaled" + fileExt, filePath);
+    if(fs.existsSync(tmpPath + "scaled" + fileExt)) {
+      fs.copyFileSync(tmpPath + "scaled" + fileExt, filePath);
     }
     return filePath;
   }
@@ -123,8 +133,8 @@ ipcMain.handle(commands.SELECT_OUTPUT, async (event, payload) => {
 ipcMain.handle(commands.REPLACE_ORIGINAL, async (event, payload) => {
   const original = payload.original;
   const fileExt = parse(original).ext;
-  if(fs.existsSync(tmpPath + "/scaled" + fileExt)) {
-    fs.copyFileSync(tmpPath + "/scaled" + fileExt, original);
+  if(fs.existsSync(tmpPath + "scaled" + fileExt)) {
+    fs.copyFileSync(tmpPath + "scaled" + fileExt, original);
   }
 });
 
@@ -152,9 +162,9 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     execPath,
     [
       "-i",
-      tmpPath + "/original" + fileExt,
+      tmpPath + "original" + fileExt,
       "-o",
-      tmpPath + "/scaled" + fileExt,
+      tmpPath + "scaled" + fileExt,
       "-s",
       scale === 2 ? 4 : scale,
       "-m",
@@ -182,7 +192,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       console.log("Done upscaling");
       mainWindow.webContents.send(
         commands.UPSCAYL_DONE,
-        outputDir + "/scaled" + fileExt
+        outputDir + "scaled" + fileExt
       );
     }
   });
