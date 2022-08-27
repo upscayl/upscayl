@@ -36,6 +36,7 @@ app.on("ready", async () => {
     height: 700,
     minHeight: 500,
     minWidth: 500,
+    backgroundColor: "#171717",
     webPreferences: {
       devTools: isDev,
       autoHideMenuBar: true,
