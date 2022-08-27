@@ -60,7 +60,9 @@
       }
     ],
     "mac": {
-      "icon": "main/build/icon.icns"
+      "icon": "main/build/icon.icns",
+      "category": "public.app-category.graphics-design",
+      "target": "dmg"
     },
     "linux": {
       "publish": [
@@ -73,8 +75,7 @@
       "asarUnpack": [
         "**/node_modules/sharp/**"
       ],
-      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
-      "maintainer": "TGS963 <tgs@963.com>"
+      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;"
     },
     "win": {
       "publish": [
@@ -87,9 +88,6 @@
         "**/node_modules/sharp/**"
       ],
       "icon": "main/build/icon.png"
-    },
-    "deb": {
-      "packageCategory": "graphics"
     },
     "files": [
       "main",
