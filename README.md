@@ -26,11 +26,19 @@ You can also download the flatpak version and double click the flatpak file to i
 
 ## MacOS 🍎
 
-Coming soon...
+1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
+
+2. Download the `.dmg` file.
+
+3. Double click dmg, drag Upscayl icon into Applications folder, profit.
 
 ## Windows 🐌
 
-Coming soon...
+1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
+
+2. Download the `.exe` file.
+
+3. Double click exe file, wait for installation, profit.
 
 # Roadmap 🤫
 
