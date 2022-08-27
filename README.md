@@ -52,6 +52,11 @@ You can also download the flatpak version and double click the flatpak file to i
 - More models
 - Make the whole world use FOSS
 
+# Comparisons:
+
+![image](https://user-images.githubusercontent.com/25067102/187038206-25d54228-ee95-4167-bda0-5c71259a459e.png)
+
+
 # Development 🛠
 
 ```
