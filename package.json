@@ -36,6 +36,11 @@
     "build": "next build renderer && next export renderer",
     "pack-app": "npm run build && electron-builder --dir",
     "dist": "npm run build && DEBUG=* electron-builder",
+    "dist:appimage": "npm run build && DEBUG=* electron-builder build -l AppImage",
+    "dist:flatpak": "npm run build && DEBUG=* electron-builder build -l flatpak",
+    "dist:dmg": "npm run build && DEBUG=* electron-builder build -m dmg flatpak",
+    "dist:msi": "npm run build && DEBUG=* electron-builder build -w nsis",
+    "dist:pkg": "npm run build && DEBUG=* electron-builder build -m pkg",
     "publish-app": "export GH_TOKEN=<> && npm run build && electron-builder -w --publish always",
     "publish-win": "set GH_TOKEN=<> && npm run build && electron-builder -w --publish always"
   },
@@ -60,9 +65,33 @@
       }
     ],
     "mac": {
-      "icon": "main/build/icon.icns",
-      "category": "public.app-category.graphics-design",
-      "target": "dmg"
+      "type": "distribution",
+      "hardenedRuntime": true,
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mac.plist",
+      "gatekeeperAssess": false,
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
     },
     "linux": {
       "publish": [
@@ -82,7 +111,7 @@
         "github"
       ],
       "target": [
-        "msi"
+        "nsis"
       ],
       "asarUnpack": [
         "**/node_modules/sharp/**"

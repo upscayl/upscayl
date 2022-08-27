@@ -130,7 +130,6 @@ const Home = () => {
 
   const upscaylHandler = async () => {
     if (imagePath !== "") {
-      resetImagePaths();
       setProgress("Hold on...");
       await window.electron.send(commands.UPSCAYL, {
         scaleFactor,
