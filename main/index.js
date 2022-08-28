@@ -36,6 +36,7 @@ app.on("ready", async () => {
     height: 700,
     minHeight: 500,
     minWidth: 500,
+    show: false,
     backgroundColor: "#171717",
     webPreferences: {
       devTools: isDev,
@@ -61,6 +62,8 @@ app.on("ready", async () => {
     shell.openExternal(url);
     return { action: "deny" };
   });
+
+  mainWindow.once("ready-to-show", () => { mainWindow.show(); })
 
   if (!isDev) {
     autoUpdater.checkForUpdates();
