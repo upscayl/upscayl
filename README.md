@@ -19,7 +19,7 @@ https://user-images.githubusercontent.com/25067102/186332548-0d53f02f-d159-4804-
 
 # Installation 👨‍💻
 
-## Linux 🐧👑
+### Linux 🐧👑
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
 
@@ -29,7 +29,7 @@ https://user-images.githubusercontent.com/25067102/186332548-0d53f02f-d159-4804-
 
 You can also download the flatpak version and double click the flatpak file to install via Store but wait for the full release, we'll be pushing it to Flathub for easy access.
 
-## MacOS 🍎
+### MacOS 🍎
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
 
@@ -39,20 +39,13 @@ You can also download the flatpak version and double click the flatpak file to i
 
 4. Open Terminal and enter this command: `chmod +x /Applications/Upscayl.app/Contents/Resources/bin/upscayl`. Press Enter, profit.
 
-## Windows 🐌
+### Windows 🐌
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
 
 2. Download the `.exe` file.
 
 3. Double click exe file, wait for installation, profit.
-
-# Roadmap 🤫
-
-- Allow video upscaling
-- 2x, 3x upscaling modes
-- More models
-- Make the whole world use FOSS
 
 # Comparisons:
 #### Medium Resolution Images (300-400 pixels wide):\
@@ -62,6 +55,13 @@ You can also download the flatpak version and double click the flatpak file to i
 ![image](https://user-images.githubusercontent.com/25067102/187059318-2d01a671-53fe-4ecc-9a74-3a791fd55818.png)
 ![image](https://user-images.githubusercontent.com/25067102/187059336-8d6e87ec-232f-4591-89c9-ff451692bcf2.png)
 
+
+# Roadmap 🤫
+
+- Allow video upscaling📼
+- 2x, 3x upscaling modes
+- More models
+- Make the whole world use FOSS
 
 # Development 🛠
 
