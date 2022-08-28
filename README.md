@@ -35,7 +35,9 @@ You can also download the flatpak version and double click the flatpak file to i
 
 2. Download the `.dmg` file.
 
-3. Double click dmg, drag Upscayl icon into Applications folder, profit.
+3. Double click dmg, drag Upscayl icon into Applications folder.
+
+4. Open Terminal and enter this command: `chmod +x /Applications/Upscayl.app/Contents/Resources/bin/upscayl`. Press Enter, profit.
 
 ## Windows 🐌
 
