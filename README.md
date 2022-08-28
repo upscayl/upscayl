@@ -55,8 +55,12 @@ You can also download the flatpak version and double click the flatpak file to i
 - Make the whole world use FOSS
 
 # Comparisons:
-
-![image](https://user-images.githubusercontent.com/25067102/187038206-25d54228-ee95-4167-bda0-5c71259a459e.png)
+#### Medium Resolution Images (300-400 pixels wide):\
+![image](https://user-images.githubusercontent.com/25067102/187059440-83f32705-4509-4899-a109-ed2d8248fd2b.png)
+![image](https://user-images.githubusercontent.com/25067102/187059369-9bc63f1c-e6c0-4d6a-9089-706db43f171f.png)
+#### Low Resolution Images (150 pixels wide):\
+![image](https://user-images.githubusercontent.com/25067102/187059318-2d01a671-53fe-4ecc-9a74-3a791fd55818.png)
+![image](https://user-images.githubusercontent.com/25067102/187059336-8d6e87ec-232f-4591-89c9-ff451692bcf2.png)
 
 
 # Development 🛠
