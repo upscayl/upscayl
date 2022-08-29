@@ -55,6 +55,10 @@ You can also download the flatpak version and double click the flatpak file to i
 #### Low Resolution Images (150 pixels wide):
 ![image](https://user-images.githubusercontent.com/25067102/187059318-2d01a671-53fe-4ecc-9a74-3a791fd55818.png)
 ![image](https://user-images.githubusercontent.com/25067102/187059336-8d6e87ec-232f-4591-89c9-ff451692bcf2.png)
+#### Super Low Resolution Images (75 pixels wide):
+### UPSCALED TWICE
+![image](https://user-images.githubusercontent.com/25067102/187153200-8e184622-a791-43ad-8d73-e5580034f2f2.png)
+
 
 
 # Roadmap 🤫
