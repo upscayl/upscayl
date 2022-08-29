@@ -14,6 +14,7 @@ const Home = () => {
   const [outputPath, SetOutputPath] = useState("");
   const [scaleFactor, setScaleFactor] = useState(4);
   const [progress, setProgress] = useState("");
+  const [curStep, setStep] = useState(1);
   const [model, setModel] = useState("realesrgan-x4plus");
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
@@ -22,7 +23,12 @@ const Home = () => {
     setProgress("");
     SetImagePath("");
     setUpscaledImagePath("");
+    setStep(1);
   };
+
+  const stepStyle = (thisStep) => {
+    return { display: (thisStep > curStep ? "none" : "block") };
+  }
 
   useEffect(() => {
     setVersion(navigator.userAgent.match(/Upscayl\/([\d\.]+\d+)/)[1]);
@@ -48,6 +54,7 @@ const Home = () => {
     window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
       setProgress("");
       setUpscaledImagePath(data);
+      setStep(4);
     });
   }, []);
 
@@ -59,6 +66,7 @@ const Home = () => {
       SetImagePath(path);
       var dirname = path.match(/(.*)[\/\\]/)[1] || "";
       SetOutputPath(dirname);
+      setStep(3);
     }
   };
 
@@ -101,6 +109,8 @@ const Home = () => {
       SetImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       SetOutputPath(dirname);
+      setStep(3);
+      window.electron.invoke(commands.SET_FILE, {original: filePath});
     }
   };
 
@@ -121,11 +131,21 @@ const Home = () => {
       SetImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       SetOutputPath(dirname);
+      setStep(3);
     }
   };
 
   const outputHandler = async () => {
-    var path = await window.electron.invoke(commands.SELECT_FOLDER);
+    var path = await window.electron.invoke(commands.SELECT_OUTPUT, { original: imagePath });
+    if (path !== "cancelled") {
+      SetOutputPath(path);
+    } else {
+      console.log("Getting output path from input file");
+    }
+  };
+
+  const replaceHandler = async () => {
+    var path = await window.electron.invoke(commands.REPLACE_ORIGINAL, { original: imagePath });
     if (path !== "cancelled") {
       SetOutputPath(path);
     } else {
@@ -169,17 +189,17 @@ const Home = () => {
         {/* LEFT PANE */}
         <div className="h-screen overflow-auto p-5">
           {/* STEP 1 */}
-          <div className="mt-5">
+          <div className="mt-0">
             <p className="mb-2 font-medium text-neutral-100">Step 1</p>
             <button
-              className="rounded-lg bg-rose-400 p-3"
+              className="rounded-lg bg-rose-400 hover:bg-rose-300 transition-colors p-3 w-full font-semibold"
               onClick={selectImageHandler}
             >
               Select Image
             </button>
           </div>
           {/* STEP 2 */}
-          <div className="mt-10">
+          <div className="mt-5 animate-step-in" style={stepStyle(3)}>
             <p className="font-medium text-neutral-100">Step 2</p>
             <p className="mb-2 text-sm text-neutral-400">
               Select Upscaling Type
@@ -187,12 +207,24 @@ const Home = () => {
             <select
               name="select-model"
               onDrop={(e) => handleDrop(e)}
-              className="rounded-lg bg-slate-300 p-3"
+              className="rounded-lg bg-slate-300 hover:bg-slate-200 p-3 w-full"
               onChange={handleModelChange}
             >
-              <option value="realesrgan-x4plus">General Photo</option>
-              <option value="realesrgan-x4plus-anime">Digital Art</option>
+              <option value="realesrgan-x4plus">Photos &amp; Realistic Art</option>
+              <option value="realesrgan-x4plus-anime">2D &amp; Simple Art</option>
             </select>
+          </div>
+
+          {/* STEP 3 */}
+          <div className="mt-5 animate-step-in" style={stepStyle(3)}>
+            <p className="mb-2 font-medium text-neutral-100">Step 3</p>
+            <button
+              className="rounded-lg bg-sky-400 hover:bg-sky-300 transition-colors p-3 w-full font-semibold"
+              onClick={upscaylHandler}
+              disabled={progress.length > 0}
+            >
+              {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
+            </button>
           </div>
 
           {/* STEP 3
@@ -227,29 +259,23 @@ const Home = () => {
             </div>
           </div> */}
 
-          {/* STEP 3 */}
-          <div className="mt-10">
-            <p className="font-medium text-neutral-100">Step 3</p>
+          {/* STEP 4 */}
+          <div className="mt-5 animate-step-in" style={stepStyle(4)}>
+            <p className="font-medium text-neutral-100">Step 4</p>
             <p className="mb-2 text-sm text-neutral-400">
-              Defaults to Image's path
+              Save file
             </p>
             <button
-              className="rounded-lg bg-teal-400 p-3"
+              className="rounded-lg bg-teal-400 hover:bg-teal-300 transition-colors p-3 w-full font-semibold"
+              onClick={replaceHandler}
+            >
+              Replace Original
+            </button>
+            <button
+              className="rounded-lg bg-teal-400 hover:bg-teal-300 transition-colors p-3 mt-1 w-full font-semibold"
               onClick={outputHandler}
             >
-              Set Output Folder
-            </button>
-          </div>
-
-          {/* STEP 4 */}
-          <div className="mt-10">
-            <p className="mb-2 font-medium text-neutral-100">Step 4</p>
-            <button
-              className="rounded-lg bg-sky-400 p-3"
-              onClick={upscaylHandler}
-              disabled={progress.length > 0}
-            >
-              {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
+              Save As
             </button>
           </div>
         </div>
@@ -295,8 +321,8 @@ const Home = () => {
         onDragLeave={(e) => handleDragLeave(e)}
         onPaste={(e) => handlePaste(e)}
       >
-        {progress.length > 0 && upscaledImagePath.length === 0 && (
-          <div className="absolute flex h-full w-full flex-col items-center justify-center bg-black/50 backdrop-blur-lg">
+        {progress.length > 0 && (
+          <div className="absolute flex h-full w-full flex-col items-center justify-center bg-black/50 backdrop-blur-lg z-10">
             <div className="flex flex-col items-center gap-2">
               <Image src={Animated} />
               <p className="font-bold text-neutral-50">{progress}</p>
@@ -309,13 +335,13 @@ const Home = () => {
             <p className="p-5 text-lg font-medium text-neutral-400">
               Select an Image to Upscale
             </p>
-            <p className="text-neutral-600">Upscale v{version}</p>
+            <p className="text-neutral-600">Upscayl v{version}</p>
           </>
         ) : upscaledImagePath.length === 0 ? (
           <img
             className="h-full w-full object-contain"
             src={
-              "file://" + `${upscaledImagePath ? upscaledImagePath : imagePath}`
+              "local://" + `${upscaledImagePath ? upscaledImagePath : imagePath}`
             }
             draggable="false"
             alt=""
@@ -324,7 +350,7 @@ const Home = () => {
           <ReactCompareSlider
             itemOne={
               <ReactCompareSliderImage
-                src={"file://" + imagePath}
+                src={"local://" + imagePath + "?" + Date.now()}
                 alt="Original"
                 style={{
                   objectFit: "contain",
@@ -333,7 +359,7 @@ const Home = () => {
             }
             itemTwo={
               <ReactCompareSliderImage
-                src={"file://" + upscaledImagePath}
+                src={"local://" + upscaledImagePath + "?" + Date.now()}
                 alt="Upscayl"
                 style={{
                   objectFit: "contain",

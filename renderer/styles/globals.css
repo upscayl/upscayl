@@ -26,3 +26,13 @@
     @apply transition-all duration-300 ease-in-out;
   }
 }
+
+.animate-step-in {
+  animation: animate-step-in 0.35s cubic-bezier(0.07, 0.43, 0.02, 1);
+}
+
+@keyframes animate-step-in {
+  0% { opacity: 0; transform: translateY(-10px); }
+  80% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0px); }
+}
