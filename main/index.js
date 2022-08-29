@@ -4,7 +4,6 @@ const { format } = require("url");
 const { spawn } = require("child_process");
 const fs = require("fs");
 const sizeOf = require("image-size");
-const path = require('path');
 const { autoUpdater } = require("electron-updater");
 const { getPlatform } = require("./getPlatform");
 
@@ -22,7 +21,6 @@ const {
 const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
 const commands = require("./commands");
-const tmpPath = path.join(app.getPath("userData"), "\\tmp\\");
 
 // Prepare the renderer once the app is ready
 let mainWindow;
@@ -73,16 +71,6 @@ app.on("ready", async () => {
 // Quit the app once all windows are closed
 app.on("window-all-closed", app.quit);
 
-// Fix file:// + ? by registering a new protocol
-app.whenReady().then(() => {
-  const { protocol } = require("electron");
-  protocol.registerFileProtocol('local', (request, callback) => {
-    const pathname = decodeURIComponent(request.url.replace('local://', ''));
-    const parts = pathname.split('?');
-    callback(parts[0]);
-  });
-});
-
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
 
 ipcMain.handle(commands.SELECT_FILE, async () => {
@@ -95,49 +83,21 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
     return "cancelled";
   } else {
     console.log(filePaths[0]);
-    // CREATE original copy
-    if(!fs.existsSync(tmpPath)) {
-      fs.mkdirSync(tmpPath);
-    }
-    fs.copyFileSync(filePaths[0], path.join(tmpPath, "original" + parse(filePaths[0]).ext));
+    // CREATE input AND upscaled FOLDER
     return filePaths[0];
   }
 });
 
-ipcMain.handle(commands.SET_FILE, async (event, payload) => {
-  const original = payload.original;
-  const fileExt = parse(original).ext;
-  // CREATE original copy
-  if(!fs.existsSync(tmpPath)) {
-    fs.mkdirSync(tmpPath);
-  }
-  fs.copyFileSync(original, path.join(tmpPath, "original" + fileExt));
-
-})
-
-ipcMain.handle(commands.SELECT_OUTPUT, async (event, payload) => {
-  const original = payload.original;
-  const fileExt = parse(original).ext;
-  const { canceled, filePath } = await dialog.showSaveDialog({
-    filters: [{name: fileExt, extensions: [fileExt.substring(1)]}]
+ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ["openDirectory"],
   });
   if (canceled) {
     console.log("operation cancelled");
     return "cancelled";
   } else {
-    console.log(filePath);
-    if(fs.existsSync(tmpPath + "scaled" + fileExt)) {
-      fs.copyFileSync(tmpPath + "scaled" + fileExt, filePath);
-    }
-    return filePath;
-  }
-});
-
-ipcMain.handle(commands.REPLACE_ORIGINAL, async (event, payload) => {
-  const original = payload.original;
-  const fileExt = parse(original).ext;
-  if(fs.existsSync(tmpPath + "scaled" + fileExt)) {
-    fs.copyFileSync(tmpPath + "scaled" + fileExt, original);
+    console.log(filePaths[0]);
+    return filePaths[0];
   }
 });
 
@@ -146,7 +106,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const scale = payload.scaleFactor;
 
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
-  let outputDir = tmpPath
+  let outputDir = payload.outputPath;
   console.log("🚀 => ipcMain.on => outputDir", outputDir);
 
   // COPY IMAGE TO TMP FOLDER
@@ -157,48 +117,56 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       : payload.imagePath.split("/").slice(-1)[0];
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
+  const outFile = outputDir + "/" + fileName + "_upscayled_" + scale + "x_" + model + fileExt;
 
   // UPSCALE
   console.log("PRODUCTION? :", isDev);
   console.log("EXEC: ", execPath);
-  let upscayl = spawn(
-    execPath,
-    [
-      "-i",
-      tmpPath + "original" + fileExt,
-      "-o",
-      tmpPath + "scaled" + fileExt,
-      "-s",
-      scale === 2 ? 4 : scale,
-      "-m",
-      modelsPath,
-      "-n",
-      model,
-    ],
-    {
-      cwd: null,
-      detached: false,
-    }
-  );
-  let failed = false;
-  upscayl.stderr.on("data", (stderr) => {
-    console.log(stderr.toString());
-    stderr = stderr.toString();
-    if (stderr.includes("invalid gpu")) {
-      failed = true;
-    }
-    mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, stderr.toString());
-  });
-
-  upscayl.on("close", (code) => {
-    if (failed !== true) {
-      console.log("Done upscaling");
-      mainWindow.webContents.send(
-        commands.UPSCAYL_DONE,
-        outputDir + "scaled" + fileExt
-      );
-    }
-  });
+  if (fs.existsSync(outFile)) {
+    mainWindow.webContents.send(
+      commands.UPSCAYL_DONE,
+      outFile
+    );
+  }
+  else {
+    let upscayl = spawn(
+      execPath,
+      [
+        "-i",
+        inputDir + "/" + fullfileName,
+        "-o",
+        outFile,
+        "-s",
+        scale === 2 ? 4 : scale,
+        "-m",
+        modelsPath,
+        "-n",
+        model,
+      ],
+      {
+        cwd: null,
+        detached: false,
+      }
+    );
+    let failed = false;
+    upscayl.stderr.on("data", (stderr) => {
+      console.log(stderr.toString());
+      stderr = stderr.toString();
+      if (stderr.includes("invalid gpu")) {
+        failed = true;
+      }
+      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, stderr.toString());
+    });
+    upscayl.on("close", (code) => {
+      if (failed !== true) {
+        console.log("Done upscaling");
+        mainWindow.webContents.send(
+          commands.UPSCAYL_DONE,
+          outFile
+        );
+      }
+    });
+  }
 });
 
 autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {
