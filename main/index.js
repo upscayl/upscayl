@@ -61,7 +61,9 @@ app.on("ready", async () => {
     return { action: "deny" };
   });
 
-  mainWindow.once("ready-to-show", () => { mainWindow.show(); })
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.show();
+  });
 
   if (!isDev) {
     autoUpdater.checkForUpdates();
@@ -117,18 +119,15 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       : payload.imagePath.split("/").slice(-1)[0];
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
-  const outFile = outputDir + "/" + fileName + "_upscayled_" + scale + "x_" + model + fileExt;
+  const outFile =
+    outputDir + "/" + fileName + "_upscayled_" + scale + "x_" + model + fileExt;
 
   // UPSCALE
   console.log("PRODUCTION? :", isDev);
   console.log("EXEC: ", execPath);
   if (fs.existsSync(outFile)) {
-    mainWindow.webContents.send(
-      commands.UPSCAYL_DONE,
-      outFile
-    );
-  }
-  else {
+    mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+  } else {
     let upscayl = spawn(
       execPath,
       [
@@ -148,6 +147,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         detached: false,
       }
     );
+
     let failed = false;
     upscayl.stderr.on("data", (stderr) => {
       console.log(stderr.toString());
@@ -157,18 +157,17 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       }
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, stderr.toString());
     });
+
     upscayl.on("close", (code) => {
       if (failed !== true) {
         console.log("Done upscaling");
-        mainWindow.webContents.send(
-          commands.UPSCAYL_DONE,
-          outFile
-        );
+        mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
       }
     });
   }
 });
 
+// ! AUTO UPDATE STUFF
 autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {
   const dialogOpts = {
     type: "info",

@@ -101,7 +101,7 @@ const Home = () => {
       SetImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       SetOutputPath(dirname);
-      window.electron.invoke(commands.SET_FILE, {original: filePath});
+      window.electron.invoke(commands.SET_FILE, { original: filePath });
     }
   };
 
@@ -173,14 +173,14 @@ const Home = () => {
           <div className="mt-0">
             <p className="mb-2 font-medium text-neutral-100">Step 1</p>
             <button
-              className="rounded-lg bg-rose-400 hover:bg-rose-300 transition-colors p-3 font-semibold"
+              className="rounded-lg bg-rose-400 p-3 transition-colors hover:bg-rose-300"
               onClick={selectImageHandler}
             >
               Select Image
             </button>
           </div>
           {/* STEP 2 */}
-          <div className="mt-5 animate-step-in">
+          <div className="animate-step-in mt-5">
             <p className="font-medium text-neutral-100">Step 2</p>
             <p className="mb-2 text-sm text-neutral-400">
               Select Upscaling Type
@@ -188,7 +188,7 @@ const Home = () => {
             <select
               name="select-model"
               onDrop={(e) => handleDrop(e)}
-              className="rounded-lg bg-slate-300 hover:bg-slate-200 p-3"
+              className="rounded-lg bg-slate-300 p-3 hover:bg-slate-200"
               onChange={handleModelChange}
             >
               <option value="realesrgan-x4plus">General Photo</option>
@@ -229,13 +229,13 @@ const Home = () => {
           </div> */}
 
           {/* STEP 3 */}
-          <div className="mt-5 animate-step-in">
+          <div className="animate-step-in mt-5">
             <p className="font-medium text-neutral-100">Step 3</p>
             <p className="mb-2 text-sm text-neutral-400">
               Defaults to Image's path
             </p>
             <button
-              className="rounded-lg bg-teal-400 hover:bg-teal-300 transition-colors p-3 mt-1 font-semibold"
+              className="mt-1 rounded-lg bg-teal-400 p-3 transition-colors hover:bg-teal-300"
               onClick={outputHandler}
             >
               Set Output Folder
@@ -243,10 +243,10 @@ const Home = () => {
           </div>
 
           {/* STEP 4 */}
-          <div className="mt-5 animate-step-in">
+          <div className="animate-step-in mt-5">
             <p className="mb-2 font-medium text-neutral-100">Step 4</p>
             <button
-              className="rounded-lg bg-sky-400 hover:bg-sky-300 transition-colors p-3 font-semibold"
+              className="rounded-lg bg-sky-400 p-3 transition-colors hover:bg-sky-300"
               onClick={upscaylHandler}
               disabled={progress.length > 0}
             >
