@@ -4,6 +4,12 @@ import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from "react-compare-slider";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import ProgressBar from "../components/ProgressBar";
+import ResetButton from "../components/ResetButton";
+import LeftPaneSteps from "../components/LeftPaneSteps";
+import RightPaneInfo from "../components/RightPaneInfo";
 
 import Animated from "../public/loading.svg";
 import Image from "next/image";
@@ -152,138 +158,22 @@ const Home = () => {
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-neutral-900">
       <div className="flex h-screen w-96 flex-col bg-neutral-800">
         {imagePath.length > 0 && (
-          <button
-            className="absolute bottom-1 right-1 z-10 rounded-full bg-sky-400 py-2 px-4 opacity-50"
-            onClick={resetImagePaths}
-          >
-            Reset
-          </button>
+          <ResetButton resetImagePaths={resetImagePaths} />
         )}
         {/* HEADER */}
-        <a href="https://github.com/upscayl/upscayl" target="_blank">
-          <h1 className="pl-5 pt-5 text-3xl font-bold text-neutral-50">
-            Upscayl
-          </h1>
-          <p className="mb-2 pl-5 text-neutral-400">AI Image Upscaler</p>
-        </a>
+        <Header />
 
         {/* LEFT PANE */}
-        <div className="h-screen overflow-auto p-5">
-          {/* STEP 1 */}
-          <div className="mt-0">
-            <p className="mb-2 font-medium text-neutral-100">Step 1</p>
-            <button
-              className="rounded-lg bg-rose-400 p-3 transition-colors hover:bg-rose-300"
-              onClick={selectImageHandler}
-            >
-              Select Image
-            </button>
-          </div>
-          {/* STEP 2 */}
-          <div className="animate-step-in mt-5">
-            <p className="font-medium text-neutral-100">Step 2</p>
-            <p className="mb-2 text-sm text-neutral-400">
-              Select Upscaling Type
-            </p>
-            <select
-              name="select-model"
-              onDrop={(e) => handleDrop(e)}
-              className="rounded-lg bg-slate-300 p-3 hover:bg-slate-200"
-              onChange={handleModelChange}
-            >
-              <option value="realesrgan-x4plus">General Photo</option>
-              <option value="realesrgan-x4plus-anime">Digital Art</option>
-            </select>
-          </div>
+        <LeftPaneSteps
+          progress={progress}
+          selectImageHandler={selectImageHandler}
+          handleModelChange={handleModelChange}
+          handleDrop={handleDrop}
+          outputHandler={outputHandler}
+          upscaylHandler={upscaylHandler}
+        />
 
-          {/* STEP 3
-          <div className="mt-10">
-            <p className="font-medium text-neutral-100">Step 3</p>
-            <p className="mb-2 text-sm text-neutral-400">Select Scale Factor</p>
-            <div className="animate flex flex-row gap-2">
-              <button
-                className={`h-12 w-12 rounded-lg ${
-                  scaleFactor === 2 ? "bg-yellow-400" : "bg-neutral-400"
-                }`}
-                onClick={() => setScaleFactor(2)}
-              >
-                2x
-              </button>
-              <button
-                className={`h-12 w-12 rounded-lg ${
-                  scaleFactor === 3 ? "bg-yellow-400" : "bg-neutral-400"
-                }`}
-                onClick={() => setScaleFactor(3)}
-              >
-                3x
-              </button>
-              <button
-                className={`h-12 w-12 rounded-lg ${
-                  scaleFactor === 4 ? "bg-yellow-400" : "bg-neutral-400"
-                }`}
-                onClick={() => setScaleFactor(4)}
-              >
-                4x
-              </button>
-            </div>
-          </div> */}
-
-          {/* STEP 3 */}
-          <div className="animate-step-in mt-5">
-            <p className="font-medium text-neutral-100">Step 3</p>
-            <p className="mb-2 text-sm text-neutral-400">
-              Defaults to Image's path
-            </p>
-            <button
-              className="mt-1 rounded-lg bg-teal-400 p-3 transition-colors hover:bg-teal-300"
-              onClick={outputHandler}
-            >
-              Set Output Folder
-            </button>
-          </div>
-
-          {/* STEP 4 */}
-          <div className="animate-step-in mt-5">
-            <p className="mb-2 font-medium text-neutral-100">Step 4</p>
-            <button
-              className="rounded-lg bg-sky-400 p-3 transition-colors hover:bg-sky-300"
-              onClick={upscaylHandler}
-              disabled={progress.length > 0}
-            >
-              {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
-            </button>
-          </div>
-        </div>
-        <div className="p-2 text-center text-sm text-neutral-500">
-          <p>
-            Copyright © 2022 -{" "}
-            <a
-              className="font-bold"
-              href="https://github.com/upscayl/upscayl"
-              target="_blank"
-            >
-              Upscayl
-            </a>
-          </p>
-          <p>
-            By{" "}
-            <a
-              href="https://github.com/TGS963"
-              className="font-bold"
-              target="_blank"
-            >
-              TGS963
-            </a>{" "}
-            and{" "}
-            <a
-              href="https://github.com/NayamAmarshe"
-              className="font-bold"
-              target="_blank"
-            >
-              Nayam Amarshe
-            </a>
-          </p>
-        </div>
+        <Footer />
       </div>
 
       {/* RIGHT PANE */}
@@ -296,21 +186,11 @@ const Home = () => {
         onPaste={(e) => handlePaste(e)}
       >
         {progress.length > 0 && upscaledImagePath.length === 0 && (
-          <div className="absolute flex h-full w-full flex-col items-center justify-center bg-black/50 backdrop-blur-lg">
-            <div className="flex flex-col items-center gap-2">
-              <Image src={Animated} />
-              <p className="font-bold text-neutral-50">{progress}</p>
-            </div>
-          </div>
+          <ProgressBar progress={progress} />
         )}
 
         {imagePath.length === 0 ? (
-          <>
-            <p className="p-5 text-lg font-medium text-neutral-400">
-              Select an Image to Upscale
-            </p>
-            <p className="text-neutral-600">Upscayl v{version}</p>
-          </>
+          <RightPaneInfo version={version} />
         ) : upscaledImagePath.length === 0 ? (
           <img
             className="h-full w-full object-contain"
