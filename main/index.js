@@ -125,11 +125,13 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   // UPSCALE
   console.log("PRODUCTION? :", isDev);
   console.log("EXEC: ", execPath);
+  console.log("MODEL: ", modelsPath + "/" + model)
   if (fs.existsSync(outFile)) {
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
-    let upscayl = spawn(
-      execPath,
+    let upscayl = model.includes("realesrgan") ?
+    spawn(
+      execPath + '-realesrgan',
       [
         "-i",
         inputDir + "/" + fullfileName,
@@ -146,7 +148,26 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         cwd: null,
         detached: false,
       }
-    );
+    )
+    :
+    spawn(
+      execPath + '-realsr',
+      [
+        "-i",
+        inputDir + "/" + fullfileName,
+        "-o",
+        outFile,
+        "-s",
+        scale === 2 ? 4 : scale,
+        "-m",
+        modelsPath+ "/" + model,
+      ],
+      {
+        cwd: null,
+        detached: false,
+      }
+    )
+    ;
 
     let failed = false;
     upscayl.stderr.on("data", (stderr) => {

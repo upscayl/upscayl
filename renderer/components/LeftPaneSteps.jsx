@@ -25,6 +25,8 @@ function LeftPaneSteps(props) {
         >
           <option value="realesrgan-x4plus">General Photo</option>
           <option value="realesrgan-x4plus-anime">Digital Art</option>
+          <option value="models-DF2K">DF2K</option>
+          <option value="models-DF2K_JPEG">DF2K_JPEG</option>
         </select>
       </div>
 

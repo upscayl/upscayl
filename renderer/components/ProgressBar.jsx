@@ -1,4 +1,6 @@
 import React from "react";
+import Animated from "../public/loading.svg";
+import Image from "next/image";
 
 function ProgressBar(props) {
   return (
