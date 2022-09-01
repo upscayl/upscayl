@@ -11,9 +11,6 @@ import ResetButton from "../components/ResetButton";
 import LeftPaneSteps from "../components/LeftPaneSteps";
 import RightPaneInfo from "../components/RightPaneInfo";
 
-import Animated from "../public/loading.svg";
-import Image from "next/image";
-
 const Home = () => {
   const [imagePath, SetImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
@@ -94,7 +91,9 @@ const Home = () => {
     resetImagePaths();
 
     const type = e.dataTransfer.items[0].type;
+    console.log("🚀 => handleDrop => type", type);
     const filePath = e.dataTransfer.files[0].path;
+    console.log("🚀 => handleDrop => filePath", filePath);
     const extension = e.dataTransfer.files[0].name.split(".").at(-1);
     console.log("🚀 => handleDrop => extension", extension);
 
@@ -106,8 +105,8 @@ const Home = () => {
     } else {
       SetImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
+      console.log("🚀 => handleDrop => dirname", dirname);
       SetOutputPath(dirname);
-      window.electron.invoke(commands.SET_FILE, { original: filePath });
     }
   };
 
@@ -141,6 +140,7 @@ const Home = () => {
   };
 
   const upscaylHandler = async () => {
+    setUpscaledImagePath("");
     if (imagePath !== "") {
       setProgress("Hold on...");
       await window.electron.send(commands.UPSCAYL, {

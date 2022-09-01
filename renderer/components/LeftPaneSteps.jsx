@@ -2,9 +2,9 @@ import React from "react";
 
 function LeftPaneSteps(props) {
   return (
-    <div className="h-screen overflow-auto p-5">
+    <div className="animate-step-in flex h-screen flex-col gap-10 overflow-auto p-5">
       {/* STEP 1 */}
-      <div className="mt-0">
+      <div className="">
         <p className="mb-2 font-medium text-neutral-100">Step 1</p>
         <button
           className="rounded-lg bg-rose-400 p-3 transition-colors hover:bg-rose-300"
@@ -13,8 +13,9 @@ function LeftPaneSteps(props) {
           Select Image
         </button>
       </div>
+
       {/* STEP 2 */}
-      <div className="animate-step-in mt-5">
+      <div className="animate-step-in">
         <p className="font-medium text-neutral-100">Step 2</p>
         <p className="mb-2 text-sm text-neutral-400">Select Upscaling Type</p>
         <select
@@ -25,8 +26,8 @@ function LeftPaneSteps(props) {
         >
           <option value="realesrgan-x4plus">General Photo</option>
           <option value="realesrgan-x4plus-anime">Digital Art</option>
-          <option value="models-DF2K">DF2K</option>
-          <option value="models-DF2K_JPEG">DF2K_JPEG</option>
+          <option value="models-DF2K">Sharpen Image</option>
+          <option value="models-DF2K_JPEG">Sharpen JPEG</option>
         </select>
       </div>
 
@@ -63,7 +64,7 @@ function LeftPaneSteps(props) {
     </div> */}
 
       {/* STEP 3 */}
-      <div className="animate-step-in mt-5">
+      <div className="animate-step-in">
         <p className="font-medium text-neutral-100">Step 3</p>
         <p className="mb-2 text-sm text-neutral-400">
           Defaults to Image's path
@@ -77,7 +78,7 @@ function LeftPaneSteps(props) {
       </div>
 
       {/* STEP 4 */}
-      <div className="animate-step-in mt-5">
+      <div className="animate-step-in">
         <p className="mb-2 font-medium text-neutral-100">Step 4</p>
         <button
           className="rounded-lg bg-sky-400 p-3 transition-colors hover:bg-sky-300"
