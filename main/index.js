@@ -27,7 +27,11 @@ let mainWindow;
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
-  console.log("ICON: ", join(__dirname, "icon.png"));
+  console.log("🚀 Icon Path: ", join(__dirname, "icon.png"));
+  console.log("🚀 Development Mode? :", isDev);
+  console.log("🚀 RS Executable Path: ", execPath);
+  console.log("🚀 Models: ", modelsPath);
+
   mainWindow = new BrowserWindow({
     icon: join(__dirname, "build", "icon.png"),
     width: 1100,
@@ -53,7 +57,6 @@ app.on("ready", async () => {
       });
 
   mainWindow.setMenuBarVisibility(false);
-  // mainWindow.maximize();
   mainWindow.loadURL(url);
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
@@ -74,7 +77,6 @@ app.on("ready", async () => {
 app.on("window-all-closed", app.quit);
 
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
-
 ipcMain.handle(commands.SELECT_FILE, async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openFile", "multiSelections"],
@@ -109,7 +111,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
 
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
   let outputDir = payload.outputPath;
-  console.log("🚀 => ipcMain.on => outputDir", outputDir);
+  console.log("🚀 => ipcMain => outputDir", outputDir);
 
   // COPY IMAGE TO TMP FOLDER
   const platform = getPlatform();
@@ -123,10 +125,8 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     outputDir + "/" + fileName + "_upscayled_" + scale + "x_" + model + fileExt;
 
   // UPSCALE
-  console.log("PRODUCTION? :", isDev);
-  console.log("EXEC: ", execPath);
-  console.log("MODEL: ", modelsPath + "/" + model);
   if (fs.existsSync(outFile)) {
+    // If already upscayled, just output that file
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
     let upscayl = model.includes("realesrgan")
@@ -169,16 +169,17 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         );
 
     let failed = false;
-
     upscayl.stderr.on("data", (stderr) => {
       console.log(stderr.toString());
       stderr = stderr.toString();
-      if (stderr.includes("invalid gpu")) {
-        failed = true;
-      }
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, stderr.toString());
+      if (stderr.includes("invalid gpu") || stderr.includes("failed")) {
+        failed = true;
+        return;
+      }
     });
 
+    // Send done comamnd when
     upscayl.on("close", (code) => {
       if (failed !== true) {
         console.log("Done upscaling");

@@ -2,7 +2,7 @@ import React from "react";
 
 function LeftPaneSteps(props) {
   return (
-    <div className="animate-step-in flex h-screen flex-col gap-10 overflow-auto p-5">
+    <div className="animate-step-in animate flex h-screen flex-col gap-10 overflow-auto p-5">
       {/* STEP 1 */}
       <div className="">
         <p className="mb-2 font-medium text-neutral-100">Step 1</p>
@@ -26,7 +26,7 @@ function LeftPaneSteps(props) {
         >
           <option value="realesrgan-x4plus">General Photo</option>
           <option value="realesrgan-x4plus-anime">Digital Art</option>
-          <option value="models-DF2K">Sharpen Image</option>
+          <option value="models-DF2K">Sharpen</option>
           <option value="models-DF2K_JPEG">Sharpen JPEG</option>
         </select>
       </div>

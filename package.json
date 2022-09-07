@@ -53,14 +53,14 @@
     "extraFiles": [
       {
         "from": "resources/${os}/bin",
-        "to": "Resources/bin",
+        "to": "resources/bin",
         "filter": [
           "**/*"
         ]
       },
       {
         "from": "resources/models",
-        "to": "Resources/models",
+        "to": "resources/models",
         "filter": [
           "**/*"
         ]
@@ -69,8 +69,8 @@
     "mac": {
       "type": "distribution",
       "hardenedRuntime": true,
-      "entitlements": "resources/entitlements.mac.plist",
-      "entitlementsInherit": "resources/entitlements.mac.plist",
+      "entitlements": "main/resources/entitlements.mac.plist",
+      "entitlementsInherit": "main/resources/entitlements.mac.plist",
       "gatekeeperAssess": false,
       "target": [
         {

@@ -28,11 +28,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    setVersion(navigator.userAgent.match(/Upscayl\/([\d\.]+\d+)/)[1]);
-  }, []);
-
-  useEffect(() => {
     setLoaded(true);
+    setVersion(navigator.userAgent.match(/Upscayl\/([\d\.]+\d+)/)[1]);
 
     window.electron.on(commands.UPSCAYL_PROGRESS, (_, data) => {
       if (data.includes("invalid gpu")) {
