@@ -20,6 +20,7 @@ const Home = () => {
   const [model, setModel] = useState("realesrgan-x4plus");
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
+  const [batchMode, setBatchMode] = useState(false);
 
   const resetImagePaths = () => {
     setProgress("");
@@ -39,6 +40,7 @@ const Home = () => {
         resetImagePaths();
       } else if (data.includes("failed")) {
         alert(
+          data.includes("encode") ? "ENCODING ERROR => " : "DECODING ERROR => ",
           "This image is possibly corrupt or not supported by Upscayl. You could try converting the image into another format and upscaling again. Otherwise, make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely this image is not supported by Upscayl, sorry."
         );
         resetImagePaths();
@@ -70,12 +72,10 @@ const Home = () => {
     e.preventDefault();
     console.log("drag enter");
   };
-
   const handleDragLeave = (e) => {
     e.preventDefault();
     console.log("drag leave");
   };
-
   const handleDragOver = (e) => {
     e.preventDefault();
     console.log("drag over");
@@ -168,6 +168,10 @@ const Home = () => {
           handleDrop={handleDrop}
           outputHandler={outputHandler}
           upscaylHandler={upscaylHandler}
+          batchMode={batchMode}
+          setBatchMode={setBatchMode}
+          imagePath={imagePath}
+          outputPath={outputPath}
         />
 
         <Footer />
