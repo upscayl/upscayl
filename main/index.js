@@ -105,12 +105,85 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   }
 });
 
-ipcMain.on(commands.UPSCAYL, async (event, payload) => {
+ipcMain.on(commands.SHARPEN, async (event, payload) => {
   const model = payload.model;
   const scale = payload.scaleFactor;
 
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
+  let outputDir = "./sharpened";
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir);
+  }
+
+  // COPY IMAGE TO TMP FOLDER
+  const platform = getPlatform();
+  const fullfileName =
+    platform === "win"
+      ? payload.imagePath.split("\\").slice(-1)[0]
+      : payload.imagePath.split("/").slice(-1)[0];
+  const fileName = parse(fullfileName).name;
+  const fileExt = parse(fullfileName).ext;
+
+  const inputFile = inputDir + "/" + fullfileName;
+  const outFile = outputDir + "/" + fileName + "_sharpen" + fileExt;
+
+  fs.copyFile(inputFile, outFile, (err) => {
+    if (err) throw err;
+  });
+
+  // UPSCALE
+  if (fs.existsSync(outFile)) {
+    // If already upscayled, just output that file
+    return outFile;
+  } else {
+    let upscayl = spawn(
+      execPath + "-realesr",
+      [
+        "-i",
+        inputDir + "/" + fullfileName,
+        "-o",
+        outFile,
+        "-s",
+        4,
+        "-x",
+        "-m",
+        modelsPath + "/" + model,
+      ],
+      {
+        cwd: null,
+        detached: false,
+      }
+    );
+
+    let failed = false;
+    upscayl.stderr.on("data", (stderr) => {
+      console.log(stderr.toString());
+      stderr = stderr.toString();
+      mainWindow.webContents.send(commands.SHARPEN_PROGRESS, stderr.toString());
+      if (stderr.includes("invalid gpu") || stderr.includes("failed")) {
+        failed = true;
+        return null;
+      }
+    });
+
+    // Send done comamnd when
+    upscayl.on("close", (code) => {
+      if (failed !== true) {
+        console.log("Done upscaling");
+        return outFile;
+      }
+    });
+  }
+});
+
+ipcMain.on(commands.UPSCAYL, async (event, payload) => {
+  const model = payload.model;
+  const scale = payload.scaleFactor;
+  const sharpen = payload.sharpen;
+
+  let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
   let outputDir = payload.outputPath;
+
   console.log("🚀 => ipcMain => outputDir", outputDir);
 
   // COPY IMAGE TO TMP FOLDER

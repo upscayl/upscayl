@@ -49,16 +49,30 @@ function LeftPaneSteps(props) {
             <p className="mb-2 text-sm text-neutral-400">
               Select Upscaling Type
             </p>
+            <div className="mb-2 flex items-center gap-1">
+              <input
+                type="checkbox"
+                className="h-4 w-4 cursor-pointer appearance-none rounded-sm bg-neutral-500 transition duration-200 checked:bg-green-400 focus:outline-none focus-visible:border focus-visible:border-green-400"
+                onChange={(e) => {
+                  props.setSharpen(e.target.checked);
+                }}
+              />
+              <p
+                className={`inline-block text-sm font-medium ${
+                  props.sharpen ? "text-green-400" : "text-neutral-500"
+                }`}
+              >
+                Sharpen Image
+              </p>
+            </div>
             <select
               name="select-model"
               onDrop={(e) => props.handleDrop(e)}
-              className="rounded-lg bg-slate-300 p-3 hover:bg-slate-200"
+              className="block rounded-lg bg-slate-300 p-3 hover:bg-slate-200"
               onChange={props.handleModelChange}
             >
               <option value="realesrgan-x4plus">General Photo</option>
               <option value="realesrgan-x4plus-anime">Digital Art</option>
-              <option value="models-DF2K">Sharpen</option>
-              <option value="models-DF2K_JPEG">Sharpen JPEG</option>
             </select>
           </div>
 
@@ -124,7 +138,7 @@ function LeftPaneSteps(props) {
           <div className="animate-step-in">
             <p className="font-medium text-neutral-100">Step 3</p>
             <p className="mb-2 text-sm text-neutral-400">
-              Defaults to Folder's Path
+              Defaults to Folder's path
             </p>
             <button
               className="mt-1 rounded-lg bg-teal-400 p-3 transition-colors hover:bg-teal-300"

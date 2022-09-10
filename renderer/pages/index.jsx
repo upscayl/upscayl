@@ -21,6 +21,7 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
   const [batchMode, setBatchMode] = useState(false);
+  const [sharpen, setSharpen] = useState(false);
 
   const resetImagePaths = () => {
     setProgress("");
@@ -32,7 +33,7 @@ const Home = () => {
     setLoaded(true);
     setVersion(navigator.userAgent.match(/Upscayl\/([\d\.]+\d+)/)[1]);
 
-    window.electron.on(commands.UPSCAYL_PROGRESS, (_, data) => {
+    const handleErrors = (data) => {
       if (data.includes("invalid gpu")) {
         alert(
           "Error. Please make sure you have a Vulkan compatible GPU (Most modern GPUs support Vulkan). Upscayl does not work with CPU or iGPU sadly."
@@ -45,6 +46,14 @@ const Home = () => {
         );
         resetImagePaths();
       } else if (data.length > 0 && data.length < 10) setProgress(data);
+    };
+
+    window.electron.on(commands.UPSCAYL_PROGRESS, (_, data) => {
+      handleErrors(data);
+    });
+
+    window.electron.on(commands.SHARPEN_PROGRESS, (_, data) => {
+      handleErrors(data);
     });
 
     window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
@@ -140,12 +149,24 @@ const Home = () => {
     setUpscaledImagePath("");
     if (imagePath !== "") {
       setProgress("Hold on...");
-      await window.electron.send(commands.UPSCAYL, {
-        scaleFactor,
-        imagePath,
-        outputPath,
-        model,
-      });
+
+      if (sharpen) {
+        const sharpenedImage = await window.electron.send(commands.SHARPEN, {
+          scaleFactor: 4,
+          imagePath,
+          outputPath,
+          model: "sharpen",
+        });
+        console.log("🚀 => upscaylHandler => sharpenedImage", sharpenedImage);
+      } else {
+        await window.electron.send(commands.UPSCAYL, {
+          scaleFactor,
+          imagePath,
+          outputPath,
+          model,
+          sharpen,
+        });
+      }
     } else {
       alert("Please select an image to upscale");
     }
@@ -172,6 +193,8 @@ const Home = () => {
           setBatchMode={setBatchMode}
           imagePath={imagePath}
           outputPath={outputPath}
+          sharpen={sharpen}
+          setSharpen={setSharpen}
         />
 
         <Footer />
