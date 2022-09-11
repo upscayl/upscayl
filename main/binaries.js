@@ -13,7 +13,9 @@ const binariesPath = isDev
   ? join(appRootDir.get(), "resources", getPlatform(), "bin")
   : join(dirname(appRootDir.get()), "bin");
 
-const execPath = resolve(join(binariesPath, "./upscayl"));
+const execPath = (execName) =>
+  resolve(join(binariesPath, `./upscayl-${execName}`));
+  
 const modelsPath = isDev
   ? resolve(join(appRootDir.get(), "resources", "models"))
   : resolve(join(dirname(appRootDir.get()), "models"));

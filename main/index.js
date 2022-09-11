@@ -29,7 +29,7 @@ app.on("ready", async () => {
 
   console.log("🚀 Icon Path: ", join(__dirname, "icon.png"));
   console.log("🚀 Development Mode? :", isDev);
-  console.log("🚀 RS Executable Path: ", execPath);
+  console.log("🚀 RS Executable Path: ", execPath(""));
   console.log("🚀 Models: ", modelsPath);
 
   mainWindow = new BrowserWindow({
@@ -106,10 +106,8 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
 });
 
 ipcMain.on(commands.SHARPEN, async (event, payload) => {
-  const model = payload.model;
-  const scale = payload.scaleFactor;
-
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
+
   let outputDir = "./sharpened";
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir);
@@ -125,61 +123,53 @@ ipcMain.on(commands.SHARPEN, async (event, payload) => {
   const fileExt = parse(fullfileName).ext;
 
   const inputFile = inputDir + "/" + fullfileName;
+  const copiedInputFile = outputDir + "/" + fullfileName;
   const outFile = outputDir + "/" + fileName + "_sharpen" + fileExt;
 
-  fs.copyFile(inputFile, outFile, (err) => {
+  fs.copyFile(inputFile, copiedInputFile, (err) => {
     if (err) throw err;
   });
 
-  // UPSCALE
-  if (fs.existsSync(outFile)) {
-    // If already upscayled, just output that file
-    return outFile;
-  } else {
-    let upscayl = spawn(
-      execPath + "-realsr",
-      [
-        "-i",
-        inputDir + "/" + fullfileName,
-        "-o",
-        outFile,
-        "-s",
-        4,
-        "-x",
-        "-m",
-        modelsPath + "/" + model,
-      ],
-      {
-        cwd: null,
-        detached: false,
-      }
-    );
+  let sharpen = spawn(
+    execPath("realsr"),
+    [
+      "-i",
+      copiedInputFile,
+      "-o",
+      outFile,
+      "-s",
+      4,
+      "-x",
+      "-m",
+      modelsPath + "/models-DF2K",
+    ],
+    {
+      cwd: null,
+      detached: false,
+    }
+  );
 
-    let failed = false;
-    upscayl.stderr.on("data", (stderr) => {
-      console.log(stderr.toString());
-      stderr = stderr.toString();
-      mainWindow.webContents.send(commands.SHARPEN_PROGRESS, stderr.toString());
-      if (stderr.includes("invalid gpu") || stderr.includes("failed")) {
-        failed = true;
-        return null;
-      }
-    });
-
-    // Send done comamnd when
-    upscayl.on("close", (code) => {
-      if (failed !== true) {
-        console.log("Done upscaling");
-        return outFile;
-      }
-    });
-  }
+  let failed = false;
+  sharpen.stderr.on("data", (data) => {
+    console.log(data.toString());
+    data = data.toString();
+    mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+    if (data.includes("invalid gpu") || data.includes("failed")) {
+      failed = true;
+      sharpen.kill("SIGKILL");
+      return;
+    }
+  });
+  sharpen.on("close", (_) => {
+    if (failed !== true) {
+      console.log("Done upscaling");
+    }
+  });
 });
 
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const model = payload.model;
   const scale = payload.scaleFactor;
-  const sharpen = payload.sharpen;
 
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
   let outputDir = payload.outputPath;
@@ -202,44 +192,25 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     // If already upscayled, just output that file
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
-    let upscayl = model.includes("realesrgan")
-      ? spawn(
-          execPath + "-realesrgan",
-          [
-            "-i",
-            inputDir + "/" + fullfileName,
-            "-o",
-            outFile,
-            "-s",
-            scale === 2 ? 4 : scale,
-            "-m",
-            modelsPath,
-            "-n",
-            model,
-          ],
-          {
-            cwd: null,
-            detached: false,
-          }
-        )
-      : spawn(
-          execPath + "-realsr",
-          [
-            "-i",
-            inputDir + "/" + fullfileName,
-            "-o",
-            outFile,
-            "-s",
-            4,
-            "-x",
-            "-m",
-            modelsPath + "/" + model,
-          ],
-          {
-            cwd: null,
-            detached: false,
-          }
-        );
+    let upscayl = spawn(
+      execPath + "-realesrgan",
+      [
+        "-i",
+        inputDir + "/" + fullfileName,
+        "-o",
+        outFile,
+        "-s",
+        scale === 2 ? 4 : scale,
+        "-m",
+        modelsPath,
+        "-n",
+        model,
+      ],
+      {
+        cwd: null,
+        detached: false,
+      }
+    );
 
     let failed = false;
     upscayl.stderr.on("data", (stderr) => {
@@ -273,7 +244,6 @@ autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {
   };
   dialog.showMessageBox(dialogOpts, (response) => {});
 });
-
 autoUpdater.on("update-downloaded", (_event, releaseNotes, releaseName) => {
   const dialogOpts = {
     type: "info",

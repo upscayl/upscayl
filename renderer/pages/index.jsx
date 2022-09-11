@@ -152,10 +152,7 @@ const Home = () => {
 
       if (sharpen) {
         const sharpenedImage = await window.electron.send(commands.SHARPEN, {
-          scaleFactor: 4,
           imagePath,
-          outputPath,
-          model: "models-DF2K",
         });
         console.log("🚀 => upscaylHandler => sharpenedImage", sharpenedImage);
       } else {
@@ -164,7 +161,6 @@ const Home = () => {
           imagePath,
           outputPath,
           model,
-          sharpen,
         });
       }
     } else {
