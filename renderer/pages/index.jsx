@@ -155,7 +155,7 @@ const Home = () => {
           scaleFactor: 4,
           imagePath,
           outputPath,
-          model: "sharpen",
+          model: "models-DF2K",
         });
         console.log("🚀 => upscaylHandler => sharpenedImage", sharpenedImage);
       } else {

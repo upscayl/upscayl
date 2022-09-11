@@ -137,7 +137,7 @@ ipcMain.on(commands.SHARPEN, async (event, payload) => {
     return outFile;
   } else {
     let upscayl = spawn(
-      execPath + "-realesr",
+      execPath + "-realsr",
       [
         "-i",
         inputDir + "/" + fullfileName,
