@@ -22,6 +22,9 @@ const Home = () => {
   const [version, setVersion] = useState("");
   const [batchMode, setBatchMode] = useState(false);
   const [sharpen, setSharpen] = useState(false);
+  const [sharpening, setSharpening] = useState(false);
+  const [sharpenedImagePath, setSharpenedImagePath] = useState("");
+  const [sharpeningProgress, setSharpeningProgress] = useState("");
 
   const resetImagePaths = () => {
     setProgress("");
@@ -45,20 +48,36 @@ const Home = () => {
           "This image is possibly corrupt or not supported by Upscayl. You could try converting the image into another format and upscaling again. Otherwise, make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely this image is not supported by Upscayl, sorry."
         );
         resetImagePaths();
-      } else if (data.length > 0 && data.length < 10) setProgress(data);
+      } else if (data.includes("uncaughtException")) {
+        alert(
+          "Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try launching Upscayl using commandline through Terminal and see if you get any information. You can post an issue on Upscayl's GitHub repository for more help."
+        );
+        resetImagePaths();
+      }
     };
 
     window.electron.on(commands.UPSCAYL_PROGRESS, (_, data) => {
+      setSharpening(false);
+      if (data.length > 0 && data.length < 10) {
+        setProgress(data);
+      }
       handleErrors(data);
     });
 
     window.electron.on(commands.SHARPEN_PROGRESS, (_, data) => {
+      if (data.length > 0 && data.length < 10) {
+        setSharpeningProgress(data);
+      }
       handleErrors(data);
     });
 
     window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
       setProgress("");
       setUpscaledImagePath(data);
+    });
+    window.electron.on(commands.SHARPEN_DONE, (_, data) => {
+      setSharpenedImagePath(data);
+      SetImagePath(data);
     });
   }, []);
 
@@ -151,10 +170,11 @@ const Home = () => {
       setProgress("Hold on...");
 
       if (sharpen) {
-        const sharpenedImage = await window.electron.send(commands.SHARPEN, {
+        setSharpening(true);
+        const sharpenResponse = await window.electron.send(commands.SHARPEN, {
           imagePath,
         });
-        console.log("🚀 => upscaylHandler => sharpenedImage", sharpenedImage);
+        console.log("🚀 => upscaylHandler => sharpenResponse", sharpenResponse);
       } else {
         await window.electron.send(commands.UPSCAYL, {
           scaleFactor,
@@ -206,7 +226,11 @@ const Home = () => {
         onPaste={(e) => handlePaste(e)}
       >
         {progress.length > 0 && upscaledImagePath.length === 0 && (
-          <ProgressBar progress={progress} />
+          <ProgressBar
+            progress={progress}
+            sharpeningProgress={sharpeningProgress}
+            sharpening={sharpening}
+          />
         )}
 
         {imagePath.length === 0 ? (

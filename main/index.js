@@ -163,6 +163,7 @@ ipcMain.on(commands.SHARPEN, async (event, payload) => {
   sharpen.on("close", (_) => {
     if (failed !== true) {
       console.log("Done upscaling");
+      mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
     }
   });
 });
@@ -174,18 +175,17 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
   let outputDir = payload.outputPath;
 
-  console.log("🚀 => ipcMain => outputDir", outputDir);
-
   // COPY IMAGE TO TMP FOLDER
   const platform = getPlatform();
   const fullfileName =
     platform === "win"
       ? payload.imagePath.split("\\").slice(-1)[0]
       : payload.imagePath.split("/").slice(-1)[0];
+
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
   const outFile =
-    outputDir + "/" + fileName + "_upscayled_" + scale + "x_" + model + fileExt;
+    outputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt;
 
   // UPSCALE
   if (fs.existsSync(outFile)) {
@@ -193,7 +193,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
     let upscayl = spawn(
-      execPath + "-realesrgan",
+      execPath("realesrgan"),
       [
         "-i",
         inputDir + "/" + fullfileName,
@@ -213,14 +213,22 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     );
 
     let failed = false;
-    upscayl.stderr.on("data", (stderr) => {
-      console.log(stderr.toString());
-      stderr = stderr.toString();
-      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, stderr.toString());
-      if (stderr.includes("invalid gpu") || stderr.includes("failed")) {
+    upscayl.stderr.on("data", (data) => {
+      console.log(
+        "🚀 => upscayl.stderr.on => stderr.toString()",
+        data.toString()
+      );
+      data = data.toString();
+      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+      if (data.includes("invalid gpu") || data.includes("failed")) {
         failed = true;
-        return;
       }
+    });
+
+    upscayl.on("error", (data) => {
+      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+      failed = true;
+      return;
     });
 
     // Send done comamnd when
