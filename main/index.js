@@ -106,15 +106,17 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
 });
 
 ipcMain.on(commands.SHARPEN, async (event, payload) => {
+  const model = payload.model;
+  const scale = payload.scaleFactor;
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
+  const platform = getPlatform();
 
-  let outputDir = "./sharpened";
+  let outputDir = platform === "win" ? ".\\sharpened" : "./sharpened";
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir);
   }
 
   // COPY IMAGE TO TMP FOLDER
-  const platform = getPlatform();
   const fullfileName =
     platform === "win"
       ? payload.imagePath.split("\\").slice(-1)[0]
@@ -124,8 +126,9 @@ ipcMain.on(commands.SHARPEN, async (event, payload) => {
 
   const inputFile = inputDir + "/" + fullfileName;
   const copiedInputFile = outputDir + "/" + fullfileName;
-  const outFile = outputDir + "/" + fileName + "_sharpen" + fileExt;
-
+  const sharpenedFile = platform === "win" ? outputDir + "\\" + fileName + "_sharpen" + fileExt : outputDir + "/" + fileName + "_sharpen" + fileExt;
+  const outFile =
+    inputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt;
   fs.copyFile(inputFile, copiedInputFile, (err) => {
     if (err) throw err;
   });
@@ -136,7 +139,7 @@ ipcMain.on(commands.SHARPEN, async (event, payload) => {
       "-i",
       copiedInputFile,
       "-o",
-      outFile,
+      sharpenedFile,
       "-s",
       4,
       "-x",
@@ -153,7 +156,7 @@ ipcMain.on(commands.SHARPEN, async (event, payload) => {
   sharpen.stderr.on("data", (data) => {
     console.log(data.toString());
     data = data.toString();
-    mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+    mainWindow.webContents.send(commands.SHARPEN_PROGRESS, data.toString());
     if (data.includes("invalid gpu") || data.includes("failed")) {
       failed = true;
       sharpen.kill("SIGKILL");
@@ -162,18 +165,61 @@ ipcMain.on(commands.SHARPEN, async (event, payload) => {
   });
   sharpen.on("close", (_) => {
     if (failed !== true) {
-      console.log("Done upscaling");
-      mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+      console.log("Done sharpening: ", outFile);
+      mainWindow.webContents.send(commands.SHARPEN_DONE, outFile);
+      let upscayl = spawn(
+        execPath("realesrgan"),
+        [
+          "-i",
+          sharpenedFile,
+          "-o",
+          outFile,
+          "-s",
+          scale === 2 ? 4 : scale,
+          "-m",
+          modelsPath,
+          "-n",
+          model,
+        ],
+        {
+          cwd: null,
+          detached: false,
+        }
+      );
+      let failed = false;
+      upscayl.stderr.on("data", (data) => {
+        console.log(
+          "🚀 => upscayl.stderr.on => stderr.toString()",
+          data.toString()
+        );
+        data = data.toString();
+        mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+        if (data.includes("invalid gpu") || data.includes("failed")) {
+          failed = true;
+        }
+      });
+      upscayl.on("error", (data) => {
+        mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+        failed = true;
+        return;
+      });
+      // Send done comamnd when
+      upscayl.on("close", (code) => {
+        if (failed !== true) {
+          console.log("Done upscaling");
+          mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+        }
+      })
     }
-  });
+  })
 });
 
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const model = payload.model;
   const scale = payload.scaleFactor;
-
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
   let outputDir = payload.outputPath;
+  console.log(outputDir);
 
   // COPY IMAGE TO TMP FOLDER
   const platform = getPlatform();
@@ -181,12 +227,11 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     platform === "win"
       ? payload.imagePath.split("\\").slice(-1)[0]
       : payload.imagePath.split("/").slice(-1)[0];
-
+  console.log(fullfileName)
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
   const outFile =
     outputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt;
-
   // UPSCALE
   if (fs.existsSync(outFile)) {
     // If already upscayled, just output that file

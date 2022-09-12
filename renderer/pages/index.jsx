@@ -77,7 +77,6 @@ const Home = () => {
     });
     window.electron.on(commands.SHARPEN_DONE, (_, data) => {
       setSharpenedImagePath(data);
-      SetImagePath(data);
     });
   }, []);
 
@@ -172,16 +171,20 @@ const Home = () => {
       if (sharpen) {
         setSharpening(true);
         const sharpenResponse = await window.electron.send(commands.SHARPEN, {
-          imagePath,
-        });
-        console.log("🚀 => upscaylHandler => sharpenResponse", sharpenResponse);
-      } else {
-        await window.electron.send(commands.UPSCAYL, {
           scaleFactor,
           imagePath,
           outputPath,
           model,
         });
+        console.log("🚀 => upscaylHandler => sharpenResponse", sharpenResponse);
+      }
+      else {
+        await window.electron.send(commands.UPSCAYL, {
+          scaleFactor,
+          imagePath,
+          outputPath,
+          model,
+        })
       }
     } else {
       alert("Please select an image to upscale");
