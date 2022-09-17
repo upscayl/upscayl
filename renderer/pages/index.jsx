@@ -21,10 +21,7 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
   const [batchMode, setBatchMode] = useState(false);
-  const [sharpen, setSharpen] = useState(false);
-  const [sharpening, setSharpening] = useState(false);
-  const [sharpenedImagePath, setSharpenedImagePath] = useState("");
-  const [sharpeningProgress, setSharpeningProgress] = useState("");
+  const [doubleUpscayl, setDoubleUpscayl] = useState(false);
 
   const resetImagePaths = () => {
     setProgress("");
@@ -64,9 +61,9 @@ const Home = () => {
       handleErrors(data);
     });
 
-    window.electron.on(commands.SHARPEN_PROGRESS, (_, data) => {
+    window.electron.on(commands.DOUBLE_UPSCAYL_PROGRESS, (_, data) => {
       if (data.length > 0 && data.length < 10) {
-        setSharpeningProgress(data);
+        setProgress(data);
       }
       handleErrors(data);
     });
@@ -75,8 +72,8 @@ const Home = () => {
       setProgress("");
       setUpscaledImagePath(data);
     });
-    window.electron.on(commands.SHARPEN_DONE, (_, data) => {
-      setSharpenedImagePath(data);
+    window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data) => {
+      setUpscaledImagePath(data);
     });
   }, []);
 
@@ -167,24 +164,23 @@ const Home = () => {
     setUpscaledImagePath("");
     if (imagePath !== "") {
       setProgress("Hold on...");
+      if (model === "models-DF2K") {
+        setDoubleUpscayl(false);
+      }
 
-      if (sharpen) {
-        setSharpening(true);
-        const sharpenResponse = await window.electron.send(commands.SHARPEN, {
-          scaleFactor,
+      if (doubleUpscayl) {
+        await window.electron.send(commands.DOUBLE_UPSCAYL, {
           imagePath,
           outputPath,
           model,
         });
-        console.log("🚀 => upscaylHandler => sharpenResponse", sharpenResponse);
-      }
-      else {
+      } else {
         await window.electron.send(commands.UPSCAYL, {
           scaleFactor,
           imagePath,
           outputPath,
           model,
-        })
+        });
       }
     } else {
       alert("Please select an image to upscale");
@@ -212,8 +208,9 @@ const Home = () => {
           setBatchMode={setBatchMode}
           imagePath={imagePath}
           outputPath={outputPath}
-          sharpen={sharpen}
-          setSharpen={setSharpen}
+          doubleUpscayl={doubleUpscayl}
+          setDoubleUpscayl={setDoubleUpscayl}
+          model={model}
         />
 
         <Footer />
@@ -229,11 +226,7 @@ const Home = () => {
         onPaste={(e) => handlePaste(e)}
       >
         {progress.length > 0 && upscaledImagePath.length === 0 && (
-          <ProgressBar
-            progress={progress}
-            sharpeningProgress={sharpeningProgress}
-            sharpening={sharpening}
-          />
+          <ProgressBar progress={progress} />
         )}
 
         {imagePath.length === 0 ? (

@@ -4,9 +4,9 @@ const commands = {
   UPSCAYL: "Upscale the Image",
   UPSCAYL_DONE: "Upscaling Done",
   UPSCAYL_PROGRESS: "Send Progress from Main to Renderer",
-  SHARPEN: "Sharpen the Image First",
-  SHARPEN_PROGRESS: "Send Sharpening Progress from Main to Renderer",
-  SHARPEN_DONE: "Sharpening Done",
+  DOUBLE_UPSCAYL: "Double Upscale the Image",
+  DOUBLE_UPSCAYL_DONE: "Double Upscaling Done",
+  DOUBLE_UPSCAYL_PROGRESS: "Send Double Upscayl Progress from Main to Renderer",
 };
 
 module.exports = commands;

@@ -105,46 +105,36 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   }
 });
 
-ipcMain.on(commands.SHARPEN, async (event, payload) => {
+ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const model = payload.model;
-  const scale = payload.scaleFactor;
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
-  const platform = getPlatform();
-
-  let outputDir = platform === "win" ? ".\\sharpened" : "./sharpened";
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir);
-  }
+  let outputDir = payload.outputPath;
+  console.log(outputDir);
 
   // COPY IMAGE TO TMP FOLDER
+  const platform = getPlatform();
   const fullfileName =
     platform === "win"
       ? payload.imagePath.split("\\").slice(-1)[0]
       : payload.imagePath.split("/").slice(-1)[0];
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
+  const outFile = outputDir + "/" + fileName + "_upscayl_8x_" + model + fileExt;
 
-  const inputFile = inputDir + "/" + fullfileName;
-  const copiedInputFile = outputDir + "/" + fullfileName;
-  const sharpenedFile = platform === "win" ? outputDir + "\\" + fileName + "_sharpen" + fileExt : outputDir + "/" + fileName + "_sharpen" + fileExt;
-  const outFile =
-    inputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt;
-  fs.copyFile(inputFile, copiedInputFile, (err) => {
-    if (err) throw err;
-  });
-
-  let sharpen = spawn(
-    execPath("realsr"),
+  // UPSCALE
+  let upscayl = spawn(
+    execPath("realesrgan"),
     [
       "-i",
-      copiedInputFile,
+      inputDir + "/" + fullfileName,
       "-o",
-      sharpenedFile,
+      outFile,
       "-s",
       4,
-      "-x",
       "-m",
-      modelsPath + "/models-DF2K",
+      modelsPath,
+      "-n",
+      model,
     ],
     {
       cwd: null,
@@ -153,65 +143,77 @@ ipcMain.on(commands.SHARPEN, async (event, payload) => {
   );
 
   let failed = false;
-  sharpen.stderr.on("data", (data) => {
-    console.log(data.toString());
+  // TAKE UPSCAYL OUTPUT
+  upscayl.stderr.on("data", (data) => {
+    // CONVERT DATA TO STRING
     data = data.toString();
-    mainWindow.webContents.send(commands.SHARPEN_PROGRESS, data.toString());
+    // PRINT TO CONSOLE
+    console.log(data);
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+    // IF PROGRESS HAS ERROR, UPSCAYL FAILED
     if (data.includes("invalid gpu") || data.includes("failed")) {
       failed = true;
-      sharpen.kill("SIGKILL");
-      return;
     }
   });
-  sharpen.on("close", (_) => {
-    if (failed !== true) {
-      console.log("Done sharpening: ", outFile);
-      mainWindow.webContents.send(commands.SHARPEN_DONE, outFile);
-      let upscayl = spawn(
+
+  // IF ERROR
+  upscayl.on("error", (data) => {
+    data.toString();
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+    // SET FAILED TO TRUE
+    failed = true;
+    return;
+  });
+
+  // ON UPSCAYL DONE
+  upscayl.on("close", (code) => {
+    // IF NOT FAILED
+    if (!failed) {
+      // UPSCALE
+      let upscayl2 = spawn(
         execPath("realesrgan"),
-        [
-          "-i",
-          sharpenedFile,
-          "-o",
-          outFile,
-          "-s",
-          scale === 2 ? 4 : scale,
-          "-m",
-          modelsPath,
-          "-n",
-          model,
-        ],
+        ["-i", outFile, "-o", outFile, "-s", 4, "-m", modelsPath, "-n", model],
         {
           cwd: null,
           detached: false,
         }
       );
-      let failed = false;
-      upscayl.stderr.on("data", (data) => {
-        console.log(
-          "🚀 => upscayl.stderr.on => stderr.toString()",
-          data.toString()
-        );
+
+      let failed2 = false;
+      // TAKE UPSCAYL OUTPUT
+      upscayl2.stderr.on("data", (data) => {
+        // CONVERT DATA TO STRING
         data = data.toString();
-        mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+        // PRINT TO CONSOLE
+        console.log(data);
+        // SEND UPSCAYL PROGRESS TO RENDERER
+        mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+        // IF PROGRESS HAS ERROR, UPSCAYL FAILED
         if (data.includes("invalid gpu") || data.includes("failed")) {
-          failed = true;
+          failed2 = true;
         }
       });
-      upscayl.on("error", (data) => {
-        mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
-        failed = true;
+
+      // IF ERROR
+      upscayl2.on("error", (data) => {
+        data.toString();
+        // SEND UPSCAYL PROGRESS TO RENDERER
+        mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+        // SET FAILED TO TRUE
+        failed2 = true;
         return;
       });
-      // Send done comamnd when
-      upscayl.on("close", (code) => {
-        if (failed !== true) {
+
+      upscayl2.on("close", (code) => {
+        if (!failed2) {
           console.log("Done upscaling");
-          mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+          mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_DONE, outFile);
         }
-      })
+      });
     }
-  })
+  });
 });
 
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
@@ -227,7 +229,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     platform === "win"
       ? payload.imagePath.split("\\").slice(-1)[0]
       : payload.imagePath.split("/").slice(-1)[0];
-  console.log(fullfileName)
+  console.log(fullfileName);
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
   const outFile =

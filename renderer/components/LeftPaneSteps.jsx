@@ -49,22 +49,24 @@ function LeftPaneSteps(props) {
             <p className="mb-2 text-sm text-neutral-400">
               Select Upscaling Type
             </p>
-            <div className="mb-2 flex items-center gap-1">
-              <input
-                type="checkbox"
-                className="h-4 w-4 cursor-pointer appearance-none rounded-sm bg-neutral-500 transition duration-200 checked:bg-green-400 focus:outline-none focus-visible:border focus-visible:border-green-400"
-                onChange={(e) => {
-                  props.setSharpen(e.target.checked);
-                }}
-              />
-              <p
-                className={`inline-block text-sm font-medium ${
-                  props.sharpen ? "text-green-400" : "text-neutral-500"
-                }`}
-              >
-                Sharpen Image
-              </p>
-            </div>
+            {props.model !== "models-DF2K" && (
+              <div className="mb-2 flex items-center gap-1">
+                <input
+                  type="checkbox"
+                  className="h-4 w-4 cursor-pointer appearance-none rounded-sm bg-neutral-500 transition duration-200 checked:bg-green-400 focus:outline-none focus-visible:border focus-visible:border-green-400"
+                  onChange={(e) => {
+                    props.setDoubleUpscayl(e.target.checked);
+                  }}
+                />
+                <p
+                  className={`inline-block text-sm font-medium ${
+                    props.doubleUpscayl ? "text-green-400" : "text-neutral-500"
+                  }`}
+                >
+                  Double Upscayl
+                </p>
+              </div>
+            )}
             <select
               name="select-model"
               onDrop={(e) => props.handleDrop(e)}
@@ -73,6 +75,7 @@ function LeftPaneSteps(props) {
             >
               <option value="realesrgan-x4plus">General Photo</option>
               <option value="realesrgan-x4plus-anime">Digital Art</option>
+              <option value="models-DF2K">Sharpen Image</option>
             </select>
           </div>
 
@@ -129,8 +132,7 @@ function LeftPaneSteps(props) {
             >
               <option value="realesrgan-x4plus">General Photo</option>
               <option value="realesrgan-x4plus-anime">Digital Art</option>
-              <option value="models-DF2K">Sharpen</option>
-              <option value="models-DF2K_JPEG">Sharpen JPEG</option>
+              <option value="models-DF2K">Sharpen Image</option>
             </select>
           </div>
 
