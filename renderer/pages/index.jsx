@@ -21,6 +21,7 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
   const [batchMode, setBatchMode] = useState(false);
+  const [batchFolderPath, setBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
 
   const resetImagePaths = () => {
@@ -87,6 +88,14 @@ const Home = () => {
       SetImagePath(path);
       var dirname = path.match(/(.*)[\/\\]/)[1] || "";
       SetOutputPath(dirname);
+    }
+  };
+
+  const selectFolderHandler = async () => {
+    var path = await window.electron.invoke(commands.SELECT_FOLDER);
+    if (path !== "cancelled") {
+      setBatchFolderPath(path);
+      SetOutputPath(path + "_upscayled");
     }
   };
 
@@ -164,7 +173,7 @@ const Home = () => {
 
   const upscaylHandler = async () => {
     setUpscaledImagePath("");
-    if (imagePath !== "") {
+    if (imagePath !== "" || batchFolderPath !== "") {
       setProgress("Hold on...");
       if (model === "models-DF2K") {
         setDoubleUpscayl(false);
@@ -173,6 +182,13 @@ const Home = () => {
       if (doubleUpscayl) {
         await window.electron.send(commands.DOUBLE_UPSCAYL, {
           imagePath,
+          outputPath,
+          model,
+        });
+      } else if (batchMode) {
+        await window.electron.send(commands.FOLDER_UPSCAYL, {
+          scaleFactor,
+          batchFolderPath,
           outputPath,
           model,
         });
@@ -202,6 +218,7 @@ const Home = () => {
         <LeftPaneSteps
           progress={progress}
           selectImageHandler={selectImageHandler}
+          selectFolderHandler={selectFolderHandler}
           handleModelChange={handleModelChange}
           handleDrop={handleDrop}
           outputHandler={outputHandler}
@@ -231,7 +248,7 @@ const Home = () => {
           <ProgressBar progress={progress} />
         )}
 
-        {imagePath.length === 0 ? (
+        {imagePath.length === 0 && batchFolderPath.length === 0 ? (
           <RightPaneInfo version={version} />
         ) : upscaledImagePath.length === 0 ? (
           <img
@@ -242,7 +259,7 @@ const Home = () => {
             draggable="false"
             alt=""
           />
-        ) : (
+        ) : !batchMode ? (
           <ReactCompareSlider
             itemOne={
               <ReactCompareSliderImage
@@ -264,7 +281,7 @@ const Home = () => {
             }
             className="h-screen"
           />
-        )}
+        ) : null}
       </div>
     </div>
   );

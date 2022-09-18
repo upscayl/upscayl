@@ -223,7 +223,6 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const scale = payload.scaleFactor;
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
   let outputDir = payload.outputPath;
-  console.log(outputDir);
 
   // COPY IMAGE TO TMP FOLDER
   const platform = getPlatform();
@@ -293,10 +292,12 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
 //------------------------Upscayl Folder-----------------------------//
 ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   const model = payload.model;
-  let inputDir = payload.imagePath;
+  let inputDir = payload.batchFolderPath;
   let outputDir = payload.outputPath;
   console.log(outputDir);
-
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
   // UPSCALE
   let upscayl = spawn(
     execPath("realesrgan"),
@@ -336,7 +337,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   upscayl.on("close", (code) => {
     if (failed !== true) {
       console.log("Done upscaling");
-      mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outFile);
+      mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
     }
   });
 });
