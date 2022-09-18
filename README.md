@@ -19,7 +19,7 @@ https://user-images.githubusercontent.com/25067102/186332548-0d53f02f-d159-4804-
 
 # Installation 👨‍💻
 
-### Linux 🐧👑
+### Linux 🐧
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
 
