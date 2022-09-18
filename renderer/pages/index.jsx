@@ -22,6 +22,7 @@ const Home = () => {
   const [version, setVersion] = useState("");
   const [batchMode, setBatchMode] = useState(false);
   const [batchFolderPath, setBatchFolderPath] = useState("");
+  const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
 
   const resetImagePaths = () => {
@@ -63,7 +64,13 @@ const Home = () => {
       }
       handleErrors(data);
     });
-
+    window.electron.on(commands.FOLDER_UPSCAYL_PROGRESS, (_, data) => {
+      setSharpening(false);
+      if (data.length > 0 && data.length < 10) {
+        setProgress(data);
+      }
+      handleErrors(data);
+    });
     window.electron.on(commands.DOUBLE_UPSCAYL_PROGRESS, (_, data) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
@@ -74,6 +81,10 @@ const Home = () => {
     window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
       setProgress("");
       setUpscaledImagePath(data);
+    });
+    window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data) => {
+      setProgress("");
+      setUpscaledBatchFolderPath(data);
     });
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data) => {
       setUpscaledImagePath(data);
@@ -244,9 +255,11 @@ const Home = () => {
         onDragLeave={(e) => handleDragLeave(e)}
         onPaste={(e) => handlePaste(e)}
       >
-        {progress.length > 0 && upscaledImagePath.length === 0 && (
+        {progress.length > 0 &&
+        upscaledImagePath.length === 0 &&
+        upscaledBatchFolderPath.length === 0 ? (
           <ProgressBar progress={progress} />
-        )}
+        ) : null}
 
         {imagePath.length === 0 && batchFolderPath.length === 0 ? (
           <RightPaneInfo version={version} />
@@ -281,7 +294,9 @@ const Home = () => {
             }
             className="h-screen"
           />
-        ) : null}
+        ) : (
+          <h1>DONEEEEEEEEEEEEEEE</h1>
+        )}
       </div>
     </div>
   );
