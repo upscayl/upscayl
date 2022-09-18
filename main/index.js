@@ -110,7 +110,6 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const model = payload.model;
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
   let outputDir = payload.outputPath;
-  console.log(outputDir);
 
   // COPY IMAGE TO TMP FOLDER
   const platform = getPlatform();

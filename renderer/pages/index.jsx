@@ -27,8 +27,12 @@ const Home = () => {
 
   const resetImagePaths = () => {
     setProgress("");
+
     SetImagePath("");
     setUpscaledImagePath("");
+
+    setBatchFolderPath("");
+    setUpscaledBatchFolderPath("");
   };
 
   useEffect(() => {
@@ -44,6 +48,7 @@ const Home = () => {
         );
         resetImagePaths();
       } else if (data.includes("failed")) {
+        if (batchMode) return;
         alert(
           data.includes("encode") ? "ENCODING ERROR => " : "DECODING ERROR => ",
           "This image is possibly corrupt or not supported by Upscayl. You could try converting the image into another format and upscaling again. Otherwise, make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely this image is not supported by Upscayl, sorry."
@@ -100,6 +105,7 @@ const Home = () => {
 
   const selectImageHandler = async () => {
     resetImagePaths();
+
     var path = await window.electron.invoke(commands.SELECT_FILE);
 
     if (path !== "cancelled") {
@@ -110,7 +116,10 @@ const Home = () => {
   };
 
   const selectFolderHandler = async () => {
+    resetImagePaths();
+
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
+
     if (path !== "cancelled") {
       setBatchFolderPath(path);
       SetOutputPath(path + "_upscayled");
@@ -271,11 +280,18 @@ const Home = () => {
           <ProgressBar progress={progress} />
         ) : null}
 
-        {imagePath.length === 0 && batchFolderPath.length === 0 ? (
-          <RightPaneInfo version={version} />
-        ) : upscaledImagePath.length === 0 &&
-          upscaledBatchFolderPath.length === 0 ? (
-          !batchMode ? (
+        {((!batchMode &&
+          imagePath.length === 0 &&
+          upscaledImagePath.length === 0) ||
+          (batchMode &&
+            batchFolderPath.length === 0 &&
+            upscaledBatchFolderPath.length === 0)) && (
+          <RightPaneInfo version={version} batchMode={batchMode} />
+        )}
+
+        {!batchMode &&
+          upscaledImagePath.length === 0 &&
+          imagePath.length > 0 && (
             <img
               className="h-full w-full object-contain"
               src={
@@ -285,46 +301,78 @@ const Home = () => {
               draggable="false"
               alt=""
             />
-          ) : (
+          )}
+
+        {batchMode &&
+          upscaledBatchFolderPath.length === 0 &&
+          batchFolderPath.length > 0 && (
             <p className="select-none font-bold text-neutral-50">
               Selected folder: {batchFolderPath}
             </p>
-          )
-        ) : !batchMode ? (
-          <ReactCompareSlider
-            itemOne={
-              <ReactCompareSliderImage
-                src={"file://" + imagePath}
-                alt="Original"
-                style={{
-                  objectFit: "contain",
-                }}
-              />
-            }
-            itemTwo={
-              <ReactCompareSliderImage
-                src={"file://" + upscaledImagePath}
-                alt="Upscayl"
-                style={{
-                  objectFit: "contain",
-                }}
-              />
-            }
-            className="h-screen"
-          />
-        ) : (
+          )}
+
+        {batchMode && upscaledBatchFolderPath.length > 0 && (
           <>
             <p className="select-none py-4 font-bold text-neutral-50">
-              Finished Upscaling Folder!
+              All done!
             </p>
             <button
-              className="rounded-lg bg-blue-400 p-3 font-medium text-white/90 transition-colors"
+              className="bg-gradient-blue rounded-lg p-3 font-medium text-white/90 transition-colors"
               onClick={openFolderHandler}
             >
               Open Upscayled Folder
             </button>
           </>
         )}
+
+        {!batchMode && imagePath.length > 0 && upscaledImagePath.length > 0 && (
+          <ReactCompareSlider
+            itemOne={
+              <>
+                <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                  Original
+                </p>
+                <ReactCompareSliderImage
+                  src={"file://" + imagePath}
+                  alt="Original"
+                  style={{
+                    objectFit: "contain",
+                  }}
+                />
+              </>
+            }
+            itemTwo={
+              <>
+                <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                  Upscayled
+                </p>
+                <ReactCompareSliderImage
+                  src={"file://" + upscaledImagePath}
+                  alt="Upscayl"
+                  style={{
+                    objectFit: "contain",
+                  }}
+                />
+              </>
+            }
+            className="h-screen"
+          />
+        )}
+
+        {/* {imagePath.length === 0 && batchFolderPath.length === 0 ? (
+          <RightPaneInfo version={version} />
+        ) : upscaledImagePath.length === 0 &&
+          upscaledBatchFolderPath.length === 0 ? (
+          !batchMode ? (
+            
+          ) : (
+            
+          )
+        ) : !batchMode ? (
+          
+        ) : (
+
+        )} */}
       </div>
     </div>
   );

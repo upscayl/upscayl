@@ -1,10 +1,10 @@
 import React from "react";
 
-function RightPaneInfo({ version }) {
+function RightPaneInfo({ version, batchMode }) {
   return (
     <>
       <p className="p-5 text-lg font-medium text-neutral-400">
-        Select an Image to Upscale
+        Select {batchMode ? "a Folder" : "an Image"} to Upscale
       </p>
       <p className="text-neutral-600">Upscayl v{version}</p>
     </>

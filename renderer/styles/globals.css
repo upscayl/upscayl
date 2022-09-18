@@ -39,6 +39,9 @@
   .bg-gradient {
     @apply bg-gradient-to-br from-green-500 to-lime-300 hover:from-lime-300 hover:to-green-500;
   }
+  .bg-gradient-blue {
+    @apply bg-gradient-to-br from-blue-500 to-sky-400 hover:from-sky-400 hover:to-blue-500;
+  }
 }
 
 .animate-step-in {
