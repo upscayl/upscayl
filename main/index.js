@@ -342,6 +342,11 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   });
 });
 
+ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
+  console.log(payload);
+  shell.openPath(payload);
+});
+
 //------------------------Auto-Update Code-----------------------------//
 // ! AUTO UPDATE STUFF
 autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {

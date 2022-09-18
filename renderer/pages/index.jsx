@@ -133,6 +133,9 @@ const Home = () => {
     e.preventDefault();
     console.log("drag over");
   };
+  const openFolderHandler = (e) => {
+    window.electron.send(commands.OPEN_FOLDER, upscaledBatchFolderPath);
+  };
 
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
 
@@ -270,8 +273,9 @@ const Home = () => {
 
         {imagePath.length === 0 && batchFolderPath.length === 0 ? (
           <RightPaneInfo version={version} />
-        ) : !batchMode ? (
-          upscaledImagePath.length === 0 ? (
+        ) : upscaledImagePath.length === 0 &&
+          upscaledBatchFolderPath.length === 0 ? (
+          !batchMode ? (
             <img
               className="h-full w-full object-contain"
               src={
@@ -282,32 +286,44 @@ const Home = () => {
               alt=""
             />
           ) : (
-            <ReactCompareSlider
-              itemOne={
-                <ReactCompareSliderImage
-                  src={"file://" + imagePath}
-                  alt="Original"
-                  style={{
-                    objectFit: "contain",
-                  }}
-                />
-              }
-              itemTwo={
-                <ReactCompareSliderImage
-                  src={"file://" + upscaledImagePath}
-                  alt="Upscayl"
-                  style={{
-                    objectFit: "contain",
-                  }}
-                />
-              }
-              className="h-screen"
-            />
+            <p className="select-none font-bold text-neutral-50">
+              Selected folder: {batchFolderPath}
+            </p>
           )
+        ) : !batchMode ? (
+          <ReactCompareSlider
+            itemOne={
+              <ReactCompareSliderImage
+                src={"file://" + imagePath}
+                alt="Original"
+                style={{
+                  objectFit: "contain",
+                }}
+              />
+            }
+            itemTwo={
+              <ReactCompareSliderImage
+                src={"file://" + upscaledImagePath}
+                alt="Upscayl"
+                style={{
+                  objectFit: "contain",
+                }}
+              />
+            }
+            className="h-screen"
+          />
         ) : (
-          <p className="select-none font-bold text-neutral-50">
-            Finished Upscaling Folder!
-          </p>
+          <>
+            <p className="select-none py-4 font-bold text-neutral-50">
+              Finished Upscaling Folder!
+            </p>
+            <button
+              className="rounded-lg bg-blue-400 p-3 font-medium text-white/90 transition-colors"
+              onClick={openFolderHandler}
+            >
+              Open Upscayled Folder
+            </button>
+          </>
         )}
       </div>
     </div>

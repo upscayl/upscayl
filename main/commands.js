@@ -11,6 +11,7 @@ const commands = {
   FOLDER_UPSCAYL_DONE: "Folder upscaling successful",
   FOLDER_UPSCAYL_PROGRESS:
     "Send Folder Upscaling Progress from Main to Renderer",
+  OPEN_FOLDER: "Open Folder",
 };
 
 module.exports = commands;
