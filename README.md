@@ -4,7 +4,6 @@
 
 ![New Project (33)](https://user-images.githubusercontent.com/25067102/187029713-6ab7b395-3c10-4f20-882b-0891d1bd1b16.jpg)    
 </a>
-v1.3 will come around 17 September
 
 # Upscayl 🆙
 
