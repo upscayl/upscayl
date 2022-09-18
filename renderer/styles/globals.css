@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply transition-all duration-300 ease-in-out;
-  }
   ::-webkit-scrollbar {
     @apply w-3;
   }
@@ -40,7 +37,7 @@
     @apply bg-gradient-to-br from-[#7741ff] to-[#af55ff] hover:from-[#af55ff] hover:to-[#7741ff];
   }
   .bg-gradient {
-    @apply bg-gradient-to-br from-cyan-400 to-blue-500 hover:from-blue-500 hover:to-cyan-400;
+    @apply bg-gradient-to-br from-green-500 to-lime-300 hover:from-lime-300 hover:to-green-500;
   }
 }
 

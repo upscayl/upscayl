@@ -9,7 +9,6 @@ function ProgressBar(props) {
       <div className="flex flex-col items-center gap-2">
         <Image src={Animated} />
         <p className="font-bold text-neutral-50">{props.progress}</p>
-        {props.progress}
         <p className="text-sm font-medium text-neutral-200">
           Doing the Upscayl magic...
         </p>

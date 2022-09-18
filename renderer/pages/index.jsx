@@ -58,14 +58,17 @@ const Home = () => {
     };
 
     window.electron.on(commands.UPSCAYL_PROGRESS, (_, data) => {
-      setSharpening(false);
+      console.log(
+        "🚀 => file: index.jsx => line 61 => window.electron.on => data",
+        data
+      );
+
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       }
       handleErrors(data);
     });
     window.electron.on(commands.FOLDER_UPSCAYL_PROGRESS, (_, data) => {
-      setSharpening(false);
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       }
@@ -90,6 +93,10 @@ const Home = () => {
       setUpscaledImagePath(data);
     });
   }, []);
+
+  useEffect(() => {
+    setProgress("");
+  }, [batchMode]);
 
   const selectImageHandler = async () => {
     resetImagePaths();

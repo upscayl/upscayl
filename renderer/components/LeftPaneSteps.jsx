@@ -54,16 +54,25 @@ function LeftPaneSteps(props) {
                 <input
                   type="checkbox"
                   className="checked:bg-gradient-white h-4 w-4 cursor-pointer appearance-none rounded-full bg-neutral-500 transition duration-200 focus:outline-none focus-visible:border focus-visible:border-green-400"
+                  checked={props.doubleUpscayl}
                   onChange={(e) => {
-                    props.setDoubleUpscayl(e.target.checked);
+                    if (e.target.checked) {
+                      props.setDoubleUpscayl(true);
+                    } else {
+                      props.setDoubleUpscayl(false);
+                    }
                   }}
                 />
                 <p
+                  data-tip="Enable this option to get an 8x upscayl"
                   className={`inline-block cursor-help rounded-full text-sm font-medium ${
                     props.doubleUpscayl
-                      ? "text-neutral-100"
+                      ? "bg-gradient-white px-2 text-black/90"
                       : "text-neutral-500"
                   }`}
+                  onClick={(e) => {
+                    props.setDoubleUpscayl(!props.doubleUpscayl);
+                  }}
                 >
                   Double Upscayl
                 </p>
@@ -88,7 +97,7 @@ function LeftPaneSteps(props) {
               Defaults to Image's path
             </p>
             <button
-              className="bg-gradient mt-1 rounded-lg p-3 font-medium text-white/90 transition-colors hover:bg-teal-300"
+              className="bg-gradient mt-1 rounded-lg p-3 font-medium text-black/90 transition-colors hover:bg-teal-300"
               onClick={props.outputHandler}
             >
               Set Output Folder
