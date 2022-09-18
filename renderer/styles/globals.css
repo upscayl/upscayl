@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply transition-all duration-300 ease-in-out;
+  }
   ::-webkit-scrollbar {
     @apply w-3;
   }
@@ -23,6 +26,21 @@
 @layer utilities {
   .animate {
     @apply transition-all duration-300 ease-in-out;
+  }
+  .bg-gradient-purple {
+    @apply bg-gradient-to-br from-[#7741ff] to-[#af55ff] hover:from-[#af55ff] hover:to-[#7741ff];
+  }
+  .bg-gradient-red {
+    @apply bg-gradient-to-br from-rose-600 to-red-400 hover:from-red-400 hover:to-rose-600;
+  }
+  .bg-gradient-white {
+    @apply bg-gradient-to-br from-slate-400 to-neutral-100 hover:from-neutral-100 hover:to-slate-400;
+  }
+  .bg-gradient-upscayl {
+    @apply bg-gradient-to-br from-[#7741ff] to-[#af55ff] hover:from-[#af55ff] hover:to-[#7741ff];
+  }
+  .bg-gradient {
+    @apply bg-gradient-to-br from-cyan-400 to-blue-500 hover:from-blue-500 hover:to-cyan-400;
   }
 }
 

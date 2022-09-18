@@ -105,6 +105,7 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   }
 });
 
+//------------------------Double Upscayl-----------------------------//
 ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const model = payload.model;
   let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
@@ -216,6 +217,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   });
 });
 
+//------------------------Image Upscayl-----------------------------//
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const model = payload.model;
   const scale = payload.scaleFactor;
@@ -288,6 +290,58 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   }
 });
 
+//------------------------Upscayl Folder-----------------------------//
+ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
+  const model = payload.model;
+  let inputDir = payload.imagePath;
+  let outputDir = payload.outputPath;
+  console.log(outputDir);
+
+  // UPSCALE
+  let upscayl = spawn(
+    execPath("realesrgan"),
+    ["-i", inputDir, "-o", outputDir, "-s", 4, "-m", modelsPath, "-n", model],
+    {
+      cwd: null,
+      detached: false,
+    }
+  );
+
+  let failed = false;
+  upscayl.stderr.on("data", (data) => {
+    console.log(
+      "🚀 => upscayl.stderr.on => stderr.toString()",
+      data.toString()
+    );
+    data = data.toString();
+    mainWindow.webContents.send(
+      commands.FOLDER_UPSCAYL_PROGRESS,
+      data.toString()
+    );
+    if (data.includes("invalid gpu") || data.includes("failed")) {
+      failed = true;
+    }
+  });
+
+  upscayl.on("error", (data) => {
+    mainWindow.webContents.send(
+      commands.FOLDER_UPSCAYL_PROGRESS,
+      data.toString()
+    );
+    failed = true;
+    return;
+  });
+
+  // Send done comamnd when
+  upscayl.on("close", (code) => {
+    if (failed !== true) {
+      console.log("Done upscaling");
+      mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outFile);
+    }
+  });
+});
+
+//------------------------Auto-Update Code-----------------------------//
 // ! AUTO UPDATE STUFF
 autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {
   const dialogOpts = {

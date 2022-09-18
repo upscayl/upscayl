@@ -31,6 +31,8 @@ const Home = () => {
 
   useEffect(() => {
     setLoaded(true);
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
     setVersion(navigator.userAgent.match(/Upscayl\/([\d\.]+\d+)/)[1]);
 
     const handleErrors = (data) => {
@@ -188,8 +190,8 @@ const Home = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-row overflow-hidden bg-neutral-900">
-      <div className="flex h-screen w-96 flex-col bg-neutral-800">
+    <div className="flex h-screen w-screen flex-row overflow-hidden bg-[#1d1c23]">
+      <div className="flex h-screen w-96 flex-col bg-[#26222c]">
         {imagePath.length > 0 && (
           <ResetButton resetImagePaths={resetImagePaths} />
         )}

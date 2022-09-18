@@ -18,7 +18,7 @@ function LeftPaneSteps(props) {
         </p>
         <div
           className={`animate relative inline-block h-5 w-8 cursor-pointer rounded-full ${
-            props.batchMode ? "bg-red-500" : "bg-neutral-500"
+            props.batchMode ? "bg-gradient-purple" : "bg-neutral-500"
           }`}
           onClick={handleBatchMode}
         >
@@ -34,9 +34,9 @@ function LeftPaneSteps(props) {
         <>
           {/* STEP 1 */}
           <div data-tip={props.imagePath}>
-            <p className="mb-2 font-medium text-neutral-100">Step 1</p>
+            <p className="mb-2 font-medium text-white/70">Step 1</p>
             <button
-              className="rounded-lg bg-rose-400 p-3 transition-colors hover:bg-rose-300"
+              className="bg-gradient-red rounded-lg p-3 font-medium text-white/90 transition-colors"
               onClick={props.selectImageHandler}
             >
               Select Image
@@ -53,14 +53,16 @@ function LeftPaneSteps(props) {
               <div className="mb-2 flex items-center gap-1">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 cursor-pointer appearance-none rounded-sm bg-neutral-500 transition duration-200 checked:bg-green-400 focus:outline-none focus-visible:border focus-visible:border-green-400"
+                  className="checked:bg-gradient-white h-4 w-4 cursor-pointer appearance-none rounded-full bg-neutral-500 transition duration-200 focus:outline-none focus-visible:border focus-visible:border-green-400"
                   onChange={(e) => {
                     props.setDoubleUpscayl(e.target.checked);
                   }}
                 />
                 <p
-                  className={`inline-block text-sm font-medium ${
-                    props.doubleUpscayl ? "text-green-400" : "text-neutral-500"
+                  className={`inline-block cursor-help rounded-full text-sm font-medium ${
+                    props.doubleUpscayl
+                      ? "text-neutral-100"
+                      : "text-neutral-500"
                   }`}
                 >
                   Double Upscayl
@@ -70,7 +72,7 @@ function LeftPaneSteps(props) {
             <select
               name="select-model"
               onDrop={(e) => props.handleDrop(e)}
-              className="block rounded-lg bg-slate-300 p-3 hover:bg-slate-200"
+              className="animate bg-gradient-white block cursor-pointer rounded-lg p-3 font-medium text-black/90 hover:bg-slate-200"
               onChange={props.handleModelChange}
             >
               <option value="realesrgan-x4plus">General Photo</option>
@@ -86,7 +88,7 @@ function LeftPaneSteps(props) {
               Defaults to Image's path
             </p>
             <button
-              className="mt-1 rounded-lg bg-teal-400 p-3 transition-colors hover:bg-teal-300"
+              className="bg-gradient mt-1 rounded-lg p-3 font-medium text-white/90 transition-colors hover:bg-teal-300"
               onClick={props.outputHandler}
             >
               Set Output Folder
@@ -97,7 +99,7 @@ function LeftPaneSteps(props) {
           <div className="animate-step-in">
             <p className="mb-2 font-medium text-neutral-100">Step 4</p>
             <button
-              className="rounded-lg bg-sky-400 p-3 transition-colors hover:bg-sky-300"
+              className="bg-gradient-upscayl rounded-lg p-3 font-medium text-white/90 transition-colors"
               onClick={props.upscaylHandler}
               disabled={props.progress.length > 0}
             >
