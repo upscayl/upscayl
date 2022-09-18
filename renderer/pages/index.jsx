@@ -270,39 +270,44 @@ const Home = () => {
 
         {imagePath.length === 0 && batchFolderPath.length === 0 ? (
           <RightPaneInfo version={version} />
-        ) : upscaledImagePath.length === 0 ? (
-          <img
-            className="h-full w-full object-contain"
-            src={
-              "file://" + `${upscaledImagePath ? upscaledImagePath : imagePath}`
-            }
-            draggable="false"
-            alt=""
-          />
         ) : !batchMode ? (
-          <ReactCompareSlider
-            itemOne={
-              <ReactCompareSliderImage
-                src={"file://" + imagePath}
-                alt="Original"
-                style={{
-                  objectFit: "contain",
-                }}
-              />
-            }
-            itemTwo={
-              <ReactCompareSliderImage
-                src={"file://" + upscaledImagePath}
-                alt="Upscayl"
-                style={{
-                  objectFit: "contain",
-                }}
-              />
-            }
-            className="h-screen"
-          />
+          upscaledImagePath.length === 0 ? (
+            <img
+              className="h-full w-full object-contain"
+              src={
+                "file://" +
+                `${upscaledImagePath ? upscaledImagePath : imagePath}`
+              }
+              draggable="false"
+              alt=""
+            />
+          ) : (
+            <ReactCompareSlider
+              itemOne={
+                <ReactCompareSliderImage
+                  src={"file://" + imagePath}
+                  alt="Original"
+                  style={{
+                    objectFit: "contain",
+                  }}
+                />
+              }
+              itemTwo={
+                <ReactCompareSliderImage
+                  src={"file://" + upscaledImagePath}
+                  alt="Upscayl"
+                  style={{
+                    objectFit: "contain",
+                  }}
+                />
+              }
+              className="h-screen"
+            />
+          )
         ) : (
-          <h1>DONEEEEEEEEEEEEEEE</h1>
+          <p className="select-none font-bold text-neutral-50">
+            Finished Upscaling Folder!
+          </p>
         )}
       </div>
     </div>
