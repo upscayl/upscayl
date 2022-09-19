@@ -10,7 +10,7 @@
 
 #### Free and Open Source AI Image Upscaler
 
-https://user-images.githubusercontent.com/25067102/186332548-0d53f02f-d159-4804-8b0e-887d96651fdb.mp4
+https://user-images.githubusercontent.com/25067102/191083105-cca0dc96-69d5-472b-baff-cb89f1603488.mp4
 
 **Upscayl is a cross-platform application built with the Linux-first philosophy. This means that we prioritize Linux builds over others but that doesn't mean we'll break things for other OSes :)**
 
