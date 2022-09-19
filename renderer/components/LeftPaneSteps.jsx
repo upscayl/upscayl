@@ -16,25 +16,25 @@ function LeftPaneSteps(props) {
         >
           Batch Upscale:
         </p>
-        <div
-          className={`animate relative inline-block h-5 w-8 cursor-pointer rounded-full ${
+        <button
+          className={`animate relative inline-block h-5 w-8 cursor-pointer rounded-full outline-none focus-visible:shadow-lg focus-visible:shadow-purple-500 ${
             props.batchMode ? "bg-gradient-purple" : "bg-neutral-500"
           }`}
           onClick={handleBatchMode}
         >
           <div
             className={`${
-              props.batchMode ? "right-1" : "left-1"
+              props.batchMode ? "translate-x-4" : "translate-x-1"
             } animate absolute top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-neutral-100`}
           ></div>
-        </div>
+        </button>
       </div>
 
       {/* STEP 1 */}
       <div data-tip={props.imagePath}>
         <p className="step-heading">Step 1</p>
         <button
-          className="bg-gradient-red rounded-lg p-3 font-medium text-white/90 transition-colors"
+          className="animate bg-gradient-red rounded-lg p-3 font-medium text-white/90 outline-none transition-colors focus-visible:shadow-lg focus-visible:shadow-red-500"
           onClick={
             !props.batchMode
               ? props.selectImageHandler
@@ -53,7 +53,7 @@ function LeftPaneSteps(props) {
         <select
           name="select-model"
           onDrop={(e) => props.handleDrop(e)}
-          className="animate bg-gradient-white block cursor-pointer rounded-lg p-3 font-medium text-black/90 hover:bg-slate-200"
+          className="animate bg-gradient-white block cursor-pointer rounded-lg p-3 font-medium text-black/90 outline-none hover:bg-slate-200 focus-visible:shadow-lg focus-visible:shadow-white"
           onChange={props.handleModelChange}
         >
           <option value="realesrgan-x4plus">General Photo</option>
@@ -64,7 +64,7 @@ function LeftPaneSteps(props) {
           <div className="mt-2 flex items-center gap-1">
             <input
               type="checkbox"
-              className="checked:bg-gradient-white h-4 w-4 cursor-pointer appearance-none rounded-full bg-white/30 transition duration-200 focus:outline-none focus-visible:border focus-visible:border-green-400"
+              className="checked:bg-gradient-white h-4 w-4 cursor-pointer appearance-none rounded-full bg-white/30 transition duration-200 focus:outline-none focus-visible:border focus-visible:shadow-lg focus-visible:shadow-white/40"
               checked={props.doubleUpscayl}
               onChange={(e) => {
                 if (e.target.checked) {
@@ -101,7 +101,7 @@ function LeftPaneSteps(props) {
         <p className="step-heading">Step 3</p>
         <p className="mb-2 text-sm text-white/60">Defaults to Image's path</p>
         <button
-          className="bg-gradient mt-1 rounded-lg p-3 font-medium text-black/90 transition-colors hover:bg-teal-300"
+          className="animate bg-gradient mt-1 rounded-lg p-3 font-medium text-black/90 outline-none transition-colors focus-visible:shadow-lg focus-visible:shadow-green-500"
           onClick={props.outputHandler}
         >
           Set Output Folder
@@ -112,7 +112,7 @@ function LeftPaneSteps(props) {
       <div className="animate-step-in">
         <p className="step-heading">Step 4</p>
         <button
-          className="bg-gradient-upscayl rounded-lg p-3 font-medium text-white/90 transition-colors"
+          className="animate bg-gradient-upscayl rounded-lg p-3 font-medium text-white/90 outline-none transition-colors focus-visible:shadow-lg focus-visible:shadow-violet-500"
           onClick={props.upscaylHandler}
           disabled={props.progress.length > 0}
         >

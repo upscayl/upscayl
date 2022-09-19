@@ -2,7 +2,11 @@ import React from "react";
 
 export default function Header() {
   return (
-    <a href="https://github.com/upscayl/upscayl" target="_blank">
+    <a
+      href="https://github.com/upscayl/upscayl"
+      target="_blank"
+      className="outline-none focus-visible:ring-2"
+    >
       <div className="flex items-center gap-3 px-5 py-5">
         <img
           src="icon.png"
