@@ -231,32 +231,66 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   console.log(fullfileName);
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
-  const outFile =
-    outputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt;
+  const outFile = model.includes("realesrgan")
+    ? outputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt
+    : outputDir +
+      "/" +
+      fileName +
+      "_upscayl_sharpened_" +
+      scale +
+      "x_" +
+      model +
+      fileExt;
   // UPSCALE
   if (fs.existsSync(outFile)) {
     // If already upscayled, just output that file
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
-    let upscayl = spawn(
-      execPath("realesrgan"),
-      [
-        "-i",
-        inputDir + "/" + fullfileName,
-        "-o",
-        outFile,
-        "-s",
-        scale === 2 ? 4 : scale,
-        "-m",
-        modelsPath,
-        "-n",
-        model,
-      ],
-      {
-        cwd: null,
-        detached: false,
-      }
-    );
+    let upscayl = null;
+    switch (model) {
+      case "realesrgan-x4plus":
+      case "realesrgan-x4plus-anime":
+        upscayl = spawn(
+          execPath("realesrgan"),
+          [
+            "-i",
+            inputDir + "/" + fullfileName,
+            "-o",
+            outFile,
+            "-s",
+            scale === 2 ? 4 : scale,
+            "-m",
+            modelsPath,
+            "-n",
+            model,
+          ],
+          {
+            cwd: null,
+            detached: false,
+          }
+        );
+        break;
+      case "models-DF2K":
+        upscayl = spawn(
+          execPath("realsr"),
+          [
+            "-i",
+            inputDir + "/" + fullfileName,
+            "-o",
+            outFile,
+            "-s",
+            scale,
+            "-x",
+            "-m",
+            modelsPath + "/" + model,
+          ],
+          {
+            cwd: null,
+            detached: false,
+          }
+        );
+        break;
+    }
 
     let failed = false;
     upscayl.stderr.on("data", (data) => {
@@ -291,20 +325,59 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
 ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   const model = payload.model;
   let inputDir = payload.batchFolderPath;
-  let outputDir = payload.outputPath;
+  let outputDir = model.includes("realesrgan")
+    ? payload.outputPath
+    : payload.outputPath + "_sharpened";
   console.log(outputDir);
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   // UPSCALE
-  let upscayl = spawn(
-    execPath("realesrgan"),
-    ["-i", inputDir, "-o", outputDir, "-s", 4, "-m", modelsPath, "-n", model],
-    {
-      cwd: null,
-      detached: false,
-    }
-  );
+  let upscayl = null;
+  switch (model) {
+    case "realesrgan-x4plus":
+    case "realesrgan-x4plus-anime":
+      upscayl = spawn(
+        execPath("realesrgan"),
+        [
+          "-i",
+          inputDir,
+          "-o",
+          outputDir,
+          "-s",
+          4,
+          "-m",
+          modelsPath,
+          "-n",
+          model,
+        ],
+        {
+          cwd: null,
+          detached: false,
+        }
+      );
+      break;
+    case "models-DF2K":
+      upscayl = spawn(
+        execPath("realsr"),
+        [
+          "-i",
+          inputDir,
+          "-o",
+          outputDir,
+          "-s",
+          4,
+          "-x",
+          "-m",
+          modelsPath + "/" + model,
+        ],
+        {
+          cwd: null,
+          detached: false,
+        }
+      );
+      break;
+  }
 
   let failed = false;
   upscayl.stderr.on("data", (data) => {
