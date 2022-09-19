@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply select-none;
+  }
   ::-webkit-scrollbar {
     @apply w-3;
   }
@@ -41,6 +44,9 @@
   }
   .bg-gradient-blue {
     @apply bg-gradient-to-br from-blue-500 to-sky-400 hover:from-sky-400 hover:to-blue-500;
+  }
+  .step-heading {
+    @apply mb-2 font-medium text-white/80;
   }
 }
 

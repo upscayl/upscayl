@@ -11,7 +11,7 @@ function LeftPaneSteps(props) {
       {/* BATCH OPTION */}
       <div className="flex flex-row items-end">
         <p
-          className="mr-1 inline-block cursor-help text-sm text-neutral-400"
+          className="mr-1 inline-block cursor-help text-sm text-white/70"
           data-tip="This will let you upscale all files in a folder at once"
         >
           Batch Upscale:
@@ -32,7 +32,7 @@ function LeftPaneSteps(props) {
 
       {/* STEP 1 */}
       <div data-tip={props.imagePath}>
-        <p className="mb-2 font-medium text-white/70">Step 1</p>
+        <p className="step-heading">Step 1</p>
         <button
           className="bg-gradient-red rounded-lg p-3 font-medium text-white/90 transition-colors"
           onClick={
@@ -47,37 +47,9 @@ function LeftPaneSteps(props) {
 
       {/* STEP 2 */}
       <div className="animate-step-in">
-        <p className="font-medium text-neutral-100">Step 2</p>
-        <p className="mb-2 text-sm text-neutral-400">Select Upscaling Type</p>
-        {props.model !== "models-DF2K" && !props.batchMode && (
-          <div className="mb-2 flex items-center gap-1">
-            <input
-              type="checkbox"
-              className="checked:bg-gradient-white h-4 w-4 cursor-pointer appearance-none rounded-full bg-neutral-500 transition duration-200 focus:outline-none focus-visible:border focus-visible:border-green-400"
-              checked={props.doubleUpscayl}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  props.setDoubleUpscayl(true);
-                } else {
-                  props.setDoubleUpscayl(false);
-                }
-              }}
-            />
-            <p
-              data-tip="Enable this option to get an 8x upscayl"
-              className={`inline-block cursor-help rounded-full text-sm font-medium ${
-                props.doubleUpscayl
-                  ? "bg-gradient-white px-2 text-black/90"
-                  : "text-neutral-500"
-              }`}
-              onClick={(e) => {
-                props.setDoubleUpscayl(!props.doubleUpscayl);
-              }}
-            >
-              Double Upscayl
-            </p>
-          </div>
-        )}
+        <p className="step-heading">Step 2</p>
+        <p className="mb-2 text-sm text-white/60">Select Upscaling Type</p>
+
         <select
           name="select-model"
           onDrop={(e) => props.handleDrop(e)}
@@ -88,14 +60,46 @@ function LeftPaneSteps(props) {
           <option value="realesrgan-x4plus-anime">Digital Art</option>
           <option value="models-DF2K">Sharpen Image</option>
         </select>
+        {props.model !== "models-DF2K" && !props.batchMode && (
+          <div className="mt-2 flex items-center gap-1">
+            <input
+              type="checkbox"
+              className="checked:bg-gradient-white h-4 w-4 cursor-pointer appearance-none rounded-full bg-white/30 transition duration-200 focus:outline-none focus-visible:border focus-visible:border-green-400"
+              checked={props.doubleUpscayl}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  props.setDoubleUpscayl(true);
+                } else {
+                  props.setDoubleUpscayl(false);
+                }
+              }}
+            />
+            <p
+              className={`inline-block cursor-pointer select-none rounded-full text-sm font-medium ${
+                props.doubleUpscayl
+                  ? "bg-gradient-white px-2 text-black/90"
+                  : "text-white/50"
+              }`}
+              onClick={(e) => {
+                props.setDoubleUpscayl(!props.doubleUpscayl);
+              }}
+            >
+              Double Upscayl
+            </p>
+            <span
+              className="cursor-help rounded-full bg-white/20 px-3 text-center font-bold text-white/40"
+              data-tip="Enable this option to get an 8x upscayl. Note that this may not always work properly with all images, for example, images with really large resolutions."
+            >
+              i
+            </span>
+          </div>
+        )}
       </div>
 
       {/* STEP 3 */}
       <div className="animate-step-in" data-tip={props.outputPath}>
-        <p className="font-medium text-neutral-100">Step 3</p>
-        <p className="mb-2 text-sm text-neutral-400">
-          Defaults to Image's path
-        </p>
+        <p className="step-heading">Step 3</p>
+        <p className="mb-2 text-sm text-white/60">Defaults to Image's path</p>
         <button
           className="bg-gradient mt-1 rounded-lg p-3 font-medium text-black/90 transition-colors hover:bg-teal-300"
           onClick={props.outputHandler}
@@ -106,7 +110,7 @@ function LeftPaneSteps(props) {
 
       {/* STEP 4 */}
       <div className="animate-step-in">
-        <p className="mb-2 font-medium text-neutral-100">Step 4</p>
+        <p className="step-heading">Step 4</p>
         <button
           className="bg-gradient-upscayl rounded-lg p-3 font-medium text-white/90 transition-colors"
           onClick={props.upscaylHandler}
@@ -117,7 +121,7 @@ function LeftPaneSteps(props) {
       </div>
 
       <ReactTooltip
-        className="max-w-72 break-words bg-neutral-900 text-neutral-50"
+        className="max-w-md break-words bg-neutral-900 text-neutral-50"
         place="top"
       />
     </div>
