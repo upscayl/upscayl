@@ -103,7 +103,8 @@
         "AppImage",
         "flatpak"
       ],
-      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;"
+      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
+      "icon": "main/build/icon.png"
     },
     "win": {
       "publish": [

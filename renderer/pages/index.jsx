@@ -238,7 +238,8 @@ const Home = () => {
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-[#1d1c23]">
       <div className="flex h-screen w-96 flex-col bg-[#26222c]">
-        {imagePath.length > 0 && (
+        {((!batchMode && imagePath.length > 0) ||
+          (batchMode && batchFolderPath.length > 0)) && (
           <ResetButton resetImagePaths={resetImagePaths} />
         )}
         {/* HEADER */}
