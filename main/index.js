@@ -41,7 +41,6 @@ app.on("ready", async () => {
     show: false,
     backgroundColor: "#171717",
     webPreferences: {
-      devTools: isDev,
       autoHideMenuBar: true,
       nodeIntegration: true,
       webSecurity: false,

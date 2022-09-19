@@ -5,7 +5,7 @@ export default function Header() {
     <a href="https://github.com/upscayl/upscayl" target="_blank">
       <div className="flex items-center gap-3 px-5 py-5">
         <img
-          src="/icon.png"
+          src="icon.png"
           className="inline-block w-14"
           alt="Upscayl Logo"
           data-tip="Star us on GitHub 😁"
