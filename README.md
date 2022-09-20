@@ -64,7 +64,6 @@ You can also download the flatpak version and double click the flatpak file to i
 # Roadmap 🤫
 
 - Allow video upscaling📼
-- 2x, 3x upscaling modes
 - More models
 - Make the whole world use FOSS
 
