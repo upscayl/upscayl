@@ -21,6 +21,10 @@ https://user-images.githubusercontent.com/25067102/191083105-cca0dc96-69d5-472b-
 # Installation 👨‍💻
 
 ### Linux 🐧
+<a href="https://appimage.github.io/Upscayl/">
+
+![image (10)](https://user-images.githubusercontent.com/25067102/191188313-bd92e9b4-d91a-4e7c-af4a-3e9dc2b0494b.png)
+</a>
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
 
@@ -30,6 +34,7 @@ https://user-images.githubusercontent.com/25067102/191083105-cca0dc96-69d5-472b-
 
 You can also download the flatpak version and double click the flatpak file to install via Store but wait for the full release, we'll be pushing it to Flathub for easy access.
 
+
 ### MacOS 🍎
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
@@ -37,8 +42,6 @@ You can also download the flatpak version and double click the flatpak file to i
 2. Download the `.dmg` file.
 
 3. Double click dmg, drag Upscayl icon into Applications folder.
-
-4. Open Terminal and enter this command: `chmod +x /Applications/Upscayl.app/Contents/Resources/bin/upscayl`. Press Enter, profit.
 
 ### Windows 🐌
 
