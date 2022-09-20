@@ -22,8 +22,11 @@ https://user-images.githubusercontent.com/25067102/191083105-cca0dc96-69d5-472b-
 
 ### Linux 🐧
 <a href="https://appimage.github.io/Upscayl/">
+<img src="https://user-images.githubusercontent.com/25067102/191270389-9de37c0f-39a8-41f1-a659-8dd4e7b8ac28.png" width="250px"/>
+</a>
 
-![image (10)](https://user-images.githubusercontent.com/25067102/191188313-bd92e9b4-d91a-4e7c-af4a-3e9dc2b0494b.png)
+<a href="https://aur.archlinux.org/packages/upscayl-bin">
+<img src="https://user-images.githubusercontent.com/25067102/191269445-87050a77-c304-4284-9ea0-699721309c59.png" width="250px"/>
 </a>
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
@@ -33,7 +36,6 @@ https://user-images.githubusercontent.com/25067102/191083105-cca0dc96-69d5-472b-
 3. Right Click AppImage -> Go to Permissions tab -> Check allow file to execute and then double click the file to run Upscayl.
 
 You can also download the flatpak version and double click the flatpak file to install via Store but wait for the full release, we'll be pushing it to Flathub for easy access.
-
 
 ### MacOS 🍎
 
