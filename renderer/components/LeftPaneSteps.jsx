@@ -53,7 +53,7 @@ function LeftPaneSteps(props) {
         <select
           name="select-model"
           onDrop={(e) => props.handleDrop(e)}
-          className="animate bg-gradient-white block cursor-pointer rounded-lg p-3 font-medium text-black/90 outline-none hover:bg-slate-200 focus-visible:shadow-lg focus-visible:shadow-white"
+          className="animate bg-gradient-white block cursor-pointer rounded-lg p-3 font-medium text-black/90 outline-none hover:bg-slate-200 focus-visible:ring-2 focus-visible:ring-slate-400"
           onChange={props.handleModelChange}
         >
           <option value="realesrgan-x4plus">General Photo</option>

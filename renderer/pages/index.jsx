@@ -128,6 +128,9 @@ const Home = () => {
 
   const handleModelChange = (e) => {
     setModel(e.target.value);
+    if (e.target.value === "models-DF2K") {
+      setDoubleUpscayl(false);
+    }
   };
 
   const handleDragEnter = (e) => {
@@ -216,6 +219,7 @@ const Home = () => {
           model,
         });
       } else if (batchMode) {
+        setDoubleUpscayl(false);
         await window.electron.send(commands.FOLDER_UPSCAYL, {
           scaleFactor,
           batchFolderPath,
@@ -339,6 +343,7 @@ const Home = () => {
                   style={{
                     objectFit: "contain",
                   }}
+                  className="bg-[#1d1c23]"
                 />
               </>
             }
@@ -353,6 +358,7 @@ const Home = () => {
                   style={{
                     objectFit: "contain",
                   }}
+                  className="bg-[#1d1c23]"
                 />
               </>
             }

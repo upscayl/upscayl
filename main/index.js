@@ -18,6 +18,7 @@ const {
   ipcRenderer,
   shell,
 } = require("electron");
+
 const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
 const commands = require("./commands");
@@ -75,6 +76,8 @@ app.on("ready", async () => {
 // Quit the app once all windows are closed
 app.on("window-all-closed", app.quit);
 
+console.log(app.getAppPath());
+//------------------------Select File-----------------------------//
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
 ipcMain.handle(commands.SELECT_FILE, async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
@@ -91,6 +94,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
   }
 });
 
+//------------------------Select Folder-----------------------------//
 ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
