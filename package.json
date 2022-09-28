@@ -124,7 +124,7 @@
     "autoprefixer": "^10.4.8",
     "electron": "^20.0.2",
     "electron-builder": "^23.3.3",
-    "next": "^12.2.5",
+    "next": "^12.3.1",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
