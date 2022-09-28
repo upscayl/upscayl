@@ -127,8 +127,8 @@ const Home = () => {
   };
 
   const handleModelChange = (e) => {
-    setModel(e.target.value);
-    if (e.target.value === "models-DF2K") {
+    setModel(e.value);
+    if (e.value === "models-DF2K") {
       setDoubleUpscayl(false);
     }
   };

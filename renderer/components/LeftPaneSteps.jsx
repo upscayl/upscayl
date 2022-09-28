@@ -1,9 +1,29 @@
 import React from "react";
+import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 
 function LeftPaneSteps(props) {
   const handleBatchMode = () => {
     props.setBatchMode((oldValue) => !oldValue);
+  };
+
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: "1px dotted pink",
+      color: state.isSelected ? "red" : "blue",
+      padding: 20,
+    }),
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      width: 200,
+    }),
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1;
+      const transition = "opacity 300ms";
+
+      return { ...provided, opacity, transition };
+    },
   };
 
   return (
@@ -50,7 +70,46 @@ function LeftPaneSteps(props) {
         <p className="step-heading">Step 2</p>
         <p className="mb-2 text-sm text-white/60">Select Upscaling Type</p>
 
-        <select
+        <Select
+          options={[
+            { label: "General Photo", value: "realesrgan-x4plus" },
+            { label: "Digital Art", value: "realesrgan-x4plus-anime" },
+            { label: "Sharpen Image", value: "models-DF2K" },
+          ]}
+          components={{
+            IndicatorSeparator: () => null,
+            DropdownIndicator: () => null,
+          }}
+          onChange={props.handleModelChange}
+          className="react-select-container"
+          classNamePrefix="react-select"
+          styles={{
+            input: (provided, state) => ({
+              ...provided,
+              color: "rgb(100 100 100)",
+            }),
+            dropdownIndicator: (provided, state) => ({
+              ...provided,
+              color: "rgb(15 15 15)",
+            }),
+            placeholder: (provided, state) => ({
+              ...provided,
+              color: "rgb(15 15 15)",
+              fontWeight: "500",
+            }),
+            singleValue: (provided, state) => ({
+              ...provided,
+              color: "rgb(15 15 15)",
+              fontWeight: "500",
+            }),
+            menu: (provided, state) => ({
+              ...provided,
+              background: "#f5f5f5",
+            }),
+          }}
+        />
+
+        {/* <select
           name="select-model"
           onDrop={(e) => props.handleDrop(e)}
           className="animate bg-gradient-white block cursor-pointer rounded-lg p-3 font-medium text-black/90 outline-none hover:bg-slate-200 focus-visible:ring-2 focus-visible:ring-slate-400"
@@ -59,7 +118,8 @@ function LeftPaneSteps(props) {
           <option value="realesrgan-x4plus">General Photo</option>
           <option value="realesrgan-x4plus-anime">Digital Art</option>
           <option value="models-DF2K">Sharpen Image</option>
-        </select>
+        </select> */}
+
         {props.model !== "models-DF2K" && !props.batchMode && (
           <div className="mt-2 flex items-center gap-1">
             <input
