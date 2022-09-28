@@ -26,6 +26,12 @@ function LeftPaneSteps(props) {
     },
   };
 
+  const modelOptions = [
+    { label: "General Photo", value: "realesrgan-x4plus" },
+    { label: "Digital Art", value: "realesrgan-x4plus-anime" },
+    { label: "Sharpen Image", value: "models-DF2K" },
+  ];
+
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-auto p-5">
       {/* BATCH OPTION */}
@@ -71,11 +77,7 @@ function LeftPaneSteps(props) {
         <p className="mb-2 text-sm text-white/60">Select Upscaling Type</p>
 
         <Select
-          options={[
-            { label: "General Photo", value: "realesrgan-x4plus" },
-            { label: "Digital Art", value: "realesrgan-x4plus-anime" },
-            { label: "Sharpen Image", value: "models-DF2K" },
-          ]}
+          options={modelOptions}
           components={{
             IndicatorSeparator: () => null,
             DropdownIndicator: () => null,
@@ -83,6 +85,16 @@ function LeftPaneSteps(props) {
           onChange={props.handleModelChange}
           className="react-select-container"
           classNamePrefix="react-select"
+          defaultValue={modelOptions[0]}
+          theme={(theme) => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary: "rgb(71 85 105)",
+              primary25: "#f5f5f5",
+              primary50: "#f5f5f5",
+            },
+          })}
           styles={{
             input: (provided, state) => ({
               ...provided,

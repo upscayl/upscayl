@@ -52,10 +52,13 @@
     @apply w-40 text-black;
   }
   .react-select-container .react-select__control {
-    @apply bg-gradient-white rounded-lg p-1;
+    @apply bg-gradient-white cursor-pointer rounded-lg p-1;
   }
-  .react-select {
-    @apply bg-red-500;
+  .react-select-container .react-select__menu {
+    @apply rounded-lg bg-slate-300 p-1;
+  }
+  .react-select-container .react-select__option {
+    @apply cursor-pointer rounded-md;
   }
 }
 
