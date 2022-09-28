@@ -32,3 +32,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+#flatpak
+.flatpak/
+.flatpak-builder
+repo/
+build-dir/
+
+#vscode
+.vscode/
