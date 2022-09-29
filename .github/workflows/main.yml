@@ -1,0 +1,48 @@
+# name of your github action
+name: CI
+# this will help you specify where to run 
+on:
+  workflow_dispatch:
+# this is where the magic happens, each job happens in parallel btw
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: electron
+    - uses: actions/setup-node@master
+      with:
+        node-version: 16
+    - name: Install Modules and Publish build
+      run: |
+        npm install
+        npm run publish-linux-app
+        
+  macos:
+      runs-on: macOS-latest
+      steps:
+      - uses: actions/checkout@master
+        with:
+          ref: electron
+      - uses: actions/setup-node@master
+        with:
+          node-version: 16
+      - name: Install Modules and Publish build
+        run: |
+          npm install
+          npm run publish-mac-app
+          
+  windo:
+      runs-on: windows-latest
+      steps:
+      - uses: actions/checkout@master
+        with:
+          ref: electron
+      - uses: actions/setup-node@master
+        with:
+          node-version: 16
+      - name: Install Modules and Publish build
+        run: |
+          npm install
+          npm run publish-win-app
