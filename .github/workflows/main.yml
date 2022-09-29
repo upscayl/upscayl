@@ -16,6 +16,11 @@ jobs:
         
     - name: Install Modules and Publish build
       run: |
+        sudo apt-get install flatpak -y
+        sudo apt-get install flatpak-builder -y
+        sudo apt-get install elfutils -y
+        sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        sudo flatpak install flathub org.freedesktop.Platform/x86_64/20.08 org.freedesktop.Sdk/x86_64/20.08 org.electronjs.Electron2.BaseApp/x86_64/stable -y
         npm install
         npm run publish-linux-app
         
