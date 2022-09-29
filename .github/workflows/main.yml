@@ -22,7 +22,7 @@ jobs:
         sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
         sudo flatpak install flathub org.freedesktop.Platform/x86_64/20.08 org.freedesktop.Sdk/x86_64/20.08 org.electronjs.Electron2.BaseApp/x86_64/stable -y
         npm install
-        npm run publish-linux-app
+        GH_TOKEN=${{ secrets.GH_TOKEN }} && npm run publish-linux-app
         
   macos:
       runs-on: macOS-latest
@@ -36,7 +36,7 @@ jobs:
       - name: Install Modules and Publish build
         run: |
           npm install
-          npm run publish-mac-app
+          GH_TOKEN=${{ secrets.GH_TOKEN }} && npm run publish-mac-app
           
   windo:
       runs-on: windows-latest
@@ -50,4 +50,4 @@ jobs:
       - name: Install Modules and Publish build
         run: |
           npm install
-          npm run publish-win-app
+          GH_TOKEN=${{ secrets.GH_TOKEN }} && npm run publish-win-app
