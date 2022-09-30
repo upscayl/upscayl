@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <component type="desktop">
-    <id>com.github.upscayl.upscayl</id>
+    <id>org.upscayl.app</id>
     <name>Upscayl</name>
     <summary>Free and Open Source AI Image Upscaler</summary>
-    <developer_name>Nayam Amarshe</developer_name>
-    <launchable type="desktop-id">com.github.upscayl.upscayl.desktop</launchable>
+    <developer_name>Nayam Amarshe, TGS963</developer_name>
+    <launchable type="desktop-id">org.upscayl.app.desktop</launchable>
     <metadata_license>FSFAP</metadata_license>
     <project_license>AGPL-3.0</project_license>
     <description>
@@ -20,6 +20,10 @@
     <content_rating type="oars-1.1" />
     <keywords>
         <keyword>upscale</keyword>
+        <keyword>topaz</keyword>
+        <keyword>gigapixel</keyword>
+        <keyword>waifu2x</keyword>
+        <keyword>ai</keyword>
     </keywords>
     <translation type="gettext">Upscayl</translation>
 </component>
