@@ -19,10 +19,10 @@ jobs:
         sudo apt-get install flatpak -y
         sudo apt-get install flatpak-builder -y
         sudo apt-get install elfutils -y
-        sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-        sudo flatpak install flathub org.freedesktop.Platform/x86_64/20.08 org.freedesktop.Sdk/x86_64/20.08 org.electronjs.Electron2.BaseApp/x86_64/stable -y
+        flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        flatpak install flathub org.freedesktop.Platform/x86_64/20.08 org.freedesktop.Sdk/x86_64/20.08 org.electronjs.Electron2.BaseApp/x86_64/stable -y
         npm install
-        GH_TOKEN=${{ secrets.GH_TOKEN }} && npm run publish-linux-app
+        GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-linux-app
         
   macos:
       runs-on: macOS-latest
@@ -36,9 +36,9 @@ jobs:
       - name: Install Modules and Publish build
         run: |
           npm install
-          GH_TOKEN=${{ secrets.GH_TOKEN }} && npm run publish-mac-app
+          GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-mac-app
           
-  windo:
+  windows:
       runs-on: windows-latest
       steps:
       - uses: actions/checkout@v3
@@ -48,6 +48,8 @@ jobs:
           node-version: 16
           
       - name: Install Modules and Publish build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm install
-          GH_TOKEN=${{ secrets.GH_TOKEN }} && npm run publish-win-app
+          npm run publish-win-app
