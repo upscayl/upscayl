@@ -28,13 +28,13 @@ let mainWindow;
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
-  console.log("🚀 Icon Path: ", join(__dirname, "icon.png"));
+  console.log("🚀 Icon Path: ", join(__dirname, "build", "icon.png"));
   console.log("🚀 Development Mode? :", isDev);
   console.log("🚀 RS Executable Path: ", execPath(""));
   console.log("🚀 Models: ", modelsPath);
 
   mainWindow = new BrowserWindow({
-    icon: join(__dirname, "build", "icon.png"),
+    icon: join(app.getAppPath(), "icon.png"),
     width: 1100,
     height: 740,
     minHeight: 500,
@@ -66,7 +66,7 @@ app.on("ready", async () => {
 
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
-    mainWindow.webContents.setZoomFactor(1)
+    mainWindow.webContents.setZoomFactor(1);
   });
 
   if (!isDev) {

@@ -105,8 +105,7 @@
         "flatpak",
         "zip"
       ],
-      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
-      "icon": "main/build/icon.png"
+      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;"
     },
     "win": {
       "publish": [
