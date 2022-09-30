@@ -43,7 +43,7 @@
     "dist:msi": "npm run build && DEBUG=* electron-builder build -w nsis",
     "dist:pkg": "npm run build && DEBUG=* electron-builder build -m pkg",
     "publish-app": "npm run build && electron-builder -wl --publish always",
-    "publish-linux-app": "npm run build && electron-builder -l --publish always",
+    "publish-linux-app": "DEBUG=* npm run build && electron-builder -l --publish always",
     "publish-win-app": "npm run build && electron-builder -w --publish always",
     "publish-mac-app": "npm run build && electron-builder -m --publish always"
   },
