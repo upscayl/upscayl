@@ -103,6 +103,27 @@ const Home = () => {
     setProgress("");
   }, [batchMode]);
 
+  useEffect(() => {
+    if (imagePath.length > 0) {
+      const filePath = imagePath;
+      console.log(
+        "🚀 => file: index.jsx => line 109 => useEffect => filePath",
+        filePath
+      );
+
+      const extension = imagePath.toLocaleLowerCase().split(".").pop();
+      console.log(
+        "🚀 => file: index.jsx => line 111 => useEffect => extension",
+        extension
+      );
+
+      if (!allowedFileTypes.includes(extension.toLowerCase())) {
+        alert("Please select an image");
+        resetImagePaths();
+      }
+    }
+  }, [imagePath]);
+
   const selectImageHandler = async () => {
     resetImagePaths();
 
