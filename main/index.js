@@ -66,6 +66,7 @@ app.on("ready", async () => {
 
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
+    mainWindow.webContents.setZoomFactor(1)
   });
 
   if (!isDev) {

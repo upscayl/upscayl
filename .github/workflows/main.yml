@@ -1,0 +1,55 @@
+# name of your github action
+name: CI
+# this will help you specify where to run 
+on:
+  workflow_dispatch:
+# this is where the magic happens, each job happens in parallel btw
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - uses: actions/setup-node@v3.5.0
+      with:
+        node-version: 16
+        
+    - name: Install Modules and Publish build
+      run: |
+        sudo apt-get install flatpak -y
+        sudo apt-get install flatpak-builder -y
+        sudo apt-get install elfutils -y
+        flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        flatpak install flathub org.freedesktop.Platform/x86_64/20.08 org.freedesktop.Sdk/x86_64/20.08 org.electronjs.Electron2.BaseApp/x86_64/stable -y
+        npm install
+        GH_TOKEN=${{ secrets.GH_TOKEN }} npm run publish-linux-app
+        
+  macos:
+      runs-on: macOS-latest
+      steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3.5.0
+        with:
+          node-version: 16
+          
+      - name: Install Modules and Publish build
+        run: |
+          npm install
+          GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-mac-app
+          
+  windows:
+      runs-on: windows-latest
+      steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3.5.0
+        with:
+          node-version: 16
+          
+      - name: Install Modules and Publish build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm install
+          npm run publish-win-app
