@@ -34,7 +34,7 @@ app.on("ready", async () => {
   console.log("🚀 Models: ", modelsPath);
 
   mainWindow = new BrowserWindow({
-    icon: join(app.getAppPath(), "icon.png"),
+    icon: join(__dirname, "build", "icon.png"),
     width: 1100,
     height: 740,
     minHeight: 500,
