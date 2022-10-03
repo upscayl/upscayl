@@ -50,6 +50,7 @@
   "build": {
     "productName": "Upscayl",
     "appId": "org.upscayl.app",
+    "artifactName": "${name}-${version}-${os}.${ext}",
     "asar": true,
     "extraFiles": [
       {
