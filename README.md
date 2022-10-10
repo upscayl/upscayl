@@ -4,6 +4,8 @@
 
 ![New Project (5)](https://user-images.githubusercontent.com/25067102/191081148-ca101da1-d601-4170-9d41-26fc2de8c027.png)
 
+v2 will probably release next month (November) as we're kinda busy with other things at the moment, thanks for the support :)
+
 </a>
 
 # Upscayl 🆙
@@ -14,7 +16,7 @@ https://user-images.githubusercontent.com/25067102/191083105-cca0dc96-69d5-472b-
 
 **Upscayl is a cross-platform application built with the Linux-first philosophy. This means that we prioritize Linux builds over others but that doesn't mean we'll break things for other OSes :)**
 
-### NOTE: Upscayl does not work without a GPU, sorry. You'll need a Vulkan compatible GPU to upscale images. CPU or iGPU won't work.
+### NOTE: Upscayl does not work without a GPU, sorry. You'll need a Vulkan compatible GPU to upscale images. Most CPU and iGPUs won't work.
 
 </div>
 
@@ -98,7 +100,7 @@ npm run publish-app
 - Is there a CLI available?
   - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
 - Do I need a GPU for this to work?
-  - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work on iGPU or CPU.
+  - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work on most iGPUs or CPUs.
 - How can I contribute?
   - You can donate more NCNN compatible models or fix code by submitting PRs :)
 - You are not fully open source!!😡
