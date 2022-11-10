@@ -4,7 +4,7 @@
 
 ![New Project (5)](https://user-images.githubusercontent.com/25067102/191081148-ca101da1-d601-4170-9d41-26fc2de8c027.png)
 
-v2 will probably release next month (November) as we're kinda busy with other things at the moment, thanks for the support :)
+v2 will release soon. We're kinda busy with other things at the moment so sorry for the delay, thanks for the support :)
 
 </a>
 
@@ -107,6 +107,13 @@ npm run publish-app
   - We are, we're using completely free and open source tech. We do ship a binary but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience, if you do not trust it, then you can compile your own since everything is free and open source here :)
 
 Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and algorithms will come soon.
+
+# Donate
+
+<a href="https://www.buymeacoffee.com/fossisthefuture">
+
+![](https://user-images.githubusercontent.com/25067102/154570688-9e143f2b-fee3-4b05-a9d2-a7a3013b2b51.png)
+<a/>
 
 # Credits ❤
 
