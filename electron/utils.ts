@@ -1,14 +1,6 @@
 import { spawn } from "child_process";
 import { execPath } from "./binaries";
 
-/**
- *
- * @param {*} inputFile
- * @param {*} outFile
- * @param {*} modelsPath
- * @param {*} model
- * @returns
- */
 function upscaylImage(
   inputFile: string,
   outFile: string,

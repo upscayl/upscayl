@@ -18,4 +18,4 @@ const getPlatform = () => {
   }
 };
 
-export { getPlatform };
+export default getPlatform;

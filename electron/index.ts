@@ -5,7 +5,7 @@ import { ChildProcessWithoutNullStreams, spawn } from "child_process";
 import fs from "fs";
 import sizeOf from "image-size";
 import { autoUpdater } from "electron-updater";
-import { getPlatform } from "./getPlatform";
+import getPlatform from "./getPlatform";
 
 import { execPath, modelsPath } from "./binaries";
 
