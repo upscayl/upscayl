@@ -1,6 +1,6 @@
 "use strict";
 
-const { platform } = require("os");
+import { platform } from "os";
 
 const getPlatform = () => {
   switch (platform()) {
@@ -18,4 +18,4 @@ const getPlatform = () => {
   }
 };
 
-module.exports = { getPlatform };
+export { getPlatform };

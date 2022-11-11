@@ -1,27 +1,28 @@
 // Native
-const { join, parse } = require("path");
-const { format } = require("url");
-const { spawn } = require("child_process");
-const fs = require("fs");
-const sizeOf = require("image-size");
-const { autoUpdater } = require("electron-updater");
-const { getPlatform } = require("./getPlatform");
+import { join, parse } from "path";
+import { format } from "url";
+import { ChildProcessWithoutNullStreams, spawn } from "child_process";
+import fs from "fs";
+import sizeOf from "image-size";
+import { autoUpdater } from "electron-updater";
+import { getPlatform } from "./getPlatform";
 
-const { execPath, modelsPath } = require("./binaries");
+import { execPath, modelsPath } from "./binaries";
 
 // Packages
-const {
+import {
   BrowserWindow,
   app,
   ipcMain,
   dialog,
   ipcRenderer,
   shell,
-} = require("electron");
+  MessageBoxOptions,
+} from "electron";
 
-const isDev = require("electron-is-dev");
-const prepareNext = require("electron-next");
-const commands = require("./commands");
+import isDev from "electron-is-dev";
+import prepareNext from "electron-next";
+import commands from "./commands";
 
 // Prepare the renderer once the app is ready
 let mainWindow;
@@ -42,7 +43,6 @@ app.on("ready", async () => {
     show: false,
     backgroundColor: "#171717",
     webPreferences: {
-      autoHideMenuBar: true,
       nodeIntegration: true,
       webSecurity: false,
       preload: join(__dirname, "preload.js"),
@@ -141,7 +141,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
       model,
     ],
     {
-      cwd: null,
+      cwd: undefined,
       detached: false,
     }
   );
@@ -180,7 +180,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
         execPath("realesrgan"),
         ["-i", outFile, "-o", outFile, "-s", 4, "-m", modelsPath, "-n", model],
         {
-          cwd: null,
+          cwd: undefined,
           detached: false,
         }
       );
@@ -251,7 +251,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     // If already upscayled, just output that file
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
-    let upscayl = null;
+    let upscayl: ChildProcessWithoutNullStreams | null = null;
     switch (model) {
       case "realesrgan-x4plus":
       case "realesrgan-x4plus-anime":
@@ -270,7 +270,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
             model,
           ],
           {
-            cwd: null,
+            cwd: undefined,
             detached: false,
           }
         );
@@ -290,7 +290,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
             modelsPath + "/" + model,
           ],
           {
-            cwd: null,
+            cwd: undefined,
             detached: false,
           }
         );
@@ -298,7 +298,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     }
 
     let failed = false;
-    upscayl.stderr.on("data", (data) => {
+    upscayl?.stderr.on("data", (data) => {
       console.log(
         "🚀 => upscayl.stderr.on => stderr.toString()",
         data.toString()
@@ -310,14 +310,14 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       }
     });
 
-    upscayl.on("error", (data) => {
+    upscayl?.on("error", (data) => {
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       failed = true;
       return;
     });
 
     // Send done comamnd when
-    upscayl.on("close", (code) => {
+    upscayl?.on("close", (code) => {
       if (failed !== true) {
         console.log("Done upscaling");
         mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
@@ -338,7 +338,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   // UPSCALE
-  let upscayl = null;
+  let upscayl: ChildProcessWithoutNullStreams | null = null;
   switch (model) {
     case "realesrgan-x4plus":
     case "realesrgan-x4plus-anime":
@@ -357,7 +357,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
           model,
         ],
         {
-          cwd: null,
+          cwd: undefined,
           detached: false,
         }
       );
@@ -377,7 +377,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
           modelsPath + "/" + model,
         ],
         {
-          cwd: null,
+          cwd: undefined,
           detached: false,
         }
       );
@@ -385,7 +385,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   }
 
   let failed = false;
-  upscayl.stderr.on("data", (data) => {
+  upscayl?.stderr.on("data", (data) => {
     console.log(
       "🚀 => upscayl.stderr.on => stderr.toString()",
       data.toString()
@@ -400,7 +400,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     }
   });
 
-  upscayl.on("error", (data) => {
+  upscayl?.on("error", (data) => {
     mainWindow.webContents.send(
       commands.FOLDER_UPSCAYL_PROGRESS,
       data.toString()
@@ -410,7 +410,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   });
 
   // Send done comamnd when
-  upscayl.on("close", (code) => {
+  upscayl?.on("close", (code) => {
     if (failed !== true) {
       console.log("Done upscaling");
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
@@ -425,22 +425,29 @@ ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
 
 //------------------------Auto-Update Code-----------------------------//
 // ! AUTO UPDATE STUFF
-autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {
+autoUpdater.on("update-available", ({ releaseNotes, releaseName }) => {
   const dialogOpts = {
     type: "info",
     buttons: ["Ok"],
     title: "Application Update",
-    message: process.platform === "win32" ? releaseNotes : releaseName,
+    message:
+      process.platform === "win32"
+        ? (releaseNotes as string)
+        : (releaseName as string),
     detail: "A new version is being downloaded.",
   };
-  dialog.showMessageBox(dialogOpts, (response) => {});
+  dialog.showMessageBox(dialogOpts).then((returnValue) => {});
 });
-autoUpdater.on("update-downloaded", (_event, releaseNotes, releaseName) => {
-  const dialogOpts = {
+
+autoUpdater.on("update-downloaded", (event) => {
+  const dialogOpts: MessageBoxOptions = {
     type: "info",
     buttons: ["Restart", "Later"],
     title: "Application Update",
-    message: process.platform === "win32" ? releaseNotes : releaseName,
+    message:
+      process.platform === "win32"
+        ? (event.releaseNotes as string)
+        : (event.releaseName as string),
     detail:
       "A new version has been downloaded. Restart the application to apply the updates.",
   };

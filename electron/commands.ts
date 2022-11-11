@@ -14,4 +14,4 @@ const commands = {
   OPEN_FOLDER: "Open Folder",
 };
 
-module.exports = commands;
+export default commands;
