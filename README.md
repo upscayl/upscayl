@@ -111,8 +111,7 @@ Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and
 # Donate
 
 <a href="https://www.buymeacoffee.com/fossisthefuture">
-
-![](https://user-images.githubusercontent.com/25067102/154570688-9e143f2b-fee3-4b05-a9d2-a7a3013b2b51.png)
+<img src="https://user-images.githubusercontent.com/25067102/154570688-9e143f2b-fee3-4b05-a9d2-a7a3013b2b51.png" />
 <a/>
 
 # Credits ❤
