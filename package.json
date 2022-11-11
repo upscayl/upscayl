@@ -1,0 +1,162 @@
+{
+  "name": "upscayl",
+  "private": true,
+  "version": "1.5.5",
+  "productName": "Upscayl",
+  "homepage": "https://github.com/TGS963/upscayl",
+  "contributors": [
+    {
+      "name": "Nayam Amarshe",
+      "email": "nayam@amars.he",
+      "url": "https://github.com/NayamAmarshe"
+    },
+    {
+      "name": "TGS963",
+      "email": "tgs@963.com",
+      "url": "https://github.com/TGS963"
+    }
+  ],
+  "email": "simplelogin-newsletter.j1zez@aleeas.com",
+  "license": "AGPL-3.0",
+  "description": "Upscayl - Free and Open Source AI Image Upscaler",
+  "keywords": [
+    "AI",
+    "Upscaler",
+    "Image Upscale",
+    "Linux image upscale",
+    "Topaz Gigapixel",
+    "Linux",
+    "KDE",
+    "Gnome"
+  ],
+  "main": "main/index.js",
+  "scripts": {
+    "clean": "rimraf dist renderer/.next renderer/out",
+    "start": "electron .",
+    "build": "next build renderer && next export renderer",
+    "tsc": "tsc",
+    "pack-app": "npm run build && electron-builder --dir",
+    "dist": "npm run build && DEBUG=* electron-builder",
+    "dist:appimage": "npm run build && DEBUG=* electron-builder build -l AppImage",
+    "dist:flatpak": "npm run build && DEBUG=* electron-builder build -l flatpak",
+    "dist:zip": "npm run build && DEBUG=* electron-builder build -l zip",
+    "dist:dmg": "npm run build && DEBUG=* electron-builder build -m dmg",
+    "dist:msi": "npm run build && DEBUG=* electron-builder build -w nsis",
+    "dist:pkg": "npm run build && DEBUG=* electron-builder build -m pkg",
+    "publish-app": "npm run build && electron-builder -wl --publish always",
+    "publish-linux-app": "npm run build && electron-builder -l --publish always",
+    "publish-win-app": "npm run build && electron-builder -w --publish always",
+    "publish-mac-app": "npm run build && electron-builder -m --publish always"
+  },
+  "build": {
+    "productName": "Upscayl",
+    "appId": "org.upscayl.app",
+    "artifactName": "${name}-${version}-${os}.${ext}",
+    "asar": true,
+    "extraFiles": [
+      {
+        "from": "resources/${os}/bin",
+        "to": "resources/bin",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "resources/models",
+        "to": "resources/models",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "mac": {
+      "type": "distribution",
+      "hardenedRuntime": true,
+      "entitlements": "main/resources/entitlements.mac.plist",
+      "entitlementsInherit": "main/resources/entitlements.mac.plist",
+      "gatekeeperAssess": false,
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "AppImage",
+        "flatpak",
+        "zip"
+      ],
+      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;"
+    },
+    "win": {
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "nsis"
+      ],
+      "icon": "main/build/icon.png"
+    },
+    "files": [
+      "main",
+      "renderer/out"
+    ]
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "autoprefixer": "^10.4.13",
+    "electron": "^21.2.2",
+    "electron-builder": "^23.6.0",
+    "next": "^13.0.2",
+    "postcss": "^8.4.18",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.2.2",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "app-root-dir": "^1.0.2",
+    "electron-is-dev": "^2.0.0",
+    "electron-is-packaged": "^1.0.2",
+    "electron-next": "^3.1.5",
+    "electron-root-path": "^1.1.0",
+    "electron-updater": "^5.3.0",
+    "image-size": "^1.0.2",
+    "react-compare-slider": "^2.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-image-zoom": "^1.3.1",
+    "react-magnifier": "^3.0.4",
+    "react-select": "^5.6.0",
+    "react-tooltip": "^4.4.3",
+    "tailwind-scrollbar": "^2.0.1"
+  },
+  "volta": {
+    "node": "16.17.0"
+  }
+}
