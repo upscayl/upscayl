@@ -32,7 +32,7 @@
   "main": "main/index.js",
   "scripts": {
     "clean": "rimraf dist renderer/.next renderer/out",
-    "start": "electron .",
+    "start": "tsc && electron .",
     "build": "next build renderer && next export renderer",
     "tsc": "tsc",
     "pack-app": "npm run build && electron-builder --dir",

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPlatform = void 0;
 const os_1 = require("os");
 const getPlatform = () => {
     switch ((0, os_1.platform)()) {
@@ -17,4 +16,4 @@ const getPlatform = () => {
             return "win";
     }
 };
-exports.getPlatform = getPlatform;
+exports.default = getPlatform;

@@ -18,7 +18,7 @@ const url_1 = require("url");
 const child_process_1 = require("child_process");
 const fs_1 = __importDefault(require("fs"));
 const electron_updater_1 = require("electron-updater");
-const getPlatform_1 = require("./getPlatform");
+const getPlatform_1 = __importDefault(require("./getPlatform"));
 const binaries_1 = require("./binaries");
 // Packages
 const electron_1 = require("electron");
@@ -107,7 +107,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
     let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
     let outputDir = payload.outputPath;
     // COPY IMAGE TO TMP FOLDER
-    const platform = (0, getPlatform_1.getPlatform)();
+    const platform = (0, getPlatform_1.default)();
     const fullfileName = platform === "win"
         ? payload.imagePath.split("\\").slice(-1)[0]
         : payload.imagePath.split("/").slice(-1)[0];
@@ -201,7 +201,7 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
     let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
     let outputDir = payload.outputPath;
     // COPY IMAGE TO TMP FOLDER
-    const platform = (0, getPlatform_1.getPlatform)();
+    const platform = (0, getPlatform_1.default)();
     const fullfileName = platform === "win"
         ? payload.imagePath.split("\\").slice(-1)[0]
         : payload.imagePath.split("/").slice(-1)[0];

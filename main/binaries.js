@@ -10,12 +10,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.modelsPath = exports.execPath = void 0;
 const path_1 = require("path");
-const getPlatform_1 = require("./getPlatform");
+const getPlatform_1 = __importDefault(require("./getPlatform"));
 const electron_is_dev_1 = __importDefault(require("electron-is-dev"));
 const electron_1 = require("electron");
 const appRootDir = electron_1.app.getAppPath();
 const binariesPath = electron_is_dev_1.default
-    ? (0, path_1.join)(appRootDir, "resources", (0, getPlatform_1.getPlatform)(), "bin")
+    ? (0, path_1.join)(appRootDir, "resources", (0, getPlatform_1.default)(), "bin")
     : (0, path_1.join)((0, path_1.dirname)(appRootDir), "bin");
 const execPath = (execName) => (0, path_1.resolve)((0, path_1.join)(binariesPath, `./upscayl-${execName}`));
 exports.execPath = execPath;
