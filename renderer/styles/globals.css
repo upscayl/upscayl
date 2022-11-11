@@ -11,15 +11,15 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply rounded-full bg-neutral-700;
+    @apply rounded-full bg-base-300;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-neutral-500;
+    @apply rounded-full bg-base-200;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply rounded-full bg-neutral-400;
+    @apply rounded-full bg-base-content;
   }
 }
 
@@ -27,14 +27,14 @@
   .animate {
     @apply transition-all duration-300 ease-in-out;
   }
-  .bg-gradient-purple {
+  /* .bg-gradient-purple {
     @apply bg-gradient-to-br from-[#7741ff] to-[#af55ff] hover:from-[#af55ff] hover:to-[#7741ff];
   }
   .bg-gradient-red {
     @apply bg-gradient-to-br from-rose-600 to-red-400 hover:from-red-400 hover:to-rose-600;
   }
   .bg-gradient-white {
-    @apply bg-gradient-to-br from-slate-400 to-neutral-100 hover:from-neutral-100 hover:to-slate-400;
+    @apply to-neutral-100 hover:from-neutral-100 bg-gradient-to-br from-slate-400 hover:to-slate-400;
   }
   .bg-gradient-upscayl {
     @apply bg-gradient-to-br from-[#7741ff] to-[#af55ff] hover:from-[#af55ff] hover:to-[#7741ff];
@@ -44,15 +44,15 @@
   }
   .bg-gradient-blue {
     @apply bg-gradient-to-br from-blue-500 to-sky-400 hover:from-sky-400 hover:to-blue-500;
-  }
+  } */
   .step-heading {
-    @apply mb-2 font-medium text-white/80;
+    @apply mb-2 font-semibold;
   }
   .react-select-container {
     @apply w-40 text-black;
   }
   .react-select-container .react-select__control {
-    @apply bg-gradient-white cursor-pointer rounded-lg p-1;
+    @apply cursor-pointer rounded-lg p-1;
   }
   .react-select-container .react-select__menu {
     @apply rounded-lg bg-slate-300 p-1;

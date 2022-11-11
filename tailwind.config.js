@@ -3,9 +3,6 @@ module.exports = {
     "./renderer/pages/**/*.{js,ts,jsx,tsx}",
     "./renderer/components/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {},
-  },
-  darkMode: "class",
-  plugins: [require("tailwind-scrollbar")],
+  theme: {},
+  plugins: [require("daisyui"), require("tailwind-scrollbar")],
 };

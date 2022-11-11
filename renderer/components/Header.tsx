@@ -15,8 +15,8 @@ export default function Header() {
           data-tip="Star us on GitHub 😁"
         />
         <div className="flex flex-col justify-center">
-          <h1 className="text-3xl font-bold text-neutral-50">Upscayl</h1>
-          <p className="text-neutral-400">AI Image Upscaler</p>
+          <h1 className="text-3xl font-bold">Upscayl</h1>
+          <p className="">AI Image Upscaler</p>
         </div>
       </div>
     </a>

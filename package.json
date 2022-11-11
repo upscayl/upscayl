@@ -33,6 +33,7 @@
   "scripts": {
     "clean": "rimraf dist renderer/.next renderer/out",
     "start": "tsc && electron .",
+    "dev": "tsc && electron .",
     "build": "next build renderer && next export renderer",
     "tsc": "tsc",
     "pack-app": "npm run build && electron-builder --dir",
@@ -142,6 +143,7 @@
   },
   "dependencies": {
     "app-root-dir": "^1.0.2",
+    "daisyui": "^2.39.1",
     "electron-is-dev": "^2.0.0",
     "electron-is-packaged": "^1.0.2",
     "electron-next": "^3.1.5",

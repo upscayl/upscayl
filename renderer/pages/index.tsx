@@ -263,8 +263,8 @@ const Home = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-row overflow-hidden bg-[#1d1c23]">
-      <div className="flex h-screen w-96 flex-col bg-[#26222c]">
+    <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
+      <div className="flex h-screen w-96 flex-col bg-base-100">
         {((!batchMode && imagePath.length > 0) ||
           (batchMode && batchFolderPath.length > 0)) && (
           <ResetButton resetImagePaths={resetImagePaths} />
@@ -334,14 +334,14 @@ const Home = () => {
         {batchMode &&
           upscaledBatchFolderPath.length === 0 &&
           batchFolderPath.length > 0 && (
-            <p className="select-none font-bold text-neutral-50">
+            <p className="text-neutral-50 select-none font-bold">
               Selected folder: {batchFolderPath}
             </p>
           )}
 
         {batchMode && upscaledBatchFolderPath.length > 0 && (
           <>
-            <p className="select-none py-4 font-bold text-neutral-50">
+            <p className="text-neutral-50 select-none py-4 font-bold">
               All done!
             </p>
             <button
@@ -388,21 +388,6 @@ const Home = () => {
             className="h-screen"
           />
         )}
-
-        {/* {imagePath.length === 0 && batchFolderPath.length === 0 ? (
-          <RightPaneInfo version={version} />
-        ) : upscaledImagePath.length === 0 &&
-          upscaledBatchFolderPath.length === 0 ? (
-          !batchMode ? (
-            
-          ) : (
-            
-          )
-        ) : !batchMode ? (
-          
-        ) : (
-
-        )} */}
       </div>
     </div>
   );
