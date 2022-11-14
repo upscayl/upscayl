@@ -48,17 +48,36 @@
   .step-heading {
     @apply mb-2 font-semibold;
   }
+
   .react-select-container {
-    @apply w-40 text-black;
+    @apply w-40;
   }
   .react-select-container .react-select__control {
-    @apply cursor-pointer rounded-lg p-1;
+    @apply h-12 cursor-pointer rounded-lg !border-0 !border-none !border-transparent bg-primary shadow-none;
   }
+
+  .react-select-container .react-select__control--menu-is-open {
+    @apply bg-primary-focus;
+  }
+
+  .react-select-container .react-select__single-value {
+    @apply text-sm font-semibold uppercase text-primary-content;
+  }
+
+  .react-select-container .react-select__input-container {
+    @apply text-sm font-semibold uppercase text-primary-content;
+  }
+
   .react-select-container .react-select__menu {
-    @apply rounded-lg bg-slate-300 p-1;
+    @apply rounded-lg bg-primary p-1;
   }
+
   .react-select-container .react-select__option {
-    @apply cursor-pointer rounded-md;
+    @apply cursor-pointer rounded-md bg-primary text-slate-50 hover:bg-primary-focus;
+  }
+
+  .react-select-container .react-select__option--is-selected {
+    @apply bg-accent;
   }
 }
 

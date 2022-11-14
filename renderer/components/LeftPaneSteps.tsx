@@ -33,7 +33,7 @@ function LeftPaneSteps(props) {
   ];
 
   return (
-    <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-auto p-5">
+    <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-auto rounded-r-lg p-5">
       {/* BATCH OPTION */}
       <div className="flex flex-row items-center gap-2">
         <input
@@ -87,42 +87,10 @@ function LeftPaneSteps(props) {
             DropdownIndicator: () => null,
           }}
           onChange={props.handleModelChange}
-          className="react-select-container select"
+          className="react-select-container"
           classNamePrefix="react-select"
           defaultValue={modelOptions[0]}
-          theme={(theme) => ({
-            ...theme,
-            colors: {
-              ...theme.colors,
-              primary: "rgb(71 85 105)",
-              primary25: "#f5f5f5",
-              primary50: "#f5f5f5",
-            },
-          })}
-          styles={{
-            input: (provided, state) => ({
-              ...provided,
-              color: "rgb(100 100 100)",
-            }),
-            dropdownIndicator: (provided, state) => ({
-              ...provided,
-              color: "rgb(15 15 15)",
-            }),
-            placeholder: (provided, state) => ({
-              ...provided,
-              color: "rgb(15 15 15)",
-              fontWeight: "500",
-            }),
-            singleValue: (provided, state) => ({
-              ...provided,
-              color: "rgb(15 15 15)",
-              fontWeight: "500",
-            }),
-            menu: (provided, state) => ({
-              ...provided,
-              background: "#f5f5f5",
-            }),
-          }}
+          defaultMenuIsOpen={true}
         />
 
         {props.model !== "models-DF2K" && !props.batchMode && (
