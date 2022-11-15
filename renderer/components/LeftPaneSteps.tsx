@@ -33,31 +33,27 @@ function LeftPaneSteps(props) {
   ];
 
   return (
-    <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-auto rounded-r-lg p-5">
+    <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
+      <div className="flex items-center justify-center gap-2 font-medium">
+        <p>Image</p>
+        <input type="radio" name="radio-1" className="radio" />
+        <input type="radio" name="radio-1" className="radio" />
+        <p>Video</p>
+      </div>
+
       {/* BATCH OPTION */}
       <div className="flex flex-row items-center gap-2">
         <input
           type="checkbox"
-          className="checkbox"
+          className="toggle"
           onClick={handleBatchMode}
         ></input>
-        <p
-          className="mr-1 inline-block cursor-help text-sm"
+        <div
+          className="tooltip tooltip-right relative z-50"
           data-tip="This will let you upscale all files in a folder at once"
         >
-          Batch Upscale
-        </p>
-      </div>
-
-      {/* ADVANCED OPTION */}
-      <div className="flex flex-row items-center gap-2">
-        <input type="checkbox" className="checkbox" onClick={handleBatchMode} />
-        <p
-          className="mr-1 inline-block cursor-help text-sm"
-          data-tip="This will let you upscale all files in a folder at once"
-        >
-          Advanced Options
-        </p>
+          <p className="mr-1 inline-block cursor-help text-sm">Batch Upscale</p>
+        </div>
       </div>
 
       {/* STEP 1 */}
@@ -90,7 +86,6 @@ function LeftPaneSteps(props) {
           className="react-select-container"
           classNamePrefix="react-select"
           defaultValue={modelOptions[0]}
-          defaultMenuIsOpen={true}
         />
 
         {props.model !== "models-DF2K" && !props.batchMode && (
@@ -115,12 +110,12 @@ function LeftPaneSteps(props) {
             >
               Double Upscayl
             </p>
-            <span
-              className="badge-info badge cursor-help"
+            <div
+              className="tooltip"
               data-tip="Enable this option to get an 8x upscayl. Note that this may not always work properly with all images, for example, images with really large resolutions."
             >
-              i
-            </span>
+              <span className="badge-info badge cursor-help">i</span>
+            </div>
           </div>
         )}
       </div>
@@ -134,6 +129,17 @@ function LeftPaneSteps(props) {
         </button>
       </div>
 
+      {/* ADVANCED OPTION */}
+      <div className="flex flex-row items-center gap-2">
+        <input type="checkbox" className="checkbox" onClick={handleBatchMode} />
+        <p
+          className="mr-1 inline-block cursor-help text-sm"
+          data-tip="This will let you upscale all files in a folder at once"
+        >
+          Advanced Options
+        </p>
+      </div>
+
       {/* STEP 4 */}
       <div className="animate-step-in">
         <p className="step-heading">Step 4</p>
@@ -145,11 +151,6 @@ function LeftPaneSteps(props) {
           {props.progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
         </button>
       </div>
-
-      <ReactTooltip
-        className="bg-neutral-900 text-neutral-50 max-w-md break-words"
-        place="top"
-      />
     </div>
   );
 }

@@ -53,7 +53,7 @@
     @apply w-40;
   }
   .react-select-container .react-select__control {
-    @apply h-12 cursor-pointer rounded-lg !border-0 !border-none !border-transparent bg-primary shadow-none;
+    @apply rounded-btn h-12 cursor-pointer !border-0 !border-none !border-transparent bg-primary shadow-none;
   }
 
   .react-select-container .react-select__control--menu-is-open {
@@ -69,11 +69,11 @@
   }
 
   .react-select-container .react-select__menu {
-    @apply rounded-lg bg-primary p-1;
+    @apply rounded-lg bg-primary p-1 text-sm font-semibold uppercase;
   }
 
   .react-select-container .react-select__option {
-    @apply cursor-pointer rounded-md bg-primary text-slate-50 hover:bg-primary-focus;
+    @apply my-1 cursor-pointer rounded-md bg-primary text-slate-50 hover:bg-primary-focus;
   }
 
   .react-select-container .react-select__option--is-selected {
