@@ -24,6 +24,7 @@ const Home = () => {
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
+  const [isVideo, setIsVideo] = useState(false);
 
   const resetImagePaths = () => {
     setProgress("");
@@ -288,6 +289,8 @@ const Home = () => {
           doubleUpscayl={doubleUpscayl}
           setDoubleUpscayl={setDoubleUpscayl}
           model={model}
+          isVideo={isVideo}
+          setIsVideo={setIsVideo}
         />
 
         <Footer />
