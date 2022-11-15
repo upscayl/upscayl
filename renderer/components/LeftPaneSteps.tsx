@@ -2,9 +2,45 @@ import React from "react";
 import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 
-function LeftPaneSteps(props) {
+interface IProps {
+  progress: string;
+  selectImageHandler: () => Promise<void>;
+  selectFolderHandler: () => Promise<void>;
+  handleModelChange: (e: any) => void;
+  handleDrop: (e: any) => void;
+  outputHandler: () => Promise<void>;
+  upscaylHandler: () => Promise<void>;
+  batchMode: boolean;
+  setBatchMode: (arg: any) => void;
+  imagePath: string;
+  outputPath: string;
+  doubleUpscayl: boolean;
+  setDoubleUpscayl: (arg: boolean) => void;
+  model: string;
+  isVideo: boolean;
+  setIsVideo: (arg: boolean) => void;
+}
+
+function LeftPaneSteps({
+  progress,
+  selectImageHandler,
+  selectFolderHandler,
+  handleModelChange,
+  handleDrop,
+  outputHandler,
+  upscaylHandler,
+  batchMode,
+  setBatchMode,
+  imagePath,
+  outputPath,
+  doubleUpscayl,
+  setDoubleUpscayl,
+  model,
+  isVideo,
+  setIsVideo,
+}: IProps) {
   const handleBatchMode = () => {
-    props.setBatchMode((oldValue) => !oldValue);
+    setBatchMode((oldValue) => !oldValue);
   };
 
   const customStyles = {
@@ -36,8 +72,20 @@ function LeftPaneSteps(props) {
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
       <div className="flex items-center justify-center gap-2 font-medium">
         <p>Image</p>
-        <input type="radio" name="radio-1" className="radio" />
-        <input type="radio" name="radio-1" className="radio" />
+        <input
+          type="radio"
+          name="radio-1"
+          className="radio"
+          checked={!isVideo}
+          onClick={() => setIsVideo(false)}
+        />
+        <input
+          type="radio"
+          name="radio-1"
+          className="radio"
+          checked={isVideo}
+          onClick={() => setIsVideo(true)}
+        />
         <p>Video</p>
       </div>
 
@@ -57,17 +105,13 @@ function LeftPaneSteps(props) {
       </div>
 
       {/* STEP 1 */}
-      <div data-tip={props.imagePath}>
+      <div data-tip={imagePath}>
         <p className="step-heading">Step 1</p>
         <button
           className="btn-primary btn"
-          onClick={
-            !props.batchMode
-              ? props.selectImageHandler
-              : props.selectFolderHandler
-          }
+          onClick={!batchMode ? selectImageHandler : selectFolderHandler}
         >
-          Select {props.batchMode ? "Folder" : "Image"}
+          Select {batchMode ? "Folder" : "Image"}
         </button>
       </div>
 
@@ -82,30 +126,30 @@ function LeftPaneSteps(props) {
             IndicatorSeparator: () => null,
             DropdownIndicator: () => null,
           }}
-          onChange={props.handleModelChange}
+          onChange={handleModelChange}
           className="react-select-container"
           classNamePrefix="react-select"
           defaultValue={modelOptions[0]}
         />
 
-        {props.model !== "models-DF2K" && !props.batchMode && (
+        {model !== "models-DF2K" && !batchMode && (
           <div className="mt-2 flex items-center gap-1">
             <input
               type="checkbox"
               className="checkbox"
-              checked={props.doubleUpscayl}
+              checked={doubleUpscayl}
               onChange={(e) => {
                 if (e.target.checked) {
-                  props.setDoubleUpscayl(true);
+                  setDoubleUpscayl(true);
                 } else {
-                  props.setDoubleUpscayl(false);
+                  setDoubleUpscayl(false);
                 }
               }}
             />
             <p
               className="cursor-pointer text-sm"
               onClick={(e) => {
-                props.setDoubleUpscayl(!props.doubleUpscayl);
+                setDoubleUpscayl(!doubleUpscayl);
               }}
             >
               Double Upscayl
@@ -121,10 +165,10 @@ function LeftPaneSteps(props) {
       </div>
 
       {/* STEP 3 */}
-      <div className="animate-step-in" data-tip={props.outputPath}>
+      <div className="animate-step-in" data-tip={outputPath}>
         <p className="step-heading">Step 3</p>
         <p className="mb-2 text-sm">Defaults to Image's path</p>
-        <button className="btn-primary btn" onClick={props.outputHandler}>
+        <button className="btn-primary btn" onClick={outputHandler}>
           Set Output Folder
         </button>
       </div>
@@ -145,10 +189,10 @@ function LeftPaneSteps(props) {
         <p className="step-heading">Step 4</p>
         <button
           className="btn-accent btn"
-          onClick={props.upscaylHandler}
-          disabled={props.progress.length > 0}
+          onClick={upscaylHandler}
+          disabled={progress.length > 0}
         >
-          {props.progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
+          {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
         </button>
       </div>
     </div>
