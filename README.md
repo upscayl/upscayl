@@ -3,9 +3,6 @@
 <a href="https://github.com/upscayl/upscayl/releases/latest">
 
 ![New Project (5)](https://user-images.githubusercontent.com/25067102/191081148-ca101da1-d601-4170-9d41-26fc2de8c027.png)
-
-v2 will release soon. We're kinda busy with other things at the moment so sorry for the delay, thanks for the support :)
-
 </a>
 
 # Upscayl 🆙
@@ -16,9 +13,13 @@ https://user-images.githubusercontent.com/25067102/191083105-cca0dc96-69d5-472b-
 
 **Upscayl is a cross-platform application built with the Linux-first philosophy. This means that we prioritize Linux builds over others but that doesn't mean we'll break things for other OSes :)**
 
-### NOTE: Upscayl does not work without a GPU, sorry. You'll need a Vulkan compatible GPU to upscale images. Most CPU and iGPUs won't work.
+### NOTE: You'll need a Vulkan compatible GPU to upscale images. Many CPU and iGPUs do not work but no harm in trying.
 
 </div>
+
+
+##### TUTORIAL
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/L44FeV41BDI/0.jpg)](https://www.youtube.com/watch?v=L44FeV41BDI)
 
 # Installation 👨‍💻
 
