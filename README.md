@@ -1,9 +1,6 @@
 <div align="center">
 
-<a href="https://github.com/upscayl/upscayl/releases/latest">
-
-![New Project (5)](https://user-images.githubusercontent.com/25067102/191081148-ca101da1-d601-4170-9d41-26fc2de8c027.png)
-</a>
+  [![download](https://user-images.githubusercontent.com/25067102/191081148-ca101da1-d601-4170-9d41-26fc2de8c027.png)](https://github.com/TGS963/upscayl/releases/latest)
 
 # Upscayl 🆙
 
