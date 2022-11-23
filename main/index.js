@@ -19,6 +19,7 @@ const child_process_1 = require("child_process");
 const fs_1 = __importDefault(require("fs"));
 const electron_updater_1 = require("electron-updater");
 const getPlatform_1 = __importDefault(require("./getPlatform"));
+const upscayl_ffmpeg_1 = __importDefault(require("upscayl-ffmpeg"));
 const binaries_1 = require("./binaries");
 // Packages
 const electron_1 = require("electron");
@@ -29,10 +30,10 @@ const commands_1 = __importDefault(require("./commands"));
 let mainWindow;
 electron_1.app.on("ready", () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, electron_next_1.default)("./renderer");
-    console.log("🚀 Icon Path: ", (0, path_1.join)(__dirname, "build", "icon.png"));
-    console.log("🚀 Development Mode? :", electron_is_dev_1.default);
-    console.log("🚀 RS Executable Path: ", (0, binaries_1.execPath)(""));
-    console.log("🚀 Models: ", binaries_1.modelsPath);
+    console.log("🚀 ICON PATH: ", (0, path_1.join)(__dirname, "build", "icon.png"));
+    console.log("🚀 UPSCAYL EXEC PATH: ", (0, binaries_1.execPath)(""));
+    console.log("🚀 MODELS PATH: ", binaries_1.modelsPath);
+    console.log("🚀 FFMPEG PATH: ", upscayl_ffmpeg_1.default.path);
     mainWindow = new electron_1.BrowserWindow({
         icon: (0, path_1.join)(__dirname, "build", "icon.png"),
         width: 1100,

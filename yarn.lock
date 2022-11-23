@@ -2407,10 +2407,10 @@ react-select@^5.6.0:
     react-transition-group "^4.3.0"
     use-isomorphic-layout-effect "^1.1.2"
 
-react-tooltip@^4.4.3:
-  version "4.4.3"
-  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.4.3.tgz#44cbb6c8bdb3281c2819d16c92e3c419ebd98582"
-  integrity sha512-l7/TDBwq3JtuLBtq6FvIs7wsqcHjvoHFT8AvNGpf0JhHwzh+ZhCDN25wM/+gxelj8i1ngw/ULFv53XRQ/wCMzQ==
+react-tooltip@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.5.0.tgz#862a39fbb05522624fb6efa782b245a89a0db784"
+  integrity sha512-mJNurq29atce+TJc9Xe+/FHrcEs3K9J7wkjZZXwbK5Yq6uG5SZeKSFHwd0wcRPUipVwx5crmgzSW8Zu1xyvLTQ==
   dependencies:
     prop-types "^15.8.1"
     uuid "^7.0.3"
@@ -2876,6 +2876,11 @@ update-browserslist-db@^1.0.9:
   dependencies:
     escalade "^3.1.1"
     picocolors "^1.0.0"
+
+upscayl-ffmpeg@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/upscayl-ffmpeg/-/upscayl-ffmpeg-5.1.0.tgz#6fe3355338bb8304bf52bcf9703124d2c07b97a9"
+  integrity sha512-l3klTtO7h6rxC8SwMHQRBmmQoxNhz+dAyWjTlNOkYN1imLL1PXIN/Tqm1wM15M1x7Ax8H9SvNyQy52hhzaY2Yg==
 
 uri-js@^4.2.2:
   version "4.4.1"

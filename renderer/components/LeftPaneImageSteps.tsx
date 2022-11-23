@@ -21,7 +21,7 @@ interface IProps {
   setIsVideo: (arg: boolean) => void;
 }
 
-function LeftPaneSteps({
+function LeftPaneImageSteps({
   progress,
   selectImageHandler,
   selectFolderHandler,
@@ -70,38 +70,17 @@ function LeftPaneSteps({
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
-      <div className="flex items-center justify-center gap-2 font-medium">
-        <p>Image</p>
-        <input
-          type="radio"
-          name="radio-1"
-          className="radio"
-          checked={!isVideo}
-          onClick={() => setIsVideo(false)}
-        />
-        <input
-          type="radio"
-          name="radio-1"
-          className="radio"
-          checked={isVideo}
-          onClick={() => setIsVideo(true)}
-        />
-        <p>Video</p>
-      </div>
-
       {/* BATCH OPTION */}
       <div className="flex flex-row items-center gap-2">
         <input
           type="checkbox"
           className="toggle"
-          onClick={handleBatchMode}
-        ></input>
-        <div
-          className="tooltip tooltip-right relative z-50"
-          data-tip="This will let you upscale all files in a folder at once"
-        >
-          <p className="mr-1 inline-block cursor-help text-sm">Batch Upscale</p>
-        </div>
+          onClick={handleBatchMode}></input>
+        <p
+          className="mr-1 inline-block  cursor-help text-sm"
+          data-tip="This will let you upscale all files in a folder at once">
+          Batch Upscale
+        </p>
       </div>
 
       {/* STEP 1 */}
@@ -109,8 +88,7 @@ function LeftPaneSteps({
         <p className="step-heading">Step 1</p>
         <button
           className="btn-primary btn"
-          onClick={!batchMode ? selectImageHandler : selectFolderHandler}
-        >
+          onClick={!batchMode ? selectImageHandler : selectFolderHandler}>
           Select {batchMode ? "Folder" : "Image"}
         </button>
       </div>
@@ -133,7 +111,7 @@ function LeftPaneSteps({
         />
 
         {model !== "models-DF2K" && !batchMode && (
-          <div className="mt-2 flex items-center gap-1">
+          <div className="mt-4 flex items-center gap-1">
             <input
               type="checkbox"
               className="checkbox"
@@ -150,16 +128,14 @@ function LeftPaneSteps({
               className="cursor-pointer text-sm"
               onClick={(e) => {
                 setDoubleUpscayl(!doubleUpscayl);
-              }}
-            >
+              }}>
               Double Upscayl
             </p>
-            <div
-              className="tooltip"
-              data-tip="Enable this option to get an 8x upscayl. Note that this may not always work properly with all images, for example, images with really large resolutions."
-            >
-              <span className="badge-info badge cursor-help">i</span>
-            </div>
+            <button
+              className="badge-info badge cursor-help"
+              data-tip="Enable this option to get an 8x upscayl. Note that this may not always work properly with all images, for example, images with really large resolutions.">
+              i
+            </button>
           </div>
         )}
       </div>
@@ -173,30 +149,20 @@ function LeftPaneSteps({
         </button>
       </div>
 
-      {/* ADVANCED OPTION */}
-      <div className="flex flex-row items-center gap-2">
-        <input type="checkbox" className="checkbox" onClick={handleBatchMode} />
-        <p
-          className="mr-1 inline-block cursor-help text-sm"
-          data-tip="This will let you upscale all files in a folder at once"
-        >
-          Advanced Options
-        </p>
-      </div>
-
       {/* STEP 4 */}
       <div className="animate-step-in">
         <p className="step-heading">Step 4</p>
         <button
           className="btn-accent btn"
           onClick={upscaylHandler}
-          disabled={progress.length > 0}
-        >
+          disabled={progress.length > 0}>
           {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
         </button>
       </div>
+
+      <ReactTooltip class="max-w-sm" />
     </div>
   );
 }
 
-export default LeftPaneSteps;
+export default LeftPaneImageSteps;

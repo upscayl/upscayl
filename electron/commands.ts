@@ -12,6 +12,7 @@ const commands = {
   FOLDER_UPSCAYL_PROGRESS:
     "Send Folder Upscaling Progress from Main to Renderer",
   OPEN_FOLDER: "Open Folder",
+  SELECT_VIDEO: "Select a Video",
 };
 
 export default commands;

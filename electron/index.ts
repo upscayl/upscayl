@@ -6,6 +6,7 @@ import fs from "fs";
 import sizeOf from "image-size";
 import { autoUpdater } from "electron-updater";
 import getPlatform from "./getPlatform";
+import ffmpeg from "upscayl-ffmpeg";
 
 import { execPath, modelsPath } from "./binaries";
 
@@ -29,10 +30,10 @@ let mainWindow;
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
-  console.log("🚀 Icon Path: ", join(__dirname, "build", "icon.png"));
-  console.log("🚀 Development Mode? :", isDev);
-  console.log("🚀 RS Executable Path: ", execPath(""));
-  console.log("🚀 Models: ", modelsPath);
+  console.log("🚀 ICON PATH: ", join(__dirname, "build", "icon.png"));
+  console.log("🚀 UPSCAYL EXEC PATH: ", execPath(""));
+  console.log("🚀 MODELS PATH: ", modelsPath);
+  console.log("🚀 FFMPEG PATH: ", ffmpeg.path);
 
   mainWindow = new BrowserWindow({
     icon: join(__dirname, "build", "icon.png"),

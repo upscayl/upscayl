@@ -8,13 +8,16 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProgressBar from "../components/ProgressBar";
 import ResetButton from "../components/ResetButton";
-import LeftPaneSteps from "../components/LeftPaneSteps";
+import LeftPaneSteps from "../components/LeftPaneImageSteps";
 import RightPaneInfo from "../components/RightPaneInfo";
+import ImageOptions from "../components/ImageOptions";
+import LeftPaneVideoSteps from "../components/LeftPaneVideoSteps";
+import LeftPaneImageSteps from "../components/LeftPaneImageSteps";
 
 const Home = () => {
   const [imagePath, SetImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
-  const [outputPath, SetOutputPath] = useState("");
+  const [outputPath, setOutputPath] = useState("");
   const [scaleFactor, setScaleFactor] = useState(4);
   const [progress, setProgress] = useState("");
   const [model, setModel] = useState("realesrgan-x4plus");
@@ -25,6 +28,8 @@ const Home = () => {
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
   const [isVideo, setIsVideo] = useState(false);
+  const [videoPath, setVideoPath] = useState("");
+  const [upscaledVideoPath, setUpscaledVideoPath] = useState("");
 
   const resetImagePaths = () => {
     setProgress("");
@@ -38,7 +43,6 @@ const Home = () => {
 
   useEffect(() => {
     setLoaded(true);
-    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
     setVersion(navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1]);
 
@@ -127,6 +131,18 @@ const Home = () => {
     }
   }, [imagePath]);
 
+  const selectVideoHandler = async () => {
+    resetImagePaths();
+
+    var path = await window.electron.invoke(commands.SELECT_VIDEO);
+
+    if (path !== "cancelled") {
+      setVideoPath(path);
+      var dirname = path.match(/(.*)[\/\\]/)[1] || "";
+      setOutputPath(dirname);
+    }
+  };
+
   const selectImageHandler = async () => {
     resetImagePaths();
 
@@ -135,7 +151,7 @@ const Home = () => {
     if (path !== "cancelled") {
       SetImagePath(path);
       var dirname = path.match(/(.*)[\/\\]/)[1] || "";
-      SetOutputPath(dirname);
+      setOutputPath(dirname);
     }
   };
 
@@ -146,7 +162,7 @@ const Home = () => {
 
     if (path !== "cancelled") {
       setBatchFolderPath(path);
-      SetOutputPath(path + "_upscayled");
+      setOutputPath(path + "_upscayled");
     }
   };
 
@@ -195,7 +211,7 @@ const Home = () => {
       SetImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       console.log("🚀 => handleDrop => dirname", dirname);
-      SetOutputPath(dirname);
+      setOutputPath(dirname);
     }
   };
 
@@ -215,14 +231,14 @@ const Home = () => {
     } else {
       SetImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
-      SetOutputPath(dirname);
+      setOutputPath(dirname);
     }
   };
 
   const outputHandler = async () => {
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
     if (path !== "cancelled") {
-      SetOutputPath(path);
+      setOutputPath(path);
     } else {
       console.log("Getting output path from input file");
     }
@@ -272,27 +288,64 @@ const Home = () => {
         )}
         {/* HEADER */}
         <Header />
-
+        <div className="flex items-center justify-center gap-2 pb-4 font-medium">
+          <p>Image</p>
+          <input
+            type="radio"
+            name="radio-1"
+            className="radio"
+            checked={!isVideo}
+            onChange={() => setIsVideo(false)}
+          />
+          <input
+            type="radio"
+            name="radio-1"
+            className="radio"
+            checked={isVideo}
+            onChange={() => setIsVideo(true)}
+          />
+          <p>Video</p>
+        </div>
         {/* LEFT PANE */}
-        <LeftPaneSteps
-          progress={progress}
-          selectImageHandler={selectImageHandler}
-          selectFolderHandler={selectFolderHandler}
-          handleModelChange={handleModelChange}
-          handleDrop={handleDrop}
-          outputHandler={outputHandler}
-          upscaylHandler={upscaylHandler}
-          batchMode={batchMode}
-          setBatchMode={setBatchMode}
-          imagePath={imagePath}
-          outputPath={outputPath}
-          doubleUpscayl={doubleUpscayl}
-          setDoubleUpscayl={setDoubleUpscayl}
-          model={model}
-          isVideo={isVideo}
-          setIsVideo={setIsVideo}
-        />
-
+        {isVideo ? (
+          <LeftPaneVideoSteps
+            progress={progress}
+            selectImageHandler={selectImageHandler}
+            selectFolderHandler={selectFolderHandler}
+            handleModelChange={handleModelChange}
+            handleDrop={handleDrop}
+            outputHandler={outputHandler}
+            upscaylHandler={upscaylHandler}
+            batchMode={batchMode}
+            setBatchMode={setBatchMode}
+            imagePath={imagePath}
+            outputPath={outputPath}
+            doubleUpscayl={doubleUpscayl}
+            setDoubleUpscayl={setDoubleUpscayl}
+            model={model}
+            isVideo={isVideo}
+            setIsVideo={setIsVideo}
+          />
+        ) : (
+          <LeftPaneImageSteps
+            progress={progress}
+            selectImageHandler={selectImageHandler}
+            selectFolderHandler={selectFolderHandler}
+            handleModelChange={handleModelChange}
+            handleDrop={handleDrop}
+            outputHandler={outputHandler}
+            upscaylHandler={upscaylHandler}
+            batchMode={batchMode}
+            setBatchMode={setBatchMode}
+            imagePath={imagePath}
+            outputPath={outputPath}
+            doubleUpscayl={doubleUpscayl}
+            setDoubleUpscayl={setDoubleUpscayl}
+            model={model}
+            isVideo={isVideo}
+            setIsVideo={setIsVideo}
+          />
+        )}
         <Footer />
       </div>
 
@@ -303,8 +356,7 @@ const Home = () => {
         onDragOver={(e) => handleDragOver(e)}
         onDragEnter={(e) => handleDragEnter(e)}
         onDragLeave={(e) => handleDragLeave(e)}
-        onPaste={(e) => handlePaste(e)}
-      >
+        onPaste={(e) => handlePaste(e)}>
         {progress.length > 0 &&
         upscaledImagePath.length === 0 &&
         upscaledBatchFolderPath.length === 0 ? (
@@ -349,47 +401,49 @@ const Home = () => {
             </p>
             <button
               className="bg-gradient-blue rounded-lg p-3 font-medium text-white/90 transition-colors"
-              onClick={openFolderHandler}
-            >
+              onClick={openFolderHandler}>
               Open Upscayled Folder
             </button>
           </>
         )}
 
         {!batchMode && imagePath.length > 0 && upscaledImagePath.length > 0 && (
-          <ReactCompareSlider
-            itemOne={
-              <>
-                <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                  Original
-                </p>
-                <ReactCompareSliderImage
-                  src={"file://" + imagePath}
-                  alt="Original"
-                  style={{
-                    objectFit: "contain",
-                  }}
-                  className="bg-[#1d1c23]"
-                />
-              </>
-            }
-            itemTwo={
-              <>
-                <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                  Upscayled
-                </p>
-                <ReactCompareSliderImage
-                  src={"file://" + upscaledImagePath}
-                  alt="Upscayl"
-                  style={{
-                    objectFit: "contain",
-                  }}
-                  className="origin-bottom scale-[200%] bg-[#1d1c23]"
-                />
-              </>
-            }
-            className="h-screen"
-          />
+          <>
+            <ImageOptions />
+            <ReactCompareSlider
+              itemOne={
+                <>
+                  <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                    Original
+                  </p>
+                  <ReactCompareSliderImage
+                    src={"file://" + imagePath}
+                    alt="Original"
+                    style={{
+                      objectFit: "contain",
+                    }}
+                    className="bg-[#1d1c23]"
+                  />
+                </>
+              }
+              itemTwo={
+                <>
+                  <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                    Upscayled
+                  </p>
+                  <ReactCompareSliderImage
+                    src={"file://" + upscaledImagePath}
+                    alt="Upscayl"
+                    style={{
+                      objectFit: "contain",
+                    }}
+                    className="origin-bottom scale-[200%] bg-[#1d1c23]"
+                  />
+                </>
+              }
+              className="h-screen"
+            />
+          </>
         )}
       </div>
     </div>
