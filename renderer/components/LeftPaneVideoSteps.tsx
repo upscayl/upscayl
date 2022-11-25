@@ -4,18 +4,13 @@ import ReactTooltip from "react-tooltip";
 
 interface IProps {
   progress: string;
-  selectImageHandler: () => Promise<void>;
-  selectFolderHandler: () => Promise<void>;
+  selectVideoHandler: () => Promise<void>;
   handleModelChange: (e: any) => void;
   handleDrop: (e: any) => void;
   outputHandler: () => Promise<void>;
   upscaylHandler: () => Promise<void>;
-  batchMode: boolean;
-  setBatchMode: (arg: any) => void;
-  imagePath: string;
+  videoPath: string;
   outputPath: string;
-  doubleUpscayl: boolean;
-  setDoubleUpscayl: (arg: boolean) => void;
   model: string;
   isVideo: boolean;
   setIsVideo: (arg: boolean) => void;
@@ -23,26 +18,17 @@ interface IProps {
 
 function LeftPaneVideoSteps({
   progress,
-  selectImageHandler,
-  selectFolderHandler,
+  selectVideoHandler,
   handleModelChange,
   handleDrop,
   outputHandler,
   upscaylHandler,
-  batchMode,
-  setBatchMode,
-  imagePath,
+  videoPath,
   outputPath,
-  doubleUpscayl,
-  setDoubleUpscayl,
   model,
   isVideo,
   setIsVideo,
 }: IProps) {
-  const handleBatchMode = () => {
-    setBatchMode((oldValue) => !oldValue);
-  };
-
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -63,26 +49,42 @@ function LeftPaneVideoSteps({
   };
 
   const modelOptions = [
-    { label: "General Photo", value: "realesrgan-x4plus" },
-    { label: "Digital Art", value: "realesrgan-x4plus-anime" },
-    { label: "Sharpen Image", value: "models-DF2K" },
+    { label: "2x Digital Art", value: "realesr-animevideov3-x2" },
+    { label: "3x Digital Art", value: "realesr-animevideov3-x3" },
+    { label: "4x Digital Art", value: "realesr-animevideov3-x4" },
   ];
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
       {/* STEP 1 */}
-      <div data-tip={imagePath}>
+      <div data-tip={videoPath}>
         <p className="step-heading">Step 1</p>
-        <button
-          className="btn-primary btn"
-          onClick={!batchMode ? selectImageHandler : selectFolderHandler}>
+        <button className="btn-primary btn" onClick={selectVideoHandler}>
           Select Video
         </button>
       </div>
 
       {/* STEP 2 */}
-      <div className="animate-step-in" data-tip={outputPath}>
+      <div className="animate-step-in">
         <p className="step-heading">Step 2</p>
+        <p className="mb-2 text-sm">Select Scaling</p>
+
+        <Select
+          options={modelOptions}
+          components={{
+            IndicatorSeparator: () => null,
+            DropdownIndicator: () => null,
+          }}
+          onChange={handleModelChange}
+          className="react-select-container"
+          classNamePrefix="react-select"
+          defaultValue={modelOptions[0]}
+        />
+      </div>
+
+      {/* STEP 3 */}
+      <div className="animate-step-in" data-tip={outputPath}>
+        <p className="step-heading">Step 3</p>
         <p className="mb-2 text-sm">Defaults to Video's path</p>
         <button className="btn-primary btn" onClick={outputHandler}>
           Set Output Folder

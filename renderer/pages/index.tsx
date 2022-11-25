@@ -123,7 +123,7 @@ const Home = () => {
   }, [batchMode]);
 
   useEffect(() => {
-    if (imagePath.length > 0) {
+    if (imagePath.length > 0 && !isVideo) {
       const filePath = imagePath;
       console.log(
         "🚀 => file: index.jsx => line 109 => useEffect => filePath",
@@ -140,15 +140,21 @@ const Home = () => {
         alert("Please select an image");
         resetImagePaths();
       }
-    } else if (videoPath.length > 0) {
+    } else if (videoPath.length > 0 && isVideo) {
       const filePath = videoPath;
 
+      console.log("🚀 => file: index.tsx => line 146 => filePath", filePath);
+
       const extension = videoPath.toLocaleLowerCase().split(".").pop();
+
+      console.log("🚀 => file: index.tsx => line 150 => extension", extension);
 
       if (!allowedVideoFileTypes.includes(extension.toLowerCase())) {
         alert("Please select an MP4, WebM or MKV video");
         resetImagePaths();
       }
+    } else {
+      resetImagePaths();
     }
   }, [imagePath, videoPath]);
 
@@ -334,14 +340,20 @@ const Home = () => {
             name="radio-1"
             className="radio"
             checked={!isVideo}
-            onChange={() => setIsVideo(false)}
+            onChange={() => {
+              setIsVideo(false);
+              console.log("isImage");
+            }}
           />
           <input
             type="radio"
             name="radio-1"
             className="radio"
             checked={isVideo}
-            onChange={() => setIsVideo(true)}
+            onChange={() => {
+              setIsVideo(true);
+              console.log("isVideo");
+            }}
           />
           <p>Video</p>
         </div>
@@ -349,18 +361,13 @@ const Home = () => {
         {isVideo ? (
           <LeftPaneVideoSteps
             progress={progress}
-            selectImageHandler={selectImageHandler}
-            selectFolderHandler={selectFolderHandler}
+            selectVideoHandler={selectVideoHandler}
             handleModelChange={handleModelChange}
             handleDrop={handleDrop}
             outputHandler={outputHandler}
             upscaylHandler={upscaylHandler}
-            batchMode={batchMode}
-            setBatchMode={setBatchMode}
-            imagePath={imagePath}
             outputPath={outputPath}
-            doubleUpscayl={doubleUpscayl}
-            setDoubleUpscayl={setDoubleUpscayl}
+            videoPath={videoPath}
             model={model}
             isVideo={isVideo}
             setIsVideo={setIsVideo}
@@ -398,20 +405,33 @@ const Home = () => {
         onPaste={(e) => handlePaste(e)}>
         {progress.length > 0 &&
         upscaledImagePath.length === 0 &&
-        upscaledBatchFolderPath.length === 0 ? (
+        upscaledBatchFolderPath.length === 0 &&
+        upscaledVideoPath.length === 0 ? (
           <ProgressBar progress={progress} />
         ) : null}
 
-        {((!batchMode &&
+        {/* DEFAULT PANE INFO */}
+        {((!isVideo &&
+          !batchMode &&
           imagePath.length === 0 &&
           upscaledImagePath.length === 0) ||
-          (batchMode &&
+          (!isVideo &&
+            batchMode &&
             batchFolderPath.length === 0 &&
-            upscaledBatchFolderPath.length === 0)) && (
-          <RightPaneInfo version={version} batchMode={batchMode} />
+            upscaledBatchFolderPath.length === 0) ||
+          (isVideo &&
+            videoPath.length === 0 &&
+            upscaledVideoPath.length === 0)) && (
+          <RightPaneInfo
+            version={version}
+            batchMode={batchMode}
+            isVideo={isVideo}
+          />
         )}
 
+        {/* SHOW SELECTED IMAGE */}
         {!batchMode &&
+          !isVideo &&
           upscaledImagePath.length === 0 &&
           imagePath.length > 0 && (
             <img
@@ -425,6 +445,7 @@ const Home = () => {
             />
           )}
 
+        {/* BATCH UPSCALE SHOW SELECTED FOLDER */}
         {batchMode &&
           upscaledBatchFolderPath.length === 0 &&
           batchFolderPath.length > 0 && (
@@ -433,6 +454,7 @@ const Home = () => {
             </p>
           )}
 
+        {/* BATCH UPSCALE DONE INFO */}
         {batchMode && upscaledBatchFolderPath.length > 0 && (
           <>
             <p className="text-neutral-50 select-none py-4 font-bold">
@@ -446,43 +468,53 @@ const Home = () => {
           </>
         )}
 
-        {!batchMode && imagePath.length > 0 && upscaledImagePath.length > 0 && (
-          <>
-            <ImageOptions />
-            <ReactCompareSlider
-              itemOne={
-                <>
-                  <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                    Original
-                  </p>
-                  <ReactCompareSliderImage
-                    src={"file://" + imagePath}
-                    alt="Original"
-                    style={{
-                      objectFit: "contain",
-                    }}
-                    className="bg-[#1d1c23]"
-                  />
-                </>
-              }
-              itemTwo={
-                <>
-                  <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                    Upscayled
-                  </p>
-                  <ReactCompareSliderImage
-                    src={"file://" + upscaledImagePath}
-                    alt="Upscayl"
-                    style={{
-                      objectFit: "contain",
-                    }}
-                    className="origin-bottom scale-[200%] bg-[#1d1c23]"
-                  />
-                </>
-              }
-              className="h-screen"
-            />
-          </>
+        {/* COMPARISON SLIDER */}
+        {!batchMode &&
+          !isVideo &&
+          imagePath.length > 0 &&
+          upscaledImagePath.length > 0 && (
+            <>
+              <ImageOptions />
+              <ReactCompareSlider
+                itemOne={
+                  <>
+                    <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                      Original
+                    </p>
+                    <ReactCompareSliderImage
+                      src={"file://" + imagePath}
+                      alt="Original"
+                      style={{
+                        objectFit: "contain",
+                      }}
+                      className="bg-[#1d1c23]"
+                    />
+                  </>
+                }
+                itemTwo={
+                  <>
+                    <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                      Upscayled
+                    </p>
+                    <ReactCompareSliderImage
+                      src={"file://" + upscaledImagePath}
+                      alt="Upscayl"
+                      style={{
+                        objectFit: "contain",
+                      }}
+                      className="origin-bottom scale-[200%] bg-[#1d1c23]"
+                    />
+                  </>
+                }
+                className="h-screen"
+              />
+            </>
+          )}
+
+        {isVideo && videoPath.length > 0 && upscaledVideoPath.length === 0 && (
+          <video autoPlay controls className="m-10 w-11/12 rounded-2xl">
+            <source src={"file://" + videoPath} type="video/mp4" />
+          </video>
         )}
       </div>
     </div>

@@ -13,5 +13,8 @@ const commands = {
     FOLDER_UPSCAYL_DONE: "Folder upscaling successful",
     FOLDER_UPSCAYL_PROGRESS: "Send Folder Upscaling Progress from Main to Renderer",
     OPEN_FOLDER: "Open Folder",
+    UPSCAYL_VIDEO: "Upscale the Video",
+    UPSCAYL_VIDEO_DONE: "Video Upscaling Done",
+    UPSCAYL_VIDEO_PROGRESS: "Send Video Upscale Progress from Main to Renderer",
 };
 exports.default = commands;

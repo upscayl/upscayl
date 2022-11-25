@@ -327,6 +327,112 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   }
 });
 
+//------------------------Video Upscayl-----------------------------//
+ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
+  const model = payload.model;
+  const scale = payload.scaleFactor;
+  let inputDir = payload.videoPath.match(/(.*)[\/\\]/)[1] || "";
+  let outputDir = payload.outputPath;
+
+  // COPY IMAGE TO TMP FOLDER
+  const platform = getPlatform();
+  const fullfileName =
+    platform === "win"
+      ? payload.videoPath.split("\\").slice(-1)[0]
+      : payload.videoPath.split("/").slice(-1)[0];
+  console.log(fullfileName);
+  const fileName = parse(fullfileName).name;
+  const fileExt = parse(fullfileName).ext;
+  const outFile = model.includes("realesrgan")
+    ? outputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt
+    : outputDir +
+      "/" +
+      fileName +
+      "_upscayl_sharpened_" +
+      scale +
+      "x_" +
+      model +
+      fileExt;
+  // UPSCALE
+  if (fs.existsSync(outFile)) {
+    // If already upscayled, just output that file
+    mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+  } else {
+    let upscayl: ChildProcessWithoutNullStreams | null = null;
+    switch (model) {
+      case "realesrgan-x4plus":
+      case "realesrgan-x4plus-anime":
+        upscayl = spawn(
+          execPath("realesrgan"),
+          [
+            "-i",
+            inputDir + "/" + fullfileName,
+            "-o",
+            outFile,
+            "-s",
+            scale === 2 ? 4 : scale,
+            "-m",
+            modelsPath,
+            "-n",
+            model,
+          ],
+          {
+            cwd: undefined,
+            detached: false,
+          }
+        );
+        break;
+      case "models-DF2K":
+        upscayl = spawn(
+          execPath("realsr"),
+          [
+            "-i",
+            inputDir + "/" + fullfileName,
+            "-o",
+            outFile,
+            "-s",
+            scale,
+            "-x",
+            "-m",
+            modelsPath + "/" + model,
+          ],
+          {
+            cwd: undefined,
+            detached: false,
+          }
+        );
+        break;
+    }
+
+    let failed = false;
+    upscayl?.stderr.on("data", (data) => {
+      console.log(
+        "🚀 => upscayl.stderr.on => stderr.toString()",
+        data.toString()
+      );
+      data = data.toString();
+      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+      if (data.includes("invalid gpu") || data.includes("failed")) {
+        failed = true;
+      }
+    });
+
+    upscayl?.on("error", (data) => {
+      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+      failed = true;
+      return;
+    });
+
+    // Send done comamnd when
+    upscayl?.on("close", (code) => {
+      if (failed !== true) {
+        console.log("Done upscaling");
+        mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+      }
+    });
+  }
+});
+
 //------------------------Upscayl Folder-----------------------------//
 ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   const model = payload.model;
