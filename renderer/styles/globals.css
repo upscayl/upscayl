@@ -5,6 +5,13 @@
 @layer base {
   * {
     @apply select-none;
+    font-family: "Poppins", sans-serif;
+    src: url("/Poppins-Regular.ttf") format("truetype"),
+      url("/Poppins-Medium.ttf") format("truetype"),
+      url("/Poppins-Semibold.ttf") format("truetype"),
+      url("/Poppins-Bold.ttf") format("truetype"),
+      url("/Poppins-ExtraBold.ttf") format("truetype"),
+      url("/Poppins-Black.ttf") format("truetype");
   }
   ::-webkit-scrollbar {
     @apply w-3;

@@ -39,6 +39,9 @@ const Home = () => {
 
     setBatchFolderPath("");
     setUpscaledBatchFolderPath("");
+
+    setVideoPath("");
+    setUpscaledVideoPath("");
   };
 
   useEffect(() => {
@@ -92,6 +95,12 @@ const Home = () => {
       }
       handleErrors(data);
     });
+    window.electron.on(commands.UPSCAYL_VIDEO_PROGRESS, (_, data) => {
+      if (data.length > 0 && data.length < 10) {
+        setProgress(data);
+      }
+      handleErrors(data);
+    });
 
     window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
       setProgress("");
@@ -103,6 +112,9 @@ const Home = () => {
     });
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data) => {
       setUpscaledImagePath(data);
+    });
+    window.electron.on(commands.UPSCAYL_VIDEO_DONE, (_, data) => {
+      setUpscaledVideoPath(data);
     });
   }, []);
 
@@ -128,13 +140,22 @@ const Home = () => {
         alert("Please select an image");
         resetImagePaths();
       }
+    } else if (videoPath.length > 0) {
+      const filePath = videoPath;
+
+      const extension = videoPath.toLocaleLowerCase().split(".").pop();
+
+      if (!allowedVideoFileTypes.includes(extension.toLowerCase())) {
+        alert("Please select an MP4, WebM or MKV video");
+        resetImagePaths();
+      }
     }
-  }, [imagePath]);
+  }, [imagePath, videoPath]);
 
   const selectVideoHandler = async () => {
     resetImagePaths();
 
-    var path = await window.electron.invoke(commands.SELECT_VIDEO);
+    var path = await window.electron.invoke(commands.SELECT_FILE);
 
     if (path !== "cancelled") {
       setVideoPath(path);
@@ -190,6 +211,7 @@ const Home = () => {
   };
 
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
+  const allowedVideoFileTypes = ["webm", "mp4", "mkv"];
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -203,12 +225,18 @@ const Home = () => {
     console.log("🚀 => handleDrop => extension", extension);
 
     if (
-      !type.includes("image") ||
-      !allowedFileTypes.includes(extension.toLowerCase())
+      (!type.includes("image") && !type.includes("video")) ||
+      (!allowedFileTypes.includes(extension.toLowerCase()) &&
+        !allowedVideoFileTypes.includes(extension.toLowerCase()))
     ) {
       alert("Please drag and drop an image");
     } else {
-      SetImagePath(filePath);
+      if (isVideo) {
+        setVideoPath(filePath);
+      } else {
+        SetImagePath(filePath);
+      }
+
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       console.log("🚀 => handleDrop => dirname", dirname);
       setOutputPath(dirname);
@@ -245,7 +273,11 @@ const Home = () => {
   };
 
   const upscaylHandler = async () => {
-    setUpscaledImagePath("");
+    if (isVideo) {
+      setUpscaledVideoPath("");
+    } else {
+      setUpscaledImagePath("");
+    }
     if (imagePath !== "" || batchFolderPath !== "") {
       setProgress("Hold on...");
       if (model === "models-DF2K") {
@@ -274,6 +306,13 @@ const Home = () => {
           model,
         });
       }
+    } else if (videoPath !== "") {
+      await window.electron.send(commands.UPSCAYL_VIDEO, {
+        scaleFactor,
+        imagePath,
+        outputPath,
+        model,
+      });
     } else {
       alert("Please select an image to upscale");
     }
