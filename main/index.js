@@ -299,7 +299,15 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL_VIDEO, (event, payload) => __aw
     if (!fs_1.default.existsSync(frameExtractionPath)) {
         fs_1.default.mkdirSync(frameExtractionPath, { recursive: true });
     }
-    console.log(upscayl_ffmpeg_1.default.path());
+    let ffmpegProcess = null;
+    ffmpegProcess = (0, child_process_1.spawn)(upscayl_ffmpeg_1.default.path, [
+        "-i",
+        inputDir + "/" + videoFileName,
+        frameExtractionPath + "/" + "out%d.png",
+    ], {
+        cwd: undefined,
+        detached: false,
+    });
 }));
 //------------------------Upscayl Folder-----------------------------//
 electron_1.ipcMain.on(commands_1.default.FOLDER_UPSCAYL, (event, payload) => __awaiter(void 0, void 0, void 0, function* () {

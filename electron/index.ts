@@ -16,7 +16,6 @@ import {
   app,
   ipcMain,
   dialog,
-  ipcRenderer,
   shell,
   MessageBoxOptions,
 } from "electron";
@@ -349,6 +348,75 @@ ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
   if (!fs.existsSync(frameExtractionPath)) {
     fs.mkdirSync(frameExtractionPath, { recursive: true });
   }
+
+  let ffmpegProcess: ChildProcessWithoutNullStreams | null = null;
+  ffmpegProcess = spawn(
+    ffmpeg.path,
+    [
+      "-i",
+      inputDir + "/" + videoFileName,
+      frameExtractionPath + "/" + "out%d.png",
+    ],
+    {
+      cwd: undefined,
+      detached: false,
+    }
+  );
+
+  // UPSCALE
+  let upscayl: ChildProcessWithoutNullStreams | null = null;
+  upscayl = spawn(
+    execPath("realesrgan"),
+    [
+      "-i",
+      frameExtractionPath,
+      "-o",
+      frameExtractionPath + "_upscaled",
+      "-s",
+      4,
+      "-m",
+      modelsPath,
+      "-n",
+      model,
+    ],
+    {
+      cwd: undefined,
+      detached: false,
+    }
+  );
+
+  let failed = false;
+  upscayl?.stderr.on("data", (data) => {
+    console.log(
+      "🚀 => upscayl.stderr.on => stderr.toString()",
+      data.toString()
+    );
+    data = data.toString();
+    mainWindow.webContents.send(
+      commands.UPSCAYL_VIDEO_PROGRESS,
+      data.toString()
+    );
+    if (data.includes("invalid gpu") || data.includes("failed")) {
+      failed = true;
+    }
+  });
+
+  upscayl?.on("error", (data) => {
+    mainWindow.webContents.send(
+      commands.UPSCAYL_VIDEO_PROGRESS,
+      data.toString()
+    );
+    failed = true;
+    return;
+  });
+
+  // Send done comamnd when
+  upscayl?.on("close", (code) => {
+    if (failed !== true) {
+      console.log("Done upscaling");
+      mainWindow.webContents.send(commands.UPSCAYL_VIDEO_DONE, outputDir);
+    }
+  });
 });
 
 //------------------------Upscayl Folder-----------------------------//
