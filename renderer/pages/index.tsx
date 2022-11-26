@@ -284,7 +284,7 @@ const Home = () => {
     } else {
       setUpscaledImagePath("");
     }
-    if (imagePath !== "" || batchFolderPath !== "") {
+    if (!isVideo && (imagePath !== "" || batchFolderPath !== "")) {
       setProgress("Hold on...");
       if (model === "models-DF2K") {
         setDoubleUpscayl(false);
@@ -312,15 +312,15 @@ const Home = () => {
           model,
         });
       }
-    } else if (videoPath !== "") {
+    } else if (isVideo && videoPath !== "") {
       await window.electron.send(commands.UPSCAYL_VIDEO, {
         scaleFactor,
-        imagePath,
+        videoPath,
         outputPath,
         model,
       });
     } else {
-      alert("Please select an image to upscale");
+      alert(`Please select ${isVideo ? "a video" : "an image"} to upscale`);
     }
   };
 

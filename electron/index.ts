@@ -229,11 +229,8 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   let outputDir = payload.outputPath;
 
   // COPY IMAGE TO TMP FOLDER
-  const platform = getPlatform();
-  const fullfileName =
-    platform === "win"
-      ? payload.imagePath.split("\\").slice(-1)[0]
-      : payload.imagePath.split("/").slice(-1)[0];
+  const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "");
+
   console.log(fullfileName);
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
@@ -329,107 +326,28 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
 
 //------------------------Video Upscayl-----------------------------//
 ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
+  // Extract the model
   const model = payload.model;
-  const scale = payload.scaleFactor;
+
+  // Extract the Video Directory
+  let videoFileName = payload.videoPath.replace(/^.*[\\\/]/, "");
+  const justFileName = parse(videoFileName).name;
+
   let inputDir = payload.videoPath.match(/(.*)[\/\\]/)[1] || "";
-  let outputDir = payload.outputPath;
+  console.log("🚀 => file: index.ts => line 337 => inputDir", inputDir);
 
-  // COPY IMAGE TO TMP FOLDER
-  const platform = getPlatform();
-  const fullfileName =
-    platform === "win"
-      ? payload.videoPath.split("\\").slice(-1)[0]
-      : payload.videoPath.split("/").slice(-1)[0];
-  console.log(fullfileName);
-  const fileName = parse(fullfileName).name;
-  const fileExt = parse(fullfileName).ext;
-  const outFile = model.includes("realesrgan")
-    ? outputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt
-    : outputDir +
-      "/" +
-      fileName +
-      "_upscayl_sharpened_" +
-      scale +
-      "x_" +
-      model +
-      fileExt;
-  // UPSCALE
-  if (fs.existsSync(outFile)) {
-    // If already upscayled, just output that file
-    mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
-  } else {
-    let upscayl: ChildProcessWithoutNullStreams | null = null;
-    switch (model) {
-      case "realesrgan-x4plus":
-      case "realesrgan-x4plus-anime":
-        upscayl = spawn(
-          execPath("realesrgan"),
-          [
-            "-i",
-            inputDir + "/" + fullfileName,
-            "-o",
-            outFile,
-            "-s",
-            scale === 2 ? 4 : scale,
-            "-m",
-            modelsPath,
-            "-n",
-            model,
-          ],
-          {
-            cwd: undefined,
-            detached: false,
-          }
-        );
-        break;
-      case "models-DF2K":
-        upscayl = spawn(
-          execPath("realsr"),
-          [
-            "-i",
-            inputDir + "/" + fullfileName,
-            "-o",
-            outFile,
-            "-s",
-            scale,
-            "-x",
-            "-m",
-            modelsPath + "/" + model,
-          ],
-          {
-            cwd: undefined,
-            detached: false,
-          }
-        );
-        break;
-    }
+  // Set the output directory
+  let outputDir = payload.outputPath + "_frames";
+  console.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
 
-    let failed = false;
-    upscayl?.stderr.on("data", (data) => {
-      console.log(
-        "🚀 => upscayl.stderr.on => stderr.toString()",
-        data.toString()
-      );
-      data = data.toString();
-      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
-      if (data.includes("invalid gpu") || data.includes("failed")) {
-        failed = true;
-      }
-    });
+  let frameExtractionPath = join(inputDir, justFileName + "_frames");
+  console.log(
+    "🚀 => file: index.ts => line 342 => frameExtractionPath",
+    frameExtractionPath
+  );
 
-    upscayl?.on("error", (data) => {
-      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
-      failed = true;
-      return;
-    });
-
-    // Send done comamnd when
-    upscayl?.on("close", (code) => {
-      if (failed !== true) {
-        console.log("Done upscaling");
-        mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
-      }
-    });
+  if (!fs.existsSync(frameExtractionPath)) {
+    fs.mkdirSync(frameExtractionPath, { recursive: true });
   }
 });
 
