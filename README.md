@@ -1,5 +1,7 @@
 <div align="center">
 
+[![Github All Releases](https://img.shields.io/github/downloads/upscayl/upscayl/total.svg?style=for-the-badge&logo=appveyor)]()
+
 **v2 is coming soon with new amazing algorithms and features!**
 
   [![download](https://user-images.githubusercontent.com/25067102/191081148-ca101da1-d601-4170-9d41-26fc2de8c027.png)](https://github.com/TGS963/upscayl/releases/latest)   
