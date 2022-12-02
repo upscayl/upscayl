@@ -20,7 +20,7 @@ const Home = () => {
   const [outputPath, setOutputPath] = useState("");
   const [scaleFactor, setScaleFactor] = useState(4);
   const [progress, setProgress] = useState("");
-  const [model, setModel] = useState("realesrgan-x4plus");
+  const [model, setModel] = useState("remacri");
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
   const [batchMode, setBatchMode] = useState(false);
@@ -30,6 +30,7 @@ const Home = () => {
   const [isVideo, setIsVideo] = useState(false);
   const [videoPath, setVideoPath] = useState("");
   const [upscaledVideoPath, setUpscaledVideoPath] = useState("");
+  const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
 
   const resetImagePaths = () => {
     setProgress("");
@@ -91,6 +92,9 @@ const Home = () => {
     });
     window.electron.on(commands.DOUBLE_UPSCAYL_PROGRESS, (_, data) => {
       if (data.length > 0 && data.length < 10) {
+        if (data === "0.00%") {
+          setDoubleUpscaylCounter(doubleUpscaylCounter + 1);
+        }
         setProgress(data);
       }
       handleErrors(data);
@@ -111,9 +115,12 @@ const Home = () => {
       setUpscaledBatchFolderPath(data);
     });
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data) => {
+      setProgress("");
+      setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
     });
     window.electron.on(commands.UPSCAYL_VIDEO_DONE, (_, data) => {
+      setProgress("");
       setUpscaledVideoPath(data);
     });
   }, []);
@@ -407,7 +414,10 @@ const Home = () => {
         upscaledImagePath.length === 0 &&
         upscaledBatchFolderPath.length === 0 &&
         upscaledVideoPath.length === 0 ? (
-          <ProgressBar progress={progress} />
+          <ProgressBar
+            progress={progress}
+            doubleUpscaylCounter={doubleUpscaylCounter}
+          />
         ) : null}
 
         {/* DEFAULT PANE INFO */}
@@ -502,7 +512,7 @@ const Home = () => {
                       style={{
                         objectFit: "contain",
                       }}
-                      className="origin-bottom scale-[200%] bg-[#1d1c23]"
+                      className="bg-[#1d1c23]"
                     />
                   </>
                 }

@@ -109,6 +109,12 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   }
 });
 
+//------------------------Open Folder-----------------------------//
+ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
+  console.log(payload);
+  shell.openPath(payload);
+});
+
 //------------------------Double Upscayl-----------------------------//
 ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const model = payload.model;
@@ -144,6 +150,20 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
       cwd: undefined,
       detached: false,
     }
+  );
+
+  console.log(
+    "🆙 COMMAND:",
+    "-i",
+    inputDir + "/" + fullfileName,
+    "-o",
+    outFile,
+    "-s",
+    4,
+    "-m",
+    modelsPath,
+    "-n",
+    model
   );
 
   let failed = false;
@@ -233,16 +253,17 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   console.log(fullfileName);
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
-  const outFile = model.includes("realesrgan")
-    ? outputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt
-    : outputDir +
+  const outFile = model.includes("models-DF2K")
+    ? outputDir +
       "/" +
       fileName +
       "_upscayl_sharpened_" +
       scale +
       "x_" +
       model +
-      fileExt;
+      fileExt
+    : outputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt;
+
   // UPSCALE
   if (fs.existsSync(outFile)) {
     // If already upscayled, just output that file
@@ -250,8 +271,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   } else {
     let upscayl: ChildProcessWithoutNullStreams | null = null;
     switch (model) {
-      case "realesrgan-x4plus":
-      case "realesrgan-x4plus-anime":
+      default:
         upscayl = spawn(
           execPath("realesrgan"),
           [
@@ -270,6 +290,19 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
             cwd: undefined,
             detached: false,
           }
+        );
+        console.log(
+          "🆙 COMMAND: ",
+          "-i",
+          inputDir + "/" + fullfileName,
+          "-o",
+          outFile,
+          "-s",
+          scale === 2 ? 4 : scale,
+          "-m",
+          modelsPath,
+          "-n",
+          model
         );
         break;
       case "models-DF2K":
@@ -290,6 +323,18 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
             cwd: undefined,
             detached: false,
           }
+        );
+        console.log(
+          "🆙 COMMAND: ",
+          "-i",
+          inputDir + "/" + fullfileName,
+          "-o",
+          outFile,
+          "-s",
+          scale,
+          "-x",
+          "-m",
+          modelsPath + "/" + model
         );
         break;
     }
@@ -421,20 +466,26 @@ ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
 
 //------------------------Upscayl Folder-----------------------------//
 ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
+  // GET THE MODEL
   const model = payload.model;
+
+  // GET THE IMAGE DIRECTORY
   let inputDir = payload.batchFolderPath;
-  let outputDir = model.includes("realesrgan")
-    ? payload.outputPath
-    : payload.outputPath + "_sharpened";
-  console.log(outputDir);
+  console.log("🚀 => file: index.ts => line 471 => inputDir", inputDir);
+
+  // GET THE OUTPUT DIRECTORY
+  let outputDir = model.includes("models-DF2K")
+    ? payload.outputPath + "_sharpened"
+    : payload.outputPath;
+  console.log("🚀 => file: index.ts => line 474 => outputDir", outputDir);
+
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   // UPSCALE
   let upscayl: ChildProcessWithoutNullStreams | null = null;
   switch (model) {
-    case "realesrgan-x4plus":
-    case "realesrgan-x4plus-anime":
+    default:
       upscayl = spawn(
         execPath("realesrgan"),
         [
@@ -453,6 +504,19 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
           cwd: undefined,
           detached: false,
         }
+      );
+      console.log(
+        "🆙 COMMAND:",
+        "-i",
+        inputDir,
+        "-o",
+        outputDir,
+        "-s",
+        4,
+        "-m",
+        modelsPath,
+        "-n",
+        model
       );
       break;
     case "models-DF2K":
@@ -473,6 +537,18 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
           cwd: undefined,
           detached: false,
         }
+      );
+      console.log(
+        "🆙 COMMAND:",
+        "-i",
+        inputDir,
+        "-o",
+        outputDir,
+        "-s",
+        4,
+        "-x",
+        "-m",
+        modelsPath + "/" + model
       );
       break;
   }
@@ -509,11 +585,6 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
     }
   });
-});
-
-ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
-  console.log(payload);
-  shell.openPath(payload);
 });
 
 //------------------------Auto-Update Code-----------------------------//
