@@ -301,10 +301,14 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL_VIDEO, (event, payload) => __aw
     // Set the output directory
     let outputDir = payload.outputPath + "_frames";
     console.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
-    let frameExtractionPath = (0, path_1.join)(inputDir, justFileName + "_frames");
-    console.log("🚀 => file: index.ts => line 342 => frameExtractionPath", frameExtractionPath);
+    let frameExtractionPath = (0, path_1.join)(inputDir, justFileName + "_f");
+    let frameUpscalePath = (0, path_1.join)(inputDir, justFileName + "_u");
+    console.log("🚀 => file: index.ts => line 342 => frameExtractionPath", frameExtractionPath, frameUpscalePath);
     if (!fs_1.default.existsSync(frameExtractionPath)) {
         fs_1.default.mkdirSync(frameExtractionPath, { recursive: true });
+    }
+    if (!fs_1.default.existsSync(frameUpscalePath)) {
+        fs_1.default.mkdirSync(frameUpscalePath, { recursive: true });
     }
     let ffmpegProcess = null;
     ffmpegProcess = (0, child_process_1.spawn)(upscayl_ffmpeg_1.default.path, [
@@ -315,42 +319,44 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL_VIDEO, (event, payload) => __aw
         cwd: undefined,
         detached: false,
     });
-    // UPSCALE
-    let upscayl = null;
-    upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
-        "-i",
-        frameExtractionPath,
-        "-o",
-        frameExtractionPath + "_upscaled",
-        "-s",
-        4,
-        "-m",
-        binaries_1.modelsPath,
-        "-n",
-        model,
-    ], {
-        cwd: undefined,
-        detached: false,
-    });
     let failed = false;
-    upscayl === null || upscayl === void 0 ? void 0 : upscayl.stderr.on("data", (data) => {
-        console.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
+    ffmpegProcess === null || ffmpegProcess === void 0 ? void 0 : ffmpegProcess.stderr.on("data", (data) => {
+        console.log("🚀 => file: index.ts:420 => data", data.toString());
         data = data.toString();
-        mainWindow.webContents.send(commands_1.default.UPSCAYL_VIDEO_PROGRESS, data.toString());
-        if (data.includes("invalid gpu") || data.includes("failed")) {
-            failed = true;
-        }
+        mainWindow.webContents.send(commands_1.default.FFMPEG_VIDEO_PROGRESS, data.toString());
     });
-    upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("error", (data) => {
-        mainWindow.webContents.send(commands_1.default.UPSCAYL_VIDEO_PROGRESS, data.toString());
+    ffmpegProcess === null || ffmpegProcess === void 0 ? void 0 : ffmpegProcess.on("error", (data) => {
+        mainWindow.webContents.send(commands_1.default.FFMPEG_VIDEO_PROGRESS, data.toString());
         failed = true;
         return;
     });
     // Send done comamnd when
-    upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("close", (code) => {
+    ffmpegProcess === null || ffmpegProcess === void 0 ? void 0 : ffmpegProcess.on("close", (code) => {
         if (failed !== true) {
-            console.log("Done upscaling");
-            mainWindow.webContents.send(commands_1.default.UPSCAYL_VIDEO_DONE, outputDir);
+            console.log("Frame extraction successful!");
+            mainWindow.webContents.send(commands_1.default.FFMPEG_VIDEO_DONE, outputDir);
+            // UPSCALE
+            let upscayl = null;
+            upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
+                "-i",
+                frameExtractionPath,
+                "-o",
+                frameUpscalePath,
+                "-s",
+                4,
+                "-m",
+                binaries_1.modelsPath,
+                "-n",
+                model,
+            ], {
+                cwd: undefined,
+                detached: false,
+            });
+            upscayl === null || upscayl === void 0 ? void 0 : upscayl.stderr.on("data", (data) => {
+                console.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
+                data = data.toString();
+                mainWindow.webContents.send(commands_1.default.FFMPEG_VIDEO_PROGRESS, data.toString());
+            });
         }
     });
 }));

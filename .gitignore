@@ -41,3 +41,5 @@ build-dir/
 
 #vscode
 .vscode/
+
+main/*

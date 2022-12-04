@@ -384,14 +384,19 @@ ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
   let outputDir = payload.outputPath + "_frames";
   console.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
 
-  let frameExtractionPath = join(inputDir, justFileName + "_frames");
+  let frameExtractionPath = join(inputDir, justFileName + "_f");
+  let frameUpscalePath = join(inputDir, justFileName + "_u");
   console.log(
     "🚀 => file: index.ts => line 342 => frameExtractionPath",
-    frameExtractionPath
+    frameExtractionPath,
+    frameUpscalePath
   );
 
   if (!fs.existsSync(frameExtractionPath)) {
     fs.mkdirSync(frameExtractionPath, { recursive: true });
+  }
+  if (!fs.existsSync(frameUpscalePath)) {
+    fs.mkdirSync(frameUpscalePath, { recursive: true });
   }
 
   let ffmpegProcess: ChildProcessWithoutNullStreams | null = null;
@@ -408,47 +413,19 @@ ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
     }
   );
 
-  // UPSCALE
-  let upscayl: ChildProcessWithoutNullStreams | null = null;
-  upscayl = spawn(
-    execPath("realesrgan"),
-    [
-      "-i",
-      frameExtractionPath,
-      "-o",
-      frameExtractionPath + "_upscaled",
-      "-s",
-      4,
-      "-m",
-      modelsPath,
-      "-n",
-      model,
-    ],
-    {
-      cwd: undefined,
-      detached: false,
-    }
-  );
-
   let failed = false;
-  upscayl?.stderr.on("data", (data) => {
-    console.log(
-      "🚀 => upscayl.stderr.on => stderr.toString()",
-      data.toString()
-    );
+  ffmpegProcess?.stderr.on("data", (data: string) => {
+    console.log("🚀 => file: index.ts:420 => data", data.toString());
     data = data.toString();
     mainWindow.webContents.send(
-      commands.UPSCAYL_VIDEO_PROGRESS,
+      commands.FFMPEG_VIDEO_PROGRESS,
       data.toString()
     );
-    if (data.includes("invalid gpu") || data.includes("failed")) {
-      failed = true;
-    }
   });
 
-  upscayl?.on("error", (data) => {
+  ffmpegProcess?.on("error", (data: string) => {
     mainWindow.webContents.send(
-      commands.UPSCAYL_VIDEO_PROGRESS,
+      commands.FFMPEG_VIDEO_PROGRESS,
       data.toString()
     );
     failed = true;
@@ -456,10 +433,44 @@ ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
   });
 
   // Send done comamnd when
-  upscayl?.on("close", (code) => {
+  ffmpegProcess?.on("close", (code: number) => {
     if (failed !== true) {
-      console.log("Done upscaling");
-      mainWindow.webContents.send(commands.UPSCAYL_VIDEO_DONE, outputDir);
+      console.log("Frame extraction successful!");
+      mainWindow.webContents.send(commands.FFMPEG_VIDEO_DONE, outputDir);
+
+      // UPSCALE
+      let upscayl: ChildProcessWithoutNullStreams | null = null;
+      upscayl = spawn(
+        execPath("realesrgan"),
+        [
+          "-i",
+          frameExtractionPath,
+          "-o",
+          frameUpscalePath,
+          "-s",
+          4,
+          "-m",
+          modelsPath,
+          "-n",
+          model,
+        ],
+        {
+          cwd: undefined,
+          detached: false,
+        }
+      );
+
+      upscayl?.stderr.on("data", (data) => {
+        console.log(
+          "🚀 => upscayl.stderr.on => stderr.toString()",
+          data.toString()
+        );
+        data = data.toString();
+        mainWindow.webContents.send(
+          commands.FFMPEG_VIDEO_PROGRESS,
+          data.toString()
+        );
+      });
     }
   });
 });

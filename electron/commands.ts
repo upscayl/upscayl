@@ -15,6 +15,8 @@ const commands = {
   UPSCAYL_VIDEO: "Upscale the Video",
   UPSCAYL_VIDEO_DONE: "Video Upscaling Done",
   UPSCAYL_VIDEO_PROGRESS: "Send Video Upscale Progress from Main to Renderer",
+  FFMPEG_VIDEO_DONE: "Ran FFMpeg successfully",
+  FFMPEG_VIDEO_PROGRESS: "Running FFMpeg for frame extraction",
 };
 
 export default commands;
