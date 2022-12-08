@@ -2794,6 +2794,11 @@ temp-file@^3.4.0:
     async-exit-hook "^2.0.1"
     fs-extra "^10.0.0"
 
+theme-change@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/theme-change/-/theme-change-2.2.0.tgz#dcc48ffe6b806258bc5f1caf8220527589e354c0"
+  integrity sha512-vvgZEEfmH3yZGq2bWHyzs2AOG1SRfNnCvWbEnPzGpdvvCmAWtOsEdg4H6k/OMapegG+LEQvQ76tQoN9B+FT7rg==
+
 tmp-promise@^3.0.2:
   version "3.0.3"
   resolved "https://registry.npmjs.org/tmp-promise/-/tmp-promise-3.0.3.tgz"
@@ -2877,10 +2882,10 @@ update-browserslist-db@^1.0.9:
     escalade "^3.1.1"
     picocolors "^1.0.0"
 
-upscayl-ffmpeg@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/upscayl-ffmpeg/-/upscayl-ffmpeg-5.1.0.tgz#6fe3355338bb8304bf52bcf9703124d2c07b97a9"
-  integrity sha512-l3klTtO7h6rxC8SwMHQRBmmQoxNhz+dAyWjTlNOkYN1imLL1PXIN/Tqm1wM15M1x7Ax8H9SvNyQy52hhzaY2Yg==
+upscayl-ffmpeg@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/upscayl-ffmpeg/-/upscayl-ffmpeg-5.1.1.tgz#0e89250aed1037b206a1bed59d96fb055e97c56a"
+  integrity sha512-Rmc8S56weUs6N92/PAhDvdwbbUhNhQs4BazTbifeFadsYFrsAOlYZep/JCUdsvEzz7sNrUveOjxcRBnYYWjENA==
 
 uri-js@^4.2.2:
   version "4.4.1"

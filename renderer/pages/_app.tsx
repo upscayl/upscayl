@@ -1,15 +1,17 @@
 import "../styles/globals.css";
 import Head from "next/head";
 import { AppProps } from "next/app";
+import { useEffect } from "react";
+import { themeChange } from "theme-change";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <div data-theme="dark">
+    <>
       <Head>
         <title>Upscayl</title>
       </Head>
-      <Component {...pageProps} />
-    </div>
+      <Component {...pageProps} data-theme="dark" />
+    </>
   );
 };
 

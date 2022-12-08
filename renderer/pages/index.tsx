@@ -340,7 +340,7 @@ const Home = () => {
         )}
         {/* HEADER */}
         <Header />
-        <div className="flex items-center justify-center gap-2 pb-4 font-medium">
+        {/* <div className="flex items-center justify-center gap-2 pb-4 font-medium">
           <p>Image</p>
           <input
             type="radio"
@@ -363,7 +363,7 @@ const Home = () => {
             }}
           />
           <p>Video</p>
-        </div>
+        </div> */}
         {/* LEFT PANE */}
         {isVideo ? (
           <LeftPaneVideoSteps

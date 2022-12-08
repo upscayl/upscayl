@@ -157,7 +157,8 @@
     "react-select": "^5.6.0",
     "react-tooltip": "^4.5.0",
     "tailwind-scrollbar": "^2.0.1",
-    "upscayl-ffmpeg": "^5.1.0"
+    "theme-change": "^2.2.0",
+    "upscayl-ffmpeg": "^5.1.1"
   },
   "volta": {
     "node": "16.17.0"

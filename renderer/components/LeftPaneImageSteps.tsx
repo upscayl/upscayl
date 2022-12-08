@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Select from "react-select";
 import ReactTooltip from "react-tooltip";
+import { themeChange } from "theme-change";
 
 interface IProps {
   progress: string;
@@ -39,6 +40,42 @@ function LeftPaneImageSteps({
   isVideo,
   setIsVideo,
 }: IProps) {
+  useEffect(() => {
+    themeChange(false);
+  }, []);
+
+  const availableThemes = [
+    "light",
+    "dark",
+    "cupcake",
+    "bumblebee",
+    "emerald",
+    "corporate",
+    "synthwave",
+    "retro",
+    "cyberpunk",
+    "valentine",
+    "halloween",
+    "garden",
+    "forest",
+    "aqua",
+    "lofi",
+    "pastel",
+    "fantasy",
+    "wireframe",
+    "black",
+    "luxury",
+    "dracula",
+    "cmyk",
+    "autumn",
+    "business",
+    "acid",
+    "lemonade",
+    "night",
+    "coffee",
+    "winter",
+  ];
+
   const handleBatchMode = () => {
     setBatchMode((oldValue) => !oldValue);
   };
@@ -161,6 +198,33 @@ function LeftPaneImageSteps({
           disabled={progress.length > 0}>
           {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
         </button>
+        <div className="rounded-btn collapse mt-5">
+          <input type="checkbox" className="peer" />
+          <div className="collapse-title bg-neutral text-neutral-content peer-checked:bg-primary peer-checked:text-primary-content">
+            Advanced Options
+          </div>
+          <div className="collapse-content flex flex-col gap-4 bg-neutral text-neutral-content peer-checked:bg-base-300 peer-checked:py-4 peer-checked:text-base-content">
+            <div className="flex flex-col gap-2">
+              <p>Save Image As:</p>
+              <div className="flex gap-2">
+                <button className="btn-primary btn">PNG</button>
+                <button className="btn-primary btn">JPG</button>
+                <button className="btn-primary btn">WEBP</button>
+              </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>Upscayl Theme:</p>
+              <select data-choose-theme className="select-primary select">
+                <option value="dark">Default</option>
+                {availableThemes.map((theme) => {
+                  return (
+                    <option value={theme} key={theme}>{theme.toLocaleUpperCase()}</option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
       <ReactTooltip class="max-w-sm" />
