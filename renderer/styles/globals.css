@@ -1,3 +1,40 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins/Poppins-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins/Poppins-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins/Poppins-SemiBold.ttf");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins/Poppins-Bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins/Poppins-ExtraBold.ttf");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/poppins/Poppins-Black.ttf");
+  font-weight: 900;
+  font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,13 +43,8 @@
   * {
     @apply select-none;
     font-family: "Poppins", sans-serif;
-    src: url("/Poppins-Regular.ttf") format("truetype"),
-      url("/Poppins-Medium.ttf") format("truetype"),
-      url("/Poppins-Semibold.ttf") format("truetype"),
-      url("/Poppins-Bold.ttf") format("truetype"),
-      url("/Poppins-ExtraBold.ttf") format("truetype"),
-      url("/Poppins-Black.ttf") format("truetype");
   }
+
   ::-webkit-scrollbar {
     @apply w-3;
   }
