@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 import { themeChange } from "theme-change";
@@ -40,9 +40,58 @@ function LeftPaneImageSteps({
   isVideo,
   setIsVideo,
 }: IProps) {
+  const [saveImageAs, setSaveImageAs] = useState("png");
+  const [gpuId, setGpuId] = useState("0");
+
   useEffect(() => {
     themeChange(false);
+    if (!localStorage.getItem("saveImageAs")) {
+      localStorage.setItem("saveImageAs", "png");
+    } else {
+      setSaveImageAs(localStorage.getItem("saveImageAs"));
+    }
   }, []);
+
+  const setExportType = (format: string) => {
+    setSaveImageAs(format);
+    localStorage.setItem("saveImageAs", format);
+  };
+
+  const handleBatchMode = () => {
+    setBatchMode((oldValue) => !oldValue);
+  };
+
+  const handleGpuIdChange = (e) => {
+    setGpuId(e.target.value);
+  };
+
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: "1px dotted pink",
+      color: state.isSelected ? "red" : "blue",
+      padding: 20,
+    }),
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      width: 200,
+    }),
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1;
+      const transition = "opacity 300ms";
+
+      return { ...provided, opacity, transition };
+    },
+  };
+
+  const modelOptions = [
+    { label: "General Photo (Remacri)", value: "remacri" },
+    { label: "General Photo (Ultramix Balanced)", value: "ultramix_balanced" },
+    { label: "General Photo (Real-ESRGAN)", value: "realesrgan-x4plus" },
+    { label: "General Photo (Ultrasharp)", value: "ultrasharp" },
+    { label: "Digital Art", value: "realesrgan-x4plus-anime" },
+    { label: "Sharpen Image", value: "models-DF2K" },
+  ];
 
   const availableThemes = [
     "light",
@@ -74,38 +123,6 @@ function LeftPaneImageSteps({
     "night",
     "coffee",
     "winter",
-  ];
-
-  const handleBatchMode = () => {
-    setBatchMode((oldValue) => !oldValue);
-  };
-
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: "1px dotted pink",
-      color: state.isSelected ? "red" : "blue",
-      padding: 20,
-    }),
-    control: () => ({
-      // none of react-select's styles are passed to <Control />
-      width: 200,
-    }),
-    singleValue: (provided, state) => {
-      const opacity = state.isDisabled ? 0.5 : 1;
-      const transition = "opacity 300ms";
-
-      return { ...provided, opacity, transition };
-    },
-  };
-
-  const modelOptions = [
-    { label: "General Photo (Remacri)", value: "remacri" },
-    { label: "General Photo (Ultramix Balanced)", value: "ultramix_balanced" },
-    { label: "General Photo (Real-ESRGAN)", value: "realesrgan-x4plus" },
-    { label: "General Photo (Ultrasharp)", value: "ultrasharp" },
-    { label: "Digital Art", value: "realesrgan-x4plus-anime" },
-    { label: "Sharpen Image", value: "models-DF2K" },
   ];
 
   return (
@@ -207,9 +224,27 @@ function LeftPaneImageSteps({
             <div className="flex flex-col gap-2">
               <p>Save Image As:</p>
               <div className="flex gap-2">
-                <button className="btn-primary btn">PNG</button>
-                <button className="btn-primary btn">JPG</button>
-                <button className="btn-primary btn">WEBP</button>
+                <button
+                  className={`btn-primary btn ${
+                    saveImageAs === "png" && "btn-accent"
+                  }`}
+                  onClick={() => setExportType("png")}>
+                  PNG
+                </button>
+                <button
+                  className={`btn-primary btn ${
+                    saveImageAs === "jpg" && "btn-accent"
+                  }`}
+                  onClick={() => setExportType("jpg")}>
+                  JPG
+                </button>
+                <button
+                  className={`btn-primary btn ${
+                    saveImageAs === "webp" && "btn-accent"
+                  }`}
+                  onClick={() => setExportType("webp")}>
+                  WEBP
+                </button>
               </div>
             </div>
             <div className="flex flex-col gap-2">
@@ -218,10 +253,22 @@ function LeftPaneImageSteps({
                 <option value="dark">Default</option>
                 {availableThemes.map((theme) => {
                   return (
-                    <option value={theme} key={theme}>{theme.toLocaleUpperCase()}</option>
+                    <option value={theme} key={theme}>
+                      {theme.toLocaleUpperCase()}
+                    </option>
                   );
                 })}
               </select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>GPU ID:</p>
+              <input
+                type="number"
+                placeholder="Type here"
+                className="input w-full max-w-xs"
+                value={gpuId}
+                onChange={handleGpuIdChange}
+              />
             </div>
           </div>
         </div>
