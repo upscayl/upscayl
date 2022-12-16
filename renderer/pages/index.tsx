@@ -15,6 +15,7 @@ import LeftPaneVideoSteps from "../components/LeftPaneVideoSteps";
 import LeftPaneImageSteps from "../components/LeftPaneImageSteps";
 
 const Home = () => {
+  // STATES
   const [imagePath, SetImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
   const [outputPath, setOutputPath] = useState("");
@@ -31,20 +32,11 @@ const Home = () => {
   const [videoPath, setVideoPath] = useState("");
   const [upscaledVideoPath, setUpscaledVideoPath] = useState("");
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
+  const [gpuId, setGpuId] = useState("");
+  const [saveImageAs, setSaveImageAs] = useState("png");
+  const [zoomAmount, setZoomAmount] = useState("");
 
-  const resetImagePaths = () => {
-    setProgress("");
-
-    SetImagePath("");
-    setUpscaledImagePath("");
-
-    setBatchFolderPath("");
-    setUpscaledBatchFolderPath("");
-
-    setVideoPath("");
-    setUpscaledVideoPath("");
-  };
-
+  // EFFECTS
   useEffect(() => {
     setLoaded(true);
 
@@ -73,6 +65,7 @@ const Home = () => {
       }
     };
 
+    // UPSCAYL PROGRESS
     window.electron.on(commands.UPSCAYL_PROGRESS, (_, data) => {
       console.log(
         "🚀 => file: index.jsx => line 61 => window.electron.on => data",
@@ -84,12 +77,16 @@ const Home = () => {
       }
       handleErrors(data);
     });
+
+    // FOLDER UPSCAYL PROGRESS
     window.electron.on(commands.FOLDER_UPSCAYL_PROGRESS, (_, data) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       }
       handleErrors(data);
     });
+
+    // DOUBLE UPSCAYL PROGRESS
     window.electron.on(commands.DOUBLE_UPSCAYL_PROGRESS, (_, data) => {
       if (data.length > 0 && data.length < 10) {
         if (data === "0.00%") {
@@ -99,6 +96,8 @@ const Home = () => {
       }
       handleErrors(data);
     });
+
+    // VIDEO UPSCAYL PROGRESS
     window.electron.on(commands.UPSCAYL_VIDEO_PROGRESS, (_, data) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
@@ -106,19 +105,26 @@ const Home = () => {
       handleErrors(data);
     });
 
+    // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
       setProgress("");
       setUpscaledImagePath(data);
     });
+
+    // FOLDER UPSCAYL DONE
     window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data) => {
       setProgress("");
       setUpscaledBatchFolderPath(data);
     });
+
+    // DOUBLE UPSCAYL DONE
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data) => {
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
     });
+
+    // VIDEO UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_VIDEO_DONE, (_, data) => {
       setProgress("");
       setUpscaledVideoPath(data);
@@ -165,6 +171,20 @@ const Home = () => {
     }
   }, [imagePath, videoPath]);
 
+  const resetImagePaths = () => {
+    setProgress("");
+
+    SetImagePath("");
+    setUpscaledImagePath("");
+
+    setBatchFolderPath("");
+    setUpscaledBatchFolderPath("");
+
+    setVideoPath("");
+    setUpscaledVideoPath("");
+  };
+
+  // HANDLERS
   const selectVideoHandler = async () => {
     resetImagePaths();
 
@@ -207,6 +227,7 @@ const Home = () => {
     }
   };
 
+  // DRAG AND DROP HANDLERS
   const handleDragEnter = (e) => {
     e.preventDefault();
     console.log("drag enter");
@@ -219,12 +240,10 @@ const Home = () => {
     e.preventDefault();
     console.log("drag over");
   };
+
   const openFolderHandler = (e) => {
     window.electron.send(commands.OPEN_FOLDER, upscaledBatchFolderPath);
   };
-
-  const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
-  const allowedVideoFileTypes = ["webm", "mp4", "mkv"];
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -302,6 +321,8 @@ const Home = () => {
           imagePath,
           outputPath,
           model,
+          gpuId: gpuId.length === 0 ? null : gpuId,
+          saveImageAs,
         });
       } else if (batchMode) {
         setDoubleUpscayl(false);
@@ -310,6 +331,8 @@ const Home = () => {
           batchFolderPath,
           outputPath,
           model,
+          gpuId: gpuId.length === 0 ? null : gpuId,
+          saveImageAs,
         });
       } else {
         await window.electron.send(commands.UPSCAYL, {
@@ -317,6 +340,8 @@ const Home = () => {
           imagePath,
           outputPath,
           model,
+          gpuId: gpuId.length === 0 ? null : gpuId,
+          saveImageAs,
         });
       }
     } else if (isVideo && videoPath !== "") {
@@ -325,11 +350,16 @@ const Home = () => {
         videoPath,
         outputPath,
         model,
+        gpuId: gpuId.length === 0 ? null : gpuId,
+        saveImageAs,
       });
     } else {
       alert(`Please select ${isVideo ? "a video" : "an image"} to upscale`);
     }
   };
+
+  const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
+  const allowedVideoFileTypes = ["webm", "mp4", "mkv"];
 
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
@@ -397,6 +427,10 @@ const Home = () => {
             model={model}
             isVideo={isVideo}
             setIsVideo={setIsVideo}
+            gpuId={gpuId}
+            setGpuId={setGpuId}
+            saveImageAs={saveImageAs}
+            setSaveImageAs={setSaveImageAs}
           />
         )}
         <Footer />
@@ -484,7 +518,10 @@ const Home = () => {
           imagePath.length > 0 &&
           upscaledImagePath.length > 0 && (
             <>
-              <ImageOptions />
+              <ImageOptions
+                zoomAmount={zoomAmount}
+                setZoomAmount={setZoomAmount}
+              />
               <ReactCompareSlider
                 itemOne={
                   <>
@@ -497,7 +534,7 @@ const Home = () => {
                       style={{
                         objectFit: "contain",
                       }}
-                      className="bg-[#1d1c23]"
+                      className={`bg-[#1d1c23] ${zoomAmount}`}
                     />
                   </>
                 }

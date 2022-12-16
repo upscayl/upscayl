@@ -120,6 +120,10 @@
   }
 }
 
+.zoom-125 {
+  transform: scale(1.25);
+}
+
 .animate-step-in {
   animation: animate-step-in 0.6s cubic-bezier(0.07, 0.43, 0.02, 1);
 }

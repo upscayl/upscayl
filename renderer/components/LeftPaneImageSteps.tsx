@@ -20,6 +20,10 @@ interface IProps {
   model: string;
   isVideo: boolean;
   setIsVideo: (arg: boolean) => void;
+  saveImageAs: string;
+  setSaveImageAs: (arg: string) => void;
+  gpuId: string;
+  setGpuId: (arg: string) => void;
 }
 
 function LeftPaneImageSteps({
@@ -39,10 +43,11 @@ function LeftPaneImageSteps({
   model,
   isVideo,
   setIsVideo,
+  gpuId,
+  setGpuId,
+  saveImageAs,
+  setSaveImageAs,
 }: IProps) {
-  const [saveImageAs, setSaveImageAs] = useState("png");
-  const [gpuId, setGpuId] = useState("0");
-
   useEffect(() => {
     themeChange(false);
     if (!localStorage.getItem("saveImageAs")) {
@@ -94,35 +99,35 @@ function LeftPaneImageSteps({
   ];
 
   const availableThemes = [
-    "light",
-    "dark",
-    "cupcake",
-    "bumblebee",
-    "emerald",
-    "corporate",
-    "synthwave",
-    "retro",
-    "cyberpunk",
-    "valentine",
-    "halloween",
-    "garden",
-    "forest",
-    "aqua",
-    "lofi",
-    "pastel",
-    "fantasy",
-    "wireframe",
-    "black",
-    "luxury",
-    "dracula",
-    "cmyk",
-    "autumn",
-    "business",
-    "acid",
-    "lemonade",
-    "night",
-    "coffee",
-    "winter",
+    { label: "light", value: "light" },
+    { label: "dark", value: "dark" },
+    { label: "cupcake", value: "cupcake" },
+    { label: "bumblebee", value: "bumblebee" },
+    { label: "emerald", value: "emerald" },
+    { label: "corporate", value: "corporate" },
+    { label: "synthwave", value: "synthwave" },
+    { label: "retro", value: "retro" },
+    { label: "cyberpunk", value: "cyberpunk" },
+    { label: "valentine", value: "valentine" },
+    { label: "halloween", value: "halloween" },
+    { label: "garden", value: "garden" },
+    { label: "forest", value: "forest" },
+    { label: "aqua", value: "aqua" },
+    { label: "lofi", value: "lofi" },
+    { label: "pastel", value: "pastel" },
+    { label: "fantasy", value: "fantasy" },
+    { label: "wireframe", value: "wireframe" },
+    { label: "black", value: "black" },
+    { label: "luxury", value: "luxury" },
+    { label: "dracula", value: "dracula" },
+    { label: "cmyk", value: "cmyk" },
+    { label: "autumn", value: "autumn" },
+    { label: "business", value: "business" },
+    { label: "acid", value: "acid" },
+    { label: "lemonade", value: "lemonade" },
+    { label: "night", value: "night" },
+    { label: "coffee", value: "coffee" },
+    { label: "winter", value: "winter" },
   ];
 
   return (
@@ -253,8 +258,8 @@ function LeftPaneImageSteps({
                 <option value="dark">Default</option>
                 {availableThemes.map((theme) => {
                   return (
-                    <option value={theme} key={theme}>
-                      {theme.toLocaleUpperCase()}
+                    <option value={theme.value} key={theme.value}>
+                      {theme.label.toLocaleUpperCase()}
                     </option>
                   );
                 })}
@@ -263,7 +268,7 @@ function LeftPaneImageSteps({
             <div className="flex flex-col gap-2">
               <p>GPU ID:</p>
               <input
-                type="number"
+                type="text"
                 placeholder="Type here"
                 className="input w-full max-w-xs"
                 value={gpuId}

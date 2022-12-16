@@ -112,6 +112,8 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
     const model = payload.model;
     let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
     let outputDir = payload.outputPath;
+    const gpuId = payload.gpuId;
+    const saveImageAs = payload.saveImageAs;
     // COPY IMAGE TO TMP FOLDER
     const platform = (0, getPlatform_1.default)();
     const fullfileName = platform === "win"
@@ -119,7 +121,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         : payload.imagePath.split("/").slice(-1)[0];
     const fileName = (0, path_1.parse)(fullfileName).name;
     const fileExt = (0, path_1.parse)(fullfileName).ext;
-    const outFile = outputDir + "/" + fileName + "_upscayl_8x_" + model + fileExt;
+    const outFile = outputDir + "/" + fileName + "_upscayl_8x_" + model + "." + saveImageAs;
     // UPSCALE
     let upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
         "-i",
@@ -132,11 +134,14 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         binaries_1.modelsPath,
         "-n",
         model,
+        gpuId ? `-g ${gpuId}` : "",
+        "-f",
+        saveImageAs,
     ], {
         cwd: undefined,
         detached: false,
     });
-    console.log("🆙 COMMAND:", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", 4, "-m", binaries_1.modelsPath, "-n", model);
+    console.log("🆙 COMMAND:", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", 4, "-m", binaries_1.modelsPath, "-n", model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
     let failed = false;
     // TAKE UPSCAYL OUTPUT
     upscayl.stderr.on("data", (data) => {
@@ -165,7 +170,21 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         // IF NOT FAILED
         if (!failed) {
             // UPSCALE
-            let upscayl2 = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), ["-i", outFile, "-o", outFile, "-s", 4, "-m", binaries_1.modelsPath, "-n", model], {
+            let upscayl2 = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
+                "-i",
+                outFile,
+                "-o",
+                outFile,
+                "-s",
+                4,
+                "-m",
+                binaries_1.modelsPath,
+                "-n",
+                model,
+                gpuId ? `-g ${gpuId}` : "",
+                "-f",
+                saveImageAs,
+            ], {
                 cwd: undefined,
                 detached: false,
             });
@@ -205,6 +224,8 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
 electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const model = payload.model;
     const scale = payload.scaleFactor;
+    const gpuId = payload.gpuId;
+    const saveImageAs = payload.saveImageAs;
     let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
     let outputDir = payload.outputPath;
     // COPY IMAGE TO TMP FOLDER
@@ -220,8 +241,17 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
             scale +
             "x_" +
             model +
-            fileExt
-        : outputDir + "/" + fileName + "_upscayl_" + scale + "x_" + model + fileExt;
+            "." +
+            saveImageAs
+        : outputDir +
+            "/" +
+            fileName +
+            "_upscayl_" +
+            scale +
+            "x_" +
+            model +
+            "." +
+            saveImageAs;
     // UPSCALE
     if (fs_1.default.existsSync(outFile)) {
         // If already upscayled, just output that file
@@ -242,11 +272,14 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
                     binaries_1.modelsPath,
                     "-n",
                     model,
+                    gpuId ? `-g ${gpuId}` : "",
+                    "-f",
+                    saveImageAs,
                 ], {
                     cwd: undefined,
                     detached: false,
                 });
-                console.log("🆙 COMMAND: ", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", scale === 2 ? 4 : scale, "-m", binaries_1.modelsPath, "-n", model);
+                console.log("🆙 COMMAND: ", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", scale === 2 ? 4 : scale, "-m", binaries_1.modelsPath, "-n", model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
                 break;
             case "models-DF2K":
                 upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realsr"), [
@@ -259,11 +292,14 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
                     "-x",
                     "-m",
                     binaries_1.modelsPath + "/" + model,
+                    gpuId ? `-g ${gpuId}` : "",
+                    "-f",
+                    saveImageAs,
                 ], {
                     cwd: undefined,
                     detached: false,
                 });
-                console.log("🆙 COMMAND: ", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", scale, "-x", "-m", binaries_1.modelsPath + "/" + model);
+                console.log("🆙 COMMAND: ", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", scale, "-x", "-m", binaries_1.modelsPath + "/" + model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
                 break;
         }
         let failed = false;
@@ -288,6 +324,90 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
             }
         });
     }
+}));
+//------------------------Upscayl Folder-----------------------------//
+electron_1.ipcMain.on(commands_1.default.FOLDER_UPSCAYL, (event, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    // GET THE MODEL
+    const model = payload.model;
+    const gpuId = payload.gpuId;
+    const saveImageAs = payload.saveImageAs;
+    // GET THE IMAGE DIRECTORY
+    let inputDir = payload.batchFolderPath;
+    console.log("🚀 => file: index.ts => line 471 => inputDir", inputDir);
+    // GET THE OUTPUT DIRECTORY
+    let outputDir = model.includes("models-DF2K")
+        ? payload.outputPath + "_sharpened"
+        : payload.outputPath;
+    console.log("🚀 => file: index.ts => line 474 => outputDir", outputDir);
+    if (!fs_1.default.existsSync(outputDir)) {
+        fs_1.default.mkdirSync(outputDir, { recursive: true });
+    }
+    // UPSCALE
+    let upscayl = null;
+    switch (model) {
+        default:
+            upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
+                "-i",
+                inputDir,
+                "-o",
+                outputDir,
+                "-s",
+                4,
+                "-m",
+                binaries_1.modelsPath,
+                "-n",
+                model,
+                gpuId ? `-g ${gpuId}` : "",
+                "-f",
+                saveImageAs,
+            ], {
+                cwd: undefined,
+                detached: false,
+            });
+            console.log("🆙 COMMAND:", "-i", inputDir, "-o", outputDir, "-s", 4, "-m", binaries_1.modelsPath, "-n", model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
+            break;
+        case "models-DF2K":
+            upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realsr"), [
+                "-i",
+                inputDir,
+                "-o",
+                outputDir,
+                "-s",
+                4,
+                "-x",
+                "-m",
+                binaries_1.modelsPath + "/" + model,
+                gpuId ? `-g ${gpuId}` : "",
+                "-f",
+                saveImageAs,
+            ], {
+                cwd: undefined,
+                detached: false,
+            });
+            console.log("🆙 COMMAND:", "-i", inputDir, "-o", outputDir, "-s", 4, "-x", "-m", binaries_1.modelsPath + "/" + model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
+            break;
+    }
+    let failed = false;
+    upscayl === null || upscayl === void 0 ? void 0 : upscayl.stderr.on("data", (data) => {
+        console.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
+        data = data.toString();
+        mainWindow.webContents.send(commands_1.default.FOLDER_UPSCAYL_PROGRESS, data.toString());
+        if (data.includes("invalid gpu") || data.includes("failed")) {
+            failed = true;
+        }
+    });
+    upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("error", (data) => {
+        mainWindow.webContents.send(commands_1.default.FOLDER_UPSCAYL_PROGRESS, data.toString());
+        failed = true;
+        return;
+    });
+    // Send done comamnd when
+    upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("close", (code) => {
+        if (failed !== true) {
+            console.log("Done upscaling");
+            mainWindow.webContents.send(commands_1.default.FOLDER_UPSCAYL_DONE, outputDir);
+        }
+    });
 }));
 //------------------------Video Upscayl-----------------------------//
 electron_1.ipcMain.on(commands_1.default.UPSCAYL_VIDEO, (event, payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -357,82 +477,6 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL_VIDEO, (event, payload) => __aw
                 data = data.toString();
                 mainWindow.webContents.send(commands_1.default.FFMPEG_VIDEO_PROGRESS, data.toString());
             });
-        }
-    });
-}));
-//------------------------Upscayl Folder-----------------------------//
-electron_1.ipcMain.on(commands_1.default.FOLDER_UPSCAYL, (event, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    // GET THE MODEL
-    const model = payload.model;
-    // GET THE IMAGE DIRECTORY
-    let inputDir = payload.batchFolderPath;
-    console.log("🚀 => file: index.ts => line 471 => inputDir", inputDir);
-    // GET THE OUTPUT DIRECTORY
-    let outputDir = model.includes("models-DF2K")
-        ? payload.outputPath + "_sharpened"
-        : payload.outputPath;
-    console.log("🚀 => file: index.ts => line 474 => outputDir", outputDir);
-    if (!fs_1.default.existsSync(outputDir)) {
-        fs_1.default.mkdirSync(outputDir, { recursive: true });
-    }
-    // UPSCALE
-    let upscayl = null;
-    switch (model) {
-        default:
-            upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
-                "-i",
-                inputDir,
-                "-o",
-                outputDir,
-                "-s",
-                4,
-                "-m",
-                binaries_1.modelsPath,
-                "-n",
-                model,
-            ], {
-                cwd: undefined,
-                detached: false,
-            });
-            console.log("🆙 COMMAND:", "-i", inputDir, "-o", outputDir, "-s", 4, "-m", binaries_1.modelsPath, "-n", model);
-            break;
-        case "models-DF2K":
-            upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realsr"), [
-                "-i",
-                inputDir,
-                "-o",
-                outputDir,
-                "-s",
-                4,
-                "-x",
-                "-m",
-                binaries_1.modelsPath + "/" + model,
-            ], {
-                cwd: undefined,
-                detached: false,
-            });
-            console.log("🆙 COMMAND:", "-i", inputDir, "-o", outputDir, "-s", 4, "-x", "-m", binaries_1.modelsPath + "/" + model);
-            break;
-    }
-    let failed = false;
-    upscayl === null || upscayl === void 0 ? void 0 : upscayl.stderr.on("data", (data) => {
-        console.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
-        data = data.toString();
-        mainWindow.webContents.send(commands_1.default.FOLDER_UPSCAYL_PROGRESS, data.toString());
-        if (data.includes("invalid gpu") || data.includes("failed")) {
-            failed = true;
-        }
-    });
-    upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("error", (data) => {
-        mainWindow.webContents.send(commands_1.default.FOLDER_UPSCAYL_PROGRESS, data.toString());
-        failed = true;
-        return;
-    });
-    // Send done comamnd when
-    upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("close", (code) => {
-        if (failed !== true) {
-            console.log("Done upscaling");
-            mainWindow.webContents.send(commands_1.default.FOLDER_UPSCAYL_DONE, outputDir);
         }
     });
 }));

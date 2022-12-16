@@ -3,6 +3,11 @@ module.exports = {
     "./renderer/pages/**/*.{js,ts,jsx,tsx}",
     "./renderer/components/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    {
+      pattern: /scale-/,
+    },
+  ],
   theme: {
     extend: {
       spacing: {
