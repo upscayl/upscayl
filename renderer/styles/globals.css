@@ -120,8 +120,20 @@
   }
 }
 
+.zoom-100 {
+  transform: scale(1);
+}
 .zoom-125 {
   transform: scale(1.25);
+}
+.zoom-150 {
+  transform: scale(1.5);
+}
+.zoom-175 {
+  transform: scale(1.75);
+}
+.zoom-200 {
+  transform: scale(2);
 }
 
 .animate-step-in {

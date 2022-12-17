@@ -7,12 +7,25 @@ const ImageOptions = ({
   zoomAmount: number;
   setZoomAmount: (arg: any) => void;
 }) => {
+  const [zoomLevel, setZoomLevel] = React.useState("125");
+
   const handleZoom = (direction: number) => {
-    console.log(zoomAmount + direction * 25);
     if (direction === 0) {
       setZoomAmount("");
-    } else {
-      setZoomAmount("zoom-125");
+      setZoomLevel("100");
+      console.log("🚀 => file: ImageOptions.tsx:24 => zoomLevel", zoomLevel);
+    } else if (direction === 1 && zoomLevel < "200") {
+      setZoomLevel((parseInt(zoomLevel) + direction * 25).toString());
+      setZoomAmount("zoom-" + zoomLevel);
+      console.log("🚀 => file: ImageOptions.tsx:24 => zoomLevel", zoomLevel);
+    } else if (direction === -1 && zoomLevel > "100") {
+      setZoomLevel((parseInt(zoomLevel) + direction * 25).toString());
+      setZoomAmount("zoom-" + zoomLevel);
+      console.log("🚀 => file: ImageOptions.tsx:24 => zoomLevel", zoomLevel);
+    }
+
+    if (zoomLevel > "200" || zoomLevel < "100") {
+      setZoomAmount("100");
     }
   };
 
@@ -28,13 +41,19 @@ const ImageOptions = ({
           <button className="btn-primary btn">Reset Image</button>
           <div className="flex flex-row items-center gap-2">
             <p className="w-20">Zoom:</p>
-            <button className="btn-primary btn" onClick={() => handleZoom(-1)}>
+            <button
+              className="btn-primary btn"
+              onClick={() => handleZoom(-1)}
+              disabled={zoomLevel === "100"}>
               - 25%
             </button>
             <button className="btn-primary btn" onClick={() => handleZoom(0)}>
               100%
             </button>
-            <button className="btn-primary btn" onClick={() => handleZoom(1)}>
+            <button
+              className="btn-primary btn"
+              onClick={() => handleZoom(1)}
+              disabled={zoomLevel === "200"}>
               + 25%
             </button>
           </div>
