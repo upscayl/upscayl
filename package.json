@@ -105,10 +105,14 @@
       ],
       "target": [
         "AppImage",
-        "flatpak",
-        "zip"
+        "zip",
+        "deb",
+        "rpm",
+        "tar.gz"
       ],
-      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;"
+      "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
+      "synopsis": "AI Image Upscaler",
+      "description": "Upscayl is a free and open source AI image upscaler for Linux. It uses the latest AI technology to upscale images to higher resolutions."
     },
     "win": {
       "publish": [
@@ -118,6 +122,11 @@
         "nsis"
       ],
       "icon": "main/build/icon.png"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "perMachine": true
     },
     "files": [
       "main",

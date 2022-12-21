@@ -90,9 +90,9 @@ function LeftPaneImageSteps({
   };
 
   const modelOptions = [
+    { label: "General Photo (Real-ESRGAN)", value: "realesrgan-x4plus" },
     { label: "General Photo (Remacri)", value: "remacri" },
     { label: "General Photo (Ultramix Balanced)", value: "ultramix_balanced" },
-    { label: "General Photo (Real-ESRGAN)", value: "realesrgan-x4plus" },
     { label: "General Photo (Ultrasharp)", value: "ultrasharp" },
     { label: "Digital Art", value: "realesrgan-x4plus-anime" },
     { label: "Sharpen Image", value: "models-DF2K" },

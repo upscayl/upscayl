@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const ImageOptions = ({
   zoomAmount,
@@ -13,27 +13,13 @@ const ImageOptions = ({
   rightImageRef: React.RefObject<HTMLImageElement>;
   resetImagePaths: () => void;
 }) => {
-  const [zoomLevel, setZoomLevel] = React.useState("125");
-
-  const handleZoom = (direction: number) => {
-    if (direction === 0) {
-      setZoomAmount("");
-      setZoomLevel("100");
-      console.log("🚀 => file: ImageOptions.tsx:24 => zoomLevel", zoomLevel);
-    } else if (direction === 1 && zoomLevel < "200") {
-      setZoomLevel((parseInt(zoomLevel) + direction * 25).toString());
-      setZoomAmount("zoom-" + zoomLevel);
-      console.log("🚀 => file: ImageOptions.tsx:24 => zoomLevel", zoomLevel);
-    } else if (direction === -1 && zoomLevel > "100") {
-      setZoomLevel((parseInt(zoomLevel) + direction * 25).toString());
-      setZoomAmount("zoom-" + zoomLevel);
-      console.log("🚀 => file: ImageOptions.tsx:24 => zoomLevel", zoomLevel);
+  useEffect(() => {
+    if (!localStorage.getItem("zoomAmount")) {
+      localStorage.setItem("zoomAmount", zoomAmount);
+    } else {
+      setZoomAmount(localStorage.getItem("zoomAmount"));
     }
-
-    if (zoomLevel > "200" || zoomLevel < "100") {
-      setZoomAmount("100");
-    }
-  };
+  }, []);
 
   return (
     <div className="animate rounded-btn collapse absolute top-0 z-50 m-2 opacity-25 hover:opacity-100">
@@ -53,35 +39,50 @@ const ImageOptions = ({
               className={`btn-primary btn ${
                 zoomAmount === "100%" ? "btn-secondary" : "btn-primary"
               }`}
-              onClick={() => setZoomAmount("100%")}>
+              onClick={() => {
+                setZoomAmount("100%");
+                localStorage.setItem("zoomAmount", "100%");
+              }}>
               100%
             </button>
             <button
               className={`btn-primary btn ${
                 zoomAmount === "125%" ? "btn-secondary" : "btn-primary"
               }`}
-              onClick={() => setZoomAmount("125%")}>
+              onClick={() => {
+                setZoomAmount("125%");
+                localStorage.setItem("zoomAmount", "125%");
+              }}>
               125%
             </button>
             <button
               className={`btn-primary btn ${
                 zoomAmount === "150%" ? "btn-secondary" : "btn-primary"
               }`}
-              onClick={() => setZoomAmount("150%")}>
+              onClick={() => {
+                setZoomAmount("150%");
+                localStorage.setItem("zoomAmount", "150%");
+              }}>
               150%
             </button>
             <button
               className={`btn-primary btn ${
                 zoomAmount === "175%" ? "btn-secondary" : "btn-primary"
               }`}
-              onClick={() => setZoomAmount("175%")}>
+              onClick={() => {
+                setZoomAmount("175%");
+                localStorage.setItem("zoomAmount", "175%");
+              }}>
               175%
             </button>
             <button
               className={`btn-primary btn ${
                 zoomAmount === "200%" ? "btn-secondary" : "btn-primary"
               }`}
-              onClick={() => setZoomAmount("200%")}>
+              onClick={() => {
+                setZoomAmount("200%");
+                localStorage.setItem("zoomAmount", "200%");
+              }}>
               200%
             </button>
           </div>

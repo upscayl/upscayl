@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import commands from "../../electron/commands";
-import {
-  ReactCompareSlider,
-  ReactCompareSliderImage,
-} from "react-compare-slider";
+import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProgressBar from "../components/ProgressBar";
@@ -13,7 +10,6 @@ import RightPaneInfo from "../components/RightPaneInfo";
 import ImageOptions from "../components/ImageOptions";
 import LeftPaneVideoSteps from "../components/LeftPaneVideoSteps";
 import LeftPaneImageSteps from "../components/LeftPaneImageSteps";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const Home = () => {
   // STATES
