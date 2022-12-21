@@ -4,9 +4,11 @@ module.exports = {
     "./renderer/components/**/*.{js,ts,jsx,tsx}",
   ],
   safelist: [
-    {
-      pattern: /scale-/,
-    },
+    "group-hover:scale-[100%]",
+    "group-hover:scale-[125%]",
+    "group-hover:scale-[150%]",
+    "group-hover:scale-[175%]",
+    "group-hover:scale-[200%]",
   ],
   theme: {
     extend: {

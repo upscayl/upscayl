@@ -13,6 +13,7 @@ import RightPaneInfo from "../components/RightPaneInfo";
 import ImageOptions from "../components/ImageOptions";
 import LeftPaneVideoSteps from "../components/LeftPaneVideoSteps";
 import LeftPaneImageSteps from "../components/LeftPaneImageSteps";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const Home = () => {
   // STATES
@@ -34,7 +35,12 @@ const Home = () => {
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const [gpuId, setGpuId] = useState("");
   const [saveImageAs, setSaveImageAs] = useState("png");
-  const [zoomAmount, setZoomAmount] = useState("");
+  const [zoomAmount, setZoomAmount] = useState("200%");
+  const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
+
+  // REFS
+  const leftImageRef = useRef();
+  const rightImageRef = useRef();
 
   // EFFECTS
   useEffect(() => {
@@ -185,6 +191,13 @@ const Home = () => {
   };
 
   // HANDLERS
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = e.target.getBoundingClientRect();
+    const x = ((e.pageX - left) / width) * 100;
+    const y = ((e.pageY - top) / height) * 100;
+    setBackgroundPosition(`${x}% ${y}%`);
+  };
+
   const selectVideoHandler = async () => {
     resetImagePaths();
 
@@ -521,6 +534,8 @@ const Home = () => {
               <ImageOptions
                 zoomAmount={zoomAmount}
                 setZoomAmount={setZoomAmount}
+                leftImageRef={leftImageRef}
+                rightImageRef={rightImageRef}
               />
               <ReactCompareSlider
                 itemOne={
@@ -528,13 +543,18 @@ const Home = () => {
                     <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
                       Original
                     </p>
-                    <ReactCompareSliderImage
+
+                    <img
                       src={"file://" + imagePath}
                       alt="Original"
                       style={{
                         objectFit: "contain",
+                        backgroundPosition: "0% 10%",
+                        transformOrigin: backgroundPosition,
                       }}
-                      className={`bg-[#1d1c23] ${zoomAmount}`}
+                      onMouseMove={handleMouseMove}
+                      ref={leftImageRef}
+                      className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
                     />
                   </>
                 }
@@ -543,17 +563,21 @@ const Home = () => {
                     <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
                       Upscayled
                     </p>
-                    <ReactCompareSliderImage
+                    <img
                       src={"file://" + upscaledImagePath}
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",
+                        backgroundPosition: "0% 10%",
+                        transformOrigin: backgroundPosition,
                       }}
-                      className="bg-[#1d1c23]"
+                      onMouseMove={handleMouseMove}
+                      ref={rightImageRef}
+                      className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
                     />
                   </>
                 }
-                className="h-screen"
+                className="group h-screen"
               />
             </>
           )}

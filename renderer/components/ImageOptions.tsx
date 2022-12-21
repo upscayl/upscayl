@@ -3,9 +3,13 @@ import React from "react";
 const ImageOptions = ({
   zoomAmount,
   setZoomAmount,
+  leftImageRef,
+  rightImageRef,
 }: {
-  zoomAmount: number;
+  zoomAmount: string;
   setZoomAmount: (arg: any) => void;
+  leftImageRef: React.RefObject<HTMLImageElement>;
+  rightImageRef: React.RefObject<HTMLImageElement>;
 }) => {
   const [zoomLevel, setZoomLevel] = React.useState("125");
 
@@ -42,27 +46,40 @@ const ImageOptions = ({
           <div className="flex flex-row items-center gap-2">
             <p className="w-20">Zoom:</p>
             <button
-              className="btn-primary btn"
-              onClick={() => handleZoom(-1)}
-              disabled={zoomLevel === "100"}>
-              - 25%
-            </button>
-            <button className="btn-primary btn" onClick={() => handleZoom(0)}>
+              className={`btn-primary btn ${
+                zoomAmount === "100%" ? "btn-secondary" : "btn-primary"
+              }`}
+              onClick={() => setZoomAmount("100%")}>
               100%
             </button>
             <button
-              className="btn-primary btn"
-              onClick={() => handleZoom(1)}
-              disabled={zoomLevel === "200"}>
-              + 25%
+              className={`btn-primary btn ${
+                zoomAmount === "125%" ? "btn-secondary" : "btn-primary"
+              }`}
+              onClick={() => setZoomAmount("125%")}>
+              125%
             </button>
-          </div>
-          <div className="flex flex-row items-center gap-2">
-            <p className="w-20">Position:</p>
-            <button className="btn-primary btn">Top</button>
-            <button className="btn-primary btn">Bottom</button>
-            <button className="btn-primary btn">Right</button>
-            <button className="btn-primary btn">Left</button>
+            <button
+              className={`btn-primary btn ${
+                zoomAmount === "150%" ? "btn-secondary" : "btn-primary"
+              }`}
+              onClick={() => setZoomAmount("150%")}>
+              150%
+            </button>
+            <button
+              className={`btn-primary btn ${
+                zoomAmount === "175%" ? "btn-secondary" : "btn-primary"
+              }`}
+              onClick={() => setZoomAmount("175%")}>
+              175%
+            </button>
+            <button
+              className={`btn-primary btn ${
+                zoomAmount === "200%" ? "btn-secondary" : "btn-primary"
+              }`}
+              onClick={() => setZoomAmount("200%")}>
+              200%
+            </button>
           </div>
         </div>
       </div>
