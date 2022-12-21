@@ -5,11 +5,13 @@ const ImageOptions = ({
   setZoomAmount,
   leftImageRef,
   rightImageRef,
+  resetImagePaths,
 }: {
   zoomAmount: string;
   setZoomAmount: (arg: any) => void;
   leftImageRef: React.RefObject<HTMLImageElement>;
   rightImageRef: React.RefObject<HTMLImageElement>;
+  resetImagePaths: () => void;
 }) => {
   const [zoomLevel, setZoomLevel] = React.useState("125");
 
@@ -42,7 +44,9 @@ const ImageOptions = ({
 
       <div className="collapse-content bg-base-100 text-base-content">
         <div className="flex max-h-96 flex-col justify-center gap-5 overflow-auto p-5">
-          <button className="btn-primary btn">Reset Image</button>
+          <button className="btn-primary btn" onClick={resetImagePaths}>
+            Reset Image
+          </button>
           <div className="flex flex-row items-center gap-2">
             <p className="w-20">Zoom:</p>
             <button

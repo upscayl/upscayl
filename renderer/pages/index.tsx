@@ -536,6 +536,7 @@ const Home = () => {
                 setZoomAmount={setZoomAmount}
                 leftImageRef={leftImageRef}
                 rightImageRef={rightImageRef}
+                resetImagePaths={resetImagePaths}
               />
               <ReactCompareSlider
                 itemOne={
