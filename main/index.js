@@ -36,8 +36,8 @@ electron_1.app.on("ready", () => __awaiter(void 0, void 0, void 0, function* () 
     console.log("🚀 FFMPEG PATH: ", upscayl_ffmpeg_1.default.path);
     mainWindow = new electron_1.BrowserWindow({
         icon: (0, path_1.join)(__dirname, "build", "icon.png"),
-        width: 1100,
-        height: 740,
+        width: 1300,
+        height: 940,
         minHeight: 500,
         minWidth: 500,
         show: false,

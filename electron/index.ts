@@ -36,8 +36,8 @@ app.on("ready", async () => {
 
   mainWindow = new BrowserWindow({
     icon: join(__dirname, "build", "icon.png"),
-    width: 1100,
-    height: 740,
+    width: 1300,
+    height: 940,
     minHeight: 500,
     minWidth: 500,
     show: false,
