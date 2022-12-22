@@ -40,6 +40,8 @@
     "dist": "npm run build && DEBUG=* electron-builder",
     "dist:appimage": "npm run build && DEBUG=* electron-builder build -l AppImage",
     "dist:flatpak": "npm run build && DEBUG=* electron-builder build -l flatpak",
+    "dist:deb": "npm run build && DEBUG=* electron-builder build -l deb",
+    "dist:rpm": "npm run build && DEBUG=* electron-builder build -l rpm",
     "dist:zip": "npm run build && DEBUG=* electron-builder build -l zip",
     "dist:dmg": "npm run build && DEBUG=* electron-builder build -m dmg",
     "dist:msi": "npm run build && DEBUG=* electron-builder build -w nsis",
@@ -107,8 +109,7 @@
         "AppImage",
         "zip",
         "deb",
-        "rpm",
-        "tar.gz"
+        "rpm"
       ],
       "maintainer": "Nayam Amarshe <simplelogin-newsletter.j1zez@aleeas.com>",
       "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
