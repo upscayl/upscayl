@@ -125,6 +125,7 @@
     },
     "nsis": {
       "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
       "allowElevation": true,
       "perMachine": true
     },
