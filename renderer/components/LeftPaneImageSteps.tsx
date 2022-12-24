@@ -212,7 +212,9 @@ function LeftPaneImageSteps({
       {/* STEP 3 */}
       <div className="animate-step-in" data-tip={outputPath}>
         <p className="step-heading">Step 3</p>
-        <p className="mb-2 text-sm">Defaults to Image's path</p>
+        <p className="mb-2 text-sm">
+          Defaults to {!batchMode ? "Image's" : "Folder's"} path
+        </p>
         <button className="btn-primary btn" onClick={outputHandler}>
           Set Output Folder
         </button>
