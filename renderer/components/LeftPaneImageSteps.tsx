@@ -24,6 +24,11 @@ interface IProps {
   setSaveImageAs: (arg: string) => void;
   gpuId: string;
   setGpuId: (arg: string) => void;
+  leftImageRef: any;
+  dimensions: {
+    width: number | null;
+    height: number | null;
+  };
 }
 
 function LeftPaneImageSteps({
@@ -47,6 +52,7 @@ function LeftPaneImageSteps({
   setGpuId,
   saveImageAs,
   setSaveImageAs,
+  dimensions,
 }: IProps) {
   useEffect(() => {
     themeChange(false);
@@ -129,6 +135,8 @@ function LeftPaneImageSteps({
     { label: "coffee", value: "coffee" },
     { label: "winter", value: "winter" },
   ];
+
+  useEffect(() => {}, [imagePath]);
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
@@ -214,6 +222,18 @@ function LeftPaneImageSteps({
       {/* STEP 4 */}
       <div className="animate-step-in">
         <p className="step-heading">Step 4</p>
+        {dimensions.width && dimensions.height && (
+          <p className="mb-2 text-sm">
+            Upscale from{" "}
+            <span className="font-bold">
+              {dimensions.width}x{dimensions.height}
+            </span>{" "}
+            to{" "}
+            <span className="font-bold">
+              {dimensions.width * 4}x{dimensions.height * 4}
+            </span>
+          </p>
+        )}
         <button
           className="btn-accent btn"
           onClick={upscaylHandler}
@@ -228,7 +248,7 @@ function LeftPaneImageSteps({
           <div className="collapse-content flex flex-col gap-4 bg-neutral text-neutral-content peer-checked:bg-base-300 peer-checked:py-4 peer-checked:text-base-content">
             <div className="flex flex-col gap-2">
               <p>Save Image As:</p>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button
                   className={`btn-primary btn ${
                     saveImageAs === "png" && "btn-accent"

@@ -18,7 +18,7 @@ const Home = () => {
   const [outputPath, setOutputPath] = useState("");
   const [scaleFactor, setScaleFactor] = useState(4);
   const [progress, setProgress] = useState("");
-  const [model, setModel] = useState("remacri");
+  const [model, setModel] = useState("realesrgan-x4plus");
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
   const [batchMode, setBatchMode] = useState(false);
@@ -33,6 +33,10 @@ const Home = () => {
   const [saveImageAs, setSaveImageAs] = useState("png");
   const [zoomAmount, setZoomAmount] = useState("200%");
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
+  const [dimensions, setDimensions] = useState({
+    width: null,
+    height: null,
+  });
 
   // REFS
   const leftImageRef = useRef();
@@ -174,6 +178,10 @@ const Home = () => {
   }, [imagePath, videoPath]);
 
   const resetImagePaths = () => {
+    setDimensions({
+      width: null,
+      height: null,
+    });
     setProgress("");
 
     SetImagePath("");
@@ -227,6 +235,13 @@ const Home = () => {
       setBatchFolderPath(path);
       setOutputPath(path + "_upscayled");
     }
+  };
+
+  const imageLoadHandler = ({ target: img }) => {
+    const image = img;
+    console.log("imageLoadHandler", {
+      image,
+    });
   };
 
   const handleModelChange = (e) => {
@@ -436,6 +451,7 @@ const Home = () => {
             setGpuId={setGpuId}
             saveImageAs={saveImageAs}
             setSaveImageAs={setSaveImageAs}
+            dimensions={dimensions}
           />
         )}
         <Footer />
@@ -489,6 +505,12 @@ const Home = () => {
                 "file://" +
                 `${upscaledImagePath ? upscaledImagePath : imagePath}`
               }
+              onLoad={(e: any) => {
+                setDimensions({
+                  width: e.target.naturalWidth,
+                  height: e.target.naturalHeight,
+                });
+              }}
               draggable="false"
               alt=""
             />
@@ -545,8 +567,6 @@ const Home = () => {
                         backgroundPosition: "0% 10%",
                         transformOrigin: backgroundPosition,
                       }}
-                      onMouseMove={handleMouseMove}
-                      ref={leftImageRef}
                       className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
                     />
                   </>
