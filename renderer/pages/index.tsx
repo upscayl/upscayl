@@ -499,21 +499,29 @@ const Home = () => {
           !isVideo &&
           upscaledImagePath.length === 0 &&
           imagePath.length > 0 && (
-            <img
-              className="h-full w-full object-contain"
-              src={
-                "file://" +
-                `${upscaledImagePath ? upscaledImagePath : imagePath}`
-              }
-              onLoad={(e: any) => {
-                setDimensions({
-                  width: e.target.naturalWidth,
-                  height: e.target.naturalHeight,
-                });
-              }}
-              draggable="false"
-              alt=""
-            />
+            <>
+              <ImageOptions
+                zoomAmount={zoomAmount}
+                setZoomAmount={setZoomAmount}
+                resetImagePaths={resetImagePaths}
+                hideZoomOptions={true}
+              />
+              <img
+                src={
+                  "file://" +
+                  `${upscaledImagePath ? upscaledImagePath : imagePath}`
+                }
+                onLoad={(e: any) => {
+                  setDimensions({
+                    width: e.target.naturalWidth,
+                    height: e.target.naturalHeight,
+                  });
+                }}
+                draggable="false"
+                alt=""
+                className={`h-full w-full bg-[#1d1c23] object-contain`}
+              />
+            </>
           )}
 
         {/* BATCH UPSCALE SHOW SELECTED FOLDER */}
@@ -562,9 +570,10 @@ const Home = () => {
                     <img
                       src={"file://" + imagePath}
                       alt="Original"
+                      onMouseMove={handleMouseMove}
                       style={{
                         objectFit: "contain",
-                        backgroundPosition: "0% 10%",
+                        backgroundPosition: "0% 0%",
                         transformOrigin: backgroundPosition,
                       }}
                       className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
@@ -581,7 +590,7 @@ const Home = () => {
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",
-                        backgroundPosition: "0% 10%",
+                        backgroundPosition: "0% 0%",
                         transformOrigin: backgroundPosition,
                       }}
                       onMouseMove={handleMouseMove}

@@ -24,7 +24,6 @@ interface IProps {
   setSaveImageAs: (arg: string) => void;
   gpuId: string;
   setGpuId: (arg: string) => void;
-  leftImageRef: any;
   dimensions: {
     width: number | null;
     height: number | null;
@@ -230,7 +229,8 @@ function LeftPaneImageSteps({
             </span>{" "}
             to{" "}
             <span className="font-bold">
-              {dimensions.width * 4}x{dimensions.height * 4}
+              {doubleUpscayl ? dimensions.width * 8 : dimensions.width * 4}x
+              {doubleUpscayl ? dimensions.height * 8 : dimensions.height * 4}
             </span>
           </p>
         )}
