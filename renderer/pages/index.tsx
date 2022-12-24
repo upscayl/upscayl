@@ -240,6 +240,10 @@ const Home = () => {
 
   const handleModelChange = (e) => {
     setModel(e.value);
+    localStorage.setItem(
+      "model",
+      JSON.stringify({ label: e.label, value: e.value })
+    );
     if (e.value === "models-DF2K") {
       setDoubleUpscayl(false);
     }

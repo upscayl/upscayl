@@ -53,12 +53,28 @@ function LeftPaneImageSteps({
   setSaveImageAs,
   dimensions,
 }: IProps) {
+  const [currentModel, setCurrentModel] = useState<{
+    label: string;
+    value: string;
+  }>({
+    label: null,
+    value: null,
+  });
+
   useEffect(() => {
     themeChange(false);
+
     if (!localStorage.getItem("saveImageAs")) {
       localStorage.setItem("saveImageAs", "png");
     } else {
       setSaveImageAs(localStorage.getItem("saveImageAs"));
+    }
+
+    if (!localStorage.getItem("model")) {
+      setCurrentModel(modelOptions[0]);
+      localStorage.setItem("model", JSON.stringify(modelOptions[0]));
+    } else {
+      setCurrentModel(JSON.parse(localStorage.getItem("model")));
     }
   }, []);
 
@@ -176,7 +192,7 @@ function LeftPaneImageSteps({
           onChange={handleModelChange}
           className="react-select-container"
           classNamePrefix="react-select"
-          defaultValue={modelOptions[0]}
+          value={currentModel}
         />
 
         {model !== "models-DF2K" && !batchMode && (
