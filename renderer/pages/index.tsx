@@ -4,8 +4,6 @@ import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProgressBar from "../components/ProgressBar";
-import ResetButton from "../components/ResetButton";
-import LeftPaneSteps from "../components/LeftPaneImageSteps";
 import RightPaneInfo from "../components/RightPaneInfo";
 import ImageOptions from "../components/ImageOptions";
 import LeftPaneVideoSteps from "../components/LeftPaneVideoSteps";
@@ -37,10 +35,6 @@ const Home = () => {
     width: null,
     height: null,
   });
-
-  // REFS
-  const leftImageRef = useRef();
-  const rightImageRef = useRef();
 
   // EFFECTS
   useEffect(() => {
@@ -556,8 +550,6 @@ const Home = () => {
               <ImageOptions
                 zoomAmount={zoomAmount}
                 setZoomAmount={setZoomAmount}
-                leftImageRef={leftImageRef}
-                rightImageRef={rightImageRef}
                 resetImagePaths={resetImagePaths}
               />
               <ReactCompareSlider
@@ -594,7 +586,6 @@ const Home = () => {
                         transformOrigin: backgroundPosition,
                       }}
                       onMouseMove={handleMouseMove}
-                      ref={rightImageRef}
                       className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
                     />
                   </>
