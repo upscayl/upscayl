@@ -4,13 +4,13 @@
 
 For updates and more:   
 <a href="https://t.me/iamnayam">
-<img src="https://user-images.githubusercontent.com/25067102/209297095-a3db856f-b760-40bb-a68e-f3a3086e18c7.png" height="150px" />
-
+<img src="https://user-images.githubusercontent.com/25067102/209297095-a3db856f-b760-40bb-a68e-f3a3086e18c7.png" width="300px" />
 </a>
 
-<!--
-[![download](download.jpg)](https://github.com/TGS963/upscayl/releases/latest)
--->
+<a href="https://github.com/upscayl/upscayl/releases/latest">
+<img src="https://user-images.githubusercontent.com/25067102/209428865-5a5b5ff5-bbb6-467f-9032-5595cddc8dd5.png" width="500px" />
+
+</a>
 
 # Upscayl 🆙
 
