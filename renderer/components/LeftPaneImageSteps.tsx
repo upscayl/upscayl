@@ -76,6 +76,12 @@ function LeftPaneImageSteps({
     } else {
       setCurrentModel(JSON.parse(localStorage.getItem("model")));
     }
+
+    if (!localStorage.getItem("gpuId")) {
+      localStorage.setItem("gpuId", "");
+    } else {
+      setGpuId(localStorage.getItem("gpuId"));
+    }
   }, []);
 
   const setExportType = (format: string) => {
@@ -89,6 +95,7 @@ function LeftPaneImageSteps({
 
   const handleGpuIdChange = (e) => {
     setGpuId(e.target.value);
+    localStorage.setItem("gpuId", e.target.value);
   };
 
   const customStyles = {
@@ -315,6 +322,14 @@ function LeftPaneImageSteps({
                 value={gpuId}
                 onChange={handleGpuIdChange}
               />
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>If you like what we do :)</p>
+              <a
+                href="https://buymeacoffee.com/fossisthefuture"
+                target="_blank">
+                <button className="btn-primary btn">Donate</button>
+              </a>
             </div>
           </div>
         </div>

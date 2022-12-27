@@ -29,7 +29,7 @@ const Home = () => {
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const [gpuId, setGpuId] = useState("");
   const [saveImageAs, setSaveImageAs] = useState("png");
-  const [zoomAmount, setZoomAmount] = useState("200%");
+  const [zoomAmount, setZoomAmount] = useState("100%");
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
   const [dimensions, setDimensions] = useState({
     width: null,
