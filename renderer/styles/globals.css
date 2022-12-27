@@ -118,6 +118,15 @@
   .react-select-container .react-select__option--is-selected {
     @apply bg-accent;
   }
+
+  .outline-title {
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5),
+      -1px -1px 0 rgba(255, 255, 255, 0.5), 1px -1px 0 rgba(255, 255, 255, 0.5),
+      -1px 1px 0 rgba(255, 255, 255, 0.5), 1px 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  .outline-title-none {
+    text-shadow: none;
+  }
 }
 
 .zoom-100 {

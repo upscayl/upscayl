@@ -20,9 +20,9 @@ const ImageOptions = ({
   }, []);
 
   return (
-    <div className="animate rounded-btn collapse absolute top-1 z-50 m-2 opacity-25 hover:opacity-100">
+    <div className="animate rounded-btn collapse absolute top-1 z-50 m-2">
       <input type="checkbox" className="peer" />
-      <div className="collapse-title bg-base-100 text-center text-sm font-semibold uppercase text-primary-content peer-checked:bg-base-300 peer-checked:text-base-content">
+      <div className="outline-title peer-checked:outline-title-none collapse-title bg-opacity-25 text-center text-sm font-semibold uppercase text-slate-900 backdrop-blur-2xl peer-checked:bg-base-300 peer-checked:text-base-content">
         Show/Hide Image Settings
       </div>
 
