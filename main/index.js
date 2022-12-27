@@ -143,6 +143,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
     });
     console.log("🆙 COMMAND:", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", 4, "-m", binaries_1.modelsPath, "-n", model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
     let failed = false;
+    let isAlpha = false;
     // TAKE UPSCAYL OUTPUT
     upscayl.stderr.on("data", (data) => {
         // CONVERT DATA TO STRING
@@ -154,6 +155,9 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         // IF PROGRESS HAS ERROR, UPSCAYL FAILED
         if (data.includes("invalid gpu") || data.includes("failed")) {
             failed = true;
+        }
+        if (data.includes("has alpha channel")) {
+            isAlpha = true;
         }
     });
     // IF ERROR
@@ -172,9 +176,9 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
             // UPSCALE
             let upscayl2 = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
                 "-i",
-                outFile,
+                isAlpha ? outFile + ".png" : outFile,
                 "-o",
-                outFile,
+                isAlpha ? outFile + ".png" : outFile,
                 "-s",
                 4,
                 "-m",
@@ -183,7 +187,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
                 model,
                 gpuId ? `-g ${gpuId}` : "",
                 "-f",
-                saveImageAs,
+                isAlpha ? "" : saveImageAs,
             ], {
                 cwd: undefined,
                 detached: false,
@@ -214,7 +218,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
             upscayl2.on("close", (code) => {
                 if (!failed2) {
                     console.log("Done upscaling");
-                    mainWindow.webContents.send(commands_1.default.DOUBLE_UPSCAYL_DONE, outFile);
+                    mainWindow.webContents.send(commands_1.default.DOUBLE_UPSCAYL_DONE, isAlpha ? outFile + ".png" : outFile);
                 }
             });
         }
@@ -230,14 +234,15 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
     let outputDir = payload.outputPath;
     // COPY IMAGE TO TMP FOLDER
     const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "");
-    console.log(fullfileName);
     const fileName = (0, path_1.parse)(fullfileName).name;
+    console.log("🚀 => fileName", fileName);
     const fileExt = (0, path_1.parse)(fullfileName).ext;
+    console.log("🚀 => fileExt", fileExt);
     const outFile = model.includes("models-DF2K")
         ? outputDir +
             "/" +
             fileName +
-            "_upscayl_sharpened_" +
+            "_sharpened_" +
             scale +
             "x_" +
             model +
@@ -302,6 +307,7 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
                 console.log("🆙 COMMAND: ", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", scale, "-x", "-m", binaries_1.modelsPath + "/" + model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
                 break;
         }
+        let isAlpha = false;
         let failed = false;
         upscayl === null || upscayl === void 0 ? void 0 : upscayl.stderr.on("data", (data) => {
             console.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
@@ -309,6 +315,10 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
             mainWindow.webContents.send(commands_1.default.UPSCAYL_PROGRESS, data.toString());
             if (data.includes("invalid gpu") || data.includes("failed")) {
                 failed = true;
+            }
+            if (data.includes("has alpha channel")) {
+                console.log("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
+                isAlpha = true;
             }
         });
         upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("error", (data) => {
@@ -320,7 +330,7 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
         upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("close", (code) => {
             if (failed !== true) {
                 console.log("Done upscaling");
-                mainWindow.webContents.send(commands_1.default.UPSCAYL_DONE, outFile);
+                mainWindow.webContents.send(commands_1.default.UPSCAYL_DONE, isAlpha ? outFile + ".png" : outFile);
             }
         });
     }

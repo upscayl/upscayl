@@ -176,6 +176,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   );
 
   let failed = false;
+  let isAlpha = false;
+
   // TAKE UPSCAYL OUTPUT
   upscayl.stderr.on("data", (data) => {
     // CONVERT DATA TO STRING
@@ -187,6 +189,9 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
     if (data.includes("invalid gpu") || data.includes("failed")) {
       failed = true;
+    }
+    if (data.includes("has alpha channel")) {
+      isAlpha = true;
     }
   });
 
@@ -209,9 +214,9 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
         execPath("realesrgan"),
         [
           "-i",
-          outFile,
+          isAlpha ? outFile + ".png" : outFile,
           "-o",
-          outFile,
+          isAlpha ? outFile + ".png" : outFile,
           "-s",
           4,
           "-m",
@@ -220,7 +225,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
           model,
           gpuId ? `-g ${gpuId}` : "",
           "-f",
-          saveImageAs,
+          isAlpha ? "" : saveImageAs,
         ],
         {
           cwd: undefined,
@@ -256,7 +261,10 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
       upscayl2.on("close", (code) => {
         if (!failed2) {
           console.log("Done upscaling");
-          mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_DONE, outFile);
+          mainWindow.webContents.send(
+            commands.DOUBLE_UPSCAYL_DONE,
+            isAlpha ? outFile + ".png" : outFile
+          );
         }
       });
     }
@@ -275,14 +283,17 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   // COPY IMAGE TO TMP FOLDER
   const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "");
 
-  console.log(fullfileName);
   const fileName = parse(fullfileName).name;
+  console.log("🚀 => fileName", fileName);
+
   const fileExt = parse(fullfileName).ext;
+  console.log("🚀 => fileExt", fileExt);
+
   const outFile = model.includes("models-DF2K")
     ? outputDir +
       "/" +
       fileName +
-      "_upscayl_sharpened_" +
+      "_sharpened_" +
       scale +
       "x_" +
       model +
@@ -385,8 +396,10 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         break;
     }
 
+    let isAlpha = false;
     let failed = false;
-    upscayl?.stderr.on("data", (data) => {
+
+    upscayl?.stderr.on("data", (data: string) => {
       console.log(
         "🚀 => upscayl.stderr.on => stderr.toString()",
         data.toString()
@@ -395,6 +408,10 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("invalid gpu") || data.includes("failed")) {
         failed = true;
+      }
+      if (data.includes("has alpha channel")) {
+        console.log("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
+        isAlpha = true;
       }
     });
 
@@ -408,7 +425,10 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     upscayl?.on("close", (code) => {
       if (failed !== true) {
         console.log("Done upscaling");
-        mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+        mainWindow.webContents.send(
+          commands.UPSCAYL_DONE,
+          isAlpha ? outFile + ".png" : outFile
+        );
       }
     });
   }

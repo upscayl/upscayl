@@ -189,7 +189,10 @@ function LeftPaneImageSteps({
             IndicatorSeparator: () => null,
             DropdownIndicator: () => null,
           }}
-          onChange={handleModelChange}
+          onChange={(e) => {
+            handleModelChange(e);
+            setCurrentModel({ label: e.label, value: e.value });
+          }}
           className="react-select-container"
           classNamePrefix="react-select"
           value={currentModel}
