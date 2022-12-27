@@ -3,8 +3,8 @@ description: Bugs in the software itself
 labels: bug
 body:
 - type: checkboxes
-  label: Checklist
   attributes:
+    label: Checklist
     options:
       - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/aaronliu0130/upscayl#faq-).
         required: true
