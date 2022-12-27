@@ -3,6 +3,7 @@ description: Bugs in the software itself
 labels: bug
 body:
 - type: checkboxes
+  label: Checklist
   attributes:
     options:
       - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/aaronliu0130/upscayl#faq-).
@@ -12,7 +13,7 @@ body:
 - type: textarea
   attributes: 
     label: Describe the Bug
-    description: 😶‍🌫️ What's wrong? Put logs here if you have them.
+    description: 💥 What's wrong? Put logs here if you have them.
   validations:
     required: true
 - type: textarea
@@ -35,18 +36,17 @@ body:
 - type: input
   attributes:
     label: Version/Commit Hash
-    description: 
+    description: ✍️ What version of Upscayl did you use?
   validations:
     required: true
 - type: input
   attributes:
     label: OS Specifics
-    description: Output of `uname -a` or the Windows build number from `winver`.
+    description: 📝 Use `winver` on Windows or `uname -a` anywhere else to find out!
   validations:
     required: true
 - type: textarea
   attributes:
     label: Screenshots
     description: 🤳 Any screenies we may see?
-    value: |-
-      
+    value: 😩 NO, screenshots are hard!
