@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest an idea for the app itself
+labels: enhancement
+body:
+- type: textarea
+  attributes: 
+    label: Related Problem(s)
+    description: 💥 Are there any problems that cooerced you into filing this feature request?
+    value: 😩 NO, bugs are overrated!
+- type: textarea
+  attributes: 
+    label: Description
+    description: 🤓 What do you want to happen?
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Alternatives
+    description: 🥺 Is there really no other way? Evaluate them.
+  validations:
+    required: true
