@@ -2,6 +2,14 @@ name: Feature request
 description: Suggest an idea for the app itself
 labels: enhancement
 body:
+- type: checkboxes
+  attributes:
+    label: Checklist
+    options:
+      - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/aaronliu0130/upscayl#faq-).
+        required: true
+      - label: I have checked that this issue isn't addressed in any other issue or pull request.
+        required: true
 - type: textarea
   attributes: 
     label: Related Problem(s)
