@@ -109,6 +109,8 @@ npm run publish-app
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work on most iGPUs or CPUs.
 - How can I contribute?
   - You can donate more NCNN compatible models or fix code by submitting PRs :)
+- How do I choose which GPU to use?
+  - First, find your GPU ID with [this guide](https://www.amd.com/en/support/kb/faq/gpu-55#faq-Subsystem-Vendor-ID-and-Device-ID). If you have a Nvidia GPU, you can follow [this guide](https://nvidia.custhelp.com/app/answers/detail/a_id/2040/~/identifying-the-graphics-card-model-and-device-id-in-a-pc) to find it instead. After you've found your GPU ID, click on the "Advanced Options" button, scroll down and put the GPU ID in the "GPU ID:" input box.
 - You are not fully open source!!😡
   - We are, we're using completely free and open source tech. We do ship a binary but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience, if you do not trust it, then you can compile your own since everything is free and open source here :)
 
