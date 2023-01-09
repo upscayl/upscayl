@@ -1,0 +1,52 @@
+name: Bug Report
+description: Bugs in the software itself
+labels: bug
+body:
+- type: checkboxes
+  attributes:
+    label: Checklist
+    options:
+      - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/upscayl/upscayl#faq-).
+        required: true
+      - label: I have checked that this issue isn't addressed in any other issue or pull request.
+        required: true
+- type: textarea
+  attributes: 
+    label: Describe the Bug
+    description: 💥 What's wrong? Put logs here if you have them.
+  validations:
+    required: true
+- type: textarea
+  attributes: 
+    label: To Reproduce 
+    description: 🧙 How to make the bug come out of the shadows?
+    value: |-
+      1. Click on wand
+      2. Select "Reveal"
+      3. Scroll down to the "Shadows" section
+      4. See error
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: 🤓 What should've happened?
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Version/Commit Hash
+    description: ✍️ What version of Upscayl did you use?
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: OS Specifics
+    description: 📝 Use `winver` on Windows or `uname -a` anywhere else to find out!
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Screenshots
+    description: 🤳 Any screenies we may see?
+    value: 😩 NO, screenshots are hard!
