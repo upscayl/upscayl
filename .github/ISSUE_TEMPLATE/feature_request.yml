@@ -14,16 +14,15 @@ body:
   attributes: 
     label: Related Problem(s)
     description: 💥 Are there any problems that cooerced you into filing this feature request?
-    value: 😩 NO, bugs are overrated!
 - type: textarea
   attributes: 
     label: Description
-    description: 🤓 What do you want to happen?
+    description: 🤓 So... what's the request?
   validations:
     required: true
 - type: textarea
   attributes:
     label: Alternatives
-    description: 🥺 Is there really no other way? Evaluate them.
+    description: 👁️‍🗨️ Is there really no other way? Got any workarounds while the request remains unimplemented?
   validations:
     required: true
