@@ -19,11 +19,10 @@ body:
 - type: textarea
   attributes:
     label: Expected Behavior
-    description: 🤓 What should be there?
+    description: 🤓 What should be there instead?
   validations:
     required: true
 - type: textarea
   attributes:
     label: Screenshots
-    description: 🤳 Any screenies we may see?
-    value: 😩 NO, screenshots are hard!
+    description: 🤳 Got screenshots?
