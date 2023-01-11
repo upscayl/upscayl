@@ -128,7 +128,8 @@ Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and
 - Microsoft™ for their Fluent Emoji used as our logo.
 - @JanDeDinoMan, @xanderfrangos, @Fdawgs, @keturn for their code contributions :)
 - @aaronliu0130 for providing community support :)
-
+- Foolhardy for their Remacri model.
+- Kim2091	for their Ultrasharp and Ultramix Balanced model.
 #
 
 <div align="center">
