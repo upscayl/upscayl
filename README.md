@@ -52,6 +52,7 @@ You can also download the flatpak version and double click the flatpak file to i
 
 3. Double click dmg, drag Upscayl icon into Applications folder.
 
+If you encounter an error with opening the application, try Ctrl+Clicking/Right-clicking the app and clicking open. In the popup that opens, also click open.
 ### Windows 🐌
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
