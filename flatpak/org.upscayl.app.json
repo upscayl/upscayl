@@ -27,13 +27,14 @@
     {
       "name": "upscayl",
       "buildsystem": "simple",
-      "cleanup": ["upscayl-1.5.5.zip"],
+      "cleanup": ["upscayl.zip"],
       "sources": [
         {
           "type": "file",
           "only-arches": ["x86_64"],
-          "url": "https://github.com/JanDeDinoMan/upscayl/releases/download/v1.5.5/upscayl-1.5.5.zip",
-          "sha256": "0e57b3cbb96299fac6beea185ffdf2f105d3258ac6081bd1f3c408912541dacc"
+          "url": "https://github.com/upscayl/upscayl/releases/download/v2.0.1/upscayl-2.0.1-linux.zip",
+          "sha256": "96883ae1bb9a3a5c0972ab7e402c5132e40c4fe0ffaeec8753524df16b03de51",
+          "dest-filename": "upscayl.zip"
         },
         {
           "type": "file",
@@ -51,7 +52,7 @@
       ],
       "build-commands": [
         "install -d /app/upscayl",
-        "unzip upscayl-1.5.5 -d /app/upscayl",
+        "unzip upscayl -d /app/upscayl",
         "install upscayl-wrapper /app/bin/",
         "install -d /app/share/icons/hicolor/512x512/apps/",
         "install icon.png /app/share/icons/hicolor/512x512/apps/org.upscayl.app.png",
