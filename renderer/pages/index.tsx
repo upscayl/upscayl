@@ -474,10 +474,7 @@ const Home = () => {
             doubleUpscaylCounter={doubleUpscaylCounter}
           />
         ) : null}
-        <ProgressBar
-          progress={progress}
-          doubleUpscaylCounter={doubleUpscaylCounter}
-        />
+
         {/* DEFAULT PANE INFO */}
         {((!isVideo &&
           !batchMode &&
