@@ -114,7 +114,7 @@
       "maintainer": "Nayam Amarshe <simplelogin-newsletter.j1zez@aleeas.com>",
       "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
       "synopsis": "AI Image Upscaler",
-      "description": "Upscayl is a free and open source AI image upscaler for Linux. It uses the latest AI technology to upscale images to higher resolutions."
+      "description": "Free and Open Source AI Image Upscaler"
     },
     "win": {
       "publish": [

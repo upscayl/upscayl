@@ -7,10 +7,10 @@ function Spinner() {
     // By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL
     <svg
       viewBox="0 0 58 58"
-      fill="#fff"
-      stroke="#fff"
+      fill="currentColor"
+      stroke="currentColor"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-16 w-16 rounded-full bg-base-300 p-2">
+      className="h-16 w-16 rounded-full bg-base-300 p-2 text-base-content">
       <g fill="none" fill-rule="evenodd">
         <g transform="translate(2 1)" stroke="currentColor" stroke-width="1.5">
           <circle
