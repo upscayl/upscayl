@@ -332,6 +332,7 @@ const Home = () => {
     } else {
       setUpscaledImagePath("");
     }
+
     if (!isVideo && (imagePath !== "" || batchFolderPath !== "")) {
       setProgress("Hold on...");
       if (model === "models-DF2K") {
@@ -443,6 +444,7 @@ const Home = () => {
             doubleUpscayl={doubleUpscayl}
             setDoubleUpscayl={setDoubleUpscayl}
             model={model}
+            setModel={setModel}
             isVideo={isVideo}
             setIsVideo={setIsVideo}
             gpuId={gpuId}

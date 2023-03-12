@@ -12,18 +12,19 @@ interface IProps {
   outputHandler: () => Promise<void>;
   upscaylHandler: () => Promise<void>;
   batchMode: boolean;
-  setBatchMode: (arg: any) => void;
+  setBatchMode: React.Dispatch<React.SetStateAction<boolean>>;
   imagePath: string;
   outputPath: string;
   doubleUpscayl: boolean;
-  setDoubleUpscayl: (arg: boolean) => void;
+  setDoubleUpscayl: React.Dispatch<React.SetStateAction<boolean>>;
   model: string;
+  setModel: React.Dispatch<React.SetStateAction<string>>;
   isVideo: boolean;
-  setIsVideo: (arg: boolean) => void;
+  setIsVideo: React.Dispatch<React.SetStateAction<boolean>>;
   saveImageAs: string;
-  setSaveImageAs: (arg: string) => void;
+  setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
   gpuId: string;
-  setGpuId: (arg: string) => void;
+  setGpuId: React.Dispatch<React.SetStateAction<string>>;
   dimensions: {
     width: number | null;
     height: number | null;
@@ -45,6 +46,7 @@ function LeftPaneImageSteps({
   doubleUpscayl,
   setDoubleUpscayl,
   model,
+  setModel,
   isVideo,
   setIsVideo,
   gpuId,
@@ -67,22 +69,33 @@ function LeftPaneImageSteps({
     if (!localStorage.getItem("saveImageAs")) {
       localStorage.setItem("saveImageAs", "png");
     } else {
-      setSaveImageAs(localStorage.getItem("saveImageAs"));
+      const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
+      setSaveImageAs(currentlySavedImageFormat);
     }
 
     if (!localStorage.getItem("model")) {
       setCurrentModel(modelOptions[0]);
+      setModel(modelOptions[0].value);
       localStorage.setItem("model", JSON.stringify(modelOptions[0]));
     } else {
-      setCurrentModel(JSON.parse(localStorage.getItem("model")));
+      const currentlySavedModel = JSON.parse(
+        localStorage.getItem("model")
+      ) as typeof modelOptions[0];
+      setCurrentModel(currentlySavedModel);
+      setModel(currentlySavedModel.value);
     }
 
     if (!localStorage.getItem("gpuId")) {
       localStorage.setItem("gpuId", "");
     } else {
-      setGpuId(localStorage.getItem("gpuId"));
+      const currentlySavedGpuId = localStorage.getItem("gpuId");
+      setGpuId(currentlySavedGpuId);
     }
   }, []);
+
+  useEffect(() => {
+    console.log("Current Model: ", currentModel);
+  }, [currentModel]);
 
   const setExportType = (format: string) => {
     setSaveImageAs(format);
