@@ -26,6 +26,7 @@ const electron_1 = require("electron");
 const electron_is_dev_1 = __importDefault(require("electron-is-dev"));
 const electron_next_1 = __importDefault(require("electron-next"));
 const commands_1 = __importDefault(require("./commands"));
+const upscayl_1 = require("./upscayl");
 // Prepare the renderer once the app is ready
 let mainWindow;
 electron_1.app.on("ready", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -263,10 +264,10 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
         mainWindow.webContents.send(commands_1.default.UPSCAYL_DONE, outFile);
     }
     else {
-        let upscayl = null;
+        let upscayl;
         switch (model) {
             default:
-                upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
+                upscayl = (0, upscayl_1.spawnUpscayl)([
                     "-i",
                     inputDir + "/" + fullfileName,
                     "-o",
@@ -280,14 +281,10 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
                     gpuId ? `-g ${gpuId}` : "",
                     "-f",
                     saveImageAs,
-                ], {
-                    cwd: undefined,
-                    detached: false,
-                });
-                console.log("🆙 COMMAND: ", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", scale === 2 ? 4 : scale, "-m", binaries_1.modelsPath, "-n", model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
+                ], "realesrgan");
                 break;
             case "models-DF2K":
-                upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realsr"), [
+                upscayl = (0, upscayl_1.spawnUpscayl)([
                     "-i",
                     inputDir + "/" + fullfileName,
                     "-o",
@@ -300,16 +297,12 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
                     gpuId ? `-g ${gpuId}` : "",
                     "-f",
                     saveImageAs,
-                ], {
-                    cwd: undefined,
-                    detached: false,
-                });
-                console.log("🆙 COMMAND: ", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", scale, "-x", "-m", binaries_1.modelsPath + "/" + model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
+                ], "realsr");
                 break;
         }
         let isAlpha = false;
         let failed = false;
-        upscayl === null || upscayl === void 0 ? void 0 : upscayl.stderr.on("data", (data) => {
+        const onData = (data) => {
             console.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
             data = data.toString();
             mainWindow.webContents.send(commands_1.default.UPSCAYL_PROGRESS, data.toString());
@@ -320,19 +313,21 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
                 console.log("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
                 isAlpha = true;
             }
-        });
-        upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("error", (data) => {
+        };
+        const onError = (data) => {
             mainWindow.webContents.send(commands_1.default.UPSCAYL_PROGRESS, data.toString());
             failed = true;
             return;
-        });
-        // Send done comamnd when
-        upscayl === null || upscayl === void 0 ? void 0 : upscayl.on("close", (code) => {
+        };
+        const onClose = () => {
             if (failed !== true) {
                 console.log("Done upscaling");
                 mainWindow.webContents.send(commands_1.default.UPSCAYL_DONE, isAlpha ? outFile + ".png" : outFile);
             }
-        });
+        };
+        upscayl.process.stderr.on("data", onData);
+        upscayl.process.on("error", onError);
+        upscayl.process.on("close", onClose);
     }
 }));
 //------------------------Upscayl Folder-----------------------------//

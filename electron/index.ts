@@ -23,6 +23,7 @@ import {
 import isDev from "electron-is-dev";
 import prepareNext from "electron-next";
 import commands from "./commands";
+import { spawnUpscayl } from "./upscayl";
 
 // Prepare the renderer once the app is ready
 let mainWindow;
@@ -314,92 +315,52 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     // If already upscayled, just output that file
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
-    let upscayl: ChildProcessWithoutNullStreams | null = null;
+    let upscayl: ReturnType<typeof spawnUpscayl>;
+
+    const defaultArguments = [
+      "-i",
+      inputDir + "/" + fullfileName,
+      "-o",
+      outFile,
+      "-s",
+      scale === 2 ? 4 : scale,
+      "-m",
+      modelsPath,
+      "-n",
+      model,
+      gpuId ? `-g ${gpuId}` : "",
+      "-f",
+      saveImageAs,
+    ];
+
+    const sharpenArguments = [
+      "-i",
+      inputDir + "/" + fullfileName,
+      "-o",
+      outFile,
+      "-s",
+      scale,
+      "-x",
+      "-m",
+      modelsPath + "/" + model,
+      gpuId ? `-g ${gpuId}` : "",
+      "-f",
+      saveImageAs,
+    ];
+
     switch (model) {
       default:
-        upscayl = spawn(
-          execPath("realesrgan"),
-          [
-            "-i",
-            inputDir + "/" + fullfileName,
-            "-o",
-            outFile,
-            "-s",
-            scale === 2 ? 4 : scale,
-            "-m",
-            modelsPath,
-            "-n",
-            model,
-            gpuId ? `-g ${gpuId}` : "",
-            "-f",
-            saveImageAs,
-          ],
-          {
-            cwd: undefined,
-            detached: false,
-          }
-        );
-        console.log(
-          "🆙 COMMAND: ",
-          "-i",
-          inputDir + "/" + fullfileName,
-          "-o",
-          outFile,
-          "-s",
-          scale === 2 ? 4 : scale,
-          "-m",
-          modelsPath,
-          "-n",
-          model,
-          gpuId ? `-g ${gpuId}` : "",
-          "-f",
-          saveImageAs
-        );
+        upscayl = spawnUpscayl(defaultArguments, "realesrgan");
         break;
       case "models-DF2K":
-        upscayl = spawn(
-          execPath("realsr"),
-          [
-            "-i",
-            inputDir + "/" + fullfileName,
-            "-o",
-            outFile,
-            "-s",
-            scale,
-            "-x",
-            "-m",
-            modelsPath + "/" + model,
-            gpuId ? `-g ${gpuId}` : "",
-            "-f",
-            saveImageAs,
-          ],
-          {
-            cwd: undefined,
-            detached: false,
-          }
-        );
-        console.log(
-          "🆙 COMMAND: ",
-          "-i",
-          inputDir + "/" + fullfileName,
-          "-o",
-          outFile,
-          "-s",
-          scale,
-          "-x",
-          "-m",
-          modelsPath + "/" + model,
-          gpuId ? `-g ${gpuId}` : "",
-          "-f",
-          saveImageAs
-        );
+        upscayl = spawnUpscayl(sharpenArguments, "realsr");
         break;
     }
 
     let isAlpha = false;
     let failed = false;
 
-    upscayl?.stderr.on("data", (data: string) => {
+    const onData = (data: string) => {
       console.log(
         "🚀 => upscayl.stderr.on => stderr.toString()",
         data.toString()
@@ -413,16 +374,15 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         console.log("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
         isAlpha = true;
       }
-    });
+    };
 
-    upscayl?.on("error", (data) => {
+    const onError = (data) => {
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       failed = true;
       return;
-    });
+    };
 
-    // Send done comamnd when
-    upscayl?.on("close", (code) => {
+    const onClose = () => {
       if (failed !== true) {
         console.log("Done upscaling");
         mainWindow.webContents.send(
@@ -430,7 +390,11 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
           isAlpha ? outFile + ".png" : outFile
         );
       }
-    });
+    };
+
+    upscayl.process.stderr.on("data", onData);
+    upscayl.process.on("error", onError);
+    upscayl.process.on("close", onClose);
   }
 });
 
