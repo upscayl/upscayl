@@ -11,7 +11,7 @@ For discussions about Upscayl:
 <img src="https://user-images.githubusercontent.com/25067102/215301815-b9922b27-4e65-435a-aa9d-239da0ac61b4.png" width="300px" />
 </a>
 
-v2.5 is in development (March 2023)
+v2.5 is in development (March 2023)   
 <a href="https://github.com/upscayl/upscayl/releases/latest">
 <img src="https://user-images.githubusercontent.com/25067102/209428865-5a5b5ff5-bbb6-467f-9032-5595cddc8dd5.png" width="500px" />
 
