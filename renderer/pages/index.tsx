@@ -388,7 +388,7 @@ const Home = () => {
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
       <div className="flex h-screen w-128 flex-col rounded-r-3xl bg-base-100">
         {/* HEADER */}
-        <Header />
+        <Header version={version} />
         {/* <div className="flex items-center justify-center gap-2 pb-4 font-medium">
           <p>Image</p>
           <input
@@ -474,7 +474,10 @@ const Home = () => {
             doubleUpscaylCounter={doubleUpscaylCounter}
           />
         ) : null}
-
+        <ProgressBar
+          progress={progress}
+          doubleUpscaylCounter={doubleUpscaylCounter}
+        />
         {/* DEFAULT PANE INFO */}
         {((!isVideo &&
           !batchMode &&
