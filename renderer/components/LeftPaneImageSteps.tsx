@@ -281,15 +281,26 @@ function LeftPaneImageSteps({
           disabled={progress.length > 0}>
           {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
         </button>
+
+        {/* ADVANCED OPTIONS */}
         <div className="rounded-btn collapse mt-5">
           <input type="checkbox" className="peer" />
+          {/* HEADER */}
           <div className="collapse-title bg-neutral text-neutral-content peer-checked:bg-primary peer-checked:text-primary-content">
             Advanced Options
           </div>
+          {/* CONTENT */}
           <div className="collapse-content flex flex-col gap-4 bg-neutral text-neutral-content peer-checked:bg-base-300 peer-checked:py-4 peer-checked:text-base-content">
+            {/* IMAGE FORMAT BUTTONS */}
             <div className="flex flex-col gap-2">
               <p>Save Image As:</p>
               <div className="flex flex-wrap gap-2">
+                {batchMode && (
+                  <p className="text-sm text-base-content/70">
+                    Only PNG is supported in Batch Upscale
+                  </p>
+                )}
+                {/* PNG */}
                 <button
                   className={`btn-primary btn ${
                     saveImageAs === "png" && "btn-accent"
@@ -297,6 +308,7 @@ function LeftPaneImageSteps({
                   onClick={() => setExportType("png")}>
                   PNG
                 </button>
+                {/* JPG */}
                 <button
                   className={`btn-primary btn ${
                     saveImageAs === "jpg" && "btn-accent"
@@ -304,6 +316,7 @@ function LeftPaneImageSteps({
                   onClick={() => setExportType("jpg")}>
                   JPG
                 </button>
+                {/* WEBP */}
                 <button
                   className={`btn-primary btn ${
                     saveImageAs === "webp" && "btn-accent"
@@ -313,6 +326,7 @@ function LeftPaneImageSteps({
                 </button>
               </div>
             </div>
+            {/* THEME SELECTOR */}
             <div className="flex flex-col gap-2">
               <p>Upscayl Theme:</p>
               <select data-choose-theme className="select-primary select">
@@ -326,6 +340,7 @@ function LeftPaneImageSteps({
                 })}
               </select>
             </div>
+            {/* GPU ID INPUT */}
             <div className="flex flex-col gap-2">
               <p>GPU ID:</p>
               <input
@@ -336,6 +351,7 @@ function LeftPaneImageSteps({
                 onChange={handleGpuIdChange}
               />
             </div>
+            {/* DONATE BUTTON */}
             <div className="flex flex-col gap-2">
               <p>If you like what we do :)</p>
               <a

@@ -265,39 +265,41 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
     }
     else {
         let upscayl;
+        const defaultArguments = [
+            "-i",
+            inputDir + "/" + fullfileName,
+            "-o",
+            outFile,
+            "-s",
+            scale === 2 ? 4 : scale,
+            "-m",
+            binaries_1.modelsPath,
+            "-n",
+            model,
+            gpuId ? `-g ${gpuId}` : "",
+            "-f",
+            saveImageAs,
+        ];
+        const sharpenArguments = [
+            "-i",
+            inputDir + "/" + fullfileName,
+            "-o",
+            outFile,
+            "-s",
+            scale,
+            "-x",
+            "-m",
+            binaries_1.modelsPath + "/" + model,
+            gpuId ? `-g ${gpuId}` : "",
+            "-f",
+            saveImageAs,
+        ];
         switch (model) {
             default:
-                upscayl = (0, upscayl_1.spawnUpscayl)([
-                    "-i",
-                    inputDir + "/" + fullfileName,
-                    "-o",
-                    outFile,
-                    "-s",
-                    scale === 2 ? 4 : scale,
-                    "-m",
-                    binaries_1.modelsPath,
-                    "-n",
-                    model,
-                    gpuId ? `-g ${gpuId}` : "",
-                    "-f",
-                    saveImageAs,
-                ], "realesrgan");
+                upscayl = (0, upscayl_1.spawnUpscayl)(defaultArguments, "realesrgan");
                 break;
             case "models-DF2K":
-                upscayl = (0, upscayl_1.spawnUpscayl)([
-                    "-i",
-                    inputDir + "/" + fullfileName,
-                    "-o",
-                    outFile,
-                    "-s",
-                    scale,
-                    "-x",
-                    "-m",
-                    binaries_1.modelsPath + "/" + model,
-                    gpuId ? `-g ${gpuId}` : "",
-                    "-f",
-                    saveImageAs,
-                ], "realsr");
+                upscayl = (0, upscayl_1.spawnUpscayl)(sharpenArguments, "realsr");
                 break;
         }
         let isAlpha = false;
