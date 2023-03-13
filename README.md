@@ -82,8 +82,10 @@ If you encounter an error with opening the application, try Ctrl+Clicking/Right-
 
 # Roadmap 🤫
 
-- You can track all the progress here: https://github.com/orgs/upscayl/projects/1
+You can track all the progress here: https://github.com/orgs/upscayl/projects/1
+
 - Make the whole world use FOSS (WIP 🚧)
+- Fix bugs
 
 # Development 🛠
 
