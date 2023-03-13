@@ -21,7 +21,7 @@ v2.5 is in development (March 2023)
 
 #### Free and Open Source AI Image Upscaler
 
-![](screen1.png)
+![884shots_so](https://user-images.githubusercontent.com/25067102/224690031-7b52b455-2d42-43f6-966a-3389cb61ae23.png)
 
 **Upscayl is a cross-platform application built with the Linux-first philosophy. This means that we prioritize Linux builds over others but that doesn't mean we'll break things for other OSes :)**
 
