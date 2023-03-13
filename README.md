@@ -82,8 +82,7 @@ If you encounter an error with opening the application, try Ctrl+Clicking/Right-
 
 # Roadmap 🤫
 
-- More AI models (Added ✅)
-- Allow video upscaling 📼
+- You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 - Make the whole world use FOSS (WIP 🚧)
 
 # Development 🛠
@@ -112,7 +111,7 @@ npm run publish-app
 - Is there a CLI available?
   - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
 - Do I need a GPU for this to work?
-  - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work on most iGPUs or CPUs.
+  - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work with **most** iGPUs or CPUs.
 - How can I contribute?
   - You can fix code, add features by submitting PRs, report issues or donate :)
 - What's the GPU ID for?
