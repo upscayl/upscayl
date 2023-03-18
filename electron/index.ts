@@ -447,10 +447,11 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
 autoUpdater.on("update-available", ({ releaseNotes, releaseName }) => {
   const dialogOpts = {
     type: "info",
-    buttons: ["Ok"],
-    title: "Application Update",
+    buttons: ["Ok cool"],
+    title: "New Upscayl Update",
     message: releaseName as string,
-    detail: "A new version is being downloaded.",
+    detail:
+      "A new version is being downloaded. Please check GitHub for more details.",
   };
   dialog.showMessageBox(dialogOpts).then((returnValue) => {});
 });
@@ -459,7 +460,7 @@ autoUpdater.on("update-downloaded", (event) => {
   const dialogOpts: MessageBoxOptions = {
     type: "info",
     buttons: ["Restart", "Later"],
-    title: "Application Update",
+    title: "New Upscayl Update",
     message: event.releaseName as string,
     detail:
       "A new version has been downloaded. Restart the application to apply the updates.",
