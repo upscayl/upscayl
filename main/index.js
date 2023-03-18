@@ -123,8 +123,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
     const fileName = (0, path_1.parse)(fullfileName).name;
     const fileExt = (0, path_1.parse)(fullfileName).ext;
     const outFile = outputDir + "/" + fileName + "_upscayl_8x_" + model + "." + saveImageAs;
-    // UPSCALE
-    let upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
+    const commandArguments = [
         "-i",
         inputDir + "/" + fullfileName,
         "-o",
@@ -138,11 +137,9 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         gpuId ? `-g ${gpuId}` : "",
         "-f",
         saveImageAs,
-    ], {
-        cwd: undefined,
-        detached: false,
-    });
-    console.log("🆙 COMMAND:", "-i", inputDir + "/" + fullfileName, "-o", outFile, "-s", 4, "-m", binaries_1.modelsPath, "-n", model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
+    ];
+    // UPSCALE
+    let upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", commandArguments).process;
     let failed = false;
     let isAlpha = false;
     // TAKE UPSCAYL OUTPUT
@@ -157,6 +154,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         if (data.includes("invalid gpu") || data.includes("failed")) {
             failed = true;
         }
+        // IF IMAGE HAS ALPHA CHANNEL
         if (data.includes("has alpha channel")) {
             isAlpha = true;
         }
@@ -171,11 +169,10 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         return;
     });
     // ON UPSCAYL DONE
-    upscayl.on("close", (code) => {
+    upscayl.on("close", () => {
         // IF NOT FAILED
         if (!failed) {
-            // UPSCALE
-            let upscayl2 = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
+            const commandArguments2 = [
                 "-i",
                 isAlpha ? outFile + ".png" : outFile,
                 "-o",
@@ -189,10 +186,9 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
                 gpuId ? `-g ${gpuId}` : "",
                 "-f",
                 isAlpha ? "" : saveImageAs,
-            ], {
-                cwd: undefined,
-                detached: false,
-            });
+            ];
+            // UPSCALE
+            let upscayl2 = (0, upscayl_1.spawnUpscayl)("realesrgan", commandArguments2).process;
             let failed2 = false;
             // TAKE UPSCAYL OUTPUT
             upscayl2.stderr.on("data", (data) => {
@@ -296,10 +292,10 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
         ];
         switch (model) {
             default:
-                upscayl = (0, upscayl_1.spawnUpscayl)(defaultArguments, "realesrgan");
+                upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", defaultArguments);
                 break;
             case "models-DF2K":
-                upscayl = (0, upscayl_1.spawnUpscayl)(sharpenArguments, "realsr");
+                upscayl = (0, upscayl_1.spawnUpscayl)("realsr", sharpenArguments);
                 break;
         }
         let isAlpha = false;
@@ -349,49 +345,43 @@ electron_1.ipcMain.on(commands_1.default.FOLDER_UPSCAYL, (event, payload) => __a
     if (!fs_1.default.existsSync(outputDir)) {
         fs_1.default.mkdirSync(outputDir, { recursive: true });
     }
+    const commandArguments = [
+        "-i",
+        inputDir,
+        "-o",
+        outputDir,
+        "-s",
+        4,
+        "-m",
+        binaries_1.modelsPath,
+        "-n",
+        model,
+        gpuId ? `-g ${gpuId}` : "",
+        "-f",
+        saveImageAs,
+    ];
+    const sharpenArguments = [
+        "-i",
+        inputDir,
+        "-o",
+        outputDir,
+        "-s",
+        4,
+        "-x",
+        "-m",
+        binaries_1.modelsPath + "/" + model,
+        gpuId ? `-g ${gpuId}` : "",
+        "-f",
+        saveImageAs,
+    ];
     // UPSCALE
     let upscayl = null;
     switch (model) {
         default:
-            upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realesrgan"), [
-                "-i",
-                inputDir,
-                "-o",
-                outputDir,
-                "-s",
-                4,
-                "-m",
-                binaries_1.modelsPath,
-                "-n",
-                model,
-                gpuId ? `-g ${gpuId}` : "",
-                "-f",
-                saveImageAs,
-            ], {
-                cwd: undefined,
-                detached: false,
-            });
-            console.log("🆙 COMMAND:", "-i", inputDir, "-o", outputDir, "-s", 4, "-m", binaries_1.modelsPath, "-n", model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
+            upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", commandArguments).process;
             break;
         case "models-DF2K":
-            upscayl = (0, child_process_1.spawn)((0, binaries_1.execPath)("realsr"), [
-                "-i",
-                inputDir,
-                "-o",
-                outputDir,
-                "-s",
-                4,
-                "-x",
-                "-m",
-                binaries_1.modelsPath + "/" + model,
-                gpuId ? `-g ${gpuId}` : "",
-                "-f",
-                saveImageAs,
-            ], {
-                cwd: undefined,
-                detached: false,
-            });
-            console.log("🆙 COMMAND:", "-i", inputDir, "-o", outputDir, "-s", 4, "-x", "-m", binaries_1.modelsPath + "/" + model, gpuId ? `-g ${gpuId}` : "", "-f", saveImageAs);
+            upscayl = (0, upscayl_1.spawnUpscayl)("realsr", sharpenArguments).process;
             break;
     }
     let failed = false;

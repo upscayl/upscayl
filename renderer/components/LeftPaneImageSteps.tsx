@@ -241,7 +241,7 @@ function LeftPaneImageSteps({
             </p>
             <button
               className="badge-info badge cursor-help"
-              data-tip="Enable this option to get an 8x upscayl. Note that this may not always work properly with all images, for example, images with really large resolutions.">
+              data-tip="Enable this option to get a 16x upscayl (we just run upscayl twice). Note that this may not always work properly with all images, for example, images with really large resolutions.">
               i
             </button>
           </div>
@@ -270,8 +270,8 @@ function LeftPaneImageSteps({
             </span>{" "}
             to{" "}
             <span className="font-bold">
-              {doubleUpscayl ? dimensions.width * 8 : dimensions.width * 4}x
-              {doubleUpscayl ? dimensions.height * 8 : dimensions.height * 4}
+              {doubleUpscayl ? dimensions.width * 16 : dimensions.width * 4}x
+              {doubleUpscayl ? dimensions.height * 16 : dimensions.height * 4}
             </span>
           </p>
         )}

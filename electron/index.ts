@@ -24,6 +24,7 @@ import isDev from "electron-is-dev";
 import prepareNext from "electron-next";
 import commands from "./commands";
 import { spawnUpscayl } from "./upscayl";
+import { getCommandArguments } from "./utils/getArguments";
 
 // Prepare the renderer once the app is ready
 let mainWindow;
@@ -133,54 +134,28 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
   const outFile =
-    outputDir + "/" + fileName + "_upscayl_8x_" + model + "." + saveImageAs;
+    outputDir + "/" + fileName + "_upscayl_16x_" + model + "." + saveImageAs;
 
   // UPSCALE
-  let upscayl = spawn(
-    execPath("realesrgan"),
-    [
-      "-i",
-      inputDir + "/" + fullfileName,
-      "-o",
-      outFile,
-      "-s",
-      4,
-      "-m",
+  let upscayl = spawnUpscayl(
+    "realesrgan",
+    getCommandArguments(
+      "doubleUpscayl",
+      inputDir,
+      fullfileName,
+      outputDir,
       modelsPath,
-      "-n",
       model,
-      gpuId ? `-g ${gpuId}` : "",
-      "-f",
-      saveImageAs,
-    ],
-    {
-      cwd: undefined,
-      detached: false,
-    }
-  );
-
-  console.log(
-    "🆙 COMMAND:",
-    "-i",
-    inputDir + "/" + fullfileName,
-    "-o",
-    outFile,
-    "-s",
-    4,
-    "-m",
-    modelsPath,
-    "-n",
-    model,
-    gpuId ? `-g ${gpuId}` : "",
-    "-f",
-    saveImageAs
+      gpuId,
+      saveImageAs
+    )
   );
 
   let failed = false;
   let isAlpha = false;
+  let failed2 = false;
 
-  // TAKE UPSCAYL OUTPUT
-  upscayl.stderr.on("data", (data) => {
+  const onData = (data) => {
     // CONVERT DATA TO STRING
     data = data.toString();
     // PRINT TO CONSOLE
@@ -194,80 +169,68 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     if (data.includes("has alpha channel")) {
       isAlpha = true;
     }
-  });
-
-  // IF ERROR
-  upscayl.on("error", (data) => {
+  };
+  const onError = (data) => {
     data.toString();
     // SEND UPSCAYL PROGRESS TO RENDERER
     mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
     // SET FAILED TO TRUE
     failed = true;
     return;
-  });
+  };
+  const onData2 = (data) => {
+    // CONVERT DATA TO STRING
+    data = data.toString();
+    // PRINT TO CONSOLE
+    console.log(data);
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+    // IF PROGRESS HAS ERROR, UPSCAYL FAILED
+    if (data.includes("invalid gpu") || data.includes("failed")) {
+      failed2 = true;
+    }
+  };
+  const onError2 = (data) => {
+    data.toString();
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+    // SET FAILED TO TRUE
+    failed2 = true;
+    return;
+  };
+  const onClose2 = (code) => {
+    if (!failed2) {
+      console.log("Done upscaling");
+      mainWindow.webContents.send(
+        commands.DOUBLE_UPSCAYL_DONE,
+        isAlpha ? outFile + ".png" : outFile
+      );
+    }
+  };
 
-  // ON UPSCAYL DONE
-  upscayl.on("close", (code) => {
+  upscayl.process.stderr.on("data", onData);
+  upscayl.process.on("error", onError);
+  upscayl.process.on("close", (code) => {
     // IF NOT FAILED
     if (!failed) {
       // UPSCALE
-      let upscayl2 = spawn(
-        execPath("realesrgan"),
-        [
-          "-i",
-          isAlpha ? outFile + ".png" : outFile,
-          "-o",
-          isAlpha ? outFile + ".png" : outFile,
-          "-s",
-          4,
-          "-m",
+      let upscayl2 = spawnUpscayl(
+        "realesrgan",
+        getCommandArguments(
+          "doubleUpscaylSecondPass",
+          null,
+          null,
+          outFile,
           modelsPath,
-          "-n",
           model,
-          gpuId ? `-g ${gpuId}` : "",
-          "-f",
-          isAlpha ? "" : saveImageAs,
-        ],
-        {
-          cwd: undefined,
-          detached: false,
-        }
+          gpuId,
+          isAlpha
+        )
       );
 
-      let failed2 = false;
-      // TAKE UPSCAYL OUTPUT
-      upscayl2.stderr.on("data", (data) => {
-        // CONVERT DATA TO STRING
-        data = data.toString();
-        // PRINT TO CONSOLE
-        console.log(data);
-        // SEND UPSCAYL PROGRESS TO RENDERER
-        mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
-        // IF PROGRESS HAS ERROR, UPSCAYL FAILED
-        if (data.includes("invalid gpu") || data.includes("failed")) {
-          failed2 = true;
-        }
-      });
-
-      // IF ERROR
-      upscayl2.on("error", (data) => {
-        data.toString();
-        // SEND UPSCAYL PROGRESS TO RENDERER
-        mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
-        // SET FAILED TO TRUE
-        failed2 = true;
-        return;
-      });
-
-      upscayl2.on("close", (code) => {
-        if (!failed2) {
-          console.log("Done upscaling");
-          mainWindow.webContents.send(
-            commands.DOUBLE_UPSCAYL_DONE,
-            isAlpha ? outFile + ".png" : outFile
-          );
-        }
-      });
+      upscayl2.process.stderr.on("data", onData2);
+      upscayl2.process.on("error", onError2);
+      upscayl2.process.on("close", onClose2);
     }
   });
 });
@@ -317,43 +280,38 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   } else {
     let upscayl: ReturnType<typeof spawnUpscayl>;
 
-    const defaultArguments = [
-      "-i",
-      inputDir + "/" + fullfileName,
-      "-o",
-      outFile,
-      "-s",
-      scale === 2 ? 4 : scale,
-      "-m",
-      modelsPath,
-      "-n",
-      model,
-      gpuId ? `-g ${gpuId}` : "",
-      "-f",
-      saveImageAs,
-    ];
-
-    const sharpenArguments = [
-      "-i",
-      inputDir + "/" + fullfileName,
-      "-o",
-      outFile,
-      "-s",
-      scale,
-      "-x",
-      "-m",
-      modelsPath + "/" + model,
-      gpuId ? `-g ${gpuId}` : "",
-      "-f",
-      saveImageAs,
-    ];
-
     switch (model) {
       default:
-        upscayl = spawnUpscayl(defaultArguments, "realesrgan");
+        upscayl = spawnUpscayl(
+          "realesrgan",
+          getCommandArguments(
+            "singleImage",
+            inputDir,
+            fullfileName,
+            outFile,
+            modelsPath,
+            model,
+            scale,
+            gpuId,
+            false
+          )
+        );
         break;
       case "models-DF2K":
-        upscayl = spawnUpscayl(sharpenArguments, "realsr");
+        upscayl = spawnUpscayl(
+          "realsr",
+          getCommandArguments(
+            "singleImage",
+            inputDir,
+            fullfileName,
+            outFile,
+            modelsPath,
+            model,
+            scale,
+            gpuId,
+            false
+          )
+        );
         break;
     }
 
@@ -375,13 +333,11 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         isAlpha = true;
       }
     };
-
     const onError = (data) => {
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       failed = true;
       return;
     };
-
     const onClose = () => {
       if (failed !== true) {
         console.log("Done upscaling");
@@ -419,90 +375,44 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   // UPSCALE
-  let upscayl: ChildProcessWithoutNullStreams | null = null;
+  let upscayl: ReturnType<typeof spawnUpscayl>;
   switch (model) {
     default:
-      upscayl = spawn(
-        execPath("realesrgan"),
-        [
-          "-i",
+      upscayl = spawnUpscayl(
+        "realesrgan",
+        getCommandArguments(
+          "batch",
           inputDir,
-          "-o",
+          "",
           outputDir,
-          "-s",
-          4,
-          "-m",
           modelsPath,
-          "-n",
           model,
-          gpuId ? `-g ${gpuId}` : "",
-          "-f",
-          saveImageAs,
-        ],
-        {
-          cwd: undefined,
-          detached: false,
-        }
-      );
-      console.log(
-        "🆙 COMMAND:",
-        "-i",
-        inputDir,
-        "-o",
-        outputDir,
-        "-s",
-        4,
-        "-m",
-        modelsPath,
-        "-n",
-        model,
-        gpuId ? `-g ${gpuId}` : "",
-        "-f",
-        saveImageAs
+          4,
+          gpuId,
+          saveImageAs
+        )
       );
       break;
     case "models-DF2K":
-      upscayl = spawn(
-        execPath("realsr"),
-        [
-          "-i",
+      upscayl = spawnUpscayl(
+        "realsr",
+        getCommandArguments(
+          "batch",
           inputDir,
-          "-o",
+          "",
           outputDir,
-          "-s",
+          modelsPath,
+          model,
           4,
-          "-x",
-          "-m",
-          modelsPath + "/" + model,
-          gpuId ? `-g ${gpuId}` : "",
-          "-f",
-          saveImageAs,
-        ],
-        {
-          cwd: undefined,
-          detached: false,
-        }
-      );
-      console.log(
-        "🆙 COMMAND:",
-        "-i",
-        inputDir,
-        "-o",
-        outputDir,
-        "-s",
-        4,
-        "-x",
-        "-m",
-        modelsPath + "/" + model,
-        gpuId ? `-g ${gpuId}` : "",
-        "-f",
-        saveImageAs
+          gpuId,
+          saveImageAs
+        )
       );
       break;
   }
 
   let failed = false;
-  upscayl?.stderr.on("data", (data) => {
+  const onData = (data) => {
     console.log(
       "🚀 => upscayl.stderr.on => stderr.toString()",
       data.toString()
@@ -515,24 +425,25 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     if (data.includes("invalid gpu") || data.includes("failed")) {
       failed = true;
     }
-  });
-
-  upscayl?.on("error", (data) => {
+  };
+  const onError = (data) => {
     mainWindow.webContents.send(
       commands.FOLDER_UPSCAYL_PROGRESS,
       data.toString()
     );
     failed = true;
     return;
-  });
-
-  // Send done comamnd when
-  upscayl?.on("close", (code) => {
+  };
+  const onClose = (code) => {
     if (failed !== true) {
       console.log("Done upscaling");
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
     }
-  });
+  };
+
+  upscayl.process.stderr.on("data", onData);
+  upscayl.process.on("error", onError);
+  upscayl.process.on("close", onClose);
 });
 
 //------------------------Video Upscayl-----------------------------//
