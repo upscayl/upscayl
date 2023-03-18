@@ -430,7 +430,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     failed = true;
     return;
   };
-  const onClose = (code) => {
+  const onClose = () => {
     if (failed !== true) {
       console.log("Done upscaling");
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
@@ -442,113 +442,6 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   upscayl.process.on("close", onClose);
 });
 
-//------------------------Video Upscayl-----------------------------//
-ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
-  // Extract the model
-  const model = payload.model;
-
-  // Extract the Video Directory
-  let videoFileName = payload.videoPath.replace(/^.*[\\\/]/, "");
-  const justFileName = parse(videoFileName).name;
-
-  let inputDir = payload.videoPath.match(/(.*)[\/\\]/)[1] || "";
-  console.log("🚀 => file: index.ts => line 337 => inputDir", inputDir);
-
-  // Set the output directory
-  let outputDir = payload.outputPath + "_frames";
-  console.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
-
-  let frameExtractionPath = join(inputDir, justFileName + "_f");
-  let frameUpscalePath = join(inputDir, justFileName + "_u");
-  console.log(
-    "🚀 => file: index.ts => line 342 => frameExtractionPath",
-    frameExtractionPath,
-    frameUpscalePath
-  );
-
-  if (!fs.existsSync(frameExtractionPath)) {
-    fs.mkdirSync(frameExtractionPath, { recursive: true });
-  }
-  if (!fs.existsSync(frameUpscalePath)) {
-    fs.mkdirSync(frameUpscalePath, { recursive: true });
-  }
-
-  let ffmpegProcess: ChildProcessWithoutNullStreams | null = null;
-  ffmpegProcess = spawn(
-    ffmpeg.path,
-    [
-      "-i",
-      inputDir + "/" + videoFileName,
-      frameExtractionPath + "/" + "out%d.png",
-    ],
-    {
-      cwd: undefined,
-      detached: false,
-    }
-  );
-
-  let failed = false;
-  ffmpegProcess?.stderr.on("data", (data: string) => {
-    console.log("🚀 => file: index.ts:420 => data", data.toString());
-    data = data.toString();
-    mainWindow.webContents.send(
-      commands.FFMPEG_VIDEO_PROGRESS,
-      data.toString()
-    );
-  });
-
-  ffmpegProcess?.on("error", (data: string) => {
-    mainWindow.webContents.send(
-      commands.FFMPEG_VIDEO_PROGRESS,
-      data.toString()
-    );
-    failed = true;
-    return;
-  });
-
-  // Send done comamnd when
-  ffmpegProcess?.on("close", (code: number) => {
-    if (failed !== true) {
-      console.log("Frame extraction successful!");
-      mainWindow.webContents.send(commands.FFMPEG_VIDEO_DONE, outputDir);
-
-      // UPSCALE
-      let upscayl: ChildProcessWithoutNullStreams | null = null;
-      upscayl = spawn(
-        execPath("realesrgan"),
-        [
-          "-i",
-          frameExtractionPath,
-          "-o",
-          frameUpscalePath,
-          "-s",
-          4,
-          "-m",
-          modelsPath,
-          "-n",
-          model,
-        ],
-        {
-          cwd: undefined,
-          detached: false,
-        }
-      );
-
-      upscayl?.stderr.on("data", (data) => {
-        console.log(
-          "🚀 => upscayl.stderr.on => stderr.toString()",
-          data.toString()
-        );
-        data = data.toString();
-        mainWindow.webContents.send(
-          commands.FFMPEG_VIDEO_PROGRESS,
-          data.toString()
-        );
-      });
-    }
-  });
-});
-
 //------------------------Auto-Update Code-----------------------------//
 // ! AUTO UPDATE STUFF
 autoUpdater.on("update-available", ({ releaseNotes, releaseName }) => {
@@ -556,10 +449,7 @@ autoUpdater.on("update-available", ({ releaseNotes, releaseName }) => {
     type: "info",
     buttons: ["Ok"],
     title: "Application Update",
-    message:
-      process.platform === "win32"
-        ? (releaseNotes as string)
-        : (releaseName as string),
+    message: releaseName as string,
     detail: "A new version is being downloaded.",
   };
   dialog.showMessageBox(dialogOpts).then((returnValue) => {});
@@ -570,10 +460,7 @@ autoUpdater.on("update-downloaded", (event) => {
     type: "info",
     buttons: ["Restart", "Later"],
     title: "Application Update",
-    message:
-      process.platform === "win32"
-        ? (event.releaseNotes as string)
-        : (event.releaseName as string),
+    message: event.releaseName as string,
     detail:
       "A new version has been downloaded. Restart the application to apply the updates.",
   };
@@ -581,3 +468,110 @@ autoUpdater.on("update-downloaded", (event) => {
     if (returnValue.response === 0) autoUpdater.quitAndInstall();
   });
 });
+
+//------------------------Video Upscayl-----------------------------//
+// ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
+//   // Extract the model
+//   const model = payload.model;
+
+//   // Extract the Video Directory
+//   let videoFileName = payload.videoPath.replace(/^.*[\\\/]/, "");
+//   const justFileName = parse(videoFileName).name;
+
+//   let inputDir = payload.videoPath.match(/(.*)[\/\\]/)[1] || "";
+//   console.log("🚀 => file: index.ts => line 337 => inputDir", inputDir);
+
+//   // Set the output directory
+//   let outputDir = payload.outputPath + "_frames";
+//   console.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
+
+//   let frameExtractionPath = join(inputDir, justFileName + "_f");
+//   let frameUpscalePath = join(inputDir, justFileName + "_u");
+//   console.log(
+//     "🚀 => file: index.ts => line 342 => frameExtractionPath",
+//     frameExtractionPath,
+//     frameUpscalePath
+//   );
+
+//   if (!fs.existsSync(frameExtractionPath)) {
+//     fs.mkdirSync(frameExtractionPath, { recursive: true });
+//   }
+//   if (!fs.existsSync(frameUpscalePath)) {
+//     fs.mkdirSync(frameUpscalePath, { recursive: true });
+//   }
+
+//   let ffmpegProcess: ChildProcessWithoutNullStreams | null = null;
+//   ffmpegProcess = spawn(
+//     ffmpeg.path,
+//     [
+//       "-i",
+//       inputDir + "/" + videoFileName,
+//       frameExtractionPath + "/" + "out%d.png",
+//     ],
+//     {
+//       cwd: undefined,
+//       detached: false,
+//     }
+//   );
+
+//   let failed = false;
+//   ffmpegProcess?.stderr.on("data", (data: string) => {
+//     console.log("🚀 => file: index.ts:420 => data", data.toString());
+//     data = data.toString();
+//     mainWindow.webContents.send(
+//       commands.FFMPEG_VIDEO_PROGRESS,
+//       data.toString()
+//     );
+//   });
+
+//   ffmpegProcess?.on("error", (data: string) => {
+//     mainWindow.webContents.send(
+//       commands.FFMPEG_VIDEO_PROGRESS,
+//       data.toString()
+//     );
+//     failed = true;
+//     return;
+//   });
+
+//   // Send done comamnd when
+//   ffmpegProcess?.on("close", (code: number) => {
+//     if (failed !== true) {
+//       console.log("Frame extraction successful!");
+//       mainWindow.webContents.send(commands.FFMPEG_VIDEO_DONE, outputDir);
+
+//       // UPSCALE
+//       let upscayl: ChildProcessWithoutNullStreams | null = null;
+//       upscayl = spawn(
+//         execPath("realesrgan"),
+//         [
+//           "-i",
+//           frameExtractionPath,
+//           "-o",
+//           frameUpscalePath,
+//           "-s",
+//           4,
+//           "-m",
+//           modelsPath,
+//           "-n",
+//           model,
+//         ],
+//         {
+//           cwd: undefined,
+//           detached: false,
+//         }
+//       );
+
+//       upscayl?.stderr.on("data", (data) => {
+//         console.log(
+//           "🚀 => upscayl.stderr.on => stderr.toString()",
+//           data.toString()
+//         );
+//         data = data.toString();
+//         mainWindow.webContents.send(
+//           commands.FFMPEG_VIDEO_PROGRESS,
+//           data.toString()
+//         );
+//       });
+//     }
+//   });
+// });
