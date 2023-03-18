@@ -255,65 +255,35 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const fileExt = parse(fullfileName).ext;
   console.log("🚀 => fileExt", fileExt);
 
-  const outFile = model.includes("models-DF2K")
-    ? outputDir +
-      "/" +
-      fileName +
-      "_sharpened_" +
-      scale +
-      "x_" +
-      model +
-      "." +
-      saveImageAs
-    : outputDir +
-      "/" +
-      fileName +
-      "_upscayl_" +
-      scale +
-      "x_" +
-      model +
-      "." +
-      saveImageAs;
+  const outFile =
+    outputDir +
+    "/" +
+    fileName +
+    "_upscayl_" +
+    scale +
+    "x_" +
+    model +
+    "." +
+    saveImageAs;
 
   // UPSCALE
   if (fs.existsSync(outFile)) {
     // If already upscayled, just output that file
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
-    let upscayl: ReturnType<typeof spawnUpscayl>;
-
-    switch (model) {
-      default:
-        upscayl = spawnUpscayl(
-          "realesrgan",
-          getSingleImageArguments(
-            inputDir,
-            fullfileName,
-            outFile,
-            modelsPath,
-            model,
-            scale,
-            gpuId,
-            saveImageAs
-          )
-        );
-        break;
-      case "models-DF2K":
-        upscayl = spawnUpscayl(
-          "realsr",
-          getSingleImageSharpenArguments(
-            inputDir,
-            fullfileName,
-            outFile,
-            modelsPath,
-            model,
-            scale,
-            gpuId,
-            saveImageAs
-          )
-        );
-        break;
-    }
+    const upscayl = spawnUpscayl(
+      "realesrgan",
+      getSingleImageArguments(
+        inputDir,
+        fullfileName,
+        outFile,
+        modelsPath,
+        model,
+        scale,
+        gpuId,
+        saveImageAs
+      )
+    );
 
     let isAlpha = false;
     let failed = false;
@@ -363,50 +333,28 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
 
   // GET THE IMAGE DIRECTORY
   let inputDir = payload.batchFolderPath;
-  console.log("🚀 => file: index.ts => line 471 => inputDir", inputDir);
 
   // GET THE OUTPUT DIRECTORY
-  let outputDir = model.includes("models-DF2K")
-    ? payload.outputPath + "_sharpened"
-    : payload.outputPath;
-  console.log("🚀 => file: index.ts => line 474 => outputDir", outputDir);
+  let outputDir = payload.outputPath;
 
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   // UPSCALE
-  let upscayl: ReturnType<typeof spawnUpscayl>;
-  switch (model) {
-    default:
-      upscayl = spawnUpscayl(
-        "realesrgan",
-        getBatchArguments(
-          inputDir,
-          outputDir,
-          modelsPath,
-          model,
-          gpuId,
-          saveImageAs
-        )
-      );
-      break;
-    case "models-DF2K":
-      upscayl = spawnUpscayl(
-        "realsr",
-        getBatchSharpenArguments(
-          inputDir,
-          outputDir,
-          modelsPath,
-          model,
-          gpuId,
-          saveImageAs
-        )
-      );
-      break;
-  }
+  const upscayl = spawnUpscayl(
+    "realesrgan",
+    getBatchArguments(
+      inputDir,
+      outputDir,
+      modelsPath,
+      model,
+      gpuId,
+      saveImageAs
+    )
+  );
 
   let failed = false;
-  const onData = (data) => {
+  const onData = (data: any) => {
     console.log(
       "🚀 => upscayl.stderr.on => stderr.toString()",
       data.toString()
@@ -420,7 +368,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       failed = true;
     }
   };
-  const onError = (data) => {
+  const onError = (data: any) => {
     mainWindow.webContents.send(
       commands.FOLDER_UPSCAYL_PROGRESS,
       data.toString()

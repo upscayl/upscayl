@@ -136,7 +136,6 @@ function LeftPaneImageSteps({
     { label: "General Photo (Ultramix Balanced)", value: "ultramix_balanced" },
     { label: "General Photo (Ultrasharp)", value: "ultrasharp" },
     { label: "Digital Art", value: "realesrgan-x4plus-anime" },
-    { label: "Sharpen Image", value: "models-DF2K" },
   ];
 
   const availableThemes = [
@@ -218,7 +217,7 @@ function LeftPaneImageSteps({
           value={currentModel}
         />
 
-        {model !== "models-DF2K" && !batchMode && (
+        {!batchMode && (
           <div className="mt-4 flex items-center gap-1">
             <input
               type="checkbox"

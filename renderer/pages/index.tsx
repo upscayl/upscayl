@@ -244,9 +244,6 @@ const Home = () => {
       "model",
       JSON.stringify({ label: e.label, value: e.value })
     );
-    if (e.value === "models-DF2K") {
-      setDoubleUpscayl(false);
-    }
   };
 
   // DRAG AND DROP HANDLERS
@@ -335,9 +332,6 @@ const Home = () => {
 
     if (!isVideo && (imagePath !== "" || batchFolderPath !== "")) {
       setProgress("Hold on...");
-      if (model === "models-DF2K") {
-        setDoubleUpscayl(false);
-      }
 
       if (doubleUpscayl) {
         await window.electron.send(commands.DOUBLE_UPSCAYL, {
