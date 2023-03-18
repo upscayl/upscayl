@@ -7,14 +7,12 @@ import {
   getSingleImageSharpenArguments,
 } from "./utils/getArguments";
 // Native
-import { join, parse } from "path";
-import { format } from "url";
-import { ChildProcessWithoutNullStreams, spawn } from "child_process";
-import fs from "fs";
-import sizeOf from "image-size";
 import { autoUpdater } from "electron-updater";
 import getPlatform from "./getPlatform";
 import ffmpeg from "upscayl-ffmpeg";
+import { join, parse } from "path";
+import { format } from "url";
+import fs from "fs";
 
 import { execPath, modelsPath } from "./binaries";
 
@@ -28,10 +26,10 @@ import {
   MessageBoxOptions,
 } from "electron";
 
-import isDev from "electron-is-dev";
-import prepareNext from "electron-next";
-import commands from "./commands";
 import { spawnUpscayl } from "./upscayl";
+import prepareNext from "electron-next";
+import isDev from "electron-is-dev";
+import commands from "./commands";
 
 // Prepare the renderer once the app is ready
 let mainWindow;
