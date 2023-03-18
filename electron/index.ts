@@ -1,3 +1,11 @@
+import {
+  getBatchArguments,
+  getBatchSharpenArguments,
+  getDoubleUpscaleArguments,
+  getDoubleUpscaleSecondPassArguments,
+  getSingleImageArguments,
+  getSingleImageSharpenArguments,
+} from "./utils/getArguments";
 // Native
 import { join, parse } from "path";
 import { format } from "url";
@@ -24,7 +32,6 @@ import isDev from "electron-is-dev";
 import prepareNext from "electron-next";
 import commands from "./commands";
 import { spawnUpscayl } from "./upscayl";
-import { getCommandArguments } from "./utils/getArguments";
 
 // Prepare the renderer once the app is ready
 let mainWindow;
@@ -119,18 +126,18 @@ ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
 
 //------------------------Double Upscayl-----------------------------//
 ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
-  const model = payload.model;
-  let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
-  let outputDir = payload.outputPath;
-  const gpuId = payload.gpuId;
-  const saveImageAs = payload.saveImageAs;
+  const model = payload.model as string;
+  let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
+  let outputDir = payload.outputPath as string;
+  const gpuId = payload.gpuId as string;
+  const saveImageAs = payload.saveImageAs as string;
 
   // COPY IMAGE TO TMP FOLDER
   const platform = getPlatform();
   const fullfileName =
     platform === "win"
-      ? payload.imagePath.split("\\").slice(-1)[0]
-      : payload.imagePath.split("/").slice(-1)[0];
+      ? (payload.imagePath.split("\\").slice(-1)[0] as string)
+      : (payload.imagePath.split("/").slice(-1)[0] as string);
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
   const outFile =
@@ -139,11 +146,10 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   // UPSCALE
   let upscayl = spawnUpscayl(
     "realesrgan",
-    getCommandArguments(
-      "doubleUpscayl",
+    getDoubleUpscaleArguments(
       inputDir,
       fullfileName,
-      outputDir,
+      outFile,
       modelsPath,
       model,
       gpuId,
@@ -216,15 +222,13 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
       // UPSCALE
       let upscayl2 = spawnUpscayl(
         "realesrgan",
-        getCommandArguments(
-          "doubleUpscaylSecondPass",
-          null,
-          null,
+        getDoubleUpscaleSecondPassArguments(
+          isAlpha,
           outFile,
           modelsPath,
           model,
           gpuId,
-          isAlpha
+          saveImageAs
         )
       );
 
@@ -237,15 +241,15 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
 
 //------------------------Image Upscayl-----------------------------//
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
-  const model = payload.model;
+  const model = payload.model as string;
   const scale = payload.scaleFactor;
-  const gpuId = payload.gpuId;
-  const saveImageAs = payload.saveImageAs;
-  let inputDir = payload.imagePath.match(/(.*)[\/\\]/)[1] || "";
-  let outputDir = payload.outputPath;
+  const gpuId = payload.gpuId as string;
+  const saveImageAs = payload.saveImageAs as string;
+  let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
+  let outputDir = payload.outputPath as string;
 
   // COPY IMAGE TO TMP FOLDER
-  const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "");
+  const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
 
   const fileName = parse(fullfileName).name;
   console.log("🚀 => fileName", fileName);
@@ -284,8 +288,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       default:
         upscayl = spawnUpscayl(
           "realesrgan",
-          getCommandArguments(
-            "singleImage",
+          getSingleImageArguments(
             inputDir,
             fullfileName,
             outFile,
@@ -293,15 +296,14 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
             model,
             scale,
             gpuId,
-            false
+            saveImageAs
           )
         );
         break;
       case "models-DF2K":
         upscayl = spawnUpscayl(
           "realsr",
-          getCommandArguments(
-            "singleImage",
+          getSingleImageSharpenArguments(
             inputDir,
             fullfileName,
             outFile,
@@ -309,7 +311,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
             model,
             scale,
             gpuId,
-            false
+            saveImageAs
           )
         );
         break;
@@ -380,14 +382,11 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     default:
       upscayl = spawnUpscayl(
         "realesrgan",
-        getCommandArguments(
-          "batch",
+        getBatchArguments(
           inputDir,
-          "",
           outputDir,
           modelsPath,
           model,
-          4,
           gpuId,
           saveImageAs
         )
@@ -396,14 +395,11 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     case "models-DF2K":
       upscayl = spawnUpscayl(
         "realsr",
-        getCommandArguments(
-          "batch",
+        getBatchSharpenArguments(
           inputDir,
-          "",
           outputDir,
           modelsPath,
           model,
-          4,
           gpuId,
           saveImageAs
         )
