@@ -8,6 +8,8 @@ import RightPaneInfo from "../components/RightPaneInfo";
 import ImageOptions from "../components/ImageOptions";
 import LeftPaneVideoSteps from "../components/LeftPaneVideoSteps";
 import LeftPaneImageSteps from "../components/LeftPaneImageSteps";
+import Tabs from "../components/Tabs";
+import SettingsTab from "../components/SettingsTab";
 
 const Home = () => {
   // STATES
@@ -35,6 +37,7 @@ const Home = () => {
     width: null,
     height: null,
   });
+  const [selectedTab, setSelectedTab] = useState(0);
 
   // EFFECTS
   useEffect(() => {
@@ -383,6 +386,8 @@ const Home = () => {
       <div className="flex h-screen w-128 flex-col rounded-r-3xl bg-base-100">
         {/* HEADER */}
         <Header version={version} />
+
+        <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
         {/* <div className="flex items-center justify-center gap-2 pb-4 font-medium">
           <p>Image</p>
           <input
@@ -408,7 +413,7 @@ const Home = () => {
           <p>Video</p>
         </div> */}
         {/* LEFT PANE */}
-        {isVideo ? (
+        {/* {isVideo ? (
           <LeftPaneVideoSteps
             progress={progress}
             selectVideoHandler={selectVideoHandler}
@@ -422,7 +427,8 @@ const Home = () => {
             isVideo={isVideo}
             setIsVideo={setIsVideo}
           />
-        ) : (
+        ) : ( */}
+        {selectedTab === 0 && (
           <LeftPaneImageSteps
             progress={progress}
             selectImageHandler={selectImageHandler}
@@ -448,6 +454,34 @@ const Home = () => {
             dimensions={dimensions}
           />
         )}
+
+        {selectedTab === 1 && (
+          <SettingsTab
+            progress={progress}
+            selectImageHandler={selectImageHandler}
+            selectFolderHandler={selectFolderHandler}
+            handleModelChange={handleModelChange}
+            handleDrop={handleDrop}
+            outputHandler={outputHandler}
+            upscaylHandler={upscaylHandler}
+            batchMode={batchMode}
+            setBatchMode={setBatchMode}
+            imagePath={imagePath}
+            outputPath={outputPath}
+            doubleUpscayl={doubleUpscayl}
+            setDoubleUpscayl={setDoubleUpscayl}
+            model={model}
+            setModel={setModel}
+            isVideo={isVideo}
+            setIsVideo={setIsVideo}
+            gpuId={gpuId}
+            setGpuId={setGpuId}
+            saveImageAs={saveImageAs}
+            setSaveImageAs={setSaveImageAs}
+            dimensions={dimensions}
+          />
+        )}
+        {/* )} */}
         <Footer />
       </div>
 
@@ -522,7 +556,7 @@ const Home = () => {
         {batchMode &&
           upscaledBatchFolderPath.length === 0 &&
           batchFolderPath.length > 0 && (
-            <p className="text-neutral-50 select-none font-bold">
+            <p className="select-none font-bold text-neutral-50">
               Selected folder: {batchFolderPath}
             </p>
           )}
@@ -530,7 +564,7 @@ const Home = () => {
         {/* BATCH UPSCALE DONE INFO */}
         {batchMode && upscaledBatchFolderPath.length > 0 && (
           <>
-            <p className="text-neutral-50 select-none py-4 font-bold">
+            <p className="select-none py-4 font-bold text-neutral-50">
               All done!
             </p>
             <button
