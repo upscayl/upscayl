@@ -92,7 +92,7 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 I recommend using Volta: https://volta.sh for using Node.js.
 Download and install volta, then do: `volta install node`.
 
-```
+```bash
 # FOR EVERYONE
 git clone https://github.com/upscayl/upscayl
 cd upscayl
