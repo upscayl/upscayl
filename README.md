@@ -89,20 +89,26 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 # Development 🛠
 
+I recommend using Volta: https://volta.sh for using Node.js.
+Download and install volta, then do: `volta install node`.
+
 ```
-git clone https://github.com/TGS963/upscayl
+# FOR EVERYONE
+git clone https://github.com/upscayl/upscayl
 cd upscayl
 
 # INSTALL DEPENDENCIES
 npm install
 
 # RUN THE DEVELOPMENT SERVER LOCALLY
-npm run start
+## YOUR LOGS WILL NOW APPEAR IN THE TERMINAL
+npm run dev
 
-# PACKAGE THE APP
+# FOR DEVS
+## PACKAGE THE APP
 npm run dist
 
-# PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
+## PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
 npm run publish-app
 ```
 
