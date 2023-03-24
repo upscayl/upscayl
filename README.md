@@ -84,8 +84,10 @@ If you encounter an error with opening the application, try Ctrl+Clicking/Right-
 
 You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
-- Make the whole world use FOSS (WIP 🚧)
+- Allow custom models
+- Logging
 - Fix bugs
+- Make the whole world use FOSS (WIP 🚧)
 
 # Development 🛠
 
