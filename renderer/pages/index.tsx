@@ -11,6 +11,8 @@ import LeftPaneImageSteps from "../components/LeftPaneImageSteps";
 import Tabs from "../components/Tabs";
 import SettingsTab from "../components/SettingsTab";
 
+let logData = [];
+
 const Home = () => {
   // STATES
   const [imagePath, SetImagePath] = useState("");
@@ -38,6 +40,17 @@ const Home = () => {
     height: null,
   });
   const [selectedTab, setSelectedTab] = useState(0);
+  const [logData, setLogData] = useState([]);
+
+  (function () {
+    let info = console.info;
+
+    console.log = function () {
+      var args = Array.prototype.slice.call(arguments);
+      info.apply(this, args);
+      setLogData([...logData, { level: "info", arguments: args }]);
+    };
+  })();
 
   // EFFECTS
   useEffect(() => {

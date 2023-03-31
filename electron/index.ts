@@ -11,6 +11,7 @@ import { autoUpdater } from "electron-updater";
 import getPlatform from "./getPlatform";
 import ffmpeg from "upscayl-ffmpeg";
 import { join, parse } from "path";
+import log from "electron-log";
 import { format } from "url";
 import fs from "fs";
 
@@ -31,15 +32,17 @@ import prepareNext from "electron-next";
 import isDev from "electron-is-dev";
 import commands from "./commands";
 
+log.initialize({ preload: true });
+
 // Prepare the renderer once the app is ready
 let mainWindow;
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
-  console.log("🚀 ICON PATH: ", join(__dirname, "build", "icon.png"));
-  console.log("🚀 UPSCAYL EXEC PATH: ", execPath(""));
-  console.log("🚀 MODELS PATH: ", modelsPath);
-  console.log("🚀 FFMPEG PATH: ", ffmpeg.path);
+  log.info("🚀 ICON PATH: ", join(__dirname, "build", "icon.png"));
+  log.info("🚀 UPSCAYL EXEC PATH: ", execPath(""));
+  log.info("🚀 MODELS PATH: ", modelsPath);
+  log.info("🚀 FFMPEG PATH: ", ffmpeg.path);
 
   mainWindow = new BrowserWindow({
     icon: join(__dirname, "build", "icon.png"),
@@ -84,7 +87,8 @@ app.on("ready", async () => {
 // Quit the app once all windows are closed
 app.on("window-all-closed", app.quit);
 
-console.log(app.getAppPath());
+log.log(app.getAppPath());
+
 //------------------------Select File-----------------------------//
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
 ipcMain.handle(commands.SELECT_FILE, async () => {
@@ -93,10 +97,10 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
   });
 
   if (canceled) {
-    console.log("operation cancelled");
+    console.log("File Operation Cancelled");
     return "cancelled";
   } else {
-    console.log(filePaths[0]);
+    console.log("Selected File Path: ", filePaths[0]);
     // CREATE input AND upscaled FOLDER
     return filePaths[0];
   }

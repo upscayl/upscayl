@@ -3,6 +3,7 @@ import Head from "next/head";
 import { AppProps } from "next/app";
 import { useEffect } from "react";
 import { themeChange } from "theme-change";
+import log from "electron-log/renderer";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (

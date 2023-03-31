@@ -18,6 +18,7 @@ const electron_updater_1 = require("electron-updater");
 const getPlatform_1 = __importDefault(require("./getPlatform"));
 const upscayl_ffmpeg_1 = __importDefault(require("upscayl-ffmpeg"));
 const path_1 = require("path");
+const electron_log_1 = __importDefault(require("electron-log"));
 const url_1 = require("url");
 const fs_1 = __importDefault(require("fs"));
 const binaries_1 = require("./binaries");
@@ -27,14 +28,15 @@ const upscayl_1 = require("./upscayl");
 const electron_next_1 = __importDefault(require("electron-next"));
 const electron_is_dev_1 = __importDefault(require("electron-is-dev"));
 const commands_1 = __importDefault(require("./commands"));
+electron_log_1.default.initialize({ preload: true });
 // Prepare the renderer once the app is ready
 let mainWindow;
 electron_1.app.on("ready", () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, electron_next_1.default)("./renderer");
-    console.log("🚀 ICON PATH: ", (0, path_1.join)(__dirname, "build", "icon.png"));
-    console.log("🚀 UPSCAYL EXEC PATH: ", (0, binaries_1.execPath)(""));
-    console.log("🚀 MODELS PATH: ", binaries_1.modelsPath);
-    console.log("🚀 FFMPEG PATH: ", upscayl_ffmpeg_1.default.path);
+    electron_log_1.default.info("🚀 ICON PATH: ", (0, path_1.join)(__dirname, "build", "icon.png"));
+    electron_log_1.default.info("🚀 UPSCAYL EXEC PATH: ", (0, binaries_1.execPath)(""));
+    electron_log_1.default.info("🚀 MODELS PATH: ", binaries_1.modelsPath);
+    electron_log_1.default.info("🚀 FFMPEG PATH: ", upscayl_ffmpeg_1.default.path);
     mainWindow = new electron_1.BrowserWindow({
         icon: (0, path_1.join)(__dirname, "build", "icon.png"),
         width: 1300,
@@ -72,7 +74,7 @@ electron_1.app.on("ready", () => __awaiter(void 0, void 0, void 0, function* () 
 }));
 // Quit the app once all windows are closed
 electron_1.app.on("window-all-closed", electron_1.app.quit);
-console.log(electron_1.app.getAppPath());
+electron_log_1.default.log(electron_1.app.getAppPath());
 //------------------------Select File-----------------------------//
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
 electron_1.ipcMain.handle(commands_1.default.SELECT_FILE, () => __awaiter(void 0, void 0, void 0, function* () {
@@ -80,11 +82,11 @@ electron_1.ipcMain.handle(commands_1.default.SELECT_FILE, () => __awaiter(void 0
         properties: ["openFile", "multiSelections"],
     });
     if (canceled) {
-        console.log("operation cancelled");
+        console.log("File Operation Cancelled");
         return "cancelled";
     }
     else {
-        console.log(filePaths[0]);
+        console.log("Selected File Path: ", filePaths[0]);
         // CREATE input AND upscaled FOLDER
         return filePaths[0];
     }
