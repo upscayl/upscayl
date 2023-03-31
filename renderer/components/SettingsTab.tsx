@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 import { themeChange } from "theme-change";
+import log from "electron-log/renderer";
 
 interface IProps {
   progress: string;
@@ -249,17 +250,7 @@ function SettingsTab({
         </button>
         <p className="text-sm font-medium">Logs</p>
         <code className="rounded-btn min-h-16 relative h-full max-h-64 overflow-y-auto bg-base-200 p-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-          odit autem eos eius explicabo optio minima ducimus est id similique
-          distinctio, sit natus! Harum, tempora saepe ipsam ipsa at, tenetur
-          tempore dolorem dolore officiis, soluta voluptate! Officia
-          repellendus, eligendi sunt voluptates inventore maxime expedita autem
-          fuga dignissimos atque aliquid amet, sequi in cupiditate? Nulla
-          reprehenderit labore quas quis natus dolor quos qui repellendus rerum
-          ducimus, unde, porro placeat deserunt maiores ex aliquam. Assumenda
-          laborum atque iure, nulla unde repudiandae cum odit libero magni vero
-          veritatis voluptates quaerat tempore quod ex sint iusto. Illum,
-          repudiandae id consequatur facere molestiae itaque asperiores.
+          {log.info("Hello World")}
         </code>
       </div>
 
