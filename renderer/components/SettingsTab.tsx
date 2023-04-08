@@ -259,7 +259,11 @@ function SettingsTab({
           {isCopied ? <span>Copied 📋</span> : <span>Copy 📋</span>}
         </button>
         <p className="text-sm font-medium">Logs</p>
-        <code className="max-h-84 rounded-btn min-h-16 relative flex h-80 flex-col gap-3 overflow-y-auto break-all bg-base-200 p-4">
+        <code className="max-h-84 rounded-btn min-h-16 relative flex h-80 flex-col gap-3 overflow-y-auto break-all bg-base-200 p-4 text-xs">
+          {logData.length === 0 && (
+            <p className="text-base-content/70">No logs to show</p>
+          )}
+
           {logData.map((logLine) => {
             console.log(logData);
             return <p className="">{logLine}</p>;
