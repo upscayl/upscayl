@@ -6,7 +6,7 @@
 
 
 <a href="https://github.com/upscayl/upscayl/releases/latest">
-<img src="https://user-images.githubusercontent.com/25067102/230708302-398f0a90-82c0-4a44-81e9-0ff5e8f70a14.png" width="200px" />
+<img src="https://user-images.githubusercontent.com/25067102/230708394-75e2d0a6-ed69-45be-ac91-8b8770d1709e.png" width="200px" />
 
 <a href="https://t.me/iamnayam">
 <img src="https://user-images.githubusercontent.com/25067102/209297095-a3db856f-b760-40bb-a68e-f3a3086e18c7.png" width="200px" />   
