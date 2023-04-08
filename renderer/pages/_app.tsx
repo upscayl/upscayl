@@ -4,6 +4,7 @@ import { AppProps } from "next/app";
 import { useEffect } from "react";
 import { themeChange } from "theme-change";
 import log from "electron-log/renderer";
+import { Provider } from "jotai";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -11,7 +12,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Head>
         <title>Upscayl</title>
       </Head>
-      <Component {...pageProps} data-theme="dark" />
+      <Provider>
+        <Component {...pageProps} data-theme="dark" />
+      </Provider>
     </>
   );
 };

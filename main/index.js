@@ -82,11 +82,11 @@ electron_1.ipcMain.handle(commands_1.default.SELECT_FILE, () => __awaiter(void 0
         properties: ["openFile", "multiSelections"],
     });
     if (canceled) {
-        console.log("File Operation Cancelled");
+        electron_log_1.default.log("File Operation Cancelled");
         return "cancelled";
     }
     else {
-        console.log("Selected File Path: ", filePaths[0]);
+        electron_log_1.default.log("Selected File Path: ", filePaths[0]);
         // CREATE input AND upscaled FOLDER
         return filePaths[0];
     }
@@ -97,17 +97,17 @@ electron_1.ipcMain.handle(commands_1.default.SELECT_FOLDER, (event, message) => 
         properties: ["openDirectory"],
     });
     if (canceled) {
-        console.log("operation cancelled");
+        electron_log_1.default.log("operation cancelled");
         return "cancelled";
     }
     else {
-        console.log(filePaths[0]);
+        electron_log_1.default.log(filePaths[0]);
         return filePaths[0];
     }
 }));
 //------------------------Open Folder-----------------------------//
 electron_1.ipcMain.on(commands_1.default.OPEN_FOLDER, (event, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(payload);
+    electron_log_1.default.log(payload);
     electron_1.shell.openPath(payload);
 }));
 //------------------------Double Upscayl-----------------------------//
@@ -134,7 +134,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         // CONVERT DATA TO STRING
         data = data.toString();
         // PRINT TO CONSOLE
-        console.log(data);
+        electron_log_1.default.log(data);
         // SEND UPSCAYL PROGRESS TO RENDERER
         mainWindow.webContents.send(commands_1.default.DOUBLE_UPSCAYL_PROGRESS, data);
         // IF PROGRESS HAS ERROR, UPSCAYL FAILED
@@ -157,7 +157,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         // CONVERT DATA TO STRING
         data = data.toString();
         // PRINT TO CONSOLE
-        console.log(data);
+        electron_log_1.default.log(data);
         // SEND UPSCAYL PROGRESS TO RENDERER
         mainWindow.webContents.send(commands_1.default.DOUBLE_UPSCAYL_PROGRESS, data);
         // IF PROGRESS HAS ERROR, UPSCAYL FAILED
@@ -175,7 +175,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
     };
     const onClose2 = (code) => {
         if (!failed2) {
-            console.log("Done upscaling");
+            electron_log_1.default.log("Done upscaling");
             mainWindow.webContents.send(commands_1.default.DOUBLE_UPSCAYL_DONE, isAlpha ? outFile + ".png" : outFile);
         }
     };
@@ -203,9 +203,9 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
     // COPY IMAGE TO TMP FOLDER
     const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "");
     const fileName = (0, path_1.parse)(fullfileName).name;
-    console.log("🚀 => fileName", fileName);
+    electron_log_1.default.log("🚀 => fileName", fileName);
     const fileExt = (0, path_1.parse)(fullfileName).ext;
-    console.log("🚀 => fileExt", fileExt);
+    electron_log_1.default.log("🚀 => fileExt", fileExt);
     const outFile = outputDir +
         "/" +
         fileName +
@@ -225,14 +225,14 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
         let isAlpha = false;
         let failed = false;
         const onData = (data) => {
-            console.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
+            electron_log_1.default.log("image upscayl: ", data.toString());
             data = data.toString();
             mainWindow.webContents.send(commands_1.default.UPSCAYL_PROGRESS, data.toString());
             if (data.includes("invalid gpu") || data.includes("failed")) {
                 failed = true;
             }
             if (data.includes("has alpha channel")) {
-                console.log("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
+                electron_log_1.default.log("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
                 isAlpha = true;
             }
         };
@@ -243,7 +243,7 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
         };
         const onClose = () => {
             if (failed !== true) {
-                console.log("Done upscaling");
+                electron_log_1.default.log("Done upscaling");
                 mainWindow.webContents.send(commands_1.default.UPSCAYL_DONE, isAlpha ? outFile + ".png" : outFile);
             }
         };
@@ -269,7 +269,7 @@ electron_1.ipcMain.on(commands_1.default.FOLDER_UPSCAYL, (event, payload) => __a
     const upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", (0, getArguments_1.getBatchArguments)(inputDir, outputDir, binaries_1.modelsPath, model, gpuId, saveImageAs));
     let failed = false;
     const onData = (data) => {
-        console.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
+        electron_log_1.default.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
         data = data.toString();
         mainWindow.webContents.send(commands_1.default.FOLDER_UPSCAYL_PROGRESS, data.toString());
         if (data.includes("invalid gpu") || data.includes("failed")) {
@@ -283,7 +283,7 @@ electron_1.ipcMain.on(commands_1.default.FOLDER_UPSCAYL, (event, payload) => __a
     };
     const onClose = () => {
         if (failed !== true) {
-            console.log("Done upscaling");
+            electron_log_1.default.log("Done upscaling");
             mainWindow.webContents.send(commands_1.default.FOLDER_UPSCAYL_DONE, outputDir);
         }
     };
@@ -324,13 +324,13 @@ electron_updater_1.autoUpdater.on("update-downloaded", (event) => {
 //   let videoFileName = payload.videoPath.replace(/^.*[\\\/]/, "");
 //   const justFileName = parse(videoFileName).name;
 //   let inputDir = payload.videoPath.match(/(.*)[\/\\]/)[1] || "";
-//   console.log("🚀 => file: index.ts => line 337 => inputDir", inputDir);
+//   log.log("🚀 => file: index.ts => line 337 => inputDir", inputDir);
 //   // Set the output directory
 //   let outputDir = payload.outputPath + "_frames";
-//   console.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
+//   log.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
 //   let frameExtractionPath = join(inputDir, justFileName + "_f");
 //   let frameUpscalePath = join(inputDir, justFileName + "_u");
-//   console.log(
+//   log.log(
 //     "🚀 => file: index.ts => line 342 => frameExtractionPath",
 //     frameExtractionPath,
 //     frameUpscalePath
@@ -356,7 +356,7 @@ electron_updater_1.autoUpdater.on("update-downloaded", (event) => {
 //   );
 //   let failed = false;
 //   ffmpegProcess?.stderr.on("data", (data: string) => {
-//     console.log("🚀 => file: index.ts:420 => data", data.toString());
+//     log.log("🚀 => file: index.ts:420 => data", data.toString());
 //     data = data.toString();
 //     mainWindow.webContents.send(
 //       commands.FFMPEG_VIDEO_PROGRESS,
@@ -374,7 +374,7 @@ electron_updater_1.autoUpdater.on("update-downloaded", (event) => {
 //   // Send done comamnd when
 //   ffmpegProcess?.on("close", (code: number) => {
 //     if (failed !== true) {
-//       console.log("Frame extraction successful!");
+//       log.log("Frame extraction successful!");
 //       mainWindow.webContents.send(commands.FFMPEG_VIDEO_DONE, outputDir);
 //       // UPSCALE
 //       let upscayl: ChildProcessWithoutNullStreams | null = null;
@@ -398,7 +398,7 @@ electron_updater_1.autoUpdater.on("update-downloaded", (event) => {
 //         }
 //       );
 //       upscayl?.stderr.on("data", (data) => {
-//         console.log(
+//         log.log(
 //           "🚀 => upscayl.stderr.on => stderr.toString()",
 //           data.toString()
 //         );

@@ -97,10 +97,10 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
   });
 
   if (canceled) {
-    console.log("File Operation Cancelled");
+    log.log("File Operation Cancelled");
     return "cancelled";
   } else {
-    console.log("Selected File Path: ", filePaths[0]);
+    log.log("Selected File Path: ", filePaths[0]);
     // CREATE input AND upscaled FOLDER
     return filePaths[0];
   }
@@ -112,17 +112,17 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
     properties: ["openDirectory"],
   });
   if (canceled) {
-    console.log("operation cancelled");
+    log.log("operation cancelled");
     return "cancelled";
   } else {
-    console.log(filePaths[0]);
+    log.log(filePaths[0]);
     return filePaths[0];
   }
 });
 
 //------------------------Open Folder-----------------------------//
 ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
-  console.log(payload);
+  log.log(payload);
   shell.openPath(payload);
 });
 
@@ -167,7 +167,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     // CONVERT DATA TO STRING
     data = data.toString();
     // PRINT TO CONSOLE
-    console.log(data);
+    log.log(data);
     // SEND UPSCAYL PROGRESS TO RENDERER
     mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
@@ -190,7 +190,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     // CONVERT DATA TO STRING
     data = data.toString();
     // PRINT TO CONSOLE
-    console.log(data);
+    log.log(data);
     // SEND UPSCAYL PROGRESS TO RENDERER
     mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
@@ -208,7 +208,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   };
   const onClose2 = (code) => {
     if (!failed2) {
-      console.log("Done upscaling");
+      log.log("Done upscaling");
       mainWindow.webContents.send(
         commands.DOUBLE_UPSCAYL_DONE,
         isAlpha ? outFile + ".png" : outFile
@@ -254,10 +254,10 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
 
   const fileName = parse(fullfileName).name;
-  console.log("🚀 => fileName", fileName);
+  log.log("🚀 => fileName", fileName);
 
   const fileExt = parse(fullfileName).ext;
-  console.log("🚀 => fileExt", fileExt);
+  log.log("🚀 => fileExt", fileExt);
 
   const outFile =
     outputDir +
@@ -293,17 +293,14 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     let failed = false;
 
     const onData = (data: string) => {
-      console.log(
-        "🚀 => upscayl.stderr.on => stderr.toString()",
-        data.toString()
-      );
+      log.log("image upscayl: ", data.toString());
       data = data.toString();
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("invalid gpu") || data.includes("failed")) {
         failed = true;
       }
       if (data.includes("has alpha channel")) {
-        console.log("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
+        log.log("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
         isAlpha = true;
       }
     };
@@ -314,7 +311,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     };
     const onClose = () => {
       if (failed !== true) {
-        console.log("Done upscaling");
+        log.log("Done upscaling");
         mainWindow.webContents.send(
           commands.UPSCAYL_DONE,
           isAlpha ? outFile + ".png" : outFile
@@ -359,10 +356,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
 
   let failed = false;
   const onData = (data: any) => {
-    console.log(
-      "🚀 => upscayl.stderr.on => stderr.toString()",
-      data.toString()
-    );
+    log.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
     data = data.toString();
     mainWindow.webContents.send(
       commands.FOLDER_UPSCAYL_PROGRESS,
@@ -382,7 +376,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   };
   const onClose = () => {
     if (failed !== true) {
-      console.log("Done upscaling");
+      log.log("Done upscaling");
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
     }
   };
@@ -430,15 +424,15 @@ autoUpdater.on("update-downloaded", (event) => {
 //   const justFileName = parse(videoFileName).name;
 
 //   let inputDir = payload.videoPath.match(/(.*)[\/\\]/)[1] || "";
-//   console.log("🚀 => file: index.ts => line 337 => inputDir", inputDir);
+//   log.log("🚀 => file: index.ts => line 337 => inputDir", inputDir);
 
 //   // Set the output directory
 //   let outputDir = payload.outputPath + "_frames";
-//   console.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
+//   log.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
 
 //   let frameExtractionPath = join(inputDir, justFileName + "_f");
 //   let frameUpscalePath = join(inputDir, justFileName + "_u");
-//   console.log(
+//   log.log(
 //     "🚀 => file: index.ts => line 342 => frameExtractionPath",
 //     frameExtractionPath,
 //     frameUpscalePath
@@ -467,7 +461,7 @@ autoUpdater.on("update-downloaded", (event) => {
 
 //   let failed = false;
 //   ffmpegProcess?.stderr.on("data", (data: string) => {
-//     console.log("🚀 => file: index.ts:420 => data", data.toString());
+//     log.log("🚀 => file: index.ts:420 => data", data.toString());
 //     data = data.toString();
 //     mainWindow.webContents.send(
 //       commands.FFMPEG_VIDEO_PROGRESS,
@@ -487,7 +481,7 @@ autoUpdater.on("update-downloaded", (event) => {
 //   // Send done comamnd when
 //   ffmpegProcess?.on("close", (code: number) => {
 //     if (failed !== true) {
-//       console.log("Frame extraction successful!");
+//       log.log("Frame extraction successful!");
 //       mainWindow.webContents.send(commands.FFMPEG_VIDEO_DONE, outputDir);
 
 //       // UPSCALE
@@ -513,7 +507,7 @@ autoUpdater.on("update-downloaded", (event) => {
 //       );
 
 //       upscayl?.stderr.on("data", (data) => {
-//         console.log(
+//         log.log(
 //           "🚀 => upscayl.stderr.on => stderr.toString()",
 //           data.toString()
 //         );

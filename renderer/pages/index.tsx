@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import commands from "../../electron/commands";
 import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
@@ -6,12 +6,11 @@ import Footer from "../components/Footer";
 import ProgressBar from "../components/ProgressBar";
 import RightPaneInfo from "../components/RightPaneInfo";
 import ImageOptions from "../components/ImageOptions";
-import LeftPaneVideoSteps from "../components/LeftPaneVideoSteps";
 import LeftPaneImageSteps from "../components/LeftPaneImageSteps";
 import Tabs from "../components/Tabs";
 import SettingsTab from "../components/SettingsTab";
-
-let logData = [];
+import { useAtom } from "jotai";
+import { logAtom } from "../atoms/logAtom";
 
 const Home = () => {
   // STATES
@@ -40,17 +39,21 @@ const Home = () => {
     height: null,
   });
   const [selectedTab, setSelectedTab] = useState(0);
-  const [logData, setLogData] = useState([]);
+  const [logData, setLogData] = useAtom(logAtom);
 
-  (function () {
-    let info = console.info;
+  // (function () {
+  //   let info = console.info;
 
-    console.log = function () {
-      var args = Array.prototype.slice.call(arguments);
-      info.apply(this, args);
-      setLogData([...logData, { level: "info", arguments: args }]);
-    };
-  })();
+  //   console.log = function () {
+  //     var args = Array.prototype.slice.call(arguments);
+  //     info.apply(this, args);
+  //   };
+  // })();
+
+  const addToLog = (data: string) => {
+    console.log("🚀 => file: index.tsx:52 => data:", data);
+    setLogData((prevLogData) => [...prevLogData, data]);
+  };
 
   // EFFECTS
   useEffect(() => {
@@ -58,7 +61,7 @@ const Home = () => {
 
     setVersion(navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1]);
 
-    const handleErrors = (data) => {
+    const handleErrors = (data: string) => {
       if (data.includes("invalid gpu")) {
         alert(
           "Error. Please make sure you have a Vulkan compatible GPU (Most modern GPUs support Vulkan). Upscayl does not work with CPU or iGPU sadly."
@@ -82,28 +85,25 @@ const Home = () => {
     };
 
     // UPSCAYL PROGRESS
-    window.electron.on(commands.UPSCAYL_PROGRESS, (_, data) => {
-      console.log(
-        "🚀 => file: index.jsx => line 61 => window.electron.on => data",
-        data
-      );
-
+    window.electron.on(commands.UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       }
       handleErrors(data);
+      addToLog(data);
     });
 
     // FOLDER UPSCAYL PROGRESS
-    window.electron.on(commands.FOLDER_UPSCAYL_PROGRESS, (_, data) => {
+    window.electron.on(commands.FOLDER_UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       }
       handleErrors(data);
+      addToLog(data);
     });
 
     // DOUBLE UPSCAYL PROGRESS
-    window.electron.on(commands.DOUBLE_UPSCAYL_PROGRESS, (_, data) => {
+    window.electron.on(commands.DOUBLE_UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
         if (data === "0.00%") {
           setDoubleUpscaylCounter(doubleUpscaylCounter + 1);
@@ -111,39 +111,45 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
+      addToLog(data);
     });
 
     // VIDEO UPSCAYL PROGRESS
-    window.electron.on(commands.UPSCAYL_VIDEO_PROGRESS, (_, data) => {
+    window.electron.on(commands.UPSCAYL_VIDEO_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       }
       handleErrors(data);
+      addToLog(data);
     });
 
     // UPSCAYL DONE
-    window.electron.on(commands.UPSCAYL_DONE, (_, data) => {
+    window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledImagePath(data);
+      addToLog(data);
     });
 
     // FOLDER UPSCAYL DONE
-    window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data) => {
+    window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledBatchFolderPath(data);
+      addToLog(data);
     });
 
     // DOUBLE UPSCAYL DONE
-    window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data) => {
+    window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
+      addToLog(data);
     });
 
     // VIDEO UPSCAYL DONE
-    window.electron.on(commands.UPSCAYL_VIDEO_DONE, (_, data) => {
+    window.electron.on(commands.UPSCAYL_VIDEO_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledVideoPath(data);
+      addToLog(data);
     });
   }, []);
 
@@ -205,24 +211,24 @@ const Home = () => {
   };
 
   // HANDLERS
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e: any) => {
     const { left, top, width, height } = e.target.getBoundingClientRect();
     const x = ((e.pageX - left) / width) * 100;
     const y = ((e.pageY - top) / height) * 100;
     setBackgroundPosition(`${x}% ${y}%`);
-  };
+  }, []);
 
-  const selectVideoHandler = async () => {
-    resetImagePaths();
+  // const selectVideoHandler = async () => {
+  //   resetImagePaths();
 
-    var path = await window.electron.invoke(commands.SELECT_FILE);
+  //   var path = await window.electron.invoke(commands.SELECT_FILE);
 
-    if (path !== "cancelled") {
-      setVideoPath(path);
-      var dirname = path.match(/(.*)[\/\\]/)[1] || "";
-      setOutputPath(dirname);
-    }
-  };
+  //   if (path !== "cancelled") {
+  //     setVideoPath(path);
+  //     var dirname = path.match(/(.*)[\/\\]/)[1] || "";
+  //     setOutputPath(dirname);
+  //   }
+  // };
 
   const selectImageHandler = async () => {
     resetImagePaths();
@@ -247,14 +253,15 @@ const Home = () => {
     }
   };
 
-  const imageLoadHandler = ({ target: img }) => {
-    const image = img;
-    console.log("imageLoadHandler", {
-      image,
-    });
-  };
+  // ? What's this for
+  // const imageLoadHandler = ({ target: img }) => {
+  //   const image = img;
+  //   console.log("imageLoadHandler", {
+  //     image,
+  //   });
+  // };
 
-  const handleModelChange = (e) => {
+  const handleModelChange = (e: any) => {
     setModel(e.value);
     localStorage.setItem(
       "model",
@@ -492,6 +499,7 @@ const Home = () => {
             saveImageAs={saveImageAs}
             setSaveImageAs={setSaveImageAs}
             dimensions={dimensions}
+            logData={logData}
           />
         )}
         {/* )} */}

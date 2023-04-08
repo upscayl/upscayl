@@ -30,6 +30,7 @@ interface IProps {
     width: number | null;
     height: number | null;
   };
+  logData: string[];
 }
 
 function SettingsTab({
@@ -55,6 +56,7 @@ function SettingsTab({
   saveImageAs,
   setSaveImageAs,
   dimensions,
+  logData,
 }: IProps) {
   const [currentModel, setCurrentModel] = useState<{
     label: string;
@@ -63,6 +65,8 @@ function SettingsTab({
     label: null,
     value: null,
   });
+
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     themeChange(false);
@@ -110,6 +114,14 @@ function SettingsTab({
   const handleGpuIdChange = (e) => {
     setGpuId(e.target.value);
     localStorage.setItem("gpuId", e.target.value);
+  };
+
+  const copyOnClickHandler = () => {
+    navigator.clipboard.writeText(logData.join("\n"));
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
   };
 
   const customStyles = {
@@ -242,15 +254,16 @@ function SettingsTab({
 
       <div className="relative flex flex-col gap-2">
         <button
-          className="btn-primary btn-xs btn absolute top-10 right-5 z-10"
-          onClick={() => {
-            navigator.clipboard.writeText("Hello World!");
-          }}>
-          Copy 📋
+          className="btn-primary btn-xs btn absolute top-10 right-2 z-10"
+          onClick={copyOnClickHandler}>
+          {isCopied ? <span>Copied 📋</span> : <span>Copy 📋</span>}
         </button>
         <p className="text-sm font-medium">Logs</p>
-        <code className="rounded-btn min-h-16 relative h-full max-h-64 overflow-y-auto bg-base-200 p-4">
-          {log.info("Hello World")}
+        <code className="max-h-84 rounded-btn min-h-16 relative flex h-80 flex-col gap-3 overflow-y-auto break-all bg-base-200 p-4">
+          {logData.map((logLine) => {
+            console.log(logData);
+            return <p className="">{logLine}</p>;
+          })}
         </code>
       </div>
 
