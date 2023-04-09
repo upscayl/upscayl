@@ -94,6 +94,15 @@ let imagePath: string | undefined = undefined;
 let folderPath: string | undefined = undefined;
 let customModelsFolderPath: string | undefined = undefined;
 
+// Default models
+const defaultModels = [
+  "realesrgan-x4plus",
+  "remacri",
+  "ultramix_balanced",
+  "ultrasharp",
+  "realesrgan-x4plus-anime",
+];
+
 //------------------------Select File-----------------------------//
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
 ipcMain.handle(commands.SELECT_FILE, async () => {
@@ -198,6 +207,7 @@ const getModels = (folderPath: string) => {
 
 ipcMain.on(commands.GET_MODELS_LIST, async (event, payload) => {
   if (payload) {
+    customModelsFolderPath = payload;
     mainWindow.webContents.send(
       commands.CUSTOM_MODEL_FILES_LIST,
       getModels(payload)
@@ -241,6 +251,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
 
+  const isDefaultModel = defaultModels.includes(model);
+
   // COPY IMAGE TO TMP FOLDER
   const platform = getPlatform();
   const fullfileName =
@@ -259,7 +271,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
       inputDir,
       fullfileName,
       outFile,
-      modelsPath,
+      isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
       model,
       gpuId,
       saveImageAs
@@ -334,7 +346,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
         getDoubleUpscaleSecondPassArguments(
           isAlpha,
           outFile,
-          modelsPath,
+          isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
           model,
           gpuId,
           saveImageAs
@@ -356,6 +368,8 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const saveImageAs = payload.saveImageAs as string;
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
   let outputDir = payload.outputPath as string;
+
+  const isDefaultModel = defaultModels.includes(model);
 
   // COPY IMAGE TO TMP FOLDER
   const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
@@ -388,7 +402,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         inputDir,
         fullfileName,
         outFile,
-        modelsPath,
+        isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
         model,
         scale,
         gpuId,
@@ -448,13 +462,16 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
+
+  const isDefaultModel = defaultModels.includes(model);
+
   // UPSCALE
   const upscayl = spawnUpscayl(
     "realesrgan",
     getBatchArguments(
       inputDir,
       outputDir,
-      modelsPath,
+      isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
       model,
       gpuId,
       saveImageAs
