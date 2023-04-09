@@ -105,6 +105,20 @@ electron_1.ipcMain.handle(commands_1.default.SELECT_FOLDER, (event, message) => 
         return filePaths[0];
     }
 }));
+//------------------------Select Custom Models Folder---------------------//
+electron_1.ipcMain.handle(commands_1.default.SELECT_CUSTOM_MODEL_FOLDER, (event, message) => __awaiter(void 0, void 0, void 0, function* () {
+    const { canceled, filePaths } = yield electron_1.dialog.showOpenDialog({
+        properties: ["openDirectory"],
+    });
+    if (canceled) {
+        electron_log_1.default.log("operation cancelled");
+        return "cancelled";
+    }
+    else {
+        electron_log_1.default.log(filePaths[0]);
+        return filePaths[0];
+    }
+}));
 //------------------------Open Folder-----------------------------//
 electron_1.ipcMain.on(commands_1.default.OPEN_FOLDER, (event, payload) => __awaiter(void 0, void 0, void 0, function* () {
     electron_log_1.default.log(payload);

@@ -477,28 +477,14 @@ const Home = () => {
 
         {selectedTab === 1 && (
           <SettingsTab
-            progress={progress}
-            selectImageHandler={selectImageHandler}
-            selectFolderHandler={selectFolderHandler}
-            handleModelChange={handleModelChange}
-            handleDrop={handleDrop}
-            outputHandler={outputHandler}
-            upscaylHandler={upscaylHandler}
             batchMode={batchMode}
             setBatchMode={setBatchMode}
             imagePath={imagePath}
-            outputPath={outputPath}
-            doubleUpscayl={doubleUpscayl}
-            setDoubleUpscayl={setDoubleUpscayl}
-            model={model}
             setModel={setModel}
-            isVideo={isVideo}
-            setIsVideo={setIsVideo}
             gpuId={gpuId}
             setGpuId={setGpuId}
             saveImageAs={saveImageAs}
             setSaveImageAs={setSaveImageAs}
-            dimensions={dimensions}
             logData={logData}
           />
         )}

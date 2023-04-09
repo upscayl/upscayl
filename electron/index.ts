@@ -89,11 +89,17 @@ app.on("window-all-closed", app.quit);
 
 log.log(app.getAppPath());
 
+let imagePath: string | undefined = undefined;
+let folderPath: string | undefined = undefined;
+let customModelsFolderPath: string | undefined = undefined;
+
 //------------------------Select File-----------------------------//
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
 ipcMain.handle(commands.SELECT_FILE, async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openFile", "multiSelections"],
+    title: "Select Image",
+    defaultPath: imagePath,
   });
 
   if (canceled) {
@@ -101,6 +107,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
     return "cancelled";
   } else {
     log.log("Selected File Path: ", filePaths[0]);
+    imagePath = filePaths[0];
     // CREATE input AND upscaled FOLDER
     return filePaths[0];
   }
@@ -108,15 +115,34 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
 
 //------------------------Select Folder-----------------------------//
 ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
-  const { canceled, filePaths } = await dialog.showOpenDialog({
+  const { canceled, filePaths: folderPaths } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
+    defaultPath: folderPath,
   });
   if (canceled) {
     log.log("operation cancelled");
     return "cancelled";
   } else {
-    log.log(filePaths[0]);
-    return filePaths[0];
+    log.log("Selected Folder Path: ", folderPaths[0]);
+    folderPath = folderPaths[0];
+    return folderPaths[0];
+  }
+});
+
+//------------------------Select Custom Models Folder---------------------//
+ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
+  const { canceled, filePaths: folderPaths } = await dialog.showOpenDialog({
+    properties: ["openDirectory"],
+    title: "Select Custom Models Folder",
+    defaultPath: customModelsFolderPath,
+  });
+  if (canceled) {
+    log.log("operation cancelled");
+    return "cancelled";
+  } else {
+    log.log("Custom Folder Path: ", folderPaths[0]);
+    customModelsFolderPath = folderPaths[0];
+    return folderPaths[0];
   }
 });
 

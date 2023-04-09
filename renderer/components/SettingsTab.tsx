@@ -3,59 +3,29 @@ import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 import { themeChange } from "theme-change";
 import log from "electron-log/renderer";
+import commands from "../../electron/commands";
 
 interface IProps {
-  progress: string;
-  selectImageHandler: () => Promise<void>;
-  selectFolderHandler: () => Promise<void>;
-  handleModelChange: (e: any) => void;
-  handleDrop: (e: any) => void;
-  outputHandler: () => Promise<void>;
-  upscaylHandler: () => Promise<void>;
   batchMode: boolean;
   setBatchMode: React.Dispatch<React.SetStateAction<boolean>>;
   imagePath: string;
-  outputPath: string;
-  doubleUpscayl: boolean;
-  setDoubleUpscayl: React.Dispatch<React.SetStateAction<boolean>>;
-  model: string;
   setModel: React.Dispatch<React.SetStateAction<string>>;
-  isVideo: boolean;
-  setIsVideo: React.Dispatch<React.SetStateAction<boolean>>;
   saveImageAs: string;
   setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
   gpuId: string;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
-  dimensions: {
-    width: number | null;
-    height: number | null;
-  };
   logData: string[];
 }
 
 function SettingsTab({
-  progress,
-  selectImageHandler,
-  selectFolderHandler,
-  handleModelChange,
-  handleDrop,
-  outputHandler,
-  upscaylHandler,
   batchMode,
   setBatchMode,
   imagePath,
-  outputPath,
-  doubleUpscayl,
-  setDoubleUpscayl,
-  model,
   setModel,
-  isVideo,
-  setIsVideo,
   gpuId,
   setGpuId,
   saveImageAs,
   setSaveImageAs,
-  dimensions,
   logData,
 }: IProps) {
   const [currentModel, setCurrentModel] = useState<{
@@ -252,6 +222,21 @@ function SettingsTab({
         />
       </div>
 
+      {/* GPU ID INPUT */}
+      <div className="flex flex-col items-start gap-2">
+        <p className="text-sm font-medium">Custom Models Path:</p>
+        <p className="text-sm text-base-content/60">/fasfas/asfasf/asf/saf</p>
+        <button
+          className="btn-primary btn"
+          onClick={async () => {
+            const customModelPath = window.electron.invoke(
+              commands.SELECT_CUSTOM_MODEL_FOLDER
+            );
+          }}>
+          Select Folder
+        </button>
+      </div>
+
       <div className="relative flex flex-col gap-2">
         <button
           className="btn-primary btn-xs btn absolute top-10 right-2 z-10"
@@ -259,7 +244,7 @@ function SettingsTab({
           {isCopied ? <span>Copied 📋</span> : <span>Copy 📋</span>}
         </button>
         <p className="text-sm font-medium">Logs</p>
-        <code className="max-h-84 rounded-btn min-h-16 relative flex h-80 flex-col gap-3 overflow-y-auto break-all bg-base-200 p-4 text-xs">
+        <code className="rounded-btn relative flex h-52 max-h-52 flex-col gap-3 overflow-y-auto break-all bg-base-200 p-4 text-xs">
           {logData.length === 0 && (
             <p className="text-base-content/70">No logs to show</p>
           )}
