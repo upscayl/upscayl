@@ -4,6 +4,9 @@ import ReactTooltip from "react-tooltip";
 import { themeChange } from "theme-change";
 import log from "electron-log/renderer";
 import commands from "../../electron/commands";
+import { useAtom } from "jotai";
+import { customModelsPathAtom } from "../atoms/userSettingsAtom";
+import { TModelsList, modelsListAtom } from "../atoms/modelsListAtom";
 
 interface IProps {
   batchMode: boolean;
@@ -28,6 +31,7 @@ function SettingsTab({
   setSaveImageAs,
   logData,
 }: IProps) {
+  // STATES
   const [currentModel, setCurrentModel] = useState<{
     label: string;
     value: string;
@@ -37,6 +41,22 @@ function SettingsTab({
   });
 
   const [isCopied, setIsCopied] = useState(false);
+  const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
+  const [customModelOptions, setCustomModelOptions] = useState<TModelsList>([]);
+  const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
+
+  // EFFECTS
+  useEffect(() => {
+    // CUSTOM FOLDER LISTENER
+    window.electron.on(
+      commands.CUSTOM_MODEL_FILES_LIST,
+      (_, modelsList: string[]) => {
+        modelsList.forEach((model: string) => {
+          setModelOptions((prev) => [...prev, { label: model, value: model }]);
+        });
+      }
+    );
+  }, []);
 
   useEffect(() => {
     themeChange(false);
@@ -72,13 +92,10 @@ function SettingsTab({
     console.log("Current Model: ", currentModel);
   }, [currentModel]);
 
+  // HANDLERS
   const setExportType = (format: string) => {
     setSaveImageAs(format);
     localStorage.setItem("saveImageAs", format);
-  };
-
-  const handleBatchMode = () => {
-    setBatchMode((oldValue) => !oldValue);
   };
 
   const handleGpuIdChange = (e) => {
@@ -93,33 +110,6 @@ function SettingsTab({
       setIsCopied(false);
     }, 2000);
   };
-
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: "1px dotted pink",
-      color: state.isSelected ? "red" : "blue",
-      padding: 20,
-    }),
-    control: () => ({
-      // none of react-select's styles are passed to <Control />
-      width: 200,
-    }),
-    singleValue: (provided, state) => {
-      const opacity = state.isDisabled ? 0.5 : 1;
-      const transition = "opacity 300ms";
-
-      return { ...provided, opacity, transition };
-    },
-  };
-
-  const modelOptions = [
-    { label: "General Photo (Real-ESRGAN)", value: "realesrgan-x4plus" },
-    { label: "General Photo (Remacri)", value: "remacri" },
-    { label: "General Photo (Ultramix Balanced)", value: "ultramix_balanced" },
-    { label: "General Photo (Ultrasharp)", value: "ultrasharp" },
-    { label: "Digital Art", value: "realesrgan-x4plus-anime" },
-  ];
 
   const availableThemes = [
     { label: "light", value: "light" },
@@ -152,8 +142,6 @@ function SettingsTab({
     { label: "coffee", value: "coffee" },
     { label: "winter", value: "winter" },
   ];
-
-  useEffect(() => {}, [imagePath]);
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
@@ -225,13 +213,17 @@ function SettingsTab({
       {/* GPU ID INPUT */}
       <div className="flex flex-col items-start gap-2">
         <p className="text-sm font-medium">Custom Models Path:</p>
-        <p className="text-sm text-base-content/60">/fasfas/asfasf/asf/saf</p>
+        <p className="text-sm text-base-content/60">{customModelsPath}</p>
         <button
           className="btn-primary btn"
           onClick={async () => {
-            const customModelPath = window.electron.invoke(
+            const customModelPath = await window.electron.invoke(
               commands.SELECT_CUSTOM_MODEL_FOLDER
             );
+
+            if (customModelPath !== null) {
+              setCustomModelsPath(customModelPath);
+            }
           }}>
           Select Folder
         </button>

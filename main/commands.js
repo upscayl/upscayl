@@ -19,5 +19,6 @@ const commands = {
     UPSCAYL_VIDEO_PROGRESS: "Send Video Upscale Progress from Main to Renderer",
     FFMPEG_VIDEO_DONE: "Ran FFMpeg successfully",
     FFMPEG_VIDEO_PROGRESS: "Running FFMpeg for frame extraction",
+    CUSTOM_MODEL_FILES_LIST: "Get custom model files list",
 };
 exports.default = commands;

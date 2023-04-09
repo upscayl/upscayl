@@ -35,7 +35,7 @@ import commands from "./commands";
 log.initialize({ preload: true });
 
 // Prepare the renderer once the app is ready
-let mainWindow;
+let mainWindow: BrowserWindow;
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
@@ -89,6 +89,7 @@ app.on("window-all-closed", app.quit);
 
 log.log(app.getAppPath());
 
+// Path variables for file and folder selection
 let imagePath: string | undefined = undefined;
 let folderPath: string | undefined = undefined;
 let customModelsFolderPath: string | undefined = undefined;
@@ -104,10 +105,40 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
 
   if (canceled) {
     log.log("File Operation Cancelled");
-    return "cancelled";
+    return null;
   } else {
     log.log("Selected File Path: ", filePaths[0]);
+    let isValid = false;
     imagePath = filePaths[0];
+
+    // READ SELECTED FILES
+    filePaths.forEach((file) => {
+      // log.log("Files in Folder: ", file);
+      if (
+        file.endsWith(".png") ||
+        file.endsWith(".jpg") ||
+        file.endsWith(".jpeg") ||
+        file.endsWith(".webp") ||
+        file.endsWith(".JPG") ||
+        file.endsWith(".PNG") ||
+        file.endsWith(".JPEG") ||
+        file.endsWith(".WEBP")
+      ) {
+        isValid = true;
+      }
+    });
+
+    if (!isValid) {
+      const options: MessageBoxOptions = {
+        type: "error",
+        title: "Invalid File",
+        message:
+          "The selected file is not a valid image. Make sure you select a '.png', '.jpg', or '.webp' file.",
+      };
+      dialog.showMessageBoxSync(mainWindow, options);
+      return null;
+    }
+
     // CREATE input AND upscaled FOLDER
     return filePaths[0];
   }
@@ -120,14 +151,50 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
     defaultPath: folderPath,
   });
   if (canceled) {
-    log.log("operation cancelled");
-    return "cancelled";
+    return null;
   } else {
     log.log("Selected Folder Path: ", folderPaths[0]);
     folderPath = folderPaths[0];
     return folderPaths[0];
   }
 });
+
+//------------------------Get Model Names-----------------------------//
+const getModels = (folderPath: string) => {
+  let models: string[] = [];
+  let isValid = false;
+
+  // READ CUSTOM MODELS FOLDER
+  fs.readdirSync(folderPath).forEach((file) => {
+    // log.log("Files in Folder: ", file);
+    if (
+      file.endsWith(".param") ||
+      file.endsWith(".PARAM") ||
+      file.endsWith(".bin") ||
+      file.endsWith(".BIN")
+    ) {
+      isValid = true;
+      const modelName = file.substring(0, file.lastIndexOf(".")) || file;
+      if (!models.includes(modelName)) {
+        models.push(modelName);
+      }
+    }
+  });
+
+  if (!isValid) {
+    const options: MessageBoxOptions = {
+      type: "error",
+      title: "Invalid Folder",
+      message:
+        "The selected folder does not contain valid model files. Make sure you select the folder that ONLY contains '.param' and '.bin' files.",
+      buttons: ["OK"],
+    };
+    dialog.showMessageBoxSync(options);
+    return null;
+  }
+
+  return models;
+};
 
 //------------------------Select Custom Models Folder---------------------//
 ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
@@ -137,12 +204,17 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
     defaultPath: customModelsFolderPath,
   });
   if (canceled) {
-    log.log("operation cancelled");
-    return "cancelled";
+    return null;
   } else {
     log.log("Custom Folder Path: ", folderPaths[0]);
     customModelsFolderPath = folderPaths[0];
-    return folderPaths[0];
+
+    mainWindow.webContents.send(
+      commands.CUSTOM_MODEL_FILES_LIST,
+      getModels(customModelsFolderPath)
+    );
+
+    return customModelsFolderPath;
   }
 });
 

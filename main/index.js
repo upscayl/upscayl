@@ -75,48 +75,113 @@ electron_1.app.on("ready", () => __awaiter(void 0, void 0, void 0, function* () 
 // Quit the app once all windows are closed
 electron_1.app.on("window-all-closed", electron_1.app.quit);
 electron_log_1.default.log(electron_1.app.getAppPath());
+// Path variables for file and folder selection
+let imagePath = undefined;
+let folderPath = undefined;
+let customModelsFolderPath = undefined;
 //------------------------Select File-----------------------------//
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
 electron_1.ipcMain.handle(commands_1.default.SELECT_FILE, () => __awaiter(void 0, void 0, void 0, function* () {
     const { canceled, filePaths } = yield electron_1.dialog.showOpenDialog({
         properties: ["openFile", "multiSelections"],
+        title: "Select Image",
+        defaultPath: imagePath,
     });
     if (canceled) {
         electron_log_1.default.log("File Operation Cancelled");
-        return "cancelled";
+        return null;
     }
     else {
         electron_log_1.default.log("Selected File Path: ", filePaths[0]);
+        let isValid = false;
+        imagePath = filePaths[0];
+        // READ SELECTED FILES
+        filePaths.forEach((file) => {
+            // log.log("Files in Folder: ", file);
+            if (file.endsWith(".png") ||
+                file.endsWith(".jpg") ||
+                file.endsWith(".jpeg") ||
+                file.endsWith(".webp") ||
+                file.endsWith(".JPG") ||
+                file.endsWith(".PNG") ||
+                file.endsWith(".JPEG") ||
+                file.endsWith(".WEBP")) {
+                isValid = true;
+            }
+        });
+        if (!isValid) {
+            const options = {
+                type: "error",
+                title: "Invalid File",
+                message: "The selected file is not a valid image. Make sure you select a '.png', '.jpg', or '.webp' file.",
+            };
+            electron_1.dialog.showMessageBoxSync(mainWindow, options);
+            return null;
+        }
         // CREATE input AND upscaled FOLDER
         return filePaths[0];
     }
 }));
 //------------------------Select Folder-----------------------------//
 electron_1.ipcMain.handle(commands_1.default.SELECT_FOLDER, (event, message) => __awaiter(void 0, void 0, void 0, function* () {
-    const { canceled, filePaths } = yield electron_1.dialog.showOpenDialog({
+    const { canceled, filePaths: folderPaths } = yield electron_1.dialog.showOpenDialog({
         properties: ["openDirectory"],
+        defaultPath: folderPath,
     });
     if (canceled) {
-        electron_log_1.default.log("operation cancelled");
-        return "cancelled";
+        return null;
     }
     else {
-        electron_log_1.default.log(filePaths[0]);
-        return filePaths[0];
+        electron_log_1.default.log("Selected Folder Path: ", folderPaths[0]);
+        folderPath = folderPaths[0];
+        return folderPaths[0];
     }
 }));
+//------------------------Get Model Names-----------------------------//
+const getModels = (folderPath) => {
+    let models = [];
+    let isValid = false;
+    // READ CUSTOM MODELS FOLDER
+    fs_1.default.readdirSync(folderPath).forEach((file) => {
+        // log.log("Files in Folder: ", file);
+        if (file.endsWith(".param") ||
+            file.endsWith(".PARAM") ||
+            file.endsWith(".bin") ||
+            file.endsWith(".BIN")) {
+            isValid = true;
+            const modelName = file.substring(0, file.lastIndexOf(".")) || file;
+            if (!models.includes(modelName)) {
+                models.push(modelName);
+            }
+        }
+    });
+    if (!isValid) {
+        const options = {
+            type: "error",
+            title: "Invalid Folder",
+            message: "The selected folder does not contain valid model files. Make sure you select the folder that ONLY contains '.param' and '.bin' files.",
+            buttons: ["OK"],
+        };
+        electron_1.dialog.showMessageBoxSync(options);
+        return null;
+    }
+    return models;
+};
 //------------------------Select Custom Models Folder---------------------//
 electron_1.ipcMain.handle(commands_1.default.SELECT_CUSTOM_MODEL_FOLDER, (event, message) => __awaiter(void 0, void 0, void 0, function* () {
-    const { canceled, filePaths } = yield electron_1.dialog.showOpenDialog({
+    const { canceled, filePaths: folderPaths } = yield electron_1.dialog.showOpenDialog({
         properties: ["openDirectory"],
+        title: "Select Custom Models Folder",
+        defaultPath: customModelsFolderPath,
     });
     if (canceled) {
-        electron_log_1.default.log("operation cancelled");
-        return "cancelled";
+        return null;
     }
     else {
-        electron_log_1.default.log(filePaths[0]);
-        return filePaths[0];
+        electron_log_1.default.log("Custom Folder Path: ", folderPaths[0]);
+        customModelsFolderPath = folderPaths[0];
+        mainWindow.webContents.send(commands_1.default.CUSTOM_MODEL_FILES_LIST, getModels(customModelsFolderPath));
+        return customModelsFolderPath;
     }
 }));
 //------------------------Open Folder-----------------------------//

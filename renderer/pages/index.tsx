@@ -235,7 +235,7 @@ const Home = () => {
 
     var path = await window.electron.invoke(commands.SELECT_FILE);
 
-    if (path !== "cancelled") {
+    if (path !== null) {
       SetImagePath(path);
       var dirname = path.match(/(.*)[\/\\]/)[1] || "";
       setOutputPath(dirname);
@@ -247,7 +247,7 @@ const Home = () => {
 
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
 
-    if (path !== "cancelled") {
+    if (path !== null) {
       setBatchFolderPath(path);
       setOutputPath(path + "_upscayled");
     }
@@ -339,7 +339,7 @@ const Home = () => {
 
   const outputHandler = async () => {
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
-    if (path !== "cancelled") {
+    if (path !== null) {
       setOutputPath(path);
     } else {
       console.log("Getting output path from input file");
