@@ -167,6 +167,11 @@ const getModels = (folderPath) => {
     }
     return models;
 };
+electron_1.ipcMain.on(commands_1.default.GET_MODELS_LIST, (event, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    if (payload) {
+        mainWindow.webContents.send(commands_1.default.CUSTOM_MODEL_FILES_LIST, getModels(payload));
+    }
+}));
 //------------------------Select Custom Models Folder---------------------//
 electron_1.ipcMain.handle(commands_1.default.SELECT_CUSTOM_MODEL_FOLDER, (event, message) => __awaiter(void 0, void 0, void 0, function* () {
     const { canceled, filePaths: folderPaths } = yield electron_1.dialog.showOpenDialog({

@@ -1,7 +1,6 @@
 const commands = {
   SELECT_FILE: "Select a File",
   SELECT_FOLDER: "Select a Folder",
-  SELECT_CUSTOM_MODEL_FOLDER: "Select a Custom Model Folder",
   UPSCAYL: "Upscale the Image",
   UPSCAYL_DONE: "Upscaling Done",
   UPSCAYL_PROGRESS: "Send Progress from Main to Renderer",
@@ -18,7 +17,9 @@ const commands = {
   UPSCAYL_VIDEO_PROGRESS: "Send Video Upscale Progress from Main to Renderer",
   FFMPEG_VIDEO_DONE: "Ran FFMpeg successfully",
   FFMPEG_VIDEO_PROGRESS: "Running FFMpeg for frame extraction",
-  CUSTOM_MODEL_FILES_LIST: "Get custom model files list",
+  SELECT_CUSTOM_MODEL_FOLDER: "Select a Custom Model Folder",
+  GET_MODELS_LIST: "Send models list from main to renderer",
+  CUSTOM_MODEL_FILES_LIST: "Send custom model files list to renderer",
 };
 
 export default commands;

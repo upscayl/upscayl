@@ -45,19 +45,6 @@ function SettingsTab({
   const [customModelOptions, setCustomModelOptions] = useState<TModelsList>([]);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
 
-  // EFFECTS
-  useEffect(() => {
-    // CUSTOM FOLDER LISTENER
-    window.electron.on(
-      commands.CUSTOM_MODEL_FILES_LIST,
-      (_, modelsList: string[]) => {
-        modelsList.forEach((model: string) => {
-          setModelOptions((prev) => [...prev, { label: model, value: model }]);
-        });
-      }
-    );
-  }, []);
-
   useEffect(() => {
     themeChange(false);
 
@@ -223,6 +210,7 @@ function SettingsTab({
 
             if (customModelPath !== null) {
               setCustomModelsPath(customModelPath);
+              window.electron.send(commands.GET_MODELS_LIST, customModelPath);
             }
           }}>
           Select Folder

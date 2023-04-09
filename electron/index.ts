@@ -196,6 +196,15 @@ const getModels = (folderPath: string) => {
   return models;
 };
 
+ipcMain.on(commands.GET_MODELS_LIST, async (event, payload) => {
+  if (payload) {
+    mainWindow.webContents.send(
+      commands.CUSTOM_MODEL_FILES_LIST,
+      getModels(payload)
+    );
+  }
+});
+
 //------------------------Select Custom Models Folder---------------------//
 ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
   const { canceled, filePaths: folderPaths } = await dialog.showOpenDialog({

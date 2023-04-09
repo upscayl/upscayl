@@ -11,6 +11,8 @@ import Tabs from "../components/Tabs";
 import SettingsTab from "../components/SettingsTab";
 import { useAtom } from "jotai";
 import { logAtom } from "../atoms/logAtom";
+import { modelsListAtom } from "../atoms/modelsListAtom";
+import { customModelsPathAtom } from "../atoms/userSettingsAtom";
 
 const Home = () => {
   // STATES
@@ -40,6 +42,8 @@ const Home = () => {
   });
   const [selectedTab, setSelectedTab] = useState(0);
   const [logData, setLogData] = useAtom(logAtom);
+  const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
+  const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
 
   // (function () {
   //   let info = console.info;
@@ -151,6 +155,28 @@ const Home = () => {
       setUpscaledVideoPath(data);
       addToLog(data);
     });
+
+    // CUSTOM FOLDER LISTENER
+    window.electron.on(
+      commands.CUSTOM_MODEL_FILES_LIST,
+      (_, modelsList: string[]) => {
+        console.log("🚀 => file: index.tsx:161 => modelsList:", modelsList);
+
+        modelsList.forEach((model: string) => {
+          setModelOptions((prev) => [...prev, { label: model, value: model }]);
+        });
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    const customModelsPath = JSON.parse(
+      localStorage.getItem("customModelsPath")
+    );
+
+    if (customModelsPath !== null) {
+      window.electron.send(commands.GET_MODELS_LIST, customModelsPath);
+    }
   }, []);
 
   useEffect(() => {
