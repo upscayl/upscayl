@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+/main/*.js
+
 # testing
 /coverage
 
@@ -42,4 +44,3 @@ build-dir/
 #vscode
 .vscode/
 
-main/*
