@@ -6,11 +6,11 @@ on:
 # this is where the magic happens, each job happens in parallel btw
 jobs:
   linux:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3.5.0
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
 
@@ -22,11 +22,11 @@ jobs:
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-linux-app
 
   macos:
-    runs-on: macos-10.15
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3.5.0
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
 
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3.5.0
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
 
