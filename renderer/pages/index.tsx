@@ -159,12 +159,22 @@ const Home = () => {
     // CUSTOM FOLDER LISTENER
     window.electron.on(
       commands.CUSTOM_MODEL_FILES_LIST,
-      (_, modelsList: string[]) => {
-        console.log("🚀 => file: index.tsx:161 => modelsList:", modelsList);
-
-        modelsList.forEach((model: string) => {
-          setModelOptions((prev) => [...prev, { label: model, value: model }]);
+      (_, data: string[]) => {
+        const newModelOptions = data.map((model) => {
+          return {
+            value: model,
+            label: model,
+          };
         });
+
+        // Add newModelsList to modelOptions and remove duplicates
+        const combinedModelOptions = [...modelOptions, ...newModelOptions];
+        const uniqueModelOptions = combinedModelOptions.filter(
+          // Check if any model in the array appears more than once
+          (model, index, array) =>
+            array.findIndex((t) => t.value === model.value) === index
+        );
+        setModelOptions(uniqueModelOptions);
       }
     );
   }, []);

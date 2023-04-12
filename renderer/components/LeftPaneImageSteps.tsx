@@ -241,6 +241,21 @@ function LeftPaneImageSteps({
             </button>
           </div>
         )}
+
+        <p className="mb-2 text-sm">Set Scale</p>
+        <input
+          type="range"
+          min="2"
+          max="4"
+          value="4"
+          step="1"
+          className="range range-primary mt-2"
+        />
+        <div className="flex w-full justify-between px-2 text-xs">
+          <span>|</span>
+          <span>|</span>
+          <span>|</span>
+        </div>
       </div>
 
       {/* STEP 3 */}

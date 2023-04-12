@@ -79,6 +79,14 @@ electron_log_1.default.log(electron_1.app.getAppPath());
 let imagePath = undefined;
 let folderPath = undefined;
 let customModelsFolderPath = undefined;
+// Default models
+const defaultModels = [
+    "realesrgan-x4plus",
+    "remacri",
+    "ultramix_balanced",
+    "ultrasharp",
+    "realesrgan-x4plus-anime",
+];
 //------------------------Select File-----------------------------//
 // ! DONT FORGET TO RESTART THE APP WHEN YOU CHANGE CODE HERE
 electron_1.ipcMain.handle(commands_1.default.SELECT_FILE, () => __awaiter(void 0, void 0, void 0, function* () {
@@ -169,6 +177,7 @@ const getModels = (folderPath) => {
 };
 electron_1.ipcMain.on(commands_1.default.GET_MODELS_LIST, (event, payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (payload) {
+        customModelsFolderPath = payload;
         mainWindow.webContents.send(commands_1.default.CUSTOM_MODEL_FILES_LIST, getModels(payload));
     }
 }));
@@ -201,6 +210,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
     let outputDir = payload.outputPath;
     const gpuId = payload.gpuId;
     const saveImageAs = payload.saveImageAs;
+    const isDefaultModel = defaultModels.includes(model);
     // COPY IMAGE TO TMP FOLDER
     const platform = (0, getPlatform_1.default)();
     const fullfileName = platform === "win"
@@ -210,7 +220,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
     const fileExt = (0, path_1.parse)(fullfileName).ext;
     const outFile = outputDir + "/" + fileName + "_upscayl_16x_" + model + "." + saveImageAs;
     // UPSCALE
-    let upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", (0, getArguments_1.getDoubleUpscaleArguments)(inputDir, fullfileName, outFile, binaries_1.modelsPath, model, gpuId, saveImageAs));
+    let upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", (0, getArguments_1.getDoubleUpscaleArguments)(inputDir, fullfileName, outFile, isDefaultModel ? binaries_1.modelsPath : customModelsFolderPath !== null && customModelsFolderPath !== void 0 ? customModelsFolderPath : binaries_1.modelsPath, model, gpuId, saveImageAs));
     let failed = false;
     let isAlpha = false;
     let failed2 = false;
@@ -269,7 +279,7 @@ electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __a
         // IF NOT FAILED
         if (!failed) {
             // UPSCALE
-            let upscayl2 = (0, upscayl_1.spawnUpscayl)("realesrgan", (0, getArguments_1.getDoubleUpscaleSecondPassArguments)(isAlpha, outFile, binaries_1.modelsPath, model, gpuId, saveImageAs));
+            let upscayl2 = (0, upscayl_1.spawnUpscayl)("realesrgan", (0, getArguments_1.getDoubleUpscaleSecondPassArguments)(isAlpha, outFile, isDefaultModel ? binaries_1.modelsPath : customModelsFolderPath !== null && customModelsFolderPath !== void 0 ? customModelsFolderPath : binaries_1.modelsPath, model, gpuId, saveImageAs));
             upscayl2.process.stderr.on("data", onData2);
             upscayl2.process.on("error", onError2);
             upscayl2.process.on("close", onClose2);
@@ -284,6 +294,7 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
     const saveImageAs = payload.saveImageAs;
     let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "");
     let outputDir = payload.outputPath;
+    const isDefaultModel = defaultModels.includes(model);
     // COPY IMAGE TO TMP FOLDER
     const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "");
     const fileName = (0, path_1.parse)(fullfileName).name;
@@ -305,7 +316,7 @@ electron_1.ipcMain.on(commands_1.default.UPSCAYL, (event, payload) => __awaiter(
         mainWindow.webContents.send(commands_1.default.UPSCAYL_DONE, outFile);
     }
     else {
-        const upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", (0, getArguments_1.getSingleImageArguments)(inputDir, fullfileName, outFile, binaries_1.modelsPath, model, scale, gpuId, saveImageAs));
+        const upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", (0, getArguments_1.getSingleImageArguments)(inputDir, fullfileName, outFile, isDefaultModel ? binaries_1.modelsPath : customModelsFolderPath !== null && customModelsFolderPath !== void 0 ? customModelsFolderPath : binaries_1.modelsPath, model, scale, gpuId, saveImageAs));
         let isAlpha = false;
         let failed = false;
         const onData = (data) => {
@@ -349,8 +360,9 @@ electron_1.ipcMain.on(commands_1.default.FOLDER_UPSCAYL, (event, payload) => __a
     if (!fs_1.default.existsSync(outputDir)) {
         fs_1.default.mkdirSync(outputDir, { recursive: true });
     }
+    const isDefaultModel = defaultModels.includes(model);
     // UPSCALE
-    const upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", (0, getArguments_1.getBatchArguments)(inputDir, outputDir, binaries_1.modelsPath, model, gpuId, saveImageAs));
+    const upscayl = (0, upscayl_1.spawnUpscayl)("realesrgan", (0, getArguments_1.getBatchArguments)(inputDir, outputDir, isDefaultModel ? binaries_1.modelsPath : customModelsFolderPath !== null && customModelsFolderPath !== void 0 ? customModelsFolderPath : binaries_1.modelsPath, model, gpuId, saveImageAs));
     let failed = false;
     const onData = (data) => {
         electron_log_1.default.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
