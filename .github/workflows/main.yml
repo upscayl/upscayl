@@ -22,7 +22,8 @@ jobs:
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-linux-app
 
   macos:
-    runs-on: macos-latest
+    # Stick with 10.15 due to issue like https://github.com/upscayl/upscayl/issues/98
+    runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v3
 
