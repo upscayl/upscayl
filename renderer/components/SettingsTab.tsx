@@ -5,8 +5,9 @@ import { themeChange } from "theme-change";
 import log from "electron-log/renderer";
 import commands from "../../electron/commands";
 import { useAtom } from "jotai";
-import { customModelsPathAtom } from "../atoms/userSettingsAtom";
+import { customModelsPathAtom, scaleAtom } from "../atoms/userSettingsAtom";
 import { TModelsList, modelsListAtom } from "../atoms/modelsListAtom";
+import { atomWithStorage } from "jotai/utils";
 
 interface IProps {
   batchMode: boolean;
@@ -44,6 +45,8 @@ function SettingsTab({
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
   const [customModelOptions, setCustomModelOptions] = useState<TModelsList>([]);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
+
+  const [scale, setScale] = useAtom(scaleAtom);
 
   useEffect(() => {
     themeChange(false);
@@ -215,6 +218,26 @@ function SettingsTab({
           }}>
           Select Folder
         </button>
+      </div>
+
+      <div>
+        <p className="text-sm font-medium">Custom Model Scale:</p>
+        <input
+          type="range"
+          min="2"
+          max="4"
+          value={scale}
+          onChange={(e: any) => {
+            setScale(e.target.value);
+          }}
+          step="1"
+          className="range range-primary mt-2"
+        />
+        <div className="flex w-full justify-between px-2 text-xs font-semibold text-base-content">
+          <span>2x</span>
+          <span>3x</span>
+          <span>4x</span>
+        </div>
       </div>
 
       <div className="relative flex flex-col gap-2">
