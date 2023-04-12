@@ -44,3 +44,7 @@ build-dir/
 #vscode
 .vscode/
 
+#IDEA
+.idea
+*.iml
+
