@@ -89,6 +89,11 @@ app.on("window-all-closed", app.quit);
 
 log.log(app.getAppPath());
 
+const logit = (...args: any) => {
+  log.log(...args);
+  mainWindow.webContents.send(commands.LOG, args.join(" "));
+};
+
 // Path variables for file and folder selection
 let imagePath: string | undefined = undefined;
 let folderPath: string | undefined = undefined;
@@ -113,10 +118,10 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
   });
 
   if (canceled) {
-    log.log("File Operation Cancelled");
+    logit("File Operation Cancelled");
     return null;
   } else {
-    log.log("Selected File Path: ", filePaths[0]);
+    logit("Selected File Path: ", filePaths[0]);
     let isValid = false;
     imagePath = filePaths[0];
 
@@ -162,7 +167,7 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   if (canceled) {
     return null;
   } else {
-    log.log("Selected Folder Path: ", folderPaths[0]);
+    logit("Selected Folder Path: ", folderPaths[0]);
     folderPath = folderPaths[0];
     return folderPaths[0];
   }
@@ -225,7 +230,7 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
   if (canceled) {
     return null;
   } else {
-    log.log("Custom Folder Path: ", folderPaths[0]);
+    logit("Custom Folder Path: ", folderPaths[0]);
     customModelsFolderPath = folderPaths[0];
 
     if (
@@ -254,7 +259,7 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
 
 //------------------------Open Folder-----------------------------//
 ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
-  log.log(payload);
+  logit(payload);
   shell.openPath(payload);
 });
 
@@ -265,6 +270,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   let outputDir = payload.outputPath as string;
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
+  const scale = payload.scale as string;
 
   const isDefaultModel = defaultModels.includes(model);
 
@@ -289,7 +295,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
       isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
       model,
       gpuId,
-      saveImageAs
+      saveImageAs,
+      scale
     )
   );
 
@@ -300,8 +307,6 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const onData = (data) => {
     // CONVERT DATA TO STRING
     data = data.toString();
-    // PRINT TO CONSOLE
-    log.log(data);
     // SEND UPSCAYL PROGRESS TO RENDERER
     mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
@@ -323,8 +328,6 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const onData2 = (data) => {
     // CONVERT DATA TO STRING
     data = data.toString();
-    // PRINT TO CONSOLE
-    log.log(data);
     // SEND UPSCAYL PROGRESS TO RENDERER
     mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
@@ -342,7 +345,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   };
   const onClose2 = (code) => {
     if (!failed2) {
-      log.log("Done upscaling");
+      logit("Done upscaling");
       mainWindow.webContents.send(
         commands.DOUBLE_UPSCAYL_DONE,
         isAlpha ? outFile + ".png" : outFile
@@ -364,7 +367,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
           isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
           model,
           gpuId,
-          saveImageAs
+          saveImageAs,
+          scale
         )
       );
 
@@ -378,7 +382,9 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
 //------------------------Image Upscayl-----------------------------//
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const model = payload.model as string;
-  const scale = payload.scaleFactor;
+  const scale = payload.scale as string;
+  console.log("🚀 => file: index.ts:385 => scale:", scale);
+
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
@@ -390,10 +396,10 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
 
   const fileName = parse(fullfileName).name;
-  log.log("🚀 => fileName", fileName);
+  logit("🚀 => fileName", fileName);
 
   const fileExt = parse(fullfileName).ext;
-  log.log("🚀 => fileExt", fileExt);
+  logit("🚀 => fileExt", fileExt);
 
   const outFile =
     outputDir +
@@ -429,14 +435,14 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     let failed = false;
 
     const onData = (data: string) => {
-      log.log("image upscayl: ", data.toString());
+      logit("image upscayl: ", data.toString());
       data = data.toString();
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("invalid gpu") || data.includes("failed")) {
         failed = true;
       }
       if (data.includes("has alpha channel")) {
-        log.log("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
+        logit("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
         isAlpha = true;
       }
     };
@@ -447,7 +453,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     };
     const onClose = () => {
       if (failed !== true) {
-        log.log("Done upscaling");
+        logit("Done upscaling");
         mainWindow.webContents.send(
           commands.UPSCAYL_DONE,
           isAlpha ? outFile + ".png" : outFile
@@ -467,6 +473,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   const model = payload.model;
   const gpuId = payload.gpuId;
   const saveImageAs = payload.saveImageAs;
+  const scale = payload.scale as string;
 
   // GET THE IMAGE DIRECTORY
   let inputDir = payload.batchFolderPath;
@@ -489,13 +496,14 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
       model,
       gpuId,
-      saveImageAs
+      saveImageAs,
+      scale
     )
   );
 
   let failed = false;
   const onData = (data: any) => {
-    log.log("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
+    logit("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
     data = data.toString();
     mainWindow.webContents.send(
       commands.FOLDER_UPSCAYL_PROGRESS,
@@ -515,7 +523,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   };
   const onClose = () => {
     if (failed !== true) {
-      log.log("Done upscaling");
+      logit("Done upscaling");
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
     }
   };

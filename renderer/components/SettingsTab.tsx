@@ -221,14 +221,19 @@ function SettingsTab({
       </div>
 
       <div>
-        <p className="text-sm font-medium">Custom Model Scale:</p>
+        <div>
+          <p className="badge-primary badge text-xs font-medium">
+            EXPERIMENTAL
+          </p>
+          <p className="text-sm font-medium">Custom Model Scale:</p>
+        </div>
         <input
           type="range"
           min="2"
           max="4"
           value={scale}
           onChange={(e: any) => {
-            setScale(e.target.value);
+            setScale(e.target.value.toString());
           }}
           step="1"
           className="range range-primary mt-2"

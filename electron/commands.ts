@@ -20,6 +20,7 @@ const commands = {
   SELECT_CUSTOM_MODEL_FOLDER: "Select a Custom Model Folder",
   GET_MODELS_LIST: "Send models list from main to renderer",
   CUSTOM_MODEL_FILES_LIST: "Send custom model files list to renderer",
+  LOG: "Log",
 };
 
 export default commands;
