@@ -194,6 +194,17 @@ electron_1.ipcMain.handle(commands_1.default.SELECT_CUSTOM_MODEL_FOLDER, (event,
     else {
         electron_log_1.default.log("Custom Folder Path: ", folderPaths[0]);
         customModelsFolderPath = folderPaths[0];
+        if (!folderPaths[0].endsWith("models") ||
+            !folderPaths[0].endsWith("models/")) {
+            const options = {
+                type: "error",
+                title: "Invalid Folder",
+                message: "Please make sure that the folder name is 'models' and nothing else.",
+                buttons: ["OK"],
+            };
+            electron_1.dialog.showMessageBoxSync(options);
+            return null;
+        }
         mainWindow.webContents.send(commands_1.default.CUSTOM_MODEL_FILES_LIST, getModels(customModelsFolderPath));
         return customModelsFolderPath;
     }

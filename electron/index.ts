@@ -228,6 +228,21 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
     log.log("Custom Folder Path: ", folderPaths[0]);
     customModelsFolderPath = folderPaths[0];
 
+    if (
+      !folderPaths[0].endsWith("models") ||
+      !folderPaths[0].endsWith("models/")
+    ) {
+      const options: MessageBoxOptions = {
+        type: "error",
+        title: "Invalid Folder",
+        message:
+          "Please make sure that the folder name is 'models' and nothing else.",
+        buttons: ["OK"],
+      };
+      dialog.showMessageBoxSync(options);
+      return null;
+    }
+
     mainWindow.webContents.send(
       commands.CUSTOM_MODEL_FILES_LIST,
       getModels(customModelsFolderPath)
