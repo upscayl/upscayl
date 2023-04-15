@@ -4,7 +4,7 @@ function Footer() {
   return (
     <div className="p-2 text-center text-xs text-base-content/50">
       <p>
-        Copyright © 2022 -{" "}
+        Copyright © {new Date().getFullYear()} -{" "}
         <a
           className="font-bold"
           href="https://github.com/upscayl/upscayl"

@@ -155,7 +155,7 @@ Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and
 
 <div align="center">
 
-Copyright © 2022 - **Upscayl**\
+Copyright © 2023 - **Upscayl**\
 By Nayam Amarshe and TGS963\
 Made with 🖱 & ⌨
 

@@ -82,6 +82,45 @@ app.on("ready", async () => {
   if (!isDev) {
     autoUpdater.checkForUpdates();
   }
+
+  // SAVE LAST IMAGE PATH TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("lastImagePath");', true)
+    .then((lastImagePath) => {
+      if (lastImagePath.length > 0) {
+        imagePath = lastImagePath;
+      }
+    });
+
+  // SAVE LAST FOLDER PATH TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("lastFolderPath");', true)
+    .then((lastFolderPath) => {
+      if (lastFolderPath.length > 0) {
+        folderPath = lastFolderPath;
+      }
+    });
+
+  // SAVE LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript(
+      'localStorage.getItem("lastCustomModelsFolderPath");',
+      true
+    )
+    .then((lastCustomModelsFolderPath) => {
+      if (lastCustomModelsFolderPath.length > 0) {
+        customModelsFolderPath = lastCustomModelsFolderPath;
+      }
+    });
+
+  // SAVE LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("lastOutputFolderPath");', true)
+    .then((lastOutputFolderPath) => {
+      if (lastOutputFolderPath.length > 0) {
+        outputFolderPath = lastOutputFolderPath;
+      }
+    });
 });
 
 // Quit the app once all windows are closed
@@ -98,6 +137,7 @@ const logit = (...args: any) => {
 let imagePath: string | undefined = undefined;
 let folderPath: string | undefined = undefined;
 let customModelsFolderPath: string | undefined = undefined;
+let outputFolderPath: string | undefined = undefined;
 
 // Default models
 const defaultModels = [
@@ -122,9 +162,18 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
     return null;
   } else {
     logit("Selected File Path: ", filePaths[0]);
-    let isValid = false;
-    imagePath = filePaths[0];
 
+    imagePath = filePaths[0];
+    mainWindow.webContents
+      .executeJavaScript(
+        `localStorage.setItem("lastImagePath", "${imagePath}");`,
+        true
+      )
+      .then(() => {
+        logit(`Saved Last Image Path (${imagePath}) to Local Storage`);
+      });
+
+    let isValid = false;
     // READ SELECTED FILES
     filePaths.forEach((file) => {
       // log.log("Files in Folder: ", file);
