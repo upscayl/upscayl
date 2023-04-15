@@ -8,23 +8,27 @@ function Footer() {
         <a
           className="font-bold"
           href="https://github.com/upscayl/upscayl"
-          target="_blank">
+          target="_blank"
+        >
           Upscayl
-        </a>
+        </a>{" "}
+        (v<span className="font-bold">{navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1]}</span>)
       </p>
       <p>
         By{" "}
         <a
           href="https://github.com/TGS963"
           className="font-bold"
-          target="_blank">
+          target="_blank"
+        >
           TGS963
         </a>{" "}
         and{" "}
         <a
           href="https://github.com/NayamAmarshe"
           className="font-bold"
-          target="_blank">
+          target="_blank"
+        >
           Nayam Amarshe
         </a>
       </p>
