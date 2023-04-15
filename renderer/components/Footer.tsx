@@ -13,7 +13,7 @@ function Footer() {
         >
           Upscayl
         </a>{" "}
-        (version <span className="font-bold">{packageJSON.version}</span>)
+        (v<span className="font-bold">{navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1]}</span>)
       </p>
       <p>
         By{" "}
