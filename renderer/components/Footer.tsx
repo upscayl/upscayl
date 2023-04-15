@@ -12,11 +12,9 @@ function Footer() {
           target="_blank"
         >
           Upscayl
-        </a>
-      </p>
-      <span>
+        </a>{" "}
         (version <span className="font-bold">{packageJSON.version}</span>)
-      </span>
+      </p>
       <p>
         By{" "}
         <a
