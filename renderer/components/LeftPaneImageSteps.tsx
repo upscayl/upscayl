@@ -175,7 +175,7 @@ function LeftPaneImageSteps({
         <input
           type="checkbox"
           className="toggle"
-          checked={batchMode}
+          defaultChecked={batchMode}
           onClick={handleBatchMode}></input>
         <p
           className="mr-1 inline-block  cursor-help text-sm"
