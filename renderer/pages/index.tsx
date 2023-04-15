@@ -12,7 +12,11 @@ import SettingsTab from "../components/SettingsTab";
 import { useAtom } from "jotai";
 import { logAtom } from "../atoms/logAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
-import { customModelsPathAtom, scaleAtom } from "../atoms/userSettingsAtom";
+import {
+  batchModeAtom,
+  customModelsPathAtom,
+  scaleAtom,
+} from "../atoms/userSettingsAtom";
 
 const Home = () => {
   // STATES
@@ -24,7 +28,7 @@ const Home = () => {
   const [model, setModel] = useState("realesrgan-x4plus");
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
-  const [batchMode, setBatchMode] = useState(false);
+  const [batchMode, setBatchMode] = useAtom(batchModeAtom);
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
