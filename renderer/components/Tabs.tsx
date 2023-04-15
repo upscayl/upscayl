@@ -7,7 +7,7 @@ type TabsProps = {
 
 const Tabs = ({ selectedTab, setSelectedTab }: TabsProps) => {
   return (
-    <div className="tabs tabs-boxed mx-auto">
+    <div className="tabs tabs-boxed mx-auto mb-2">
       <a
         className={`tab ${selectedTab === 0 && "tab-active"}`}
         onClick={() => {

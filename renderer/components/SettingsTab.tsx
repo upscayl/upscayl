@@ -137,7 +137,12 @@ function SettingsTab({
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
       {/* IMAGE FORMAT BUTTONS */}
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium">Save Image As:</p>
+        <div className="flex flex-row gap-1">
+          <p className="text-sm font-medium">SAVE IMAGE AS</p>
+          <p className="badge-primary badge text-[10px] font-medium">
+            EXPERIMENTAL
+          </p>
+        </div>
         <div className="flex flex-col gap-2">
           {batchMode && (
             <p className="text-xs text-base-content/70">
@@ -175,7 +180,7 @@ function SettingsTab({
 
       {/* THEME SELECTOR */}
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium">Upscayl Theme:</p>
+        <p className="text-sm font-medium">UPSCAYL THEME</p>
         <select data-choose-theme className="select-primary select">
           <option value="dark">Default</option>
           {availableThemes.map((theme) => {
@@ -190,7 +195,7 @@ function SettingsTab({
 
       {/* GPU ID INPUT */}
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium">GPU ID:</p>
+        <p className="text-sm font-medium">GPU ID</p>
         <input
           type="text"
           placeholder="Type here"
@@ -202,7 +207,7 @@ function SettingsTab({
 
       {/* GPU ID INPUT */}
       <div className="flex flex-col items-start gap-2">
-        <p className="text-sm font-medium">Custom Models Path:</p>
+        <p className="text-sm font-medium">ADD CUSTOM MODELS</p>
         <p className="text-sm text-base-content/60">{customModelsPath}</p>
         <button
           className="btn-primary btn"
@@ -221,11 +226,11 @@ function SettingsTab({
       </div>
 
       <div>
-        <div>
-          <p className="badge-primary badge text-xs font-medium">
+        <div className="flex flex-row gap-1">
+          <p className="text-sm font-medium">IMAGE SCALE</p>
+          <p className="badge-primary badge text-[10px] font-medium">
             EXPERIMENTAL
           </p>
-          <p className="text-sm font-medium">Custom Model Scale:</p>
         </div>
         <input
           type="range"
@@ -251,7 +256,7 @@ function SettingsTab({
           onClick={copyOnClickHandler}>
           {isCopied ? <span>Copied 📋</span> : <span>Copy 📋</span>}
         </button>
-        <p className="text-sm font-medium">Logs</p>
+        <p className="text-sm font-medium">LOGS</p>
         <code className="rounded-btn relative flex h-52 max-h-52 flex-col gap-3 overflow-y-auto break-all bg-base-200 p-4 text-xs">
           {logData.length === 0 && (
             <p className="text-base-content/70">No logs to show</p>
