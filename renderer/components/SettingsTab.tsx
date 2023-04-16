@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Select from "react-select";
-import ReactTooltip from "react-tooltip";
 import { themeChange } from "theme-change";
-import log from "electron-log/renderer";
 import commands from "../../electron/commands";
 import { useAtom } from "jotai";
-import { customModelsPathAtom, scaleAtom } from "../atoms/userSettingsAtom";
-import { TModelsList, modelsListAtom } from "../atoms/modelsListAtom";
-import { atomWithStorage } from "jotai/utils";
+import {
+  customModelsPathAtom,
+  scaleAtom,
+  saveOutputFolderAtom,
+} from "../atoms/userSettingsAtom";
+import { modelsListAtom } from "../atoms/modelsListAtom";
 
 interface IProps {
   batchMode: boolean;
@@ -42,9 +42,10 @@ function SettingsTab({
   });
 
   const [isCopied, setIsCopied] = useState(false);
+
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
-  const [customModelOptions, setCustomModelOptions] = useState<TModelsList>([]);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
+  const [saveOutputFolder, setSaveOutputFolder] = useAtom(saveOutputFolderAtom);
 
   const [scale, setScale] = useAtom(scaleAtom);
 
@@ -135,6 +136,65 @@ function SettingsTab({
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
+      {/* THEME SELECTOR */}
+      <div className="flex flex-col gap-2">
+        <p className="text-sm font-medium">UPSCAYL THEME</p>
+        <select data-choose-theme className="select-primary select">
+          <option value="dark">Default</option>
+          {availableThemes.map((theme) => {
+            return (
+              <option value={theme.value} key={theme.value}>
+                {theme.label.toLocaleUpperCase()}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p className="text-sm font-medium">SAVE OUTPUT FOLDER (PERMANENTLY)</p>
+        <input
+          type="checkbox"
+          className="toggle-primary toggle"
+          defaultChecked={saveOutputFolder}
+          onClick={() => {
+            setSaveOutputFolder((oldValue) => !oldValue);
+          }}
+        />
+      </div>
+
+      {/* GPU ID INPUT */}
+      <div className="flex flex-col gap-2">
+        <p className="text-sm font-medium">GPU ID</p>
+        <input
+          type="text"
+          placeholder="Type here"
+          className="input-bordered input w-full max-w-xs"
+          value={gpuId}
+          onChange={handleGpuIdChange}
+        />
+      </div>
+
+      {/* GPU ID INPUT */}
+      <div className="flex flex-col items-start gap-2">
+        <p className="text-sm font-medium">ADD CUSTOM MODELS</p>
+        <p className="text-sm text-base-content/60">{customModelsPath}</p>
+        <button
+          className="btn-primary btn"
+          onClick={async () => {
+            const customModelPath = await window.electron.invoke(
+              commands.SELECT_CUSTOM_MODEL_FOLDER
+            );
+
+            if (customModelPath !== null) {
+              setCustomModelsPath(customModelPath);
+              window.electron.send(commands.GET_MODELS_LIST, customModelPath);
+            }
+          }}>
+          Select Folder
+        </button>
+      </div>
+
       {/* IMAGE FORMAT BUTTONS */}
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-1">
@@ -178,53 +238,7 @@ function SettingsTab({
         </div>
       </div>
 
-      {/* THEME SELECTOR */}
-      <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium">UPSCAYL THEME</p>
-        <select data-choose-theme className="select-primary select">
-          <option value="dark">Default</option>
-          {availableThemes.map((theme) => {
-            return (
-              <option value={theme.value} key={theme.value}>
-                {theme.label.toLocaleUpperCase()}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-
-      {/* GPU ID INPUT */}
-      <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium">GPU ID</p>
-        <input
-          type="text"
-          placeholder="Type here"
-          className="input-bordered input w-full max-w-xs"
-          value={gpuId}
-          onChange={handleGpuIdChange}
-        />
-      </div>
-
-      {/* GPU ID INPUT */}
-      <div className="flex flex-col items-start gap-2">
-        <p className="text-sm font-medium">ADD CUSTOM MODELS</p>
-        <p className="text-sm text-base-content/60">{customModelsPath}</p>
-        <button
-          className="btn-primary btn"
-          onClick={async () => {
-            const customModelPath = await window.electron.invoke(
-              commands.SELECT_CUSTOM_MODEL_FOLDER
-            );
-
-            if (customModelPath !== null) {
-              setCustomModelsPath(customModelPath);
-              window.electron.send(commands.GET_MODELS_LIST, customModelPath);
-            }
-          }}>
-          Select Folder
-        </button>
-      </div>
-
+      {/* IMAGE SCALE */}
       <div>
         <div className="flex flex-row gap-1">
           <p className="text-sm font-medium">IMAGE SCALE</p>

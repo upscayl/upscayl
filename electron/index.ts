@@ -1,10 +1,8 @@
 import {
   getBatchArguments,
-  getBatchSharpenArguments,
   getDoubleUpscaleArguments,
   getDoubleUpscaleSecondPassArguments,
   getSingleImageArguments,
-  getSingleImageSharpenArguments,
 } from "./utils/getArguments";
 // Native
 import { autoUpdater } from "electron-updater";
@@ -218,6 +216,14 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   } else {
     logit("Selected Folder Path: ", folderPaths[0]);
     folderPath = folderPaths[0];
+    mainWindow.webContents
+      .executeJavaScript(
+        `localStorage.setItem("lastImagePath", "${folderPath}");`,
+        true
+      )
+      .then(() => {
+        logit(`Saved Last Image Path (${folderPath}) to Local Storage`);
+      });
     return folderPaths[0];
   }
 });
