@@ -7,7 +7,7 @@ import {
 // Native
 import { autoUpdater } from "electron-updater";
 import getPlatform from "./getPlatform";
-import ffmpeg from "upscayl-ffmpeg";
+// import ffmpeg from "upscayl-ffmpeg";
 import { join, parse } from "path";
 import log from "electron-log";
 import { format } from "url";
@@ -40,7 +40,6 @@ app.on("ready", async () => {
   log.info("🚀 ICON PATH: ", join(__dirname, "build", "icon.png"));
   log.info("🚀 UPSCAYL EXEC PATH: ", execPath(""));
   log.info("🚀 MODELS PATH: ", modelsPath);
-  log.info("🚀 FFMPEG PATH: ", ffmpeg.path);
 
   mainWindow = new BrowserWindow({
     icon: join(__dirname, "build", "icon.png"),
