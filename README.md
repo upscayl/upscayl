@@ -124,7 +124,7 @@ npm run publish-app
 - Do I need a GPU for this to work?
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work with **most** iGPUs or CPUs.
 - Why does batch upscaling output JPGs instead of PNGs?
-  - This is an issue with REAL-ERSGAN currently tracked [here](upscayl/upscayl/issues/174).
+  - This is an issue with REAL-ERSGAN currently tracked [here](https://github.com/upscayl/upscayl/issues/174).
 - How can I contribute?
   - You can fix code, add features by submitting PRs, report issues or donate :)
 - What's the GPU ID for?
