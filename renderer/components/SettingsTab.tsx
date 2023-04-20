@@ -4,8 +4,8 @@ import commands from "../../electron/commands";
 import { useAtom } from "jotai";
 import {
   customModelsPathAtom,
+  rememberOutputFolderAtom,
   scaleAtom,
-  saveOutputFolderAtom,
 } from "../atoms/userSettingsAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 
@@ -45,7 +45,9 @@ function SettingsTab({
 
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
-  const [saveOutputFolder, setSaveOutputFolder] = useAtom(saveOutputFolderAtom);
+  const [rememberOutputFolder, setRememberOutputFolder] = useAtom(
+    rememberOutputFolderAtom
+  );
 
   const [scale, setScale] = useAtom(scaleAtom);
 
@@ -156,9 +158,9 @@ function SettingsTab({
         <input
           type="checkbox"
           className="toggle-primary toggle"
-          defaultChecked={saveOutputFolder}
-          onClick={() => {
-            setSaveOutputFolder((oldValue) => !oldValue);
+          defaultChecked={rememberOutputFolder}
+          onChange={() => {
+            setRememberOutputFolder((oldValue) => !oldValue);
           }}
         />
       </div>

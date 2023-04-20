@@ -337,6 +337,14 @@ const Home = () => {
     e.preventDefault();
     resetImagePaths();
 
+    if (
+      e.dataTransfer.items.length === 0 ||
+      e.dataTransfer.files.length === 0
+    ) {
+      alert("Please drag and drop an image");
+      return;
+    }
+
     const type = e.dataTransfer.items[0].type;
     console.log("🚀 => handleDrop => type", type);
     const filePath = e.dataTransfer.files[0].path;
