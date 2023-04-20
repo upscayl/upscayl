@@ -84,8 +84,8 @@ app.on("ready", async () => {
   // SAVE LAST IMAGE PATH TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("lastImagePath");', true)
-    .then((lastImagePath) => {
-      if (lastImagePath.length > 0) {
+    .then((lastImagePath: string | null) => {
+      if (lastImagePath && lastImagePath.length > 0) {
         imagePath = lastImagePath;
       }
     });
@@ -93,8 +93,8 @@ app.on("ready", async () => {
   // SAVE LAST FOLDER PATH TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("lastFolderPath");', true)
-    .then((lastFolderPath) => {
-      if (lastFolderPath.length > 0) {
+    .then((lastFolderPath: string | null) => {
+      if (lastFolderPath && lastFolderPath.length > 0) {
         folderPath = lastFolderPath;
       }
     });
@@ -105,8 +105,8 @@ app.on("ready", async () => {
       'localStorage.getItem("lastCustomModelsFolderPath");',
       true
     )
-    .then((lastCustomModelsFolderPath) => {
-      if (lastCustomModelsFolderPath.length > 0) {
+    .then((lastCustomModelsFolderPath: string | null) => {
+      if (lastCustomModelsFolderPath && lastCustomModelsFolderPath.length > 0) {
         customModelsFolderPath = lastCustomModelsFolderPath;
       }
     });
@@ -114,8 +114,8 @@ app.on("ready", async () => {
   // SAVE LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("lastOutputFolderPath");', true)
-    .then((lastOutputFolderPath) => {
-      if (lastOutputFolderPath.length > 0) {
+    .then((lastOutputFolderPath: string | null) => {
+      if (lastOutputFolderPath && lastOutputFolderPath.length > 0) {
         outputFolderPath = lastOutputFolderPath;
       }
     });
