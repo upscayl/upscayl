@@ -289,8 +289,8 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
     customModelsFolderPath = folderPaths[0];
 
     if (
-      !folderPaths[0].endsWith("models") ||
-      !folderPaths[0].endsWith("models/")
+      !folderPaths[0].endsWith("/models") &&
+      !folderPaths[0].endsWith("/models/")
     ) {
       const options: MessageBoxOptions = {
         type: "error",
