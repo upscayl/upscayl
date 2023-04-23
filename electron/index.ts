@@ -32,6 +32,10 @@ import commands from "./commands";
 
 log.initialize({ preload: true });
 
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
 // Prepare the renderer once the app is ready
 let mainWindow: BrowserWindow;
 app.on("ready", async () => {
@@ -160,7 +164,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
   } else {
     logit("Selected File Path: ", filePaths[0]);
 
-    imagePath = filePaths[0];
+    imagePath = filePaths[0].replace(new RegExp(escapeRegExp('\\'), 'g'), '\\\\');
     mainWindow.webContents
       .executeJavaScript(
         `localStorage.setItem("lastImagePath", "${imagePath}");`,
@@ -214,7 +218,7 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
     return null;
   } else {
     logit("Selected Folder Path: ", folderPaths[0]);
-    folderPath = folderPaths[0];
+    folderPath = folderPaths[0].replace(new RegExp(escapeRegExp('\\'), 'g'), '\\\\');;
     mainWindow.webContents
       .executeJavaScript(
         `localStorage.setItem("lastFolderPath", "${folderPath}");`,
