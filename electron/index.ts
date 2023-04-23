@@ -163,8 +163,8 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
     return null;
   } else {
     logit("Selected File Path: ", filePaths[0]);
-
-    imagePath = filePaths[0].replace(new RegExp(escapeRegExp('\\'), 'g'), '\\\\');
+    const platform = getPlatform();
+    imagePath = platform === "win" ? filePaths[0].replace(new RegExp(escapeRegExp('\\'), 'g'), '\\\\') : filePaths[0];
     mainWindow.webContents
       .executeJavaScript(
         `localStorage.setItem("lastImagePath", "${imagePath}");`,
@@ -218,7 +218,8 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
     return null;
   } else {
     logit("Selected Folder Path: ", folderPaths[0]);
-    folderPath = folderPaths[0].replace(new RegExp(escapeRegExp('\\'), 'g'), '\\\\');;
+    const platform = getPlatform();
+    folderPath = platform === "win" ? folderPaths[0].replace(new RegExp(escapeRegExp('\\'), 'g'), '\\\\') : folderPaths[0];
     mainWindow.webContents
       .executeJavaScript(
         `localStorage.setItem("lastFolderPath", "${folderPath}");`,
