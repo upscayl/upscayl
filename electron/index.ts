@@ -490,6 +490,9 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
 
     const onData = (data: string) => {
       logit("image upscayl: ", data.toString());
+
+      mainWindow.setProgressBar(parseFloat(data.slice(0, data.length)) / 100);
+
       data = data.toString();
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("invalid gpu") || data.includes("failed")) {
@@ -508,6 +511,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     const onClose = () => {
       if (failed !== true) {
         logit("Done upscaling");
+        mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
           commands.UPSCAYL_DONE,
           isAlpha ? outFile + ".png" : outFile
