@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 import commands from "../../electron/commands";
 import { useAtom } from "jotai";
-import {
-  customModelsPathAtom,
-  rememberOutputFolderAtom,
-  scaleAtom,
-} from "../atoms/userSettingsAtom";
+import { customModelsPathAtom, scaleAtom } from "../atoms/userSettingsAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 
 interface IProps {
   batchMode: boolean;
   setBatchMode: React.Dispatch<React.SetStateAction<boolean>>;
+  rememberOutputFolder: boolean;
+  setRememberOutputFolder: React.Dispatch<React.SetStateAction<boolean>>;
   imagePath: string;
   setModel: React.Dispatch<React.SetStateAction<string>>;
   saveImageAs: string;
@@ -24,6 +22,8 @@ interface IProps {
 function SettingsTab({
   batchMode,
   setBatchMode,
+  rememberOutputFolder,
+  setRememberOutputFolder,
   imagePath,
   setModel,
   gpuId,
@@ -45,9 +45,6 @@ function SettingsTab({
 
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
-  const [rememberOutputFolder, setRememberOutputFolder] = useAtom(
-    rememberOutputFolderAtom
-  );
 
   const [scale, setScale] = useAtom(scaleAtom);
 
@@ -68,7 +65,7 @@ function SettingsTab({
     } else {
       const currentlySavedModel = JSON.parse(
         localStorage.getItem("model")
-      ) as typeof modelOptions[0];
+      ) as (typeof modelOptions)[0];
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
     }
@@ -89,6 +86,10 @@ function SettingsTab({
   const setExportType = (format: string) => {
     setSaveImageAs(format);
     localStorage.setItem("saveImageAs", format);
+  };
+
+  const handleRememberOutputFolder = () => {
+    setRememberOutputFolder((oldValue) => !oldValue);
   };
 
   const handleGpuIdChange = (e) => {
@@ -159,9 +160,7 @@ function SettingsTab({
           type="checkbox"
           className="toggle-primary toggle"
           defaultChecked={rememberOutputFolder}
-          onChange={() => {
-            setRememberOutputFolder((oldValue) => !oldValue);
-          }}
+          onChange={handleRememberOutputFolder}
         />
       </div>
 
@@ -192,7 +191,8 @@ function SettingsTab({
               setCustomModelsPath(customModelPath);
               window.electron.send(commands.GET_MODELS_LIST, customModelPath);
             }
-          }}>
+          }}
+        >
           Select Folder
         </button>
       </div>
@@ -217,7 +217,8 @@ function SettingsTab({
               className={`btn-primary btn ${
                 saveImageAs === "png" && "btn-accent"
               }`}
-              onClick={() => setExportType("png")}>
+              onClick={() => setExportType("png")}
+            >
               PNG
             </button>
             {/* JPG */}
@@ -225,7 +226,8 @@ function SettingsTab({
               className={`btn-primary btn ${
                 saveImageAs === "jpg" && "btn-accent"
               }`}
-              onClick={() => setExportType("jpg")}>
+              onClick={() => setExportType("jpg")}
+            >
               JPG
             </button>
             {/* WEBP */}
@@ -233,7 +235,8 @@ function SettingsTab({
               className={`btn-primary btn ${
                 saveImageAs === "webp" && "btn-accent"
               }`}
-              onClick={() => setExportType("webp")}>
+              onClick={() => setExportType("webp")}
+            >
               WEBP
             </button>
           </div>
@@ -268,8 +271,9 @@ function SettingsTab({
 
       <div className="relative flex flex-col gap-2">
         <button
-          className="btn-primary btn-xs btn absolute top-10 right-2 z-10"
-          onClick={copyOnClickHandler}>
+          className="btn-primary btn-xs btn absolute right-2 top-10 z-10"
+          onClick={copyOnClickHandler}
+        >
           {isCopied ? <span>Copied 📋</span> : <span>Copy 📋</span>}
         </button>
         <p className="text-sm font-medium">LOGS</p>

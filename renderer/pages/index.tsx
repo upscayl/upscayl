@@ -15,6 +15,7 @@ import { modelsListAtom } from "../atoms/modelsListAtom";
 import {
   batchModeAtom,
   customModelsPathAtom,
+  rememberOutputFolderAtom,
   scaleAtom,
 } from "../atoms/userSettingsAtom";
 
@@ -29,6 +30,9 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
   const [batchMode, setBatchMode] = useAtom(batchModeAtom);
+  const [rememberOutputFolder, setRememberOutputFolder] = useAtom(
+    rememberOutputFolderAtom
+  );
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
@@ -538,6 +542,8 @@ const Home = () => {
           <SettingsTab
             batchMode={batchMode}
             setBatchMode={setBatchMode}
+            rememberOutputFolder={rememberOutputFolder}
+            setRememberOutputFolder={setRememberOutputFolder}
             imagePath={imagePath}
             setModel={setModel}
             gpuId={gpuId}
@@ -558,7 +564,8 @@ const Home = () => {
         onDragOver={(e) => handleDragOver(e)}
         onDragEnter={(e) => handleDragEnter(e)}
         onDragLeave={(e) => handleDragLeave(e)}
-        onPaste={(e) => handlePaste(e)}>
+        onPaste={(e) => handlePaste(e)}
+      >
         {progress.length > 0 &&
         upscaledImagePath.length === 0 &&
         upscaledBatchFolderPath.length === 0 &&
@@ -635,7 +642,8 @@ const Home = () => {
             </p>
             <button
               className="bg-gradient-blue rounded-lg p-3 font-medium text-white/90 transition-colors"
-              onClick={openFolderHandler}>
+              onClick={openFolderHandler}
+            >
               Open Upscayled Folder
             </button>
           </>

@@ -33,7 +33,7 @@ import commands from "./commands";
 log.initialize({ preload: true });
 
 function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }
 
 // Prepare the renderer once the app is ready
@@ -164,7 +164,10 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
   } else {
     logit("Selected File Path: ", filePaths[0]);
     const platform = getPlatform();
-    imagePath = platform === "win" ? filePaths[0].replace(new RegExp(escapeRegExp('\\'), 'g'), '\\\\') : filePaths[0];
+    imagePath =
+      platform === "win"
+        ? filePaths[0].replace(new RegExp(escapeRegExp("\\"), "g"), "\\\\")
+        : filePaths[0];
     mainWindow.webContents
       .executeJavaScript(
         `localStorage.setItem("lastImagePath", "${imagePath}");`,
@@ -219,15 +222,23 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   } else {
     logit("Selected Folder Path: ", folderPaths[0]);
     const platform = getPlatform();
-    folderPath = platform === "win" ? folderPaths[0].replace(new RegExp(escapeRegExp('\\'), 'g'), '\\\\') : folderPaths[0];
+    folderPath =
+      platform === "win"
+        ? folderPaths[0].replace(new RegExp(escapeRegExp("\\"), "g"), "\\\\")
+        : folderPaths[0];
     mainWindow.webContents
-      .executeJavaScript(
-        `localStorage.setItem("lastFolderPath", "${folderPath}");`,
-        true
-      )
+      .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
       .then(() => {
-        logit(`Saved Last Folder Path (${folderPath}) to Local Storage`);
+        mainWindow.webContents
+          .executeJavaScript(
+            `localStorage.setItem("lastFolderPath", "${folderPath}");`,
+            true
+          )
+          .then(() => {
+            logit(`Saved Last Folder Path (${folderPath}) to Local Storage`);
+          });
       });
+
     return folderPaths[0];
   }
 });
@@ -447,7 +458,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
-  let outputDir = folderPath || payload.outputPath as string;
+  let outputDir = folderPath || (payload.outputPath as string);
 
   const isDefaultModel = defaultModels.includes(model);
 
