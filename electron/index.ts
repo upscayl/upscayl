@@ -228,7 +228,8 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
         : folderPaths[0];
     mainWindow.webContents
       .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
-      .then(() => {
+      .then((result) => {
+        if (result === "false") return;
         mainWindow.webContents
           .executeJavaScript(
             `localStorage.setItem("lastFolderPath", "${folderPath}");`,
