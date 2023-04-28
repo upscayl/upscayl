@@ -15,7 +15,6 @@ import { modelsListAtom } from "../atoms/modelsListAtom";
 import {
   batchModeAtom,
   customModelsPathAtom,
-  rememberOutputFolderAtom,
   scaleAtom,
 } from "../atoms/userSettingsAtom";
 
@@ -30,9 +29,6 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
   const [batchMode, setBatchMode] = useAtom(batchModeAtom);
-  const [rememberOutputFolder, setRememberOutputFolder] = useAtom(
-    rememberOutputFolderAtom
-  );
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
@@ -204,6 +200,18 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
+    const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
+
+    if (rememberOutputFolder === "true") {
+      setOutputPath(lastOutputFolderPath);
+    } else {
+      setOutputPath("");
+      localStorage.removeItem("lastOutputFolderPath");
+    }
+  }, []);
+
+  useEffect(() => {
     setProgress("");
   }, [batchMode]);
 
@@ -370,7 +378,6 @@ const Home = () => {
       }
 
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
-      console.log("🚀 => handleDrop => dirname", dirname);
       setOutputPath(dirname);
     }
   };
@@ -399,6 +406,10 @@ const Home = () => {
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
     if (path !== null) {
       setOutputPath(path);
+      const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
+      if (rememberOutputFolder) {
+        localStorage.setItem("lastOutputFolderPath", path);
+      }
     } else {
       console.log("Getting output path from input file");
     }
@@ -517,7 +528,6 @@ const Home = () => {
             selectImageHandler={selectImageHandler}
             selectFolderHandler={selectFolderHandler}
             handleModelChange={handleModelChange}
-            handleDrop={handleDrop}
             outputHandler={outputHandler}
             upscaylHandler={upscaylHandler}
             batchMode={batchMode}
@@ -526,13 +536,8 @@ const Home = () => {
             outputPath={outputPath}
             doubleUpscayl={doubleUpscayl}
             setDoubleUpscayl={setDoubleUpscayl}
-            model={model}
             setModel={setModel}
-            isVideo={isVideo}
-            setIsVideo={setIsVideo}
-            gpuId={gpuId}
             setGpuId={setGpuId}
-            saveImageAs={saveImageAs}
             setSaveImageAs={setSaveImageAs}
             dimensions={dimensions}
           />
@@ -541,10 +546,6 @@ const Home = () => {
         {selectedTab === 1 && (
           <SettingsTab
             batchMode={batchMode}
-            setBatchMode={setBatchMode}
-            rememberOutputFolder={rememberOutputFolder}
-            setRememberOutputFolder={setRememberOutputFolder}
-            imagePath={imagePath}
             setModel={setModel}
             gpuId={gpuId}
             setGpuId={setGpuId}
@@ -564,8 +565,7 @@ const Home = () => {
         onDragOver={(e) => handleDragOver(e)}
         onDragEnter={(e) => handleDragEnter(e)}
         onDragLeave={(e) => handleDragLeave(e)}
-        onPaste={(e) => handlePaste(e)}
-      >
+        onPaste={(e) => handlePaste(e)}>
         {progress.length > 0 &&
         upscaledImagePath.length === 0 &&
         upscaledBatchFolderPath.length === 0 &&
@@ -642,8 +642,7 @@ const Home = () => {
             </p>
             <button
               className="bg-gradient-blue rounded-lg p-3 font-medium text-white/90 transition-colors"
-              onClick={openFolderHandler}
-            >
+              onClick={openFolderHandler}>
               Open Upscayled Folder
             </button>
           </>

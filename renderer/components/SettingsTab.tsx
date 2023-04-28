@@ -2,19 +2,11 @@ import React, { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 import commands from "../../electron/commands";
 import { useAtom } from "jotai";
-import {
-  customModelsPathAtom,
-  rememberOutputFolderAtom,
-  scaleAtom,
-} from "../atoms/userSettingsAtom";
+import { customModelsPathAtom, scaleAtom } from "../atoms/userSettingsAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 
 interface IProps {
   batchMode: boolean;
-  setBatchMode: React.Dispatch<React.SetStateAction<boolean>>;
-  rememberOutputFolder: boolean;
-  setRememberOutputFolder: React.Dispatch<React.SetStateAction<boolean>>;
-  imagePath: string;
   setModel: React.Dispatch<React.SetStateAction<string>>;
   saveImageAs: string;
   setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
@@ -25,8 +17,6 @@ interface IProps {
 
 function SettingsTab({
   batchMode,
-  setBatchMode,
-  imagePath,
   setModel,
   gpuId,
   setGpuId,
@@ -50,9 +40,7 @@ function SettingsTab({
 
   const [scale, setScale] = useAtom(scaleAtom);
 
-  const [rememberOutputFolder, setRememberOutputFolder] = useAtom(
-    rememberOutputFolderAtom
-  );
+  const [rememberOutputFolder, setRememberOutputFolder] = useState(false);
 
   useEffect(() => {
     themeChange(false);
@@ -71,7 +59,7 @@ function SettingsTab({
     } else {
       const currentlySavedModel = JSON.parse(
         localStorage.getItem("model")
-      ) as (typeof modelOptions)[0];
+      ) as typeof modelOptions[0];
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
     }
@@ -81,6 +69,22 @@ function SettingsTab({
     } else {
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
+    }
+
+    if (!localStorage.getItem("rememberOutputFolder")) {
+      localStorage.setItem("rememberOutputFolder", "false");
+    } else {
+      const currentlySavedRememberOutputFolder = localStorage.getItem(
+        "rememberOutputFolder"
+      );
+      console.log(
+        "🚀 => file: SettingsTab.tsx:80 => currentlySavedRememberOutputFolder:",
+        currentlySavedRememberOutputFolder
+      );
+
+      setRememberOutputFolder(
+        currentlySavedRememberOutputFolder === "true" ? true : false
+      );
     }
   }, []);
 
@@ -161,9 +165,19 @@ function SettingsTab({
         <input
           type="checkbox"
           className="toggle-primary toggle"
-          defaultChecked={rememberOutputFolder}
+          checked={rememberOutputFolder}
           onClick={() => {
-            setRememberOutputFolder((oldValue) => !oldValue);
+            setRememberOutputFolder((oldValue) => {
+              if (oldValue === true) {
+                localStorage.removeItem("lastOutputFolderPath");
+              }
+
+              return !oldValue;
+            });
+            localStorage.setItem(
+              "rememberOutputFolder",
+              JSON.stringify(!rememberOutputFolder)
+            );
           }}
         />
       </div>

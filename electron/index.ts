@@ -36,6 +36,13 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }
 
+// Path variables for file and folder selection
+let imagePath: string | undefined = undefined;
+let folderPath: string | undefined = undefined;
+let customModelsFolderPath: string | undefined = undefined;
+let outputFolderPath: string | undefined = undefined;
+let saveOutputFolder = false;
+
 // Prepare the renderer once the app is ready
 let mainWindow: BrowserWindow;
 app.on("ready", async () => {
@@ -84,7 +91,7 @@ app.on("ready", async () => {
     autoUpdater.checkForUpdates();
   }
 
-  // SAVE LAST IMAGE PATH TO LOCAL STORAGE
+  // GET LAST IMAGE PATH TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("lastImagePath");', true)
     .then((lastImagePath: string | null) => {
@@ -93,7 +100,7 @@ app.on("ready", async () => {
       }
     });
 
-  // SAVE LAST FOLDER PATH TO LOCAL STORAGE
+  // GET LAST FOLDER PATH TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("lastFolderPath");', true)
     .then((lastFolderPath: string | null) => {
@@ -102,7 +109,7 @@ app.on("ready", async () => {
       }
     });
 
-  // SAVE LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
+  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript(
       'localStorage.getItem("lastCustomModelsFolderPath");',
@@ -114,12 +121,21 @@ app.on("ready", async () => {
       }
     });
 
-  // SAVE LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
+  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("lastOutputFolderPath");', true)
     .then((lastOutputFolderPath: string | null) => {
       if (lastOutputFolderPath && lastOutputFolderPath.length > 0) {
         outputFolderPath = lastOutputFolderPath;
+      }
+    });
+
+  // GET LAST SAVE OUTPUT FOLDER (BOOLEAN) TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
+    .then((lastSaveOutputFolder: boolean | null) => {
+      if (lastSaveOutputFolder !== null) {
+        saveOutputFolder = lastSaveOutputFolder;
       }
     });
 });
@@ -133,12 +149,6 @@ const logit = (...args: any) => {
   log.log(...args);
   mainWindow.webContents.send(commands.LOG, args.join(" "));
 };
-
-// Path variables for file and folder selection
-let imagePath: string | undefined = undefined;
-let folderPath: string | undefined = undefined;
-let customModelsFolderPath: string | undefined = undefined;
-let outputFolderPath: string | undefined = undefined;
 
 // Default models
 const defaultModels = [
@@ -163,19 +173,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
     return null;
   } else {
     logit("Selected File Path: ", filePaths[0]);
-    const platform = getPlatform();
-    imagePath =
-      platform === "win"
-        ? filePaths[0].replace(new RegExp(escapeRegExp("\\"), "g"), "\\\\")
-        : filePaths[0];
-    mainWindow.webContents
-      .executeJavaScript(
-        `localStorage.setItem("lastImagePath", "${imagePath}");`,
-        true
-      )
-      .then(() => {
-        logit(`Saved Last Image Path (${imagePath}) to Local Storage`);
-      });
+    imagePath = filePaths[0];
 
     let isValid = false;
     // READ SELECTED FILES
@@ -221,25 +219,7 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
     return null;
   } else {
     logit("Selected Folder Path: ", folderPaths[0]);
-    const platform = getPlatform();
-    folderPath =
-      platform === "win"
-        ? folderPaths[0].replace(new RegExp(escapeRegExp("\\"), "g"), "\\\\")
-        : folderPaths[0];
-    mainWindow.webContents
-      .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
-      .then((result) => {
-        if (result === "false") return;
-        mainWindow.webContents
-          .executeJavaScript(
-            `localStorage.setItem("lastFolderPath", "${folderPath}");`,
-            true
-          )
-          .then(() => {
-            logit(`Saved Last Folder Path (${folderPath}) to Local Storage`);
-          });
-      });
-
+    folderPath = folderPaths[0];
     return folderPaths[0];
   }
 });
@@ -342,6 +322,21 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
   const scale = payload.scale as string;
+
+  // SAVE OUTPUT FOLDER TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
+    .then((result) => {
+      if (result === "false") return;
+      mainWindow.webContents
+        .executeJavaScript(
+          `localStorage.setItem("lastFolderPath", "${folderPath}");`,
+          true
+        )
+        .then(() => {
+          logit(`Saved Last Folder Path (${folderPath}) to Local Storage`);
+        });
+    });
 
   const isDefaultModel = defaultModels.includes(model);
 
