@@ -319,6 +319,10 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const model = payload.model as string;
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
   let outputDir = payload.outputPath as string;
+
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
+  }
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
   const scale = payload.scale as string;
@@ -456,6 +460,10 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
   let outputDir = folderPath || (payload.outputPath as string);
 
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
+  }
+
   const isDefaultModel = defaultModels.includes(model);
 
   // COPY IMAGE TO TMP FOLDER
@@ -546,6 +554,10 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
 
   // GET THE OUTPUT DIRECTORY
   let outputDir = payload.outputPath;
+
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
+  }
 
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
