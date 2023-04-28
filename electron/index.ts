@@ -14,7 +14,6 @@ import { format } from "url";
 import fs from "fs";
 
 import { execPath, modelsPath } from "./binaries";
-
 // Packages
 import {
   BrowserWindow,
@@ -29,6 +28,9 @@ import { spawnUpscayl } from "./upscayl";
 import prepareNext from "electron-next";
 import isDev from "electron-is-dev";
 import commands from "./commands";
+import { ChildProcessWithoutNullStreams } from "child_process";
+
+let ChildProcess : { process: ChildProcessWithoutNullStreams; kill: () => boolean; }[] = []
 
 log.initialize({ preload: true });
 
@@ -314,6 +316,12 @@ ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
   shell.openPath(payload);
 });
 
+ipcMain.on(commands.STOP, async (event, payload) => {
+  ChildProcess.forEach((child) => {
+    child.kill();
+  })
+});
+
 //------------------------Double Upscayl-----------------------------//
 ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const model = payload.model as string;
@@ -358,6 +366,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   let failed = false;
   let isAlpha = false;
   let failed2 = false;
+
+  ChildProcess.push(upscayl)
 
   const onData = (data) => {
     // CONVERT DATA TO STRING
@@ -427,6 +437,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
         )
       );
 
+      ChildProcess.push(upscayl2)
+
       upscayl2.process.stderr.on("data", onData2);
       upscayl2.process.on("error", onError2);
       upscayl2.process.on("close", onClose2);
@@ -492,6 +504,8 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
 
     let isAlpha = false;
     let failed = false;
+
+    ChildProcess.push(upscayl)
 
     const onData = (data: string) => {
       logit("image upscayl: ", data.toString());
@@ -563,6 +577,8 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       scale
     )
   );
+
+  ChildProcess.push(upscayl)
 
   let failed = false;
   const onData = (data: any) => {

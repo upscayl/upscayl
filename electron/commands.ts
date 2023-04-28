@@ -21,6 +21,7 @@ const commands = {
   GET_MODELS_LIST: "Send models list from main to renderer",
   CUSTOM_MODEL_FILES_LIST: "Send custom model files list to renderer",
   LOG: "Log",
+  STOP: "Stop the current operation",
 };
 
 export default commands;
