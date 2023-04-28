@@ -84,7 +84,7 @@ function LeftPaneImageSteps({
     } else {
       const currentlySavedModel = JSON.parse(
         localStorage.getItem("model")
-      ) as typeof modelOptions[0];
+      ) as (typeof modelOptions)[0];
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
     }
@@ -176,7 +176,7 @@ function LeftPaneImageSteps({
           type="checkbox"
           className="toggle"
           defaultChecked={batchMode}
-          onClick={handleBatchMode}></input>
+          onClick={() => setBatchMode((oldValue) => !oldValue)}></input>
         <p
           className="mr-1 inline-block  cursor-help text-sm"
           data-tip="This will let you upscale all files in a folder at once">
