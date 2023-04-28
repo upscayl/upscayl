@@ -10,7 +10,6 @@ interface IProps {
   selectImageHandler: () => Promise<void>;
   selectFolderHandler: () => Promise<void>;
   handleModelChange: (e: any) => void;
-  handleDrop: (e: any) => void;
   outputHandler: () => Promise<void>;
   upscaylHandler: () => Promise<void>;
   batchMode: boolean;
@@ -19,13 +18,8 @@ interface IProps {
   outputPath: string;
   doubleUpscayl: boolean;
   setDoubleUpscayl: React.Dispatch<React.SetStateAction<boolean>>;
-  model: string;
   setModel: React.Dispatch<React.SetStateAction<string>>;
-  isVideo: boolean;
-  setIsVideo: React.Dispatch<React.SetStateAction<boolean>>;
-  saveImageAs: string;
   setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
-  gpuId: string;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
   dimensions: {
     width: number | null;
@@ -38,7 +32,6 @@ function LeftPaneImageSteps({
   selectImageHandler,
   selectFolderHandler,
   handleModelChange,
-  handleDrop,
   outputHandler,
   upscaylHandler,
   batchMode,
@@ -47,13 +40,8 @@ function LeftPaneImageSteps({
   outputPath,
   doubleUpscayl,
   setDoubleUpscayl,
-  model,
   setModel,
-  isVideo,
-  setIsVideo,
-  gpuId,
   setGpuId,
-  saveImageAs,
   setSaveImageAs,
   dimensions,
 }: IProps) {
@@ -176,7 +164,7 @@ function LeftPaneImageSteps({
           type="checkbox"
           className="toggle"
           defaultChecked={batchMode}
-          onClick={handleBatchMode}></input>
+          onClick={() => setBatchMode((oldValue) => !oldValue)}></input>
         <p
           className="mr-1 inline-block  cursor-help text-sm"
           data-tip="This will let you upscale all files in a folder at once">

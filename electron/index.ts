@@ -32,6 +32,17 @@ import commands from "./commands";
 
 log.initialize({ preload: true });
 
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+}
+
+// Path variables for file and folder selection
+let imagePath: string | undefined = undefined;
+let folderPath: string | undefined = undefined;
+let customModelsFolderPath: string | undefined = undefined;
+let outputFolderPath: string | undefined = undefined;
+let saveOutputFolder = false;
+
 // Prepare the renderer once the app is ready
 let mainWindow: BrowserWindow;
 app.on("ready", async () => {
@@ -80,44 +91,53 @@ app.on("ready", async () => {
     autoUpdater.checkForUpdates();
   }
 
-  // // SAVE LAST IMAGE PATH TO LOCAL STORAGE
-  // mainWindow.webContents
-  //   .executeJavaScript('localStorage.getItem("lastImagePath");', true)
-  //   .then((lastImagePath: string | null) => {
-  //     if (lastImagePath && lastImagePath.length > 0) {
-  //       imagePath = lastImagePath;
-  //     }
-  //   });
+  // GET LAST IMAGE PATH TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("lastImagePath");', true)
+    .then((lastImagePath: string | null) => {
+      if (lastImagePath && lastImagePath.length > 0) {
+        imagePath = lastImagePath;
+      }
+    });
 
-  // // SAVE LAST FOLDER PATH TO LOCAL STORAGE
-  // mainWindow.webContents
-  //   .executeJavaScript('localStorage.getItem("lastFolderPath");', true)
-  //   .then((lastFolderPath: string | null) => {
-  //     if (lastFolderPath && lastFolderPath.length > 0) {
-  //       folderPath = lastFolderPath;
-  //     }
-  //   });
+  // GET LAST FOLDER PATH TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("lastFolderPath");', true)
+    .then((lastFolderPath: string | null) => {
+      if (lastFolderPath && lastFolderPath.length > 0) {
+        folderPath = lastFolderPath;
+      }
+    });
 
-  // // SAVE LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
-  // mainWindow.webContents
-  //   .executeJavaScript(
-  //     'localStorage.getItem("lastCustomModelsFolderPath");',
-  //     true
-  //   )
-  //   .then((lastCustomModelsFolderPath: string | null) => {
-  //     if (lastCustomModelsFolderPath && lastCustomModelsFolderPath.length > 0) {
-  //       customModelsFolderPath = lastCustomModelsFolderPath;
-  //     }
-  //   });
+  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript(
+      'localStorage.getItem("lastCustomModelsFolderPath");',
+      true
+    )
+    .then((lastCustomModelsFolderPath: string | null) => {
+      if (lastCustomModelsFolderPath && lastCustomModelsFolderPath.length > 0) {
+        customModelsFolderPath = lastCustomModelsFolderPath;
+      }
+    });
 
-  // // SAVE LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
-  // mainWindow.webContents
-  //   .executeJavaScript('localStorage.getItem("lastOutputFolderPath");', true)
-  //   .then((lastOutputFolderPath: string | null) => {
-  //     if (lastOutputFolderPath && lastOutputFolderPath.length > 0) {
-  //       outputFolderPath = lastOutputFolderPath;
-  //     }
-  //   });
+  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("lastOutputFolderPath");', true)
+    .then((lastOutputFolderPath: string | null) => {
+      if (lastOutputFolderPath && lastOutputFolderPath.length > 0) {
+        outputFolderPath = lastOutputFolderPath;
+      }
+    });
+
+  // GET LAST SAVE OUTPUT FOLDER (BOOLEAN) TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
+    .then((lastSaveOutputFolder: boolean | null) => {
+      if (lastSaveOutputFolder !== null) {
+        saveOutputFolder = lastSaveOutputFolder;
+      }
+    });
 });
 
 // Quit the app once all windows are closed
@@ -129,12 +149,6 @@ const logit = (...args: any) => {
   log.log(...args);
   mainWindow.webContents.send(commands.LOG, args.join(" "));
 };
-
-// Path variables for file and folder selection
-let imagePath: string | undefined = undefined;
-let folderPath: string | undefined = undefined;
-let customModelsFolderPath: string | undefined = undefined;
-let outputFolderPath: string | undefined = undefined;
 
 // Default models
 const defaultModels = [
@@ -159,16 +173,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
     return null;
   } else {
     logit("Selected File Path: ", filePaths[0]);
-
     imagePath = filePaths[0];
-    // mainWindow.webContents
-    //   .executeJavaScript(
-    //     `localStorage.setItem("lastImagePath", "${imagePath}");`,
-    //     true
-    //   )
-    //   .then(() => {
-    //     logit(`Saved Last Image Path (${imagePath}) to Local Storage`);
-    //   });
 
     let isValid = false;
     // READ SELECTED FILES
@@ -215,14 +220,6 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   } else {
     logit("Selected Folder Path: ", folderPaths[0]);
     folderPath = folderPaths[0];
-    // mainWindow.webContents
-    //   .executeJavaScript(
-    //     `localStorage.setItem("lastImagePath", "${folderPath}");`,
-    //     true
-    //   )
-    //   .then(() => {
-    //     logit(`Saved Last Image Path (${folderPath}) to Local Storage`);
-    //   });
     return folderPaths[0];
   }
 });
@@ -322,6 +319,10 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const model = payload.model as string;
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
   let outputDir = payload.outputPath as string;
+
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
+  }
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
   const scale = payload.scale as string;
@@ -442,7 +443,11 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
-  let outputDir = payload.outputPath as string;
+  let outputDir = folderPath || (payload.outputPath as string);
+
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
+  }
 
   const isDefaultModel = defaultModels.includes(model);
 
@@ -538,6 +543,10 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
 
   // GET THE OUTPUT DIRECTORY
   let outputDir = payload.outputPath;
+
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
+  }
 
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });

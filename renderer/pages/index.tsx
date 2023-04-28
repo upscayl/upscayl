@@ -200,6 +200,18 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
+    const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
+
+    if (rememberOutputFolder === "true") {
+      setOutputPath(lastOutputFolderPath);
+    } else {
+      setOutputPath("");
+      localStorage.removeItem("lastOutputFolderPath");
+    }
+  }, []);
+
+  useEffect(() => {
     setProgress("");
   }, [batchMode]);
 
@@ -366,7 +378,6 @@ const Home = () => {
       }
 
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
-      console.log("🚀 => handleDrop => dirname", dirname);
       setOutputPath(dirname);
     }
   };
@@ -395,6 +406,10 @@ const Home = () => {
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
     if (path !== null) {
       setOutputPath(path);
+      const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
+      if (rememberOutputFolder) {
+        localStorage.setItem("lastOutputFolderPath", path);
+      }
     } else {
       console.log("Getting output path from input file");
     }
@@ -513,7 +528,6 @@ const Home = () => {
             selectImageHandler={selectImageHandler}
             selectFolderHandler={selectFolderHandler}
             handleModelChange={handleModelChange}
-            handleDrop={handleDrop}
             outputHandler={outputHandler}
             upscaylHandler={upscaylHandler}
             batchMode={batchMode}
@@ -522,13 +536,8 @@ const Home = () => {
             outputPath={outputPath}
             doubleUpscayl={doubleUpscayl}
             setDoubleUpscayl={setDoubleUpscayl}
-            model={model}
             setModel={setModel}
-            isVideo={isVideo}
-            setIsVideo={setIsVideo}
-            gpuId={gpuId}
             setGpuId={setGpuId}
-            saveImageAs={saveImageAs}
             setSaveImageAs={setSaveImageAs}
             dimensions={dimensions}
           />
@@ -537,8 +546,6 @@ const Home = () => {
         {selectedTab === 1 && (
           <SettingsTab
             batchMode={batchMode}
-            setBatchMode={setBatchMode}
-            imagePath={imagePath}
             setModel={setModel}
             gpuId={gpuId}
             setGpuId={setGpuId}
