@@ -327,21 +327,6 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const saveImageAs = payload.saveImageAs as string;
   const scale = payload.scale as string;
 
-  // SAVE OUTPUT FOLDER TO LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
-    .then((result) => {
-      if (result === "false") return;
-      mainWindow.webContents
-        .executeJavaScript(
-          `localStorage.setItem("lastFolderPath", "${folderPath}");`,
-          true
-        )
-        .then(() => {
-          logit(`Saved Last Folder Path (${folderPath}) to Local Storage`);
-        });
-    });
-
   const isDefaultModel = defaultModels.includes(model);
 
   // COPY IMAGE TO TMP FOLDER
