@@ -1,3 +1,6 @@
+import getPlatform from "../getPlatform";
+const slash: string = getPlatform() === "win" ? "\\" : "/";
+
 export const getSingleImageArguments = (
   inputDir: string,
   fullfileName: string,
@@ -10,7 +13,7 @@ export const getSingleImageArguments = (
 ) => {
   return [
     "-i",
-    inputDir + "/" + fullfileName,
+    inputDir + slash + fullfileName,
     "-o",
     outFile,
     "-s",
@@ -37,14 +40,14 @@ export const getSingleImageSharpenArguments = (
 ) => {
   return [
     "-i",
-    inputDir + "/" + fullfileName,
+    inputDir + slash + fullfileName,
     "-o",
     outFile,
     "-s",
     scale,
     "-x",
     "-m",
-    modelsPath + "/" + model,
+    modelsPath + slash + model,
     gpuId ? `-g ${gpuId}` : "",
     "-f",
     saveImageAs,
@@ -63,7 +66,7 @@ export const getDoubleUpscaleArguments = (
 ) => {
   return [
     "-i",
-    inputDir + "/" + fullfileName,
+    inputDir + slash + fullfileName,
     "-o",
     outFile,
     "-s",
@@ -149,7 +152,7 @@ export const getBatchSharpenArguments = (
     scale,
     "-x",
     "-m",
-    modelsPath + "/" + model,
+    modelsPath + slash + model,
     gpuId ? `-g ${gpuId}` : "",
     "-f",
     saveImageAs,
