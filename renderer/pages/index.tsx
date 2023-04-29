@@ -141,6 +141,7 @@ const Home = () => {
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledImagePath(data);
+      console.log("upscaledImagePath: ", upscaledImagePath)
       addToLog(data);
     });
 
@@ -472,6 +473,11 @@ const Home = () => {
     }
   };
 
+  const stopHandler = () => {
+    window.electron.send(commands.STOP);
+    resetImagePaths();
+  }
+
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
   const allowedVideoFileTypes = ["webm", "mp4", "mkv"];
 
@@ -573,6 +579,7 @@ const Home = () => {
           <ProgressBar
             progress={progress}
             doubleUpscaylCounter={doubleUpscaylCounter}
+            stopHandler={stopHandler}
           />
         ) : null}
 

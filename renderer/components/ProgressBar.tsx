@@ -1,7 +1,7 @@
 import React from "react";
 import Spinner from "./icons/Spinner";
 
-function ProgressBar({ progress, doubleUpscaylCounter }) {
+function ProgressBar({ progress, doubleUpscaylCounter, stopHandler }) {
   return (
     <div className="absolute flex h-full w-full flex-col items-center justify-center bg-base-300/50 backdrop-blur-lg">
       <div className="flex flex-col items-center gap-2">
@@ -14,6 +14,7 @@ function ProgressBar({ progress, doubleUpscaylCounter }) {
         <p className="rounded-full bg-base-300 px-2 py-1 text-sm font-medium">
           Doing the Upscayl magic...
         </p>
+        <button onClick={stopHandler}>STOP</button>
       </div>
     </div>
   );
