@@ -481,6 +481,11 @@ const Home = () => {
     resetImagePaths();
   }
 
+  const formatPath = (path) => {
+    //USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS
+    return path.replace(/([^/\\]+)$/i, encodeURIComponent(path.match(/[^/\\]+$/i)[0]))
+  }
+
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
   const allowedVideoFileTypes = ["webm", "mp4", "mkv"];
 
@@ -620,7 +625,7 @@ const Home = () => {
               <img
                 src={
                   "file://" +
-                  `${upscaledImagePath ? upscaledImagePath : imagePath}`
+                  `${upscaledImagePath ? formatPath(upscaledImagePath) : formatPath(imagePath)}`
                 }
                 onLoad={(e: any) => {
                   setDimensions({
@@ -677,7 +682,7 @@ const Home = () => {
                     </p>
 
                     <img
-                      src={"file://" + imagePath}
+                      src={"file:///" + formatPath(imagePath)}
                       alt="Original"
                       onMouseMove={handleMouseMove}
                       style={{
@@ -695,7 +700,7 @@ const Home = () => {
                       Upscayled
                     </p>
                     <img
-                      src={"file://" + upscaledImagePath}
+                      src={"file://" + formatPath(upscaledImagePath)}
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",
