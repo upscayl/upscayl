@@ -139,6 +139,7 @@ const Home = () => {
 
     // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
+      if (progress === "") return;
       setProgress("");
       setUpscaledImagePath(data);
       console.log("upscaledImagePath: ", upscaledImagePath)
@@ -147,6 +148,7 @@ const Home = () => {
 
     // FOLDER UPSCAYL DONE
     window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data: string) => {
+      if (progress === "") return;
       setProgress("");
       setUpscaledBatchFolderPath(data);
       addToLog(data);
@@ -154,6 +156,7 @@ const Home = () => {
 
     // DOUBLE UPSCAYL DONE
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
+      if (progress === "") return;
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
@@ -586,14 +589,14 @@ const Home = () => {
         {/* DEFAULT PANE INFO */}
         {((!isVideo &&
           !batchMode &&
-          imagePath.length === 0 ||
+          imagePath.length === 0 &&
           upscaledImagePath.length === 0) ||
           (!isVideo &&
             batchMode &&
-            batchFolderPath.length === 0 ||
+            batchFolderPath.length === 0 &&
             upscaledBatchFolderPath.length === 0) ||
           (isVideo &&
-            videoPath.length === 0 ||
+            videoPath.length === 0 &&
             upscaledVideoPath.length === 0)) && (
           <RightPaneInfo
             version={version}
