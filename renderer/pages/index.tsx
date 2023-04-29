@@ -139,6 +139,7 @@ const Home = () => {
 
     // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
+      if (progress === "") return;
       setProgress("");
       setUpscaledImagePath(data);
       console.log("upscaledImagePath: ", upscaledImagePath)
@@ -147,6 +148,7 @@ const Home = () => {
 
     // FOLDER UPSCAYL DONE
     window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data: string) => {
+      if (progress === "") return;
       setProgress("");
       setUpscaledBatchFolderPath(data);
       addToLog(data);
@@ -154,6 +156,7 @@ const Home = () => {
 
     // DOUBLE UPSCAYL DONE
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
+      if (progress === "") return;
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
