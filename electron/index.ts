@@ -45,6 +45,9 @@ let customModelsFolderPath: string | undefined = undefined;
 let outputFolderPath: string | undefined = undefined;
 let saveOutputFolder = false;
 
+// Slashes for use in directory names
+const slash: string = getPlatform() === "win" ? "\\" : "/";
+
 // Prepare the renderer once the app is ready
 let mainWindow: BrowserWindow;
 app.on("ready", async () => {
@@ -338,15 +341,11 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const isDefaultModel = defaultModels.includes(model);
 
   // COPY IMAGE TO TMP FOLDER
-  const platform = getPlatform();
-  const fullfileName =
-    platform === "win"
-      ? (payload.imagePath.split("\\").slice(-1)[0] as string)
-      : (payload.imagePath.split("/").slice(-1)[0] as string);
+  
+  const fullfileName = (payload.imagePath.split(slash).slice(-1)[0] as string);
   const fileName = parse(fullfileName).name;
-  const fileExt = parse(fullfileName).ext;
   const outFile =
-    outputDir + "/" + fileName + "_upscayl_16x_" + model + "." + saveImageAs;
+    outputDir + slash + fileName + "_upscayl_16x_" + model + "." + saveImageAs;
 
   // UPSCALE
   let upscayl = spawnUpscayl(
@@ -474,7 +473,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
 
   const outFile =
     outputDir +
-    "/" +
+    slash +
     fileName +
     "_upscayl_" +
     scale +
@@ -680,8 +679,8 @@ autoUpdater.on("update-downloaded", (event) => {
 //     ffmpeg.path,
 //     [
 //       "-i",
-//       inputDir + "/" + videoFileName,
-//       frameExtractionPath + "/" + "out%d.png",
+//       inputDir + slash + videoFileName,
+//       frameExtractionPath + slash + "out%d.png",
 //     ],
 //     {
 //       cwd: undefined,
