@@ -586,14 +586,14 @@ const Home = () => {
         {/* DEFAULT PANE INFO */}
         {((!isVideo &&
           !batchMode &&
-          imagePath.length === 0 &&
+          imagePath.length === 0 ||
           upscaledImagePath.length === 0) ||
           (!isVideo &&
             batchMode &&
-            batchFolderPath.length === 0 &&
+            batchFolderPath.length === 0 ||
             upscaledBatchFolderPath.length === 0) ||
           (isVideo &&
-            videoPath.length === 0 &&
+            videoPath.length === 0 ||
             upscaledVideoPath.length === 0)) && (
           <RightPaneInfo
             version={version}
