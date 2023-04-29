@@ -14,7 +14,9 @@ function ProgressBar({ progress, doubleUpscaylCounter, stopHandler }) {
         <p className="rounded-full bg-base-300 px-2 py-1 text-sm font-medium">
           Doing the Upscayl magic...
         </p>
-        <button onClick={stopHandler}>STOP</button>
+        <button onClick={stopHandler} className="btn-primary btn">
+          STOP
+        </button>
       </div>
     </div>
   );
