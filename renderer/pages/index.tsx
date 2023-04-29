@@ -617,7 +617,7 @@ const Home = () => {
               <img
                 src={
                   "file://" +
-                  `${upscaledImagePath ? upscaledImagePath : imagePath}`
+                  `${upscaledImagePath ? upscaledImagePath.replace(/([^/\\]+)$/i, encodeURIComponent(upscaledImagePath.match(/[^/\\]+$/i)[0])) : imagePath.replace(/([^/\\]+)$/i, encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0]))}`
                 }
                 onLoad={(e: any) => {
                   setDimensions({
@@ -674,7 +674,7 @@ const Home = () => {
                     </p>
 
                     <img
-                      src={"file://" + imagePath}
+                      src={"file:///" + imagePath.replace(/([^/\\]+)$/i, encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0]))}
                       alt="Original"
                       onMouseMove={handleMouseMove}
                       style={{
@@ -692,7 +692,7 @@ const Home = () => {
                       Upscayled
                     </p>
                     <img
-                      src={"file://" + upscaledImagePath}
+                      src={"file://" + upscaledImagePath.replace(/([^/\\]+)$/i, encodeURIComponent(upscaledImagePath.match(/[^/\\]+$/i)[0]))}
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",
