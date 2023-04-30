@@ -62,8 +62,11 @@ const Home = () => {
     setLoaded(true);
 
     setVersion(navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1]);
+    logit(`version: ${version}`);
 
     const handleErrors = (data: string) => {
+      logit(`Error: ${data}`);
+
       if (data.includes("invalid gpu")) {
         alert(
           "Error. Please make sure you have a Vulkan compatible GPU (Most modern GPUs support Vulkan). Upscayl does not work with CPU or iGPU sadly."
@@ -142,6 +145,7 @@ const Home = () => {
     window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledBatchFolderPath(data);
+      logit("upscaledBatchFolderPath: ", upscaledBatchFolderPath);
       logit(data);
     });
 
@@ -150,6 +154,7 @@ const Home = () => {
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
+      logit("upscaledImagePath: ", upscaledImagePath);
       logit(data);
     });
 
@@ -157,6 +162,7 @@ const Home = () => {
     window.electron.on(commands.UPSCAYL_VIDEO_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledVideoPath(data);
+      logit("upscaledVideoPath: ", upscaledVideoPath);
       logit(data);
     });
 
@@ -197,6 +203,9 @@ const Home = () => {
     const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
     const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
 
+    logit("localStorage (rememberOutputFolder): ", rememberOutputFolder);
+    logit("localStorage (lastOutputFolderPath): ", lastOutputFolderPath);
+
     if (rememberOutputFolder === "true") {
       setOutputPath(lastOutputFolderPath);
     } else {
@@ -217,9 +226,18 @@ const Home = () => {
         filePath
       );
 
+      logit(
+        "filePath: ",
+        filePath
+      );
+
       const extension = imagePath.toLocaleLowerCase().split(".").pop();
       console.log(
         "🚀 => file: index.jsx => line 111 => useEffect => extension",
+        extension
+      );
+      logit(
+        "extension: ",
         extension
       );
 

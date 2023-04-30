@@ -4,6 +4,7 @@ import commands from "../../electron/commands";
 import { useAtom } from "jotai";
 import { customModelsPathAtom, scaleAtom } from "../atoms/userSettingsAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
+import useLog from "./hooks/useLog";
 
 interface IProps {
   batchMode: boolean;
@@ -41,6 +42,8 @@ function SettingsTab({
   const [scale, setScale] = useAtom(scaleAtom);
 
   const [rememberOutputFolder, setRememberOutputFolder] = useState(false);
+
+  const { logit } = useLog();
 
   useEffect(() => {
     themeChange(false);
@@ -99,6 +102,7 @@ function SettingsTab({
   };
 
   const handleGpuIdChange = (e) => {
+    logit("New GPU ID: ", e.target.value);
     setGpuId(e.target.value);
     localStorage.setItem("gpuId", e.target.value);
   };
