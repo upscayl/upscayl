@@ -12,18 +12,14 @@ import SettingsTab from "../components/SettingsTab";
 import { useAtom } from "jotai";
 import { logAtom } from "../atoms/logAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
-import {
-  batchModeAtom,
-  customModelsPathAtom,
-  scaleAtom,
-} from "../atoms/userSettingsAtom";
+import { batchModeAtom, scaleAtom } from "../atoms/userSettingsAtom";
 
 const Home = () => {
   // STATES
   const [imagePath, SetImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
   const [outputPath, setOutputPath] = useState("");
-  const [scaleFactor, setScaleFactor] = useState(4);
+  const [scaleFactor] = useState(4);
   const [progress, setProgress] = useState("");
   const [model, setModel] = useState("realesrgan-x4plus");
   const [loaded, setLoaded] = useState(false);
@@ -32,7 +28,7 @@ const Home = () => {
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
-  const [isVideo, setIsVideo] = useState(false);
+  const [isVideo] = useState(false);
   const [videoPath, setVideoPath] = useState("");
   const [upscaledVideoPath, setUpscaledVideoPath] = useState("");
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
@@ -46,7 +42,6 @@ const Home = () => {
   });
   const [selectedTab, setSelectedTab] = useState(0);
   const [logData, setLogData] = useAtom(logAtom);
-  const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
   const [scale] = useAtom(scaleAtom);
 
@@ -139,7 +134,6 @@ const Home = () => {
 
     // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
-      if (progress === "") return;
       setProgress("");
       setUpscaledImagePath(data);
       console.log("upscaledImagePath: ", upscaledImagePath);
@@ -148,7 +142,6 @@ const Home = () => {
 
     // FOLDER UPSCAYL DONE
     window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data: string) => {
-      if (progress === "") return;
       setProgress("");
       setUpscaledBatchFolderPath(data);
       addToLog(data);
@@ -156,7 +149,6 @@ const Home = () => {
 
     // DOUBLE UPSCAYL DONE
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
-      if (progress === "") return;
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
@@ -260,6 +252,7 @@ const Home = () => {
       width: null,
       height: null,
     });
+
     setProgress("");
 
     SetImagePath("");

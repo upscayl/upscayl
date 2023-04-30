@@ -30,7 +30,10 @@ import isDev from "electron-is-dev";
 import commands from "./commands";
 import { ChildProcessWithoutNullStreams } from "child_process";
 
-let ChildProcess : { process: ChildProcessWithoutNullStreams; kill: () => boolean; }[] = []
+let childProcesses: {
+  process: ChildProcessWithoutNullStreams;
+  kill: () => boolean;
+}[] = [];
 
 log.initialize({ preload: true });
 
@@ -44,6 +47,8 @@ let folderPath: string | undefined = undefined;
 let customModelsFolderPath: string | undefined = undefined;
 let outputFolderPath: string | undefined = undefined;
 let saveOutputFolder = false;
+
+let stopped = false;
 
 // Slashes for use in directory names
 const slash: string = getPlatform() === "win" ? "\\" : "/";
@@ -319,10 +324,13 @@ ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
   shell.openPath(payload);
 });
 
+//------------------------Stop Command-----------------------------//
 ipcMain.on(commands.STOP, async (event, payload) => {
-  ChildProcess.forEach((child) => {
+  stopped = true;
+
+  childProcesses.forEach((child) => {
     child.kill();
-  })
+  });
 });
 
 //------------------------Double Upscayl-----------------------------//
@@ -341,8 +349,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   const isDefaultModel = defaultModels.includes(model);
 
   // COPY IMAGE TO TMP FOLDER
-  
-  const fullfileName = (payload.imagePath.split(slash).slice(-1)[0] as string);
+
+  const fullfileName = payload.imagePath.split(slash).slice(-1)[0] as string;
   const fileName = parse(fullfileName).name;
   const outFile =
     outputDir + slash + fileName + "_upscayl_16x_" + model + "." + saveImageAs;
@@ -362,11 +370,12 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     )
   );
 
+  childProcesses.push(upscayl);
+
+  stopped = false;
   let failed = false;
   let isAlpha = false;
   let failed2 = false;
-
-  ChildProcess.push(upscayl)
 
   const onData = (data) => {
     // CONVERT DATA TO STRING
@@ -381,6 +390,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
       isAlpha = true;
     }
   };
+
   const onError = (data) => {
     data.toString();
     // SEND UPSCAYL PROGRESS TO RENDERER
@@ -389,6 +399,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     failed = true;
     return;
   };
+
   const onData2 = (data) => {
     // CONVERT DATA TO STRING
     data = data.toString();
@@ -399,6 +410,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
       failed2 = true;
     }
   };
+
   const onError2 = (data) => {
     data.toString();
     // SEND UPSCAYL PROGRESS TO RENDERER
@@ -407,8 +419,9 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     failed2 = true;
     return;
   };
+
   const onClose2 = (code) => {
-    if (!failed2) {
+    if (!failed2 && !stopped) {
       logit("Done upscaling");
       mainWindow.webContents.send(
         commands.DOUBLE_UPSCAYL_DONE,
@@ -421,7 +434,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   upscayl.process.on("error", onError);
   upscayl.process.on("close", (code) => {
     // IF NOT FAILED
-    if (!failed) {
+    if (!failed && !stopped) {
       // UPSCALE
       let upscayl2 = spawnUpscayl(
         "realesrgan",
@@ -436,7 +449,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
         )
       );
 
-      ChildProcess.push(upscayl2)
+      childProcesses.push(upscayl2);
 
       upscayl2.process.stderr.on("data", onData2);
       upscayl2.process.on("error", onError2);
@@ -501,16 +514,15 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       )
     );
 
+    childProcesses.push(upscayl);
+
+    stopped = false;
     let isAlpha = false;
     let failed = false;
 
-    ChildProcess.push(upscayl)
-
     const onData = (data: string) => {
       logit("image upscayl: ", data.toString());
-
       mainWindow.setProgressBar(parseFloat(data.slice(0, data.length)) / 100);
-
       data = data.toString();
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("invalid gpu") || data.includes("failed")) {
@@ -527,7 +539,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       return;
     };
     const onClose = () => {
-      if (failed !== true) {
+      if (!failed && !stopped) {
         logit("Done upscaling");
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
@@ -581,9 +593,11 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     )
   );
 
-  ChildProcess.push(upscayl)
+  childProcesses.push(upscayl);
 
+  stopped = false;
   let failed = false;
+
   const onData = (data: any) => {
     logit("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
     data = data.toString();
@@ -604,7 +618,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     return;
   };
   const onClose = () => {
-    if (failed !== true) {
+    if (!failed && !stopped) {
       logit("Done upscaling");
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
     }
