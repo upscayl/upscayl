@@ -13,6 +13,7 @@ import { useAtom } from "jotai";
 import { logAtom } from "../atoms/logAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 import { batchModeAtom, scaleAtom } from "../atoms/userSettingsAtom";
+import useLog from "../components/hooks/useLog";
 
 const Home = () => {
   // STATES
@@ -45,6 +46,8 @@ const Home = () => {
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
   const [scale] = useAtom(scaleAtom);
 
+  const { logit } = useLog();
+
   // (function () {
   //   let info = console.info;
 
@@ -53,11 +56,6 @@ const Home = () => {
   //     info.apply(this, args);
   //   };
   // })();
-
-  const addToLog = (data: string) => {
-    console.log("🚀 => file: index.tsx:52 => data:", data);
-    setLogData((prevLogData) => [...prevLogData, data]);
-  };
 
   // EFFECTS
   useEffect(() => {
@@ -90,7 +88,7 @@ const Home = () => {
 
     // LOG
     window.electron.on(commands.LOG, (_, data: string) => {
-      addToLog(data);
+      logit(data);
     });
 
     // UPSCAYL PROGRESS
@@ -99,7 +97,7 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      addToLog(data);
+      logit(data);
     });
 
     // FOLDER UPSCAYL PROGRESS
@@ -108,7 +106,7 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      addToLog(data);
+      logit(data);
     });
 
     // DOUBLE UPSCAYL PROGRESS
@@ -120,7 +118,7 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      addToLog(data);
+      logit(data);
     });
 
     // VIDEO UPSCAYL PROGRESS
@@ -129,22 +127,22 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      addToLog(data);
+      logit(data);
     });
 
     // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledImagePath(data);
-      console.log("upscaledImagePath: ", upscaledImagePath);
-      addToLog(data);
+      logit("upscaledImagePath: ", upscaledImagePath);
+      logit(data);
     });
 
     // FOLDER UPSCAYL DONE
     window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledBatchFolderPath(data);
-      addToLog(data);
+      logit(data);
     });
 
     // DOUBLE UPSCAYL DONE
@@ -152,14 +150,14 @@ const Home = () => {
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
-      addToLog(data);
+      logit(data);
     });
 
     // VIDEO UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_VIDEO_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledVideoPath(data);
-      addToLog(data);
+      logit(data);
     });
 
     // CUSTOM FOLDER LISTENER
