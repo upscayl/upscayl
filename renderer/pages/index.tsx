@@ -82,12 +82,12 @@ const Home = () => {
           data.includes("encode")
             ? "ENCODING ERROR => "
             : "DECODING ERROR => " +
-                "This image is possibly corrupt or not supported by Upscayl. You could try converting the image into another format and upscaling again. Otherwise, make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely this image is not supported by Upscayl, sorry."
+                "This image is possibly corrupt or not supported by Upscayl, or your GPU drivers are acting funny (Did you check if your GPU is compatible and drivers are alright?). You could try converting the image into another format and upscaling again. Also make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely there's not much we can do to help, sorry."
         );
         resetImagePaths();
       } else if (data.includes("uncaughtException")) {
         alert(
-          "Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try launching Upscayl using commandline through Terminal and see if you get any information. You can post an issue on Upscayl's GitHub repository for more help."
+          "Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try checking the logs to see if you get any information. You can post an issue on Upscayl's GitHub repository for more help."
         );
         resetImagePaths();
       }
@@ -139,14 +139,16 @@ const Home = () => {
 
     // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
+      if (progress === "") return;
       setProgress("");
       setUpscaledImagePath(data);
-      console.log("upscaledImagePath: ", upscaledImagePath)
+      console.log("upscaledImagePath: ", upscaledImagePath);
       addToLog(data);
     });
 
     // FOLDER UPSCAYL DONE
     window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data: string) => {
+      if (progress === "") return;
       setProgress("");
       setUpscaledBatchFolderPath(data);
       addToLog(data);
@@ -154,6 +156,7 @@ const Home = () => {
 
     // DOUBLE UPSCAYL DONE
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
+      if (progress === "") return;
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
@@ -476,7 +479,15 @@ const Home = () => {
   const stopHandler = () => {
     window.electron.send(commands.STOP);
     resetImagePaths();
-  }
+  };
+
+  const formatPath = (path) => {
+    //USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS
+    return path.replace(
+      /([^/\\]+)$/i,
+      encodeURIComponent(path.match(/[^/\\]+$/i)[0])
+    );
+  };
 
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
   const allowedVideoFileTypes = ["webm", "mp4", "mkv"];
@@ -617,7 +628,11 @@ const Home = () => {
               <img
                 src={
                   "file://" +
-                  `${upscaledImagePath ? upscaledImagePath : imagePath}`
+                  `${
+                    upscaledImagePath
+                      ? formatPath(upscaledImagePath)
+                      : formatPath(imagePath)
+                  }`
                 }
                 onLoad={(e: any) => {
                   setDimensions({
@@ -674,7 +689,7 @@ const Home = () => {
                     </p>
 
                     <img
-                      src={"file://" + imagePath}
+                      src={"file:///" + formatPath(imagePath)}
                       alt="Original"
                       onMouseMove={handleMouseMove}
                       style={{
@@ -692,7 +707,7 @@ const Home = () => {
                       Upscayled
                     </p>
                     <img
-                      src={"file://" + upscaledImagePath}
+                      src={"file://" + formatPath(upscaledImagePath)}
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",
