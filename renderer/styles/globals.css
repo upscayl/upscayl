@@ -50,7 +50,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply rounded-full bg-base-300/50;
+    @apply rounded-full bg-base-300/80;
   }
 
   ::-webkit-scrollbar-thumb {

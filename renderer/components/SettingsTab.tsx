@@ -59,7 +59,7 @@ function SettingsTab({
     } else {
       const currentlySavedModel = JSON.parse(
         localStorage.getItem("model")
-      ) as typeof modelOptions[0];
+      ) as (typeof modelOptions)[0];
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
     }
@@ -208,6 +208,8 @@ function SettingsTab({
             if (customModelPath !== null) {
               setCustomModelsPath(customModelPath);
               window.electron.send(commands.GET_MODELS_LIST, customModelPath);
+            } else {
+              setCustomModelsPath("");
             }
           }}>
           Select Folder

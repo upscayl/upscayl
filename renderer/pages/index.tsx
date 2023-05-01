@@ -303,6 +303,9 @@ const Home = () => {
     if (path !== null) {
       setBatchFolderPath(path);
       setOutputPath(path + "_upscayled");
+    } else {
+      setBatchFolderPath("");
+      setOutputPath("");
     }
   };
 
@@ -406,7 +409,7 @@ const Home = () => {
         localStorage.setItem("lastOutputFolderPath", path);
       }
     } else {
-      console.log("Getting output path from input file");
+      setOutputPath("");
     }
   };
 
