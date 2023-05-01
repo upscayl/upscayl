@@ -58,7 +58,6 @@ let mainWindow: BrowserWindow;
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
-  log.info("🚀 ICON PATH: ", join(__dirname, "build", "icon.png"));
   log.info("🚀 UPSCAYL EXEC PATH: ", execPath(""));
   log.info("🚀 MODELS PATH: ", modelsPath);
 
@@ -153,7 +152,7 @@ app.on("ready", async () => {
 // Quit the app once all windows are closed
 app.on("window-all-closed", app.quit);
 
-log.log(app.getAppPath());
+log.log("🚃 App Path: ", app.getAppPath());
 
 const logit = (...args: any) => {
   log.log(...args);
@@ -179,10 +178,9 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
   });
 
   if (canceled) {
-    logit("File Operation Cancelled");
+    logit("❌ File Operation Cancelled");
     return null;
   } else {
-    logit("Selected File Path: ", filePaths[0]);
     imagePath = filePaths[0];
 
     let isValid = false;
@@ -204,6 +202,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
     });
 
     if (!isValid) {
+      logit("❌ Invalid File Detected");
       const options: MessageBoxOptions = {
         type: "error",
         title: "Invalid File",
@@ -214,6 +213,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
       return null;
     }
 
+    logit("ℹ Selected File Path: ", filePaths[0]);
     // CREATE input AND upscaled FOLDER
     return filePaths[0];
   }
@@ -225,11 +225,13 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
     properties: ["openDirectory"],
     defaultPath: folderPath,
   });
+
   if (canceled) {
+    logit("❌ Select Folder Operation Cancelled");
     return null;
   } else {
-    logit("Selected Folder Path: ", folderPaths[0]);
     folderPath = folderPaths[0];
+    logit("ℹ Selected Folder Path: ", folderPath);
     return folderPaths[0];
   }
 });
@@ -257,6 +259,7 @@ const getModels = (folderPath: string) => {
   });
 
   if (!isValid) {
+    logit("❌ Invalid Custom Model Folder Detected");
     const options: MessageBoxOptions = {
       type: "error",
       title: "Invalid Folder",
@@ -268,12 +271,16 @@ const getModels = (folderPath: string) => {
     return null;
   }
 
+  logit("ℹ Detected Custom Models: ", models);
   return models;
 };
 
 ipcMain.on(commands.GET_MODELS_LIST, async (event, payload) => {
   if (payload) {
     customModelsFolderPath = payload;
+
+    logit("ℹ Custom Models Folder Path: ", customModelsFolderPath);
+
     mainWindow.webContents.send(
       commands.CUSTOM_MODEL_FILES_LIST,
       getModels(payload)
@@ -289,15 +296,16 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
     defaultPath: customModelsFolderPath,
   });
   if (canceled) {
+    logit("❌ Select Custom Models Folder Operation Cancelled");
     return null;
   } else {
-    logit("Custom Folder Path: ", folderPaths[0]);
     customModelsFolderPath = folderPaths[0];
 
     if (
       !folderPaths[0].endsWith("/models") &&
       !folderPaths[0].endsWith("/models/")
     ) {
+      logit("❌ Invalid Custom Models Folder Detected: Not a 'models' folder");
       const options: MessageBoxOptions = {
         type: "error",
         title: "Invalid Folder",
@@ -314,13 +322,14 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
       getModels(customModelsFolderPath)
     );
 
+    logit("Custom Folder Path: ", customModelsFolderPath);
     return customModelsFolderPath;
   }
 });
 
 //------------------------Open Folder-----------------------------//
 ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
-  logit(payload);
+  logit("ℹ Opening Folder: ", payload);
   shell.openPath(payload);
 });
 
@@ -329,6 +338,7 @@ ipcMain.on(commands.STOP, async (event, payload) => {
   stopped = true;
 
   childProcesses.forEach((child) => {
+    logit("ℹ Stopping Upscaling Process", child.process.pid);
     child.kill();
   });
 });
@@ -367,7 +377,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
       gpuId,
       saveImageAs,
       scale
-    )
+    ),
+    logit
   );
 
   childProcesses.push(upscayl);
@@ -446,7 +457,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
           gpuId,
           saveImageAs,
           scale
-        )
+        ),
+        logit
       );
 
       childProcesses.push(upscayl2);
@@ -462,10 +474,9 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const model = payload.model as string;
   const scale = payload.scale as string;
-  console.log("🚀 => file: index.ts:385 => scale:", scale);
-
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
+
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
   let outputDir = folderPath || (payload.outputPath as string);
 
@@ -475,14 +486,9 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
 
   const isDefaultModel = defaultModels.includes(model);
 
-  // COPY IMAGE TO TMP FOLDER
   const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
-
   const fileName = parse(fullfileName).name;
-  logit("🚀 => fileName", fileName);
-
   const fileExt = parse(fullfileName).ext;
-  logit("🚀 => fileExt", fileExt);
 
   const outFile =
     outputDir +
@@ -498,6 +504,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   // UPSCALE
   if (fs.existsSync(outFile)) {
     // If already upscayled, just output that file
+    logit("ℹ Already upscayled at: ", outFile);
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
     const upscayl = spawnUpscayl(
@@ -511,7 +518,8 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         scale,
         gpuId,
         saveImageAs
-      )
+      ),
+      logit
     );
 
     childProcesses.push(upscayl);
@@ -526,10 +534,11 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       data = data.toString();
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("invalid gpu") || data.includes("failed")) {
+        logit("❌ INVALID GPU OR FAILED");
         failed = true;
       }
       if (data.includes("has alpha channel")) {
-        logit("INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
+        logit("ℹ INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
         isAlpha = true;
       }
     };
@@ -565,7 +574,6 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
 
   // GET THE IMAGE DIRECTORY
   let inputDir = payload.batchFolderPath;
-
   // GET THE OUTPUT DIRECTORY
   let outputDir = payload.outputPath;
 
@@ -590,7 +598,8 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       gpuId,
       saveImageAs,
       scale
-    )
+    ),
+    logit
   );
 
   childProcesses.push(upscayl);
@@ -599,13 +608,13 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   let failed = false;
 
   const onData = (data: any) => {
-    logit("🚀 => upscayl.stderr.on => stderr.toString()", data.toString());
     data = data.toString();
     mainWindow.webContents.send(
       commands.FOLDER_UPSCAYL_PROGRESS,
       data.toString()
     );
     if (data.includes("invalid gpu") || data.includes("failed")) {
+      logit("❌ INVALID GPU OR FAILED");
       failed = true;
     }
   };
@@ -640,6 +649,7 @@ autoUpdater.on("update-available", ({ releaseNotes, releaseName }) => {
     detail:
       "A new version is being downloaded. Please check GitHub for more details.",
   };
+  logit("ℹ Update Available", releaseName, releaseNotes);
   dialog.showMessageBox(dialogOpts).then((returnValue) => {});
 });
 
@@ -652,6 +662,7 @@ autoUpdater.on("update-downloaded", (event) => {
     detail:
       "A new version has been downloaded. Restart the application to apply the updates.",
   };
+  logit("ℹ Update Downloaded");
   dialog.showMessageBox(dialogOpts).then((returnValue) => {
     if (returnValue.response === 0) autoUpdater.quitAndInstall();
   });

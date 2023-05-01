@@ -1,8 +1,12 @@
 import { spawn } from "child_process";
 import { execPath } from "./binaries";
 
-export const spawnUpscayl = (binaryName: string, command: string[]) => {
-  console.log("ℹ Command: ", command);
+export const spawnUpscayl = (
+  binaryName: string,
+  command: string[],
+  logit: (...args: any) => void
+) => {
+  logit("ℹ Upscayl Command: ", command);
 
   const spawnedProcess = spawn(execPath(binaryName), command, {
     cwd: undefined,
