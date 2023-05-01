@@ -4,6 +4,7 @@ import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 import { themeChange } from "theme-change";
 import { modelsListAtom } from "../atoms/modelsListAtom";
+import useLog from "./hooks/useLog";
 
 interface IProps {
   progress: string;
@@ -53,15 +54,22 @@ function LeftPaneImageSteps({
     value: null,
   });
 
-  const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
+  const [modelOptions] = useAtom(modelsListAtom);
+
+  const { logit } = useLog();
 
   useEffect(() => {
     themeChange(false);
 
     if (!localStorage.getItem("saveImageAs")) {
+      logit("ℹ Setting saveImageAs to png");
       localStorage.setItem("saveImageAs", "png");
     } else {
       const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
+      logit(
+        "ℹ Getting saveImageAs from localStorage",
+        currentlySavedImageFormat
+      );
       setSaveImageAs(currentlySavedImageFormat);
     }
 
@@ -69,92 +77,29 @@ function LeftPaneImageSteps({
       setCurrentModel(modelOptions[0]);
       setModel(modelOptions[0].value);
       localStorage.setItem("model", JSON.stringify(modelOptions[0]));
+      logit("ℹ Setting model to", modelOptions[0].value);
     } else {
       const currentlySavedModel = JSON.parse(
         localStorage.getItem("model")
-      ) as typeof modelOptions[0];
+      ) as (typeof modelOptions)[0];
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
+      logit("ℹ Getting model from localStorage", currentlySavedModel.value);
     }
 
     if (!localStorage.getItem("gpuId")) {
       localStorage.setItem("gpuId", "");
+      logit("ℹ Setting gpuId to empty string");
     } else {
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
+      logit("ℹ Getting gpuId from localStorage", currentlySavedGpuId);
     }
   }, []);
 
   useEffect(() => {
-    console.log("Current Model: ", currentModel);
+    logit("ℹ Setting model to", currentModel.value);
   }, [currentModel]);
-
-  const setExportType = (format: string) => {
-    setSaveImageAs(format);
-    localStorage.setItem("saveImageAs", format);
-  };
-
-  const handleBatchMode = () => {
-    setBatchMode((oldValue) => !oldValue);
-  };
-
-  const handleGpuIdChange = (e) => {
-    setGpuId(e.target.value);
-    localStorage.setItem("gpuId", e.target.value);
-  };
-
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: "1px dotted pink",
-      color: state.isSelected ? "red" : "blue",
-      padding: 20,
-    }),
-    control: () => ({
-      // none of react-select's styles are passed to <Control />
-      width: 200,
-    }),
-    singleValue: (provided, state) => {
-      const opacity = state.isDisabled ? 0.5 : 1;
-      const transition = "opacity 300ms";
-
-      return { ...provided, opacity, transition };
-    },
-  };
-
-  const availableThemes = [
-    { label: "light", value: "light" },
-    { label: "dark", value: "dark" },
-    { label: "cupcake", value: "cupcake" },
-    { label: "bumblebee", value: "bumblebee" },
-    { label: "emerald", value: "emerald" },
-    { label: "corporate", value: "corporate" },
-    { label: "synthwave", value: "synthwave" },
-    { label: "retro", value: "retro" },
-    { label: "cyberpunk", value: "cyberpunk" },
-    { label: "valentine", value: "valentine" },
-    { label: "halloween", value: "halloween" },
-    { label: "garden", value: "garden" },
-    { label: "forest", value: "forest" },
-    { label: "aqua", value: "aqua" },
-    { label: "lofi", value: "lofi" },
-    { label: "pastel", value: "pastel" },
-    { label: "fantasy", value: "fantasy" },
-    { label: "wireframe", value: "wireframe" },
-    { label: "black", value: "black" },
-    { label: "luxury", value: "luxury" },
-    { label: "dracula", value: "dracula" },
-    { label: "cmyk", value: "cmyk" },
-    { label: "autumn", value: "autumn" },
-    { label: "business", value: "business" },
-    { label: "acid", value: "acid" },
-    { label: "lemonade", value: "lemonade" },
-    { label: "night", value: "night" },
-    { label: "coffee", value: "coffee" },
-    { label: "winter", value: "winter" },
-  ];
-
-  useEffect(() => {}, [imagePath]);
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
