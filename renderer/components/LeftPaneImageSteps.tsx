@@ -1,4 +1,4 @@
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import ReactTooltip from "react-tooltip";
@@ -19,9 +19,6 @@ interface IProps {
   outputPath: string;
   doubleUpscayl: boolean;
   setDoubleUpscayl: React.Dispatch<React.SetStateAction<boolean>>;
-  setModel: React.Dispatch<React.SetStateAction<string>>;
-  setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
-  setGpuId: React.Dispatch<React.SetStateAction<string>>;
   dimensions: {
     width: number | null;
     height: number | null;
@@ -41,9 +38,6 @@ function LeftPaneImageSteps({
   outputPath,
   doubleUpscayl,
   setDoubleUpscayl,
-  setModel,
-  setGpuId,
-  setSaveImageAs,
   dimensions,
 }: IProps) {
   const [currentModel, setCurrentModel] = useState<{
@@ -54,52 +48,7 @@ function LeftPaneImageSteps({
     value: null,
   });
 
-  const [modelOptions] = useAtom(modelsListAtom);
-
-  const { logit } = useLog();
-
-  useEffect(() => {
-    themeChange(false);
-
-    if (!localStorage.getItem("saveImageAs")) {
-      logit("ℹ Setting saveImageAs to png");
-      localStorage.setItem("saveImageAs", "png");
-    } else {
-      const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
-      logit(
-        "ℹ Getting saveImageAs from localStorage",
-        currentlySavedImageFormat
-      );
-      setSaveImageAs(currentlySavedImageFormat);
-    }
-
-    if (!localStorage.getItem("model")) {
-      setCurrentModel(modelOptions[0]);
-      setModel(modelOptions[0].value);
-      localStorage.setItem("model", JSON.stringify(modelOptions[0]));
-      logit("ℹ Setting model to", modelOptions[0].value);
-    } else {
-      const currentlySavedModel = JSON.parse(
-        localStorage.getItem("model")
-      ) as (typeof modelOptions)[0];
-      setCurrentModel(currentlySavedModel);
-      setModel(currentlySavedModel.value);
-      logit("ℹ Getting model from localStorage", currentlySavedModel.value);
-    }
-
-    if (!localStorage.getItem("gpuId")) {
-      localStorage.setItem("gpuId", "");
-      logit("ℹ Setting gpuId to empty string");
-    } else {
-      const currentlySavedGpuId = localStorage.getItem("gpuId");
-      setGpuId(currentlySavedGpuId);
-      logit("ℹ Getting gpuId from localStorage", currentlySavedGpuId);
-    }
-  }, []);
-
-  useEffect(() => {
-    logit("ℹ Setting model to", currentModel.value);
-  }, [currentModel]);
+  const modelOptions = useAtomValue(modelsListAtom);
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">

@@ -213,7 +213,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
       return null;
     }
 
-    logit("ℹ Selected File Path: ", filePaths[0]);
+    logit("📢 Selected File Path: ", filePaths[0]);
     // CREATE input AND upscaled FOLDER
     return filePaths[0];
   }
@@ -231,7 +231,7 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
     return null;
   } else {
     folderPath = folderPaths[0];
-    logit("ℹ Selected Folder Path: ", folderPath);
+    logit("📢 Selected Folder Path: ", folderPath);
     return folderPaths[0];
   }
 });
@@ -271,7 +271,7 @@ const getModels = (folderPath: string) => {
     return null;
   }
 
-  logit("ℹ Detected Custom Models: ", models);
+  logit("📢 Detected Custom Models: ", models);
   return models;
 };
 
@@ -279,7 +279,7 @@ ipcMain.on(commands.GET_MODELS_LIST, async (event, payload) => {
   if (payload) {
     customModelsFolderPath = payload;
 
-    logit("ℹ Custom Models Folder Path: ", customModelsFolderPath);
+    logit("📢 Custom Models Folder Path: ", customModelsFolderPath);
 
     mainWindow.webContents.send(
       commands.CUSTOM_MODEL_FILES_LIST,
@@ -329,7 +329,7 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
 
 //------------------------Open Folder-----------------------------//
 ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
-  logit("ℹ Opening Folder: ", payload);
+  logit("📢 Opening Folder: ", payload);
   shell.openPath(payload);
 });
 
@@ -338,7 +338,7 @@ ipcMain.on(commands.STOP, async (event, payload) => {
   stopped = true;
 
   childProcesses.forEach((child) => {
-    logit("ℹ Stopping Upscaling Process", child.process.pid);
+    logit("📢 Stopping Upscaling Process", child.process.pid);
     child.kill();
   });
 });
@@ -504,7 +504,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   // UPSCALE
   if (fs.existsSync(outFile)) {
     // If already upscayled, just output that file
-    logit("ℹ Already upscayled at: ", outFile);
+    logit("📢 Already upscayled at: ", outFile);
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
     const upscayl = spawnUpscayl(
@@ -538,7 +538,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         failed = true;
       }
       if (data.includes("has alpha channel")) {
-        logit("ℹ INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
+        logit("📢 INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
         isAlpha = true;
       }
     };
@@ -649,7 +649,7 @@ autoUpdater.on("update-available", ({ releaseNotes, releaseName }) => {
     detail:
       "A new version is being downloaded. Please check GitHub for more details.",
   };
-  logit("ℹ Update Available", releaseName, releaseNotes);
+  logit("📢 Update Available", releaseName, releaseNotes);
   dialog.showMessageBox(dialogOpts).then((returnValue) => {});
 });
 
@@ -662,7 +662,7 @@ autoUpdater.on("update-downloaded", (event) => {
     detail:
       "A new version has been downloaded. Restart the application to apply the updates.",
   };
-  logit("ℹ Update Downloaded");
+  logit("📢 Update Downloaded");
   dialog.showMessageBox(dialogOpts).then((returnValue) => {
     if (returnValue.response === 0) autoUpdater.quitAndInstall();
   });

@@ -79,7 +79,7 @@ const Home = () => {
 
     // LOG
     window.electron.on(commands.LOG, (_, data: string) => {
-      logit(`ℹ BACKEND REPORTED: `, data);
+      logit(`📢 BACKEND REPORTED: `, data);
     });
 
     // UPSCAYL PROGRESS
@@ -88,7 +88,7 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      logit(`ℹ UPSCAYL_PROGRESS: `, data);
+      logit(`📢 UPSCAYL_PROGRESS: `, data);
     });
 
     // FOLDER UPSCAYL PROGRESS
@@ -97,7 +97,7 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      logit(`ℹ FOLDER_UPSCAYL_PROGRESS: `, data);
+      logit(`📢 FOLDER_UPSCAYL_PROGRESS: `, data);
     });
 
     // DOUBLE UPSCAYL PROGRESS
@@ -109,7 +109,7 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      logit(`ℹ DOUBLE_UPSCAYL_PROGRESS: `, data);
+      logit(`📢 DOUBLE_UPSCAYL_PROGRESS: `, data);
     });
 
     // VIDEO UPSCAYL PROGRESS
@@ -118,7 +118,7 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      logit(`ℹ UPSCAYL_VIDEO_PROGRESS: `, data);
+      logit(`📢 UPSCAYL_VIDEO_PROGRESS: `, data);
     });
 
     // UPSCAYL DONE
@@ -126,14 +126,14 @@ const Home = () => {
       setProgress("");
       setUpscaledImagePath(data);
       logit("upscaledImagePath: ", upscaledImagePath);
-      logit(`ℹ UPSCAYL_DONE: `, data);
+      logit(`📢 UPSCAYL_DONE: `, data);
     });
 
     // FOLDER UPSCAYL DONE
     window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledBatchFolderPath(data);
-      logit(`ℹ FOLDER_UPSCAYL_DONE: `, data);
+      logit(`📢 FOLDER_UPSCAYL_DONE: `, data);
     });
 
     // DOUBLE UPSCAYL DONE
@@ -141,21 +141,21 @@ const Home = () => {
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
-      logit(`ℹ DOUBLE_UPSCAYL_DONE: `, data);
+      logit(`📢 DOUBLE_UPSCAYL_DONE: `, data);
     });
 
     // VIDEO UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_VIDEO_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledVideoPath(data);
-      logit(`ℹ UPSCAYL_VIDEO_DONE: `, data);
+      logit(`📢 UPSCAYL_VIDEO_DONE: `, data);
     });
 
     // CUSTOM FOLDER LISTENER
     window.electron.on(
       commands.CUSTOM_MODEL_FILES_LIST,
       (_, data: string[]) => {
-        logit(`ℹ CUSTOM_MODEL_FILES_LIST: `, data);
+        logit(`📢 CUSTOM_MODEL_FILES_LIST: `, data);
         const newModelOptions = data.map((model) => {
           return {
             value: model,
@@ -182,7 +182,7 @@ const Home = () => {
 
     if (customModelsPath !== null) {
       window.electron.send(commands.GET_MODELS_LIST, customModelsPath);
-      logit("ℹ GET_MODELS_LIST: ", customModelsPath);
+      logit("📢 GET_MODELS_LIST: ", customModelsPath);
     }
   }, []);
 
@@ -204,10 +204,10 @@ const Home = () => {
 
   useEffect(() => {
     if (imagePath.length > 0 && !isVideo) {
-      logit("ℹ imagePath: ", imagePath);
+      logit("📢 imagePath: ", imagePath);
 
       const extension = imagePath.toLocaleLowerCase().split(".").pop();
-      logit("ℹ Extension: ", extension);
+      logit("📢 Extension: ", extension);
 
       if (!allowedFileTypes.includes(extension.toLowerCase())) {
         alert("Please select an image");
@@ -228,7 +228,7 @@ const Home = () => {
   }, [imagePath, videoPath]);
 
   const resetImagePaths = () => {
-    logit("ℹ Resetting image paths");
+    logit("📢 Resetting image paths");
 
     setDimensions({
       width: null,
@@ -273,10 +273,10 @@ const Home = () => {
     var path = await window.electron.invoke(commands.SELECT_FILE);
 
     if (path !== null) {
-      logit("ℹ Selected Image Path: ", path);
+      logit("📢 Selected Image Path: ", path);
       SetImagePath(path);
       var dirname = path.match(/(.*)[\/\\]/)[1] || "";
-      logit("ℹ Selected Image Directory: ", dirname);
+      logit("📢 Selected Image Directory: ", dirname);
       setOutputPath(dirname);
     }
   };
@@ -287,11 +287,11 @@ const Home = () => {
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
 
     if (path !== null) {
-      logit("ℹ Selected Folder Path: ", path);
+      logit("📢 Selected Folder Path: ", path);
       setBatchFolderPath(path);
       setOutputPath(path + "_upscayled");
     } else {
-      logit("ℹ Folder selection cancelled");
+      logit("📢 Folder selection cancelled");
       setBatchFolderPath("");
       setOutputPath("");
     }
@@ -307,7 +307,7 @@ const Home = () => {
 
   const handleModelChange = (e: any) => {
     setModel(e.value);
-    logit("ℹ Model changed: ", e.value);
+    logit("📢 Model changed: ", e.value);
     localStorage.setItem(
       "model",
       JSON.stringify({ label: e.label, value: e.value })
@@ -329,7 +329,7 @@ const Home = () => {
   };
 
   const openFolderHandler = (e) => {
-    logit("ℹ OPEN_FOLDER: ", upscaledBatchFolderPath);
+    logit("📢 OPEN_FOLDER: ", upscaledBatchFolderPath);
     window.electron.send(commands.OPEN_FOLDER, upscaledBatchFolderPath);
   };
 
@@ -341,7 +341,7 @@ const Home = () => {
       e.dataTransfer.items.length === 0 ||
       e.dataTransfer.files.length === 0
     ) {
-      logit("ℹ No valid files dropped");
+      logit("📢 No valid files dropped");
       alert("Please drag and drop an image");
       return;
     }
@@ -349,25 +349,25 @@ const Home = () => {
     const type = e.dataTransfer.items[0].type;
     const filePath = e.dataTransfer.files[0].path;
     const extension = e.dataTransfer.files[0].name.split(".").at(-1);
-    logit("ℹ Dropped file: ", JSON.stringify({ type, filePath, extension }));
+    logit("📢 Dropped file: ", JSON.stringify({ type, filePath, extension }));
 
     if (
       (!type.includes("image") && !type.includes("video")) ||
       (!allowedFileTypes.includes(extension.toLowerCase()) &&
         !allowedVideoFileTypes.includes(extension.toLowerCase()))
     ) {
-      logit("ℹ Invalid file dropped");
+      logit("📢 Invalid file dropped");
       alert("Please drag and drop an image");
     } else {
       if (isVideo) {
         setVideoPath(filePath);
       } else {
-        logit("ℹ Setting image path: ", filePath);
+        logit("📢 Setting image path: ", filePath);
         SetImagePath(filePath);
       }
 
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
-      logit("ℹ Setting output path: ", dirname);
+      logit("📢 Setting output path: ", dirname);
       setOutputPath(dirname);
     }
   };
@@ -380,7 +380,7 @@ const Home = () => {
     const filePath = e.clipboardData.files[0].path;
     const extension = e.clipboardData.files[0].name.split(".").at(-1);
 
-    logit("ℹ Pasted file: ", JSON.stringify({ type, filePath, extension }));
+    logit("📢 Pasted file: ", JSON.stringify({ type, filePath, extension }));
 
     if (
       !type.includes("image") &&
@@ -390,7 +390,7 @@ const Home = () => {
     } else {
       SetImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
-      logit("ℹ Setting output path: ", dirname);
+      logit("📢 Setting output path: ", dirname);
       setOutputPath(dirname);
     }
   };
@@ -398,13 +398,13 @@ const Home = () => {
   const outputHandler = async () => {
     var path = await window.electron.invoke(commands.SELECT_FOLDER);
     if (path !== null) {
-      logit("ℹ Setting Output Path: ", path);
+      logit("📢 Setting Output Path: ", path);
       setOutputPath(path);
 
       const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
 
       if (rememberOutputFolder) {
-        logit("ℹ Remembering Output Folder: ", path);
+        logit("📢 Remembering Output Folder: ", path);
         localStorage.setItem("lastOutputFolderPath", path);
       }
     } else {
@@ -416,7 +416,7 @@ const Home = () => {
     if (isVideo) {
       setUpscaledVideoPath("");
     } else {
-      logit("ℹ Resetting Upscaled Image Path");
+      logit("📢 Resetting Upscaled Image Path");
       setUpscaledImagePath("");
     }
 
@@ -432,7 +432,7 @@ const Home = () => {
           saveImageAs,
           scale,
         });
-        logit("ℹ DOUBLE_UPSCAYL");
+        logit("📢 DOUBLE_UPSCAYL");
       } else if (batchMode) {
         setDoubleUpscayl(false);
         window.electron.send(commands.FOLDER_UPSCAYL, {
@@ -444,7 +444,7 @@ const Home = () => {
           saveImageAs,
           scale,
         });
-        logit("ℹ FOLDER_UPSCAYL");
+        logit("📢 FOLDER_UPSCAYL");
       } else {
         window.electron.send(commands.UPSCAYL, {
           scaleFactor,
@@ -455,7 +455,7 @@ const Home = () => {
           saveImageAs,
           scale,
         });
-        logit("ℹ UPSCAYL");
+        logit("📢 UPSCAYL");
       }
     }
     // else if (isVideo && videoPath !== "") {
@@ -470,19 +470,19 @@ const Home = () => {
     // }
     else {
       alert(`Please select ${isVideo ? "a video" : "an image"} to upscale`);
-      logit("ℹ No valid image selected");
+      logit("📢 No valid image selected");
     }
   };
 
   const stopHandler = () => {
     window.electron.send(commands.STOP);
-    logit("ℹ Stopping Upscayl");
+    logit("📢 Stopping Upscayl");
     resetImagePaths();
   };
 
   const formatPath = (path) => {
     //USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS
-    logit("ℹ Formatting path: ", path);
+    logit("📢 Formatting path: ", path);
     return path.replace(
       /([^/\\]+)$/i,
       encodeURIComponent(path.match(/[^/\\]+$/i)[0])
@@ -553,9 +553,6 @@ const Home = () => {
             outputPath={outputPath}
             doubleUpscayl={doubleUpscayl}
             setDoubleUpscayl={setDoubleUpscayl}
-            setModel={setModel}
-            setGpuId={setGpuId}
-            setSaveImageAs={setSaveImageAs}
             dimensions={dimensions}
           />
         )}

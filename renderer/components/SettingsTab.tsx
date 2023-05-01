@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 import commands from "../../electron/commands";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { customModelsPathAtom, scaleAtom } from "../atoms/userSettingsAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
+import useLog from "./hooks/useLog";
 
 interface IProps {
   batchMode: boolean;
@@ -32,23 +33,27 @@ function SettingsTab({
     label: null,
     value: null,
   });
-
+  const [rememberOutputFolder, setRememberOutputFolder] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
 
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
-  const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
-
+  const modelOptions = useAtomValue(modelsListAtom);
   const [scale, setScale] = useAtom(scaleAtom);
 
-  const [rememberOutputFolder, setRememberOutputFolder] = useState(false);
+  const { logit } = useLog();
 
   useEffect(() => {
     themeChange(false);
 
     if (!localStorage.getItem("saveImageAs")) {
+      logit("📢 Setting saveImageAs to png");
       localStorage.setItem("saveImageAs", "png");
     } else {
       const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
+      logit(
+        "📢 Getting saveImageAs from localStorage",
+        currentlySavedImageFormat
+      );
       setSaveImageAs(currentlySavedImageFormat);
     }
 
@@ -56,32 +61,36 @@ function SettingsTab({
       setCurrentModel(modelOptions[0]);
       setModel(modelOptions[0].value);
       localStorage.setItem("model", JSON.stringify(modelOptions[0]));
+      logit("📢 Setting model to", modelOptions[0].value);
     } else {
       const currentlySavedModel = JSON.parse(
         localStorage.getItem("model")
       ) as (typeof modelOptions)[0];
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
+      logit("📢 Getting model from localStorage", currentlySavedModel.value);
     }
 
     if (!localStorage.getItem("gpuId")) {
       localStorage.setItem("gpuId", "");
+      logit("📢 Setting gpuId to empty string");
     } else {
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
+      logit("📢 Getting gpuId from localStorage", currentlySavedGpuId);
     }
 
     if (!localStorage.getItem("rememberOutputFolder")) {
+      logit("📢 Setting rememberOutputFolder to false");
       localStorage.setItem("rememberOutputFolder", "false");
     } else {
       const currentlySavedRememberOutputFolder = localStorage.getItem(
         "rememberOutputFolder"
       );
-      console.log(
-        "🚀 => file: SettingsTab.tsx:80 => currentlySavedRememberOutputFolder:",
+      logit(
+        "📢 Getting rememberOutputFolder from localStorage",
         currentlySavedRememberOutputFolder
       );
-
       setRememberOutputFolder(
         currentlySavedRememberOutputFolder === "true" ? true : false
       );
@@ -89,7 +98,7 @@ function SettingsTab({
   }, []);
 
   useEffect(() => {
-    console.log("Current Model: ", currentModel);
+    logit("📢 Setting model to", currentModel.value);
   }, [currentModel]);
 
   // HANDLERS
