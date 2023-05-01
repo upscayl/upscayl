@@ -50,15 +50,15 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply rounded-full bg-base-300;
+    @apply rounded-full bg-base-300/50;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-base-200;
+    @apply rounded-full bg-base-content/20;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply rounded-full bg-base-content;
+    @apply rounded-full bg-base-content/50;
   }
 }
 
@@ -112,7 +112,7 @@
   }
 
   .react-select-container .react-select__option {
-    @apply my-1 cursor-pointer rounded-md bg-primary text-slate-50 hover:bg-primary-focus;
+    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-slate-50 hover:bg-primary-focus;
   }
 
   .react-select-container .react-select__option--is-selected {
