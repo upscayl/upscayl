@@ -68,7 +68,10 @@ function SettingsTab({
       ) as (typeof modelOptions)[0];
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
-      logit("📢 Getting model from localStorage", currentlySavedModel.value);
+      logit(
+        "📢 Getting model from localStorage",
+        JSON.stringify(currentlySavedModel)
+      );
     }
 
     if (!localStorage.getItem("gpuId")) {
@@ -96,10 +99,6 @@ function SettingsTab({
       );
     }
   }, []);
-
-  useEffect(() => {
-    logit("📢 Setting model to", currentModel.value);
-  }, [currentModel]);
 
   // HANDLERS
   const setExportType = (format: string) => {
@@ -203,7 +202,7 @@ function SettingsTab({
         />
       </div>
 
-      {/* GPU ID INPUT */}
+      {/* CUSTOM MODEL */}
       <div className="flex flex-col items-start gap-2">
         <p className="text-sm font-medium">ADD CUSTOM MODELS</p>
         <p className="text-sm text-base-content/60">{customModelsPath}</p>

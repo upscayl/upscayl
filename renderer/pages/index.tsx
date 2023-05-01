@@ -554,6 +554,9 @@ const Home = () => {
             doubleUpscayl={doubleUpscayl}
             setDoubleUpscayl={setDoubleUpscayl}
             dimensions={dimensions}
+            setGpuId={setGpuId}
+            setModel={setModel}
+            setSaveImageAs={setSaveImageAs}
           />
         )}
 

@@ -23,6 +23,9 @@ interface IProps {
     width: number | null;
     height: number | null;
   };
+  setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
+  setModel: React.Dispatch<React.SetStateAction<string>>;
+  setGpuId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function LeftPaneImageSteps({
@@ -39,6 +42,9 @@ function LeftPaneImageSteps({
   doubleUpscayl,
   setDoubleUpscayl,
   dimensions,
+  setSaveImageAs,
+  setModel,
+  setGpuId,
 }: IProps) {
   const [currentModel, setCurrentModel] = useState<{
     label: string;
@@ -49,6 +55,54 @@ function LeftPaneImageSteps({
   });
 
   const modelOptions = useAtomValue(modelsListAtom);
+
+  const { logit } = useLog();
+
+  useEffect(() => {
+    themeChange(false);
+
+    if (!localStorage.getItem("saveImageAs")) {
+      logit("📢 Setting saveImageAs to png");
+      localStorage.setItem("saveImageAs", "png");
+    } else {
+      const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
+      logit(
+        "📢 Getting saveImageAs from localStorage",
+        currentlySavedImageFormat
+      );
+      setSaveImageAs(currentlySavedImageFormat);
+    }
+
+    if (!localStorage.getItem("model")) {
+      setCurrentModel(modelOptions[0]);
+      setModel(modelOptions[0].value);
+      localStorage.setItem("model", JSON.stringify(modelOptions[0]));
+      logit("📢 Setting model to", modelOptions[0].value);
+    } else {
+      const currentlySavedModel = JSON.parse(
+        localStorage.getItem("model")
+      ) as (typeof modelOptions)[0];
+      setCurrentModel(currentlySavedModel);
+      setModel(currentlySavedModel.value);
+      logit(
+        "📢 Getting model from localStorage",
+        JSON.stringify(currentlySavedModel)
+      );
+    }
+
+    if (!localStorage.getItem("gpuId")) {
+      localStorage.setItem("gpuId", "");
+      logit("📢 Setting gpuId to empty string");
+    } else {
+      const currentlySavedGpuId = localStorage.getItem("gpuId");
+      setGpuId(currentlySavedGpuId);
+      logit("📢 Getting gpuId from localStorage", currentlySavedGpuId);
+    }
+  }, []);
+
+  useEffect(() => {
+    logit("📢 Setting model to", currentModel.value);
+  }, [currentModel]);
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
