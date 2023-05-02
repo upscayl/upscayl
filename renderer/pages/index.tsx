@@ -632,8 +632,8 @@ const Home = () => {
                   "file://" +
                   `${
                     upscaledImagePath
-                      ? formattedUpscaledImagePath
-                      : formattedImagePath
+                      ? upscaledImagePath
+                      : imagePath
                   }`
                 }
                 onLoad={(e: any) => {
