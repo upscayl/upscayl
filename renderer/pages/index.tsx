@@ -390,8 +390,7 @@ const Home = () => {
     ) {
       alert("Please drag and drop an image");
     } else {
-      SetImagePath(filePath);
-      setFormattedImagePath(formatPath(filePath));
+      SetImagePath(formatPath(filePath));
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       logit("📢 Setting output path: ", dirname);
       setOutputPath(dirname);
