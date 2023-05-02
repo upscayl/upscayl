@@ -19,6 +19,8 @@ const Home = () => {
   // STATES
   const [imagePath, SetImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
+  const [formattedImagePath, setFormattedImagePath] = useState("");
+  const [formattedUpscaledImagePath, setFormattedUpscaledImagePath] = useState("");
   const [outputPath, setOutputPath] = useState("");
   const [scaleFactor] = useState(4);
   const [progress, setProgress] = useState("");
@@ -126,6 +128,7 @@ const Home = () => {
       setProgress("");
       setUpscaledImagePath(data);
       logit("upscaledImagePath: ", upscaledImagePath);
+      setFormattedUpscaledImagePath(formatPath(data));
       logit(`📢 UPSCAYL_DONE: `, data);
     });
 
@@ -141,6 +144,7 @@ const Home = () => {
       setProgress("");
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
+      setFormattedUpscaledImagePath(formatPath(data));
       logit(`📢 DOUBLE_UPSCAYL_DONE: `, data);
     });
 
@@ -275,6 +279,7 @@ const Home = () => {
     if (path !== null) {
       logit("📢 Selected Image Path: ", path);
       SetImagePath(path);
+      setFormattedImagePath(formatPath(path));
       var dirname = path.match(/(.*)[\/\\]/)[1] || "";
       logit("📢 Selected Image Directory: ", dirname);
       setOutputPath(dirname);
@@ -364,6 +369,7 @@ const Home = () => {
       } else {
         logit("📢 Setting image path: ", filePath);
         SetImagePath(filePath);
+        setFormattedImagePath(formatPath(filePath));
       }
 
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
@@ -389,6 +395,7 @@ const Home = () => {
       alert("Please drag and drop an image");
     } else {
       SetImagePath(filePath);
+      setFormattedImagePath(formatPath(filePath));
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       logit("📢 Setting output path: ", dirname);
       setOutputPath(dirname);
@@ -630,8 +637,8 @@ const Home = () => {
                   "file://" +
                   `${
                     upscaledImagePath
-                      ? formatPath(upscaledImagePath)
-                      : formatPath(imagePath)
+                      ? formattedUpscaledImagePath
+                      : formattedImagePath
                   }`
                 }
                 onLoad={(e: any) => {
@@ -642,7 +649,7 @@ const Home = () => {
                 }}
                 draggable="false"
                 alt=""
-                className={`h-full w-full bg-[#1d1c23] object-contain`}
+                className="h-full w-full bg-[#1d1c23] object-contain"
               />
             </>
           )}
@@ -689,7 +696,7 @@ const Home = () => {
                     </p>
 
                     <img
-                      src={"file:///" + formatPath(imagePath)}
+                      src={"file:///" + formattedImagePath}
                       alt="Original"
                       onMouseMove={handleMouseMove}
                       style={{
@@ -707,7 +714,7 @@ const Home = () => {
                       Upscayled
                     </p>
                     <img
-                      src={"file://" + formatPath(upscaledImagePath)}
+                      src={"file://" + formattedUpscaledImagePath}
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",
