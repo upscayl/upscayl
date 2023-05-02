@@ -691,7 +691,7 @@ const Home = () => {
                     </p>
 
                     <img
-                      src={"file:///" + formattedImagePath}
+                      src={"file:///" + imagePath}
                       alt="Original"
                       onMouseMove={handleMouseMove}
                       style={{
