@@ -709,7 +709,7 @@ const Home = () => {
                       Upscayled
                     </p>
                     <img
-                      src={"file://" + formattedUpscaledImagePath}
+                      src={"file://" + upscaledImagePath}
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",
