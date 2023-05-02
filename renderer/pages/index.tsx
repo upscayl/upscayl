@@ -19,8 +19,6 @@ const Home = () => {
   // STATES
   const [imagePath, SetImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
-  const [formattedImagePath, setFormattedImagePath] = useState("");
-  const [formattedUpscaledImagePath, setFormattedUpscaledImagePath] = useState("");
   const [outputPath, setOutputPath] = useState("");
   const [scaleFactor] = useState(4);
   const [progress, setProgress] = useState("");
