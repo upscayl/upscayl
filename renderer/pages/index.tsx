@@ -365,8 +365,7 @@ const Home = () => {
         setVideoPath(filePath);
       } else {
         logit("📢 Setting image path: ", filePath);
-        SetImagePath(filePath);
-        setFormattedImagePath(formatPath(filePath));
+        SetImagePath(formatPath(filePath));
       }
 
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
