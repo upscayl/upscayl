@@ -126,9 +126,8 @@ const Home = () => {
     // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
-      setUpscaledImagePath(data);
+      setUpscaledImagePath(formatPath(data));
       logit("upscaledImagePath: ", upscaledImagePath);
-      setFormattedUpscaledImagePath(formatPath(data));
       logit(`📢 UPSCAYL_DONE: `, data);
     });
 
