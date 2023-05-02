@@ -584,7 +584,8 @@ const Home = () => {
         onDragOver={(e) => handleDragOver(e)}
         onDragEnter={(e) => handleDragEnter(e)}
         onDragLeave={(e) => handleDragLeave(e)}
-        onPaste={(e) => handlePaste(e)}>
+        onPaste={(e) => handlePaste(e)}
+      >
         {progress.length > 0 &&
         upscaledImagePath.length === 0 &&
         upscaledBatchFolderPath.length === 0 &&
@@ -630,11 +631,7 @@ const Home = () => {
               <img
                 src={
                   "file://" +
-                  `${
-                    upscaledImagePath
-                      ? upscaledImagePath
-                      : imagePath
-                  }`
+                  `${upscaledImagePath ? upscaledImagePath : imagePath}`
                 }
                 onLoad={(e: any) => {
                   setDimensions({
@@ -666,7 +663,8 @@ const Home = () => {
             </p>
             <button
               className="bg-gradient-blue rounded-lg p-3 font-medium text-white/90 transition-colors"
-              onClick={openFolderHandler}>
+              onClick={openFolderHandler}
+            >
               Open Upscayled Folder
             </button>
           </>
