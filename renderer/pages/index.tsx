@@ -143,8 +143,7 @@ const Home = () => {
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setDoubleUpscaylCounter(0);
-      setUpscaledImagePath(data);
-      setFormattedUpscaledImagePath(formatPath(data));
+      setUpscaledImagePath(formatPath(data));
       logit(`📢 DOUBLE_UPSCAYL_DONE: `, data);
     });
 
