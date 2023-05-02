@@ -276,8 +276,7 @@ const Home = () => {
 
     if (path !== null) {
       logit("📢 Selected Image Path: ", path);
-      SetImagePath(path);
-      setFormattedImagePath(formatPath(path));
+      SetImagePath(formatPath(path));
       var dirname = path.match(/(.*)[\/\\]/)[1] || "";
       logit("📢 Selected Image Directory: ", dirname);
       setOutputPath(dirname);
