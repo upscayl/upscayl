@@ -480,15 +480,6 @@ const Home = () => {
     resetImagePaths();
   };
 
-  const formatPath = (path) => {
-    //USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS
-    logit("📢 Formatting path: ", path);
-    return path.replace(
-      /([^/\\]+)$/i,
-      encodeURIComponent(path.match(/[^/\\]+$/i)[0])
-    );
-  };
-
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
   const allowedVideoFileTypes = ["webm", "mp4", "mkv"];
 
@@ -629,7 +620,19 @@ const Home = () => {
               <img
                 src={
                   "file://" +
-                  `${upscaledImagePath ? upscaledImagePath : imagePath}`
+                  `${
+                    upscaledImagePath
+                      ? upscaledImagePath.replace(
+                          /([^/\\]+)$/i,
+                          encodeURIComponent(
+                            upscaledImagePath.match(/[^/\\]+$/i)[0]
+                          )
+                        )
+                      : imagePath.replace(
+                          /([^/\\]+)$/i,
+                          encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0])
+                        )
+                  }`
                 }
                 onLoad={(e: any) => {
                   setDimensions({
@@ -688,9 +691,13 @@ const Home = () => {
 
                     <img
                       /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                      src={"file:///" + imagePath.replace(
-                        /([^/\\]+)$/i,
-                        encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0]))}
+                      src={
+                        "file:///" +
+                        imagePath.replace(
+                          /([^/\\]+)$/i,
+                          encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0])
+                        )
+                      }
                       alt="Original"
                       onMouseMove={handleMouseMove}
                       style={{
@@ -709,9 +716,15 @@ const Home = () => {
                     </p>
                     <img
                       /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                      src={"file://" + upscaledImagePath.replace(
-                        /([^/\\]+)$/i,
-                        encodeURIComponent(upscaledImagePath.match(/[^/\\]+$/i)[0]))}
+                      src={
+                        "file://" +
+                        upscaledImagePath.replace(
+                          /([^/\\]+)$/i,
+                          encodeURIComponent(
+                            upscaledImagePath.match(/[^/\\]+$/i)[0]
+                          )
+                        )
+                      }
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",
@@ -730,11 +743,16 @@ const Home = () => {
 
         {isVideo && videoPath.length > 0 && upscaledVideoPath.length === 0 && (
           <video autoPlay controls className="m-10 w-11/12 rounded-2xl">
-            <source 
-              src={"file://" + videoPath.replace(
-                /([^/\\]+)$/i,
-                encodeURIComponent(videoPath.match(/[^/\\]+$/i)[0]))} 
-              type="video/mp4" />
+            <source
+              src={
+                "file://" +
+                videoPath.replace(
+                  /([^/\\]+)$/i,
+                  encodeURIComponent(videoPath.match(/[^/\\]+$/i)[0])
+                )
+              }
+              type="video/mp4"
+            />
           </video>
         )}
       </div>
