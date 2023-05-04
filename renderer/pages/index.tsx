@@ -124,7 +124,7 @@ const Home = () => {
     // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
-      setUpscaledImagePath(formatPath(data));
+      setUpscaledImagePath(data);
       logit("upscaledImagePath: ", upscaledImagePath);
       logit(`📢 UPSCAYL_DONE: `, data);
     });
@@ -140,7 +140,7 @@ const Home = () => {
     window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setDoubleUpscaylCounter(0);
-      setUpscaledImagePath(formatPath(data));
+      setUpscaledImagePath(data);
       logit(`📢 DOUBLE_UPSCAYL_DONE: `, data);
     });
 
@@ -274,7 +274,7 @@ const Home = () => {
 
     if (path !== null) {
       logit("📢 Selected Image Path: ", path);
-      SetImagePath(formatPath(path));
+      SetImagePath(path);
       var dirname = path.match(/(.*)[\/\\]/)[1] || "";
       logit("📢 Selected Image Directory: ", dirname);
       setOutputPath(dirname);
@@ -363,7 +363,7 @@ const Home = () => {
         setVideoPath(filePath);
       } else {
         logit("📢 Setting image path: ", filePath);
-        SetImagePath(formatPath(filePath));
+        SetImagePath(filePath);
       }
 
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
@@ -388,7 +388,7 @@ const Home = () => {
     ) {
       alert("Please drag and drop an image");
     } else {
-      SetImagePath(formatPath(filePath));
+      SetImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       logit("📢 Setting output path: ", dirname);
       setOutputPath(dirname);
@@ -687,7 +687,10 @@ const Home = () => {
                     </p>
 
                     <img
-                      src={"file:///" + imagePath}
+                      /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
+                      src={"file:///" + imagePath.replace(
+                        /([^/\\]+)$/i,
+                        encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0]))}
                       alt="Original"
                       onMouseMove={handleMouseMove}
                       style={{
@@ -705,7 +708,10 @@ const Home = () => {
                       Upscayled
                     </p>
                     <img
-                      src={"file://" + upscaledImagePath}
+                      /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
+                      src={"file://" + upscaledImagePath.replace(
+                        /([^/\\]+)$/i,
+                        encodeURIComponent(upscaledImagePath.match(/[^/\\]+$/i)[0]))}
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",
@@ -724,7 +730,11 @@ const Home = () => {
 
         {isVideo && videoPath.length > 0 && upscaledVideoPath.length === 0 && (
           <video autoPlay controls className="m-10 w-11/12 rounded-2xl">
-            <source src={"file://" + videoPath} type="video/mp4" />
+            <source 
+              src={"file://" + videoPath.replace(
+                /([^/\\]+)$/i,
+                encodeURIComponent(videoPath.match(/[^/\\]+$/i)[0]))} 
+              type="video/mp4" />
           </video>
         )}
       </div>
