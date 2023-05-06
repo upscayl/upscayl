@@ -1,0 +1,74 @@
+7767517
+72 73
+Input            input.1                  0 1 data
+Split            splitncnn_input0         1 2 data input_splitncnn_0 input_splitncnn_1
+Convolution      Conv_0                   1 1 input_splitncnn_1 102 0=64 1=3 4=1 5=1 6=1728
+PReLU            PRelu_1                  1 1 102 105 0=64
+Convolution      Conv_2                   1 1 105 106 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_3                  1 1 106 109 0=64
+Convolution      Conv_4                   1 1 109 110 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_5                  1 1 110 113 0=64
+Convolution      Conv_6                   1 1 113 114 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_7                  1 1 114 117 0=64
+Convolution      Conv_8                   1 1 117 118 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_9                  1 1 118 121 0=64
+Convolution      Conv_10                  1 1 121 122 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_11                 1 1 122 125 0=64
+Convolution      Conv_12                  1 1 125 126 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_13                 1 1 126 129 0=64
+Convolution      Conv_14                  1 1 129 130 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_15                 1 1 130 133 0=64
+Convolution      Conv_16                  1 1 133 134 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_17                 1 1 134 137 0=64
+Convolution      Conv_18                  1 1 137 138 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_19                 1 1 138 141 0=64
+Convolution      Conv_20                  1 1 141 142 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_21                 1 1 142 145 0=64
+Convolution      Conv_22                  1 1 145 146 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_23                 1 1 146 149 0=64
+Convolution      Conv_24                  1 1 149 150 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_25                 1 1 150 153 0=64
+Convolution      Conv_26                  1 1 153 154 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_27                 1 1 154 157 0=64
+Convolution      Conv_28                  1 1 157 158 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_29                 1 1 158 161 0=64
+Convolution      Conv_30                  1 1 161 162 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_31                 1 1 162 165 0=64
+Convolution      Conv_32                  1 1 165 166 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_33                 1 1 166 169 0=64
+Convolution      Conv_34                  1 1 169 170 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_35                 1 1 170 173 0=64
+Convolution      Conv_36                  1 1 173 174 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_37                 1 1 174 177 0=64
+Convolution      Conv_38                  1 1 177 178 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_39                 1 1 178 181 0=64
+Convolution      Conv_40                  1 1 181 182 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_41                 1 1 182 185 0=64
+Convolution      Conv_42                  1 1 185 186 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_43                 1 1 186 189 0=64
+Convolution      Conv_44                  1 1 189 190 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_45                 1 1 190 193 0=64
+Convolution      Conv_46                  1 1 193 194 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_47                 1 1 194 197 0=64
+Convolution      Conv_48                  1 1 197 198 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_49                 1 1 198 201 0=64
+Convolution      Conv_50                  1 1 201 202 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_51                 1 1 202 205 0=64
+Convolution      Conv_52                  1 1 205 206 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_53                 1 1 206 209 0=64
+Convolution      Conv_54                  1 1 209 210 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_55                 1 1 210 213 0=64
+Convolution      Conv_56                  1 1 213 214 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_57                 1 1 214 217 0=64
+Convolution      Conv_58                  1 1 217 218 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_59                 1 1 218 221 0=64
+Convolution      Conv_60                  1 1 221 222 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_61                 1 1 222 225 0=64
+Convolution      Conv_62                  1 1 225 226 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_63                 1 1 226 229 0=64
+Convolution      Conv_64                  1 1 229 230 0=64 1=3 4=1 5=1 6=36864
+PReLU            PRelu_65                 1 1 230 233 0=64
+Convolution      Conv_66                  1 1 233 234 0=48 1=3 4=1 5=1 6=27648
+PixelShuffle     DepthToSpace_67          1 1 234 235 0=4
+Interp           Resize_68                1 1 input_splitncnn_0 240 0=1 1=4.000000e+00 2=4.000000e+00
+BinaryOp         Add_69                   2 1 235 240 output

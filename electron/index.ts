@@ -178,7 +178,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
   });
 
   if (canceled) {
-    logit("❌ File Operation Cancelled");
+    logit("🚫 File Operation Cancelled");
     return null;
   } else {
     imagePath = filePaths[0];
@@ -213,7 +213,7 @@ ipcMain.handle(commands.SELECT_FILE, async () => {
       return null;
     }
 
-    logit("📢 Selected File Path: ", filePaths[0]);
+    logit("📄 Selected File Path: ", filePaths[0]);
     // CREATE input AND upscaled FOLDER
     return filePaths[0];
   }
@@ -227,11 +227,11 @@ ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
   });
 
   if (canceled) {
-    logit("❌ Select Folder Operation Cancelled");
+    logit("🚫 Select Folder Operation Cancelled");
     return null;
   } else {
     folderPath = folderPaths[0];
-    logit("📢 Selected Folder Path: ", folderPath);
+    logit("📁 Selected Folder Path: ", folderPath);
     return folderPaths[0];
   }
 });
@@ -271,7 +271,7 @@ const getModels = (folderPath: string) => {
     return null;
   }
 
-  logit("📢 Detected Custom Models: ", models);
+  logit("🔎 Detected Custom Models: ", models);
   return models;
 };
 
@@ -279,7 +279,7 @@ ipcMain.on(commands.GET_MODELS_LIST, async (event, payload) => {
   if (payload) {
     customModelsFolderPath = payload;
 
-    logit("📢 Custom Models Folder Path: ", customModelsFolderPath);
+    logit("📁 Custom Models Folder Path: ", customModelsFolderPath);
 
     mainWindow.webContents.send(
       commands.CUSTOM_MODEL_FILES_LIST,
@@ -296,7 +296,7 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
     defaultPath: customModelsFolderPath,
   });
   if (canceled) {
-    logit("❌ Select Custom Models Folder Operation Cancelled");
+    logit("🚫 Select Custom Models Folder Operation Cancelled");
     return null;
   } else {
     customModelsFolderPath = folderPaths[0];
@@ -322,14 +322,14 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
       getModels(customModelsFolderPath)
     );
 
-    logit("Custom Folder Path: ", customModelsFolderPath);
+    logit("📁 Custom Folder Path: ", customModelsFolderPath);
     return customModelsFolderPath;
   }
 });
 
 //------------------------Open Folder-----------------------------//
 ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
-  logit("📢 Opening Folder: ", payload);
+  logit("📂 Opening Folder: ", payload);
   shell.openPath(payload);
 });
 
@@ -338,7 +338,7 @@ ipcMain.on(commands.STOP, async (event, payload) => {
   stopped = true;
 
   childProcesses.forEach((child) => {
-    logit("📢 Stopping Upscaling Process", child.process.pid);
+    logit("🛑 Stopping Upscaling Process", child.process.pid);
     child.kill();
   });
 });
@@ -433,7 +433,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
 
   const onClose2 = (code) => {
     if (!failed2 && !stopped) {
-      logit("Done upscaling");
+      logit("💯 Done upscaling");
       mainWindow.webContents.send(
         commands.DOUBLE_UPSCAYL_DONE,
         isAlpha ? outFile + ".png" : outFile
@@ -504,7 +504,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   // UPSCALE
   if (fs.existsSync(outFile)) {
     // If already upscayled, just output that file
-    logit("📢 Already upscayled at: ", outFile);
+    logit("✅ Already upscayled at: ", outFile);
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
   } else {
     const upscayl = spawnUpscayl(
@@ -549,7 +549,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     };
     const onClose = () => {
       if (!failed && !stopped) {
-        logit("Done upscaling");
+        logit("💯 Done upscaling");
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
           commands.UPSCAYL_DONE,
@@ -628,7 +628,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   };
   const onClose = () => {
     if (!failed && !stopped) {
-      logit("Done upscaling");
+      logit("💯 Done upscaling");
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
     }
   };
@@ -649,7 +649,7 @@ autoUpdater.on("update-available", ({ releaseNotes, releaseName }) => {
     detail:
       "A new version is being downloaded. Please check GitHub for more details.",
   };
-  logit("📢 Update Available", releaseName, releaseNotes);
+  logit("📲 Update Available", releaseName, releaseNotes);
   dialog.showMessageBox(dialogOpts).then((returnValue) => {});
 });
 
@@ -662,7 +662,7 @@ autoUpdater.on("update-downloaded", (event) => {
     detail:
       "A new version has been downloaded. Restart the application to apply the updates.",
   };
-  logit("📢 Update Downloaded");
+  logit("✅ Update Downloaded");
   dialog.showMessageBox(dialogOpts).then((returnValue) => {
     if (returnValue.response === 0) autoUpdater.quitAndInstall();
   });

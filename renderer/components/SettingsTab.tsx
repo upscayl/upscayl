@@ -46,12 +46,12 @@ function SettingsTab({
     themeChange(false);
 
     if (!localStorage.getItem("saveImageAs")) {
-      logit("📢 Setting saveImageAs to png");
+      logit("⚙️ Setting saveImageAs to png");
       localStorage.setItem("saveImageAs", "png");
     } else {
       const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
       logit(
-        "📢 Getting saveImageAs from localStorage",
+        "⚙️ Getting saveImageAs from localStorage",
         currentlySavedImageFormat
       );
       setSaveImageAs(currentlySavedImageFormat);
@@ -61,7 +61,7 @@ function SettingsTab({
       setCurrentModel(modelOptions[0]);
       setModel(modelOptions[0].value);
       localStorage.setItem("model", JSON.stringify(modelOptions[0]));
-      logit("📢 Setting model to", modelOptions[0].value);
+      logit("🔀 Setting model to", modelOptions[0].value);
     } else {
       const currentlySavedModel = JSON.parse(
         localStorage.getItem("model")
@@ -69,29 +69,29 @@ function SettingsTab({
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
       logit(
-        "📢 Getting model from localStorage",
+        "⚙️ Getting model from localStorage",
         JSON.stringify(currentlySavedModel)
       );
     }
 
     if (!localStorage.getItem("gpuId")) {
       localStorage.setItem("gpuId", "");
-      logit("📢 Setting gpuId to empty string");
+      logit("⚙️ Setting gpuId to empty string");
     } else {
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
-      logit("📢 Getting gpuId from localStorage", currentlySavedGpuId);
+      logit("⚙️ Getting gpuId from localStorage", currentlySavedGpuId);
     }
 
     if (!localStorage.getItem("rememberOutputFolder")) {
-      logit("📢 Setting rememberOutputFolder to false");
+      logit("⚙️ Setting rememberOutputFolder to false");
       localStorage.setItem("rememberOutputFolder", "false");
     } else {
       const currentlySavedRememberOutputFolder = localStorage.getItem(
         "rememberOutputFolder"
       );
       logit(
-        "📢 Getting rememberOutputFolder from localStorage",
+        "⚙️ Getting rememberOutputFolder from localStorage",
         currentlySavedRememberOutputFolder
       );
       setRememberOutputFolder(
