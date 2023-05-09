@@ -1,12 +1,12 @@
 # name of your github action
-name: CI
+name: Deploy Release
 # this will help you specify where to run
 on:
   workflow_dispatch:
 # this is where the magic happens, each job happens in parallel btw
 jobs:
   linux:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
 
@@ -22,7 +22,7 @@ jobs:
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-linux-app
 
   macos:
-    runs-on: macos-10.15
+    runs-on: macos-11
     steps:
       - uses: actions/checkout@v3
 
