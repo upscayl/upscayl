@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>org.upscayl.app</id>
+  <id>org.upscayl.Upscayl</id>
   <name>Upscayl</name>
   <summary>Free and Open Source AI Image Upscaler.</summary>
 
-  <url type="homepage">https://upscayl.github.io</url>
+  <url type="homepage">https://upscayl.org</url>
   <url type="bugtracker">https://github.com/upscayl/upscayl/issues</url>
   <url type="donation">https://buymeacoffee.com/fossisthefuture</url>
 
@@ -19,7 +19,7 @@
 	
   <content_rating type="oars-1.1" />
 	
-  <launchable type="desktop-id">org.upscayl.app.desktop</launchable>
+  <launchable type="desktop-id">org.upscayl.Upscayl.desktop</launchable>
 
   <screenshots>
     <screenshot type="default">
@@ -29,7 +29,7 @@
   </screenshots>
 
   <releases>
-    <release version="v2.0.1" date="2022-12-27">
+    <release version="v2.5.1" date="2023-05-09">
         <description>
             <p>Changes</p>
             <ul>
