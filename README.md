@@ -53,6 +53,10 @@
 
 You can also download the flatpak version and double click the flatpak file to install via Store but wait for the full release, we'll be pushing it to Flathub for easy access.
 
+Please note:
+* On some distributions Flatpak must be [pre-configured manually](https://flatpak.org/setup).
+* The AppImage needs to be [made executable](http://discourse.appimage.org/t/how-to-make-an-appimage-executable/80) after download.
+
 ### MacOS 🍎
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
