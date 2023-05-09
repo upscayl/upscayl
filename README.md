@@ -46,7 +46,7 @@
   </a>
 </div>
 
-#### [Flatpak](https://flatpak.org)
+#### Flatpak
 
 1. Go to [Flathub/Upscayl](https://flathub.org/apps/org.upscayl.Upscayl)
 
@@ -56,7 +56,10 @@
 
 4. Press the installation button in your disrtibution's software center.
 
-#### [AppImage](https://appimage.org/)
+*Please note:*
+- *On some distributions Flatpak must be [pre-configured manually](https://flatpak.org/setup).*
+
+#### AppImage
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
 
@@ -65,7 +68,6 @@
 3. Right Click AppImage -> Go to Permissions tab -> Check allow file to execute and then double click the file to run Upscayl.
 
 *Please note:*
-- *On some distributions Flatpak must be [pre-configured manually](https://flatpak.org/setup).*
 - *The AppImage needs to be [made executable](http://discourse.appimage.org/t/how-to-make-an-appimage-executable/80) after download.*
 
 ### MacOS 🍎
