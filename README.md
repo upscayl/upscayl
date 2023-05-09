@@ -168,7 +168,7 @@ Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and
 
 # Credits ❤
 
-- Real-ESRGAN for their wonderful research work\.  
+- Real-ESRGAN for their wonderful research work  
 [Real-ESRGAN: Copyright (c) 2021, Xintao Wang](https://github.com/xinntao/Real-ESRGAN/)
 - Microsoft™ for their Fluent Emoji used as our logo.
 - @JanDeDinoMan, @xanderfrangos, @Fdawgs, @keturn for their code contributions :)
