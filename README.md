@@ -45,6 +45,18 @@
 <img src="https://user-images.githubusercontent.com/25067102/191269445-87050a77-c304-4284-9ea0-699721309c59.png" width="250px"/>
 </a>
 
+#### [Flatpak](https://flatpak.org)
+
+1. Go to [Flathub/Upscayl](https://flathub.org/apps/org.upscayl.Upscayl)
+
+2. Press the "Install" button. This will download the `.flatpakref` file.
+
+3. Execute the downloaded `.flatpakref` file. This will open your disrtibution's software center.
+
+4. Press the installation button in your disrtibution's software center.
+
+#### [AppImage](https://appimage.org/)
+
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
 
 2. Download the `.AppImage` file.
