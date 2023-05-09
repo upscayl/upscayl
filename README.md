@@ -153,10 +153,9 @@ npm run publish-app
 - How can I contribute?
   - You can fix code, add features by submitting PRs, report issues or donate :)
 - What's the GPU ID for?
-  - To find your GPU ID, you first need to launch Upscayl using the commandline and Upscayl an image. In the console output, you can see the GPUs that have been detected: ![image](https://user-images.githubusercontent.com/25067102/213901080-706071c2-4ad1-43cc-b5c6-70f46d0b547c.png)
-  As you can notice, 0 is the AMD iGPU, 1 is the Nvidia GPU, and 2 is the llvmpipe. If I set my GPU ID to 0, it'll always upscayl images with AMD iGPU (CPU) instead of dedicated GPU.
+  - Read the Wiki.
 - You are not fully open source!!😡
-  - We are, we're using completely free and open source tech. We do ship a binary but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience, if you do not trust it, then you can compile your own since everything is free and open source here :)
+  - We are! We're using completely free and open source tech. We do ship a binary but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience, if you do not trust it, then you can compile your own since everything is free and open source here :)
 
 Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and algorithms will come soon.
 
