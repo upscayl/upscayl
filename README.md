@@ -51,7 +51,7 @@
 
 3. Right Click AppImage -> Go to Permissions tab -> Check allow file to execute and then double click the file to run Upscayl.
 
-You can also download the flatpak version and double click the flatpak file to install via Store but wait for the full release, we'll be pushing it to Flathub for easy access.
+*You can also download the flatpak version and double click the flatpak file to install via Store but wait for the full release, we'll be pushing it to Flathub for easy access.*
 
 Please note:
 * On some distributions Flatpak must be [pre-configured manually](https://flatpak.org/setup).
