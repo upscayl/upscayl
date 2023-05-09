@@ -15,14 +15,14 @@ body:
     label: Describe the Bug
     description: 💥 What's wrong? Put logs here if you have them. To get logs, scroll to the bottom of Upscayl's settings.
     value: |
-    
-    <details>
-    <summary>Logs</summary>
-    <pre>
-    <!-- 📃 Put logs here! -->
-    
-    </pre>
-    </details>
+      
+      <details>
+      <summary>Logs</summary>
+      <pre>
+      <!-- 📃 Put logs here! -->
+
+      </pre>
+      </details>
   validations:
     required: true
 - type: textarea
