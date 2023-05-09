@@ -37,6 +37,10 @@
 <img src="https://user-images.githubusercontent.com/25067102/191270389-9de37c0f-39a8-41f1-a659-8dd4e7b8ac28.png" width="250px"/>
 </a>
 
+<a href='https://flathub.org/apps/org.upscayl.Upscayl'>
+<img src='https://dl.flathub.org/assets/badges/flathub-badge-en.png' alt='Download on Flathub' width='250px'/>
+</a>
+
 <a href="https://aur.archlinux.org/packages/upscayl-bin">
 <img src="https://user-images.githubusercontent.com/25067102/191269445-87050a77-c304-4284-9ea0-699721309c59.png" width="250px"/>
 </a>
