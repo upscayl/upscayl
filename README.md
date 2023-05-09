@@ -66,7 +66,9 @@ If you encounter an error with opening the application, try Ctrl+Clicking/Right-
 
 3. Double click exe file, wait for installation, profit.
 
-# Comparisons: https://imgsli.com/MTQzMjI4/0/1
+# [Wiki - Tutorials and Guides](https://github.com/upscayl/upscayl/wiki/Guide)
+
+# [Comparisons](https://imgsli.com/MTQzMjI4/0/1)
 
 #### Medium Resolution Images (300-400 pixels wide):
 ![image](https://user-images.githubusercontent.com/25067102/187059440-83f32705-4509-4899-a109-ed2d8248fd2b.png)
@@ -78,20 +80,16 @@ If you encounter an error with opening the application, try Ctrl+Clicking/Right-
 ### UPSCALED TWICE
 ![image](https://user-images.githubusercontent.com/25067102/187153200-8e184622-a791-43ad-8d73-e5580034f2f2.png)
 
-
-
 # Roadmap 🤫
 
 You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
-- Allow custom models
-- Logging
 - Fix bugs
 - Make the whole world use FOSS (WIP 🚧)
 
 # Development 🛠
 
-I recommend using Volta: https://volta.sh for using Node.js.
+I recommend using Volta: https://volta.sh for installing Node.js.
 Download and install volta, then do: `volta install node`.
 
 ```bash
@@ -117,11 +115,11 @@ npm run publish-app
 # FAQ 🤓
 
 - How does Upscayl work?
-  - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN (and more in the future) model to achieve this.
+  - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN to achieve this.
 - Is there a CLI available?
   - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
 - Do I need a GPU for this to work?
-  - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work with **most** iGPUs or CPUs.
+  - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
 - Why does batch upscaling output JPGs instead of PNGs?
   - This is an issue with REAL-ERSGAN currently tracked [here](https://github.com/upscayl/upscayl/issues/174).
 - How can I contribute?
