@@ -1,17 +1,18 @@
 {
-  "app-id": "org.upscayl.app",
+  "id": "org.upscayl.Upscayl",
+  "sdk": "org.freedesktop.Sdk",
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "22.08",
-  "sdk": "org.freedesktop.Sdk",
   "base": "org.electronjs.Electron2.BaseApp",
   "base-version": "22.08",
-  "command": "upscayl-wrapper",
+  "command": "upscayl-run",
   "separate-locales": false,
   "finish-args": [
-    "--share=ipc",
-    "--socket=x11",
     "--device=dri",
-    "--filesystem=home"
+    "--filesystem=home",
+    "--share=network",
+    "--socket=x11",
+    "--socket=pulseaudio"
   ],
   "modules": [
     {
@@ -27,40 +28,37 @@
     {
       "name": "upscayl",
       "buildsystem": "simple",
-      "cleanup": ["upscayl.zip"],
       "sources": [
         {
           "type": "file",
-          "only-arches": ["x86_64"],
-          "url": "https://github.com/upscayl/upscayl/releases/download/v2.0.1/upscayl-2.0.1-linux.zip",
-          "sha256": "96883ae1bb9a3a5c0972ab7e402c5132e40c4fe0ffaeec8753524df16b03de51",
-          "dest-filename": "upscayl.zip"
+          "only-arches": [
+            "x86_64"
+          ],
+          "url": "https://github.com/upscayl/upscayl/releases/download/v2.5.1/upscayl-2.5.1-linux.zip",
+          "sha256": "88753506776be443633771620a332c5cca7fa07a6e4635aae3acff2cebc2b168"
         },
         {
           "type": "file",
-          "path": "org.upscayl.app.metainfo.xml"
-        },
-        {
-          "type": "file",
-          "path": "../main/build/icon.png"
+          "path": "org.upscayl.Upscayl.metainfo.xml"
         },
         {
           "type": "script",
-          "dest-filename": "upscayl-wrapper",
-          "commands": ["zypak-wrapper /app/upscayl/upscayl"]
+          "dest-filename": "upscayl-run",
+          "commands": [
+            "zypak-wrapper /app/upscayl/upscayl"
+          ]
         }
       ],
       "build-commands": [
         "install -d /app/upscayl",
-        "unzip upscayl -d /app/upscayl",
-        "install upscayl-wrapper /app/bin/",
-        "install -d /app/share/icons/hicolor/512x512/apps/",
-        "install icon.png /app/share/icons/hicolor/512x512/apps/org.upscayl.app.png",
-        "install -d /app/share/applications",
-        "touch org.upscayl.app.desktop",
-        "install -Dp -m644 org.upscayl.app.metainfo.xml /app/share/metainfo/org.upscayl.app.metainfo.xml",
-        "install -m644 org.upscayl.app.desktop /app/share/applications/org.upscayl.app.desktop",
-        "desktop-file-edit --set-key=Exec --set-value='upscayl-wrapper %U' --set-key=Icon --set-value='org.upscayl.app' --set-key=Comment --set-value='Upscale Images' --set-key=Name --set-value='Upscayl' --set-key=StartupNotify --set-value='false' --set-key=Categories --set-value='ImageProcessing;RasterGraphics;Graphics;' --set-key=Type --set-value='Application' /app/share/applications/org.upscayl.app.desktop"
+        "unzip upscayl-2.5.0-linux -d /app/upscayl",
+        "install upscayl-run /app/bin/",
+        "install -Dm644 /app/upscayl/icon_512x512.png /app/share/icons/hicolor/512x512/apps/org.upscayl.Upscayl.png",
+        "install -Dm644 /app/upscayl/icon_128x128.png /app/share/icons/hicolor/128x128/apps/org.upscayl.Upscayl.png",
+        "install -Dp -m644 org.upscayl.Upscayl.metainfo.xml /app/share/metainfo/org.upscayl.Upscayl.metainfo.xml",
+        "touch /app/upscayl/org.upscayl.Upscayl.desktop",
+        "desktop-file-edit --set-key=Exec --set-value='upscayl-run %U' --set-key=Icon --set-value='org.upscayl.Upscayl' --set-key=Comment --set-value='Upscale Images' --set-key=Name --set-value='Upscayl' --set-key=StartupNotify --set-value='false' --set-key=Categories --set-value='ImageProcessing;RasterGraphics;Graphics;' --set-key=Type --set-value='Application' /app/upscayl/org.upscayl.Upscayl.desktop",
+        "install -Dm644 /app/upscayl/org.upscayl.Upscayl.desktop /app/share/applications/org.upscayl.Upscayl.desktop"
       ]
     }
   ]
