@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "2.5.0",
+  "version": "2.5.1",
   "productName": "Upscayl",
   "homepage": "https://github.com/TGS963/upscayl",
   "contributors": [
@@ -67,6 +67,20 @@
       {
         "from": "resources/models",
         "to": "resources/models",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "resources/icon_128x128.png",
+        "to": "icon_128x128.png",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "resources/icon_512x512.png",
+        "to": "icon_512x512.png",
         "filter": [
           "**/*"
         ]
