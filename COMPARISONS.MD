@@ -1,5 +1,10 @@
-# [Comparisons](https://imgsli.com/MTQzMjI4/0/1)
+# Comparisons
 
+## Model Comparisons
+
+Different models have different results. You can see the comparison [here](https://imgsli.com/MTQzMjI4/0/1).
+
+## Before/After
 #### Medium Resolution Images (300-400 pixels wide):
 ![image](https://user-images.githubusercontent.com/25067102/187059440-83f32705-4509-4899-a109-ed2d8248fd2b.png)
 ![image](https://user-images.githubusercontent.com/25067102/187059369-9bc63f1c-e6c0-4d6a-9089-706db43f171f.png)
