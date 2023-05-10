@@ -68,9 +68,13 @@ If you encounter an error with opening the application, try Ctrl+Clicking/Right-
 
 3. Double click exe file, wait for installation, profit.
 
-# [Wiki - Tutorials and Guides 👨‍🏫](https://github.com/upscayl/upscayl/wiki/Guide)
+# Wiki - Tutorials and Guides 👨‍🏫
 
-# [Comparisons ⚖️](COMPARISONS.MD)
+Check out our Wiki [here](https://github.com/upscayl/upscayl/wiki/Guide).
+
+# Results ⚖️
+
+Check out Upscayl before/after comparisons [here](COMPARISONS.MD).
 
 # Roadmap 🤫
 
