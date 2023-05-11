@@ -38,12 +38,21 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
 # 👨‍💻 Installation 
 
 ### 🐧 Linux 
+
+<a href="https://flathub.org/apps/org.upscayl.Upscayl">
+<img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" height="50px"/>
+</a>
+
 <a href="https://appimage.github.io/Upscayl/">
-<img src="https://user-images.githubusercontent.com/25067102/191270389-9de37c0f-39a8-41f1-a659-8dd4e7b8ac28.png" width="250px"/>
+<img src="https://user-images.githubusercontent.com/25067102/191270389-9de37c0f-39a8-41f1-a659-8dd4e7b8ac28.png" height="50px"/>
 </a>
 
 <a href="https://aur.archlinux.org/packages/upscayl-bin">
-<img src="https://user-images.githubusercontent.com/25067102/191269445-87050a77-c304-4284-9ea0-699721309c59.png" width="250px"/>
+<img src="https://user-images.githubusercontent.com/25067102/191269445-87050a77-c304-4284-9ea0-699721309c59.png" height="50px"/>
+</a>
+
+<a href="https://snapcraft.io/upscayl/">
+<img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
 </a>
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
