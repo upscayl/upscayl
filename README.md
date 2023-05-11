@@ -58,7 +58,8 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
 
 #### Flatpak
 
-1. Go to your distribtuion's software center and search for Upscayl. Or go to [Flathub/Upscayl](https://flathub.org/apps/org.upscayl.Upscayl) and click "Install".
+1. Go to your distribtuion's software center (or your favourite installed one) and search for Upscayl.  
+Alternatively you can go to [Flathub/Upscayl](https://flathub.org/apps/org.upscayl.Upscayl) and click "Install".
 
 2. Download Upscayl using your distribution's software center
 
