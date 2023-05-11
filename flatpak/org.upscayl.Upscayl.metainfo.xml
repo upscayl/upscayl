@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>org.upscayl.Upscayl</id>
   <name>Upscayl</name>
-  <summary>Free and Open Source AI Image Upscaler.</summary>
+  <summary>Free and Open Source AI Image Upscaler</summary>
 
   <url type="homepage">https://upscayl.org</url>
   <url type="bugtracker">https://github.com/upscayl/upscayl/issues</url>
@@ -13,8 +13,8 @@
   
   <description>
     <p>
-      Upscayl is a free and open source AI Image Upscaler
-		</p>
+      Upscayl is a free and open source AI Image Upscaler built with linux-first philosophy.
+    </p>
   </description>
 	
   <content_rating type="oars-1.1" />
@@ -24,7 +24,11 @@
   <screenshots>
     <screenshot type="default">
       <caption>Main Screen</caption>
-      <image>https://github.com/upscayl/upscayl/raw/main/screen1.png</image>
+      <image>https://user-images.githubusercontent.com/25067102/237209401-ca4c118b-2b9a-4652-adc3-871e1cd19ecc.jpg</image>
+    </screenshot>
+    <screenshot>
+      <caption>Banner</caption>
+      <image>https://user-images.githubusercontent.com/25067102/237577889-d552a63c-1ec4-4e2b-9865-73567f3cc42e.jpg</image>
     </screenshot>
   </screenshots>
 
@@ -33,12 +37,22 @@
         <description>
             <p>Changes</p>
             <ul>
-                <li>Fixed model selection issue</li>
-                <li>Fixed PNG to JPG preview issue</li>
-                <li>Added GPU-ID auto-save</li>
-                <li>Fixed Image Options to appear on most backgrounds without problems</li>
-                <li>Set default zoom level to 100%</li>
-                <li>Added a donate button</li>
+                <li>New Settings tab!</li>
+                <li>Upscayl now allows you to import your own models! (Refer GitHub Wiki)</li>
+                <li>Reduced size since v2.0.1</li>
+                <li>Updated Ultrasharp model</li>
+                <li>Added FAST Real-ESRGAN Model</li>
+                <li>A cancel upscaling button, finally!</li>
+                <li>More visible progress bar</li>
+                <li>New log area. Now you can directly see the logs and report bugs.</li>
+                <li>Batch Mode is now persisted across sessions.</li>
+                <li>Output Folder is now persisted across sessions.</li>
+                <li>New experimental scale option.</li>
+                <li>Removed sharpen option (it was useless tbh)</li>
+                <li>Fixed issue with upscaling images with special characters in their name.</li>
+                <li>Massively improved logging.</li>
+                <li>Bug fixes</li>
+                <li>Bug additions</li>
             </ul>
         </description>
       </release>
