@@ -41,6 +41,7 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
 ### 🐧 Linux 
 
 <div align='center'>
+  
   <a href="https://flathub.org/apps/org.upscayl.Upscayl">
     <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" height="50px"/>
   </a>
@@ -56,6 +57,7 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
   <a href="https://snapcraft.io/upscayl/">
     <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
   </a>
+  
 </div>
 
 #### Flatpak
