@@ -40,8 +40,6 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
 
 ### 🐧 Linux 
 
-<div align='center'>
-  
   <a href="https://flathub.org/apps/org.upscayl.Upscayl">
     <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" height="50px"/>
   </a>
@@ -57,18 +55,12 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
   <a href="https://snapcraft.io/upscayl/">
     <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
   </a>
-  
-</div>
 
 #### Flatpak
 
-1. Go to [Flathub/Upscayl](https://flathub.org/apps/org.upscayl.Upscayl)
+1. Go to your distribtuion's software center and search for Upscayl. Or go to [Flathub/Upscayl](https://flathub.org/apps/org.upscayl.Upscayl) and click "Install".
 
-2. Press the "Install" button. This will download the `.flatpakref` file.
-
-3. Execute the downloaded `.flatpakref` file. This will open your disrtibution's software center.
-
-4. Press the installation button in your disrtibution's software center.
+2. Download Upscayl using your distribution's software center
 
 *Please note:*
 - *On some distributions Flatpak must be [pre-configured manually](https://flatpak.org/setup).*
