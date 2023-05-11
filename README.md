@@ -6,15 +6,14 @@
 
 <a href="https://github.com/upscayl/upscayl/releases/latest">
 <img src="https://github.com/upscayl/upscayl/assets/25067102/6287fd40-2c91-4028-b1d6-3986e77d8211" width="200px" />
-
+</a>
+  
 <a href="https://t.me/iamnayam">
 <img src="https://user-images.githubusercontent.com/25067102/209297095-a3db856f-b760-40bb-a68e-f3a3086e18c7.png" width="200px" />   
 </a>      
 
 <a href="https://t.me/LinuxChats">
 <img src="https://user-images.githubusercontent.com/25067102/215301815-b9922b27-4e65-435a-aa9d-239da0ac61b4.png" width="200px" />
-</a>
-
 </a>
 
 # 🆙 Upscayl 
