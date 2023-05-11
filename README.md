@@ -17,7 +17,6 @@
 </a>      
 
 <a href="https://t.me/LinuxChats">
-
   <img src="https://user-images.githubusercontent.com/25067102/215301815-b9922b27-4e65-435a-aa9d-239da0ac61b4.png" width="200px" />
 </a>
 
