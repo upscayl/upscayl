@@ -9,7 +9,6 @@
   </br>
   
 <a href="https://github.com/upscayl/upscayl/releases/latest">
-
   <img src="https://github.com/upscayl/upscayl/assets/25067102/6287fd40-2c91-4028-b1d6-3986e77d8211" width="200px" />
 </a>
 
