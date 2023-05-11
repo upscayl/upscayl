@@ -23,6 +23,7 @@
 # 🆙 Upscayl 
 
 #### Free and Open Source AI Image Upscaler
+
 Upscayl is a cross-platform application built with the Linux-first philosophy.   
 This means that Linux users receive pre-release builds earlier but Upscayl itself is available on all major desktop operating systems :)   
 **https://upscayl.org**  
