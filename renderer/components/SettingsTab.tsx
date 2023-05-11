@@ -65,7 +65,7 @@ function SettingsTab({
     } else {
       const currentlySavedModel = JSON.parse(
         localStorage.getItem("model")
-      ) as (typeof modelOptions)[0];
+      ) as typeof modelOptions[0];
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
       logit(
@@ -153,6 +153,12 @@ function SettingsTab({
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
+      <a
+        className="btn-primary btn"
+        href="https://github.com/upscayl/upscayl/wiki/"
+        target="_blank">
+        Read WIKI
+      </a>
       {/* THEME SELECTOR */}
       <div className="flex flex-col gap-2">
         <p className="text-sm font-medium">UPSCAYL THEME</p>
@@ -228,7 +234,7 @@ function SettingsTab({
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-1">
           <p className="text-sm font-medium">SAVE IMAGE AS</p>
-          <p className="badge-primary badge text-[10px] font-medium">
+          <p className="badge badge-primary text-[10px] font-medium">
             EXPERIMENTAL
           </p>
         </div>
@@ -271,9 +277,13 @@ function SettingsTab({
       <div>
         <div className="flex flex-row gap-1">
           <p className="text-sm font-medium">IMAGE SCALE</p>
-          <p className="badge-primary badge text-[10px] font-medium">
-            EXPERIMENTAL
-          </p>
+          <a
+            href="https://github.com/upscayl/upscayl/wiki/Guide#scale-option"
+            target="_blank">
+            <p className="badge badge-primary text-[10px] font-medium">
+              EXPERIMENTAL
+            </p>
+          </a>
         </div>
         <input
           type="range"
@@ -291,6 +301,18 @@ function SettingsTab({
           <span>3x</span>
           <span>4x</span>
         </div>
+        {scale !== "4" && (
+          <p className="mt-1 text-center text-xs text-base-content/70">
+            This may generate unexpected output!
+            <br />
+            <a
+              className="link"
+              href="https://github.com/upscayl/upscayl/wiki/Guide#scale-option"
+              target="_blank">
+              See Wiki
+            </a>
+          </p>
+        )}
       </div>
 
       <div className="relative flex flex-col gap-2">
