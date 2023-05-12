@@ -56,24 +56,17 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
     <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
   </a>
 
-#### Flatpak
+Upscayl should be available on the Software Store of most Linux operating systems. You can download the Snap or [Flatpak](https://flatpak.org/setup) version, if your distro's Store App supports them.
 
-1. Go to your distribtuion's software center (or your favourite installed one) and search for Upscayl.  
-Alternatively you can go to [Flathub/Upscayl](https://flathub.org/apps/org.upscayl.Upscayl) and click "Install".
+#### Portable Method
 
-2. Download Upscayl using your distribution's software center
+1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
 
-*Please note:*
-- *On some distributions Flatpak must be [pre-configured manually](https://flatpak.org/setup).*
-
-#### AppImage
-
-1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
-
-2. Download the `.AppImage` file.
+2. Download the `upscayl-x.x.x-linux.AppImage` file.
 
 3. Right Click AppImage -> Go to Permissions tab -> Check allow file to execute and then double click the file to run Upscayl.
 
+You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).
 *Please note:*
 - *The AppImage needs to be [made executable](http://discourse.appimage.org/t/how-to-make-an-appimage-executable/80) after download.*
 
