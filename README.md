@@ -9,19 +9,21 @@
   </br>
   
 <a href="https://github.com/upscayl/upscayl/releases/latest">
-<img src="https://github.com/upscayl/upscayl/assets/25067102/6287fd40-2c91-4028-b1d6-3986e77d8211" width="200px" />
+  <img src="https://github.com/upscayl/upscayl/assets/25067102/6287fd40-2c91-4028-b1d6-3986e77d8211" width="200px" />
 </a>
-  
+
 <a href="https://t.me/iamnayam">
-<img src="https://user-images.githubusercontent.com/25067102/209297095-a3db856f-b760-40bb-a68e-f3a3086e18c7.png" width="200px" />   
+  <img src="https://user-images.githubusercontent.com/25067102/209297095-a3db856f-b760-40bb-a68e-f3a3086e18c7.png" width="200px" />   
 </a>      
 
 <a href="https://t.me/LinuxChats">
-<img src="https://user-images.githubusercontent.com/25067102/215301815-b9922b27-4e65-435a-aa9d-239da0ac61b4.png" width="200px" />
+  <img src="https://user-images.githubusercontent.com/25067102/215301815-b9922b27-4e65-435a-aa9d-239da0ac61b4.png" width="200px" />
 </a>
 
 # 🆙 Upscayl 
+
 #### Free and Open Source AI Image Upscaler
+Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms. It's almost like magic! 🎩🪄
 Upscayl is a cross-platform application built with the Linux-first philosophy.   
 This means that Linux users receive pre-release builds earlier but Upscayl itself is available on all major desktop operating systems :)   
 **https://upscayl.org**  
@@ -34,34 +36,37 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
   
 </div>
 
-
 # 👨‍💻 Installation 
 
 ### 🐧 Linux 
 
-<a href="https://flathub.org/apps/org.upscayl.Upscayl">
-<img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" height="50px"/>
-</a>
+  <a href="https://flathub.org/apps/org.upscayl.Upscayl">
+    <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" height="50px"/>
+  </a>
 
-<a href="https://appimage.github.io/Upscayl/">
-<img src="https://user-images.githubusercontent.com/25067102/191270389-9de37c0f-39a8-41f1-a659-8dd4e7b8ac28.png" height="50px"/>
-</a>
+  <a href="https://appimage.github.io/Upscayl/">
+    <img src="https://user-images.githubusercontent.com/25067102/191270389-9de37c0f-39a8-41f1-a659-8dd4e7b8ac28.png" height="50px"/>
+  </a>
 
-<a href="https://aur.archlinux.org/packages/upscayl-bin">
-<img src="https://user-images.githubusercontent.com/25067102/191269445-87050a77-c304-4284-9ea0-699721309c59.png" height="50px"/>
-</a>
+  <a href="https://aur.archlinux.org/packages/upscayl-bin">
+    <img src="https://user-images.githubusercontent.com/25067102/191269445-87050a77-c304-4284-9ea0-699721309c59.png" height="50px"/>
+  </a>
 
-<a href="https://snapcraft.io/upscayl/">
-<img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
-</a>
+  <a href="https://snapcraft.io/upscayl/">
+    <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
+  </a>
 
-1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
+Upscayl should be available on the Software Store of most Linux operating systems. You can download the [Flatpak](https://flatpak.org/setup) or Snap version, if your distro's Store App supports them.
 
-2. Download the `.AppImage` file.
+#### Portable Method
+
+1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
+
+2. Download the `upscayl-x.x.x-linux.AppImage` file.
 
 3. Right Click AppImage -> Go to Permissions tab -> Check allow file to execute and then double click the file to run Upscayl.
 
-You can also download the flatpak version and double click the flatpak file to install via Store but wait for the full release, we'll be pushing it to Flathub for easy access.
+*You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).*
 
 ### 🍎 MacOS 
 
@@ -71,7 +76,8 @@ You can also download the flatpak version and double click the flatpak file to i
 
 3. Double click dmg, drag Upscayl icon into Applications folder.
 
-If you encounter an error with opening the application, try Ctrl+Clicking/Right-clicking the app and clicking open. In the popup that opens, also click open.
+*If you encounter an error with opening the application, try Ctrl+Clicking/Right-clicking the app and clicking open. In the popup that opens, also click open.*
+
 ### 🐌 Windows 
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
@@ -142,14 +148,13 @@ Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and
 # 🎁 Donate
 
 <a href="https://www.buymeacoffee.com/fossisthefuture">
-<img src="https://user-images.githubusercontent.com/25067102/154570688-9e143f2b-fee3-4b05-a9d2-a7a3013b2b51.png" />
+  <img src="https://user-images.githubusercontent.com/25067102/154570688-9e143f2b-fee3-4b05-a9d2-a7a3013b2b51.png" />
 <a/>
 
 # ❤ Credits 
 
-- Real-ESRGAN for their wonderful research work.\
+- Real-ESRGAN for their wonderful research work.  
 [Real-ESRGAN: Copyright (c) 2021, Xintao Wang](https://github.com/xinntao/Real-ESRGAN/)
-
 - Microsoft™ for their Fluent Emoji used as our logo.
 - @JanDeDinoMan, @xanderfrangos, @Fdawgs, @keturn for their code contributions :)
 - @aaronliu0130 for providing community support :)
