@@ -22,7 +22,8 @@ export const getSingleImageArguments = (
     modelsPath,
     "-n",
     model,
-    gpuId ? `-g ${gpuId}` : "",
+    gpuId ? "-g" : "",
+    gpuId ? gpuId : "",
     "-f",
     saveImageAs,
   ];
@@ -48,7 +49,8 @@ export const getSingleImageSharpenArguments = (
     "-x",
     "-m",
     modelsPath + slash + model,
-    gpuId ? `-g ${gpuId}` : "",
+    gpuId ? "-g" : "",
+    gpuId ? gpuId : "",
     "-f",
     saveImageAs,
   ];
@@ -75,7 +77,8 @@ export const getDoubleUpscaleArguments = (
     modelsPath,
     "-n",
     model,
-    gpuId ? `-g ${gpuId}` : "",
+    gpuId ? "-g" : "",
+    gpuId ? gpuId : "",
     "-f",
     saveImageAs,
   ];
@@ -101,7 +104,8 @@ export const getDoubleUpscaleSecondPassArguments = (
     modelsPath,
     "-n",
     model,
-    gpuId ? `-g ${gpuId}` : "",
+    gpuId ? "-g" : "",
+    gpuId ? gpuId : "",
     "-f",
     isAlpha ? "" : saveImageAs,
   ];
@@ -127,7 +131,8 @@ export const getBatchArguments = (
     modelsPath,
     "-n",
     model,
-    gpuId ? `-g ${gpuId}` : "",
+    gpuId ? "-g" : "",
+    gpuId ? gpuId : "",
     "-f",
     saveImageAs,
   ];
@@ -153,7 +158,8 @@ export const getBatchSharpenArguments = (
     "-x",
     "-m",
     modelsPath + slash + model,
-    gpuId ? `-g ${gpuId}` : "",
+    gpuId ? "-g" : "",
+    gpuId ? gpuId : "",
     "-f",
     saveImageAs,
   ];

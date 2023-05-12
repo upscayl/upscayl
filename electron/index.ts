@@ -461,6 +461,8 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
         logit
       );
 
+      
+
       childProcesses.push(upscayl2);
 
       upscayl2.process.stderr.on("data", onData2);
@@ -522,6 +524,16 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       logit
     );
 
+console.log("BRUH: " + getSingleImageArguments(
+  inputDir,
+  fullfileName,
+  outFile,
+  isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+  model,
+  scale,
+  gpuId,
+  saveImageAs
+))
     childProcesses.push(upscayl);
 
     stopped = false;
