@@ -56,7 +56,7 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
     <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
   </a>
 
-Upscayl should be available on the Software Store of most Linux operating systems. You can download the Snap or [Flatpak](https://flatpak.org/setup) version, if your distro's Store App supports them.
+Upscayl should be available on the Software Store of most Linux operating systems. You can download the [Flatpak](https://flatpak.org/setup) or Snap version, if your distro's Store App supports them.
 
 #### Portable Method
 
@@ -66,7 +66,7 @@ Upscayl should be available on the Software Store of most Linux operating system
 
 3. Right Click AppImage -> Go to Permissions tab -> Check allow file to execute and then double click the file to run Upscayl.
 
-You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).
+*You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).*
 
 ### 🍎 MacOS 
 
