@@ -140,8 +140,8 @@ npm run publish-app
   - This is an issue with REAL-ERSGAN currently tracked [here](https://github.com/upscayl/upscayl/issues/174).
 - How can I contribute?
   - You can fix code, add features by submitting PRs, report issues or donate :)
-- What's the GPU ID for?
-  - Read the Wiki.
+- What's the GPU ID for? Why does the scale option result in a mosaic/mixed grid?
+  - Read the [Wiki](https://github.com/upscayl/upscayl/wiki/Guide).
 - You are not fully open source!!😡
   - We are! We're using completely free and open source tech. We do ship a binary but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience, if you do not trust it, then you can compile your own since everything is free and open source here :)
 
