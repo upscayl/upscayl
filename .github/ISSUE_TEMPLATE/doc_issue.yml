@@ -1,5 +1,5 @@
 name: Documentation Issue
-description: Something wrong with the docs
+description: Something wrong with the docs, release, etc
 labels: documentation
 body:
 - type: checkboxes
