@@ -227,8 +227,7 @@ function LeftPaneImageSteps({
             </span>{" "}
             to{" "}
             <span className="font-bold">
-              {doubleUpscayl ? dimensions.width * 16 : dimensions.width * 4}x
-              {doubleUpscayl ? dimensions.height * 16 : dimensions.height * 4}
+              {getUpscaleResolution().width}x{getUpscaleResolution().height}
             </span>
           </p>
         )}
