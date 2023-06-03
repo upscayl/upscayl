@@ -104,6 +104,31 @@ function LeftPaneImageSteps({
     logit("🔀 Setting model to", currentModel.value);
   }, [currentModel]);
 
+  const getUpscaleResolution = () => {
+    const newDimensions = {
+      width: dimensions.width,
+      height: dimensions.height,
+    };
+    if (doubleUpscayl) {
+      newDimensions.width = dimensions.width * 16;
+      newDimensions.height = dimensions.height * 16;
+    } else {
+      newDimensions.width = dimensions.width * 4;
+      newDimensions.height = dimensions.height * 4;
+    }
+
+    if (newDimensions.width > 32768) {
+      logit("🚫 Upscale width is too large, setting to a maximum of 32768px");
+      newDimensions.width = 32384;
+    }
+    if (newDimensions.height > 32768) {
+      logit("🚫 Upscale height is too large, setting to a maximum of 32768px");
+      newDimensions.height = 32384;
+    }
+
+    return newDimensions;
+  };
+
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
       {/* BATCH OPTION */}
