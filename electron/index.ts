@@ -461,8 +461,6 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
         logit
       );
 
-      
-
       childProcesses.push(upscayl2);
 
       upscayl2.process.stderr.on("data", onData2);
@@ -524,16 +522,19 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       logit
     );
 
-console.log("BRUH: " + getSingleImageArguments(
-  inputDir,
-  fullfileName,
-  outFile,
-  isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
-  model,
-  scale,
-  gpuId,
-  saveImageAs
-))
+    console.log(
+      "BRUH: " +
+        getSingleImageArguments(
+          inputDir,
+          fullfileName,
+          outFile,
+          isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+          model,
+          scale,
+          gpuId,
+          saveImageAs
+        )
+    );
     childProcesses.push(upscayl);
 
     stopped = false;
@@ -651,24 +652,31 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
 });
 
 //------------------------Auto-Update Code-----------------------------//
+autoUpdater.autoInstallOnAppQuit = false;
+
 // ! AUTO UPDATE STUFF
-autoUpdater.on("update-available", ({ releaseNotes, releaseName }) => {
-  const dialogOpts = {
-    type: "info",
-    buttons: ["Ok cool"],
-    title: "New Upscayl Update",
-    message: releaseName as string,
-    detail:
-      "A new version is being downloaded. Please check GitHub for more details.",
-  };
-  logit("📲 Update Available", releaseName, releaseNotes);
-  dialog.showMessageBox(dialogOpts).then((returnValue) => {});
-});
+// autoUpdater.on("update-available", ({ version, releaseNotes, releaseName }) => {
+//   autoUpdater.autoInstallOnAppQuit = false;
+//   const dialogOpts = {
+//     type: "info",
+//     buttons: ["Sweet!"],
+//     title: "New Upscayl Update!",
+//     message: releaseName as string,
+//     detail: `Upscayl ${version} is available! It is being downloaded in the background. Please check GitHub for more details.`,
+//   };
+//   logit("📲 Update Available", releaseName, releaseNotes);
+//   dialog.showMessageBox(dialogOpts).then((returnValue) => {
+//     if (returnValue.response === 0) {
+//       logit("📲 Update Downloading");
+//     }
+//   });
+// });
 
 autoUpdater.on("update-downloaded", (event) => {
+  autoUpdater.autoInstallOnAppQuit = false;
   const dialogOpts: MessageBoxOptions = {
     type: "info",
-    buttons: ["Restart", "Later"],
+    buttons: ["Install update", "No Thanks"],
     title: "New Upscayl Update",
     message: event.releaseName as string,
     detail:
@@ -676,7 +684,11 @@ autoUpdater.on("update-downloaded", (event) => {
   };
   logit("✅ Update Downloaded");
   dialog.showMessageBox(dialogOpts).then((returnValue) => {
-    if (returnValue.response === 0) autoUpdater.quitAndInstall();
+    if (returnValue.response === 0) {
+      autoUpdater.quitAndInstall();
+    } else {
+      logit("🚫 Update Installation Cancelled");
+    }
   });
 });
 
