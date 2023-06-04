@@ -8,65 +8,71 @@
   <url type="bugtracker">https://github.com/upscayl/upscayl/issues</url>
   <url type="donation">https://buymeacoffee.com/fossisthefuture</url>
 
-	<metadata_license>FSFAP</metadata_license>
+  <metadata_license>FSFAP</metadata_license>
   <project_license>AGPL-3.0</project_license>
-  
+
   <description>
     <p>
       Upscayl is a free and open source AI Image Upscaler built with linux-first philosophy.
     </p>
   </description>
-	
+
   <content_rating type="oars-1.1" />
-	
+
   <launchable type="desktop-id">org.upscayl.Upscayl.desktop</launchable>
 
   <screenshots>
-    <screenshot type="default">
-      <caption>Main Screen</caption>
-      <image>https://user-images.githubusercontent.com/25067102/237209401-ca4c118b-2b9a-4652-adc3-871e1cd19ecc.jpg</image>
-    </screenshot>
     <screenshot>
       <caption>Banner</caption>
-      <image>https://user-images.githubusercontent.com/25067102/237577889-d552a63c-1ec4-4e2b-9865-73567f3cc42e.jpg</image>
+      <image>https://raw.githubusercontent.com/upscayl/upscayl/main/1080p_banner.jpg</image>
+    </screenshot>
+    <screenshot type="default">
+      <caption>Explainer</caption>
+      <image>
+        https://raw.githubusercontent.com/upscayl/upscayl/main/1080p_explainer.jpg</image>
+    </screenshot>
+    <screenshot type="default">
+      <caption>Regular Screenshot</caption>
+      <image>
+        https://user-images.githubusercontent.com/25067102/237209401-ca4c118b-2b9a-4652-adc3-871e1cd19ecc.jpg</image>
     </screenshot>
   </screenshots>
 
   <releases>
-  <release version="v2.5.5" date="2023-06-04">
-        <description>
-            <p>Changes</p>
-            <ul>
-                <li>Added wiki option in the settings 📚</li>
-                <li>Added warnings for Scale issue ⚠</li>
-                <li>Fixed upscale resolution warning above 32k 🧐</li>
-                <li>Fixed batch folder output folder bug 📁</li>
-                <li>Disabled auto install on new updates ⚡</li>
-            </ul>
-        </description>
-      </release>
+    <release version="v2.5.5" date="2023-06-04">
+      <description>
+        <p>Changes</p>
+        <ul>
+          <li>Added wiki option in the settings 📚</li>
+          <li>Added warnings for Scale issue ⚠</li>
+          <li>Fixed upscale resolution warning above 32k 🧐</li>
+          <li>Fixed batch folder output folder bug 📁</li>
+          <li>Disabled auto install on new updates ⚡</li>
+        </ul>
+      </description>
+    </release>
     <release version="v2.5.1" date="2023-05-09">
-        <description>
-            <p>Changes</p>
-            <ul>
-                <li>New Settings tab!</li>
-                <li>Upscayl now allows you to import your own models! (Refer GitHub Wiki)</li>
-                <li>Reduced size since v2.0.1</li>
-                <li>Updated Ultrasharp model</li>
-                <li>Added FAST Real-ESRGAN Model</li>
-                <li>A cancel upscaling button, finally!</li>
-                <li>More visible progress bar</li>
-                <li>New log area. Now you can directly see the logs and report bugs.</li>
-                <li>Batch Mode is now persisted across sessions.</li>
-                <li>Output Folder is now persisted across sessions.</li>
-                <li>New experimental scale option.</li>
-                <li>Removed sharpen option (it was useless tbh)</li>
-                <li>Fixed issue with upscaling images with special characters in their name.</li>
-                <li>Massively improved logging.</li>
-                <li>Bug fixes</li>
-                <li>Bug additions</li>
-            </ul>
-        </description>
-      </release>
+      <description>
+        <p>Changes</p>
+        <ul>
+          <li>New Settings tab!</li>
+          <li>Upscayl now allows you to import your own models! (Refer GitHub Wiki)</li>
+          <li>Reduced size since v2.0.1</li>
+          <li>Updated Ultrasharp model</li>
+          <li>Added FAST Real-ESRGAN Model</li>
+          <li>A cancel upscaling button, finally!</li>
+          <li>More visible progress bar</li>
+          <li>New log area. Now you can directly see the logs and report bugs.</li>
+          <li>Batch Mode is now persisted across sessions.</li>
+          <li>Output Folder is now persisted across sessions.</li>
+          <li>New experimental scale option.</li>
+          <li>Removed sharpen option (it was useless tbh)</li>
+          <li>Fixed issue with upscaling images with special characters in their name.</li>
+          <li>Massively improved logging.</li>
+          <li>Bug fixes</li>
+          <li>Bug additions</li>
+        </ul>
+      </description>
+    </release>
   </releases>
 </component>
