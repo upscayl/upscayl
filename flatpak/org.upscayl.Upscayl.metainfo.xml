@@ -33,6 +33,18 @@
   </screenshots>
 
   <releases>
+  <release version="v2.5.5" date="2023-06-04">
+        <description>
+            <p>Changes</p>
+            <ul>
+                <li>Added wiki option in the settings 📚</li>
+                <li>Added warnings for Scale issue ⚠</li>
+                <li>Fixed upscale resolution warning above 32k 🧐</li>
+                <li>Fixed batch folder output folder bug 📁</li>
+                <li>Disabled auto install on new updates ⚡</li>
+            </ul>
+        </description>
+      </release>
     <release version="v2.5.1" date="2023-05-09">
         <description>
             <p>Changes</p>

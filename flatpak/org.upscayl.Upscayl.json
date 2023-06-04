@@ -1,66 +1,62 @@
 {
-    "id": "org.upscayl.Upscayl",
-    "sdk": "org.freedesktop.Sdk",
-    "runtime": "org.freedesktop.Platform",
-    "runtime-version": "22.08",
-    "base": "org.electronjs.Electron2.BaseApp",
-    "base-version": "22.08",
-    "command": "upscayl-run",
-    "separate-locales": false,
-    "finish-args": [
-        "--device=dri",
-        "--filesystem=home",
-        "--share=network",
-        "--socket=x11",
-        "--socket=pulseaudio"
-    ],
-    "modules": [
+  "id": "org.upscayl.Upscayl",
+  "sdk": "org.freedesktop.Sdk",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "22.08",
+  "base": "org.electronjs.Electron2.BaseApp",
+  "base-version": "22.08",
+  "command": "upscayl-run",
+  "separate-locales": false,
+  "finish-args": [
+    "--device=dri",
+    "--filesystem=home",
+    "--share=network",
+    "--socket=x11",
+    "--socket=pulseaudio"
+  ],
+  "modules": [
+    {
+      "name": "zypak",
+      "sources": [
         {
-            "name": "zypak",
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://github.com/refi64/zypak",
-                    "tag": "v2022.04"
-                }
-            ]
+          "type": "git",
+          "url": "https://github.com/refi64/zypak",
+          "tag": "v2022.04"
+        }
+      ]
+    },
+    {
+      "name": "upscayl",
+      "buildsystem": "simple",
+      "sources": [
+        {
+          "type": "file",
+          "only-arches": ["x86_64"],
+          "url": "https://github.com/upscayl/upscayl/releases/download/v2.5.5/upscayl-2.5.5-linux.zip",
+          "sha256": "d57eb8e18ae4b92ecc15dffe6233430b6c52572ed42299e30d44bbc2b806d984"
         },
         {
-            "name": "upscayl",
-            "buildsystem": "simple",
-            "sources": [
-                {
-                    "type": "file",
-                    "only-arches": [
-                        "x86_64"
-                    ],
-                    "url": "https://github.com/upscayl/upscayl/releases/download/v2.5.1/upscayl-2.5.1-linux.zip",
-                    "sha256": "88753506776be443633771620a332c5cca7fa07a6e4635aae3acff2cebc2b168"
-                },
-                {
-                    "type": "file",
-                    "url": "https://raw.githubusercontent.com/upscayl/upscayl/main/flatpak/org.upscayl.Upscayl.metainfo.xml",
-                    "sha256": "2334810d9a0707c7cbd9a095c904f394462320bdeee91ac8c03c2873c1b29aa6"
-                },
-                {
-                    "type": "script",
-                    "dest-filename": "upscayl-run",
-                    "commands": [
-                        "zypak-wrapper /app/upscayl/upscayl"
-                    ]
-                }
-            ],
-            "build-commands": [
-                "install -d /app/upscayl",
-                "unzip upscayl-2.5.1-linux -d /app/upscayl",
-                "install upscayl-run /app/bin/",
-                "install -Dm644 /app/upscayl/icon_512x512.png /app/share/icons/hicolor/512x512/apps/org.upscayl.Upscayl.png",
-                "install -Dm644 /app/upscayl/icon_128x128.png /app/share/icons/hicolor/128x128/apps/org.upscayl.Upscayl.png",
-                "install -Dp -m644 org.upscayl.Upscayl.metainfo.xml /app/share/metainfo/org.upscayl.Upscayl.metainfo.xml",
-                "touch /app/upscayl/org.upscayl.Upscayl.desktop",
-                "desktop-file-edit --set-key=Exec --set-value='upscayl-run %U' --set-key=Icon --set-value='org.upscayl.Upscayl' --set-key=Comment --set-value='Upscale Images' --set-key=Name --set-value='Upscayl' --set-key=StartupNotify --set-value='false' --set-key=Categories --set-value='ImageProcessing;RasterGraphics;Graphics;' --set-key=Type --set-value='Application' /app/upscayl/org.upscayl.Upscayl.desktop",
-                "install -Dm644 /app/upscayl/org.upscayl.Upscayl.desktop /app/share/applications/org.upscayl.Upscayl.desktop"
-            ]
+          "type": "file",
+          "url": "https://raw.githubusercontent.com/upscayl/upscayl/main/flatpak/org.upscayl.Upscayl.metainfo.xml",
+          "sha256": "839652e659a7bd5ef373f961ae5006c890356279cb06121c3372374b4654ae71"
+        },
+        {
+          "type": "script",
+          "dest-filename": "upscayl-run",
+          "commands": ["zypak-wrapper /app/upscayl/upscayl"]
         }
-    ]
+      ],
+      "build-commands": [
+        "install -d /app/upscayl",
+        "unzip upscayl-2.5.1-linux -d /app/upscayl",
+        "install upscayl-run /app/bin/",
+        "install -Dm644 /app/upscayl/icon_512x512.png /app/share/icons/hicolor/512x512/apps/org.upscayl.Upscayl.png",
+        "install -Dm644 /app/upscayl/icon_128x128.png /app/share/icons/hicolor/128x128/apps/org.upscayl.Upscayl.png",
+        "install -Dp -m644 org.upscayl.Upscayl.metainfo.xml /app/share/metainfo/org.upscayl.Upscayl.metainfo.xml",
+        "touch /app/upscayl/org.upscayl.Upscayl.desktop",
+        "desktop-file-edit --set-key=Exec --set-value='upscayl-run %U' --set-key=Icon --set-value='org.upscayl.Upscayl' --set-key=Comment --set-value='Upscale Images' --set-key=Name --set-value='Upscayl' --set-key=StartupNotify --set-value='false' --set-key=Categories --set-value='ImageProcessing;RasterGraphics;Graphics;' --set-key=Type --set-value='Application' /app/upscayl/org.upscayl.Upscayl.desktop",
+        "install -Dm644 /app/upscayl/org.upscayl.Upscayl.desktop /app/share/applications/org.upscayl.Upscayl.desktop"
+      ]
+    }
+  ]
 }
