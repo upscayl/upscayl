@@ -80,7 +80,7 @@ Upscayl should be available on the Software Store of most Linux operating system
 
 *If you encounter an error with opening the application, try Ctrl+Clicking/Right-clicking the app and clicking open. In the popup that opens, also click open.*
 
-### 🐌 Windows 
+### 🪟 Windows 
 
 1. Go to [releases section](https://github.com/TGS963/upscayl/releases/latest)
 
