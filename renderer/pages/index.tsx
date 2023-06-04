@@ -200,6 +200,7 @@ const Home = () => {
 
   useEffect(() => {
     setProgress("");
+    setOutputPath("");
   }, [batchMode]);
 
   useEffect(() => {
