@@ -1,0 +1,9 @@
+[Desktop Entry]
+X-Desktop-File-Install-Version=0.26
+Exec=upscayl-run %U
+Icon=org.upscayl.Upscayl
+Comment=Upscale Images with AI
+Name=Upscayl
+StartupNotify=false
+Categories=ImageProcessing;RasterGraphics;Graphics;
+Type=Application
