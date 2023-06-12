@@ -136,8 +136,8 @@ npm run publish-app
   - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
 - Do I need a GPU for this to work?
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
-- Why does batch upscaling output JPGs instead of PNGs?
-  - This is an issue with REAL-ERSGAN currently tracked [here](https://github.com/upscayl/upscayl/issues/174).
+- Why can't batch upscaling output other formats such as JPGs instead of PNGs?
+  - This is due to an issue with REAL-ERSGAN that we can't fix currently tracked [here](https://github.com/upscayl/upscayl/issues/174).
 - How can I contribute?
   - You can fix code, add features by submitting PRs, report issues or donate :)
 - What's the GPU ID for? Why does the scale option result in a mosaic/mixed grid?
