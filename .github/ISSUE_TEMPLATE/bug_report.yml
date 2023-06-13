@@ -6,7 +6,7 @@ body:
   attributes:
     label: Checklist
     options:
-      - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/upscayl/upscayl#faq-).
+      - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/upscayl/upscayl#-faq).
         required: true
       - label: I have checked that this issue isn't addressed in any other issue or pull request.
         required: true
