@@ -70,7 +70,8 @@ Upscayl should be available on the Software Store of most Linux operating system
 
 *You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).*
 
-### 🍎 MacOS (11+)
+### 🍎 macOS
+(macOS 11 and later)
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
 
@@ -82,7 +83,8 @@ Upscayl should be available on the Software Store of most Linux operating system
 
 5. In the window that appears, press 'Open' yet again.
 
-### 🐌 Windows (10+)
+### 🐌 Windows
+(Windows 10 and later)
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
 
