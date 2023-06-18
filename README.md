@@ -1,6 +1,8 @@
 <div align="center">
-  
+
+<a href="https://github.com/upscayl/upscayl/releases/latest">
 <img src="https://github.com/upscayl/upscayl/assets/25067102/d552a63c-1ec4-4e2b-9865-73567f3cc42e" />
+</a>
 
 # v2.5 is out!
 
