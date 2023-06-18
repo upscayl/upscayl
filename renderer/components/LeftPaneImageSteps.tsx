@@ -140,8 +140,8 @@ function LeftPaneImageSteps({
           onClick={() => setBatchMode((oldValue) => !oldValue)}></input>
         <p
           className="mr-1 inline-block  cursor-help text-sm"
-          data-tip="This will let you upscale all files in a folder at once">
-          Batch Upscale
+          data-tip="This will let you Upscayl all files in a folder at once">
+          Batch Upscayl
         </p>
       </div>
 
@@ -158,7 +158,7 @@ function LeftPaneImageSteps({
       {/* STEP 2 */}
       <div className="animate-step-in">
         <p className="step-heading">Step 2</p>
-        <p className="mb-2 text-sm">Select Upscaling Type</p>
+        <p className="mb-2 text-sm">Select Upscayling Type</p>
 
         <Select
           options={modelOptions}
@@ -221,7 +221,7 @@ function LeftPaneImageSteps({
         <p className="step-heading">Step 4</p>
         {dimensions.width && dimensions.height && (
           <p className="mb-2 text-sm">
-            Upscale from{" "}
+            Upscayl from{" "}
             <span className="font-bold">
               {dimensions.width}x{dimensions.height}
             </span>{" "}
