@@ -241,7 +241,7 @@ function SettingsTab({
         <div className="flex flex-col gap-2">
           {batchMode && (
             <p className="text-xs text-base-content/70">
-              Only PNG is supported in Batch Upscale
+              Only PNG is supported in Batch Upscayl.
             </p>
           )}
           <div className="flex flex-wrap gap-2">
