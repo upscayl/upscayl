@@ -10,50 +10,56 @@ body:
         required: true
       - label: I have checked that this issue isn't addressed in any other issue or pull request.
         required: true
+        
 - type: textarea
   attributes: 
     label: Paste the logs
     description: 💥 Paste the logs below - Read [Wiki](https://github.com/upscayl/upscayl/wiki) if you don't know how to
     value: |
-      <details>
-      <summary>Logs</summary>
-      <pre>
+      <details><summary>Logs</summary><pre>
       <!-- 📃 PASTE THE LOG BELOW THIS LINE! -->
 
+      
       </pre>
       </details>
   validations:
     required: true
+    
 - type: textarea
   attributes: 
     label: Describe the Bug
     description: 💥 What's the bug?
   validations:
     required: true
+    
 - type: textarea
   attributes: 
     label: To Reproduce 
     description: 🧙 How can we emulate the bug on our own machine? (Please write in steps)
   validations:
     required: true
-- type: textarea
-  attributes:
-    label: Expected Behavior
-    description: 🤓 What should've happened?
-  validations:
-    required: false
+
 - type: input
   attributes:
     label: Version/Commit Hash
     description: ✍️ What version of Upscayl did you use?
   validations:
     required: true
+    
 - type: input
   attributes:
     label: OS Specifics
     description: 📝 Please write your GPU name and your OS version
   validations:
     required: true
+    
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: 🤓 What should've happened?
+  validations:
+    required: false
+    
 - type: textarea
   attributes:
     label: Screenshots
