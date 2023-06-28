@@ -6,14 +6,10 @@ body:
   attributes:
     label: Checklist
     options:
-      - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/upscayl/upscayl#faq-).
+      - label: I have checked that this issue isn't addressed in [the Wiki](https://github.com/upscayl/upscayl/wiki).
         required: true
       - label: I have checked that this issue isn't addressed in any other issue or pull request.
         required: true
-- type: textarea
-  attributes: 
-    label: Related Problem(s)
-    description: 💥 Are there any problems that coerced you into filing this feature request?
 - type: textarea
   attributes: 
     label: Description
@@ -21,8 +17,12 @@ body:
   validations:
     required: true
 - type: textarea
+  attributes: 
+    label: Related Problem(s)
+    description: 💥 Are there any problems that coerced you into filing this feature request?
+- type: textarea
   attributes:
     label: Alternatives
     description: 👁️‍🗨️ Is there really no other way? Got any workarounds while the request remains unimplemented?
   validations:
-    required: true
+    required: false
