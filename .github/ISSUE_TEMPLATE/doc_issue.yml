@@ -13,15 +13,10 @@ body:
 - type: textarea
   attributes: 
     label: Describe the Issue
-    description: 💥 What? Where? How? is wrong? or lacking? Explain yourself!
+    description: 💥 What would you like to improve?
   validations:
     required: true
-- type: textarea
-  attributes:
-    label: Expected Behavior
-    description: 🤓 What should be there instead?
-  validations:
-    required: true
+
 - type: textarea
   attributes:
     label: Screenshots
