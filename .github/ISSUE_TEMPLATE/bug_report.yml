@@ -12,17 +12,22 @@ body:
         required: true
 - type: textarea
   attributes: 
-    label: Describe the Bug
-    description: 💥 What's wrong? Put logs here if you have them. To get logs, scroll to the bottom of Upscayl's settings.
+    label: Paste the logs - (Read [Wiki](https://github.com/upscayl/upscayl/wiki) if you don't know how to)
+    description: 💥 Paste the logs below
     value: |
-      
       <details>
       <summary>Logs</summary>
       <pre>
-      <!-- 📃 Put logs below! -->
+      <!-- 📃 PASTE THE LOG BELOW THIS LINE! -->
 
       </pre>
       </details>
+  validations:
+    required: true
+- type: textarea
+  attributes: 
+    label: Describe the Bug
+    description: 💥 What's the bug?
   validations:
     required: true
 - type: textarea
@@ -36,7 +41,7 @@ body:
     label: Expected Behavior
     description: 🤓 What should've happened?
   validations:
-    required: true
+    required: false
 - type: input
   attributes:
     label: Version/Commit Hash
