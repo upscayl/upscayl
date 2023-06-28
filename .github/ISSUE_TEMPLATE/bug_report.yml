@@ -12,8 +12,8 @@ body:
         required: true
 - type: textarea
   attributes: 
-    label: Paste the logs - (Read [Wiki](https://github.com/upscayl/upscayl/wiki) if you don't know how to)
-    description: 💥 Paste the logs below
+    label: Paste the logs
+    description: 💥 Paste the logs below - Read [Wiki](https://github.com/upscayl/upscayl/wiki) if you don't know how to
     value: |
       <details>
       <summary>Logs</summary>
