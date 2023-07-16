@@ -19,10 +19,8 @@ body:
     value: |
       <details><summary>Logs</summary><pre>
       <!-- 📃 PASTE THE LOG BELOW THIS LINE! -->
-
       
-      </pre>
-      </details>
+      </pre></details>
   validations:
     required: true
     
