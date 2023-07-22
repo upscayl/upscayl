@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import ReactTooltip from "react-tooltip";
 import { themeChange } from "theme-change";
-import { modelsListAtom } from "../atoms/modelsListAtom";
-import useLog from "./hooks/useLog";
+import { modelsListAtom } from "../../../atoms/modelsListAtom";
+import useLog from "../../hooks/useLog";
 
 interface IProps {
   progress: string;

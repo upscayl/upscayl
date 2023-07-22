@@ -1,5 +1,5 @@
 import React from "react";
-import Spinner from "./icons/Spinner";
+import Spinner from "../../icons/Spinner";
 
 function ProgressBar({ progress, doubleUpscaylCounter, stopHandler }) {
   return (
