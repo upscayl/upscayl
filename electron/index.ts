@@ -12,6 +12,7 @@ import { join, parse } from "path";
 import log from "electron-log";
 import { format } from "url";
 import fs from "fs";
+import Jimp from "jimp";
 
 import { execPath, modelsPath } from "./binaries";
 // Packages
@@ -22,6 +23,7 @@ import {
   dialog,
   shell,
   MessageBoxOptions,
+  protocol,
 } from "electron";
 
 import { spawnUpscayl } from "./upscayl";
@@ -71,6 +73,7 @@ app.on("ready", async () => {
     backgroundColor: "#171717",
     webPreferences: {
       nodeIntegration: true,
+      nodeIntegrationInWorker: true,
       webSecurity: false,
       preload: join(__dirname, "preload.js"),
     },
@@ -94,6 +97,13 @@ app.on("ready", async () => {
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
     mainWindow.webContents.setZoomFactor(1);
+  });
+
+  app.whenReady().then(() => {
+    protocol.registerFileProtocol("file", (request, callback) => {
+      const pathname = decodeURI(request.url.replace("file:///", ""));
+      callback(pathname);
+    });
   });
 
   if (!isDev) {
@@ -473,7 +483,6 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
 //------------------------Image Upscayl-----------------------------//
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const model = payload.model as string;
-  const scale = payload.scale as string;
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
 
@@ -490,12 +499,21 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
 
+  let scale = "4";
+  if (model.includes("x2")) {
+    scale = "2";
+  } else if (model.includes("x3")) {
+    scale = "3";
+  } else {
+    scale = "4";
+  }
+
   const outFile =
     outputDir +
     slash +
     fileName +
     "_upscayl_" +
-    scale +
+    payload.scale +
     "x_" +
     model +
     "." +
@@ -522,19 +540,6 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       logit
     );
 
-    console.log(
-      "BRUH: " +
-        getSingleImageArguments(
-          inputDir,
-          fullfileName,
-          outFile,
-          isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
-          model,
-          scale,
-          gpuId,
-          saveImageAs
-        )
-    );
     childProcesses.push(upscayl);
 
     stopped = false;
@@ -563,10 +568,24 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     const onClose = () => {
       if (!failed && !stopped) {
         logit("💯 Done upscaling");
-        mainWindow.setProgressBar(-1);
-        mainWindow.webContents.send(
-          commands.UPSCAYL_DONE,
-          isAlpha ? outFile + ".png" : outFile
+        logit("♻ Scaling and converting now...");
+        Jimp.read(
+          isAlpha ? outFile + ".png" : outFile,
+          (err: any, image: any) => {
+            if (err) {
+              logit("❌ Error converting to PNG: ", err);
+              onError(err);
+              return;
+            }
+            image
+              .scale(parseInt(payload.scale as string))
+              .write(isAlpha ? outFile + ".png" : outFile);
+            mainWindow.setProgressBar(-1);
+            mainWindow.webContents.send(
+              commands.UPSCAYL_DONE,
+              isAlpha ? outFile + ".png" : outFile
+            );
+          }
         );
       }
     };

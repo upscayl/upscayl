@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import ReactTooltip from "react-tooltip";

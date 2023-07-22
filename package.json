@@ -179,6 +179,7 @@
     "electron-next": "^3.1.5",
     "electron-updater": "^5.3.0",
     "image-size": "^1.0.2",
+    "jimp": "^0.22.8",
     "jotai": "^2.0.4",
     "react-compare-slider": "^2.2.0",
     "react-dropzone": "^14.2.3",
