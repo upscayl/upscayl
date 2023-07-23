@@ -10,13 +10,10 @@ export function ImageScaleSelect({ scale, setScale }: ImageScaleSelectProps) {
     <div>
       <div className="flex flex-row gap-1">
         <p className="text-sm font-medium">IMAGE SCALE</p>
-        <a
-          href="https://github.com/upscayl/upscayl/wiki/Guide#scale-option"
-          target="_blank">
-          <p className="badge-primary badge text-[10px] font-medium">
-            EXPERIMENTAL
-          </p>
-        </a>
+
+        <p className="badge-primary badge text-[10px] font-medium">
+          EXPERIMENTAL
+        </p>
       </div>
       <input
         type="range"

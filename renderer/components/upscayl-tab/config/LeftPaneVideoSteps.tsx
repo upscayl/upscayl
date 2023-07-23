@@ -1,6 +1,5 @@
 import React from "react";
 import Select from "react-select";
-import ReactTooltip from "react-tooltip";
 
 interface IProps {
   progress: string;
@@ -101,8 +100,6 @@ function LeftPaneVideoSteps({
           {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
         </button>
       </div>
-
-      <ReactTooltip class="max-w-sm" />
     </div>
   );
 }

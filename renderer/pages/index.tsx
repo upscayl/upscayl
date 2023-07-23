@@ -33,6 +33,7 @@ const Home = () => {
   const [videoPath, setVideoPath] = useState("");
   const [upscaledVideoPath, setUpscaledVideoPath] = useState("");
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
+  const [quality, setQuality] = useState(0);
   const [gpuId, setGpuId] = useState("");
   const [saveImageAs, setSaveImageAs] = useState("png");
   const [zoomAmount, setZoomAmount] = useState("100%");
@@ -556,6 +557,8 @@ const Home = () => {
           <SettingsTab
             batchMode={batchMode}
             setModel={setModel}
+            quality={quality}
+            setQuality={setQuality}
             gpuId={gpuId}
             setGpuId={setGpuId}
             saveImageAs={saveImageAs}
@@ -580,6 +583,7 @@ const Home = () => {
         upscaledBatchFolderPath.length === 0 &&
         upscaledVideoPath.length === 0 ? (
           <ProgressBar
+            batchMode={batchMode}
             progress={progress}
             doubleUpscaylCounter={doubleUpscaylCounter}
             stopHandler={stopHandler}

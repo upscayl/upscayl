@@ -1,10 +1,8 @@
 import "../styles/globals.css";
 import Head from "next/head";
 import { AppProps } from "next/app";
-import { useEffect } from "react";
-import { themeChange } from "theme-change";
-import log from "electron-log/renderer";
 import { Provider } from "jotai";
+import "react-tooltip/dist/react-tooltip.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (

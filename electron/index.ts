@@ -49,6 +49,7 @@ let folderPath: string | undefined = undefined;
 let customModelsFolderPath: string | undefined = undefined;
 let outputFolderPath: string | undefined = undefined;
 let saveOutputFolder = false;
+let quality = 100;
 
 let stopped = false;
 
@@ -155,6 +156,15 @@ app.on("ready", async () => {
     .then((lastSaveOutputFolder: boolean | null) => {
       if (lastSaveOutputFolder !== null) {
         saveOutputFolder = lastSaveOutputFolder;
+      }
+    });
+
+  // GET IMAGE QUALITY (NUMBER) TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("quality");', true)
+    .then((lastSavedQuality: string | null) => {
+      if (lastSavedQuality !== null) {
+        quality = parseInt(lastSavedQuality);
       }
     });
 });
@@ -441,13 +451,34 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     return;
   };
 
-  const onClose2 = (code) => {
+  const onClose2 = async (code) => {
     if (!failed2 && !stopped) {
       logit("💯 Done upscaling");
-      mainWindow.webContents.send(
-        commands.DOUBLE_UPSCAYL_DONE,
-        isAlpha ? outFile + ".png" : outFile
-      );
+      logit("♻ Scaling and converting now...");
+      const originalImage = await Jimp.read(inputDir + slash + fullfileName);
+      try {
+        const newImage = await Jimp.read(isAlpha ? outFile + ".png" : outFile);
+        try {
+          newImage
+            .scaleToFit(
+              originalImage.getWidth() * parseInt(payload.scale),
+              originalImage.getHeight() * parseInt(payload.scale)
+            )
+            .quality(100 - quality)
+            .write(isAlpha ? outFile + ".png" : outFile);
+          mainWindow.setProgressBar(-1);
+          mainWindow.webContents.send(
+            commands.DOUBLE_UPSCAYL_DONE,
+            isAlpha ? outFile + ".png" : outFile
+          );
+        } catch (error) {
+          logit("❌ Error converting to PNG: ", error);
+          onError(error);
+        }
+      } catch (error) {
+        logit("❌ Error reading original image metadata", error);
+        onError(error);
+      }
     }
   };
 
@@ -580,6 +611,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
                 originalImage.getWidth() * parseInt(payload.scale),
                 originalImage.getHeight() * parseInt(payload.scale)
               )
+              .quality(100 - quality)
               .write(isAlpha ? outFile + ".png" : outFile);
             mainWindow.setProgressBar(-1);
             mainWindow.webContents.send(
@@ -653,8 +685,9 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       data.toString()
     );
     if (data.includes("invalid gpu") || data.includes("failed")) {
-      logit("❌ INVALID GPU OR FAILED");
+      logit("❌ INVALID GPU OR INVALID FILES IN FOLDER - FAILED");
       failed = true;
+      upscayl.kill();
     }
   };
   const onError = (data: any) => {
@@ -663,12 +696,15 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       data.toString()
     );
     failed = true;
+    upscayl.kill();
     return;
   };
   const onClose = () => {
     if (!failed && !stopped) {
       logit("💯 Done upscaling");
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
+    } else {
+      upscayl.kill();
     }
   };
 
@@ -679,24 +715,6 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
 
 //------------------------Auto-Update Code-----------------------------//
 autoUpdater.autoInstallOnAppQuit = false;
-
-// ! AUTO UPDATE STUFF
-// autoUpdater.on("update-available", ({ version, releaseNotes, releaseName }) => {
-//   autoUpdater.autoInstallOnAppQuit = false;
-//   const dialogOpts = {
-//     type: "info",
-//     buttons: ["Sweet!"],
-//     title: "New Upscayl Update!",
-//     message: releaseName as string,
-//     detail: `Upscayl ${version} is available! It is being downloaded in the background. Please check GitHub for more details.`,
-//   };
-//   logit("📲 Update Available", releaseName, releaseNotes);
-//   dialog.showMessageBox(dialogOpts).then((returnValue) => {
-//     if (returnValue.response === 0) {
-//       logit("📲 Update Downloading");
-//     }
-//   });
-// });
 
 autoUpdater.on("update-downloaded", (event) => {
   autoUpdater.autoInstallOnAppQuit = false;
@@ -717,110 +735,3 @@ autoUpdater.on("update-downloaded", (event) => {
     }
   });
 });
-
-//------------------------Video Upscayl-----------------------------//
-// ipcMain.on(commands.UPSCAYL_VIDEO, async (event, payload) => {
-//   // Extract the model
-//   const model = payload.model;
-
-//   // Extract the Video Directory
-//   let videoFileName = payload.videoPath.replace(/^.*[\\\/]/, "");
-//   const justFileName = parse(videoFileName).name;
-
-//   let inputDir = payload.videoPath.match(/(.*)[\/\\]/)[1] || "";
-//   log.log("🚀 => file: index.ts => line 337 => inputDir", inputDir);
-
-//   // Set the output directory
-//   let outputDir = payload.outputPath + "_frames";
-//   log.log("🚀 => file: index.ts => line 340 => outputDir", outputDir);
-
-//   let frameExtractionPath = join(inputDir, justFileName + "_f");
-//   let frameUpscalePath = join(inputDir, justFileName + "_u");
-//   log.log(
-//     "🚀 => file: index.ts => line 342 => frameExtractionPath",
-//     frameExtractionPath,
-//     frameUpscalePath
-//   );
-
-//   if (!fs.existsSync(frameExtractionPath)) {
-//     fs.mkdirSync(frameExtractionPath, { recursive: true });
-//   }
-//   if (!fs.existsSync(frameUpscalePath)) {
-//     fs.mkdirSync(frameUpscalePath, { recursive: true });
-//   }
-
-//   let ffmpegProcess: ChildProcessWithoutNullStreams | null = null;
-//   ffmpegProcess = spawn(
-//     ffmpeg.path,
-//     [
-//       "-i",
-//       inputDir + slash + videoFileName,
-//       frameExtractionPath + slash + "out%d.png",
-//     ],
-//     {
-//       cwd: undefined,
-//       detached: false,
-//     }
-//   );
-
-//   let failed = false;
-//   ffmpegProcess?.stderr.on("data", (data: string) => {
-//     log.log("🚀 => file: index.ts:420 => data", data.toString());
-//     data = data.toString();
-//     mainWindow.webContents.send(
-//       commands.FFMPEG_VIDEO_PROGRESS,
-//       data.toString()
-//     );
-//   });
-
-//   ffmpegProcess?.on("error", (data: string) => {
-//     mainWindow.webContents.send(
-//       commands.FFMPEG_VIDEO_PROGRESS,
-//       data.toString()
-//     );
-//     failed = true;
-//     return;
-//   });
-
-//   // Send done comamnd when
-//   ffmpegProcess?.on("close", (code: number) => {
-//     if (failed !== true) {
-//       log.log("Frame extraction successful!");
-//       mainWindow.webContents.send(commands.FFMPEG_VIDEO_DONE, outputDir);
-
-//       // UPSCALE
-//       let upscayl: ChildProcessWithoutNullStreams | null = null;
-//       upscayl = spawn(
-//         execPath("realesrgan"),
-//         [
-//           "-i",
-//           frameExtractionPath,
-//           "-o",
-//           frameUpscalePath,
-//           "-s",
-//           4,
-//           "-m",
-//           modelsPath,
-//           "-n",
-//           model,
-//         ],
-//         {
-//           cwd: undefined,
-//           detached: false,
-//         }
-//       );
-
-//       upscayl?.stderr.on("data", (data) => {
-//         log.log(
-//           "🚀 => upscayl.stderr.on => stderr.toString()",
-//           data.toString()
-//         );
-//         data = data.toString();
-//         mainWindow.webContents.send(
-//           commands.FFMPEG_VIDEO_PROGRESS,
-//           data.toString()
-//         );
-//       });
-//     }
-//   });
-// });

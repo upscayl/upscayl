@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import ReactTooltip from "react-tooltip";
+import { Tooltip } from "react-tooltip";
 import { themeChange } from "theme-change";
 import { modelsListAtom } from "../../../atoms/modelsListAtom";
 import useLog from "../../hooks/useLog";
@@ -140,13 +140,14 @@ function LeftPaneImageSteps({
           onClick={() => setBatchMode((oldValue) => !oldValue)}></input>
         <p
           className="mr-1 inline-block  cursor-help text-sm"
-          data-tip="This will let you Upscayl all files in a folder at once">
+          data-tooltip-id="tooltip"
+          data-tooltip-content="This will let you Upscayl all files in a folder at once">
           Batch Upscayl
         </p>
       </div>
 
       {/* STEP 1 */}
-      <div data-tip={imagePath}>
+      <div data-tooltip-id="tooltip" data-tooltip-content={imagePath}>
         <p className="step-heading">Step 1</p>
         <button
           className="btn-primary btn"
@@ -198,7 +199,8 @@ function LeftPaneImageSteps({
             </p>
             <button
               className="badge-info badge cursor-help"
-              data-tip="Enable this option to get a 16x upscayl (we just run upscayl twice). Note that this may not always work properly with all images, for example, images with really large resolutions.">
+              data-tooltip-id="tooltip"
+              data-tooltip-content="Enable this option to get a 16x upscayl (we just run upscayl twice). Note that this may not always work properly with all images, for example, images with really large resolutions.">
               i
             </button>
           </div>
@@ -206,7 +208,10 @@ function LeftPaneImageSteps({
       </div>
 
       {/* STEP 3 */}
-      <div className="animate-step-in" data-tip={outputPath}>
+      <div
+        className="animate-step-in"
+        data-tooltip-content={outputPath}
+        data-tooltip-id="tooltip">
         <p className="step-heading">Step 3</p>
         <p className="mb-2 text-sm">
           Defaults to {!batchMode ? "Image's" : "Folder's"} path
@@ -239,7 +244,7 @@ function LeftPaneImageSteps({
         </button>
       </div>
 
-      <ReactTooltip class="max-w-sm" />
+      <Tooltip className="max-w-sm" id="tooltip" />
     </div>
   );
 }

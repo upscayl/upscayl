@@ -12,12 +12,15 @@ import { useAtom, useAtomValue } from "jotai";
 import { customModelsPathAtom, scaleAtom } from "../../atoms/userSettingsAtom";
 import { modelsListAtom } from "../../atoms/modelsListAtom";
 import useLog from "../hooks/useLog";
+import { QualityInput } from "./QualityInput";
 
 interface IProps {
   batchMode: boolean;
   setModel: React.Dispatch<React.SetStateAction<string>>;
   saveImageAs: string;
   setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
+  quality: number;
+  setQuality: React.Dispatch<React.SetStateAction<number>>;
   gpuId: string;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
   logData: string[];
@@ -26,6 +29,8 @@ interface IProps {
 function SettingsTab({
   batchMode,
   setModel,
+  quality,
+  setQuality,
   gpuId,
   setGpuId,
   saveImageAs,
@@ -113,6 +118,11 @@ function SettingsTab({
     localStorage.setItem("saveImageAs", format);
   };
 
+  const handleQualityChange = (e) => {
+    setQuality(e.target.value);
+    localStorage.setItem("quality", e.target.value);
+  };
+
   const handleGpuIdChange = (e) => {
     setGpuId(e.target.value);
     localStorage.setItem("gpuId", e.target.value);
@@ -139,8 +149,29 @@ function SettingsTab({
         <DonateButton />
       </div>
 
+      <LogArea
+        copyOnClickHandler={copyOnClickHandler}
+        isCopied={isCopied}
+        logData={logData}
+      />
+
       {/* THEME SELECTOR */}
       <ThemeSelect />
+
+      {/* IMAGE FORMAT BUTTONS */}
+      <ImageFormatSelect
+        batchMode={batchMode}
+        saveImageAs={saveImageAs}
+        setExportType={setExportType}
+      />
+
+      {/* IMAGE SCALE */}
+      <ImageScaleSelect scale={scale} setScale={setScale} />
+
+      <QualityInput
+        quality={quality}
+        handleQualityChange={handleQualityChange}
+      />
 
       <SaveOutputFolderToggle
         rememberOutputFolder={rememberOutputFolder}
@@ -154,22 +185,6 @@ function SettingsTab({
       <CustomModelsFolderSelect
         customModelsPath={customModelsPath}
         setCustomModelsPath={setCustomModelsPath}
-      />
-
-      {/* IMAGE FORMAT BUTTONS */}
-      <ImageFormatSelect
-        batchMode={batchMode}
-        saveImageAs={saveImageAs}
-        setExportType={setExportType}
-      />
-
-      {/* IMAGE SCALE */}
-      <ImageScaleSelect scale={scale} setScale={setScale} />
-
-      <LogArea
-        copyOnClickHandler={copyOnClickHandler}
-        isCopied={isCopied}
-        logData={logData}
       />
     </div>
   );
