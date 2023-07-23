@@ -128,12 +128,16 @@ function SettingsTab({
 
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
-      <a
-        className="btn-primary btn"
-        href="https://github.com/upscayl/upscayl/wiki/"
-        target="_blank">
-        Read WIKI
-      </a>
+      <div className="flex flex-col gap-2 text-sm font-medium">
+        <p>Having issues?</p>
+        <a
+          className="btn-primary btn"
+          href="https://github.com/upscayl/upscayl/wiki/"
+          target="_blank">
+          Read Wiki Guide
+        </a>
+        <DonateButton />
+      </div>
 
       {/* THEME SELECTOR */}
       <ThemeSelect />
@@ -167,9 +171,6 @@ function SettingsTab({
         isCopied={isCopied}
         logData={logData}
       />
-
-      {/* DONATE BUTTON */}
-      <DonateButton />
     </div>
   );
 }

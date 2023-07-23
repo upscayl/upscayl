@@ -20,7 +20,7 @@ export function ImageScaleSelect({ scale, setScale }: ImageScaleSelectProps) {
       </div>
       <input
         type="range"
-        min="2"
+        min="1"
         max="4"
         value={scale}
         onChange={(e: any) => {
@@ -30,22 +30,11 @@ export function ImageScaleSelect({ scale, setScale }: ImageScaleSelectProps) {
         className="range range-primary mt-2"
       />
       <div className="flex w-full justify-between px-2 text-xs font-semibold text-base-content">
+        <span>1x</span>
         <span>2x</span>
         <span>3x</span>
         <span>4x</span>
       </div>
-      {scale !== "4" && (
-        <p className="mt-1 text-center text-xs text-base-content/70">
-          This may generate unexpected output!
-          <br />
-          <a
-            className="link"
-            href="https://github.com/upscayl/upscayl/wiki/Guide#scale-option"
-            target="_blank">
-            See Wiki
-          </a>
-        </p>
-      )}
     </div>
   );
 }

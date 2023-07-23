@@ -565,28 +565,35 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       failed = true;
       return;
     };
-    const onClose = () => {
+    const onClose = async () => {
       if (!failed && !stopped) {
         logit("💯 Done upscaling");
         logit("♻ Scaling and converting now...");
-        Jimp.read(
-          isAlpha ? outFile + ".png" : outFile,
-          (err: any, image: any) => {
-            if (err) {
-              logit("❌ Error converting to PNG: ", err);
-              onError(err);
-              return;
-            }
-            image
-              .scale(parseInt(payload.scale as string))
+        const originalImage = await Jimp.read(inputDir + slash + fullfileName);
+        try {
+          const newImage = await Jimp.read(
+            isAlpha ? outFile + ".png" : outFile
+          );
+          try {
+            newImage
+              .scaleToFit(
+                originalImage.getWidth() * parseInt(payload.scale),
+                originalImage.getHeight() * parseInt(payload.scale)
+              )
               .write(isAlpha ? outFile + ".png" : outFile);
             mainWindow.setProgressBar(-1);
             mainWindow.webContents.send(
               commands.UPSCAYL_DONE,
               isAlpha ? outFile + ".png" : outFile
             );
+          } catch (error) {
+            logit("❌ Error converting to PNG: ", error);
+            onError(error);
           }
-        );
+        } catch (error) {
+          logit("❌ Error reading original image metadata", error);
+          onError(error);
+        }
       }
     };
 
