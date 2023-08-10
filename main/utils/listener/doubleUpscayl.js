@@ -18,8 +18,8 @@ const path_1 = require("path");
 const upscayl_1 = require("../../upscayl");
 const getArguments_1 = require("../getArguments");
 const jimp_1 = __importDefault(require("jimp"));
-function default_1(mainWindow, slash, logit, childProcesses, stopped, modelsPath, customModelsFolderPath, saveOutputFolder, outputFolderPath, quality, defaultModels) {
-    return electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __awaiter(this, void 0, void 0, function* () {
+function default_1({ mainWindow, slash, logit, childProcesses, stopped, modelsPath, customModelsFolderPath, saveOutputFolder, outputFolderPath, quality, defaultModels, }) {
+    electron_1.ipcMain.on(commands_1.default.DOUBLE_UPSCAYL, (event, payload) => __awaiter(this, void 0, void 0, function* () {
         const model = payload.model;
         let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "");
         let outputDir = payload.outputPath;

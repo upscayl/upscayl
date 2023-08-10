@@ -15,17 +15,10 @@ function Footer() {
       <p>
         By{" "}
         <a
-          href="https://github.com/TGS963"
+          href="https://github.com/upscayl"
           className="font-bold"
           target="_blank">
-          TGS963
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://github.com/NayamAmarshe"
-          className="font-bold"
-          target="_blank">
-          Nayam Amarshe
+          TGS963 and Nayam Amarshe
         </a>
       </p>
     </div>

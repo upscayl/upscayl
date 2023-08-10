@@ -17,8 +17,7 @@ const commands_1 = __importDefault(require("../../commands"));
 const upscayl_1 = require("../../upscayl");
 const getArguments_1 = require("../getArguments");
 const fs_1 = __importDefault(require("fs"));
-function default_1(mainWindow, logit, childProcesses, stopped, modelsPath, customModelsFolderPath, saveOutputFolder, outputFolderPath, defaultModels) {
-    //------------------------Upscayl Folder-----------------------------//
+function default_1({ mainWindow, logit, childProcesses, stopped, modelsPath, customModelsFolderPath, saveOutputFolder, outputFolderPath, defaultModels, }) {
     electron_1.ipcMain.on(commands_1.default.FOLDER_UPSCAYL, (event, payload) => __awaiter(this, void 0, void 0, function* () {
         // GET THE MODEL
         const model = payload.model;

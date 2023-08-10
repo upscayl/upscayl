@@ -1,7 +1,7 @@
 // Native
 import { autoUpdater } from "electron-updater";
 import getPlatform from "./getPlatform";
-import { join } from "path";
+import { join, parse } from "path";
 import log from "electron-log";
 import { format } from "url";
 import fs from "fs";
@@ -22,13 +22,14 @@ import prepareNext from "electron-next";
 import isDev from "electron-is-dev";
 import commands from "./commands";
 import { ChildProcessWithoutNullStreams } from "child_process";
-import doubleUpscayl from "./utils/listener/doubleUpscayl";
-import folderUpscayl from "./utils/listener/folderUpscayl";
-import imageUpscayl from "./utils/listener/imageUpscayl";
-import customModelsSelect from "./utils/listener/customModelsSelect";
-import getModelsList from "./utils/listener/getModelsList";
-import selectFile from "./utils/listener/selectFile";
-import selectFolder from "./utils/listener/selectFolder";
+import {
+  getBatchArguments,
+  getDoubleUpscaleArguments,
+  getDoubleUpscaleSecondPassArguments,
+  getSingleImageArguments,
+} from "./utils/getArguments";
+import { spawnUpscayl } from "./upscayl";
+import Jimp from "jimp";
 
 let childProcesses: {
   process: ChildProcessWithoutNullStreams;
@@ -241,68 +242,501 @@ ipcMain.on(commands.STOP, async (event, payload) => {
   });
 });
 
-if (mainWindow) {
-  selectFolder({
-    folderPath,
-    logit,
+//------------------------Select Folder-----------------------------//
+ipcMain.handle(commands.SELECT_FOLDER, async (event, message) => {
+  const { canceled, filePaths: folderPaths } = await dialog.showOpenDialog({
+    properties: ["openDirectory"],
+    defaultPath: folderPath,
   });
-  selectFile({
-    mainWindow,
-    imagePath,
-    logit,
+
+  if (canceled) {
+    logit("🚫 Select Folder Operation Cancelled");
+    return null;
+  } else {
+    folderPath = folderPaths[0];
+    logit("📁 Selected Folder Path: ", folderPath);
+    return folderPaths[0];
+  }
+});
+
+//------------------------Select File-----------------------------//
+ipcMain.handle(commands.SELECT_FILE, async () => {
+  if (!mainWindow) return;
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ["openFile", "multiSelections"],
+    title: "Select Image",
+    defaultPath: imagePath,
   });
-  getModelsList({
-    mainWindow,
-    customModelsFolderPath,
-    logit,
-    getModels,
+
+  if (canceled) {
+    logit("🚫 File Operation Cancelled");
+    return null;
+  } else {
+    imagePath = filePaths[0];
+
+    let isValid = false;
+    // READ SELECTED FILES
+    filePaths.forEach((file) => {
+      // log.log("Files in Folder: ", file);
+      if (
+        file.endsWith(".png") ||
+        file.endsWith(".jpg") ||
+        file.endsWith(".jpeg") ||
+        file.endsWith(".webp") ||
+        file.endsWith(".JPG") ||
+        file.endsWith(".PNG") ||
+        file.endsWith(".JPEG") ||
+        file.endsWith(".WEBP")
+      ) {
+        isValid = true;
+      }
+    });
+
+    if (!isValid) {
+      logit("❌ Invalid File Detected");
+      const options: MessageBoxOptions = {
+        type: "error",
+        title: "Invalid File",
+        message:
+          "The selected file is not a valid image. Make sure you select a '.png', '.jpg', or '.webp' file.",
+      };
+      dialog.showMessageBoxSync(mainWindow, options);
+      return null;
+    }
+
+    logit("📄 Selected File Path: ", filePaths[0]);
+    // CREATE input AND upscaled FOLDER
+    return filePaths[0];
+  }
+});
+
+//------------------------Get Models List-----------------------------//
+ipcMain.on(commands.GET_MODELS_LIST, async (event, payload) => {
+  if (!mainWindow) return;
+  if (payload) {
+    customModelsFolderPath = payload;
+
+    logit("📁 Custom Models Folder Path: ", customModelsFolderPath);
+
+    mainWindow.webContents.send(
+      commands.CUSTOM_MODEL_FILES_LIST,
+      getModels(payload)
+    );
+  }
+});
+
+//------------------------Custom Models Select-----------------------------//
+ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
+  if (!mainWindow) return;
+  const { canceled, filePaths: folderPaths } = await dialog.showOpenDialog({
+    properties: ["openDirectory"],
+    title: "Select Custom Models Folder",
+    defaultPath: customModelsFolderPath,
   });
-  customModelsSelect({
-    mainWindow,
-    customModelsFolderPath,
-    logit,
-    slash,
-    getModels,
+  if (canceled) {
+    logit("🚫 Select Custom Models Folder Operation Cancelled");
+    return null;
+  } else {
+    customModelsFolderPath = folderPaths[0];
+
+    if (
+      !folderPaths[0].endsWith(slash + "models") &&
+      !folderPaths[0].endsWith(slash + "models" + slash)
+    ) {
+      logit("❌ Invalid Custom Models Folder Detected: Not a 'models' folder");
+      const options: MessageBoxOptions = {
+        type: "error",
+        title: "Invalid Folder",
+        message:
+          "Please make sure that the folder name is 'models' and nothing else.",
+        buttons: ["OK"],
+      };
+      dialog.showMessageBoxSync(options);
+      return null;
+    }
+
+    mainWindow.webContents.send(
+      commands.CUSTOM_MODEL_FILES_LIST,
+      getModels(customModelsFolderPath)
+    );
+
+    logit("📁 Custom Folder Path: ", customModelsFolderPath);
+    return customModelsFolderPath;
+  }
+});
+
+//------------------------Image Upscayl-----------------------------//
+ipcMain.on(commands.UPSCAYL, async (event, payload) => {
+  if (!mainWindow) return;
+  const model = payload.model as string;
+  const gpuId = payload.gpuId as string;
+  const saveImageAs = payload.saveImageAs as string;
+
+  let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
+  let outputDir = folderPath || (payload.outputPath as string);
+
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
+  }
+
+  const isDefaultModel = defaultModels.includes(model);
+
+  const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
+  const fileName = parse(fullfileName).name;
+  const fileExt = parse(fullfileName).ext;
+
+  let scale = "4";
+  if (model.includes("x2")) {
+    scale = "2";
+  } else if (model.includes("x3")) {
+    scale = "3";
+  } else {
+    scale = "4";
+  }
+
+  const outFile =
+    outputDir +
+    slash +
+    fileName +
+    "_upscayl_" +
+    payload.scale +
+    "x_" +
+    model +
+    "." +
+    saveImageAs;
+
+  // UPSCALE
+  if (fs.existsSync(outFile)) {
+    // If already upscayled, just output that file
+    logit("✅ Already upscayled at: ", outFile);
+    mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+  } else {
+    const upscayl = spawnUpscayl(
+      "realesrgan",
+      getSingleImageArguments(
+        inputDir,
+        fullfileName,
+        outFile,
+        isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+        model,
+        scale,
+        gpuId,
+        saveImageAs
+      ),
+      logit
+    );
+
+    childProcesses.push(upscayl);
+
+    stopped = false;
+    let isAlpha = false;
+    let failed = false;
+
+    const onData = (data: string) => {
+      if (!mainWindow) return;
+      logit("image upscayl: ", data.toString());
+      mainWindow.setProgressBar(parseFloat(data.slice(0, data.length)) / 100);
+      data = data.toString();
+      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+      if (data.includes("invalid gpu") || data.includes("failed")) {
+        logit("❌ INVALID GPU OR FAILED");
+        failed = true;
+      }
+      if (data.includes("has alpha channel")) {
+        logit("📢 INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
+        isAlpha = true;
+      }
+    };
+    const onError = (data) => {
+      if (!mainWindow) return;
+      mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
+      failed = true;
+      return;
+    };
+    const onClose = async () => {
+      if (!failed && !stopped) {
+        logit("💯 Done upscaling");
+        logit("♻ Scaling and converting now...");
+        const originalImage = await Jimp.read(inputDir + slash + fullfileName);
+        try {
+          const newImage = await Jimp.read(
+            isAlpha ? outFile + ".png" : outFile
+          );
+          try {
+            if (!mainWindow) return;
+            newImage
+              .scaleToFit(
+                originalImage.getWidth() * parseInt(payload.scale),
+                originalImage.getHeight() * parseInt(payload.scale)
+              )
+              .quality(100 - quality)
+              .write(isAlpha ? outFile + ".png" : outFile);
+            mainWindow.setProgressBar(-1);
+            mainWindow.webContents.send(
+              commands.UPSCAYL_DONE,
+              isAlpha ? outFile + ".png" : outFile
+            );
+          } catch (error) {
+            logit("❌ Error converting to PNG: ", error);
+            onError(error);
+          }
+        } catch (error) {
+          logit("❌ Error reading original image metadata", error);
+          onError(error);
+        }
+      }
+    };
+
+    upscayl.process.stderr.on("data", onData);
+    upscayl.process.on("error", onError);
+    upscayl.process.on("close", onClose);
+  }
+});
+
+//------------------------Folder Upscayl-----------------------------//
+ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
+  if (!mainWindow) return;
+  // GET THE MODEL
+  const model = payload.model;
+  const gpuId = payload.gpuId;
+  const saveImageAs = payload.saveImageAs;
+  const scale = payload.scale as string;
+
+  // GET THE IMAGE DIRECTORY
+  let inputDir = payload.batchFolderPath;
+  // GET THE OUTPUT DIRECTORY
+  let outputDir = payload.outputPath;
+
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
+  }
+
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
+  const isDefaultModel = defaultModels.includes(model);
+
+  // UPSCALE
+  const upscayl = spawnUpscayl(
+    "realesrgan",
+    getBatchArguments(
+      inputDir,
+      outputDir,
+      isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+      model,
+      gpuId,
+      saveImageAs,
+      scale
+    ),
+    logit
+  );
+
+  childProcesses.push(upscayl);
+
+  stopped = false;
+  let failed = false;
+
+  const onData = (data: any) => {
+    if (!mainWindow) return;
+    data = data.toString();
+    mainWindow.webContents.send(
+      commands.FOLDER_UPSCAYL_PROGRESS,
+      data.toString()
+    );
+    if (data.includes("invalid gpu") || data.includes("failed")) {
+      logit("❌ INVALID GPU OR INVALID FILES IN FOLDER - FAILED");
+      failed = true;
+      upscayl.kill();
+    }
+  };
+  const onError = (data: any) => {
+    if (!mainWindow) return;
+    mainWindow.webContents.send(
+      commands.FOLDER_UPSCAYL_PROGRESS,
+      data.toString()
+    );
+    failed = true;
+    upscayl.kill();
+    return;
+  };
+  const onClose = () => {
+    if (!mainWindow) return;
+    if (!failed && !stopped) {
+      logit("💯 Done upscaling");
+      mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
+    } else {
+      upscayl.kill();
+    }
+  };
+
+  upscayl.process.stderr.on("data", onData);
+  upscayl.process.on("error", onError);
+  upscayl.process.on("close", onClose);
+});
+
+//------------------------Double Upscayl-----------------------------//
+ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
+  if (!mainWindow) return;
+
+  const model = payload.model as string;
+  let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
+  let outputDir = payload.outputPath as string;
+
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
+  }
+  const gpuId = payload.gpuId as string;
+  const saveImageAs = payload.saveImageAs as string;
+
+  const isDefaultModel = defaultModels.includes(model);
+
+  // COPY IMAGE TO TMP FOLDER
+
+  const fullfileName = payload.imagePath.split(slash).slice(-1)[0] as string;
+  const fileName = parse(fullfileName).name;
+  const outFile =
+    outputDir + slash + fileName + "_upscayl_16x_" + model + "." + saveImageAs;
+
+  let scale = "4";
+  if (model.includes("x2")) {
+    scale = "2";
+  } else if (model.includes("x3")) {
+    scale = "3";
+  } else {
+    scale = "4";
+  }
+
+  // UPSCALE
+  let upscayl = spawnUpscayl(
+    "realesrgan",
+    getDoubleUpscaleArguments(
+      inputDir,
+      fullfileName,
+      outFile,
+      isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+      model,
+      gpuId,
+      saveImageAs,
+      scale
+    ),
+    logit
+  );
+
+  childProcesses.push(upscayl);
+
+  stopped = false;
+  let failed = false;
+  let isAlpha = false;
+  let failed2 = false;
+
+  const onData = (data) => {
+    if (!mainWindow) return;
+    // CONVERT DATA TO STRING
+    data = data.toString();
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+    // IF PROGRESS HAS ERROR, UPSCAYL FAILED
+    if (data.includes("invalid gpu") || data.includes("failed")) {
+      failed = true;
+    }
+    if (data.includes("has alpha channel")) {
+      isAlpha = true;
+    }
+  };
+
+  const onError = (data) => {
+    if (!mainWindow) return;
+    data.toString();
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+    // SET FAILED TO TRUE
+    failed = true;
+    return;
+  };
+
+  const onData2 = (data) => {
+    if (!mainWindow) return;
+    // CONVERT DATA TO STRING
+    data = data.toString();
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+    // IF PROGRESS HAS ERROR, UPSCAYL FAILED
+    if (data.includes("invalid gpu") || data.includes("failed")) {
+      failed2 = true;
+    }
+  };
+
+  const onError2 = (data) => {
+    if (!mainWindow) return;
+    data.toString();
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+    // SET FAILED TO TRUE
+    failed2 = true;
+    return;
+  };
+
+  const onClose2 = async (code) => {
+    if (!mainWindow) return;
+    if (!failed2 && !stopped) {
+      logit("💯 Done upscaling");
+      logit("♻ Scaling and converting now...");
+      const originalImage = await Jimp.read(inputDir + slash + fullfileName);
+      try {
+        const newImage = await Jimp.read(isAlpha ? outFile + ".png" : outFile);
+        try {
+          newImage
+            .scaleToFit(
+              originalImage.getWidth() * parseInt(payload.scale),
+              originalImage.getHeight() * parseInt(payload.scale)
+            )
+            .quality(100 - quality)
+            .write(isAlpha ? outFile + ".png" : outFile);
+          mainWindow.setProgressBar(-1);
+          mainWindow.webContents.send(
+            commands.DOUBLE_UPSCAYL_DONE,
+            isAlpha ? outFile + ".png" : outFile
+          );
+        } catch (error) {
+          logit("❌ Error converting to PNG: ", error);
+          onError(error);
+        }
+      } catch (error) {
+        logit("❌ Error reading original image metadata", error);
+        onError(error);
+      }
+    }
+  };
+
+  upscayl.process.stderr.on("data", onData);
+  upscayl.process.on("error", onError);
+  upscayl.process.on("close", (code) => {
+    // IF NOT FAILED
+    if (!failed && !stopped) {
+      // UPSCALE
+      let upscayl2 = spawnUpscayl(
+        "realesrgan",
+        getDoubleUpscaleSecondPassArguments(
+          isAlpha,
+          outFile,
+          isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+          model,
+          gpuId,
+          saveImageAs,
+          scale
+        ),
+        logit
+      );
+
+      childProcesses.push(upscayl2);
+
+      upscayl2.process.stderr.on("data", onData2);
+      upscayl2.process.on("error", onError2);
+      upscayl2.process.on("close", onClose2);
+    }
   });
-  imageUpscayl({
-    mainWindow,
-    slash,
-    logit,
-    childProcesses,
-    stopped,
-    modelsPath,
-    customModelsFolderPath,
-    saveOutputFolder,
-    outputFolderPath,
-    quality,
-    defaultModels,
-    folderPath,
-  });
-  folderUpscayl({
-    mainWindow,
-    logit,
-    childProcesses,
-    stopped,
-    modelsPath,
-    customModelsFolderPath,
-    saveOutputFolder,
-    outputFolderPath,
-    defaultModels,
-  });
-  doubleUpscayl({
-    mainWindow,
-    slash,
-    logit,
-    childProcesses,
-    stopped,
-    modelsPath,
-    customModelsFolderPath,
-    saveOutputFolder,
-    outputFolderPath,
-    quality,
-    defaultModels,
-  });
-}
+});
 
 //------------------------Auto-Update Code-----------------------------//
 autoUpdater.autoInstallOnAppQuit = false;
