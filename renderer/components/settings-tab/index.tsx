@@ -13,6 +13,7 @@ import { customModelsPathAtom, scaleAtom } from "../../atoms/userSettingsAtom";
 import { modelsListAtom } from "../../atoms/modelsListAtom";
 import useLog from "../hooks/useLog";
 import { QualityInput } from "./QualityInput";
+import ToggleOverwrite from "./ToggleOverwrite";
 
 interface IProps {
   batchMode: boolean;
@@ -24,6 +25,8 @@ interface IProps {
   gpuId: string;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
   logData: string[];
+  overwrite: boolean;
+  setOverwrite: (arg: any) => void;
 }
 
 function SettingsTab({
@@ -36,6 +39,8 @@ function SettingsTab({
   saveImageAs,
   setSaveImageAs,
   logData,
+  overwrite,
+  setOverwrite,
 }: IProps) {
   // STATES
   const [currentModel, setCurrentModel] = useState<{
@@ -177,6 +182,8 @@ function SettingsTab({
         rememberOutputFolder={rememberOutputFolder}
         setRememberOutputFolder={setRememberOutputFolder}
       />
+
+      <ToggleOverwrite overwrite={overwrite} setOverwrite={setOverwrite} />
 
       {/* GPU ID INPUT */}
       <GpuIdInput gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />

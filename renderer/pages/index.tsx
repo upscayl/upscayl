@@ -29,6 +29,7 @@ const Home = () => {
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
+  const [overwrite, setOverwrite] = useState(false);
   const [isVideo] = useState(false);
   const [videoPath, setVideoPath] = useState("");
   const [upscaledVideoPath, setUpscaledVideoPath] = useState("");
@@ -564,6 +565,8 @@ const Home = () => {
             saveImageAs={saveImageAs}
             setSaveImageAs={setSaveImageAs}
             logData={logData}
+            overwrite={overwrite}
+            setOverwrite={setOverwrite}
           />
         )}
         {/* )} */}

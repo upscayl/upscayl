@@ -465,11 +465,11 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
           try {
             if (!mainWindow) return;
             newImage
+              .quality(100 - quality)
               .scaleToFit(
                 originalImage.getWidth() * parseInt(payload.scale),
                 originalImage.getHeight() * parseInt(payload.scale)
               )
-              .quality(100 - quality)
               .write(isAlpha ? outFile + ".png" : outFile);
             mainWindow.setProgressBar(-1);
             mainWindow.webContents.send(
