@@ -49,6 +49,7 @@ let customModelsFolderPath: string | undefined = undefined;
 let outputFolderPath: string | undefined = undefined;
 let saveOutputFolder = false;
 let quality = 100;
+let overwrite = false;
 
 let stopped = false;
 
@@ -158,6 +159,14 @@ app.on("ready", async () => {
   // GET IMAGE QUALITY (NUMBER) TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("quality");', true)
+    .then((overwriteToggle: string | null) => {
+      if (overwriteToggle !== null) {
+        quality = parseInt(overwriteToggle);
+      }
+    });
+  // GET OVERWRITE SETTINGS FROM LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("overwrite");', true)
     .then((lastSavedQuality: string | null) => {
       if (lastSavedQuality !== null) {
         quality = parseInt(lastSavedQuality);
@@ -406,7 +415,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     saveImageAs;
 
   // UPSCALE
-  if (fs.existsSync(outFile)) {
+  if (fs.existsSync(outFile) && !overwrite) {
     // If already upscayled, just output that file
     logit("✅ Already upscayled at: ", outFile);
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
