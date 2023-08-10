@@ -48,7 +48,7 @@ body:
 - type: input
   attributes:
     label: OS Specifics
-    description: 📝 Please write your GPU name and your OS version
+    description: 📝 Please write your GPU name, your OS name and your OS version
   validations:
     required: true
     
