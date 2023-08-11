@@ -96,7 +96,7 @@
   }
 
   .react-select-container .react-select__control--menu-is-open {
-    @apply bg-primary-focus;
+    @apply bg-primary-focus text-primary-content;
   }
 
   .react-select-container .react-select__single-value {
@@ -112,15 +112,16 @@
   }
 
   .react-select-container .react-select__option {
-    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-slate-50 hover:bg-primary-focus;
+    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-primary-content hover:bg-primary-focus hover:text-primary-content;
   }
 
   .react-select-container .react-select__option--is-selected {
-    @apply bg-accent;
+    @apply bg-accent text-accent-content;
   }
 
   .outline-title {
-    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5),
+    text-shadow:
+      0px 0px 10px rgba(255, 255, 255, 0.5),
       0px 0px 10px rgba(255, 255, 255, 1);
   }
   .outline-title-none {
