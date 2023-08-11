@@ -167,9 +167,9 @@ app.on("ready", async () => {
   // GET OVERWRITE SETTINGS FROM LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("overwrite");', true)
-    .then((lastSavedQuality: string | null) => {
-      if (lastSavedQuality !== null) {
-        quality = parseInt(lastSavedQuality);
+    .then((lastSavedOverwrite: boolean | null) => {
+      if (lastSavedOverwrite !== null) {
+        overwrite = lastSavedOverwrite;
       }
     });
 });
@@ -511,7 +511,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   const model = payload.model;
   const gpuId = payload.gpuId;
   const saveImageAs = payload.saveImageAs;
-  const scale = payload.scale as string;
+  // const scale = payload.scale as string;
 
   // GET THE IMAGE DIRECTORY
   let inputDir = payload.batchFolderPath;
@@ -522,11 +522,29 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     outputDir = outputFolderPath;
   }
 
+  const isDefaultModel = defaultModels.includes(model);
+
+  let scale = "4";
+  if (model.includes("x2")) {
+    scale = "2";
+  } else if (model.includes("x3")) {
+    scale = "3";
+  } else {
+    scale = "4";
+  }
+
+  outputDir += `_${model}_x${payload.scale}`;
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  const isDefaultModel = defaultModels.includes(model);
+  // Delete .DS_Store files
+  fs.readdirSync(inputDir).forEach((file) => {
+    if (file === ".DS_Store") {
+      logit("🗑️ Deleting .DS_Store file");
+      fs.unlinkSync(inputDir + slash + file);
+    }
+  });
 
   // UPSCALE
   const upscayl = spawnUpscayl(
@@ -537,7 +555,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
       model,
       gpuId,
-      saveImageAs,
+      "png",
       scale
     ),
     logit
@@ -555,7 +573,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       commands.FOLDER_UPSCAYL_PROGRESS,
       data.toString()
     );
-    if (data.includes("invalid gpu") || data.includes("failed")) {
+    if (data.includes("invalid") || data.includes("failed")) {
       logit("❌ INVALID GPU OR INVALID FILES IN FOLDER - FAILED");
       failed = true;
       upscayl.kill();
@@ -575,6 +593,28 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     if (!mainWindow) return;
     if (!failed && !stopped) {
       logit("💯 Done upscaling");
+      logit("♻ Scaling and converting now...");
+      // Get number of files in output folder
+      const files = fs.readdirSync(inputDir);
+      files.forEach(async (file) => {
+        console.log("Filename: ", file.slice(0, -3));
+        // Resize the image to the original size
+        const originalImage = await Jimp.read(inputDir + slash + file);
+        const newImage = await Jimp.read(
+          outputDir + slash + file.slice(0, -3) + "png"
+        );
+        newImage
+          .quality(100 - quality)
+          .scaleToFit(
+            originalImage.getWidth() * parseInt(payload.scale),
+            originalImage.getHeight() * parseInt(payload.scale)
+          )
+          .write(outputDir + slash + file);
+        if (saveImageAs !== "png") {
+          fs.unlinkSync(outputDir + slash + file.slice(0, -3) + "png");
+        }
+      });
+
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
     } else {
       upscayl.kill();
