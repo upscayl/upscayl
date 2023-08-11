@@ -670,7 +670,7 @@ const Home = () => {
               All done!
             </p>
             <button
-              className="btn bg-gradient-blue rounded-lg p-3 font-medium text-white/90 transition-colors"
+              className="btn btn-primary bg-gradient-blue rounded-lg p-3 font-medium text-white/90 transition-colors"
               onClick={openFolderHandler}>
               Open Upscayled Folder
             </button>
