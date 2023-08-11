@@ -449,6 +449,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("invalid gpu") || data.includes("failed")) {
         logit("❌ INVALID GPU OR FAILED");
+        upscayl.kill();
         failed = true;
       }
       if (data.includes("has alpha channel")) {
@@ -460,6 +461,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       if (!mainWindow) return;
       mainWindow.webContents.send(commands.UPSCAYL_PROGRESS, data.toString());
       failed = true;
+      upscayl.kill();
       return;
     };
     const onClose = async () => {
@@ -647,6 +649,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
     if (data.includes("invalid gpu") || data.includes("failed")) {
+      upscayl.kill();
       failed = true;
     }
     if (data.includes("has alpha channel")) {
@@ -661,28 +664,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
     // SET FAILED TO TRUE
     failed = true;
-    return;
-  };
-
-  const onData2 = (data) => {
-    if (!mainWindow) return;
-    // CONVERT DATA TO STRING
-    data = data.toString();
-    // SEND UPSCAYL PROGRESS TO RENDERER
-    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
-    // IF PROGRESS HAS ERROR, UPSCAYL FAILED
-    if (data.includes("invalid gpu") || data.includes("failed")) {
-      failed2 = true;
-    }
-  };
-
-  const onError2 = (data) => {
-    if (!mainWindow) return;
-    data.toString();
-    // SEND UPSCAYL PROGRESS TO RENDERER
-    mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
-    // SET FAILED TO TRUE
-    failed2 = true;
+    upscayl.kill();
     return;
   };
 
@@ -696,11 +678,11 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
         const newImage = await Jimp.read(isAlpha ? outFile + ".png" : outFile);
         try {
           newImage
+            .quality(100 - quality)
             .scaleToFit(
               originalImage.getWidth() * parseInt(payload.scale),
               originalImage.getHeight() * parseInt(payload.scale)
             )
-            .quality(100 - quality)
             .write(isAlpha ? outFile + ".png" : outFile);
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
@@ -740,8 +722,28 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
 
       childProcesses.push(upscayl2);
 
-      upscayl2.process.stderr.on("data", onData2);
-      upscayl2.process.on("error", onError2);
+      upscayl2.process.stderr.on("data", (data) => {
+        if (!mainWindow) return;
+        // CONVERT DATA TO STRING
+        data = data.toString();
+        // SEND UPSCAYL PROGRESS TO RENDERER
+        mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+        // IF PROGRESS HAS ERROR, UPSCAYL FAILED
+        if (data.includes("invalid gpu") || data.includes("failed")) {
+          upscayl2.kill();
+          failed2 = true;
+        }
+      });
+      upscayl2.process.on("error", (data) => {
+        if (!mainWindow) return;
+        data.toString();
+        // SEND UPSCAYL PROGRESS TO RENDERER
+        mainWindow.webContents.send(commands.DOUBLE_UPSCAYL_PROGRESS, data);
+        // SET FAILED TO TRUE
+        failed2 = true;
+        upscayl2.kill();
+        return;
+      });
       upscayl2.process.on("close", onClose2);
     }
   });
