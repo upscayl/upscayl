@@ -21,7 +21,7 @@ function ProgressBar({
         <p className="rounded-full bg-base-300 px-2 py-1 text-sm font-medium">
           Doing the Upscayl magic...
         </p>
-        <button onClick={stopHandler} className="btn-primary btn">
+        <button onClick={stopHandler} className="btn-danger btn">
           STOP
         </button>
       </div>
