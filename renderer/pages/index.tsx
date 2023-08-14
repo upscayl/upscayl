@@ -17,7 +17,7 @@ import useLog from "../components/hooks/useLog";
 
 const Home = () => {
   // STATES
-  const [os, setOs] = useState("");
+  const [os, setOs] = useState<"linux" | "mac" | "win" | undefined>(undefined);
   const [imagePath, SetImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
   const [outputPath, setOutputPath] = useState("");
