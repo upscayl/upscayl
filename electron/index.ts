@@ -172,6 +172,8 @@ app.on("ready", async () => {
         overwrite = lastSavedOverwrite;
       }
     });
+
+  mainWindow.webContents.send(commands.OS, getPlatform());
 });
 
 // Quit the app once all windows are closed

@@ -1,12 +1,7 @@
 import React from "react";
 
-function RightPaneInfo({ version, batchMode, isVideo }) {
-  return isVideo ? (
-    <>
-      <p className="p-5 pb-1 text-lg font-semibold">Select Video to Upscayl</p>
-      <p className="text-sm">Upscayl v{version}</p>
-    </>
-  ) : (
+function RightPaneInfo({ version, batchMode }) {
+  return (
     <>
       <p className="p-5 pb-1 text-lg font-semibold">
         Select {batchMode ? "a Folder" : "an Image"} to Upscayl

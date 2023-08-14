@@ -17,6 +17,7 @@ import useLog from "../components/hooks/useLog";
 
 const Home = () => {
   // STATES
+  const [os, setOs] = useState("");
   const [imagePath, SetImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
   const [outputPath, setOutputPath] = useState("");
@@ -30,9 +31,6 @@ const Home = () => {
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
   const [overwrite, setOverwrite] = useState(false);
-  const [isVideo] = useState(false);
-  const [videoPath, setVideoPath] = useState("");
-  const [upscaledVideoPath, setUpscaledVideoPath] = useState("");
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const [quality, setQuality] = useState(0);
   const [gpuId, setGpuId] = useState("");
@@ -79,6 +77,15 @@ const Home = () => {
       }
     };
 
+    window.electron.on(
+      commands.OS,
+      (_, data: "linux" | "mac" | "win" | undefined) => {
+        if (data) {
+          setOs(data);
+        }
+      }
+    );
+
     // LOG
     window.electron.on(commands.LOG, (_, data: string) => {
       logit(`🐞 BACKEND REPORTED: `, data);
@@ -114,15 +121,6 @@ const Home = () => {
       logit(`🚧 DOUBLE_UPSCAYL_PROGRESS: `, data);
     });
 
-    // VIDEO UPSCAYL PROGRESS
-    window.electron.on(commands.UPSCAYL_VIDEO_PROGRESS, (_, data: string) => {
-      if (data.length > 0 && data.length < 10) {
-        setProgress(data);
-      }
-      handleErrors(data);
-      logit(`🚧 UPSCAYL_VIDEO_PROGRESS: `, data);
-    });
-
     // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
@@ -144,13 +142,6 @@ const Home = () => {
       setDoubleUpscaylCounter(0);
       setUpscaledImagePath(data);
       logit(`💯 DOUBLE_UPSCAYL_DONE: `, data);
-    });
-
-    // VIDEO UPSCAYL DONE
-    window.electron.on(commands.UPSCAYL_VIDEO_DONE, (_, data: string) => {
-      setProgress("");
-      setUpscaledVideoPath(data);
-      logit(`💯 UPSCAYL_VIDEO_DONE: `, data);
     });
 
     // CUSTOM FOLDER LISTENER
@@ -206,7 +197,7 @@ const Home = () => {
   }, [batchMode]);
 
   useEffect(() => {
-    if (imagePath.length > 0 && !isVideo) {
+    if (imagePath.length > 0) {
       logit("🖼 imagePath: ", imagePath);
 
       const extension = imagePath.toLocaleLowerCase().split(".").pop();
@@ -216,19 +207,10 @@ const Home = () => {
         alert("Please select an image");
         resetImagePaths();
       }
-    } else if (videoPath.length > 0 && isVideo) {
-      const filePath = videoPath;
-
-      const extension = videoPath.toLocaleLowerCase().split(".").pop();
-
-      if (!allowedVideoFileTypes.includes(extension.toLowerCase())) {
-        alert("Please select an MP4, WebM or MKV video");
-        resetImagePaths();
-      }
     } else {
       resetImagePaths();
     }
-  }, [imagePath, videoPath]);
+  }, [imagePath]);
 
   const resetImagePaths = () => {
     logit("🔄 Resetting image paths");
@@ -245,9 +227,6 @@ const Home = () => {
 
     setBatchFolderPath("");
     setUpscaledBatchFolderPath("");
-
-    setVideoPath("");
-    setUpscaledVideoPath("");
   };
 
   // HANDLERS
@@ -257,18 +236,6 @@ const Home = () => {
     const y = ((e.pageY - top) / height) * 100;
     setBackgroundPosition(`${x}% ${y}%`);
   }, []);
-
-  // const selectVideoHandler = async () => {
-  //   resetImagePaths();
-
-  //   var path = await window.electron.invoke(commands.SELECT_FILE);
-
-  //   if (path !== "cancelled") {
-  //     setVideoPath(path);
-  //     var dirname = path.match(/(.*)[\/\\]/)[1] || "";
-  //     setOutputPath(dirname);
-  //   }
-  // };
 
   const selectImageHandler = async () => {
     resetImagePaths();
@@ -299,14 +266,6 @@ const Home = () => {
       setOutputPath("");
     }
   };
-
-  // ? What's this for
-  // const imageLoadHandler = ({ target: img }) => {
-  //   const image = img;
-  //   console.log("imageLoadHandler", {
-  //     image,
-  //   });
-  // };
 
   const handleModelChange = (e: any) => {
     setModel(e.value);
@@ -355,19 +314,14 @@ const Home = () => {
     logit("⤵️ Dropped file: ", JSON.stringify({ type, filePath, extension }));
 
     if (
-      (!type.includes("image") && !type.includes("video")) ||
-      (!allowedFileTypes.includes(extension.toLowerCase()) &&
-        !allowedVideoFileTypes.includes(extension.toLowerCase()))
+      !type.includes("image") ||
+      !allowedFileTypes.includes(extension.toLowerCase())
     ) {
       logit("🚫 Invalid file dropped");
       alert("Please drag and drop an image");
     } else {
-      if (isVideo) {
-        setVideoPath(filePath);
-      } else {
-        logit("🖼 Setting image path: ", filePath);
-        SetImagePath(filePath);
-      }
+      logit("🖼 Setting image path: ", filePath);
+      SetImagePath(filePath);
 
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       logit("🗂 Setting output path: ", dirname);
@@ -416,14 +370,10 @@ const Home = () => {
   };
 
   const upscaylHandler = async () => {
-    if (isVideo) {
-      setUpscaledVideoPath("");
-    } else {
-      logit("🔄 Resetting Upscaled Image Path");
-      setUpscaledImagePath("");
-    }
+    logit("🔄 Resetting Upscaled Image Path");
+    setUpscaledImagePath("");
 
-    if (!isVideo && (imagePath !== "" || batchFolderPath !== "")) {
+    if (imagePath !== "" || batchFolderPath !== "") {
       setProgress("Hold on...");
 
       if (doubleUpscayl) {
@@ -472,7 +422,7 @@ const Home = () => {
     // });
     // }
     else {
-      alert(`Please select ${isVideo ? "a video" : "an image"} to upscale`);
+      alert(`Please select an image to upscale`);
       logit("🚫 No valid image selected");
     }
   };
@@ -484,7 +434,6 @@ const Home = () => {
   };
 
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
-  const allowedVideoFileTypes = ["webm", "mp4", "mkv"];
 
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
@@ -493,46 +442,7 @@ const Home = () => {
         <Header version={version} />
 
         <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-        {/* <div className="flex items-center justify-center gap-2 pb-4 font-medium">
-          <p>Image</p>
-          <input
-            type="radio"
-            name="radio-1"
-            className="radio"
-            checked={!isVideo}
-            onChange={() => {
-              setIsVideo(false);
-              console.log("isImage");
-            }}
-          />
-          <input
-            type="radio"
-            name="radio-1"
-            className="radio"
-            checked={isVideo}
-            onChange={() => {
-              setIsVideo(true);
-              console.log("isVideo");
-            }}
-          />
-          <p>Video</p>
-        </div> */}
-        {/* LEFT PANE */}
-        {/* {isVideo ? (
-          <LeftPaneVideoSteps
-            progress={progress}
-            selectVideoHandler={selectVideoHandler}
-            handleModelChange={handleModelChange}
-            handleDrop={handleDrop}
-            outputHandler={outputHandler}
-            upscaylHandler={upscaylHandler}
-            outputPath={outputPath}
-            videoPath={videoPath}
-            model={model}
-            isVideo={isVideo}
-            setIsVideo={setIsVideo}
-          />
-        ) : ( */}
+
         {selectedTab === 0 && (
           <LeftPaneImageSteps
             progress={progress}
@@ -567,6 +477,7 @@ const Home = () => {
             logData={logData}
             overwrite={overwrite}
             setOverwrite={setOverwrite}
+            os={os}
           />
         )}
         {/* )} */}
@@ -583,8 +494,7 @@ const Home = () => {
         onPaste={(e) => handlePaste(e)}>
         {progress.length > 0 &&
         upscaledImagePath.length === 0 &&
-        upscaledBatchFolderPath.length === 0 &&
-        upscaledVideoPath.length === 0 ? (
+        upscaledBatchFolderPath.length === 0 ? (
           <ProgressBar
             batchMode={batchMode}
             progress={progress}
@@ -594,27 +504,17 @@ const Home = () => {
         ) : null}
 
         {/* DEFAULT PANE INFO */}
-        {((!isVideo &&
-          !batchMode &&
+        {((!batchMode &&
           imagePath.length === 0 &&
           upscaledImagePath.length === 0) ||
-          (!isVideo &&
-            batchMode &&
+          (batchMode &&
             batchFolderPath.length === 0 &&
-            upscaledBatchFolderPath.length === 0) ||
-          (isVideo &&
-            videoPath.length === 0 &&
-            upscaledVideoPath.length === 0)) && (
-          <RightPaneInfo
-            version={version}
-            batchMode={batchMode}
-            isVideo={isVideo}
-          />
+            upscaledBatchFolderPath.length === 0)) && (
+          <RightPaneInfo version={version} batchMode={batchMode} />
         )}
 
         {/* SHOW SELECTED IMAGE */}
         {!batchMode &&
-          !isVideo &&
           upscaledImagePath.length === 0 &&
           imagePath.length > 0 && (
             <>
@@ -678,88 +578,70 @@ const Home = () => {
         )}
 
         {/* COMPARISON SLIDER */}
-        {!batchMode &&
-          !isVideo &&
-          imagePath.length > 0 &&
-          upscaledImagePath.length > 0 && (
-            <>
-              <ImageOptions
-                zoomAmount={zoomAmount}
-                setZoomAmount={setZoomAmount}
-                resetImagePaths={resetImagePaths}
-              />
-              <ReactCompareSlider
-                itemOne={
-                  <>
-                    <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                      Original
-                    </p>
-
-                    <img
-                      /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                      src={
-                        "file:///" +
-                        imagePath.replace(
-                          /([^/\\]+)$/i,
-                          encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0])
-                        )
-                      }
-                      alt="Original"
-                      onMouseMove={handleMouseMove}
-                      style={{
-                        objectFit: "contain",
-                        backgroundPosition: "0% 0%",
-                        transformOrigin: backgroundPosition,
-                      }}
-                      className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
-                    />
-                  </>
-                }
-                itemTwo={
-                  <>
-                    <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                      Upscayled
-                    </p>
-                    <img
-                      /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                      src={
-                        "file://" +
-                        upscaledImagePath.replace(
-                          /([^/\\]+)$/i,
-                          encodeURIComponent(
-                            upscaledImagePath.match(/[^/\\]+$/i)[0]
-                          )
-                        )
-                      }
-                      alt="Upscayl"
-                      style={{
-                        objectFit: "contain",
-                        backgroundPosition: "0% 0%",
-                        transformOrigin: backgroundPosition,
-                      }}
-                      onMouseMove={handleMouseMove}
-                      className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
-                    />
-                  </>
-                }
-                className="group h-screen"
-              />
-            </>
-          )}
-
-        {isVideo && videoPath.length > 0 && upscaledVideoPath.length === 0 && (
-          <video autoPlay controls className="m-10 w-11/12 rounded-2xl">
-            <source
-              src={
-                "file://" +
-                videoPath.replace(
-                  /([^/\\]+)$/i,
-                  encodeURIComponent(videoPath.match(/[^/\\]+$/i)[0])
-                )
-              }
-              type="video/mp4"
+        {!batchMode && imagePath.length > 0 && upscaledImagePath.length > 0 && (
+          <>
+            <ImageOptions
+              zoomAmount={zoomAmount}
+              setZoomAmount={setZoomAmount}
+              resetImagePaths={resetImagePaths}
             />
-          </video>
+            <ReactCompareSlider
+              itemOne={
+                <>
+                  <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                    Original
+                  </p>
+
+                  <img
+                    /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
+                    src={
+                      "file:///" +
+                      imagePath.replace(
+                        /([^/\\]+)$/i,
+                        encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0])
+                      )
+                    }
+                    alt="Original"
+                    onMouseMove={handleMouseMove}
+                    style={{
+                      objectFit: "contain",
+                      backgroundPosition: "0% 0%",
+                      transformOrigin: backgroundPosition,
+                    }}
+                    className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
+                  />
+                </>
+              }
+              itemTwo={
+                <>
+                  <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                    Upscayled
+                  </p>
+                  <img
+                    /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
+                    src={
+                      "file://" +
+                      upscaledImagePath.replace(
+                        /([^/\\]+)$/i,
+                        encodeURIComponent(
+                          upscaledImagePath.match(/[^/\\]+$/i)[0]
+                        )
+                      )
+                    }
+                    alt="Upscayl"
+                    style={{
+                      objectFit: "contain",
+                      backgroundPosition: "0% 0%",
+                      transformOrigin: backgroundPosition,
+                    }}
+                    onMouseMove={handleMouseMove}
+                    className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
+                  />
+                </>
+              }
+              className="group h-screen"
+            />
+          </>
         )}
       </div>
     </div>

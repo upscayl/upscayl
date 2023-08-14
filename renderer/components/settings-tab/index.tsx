@@ -27,6 +27,7 @@ interface IProps {
   logData: string[];
   overwrite: boolean;
   setOverwrite: (arg: any) => void;
+  os: "linux" | "mac" | "win" | undefined;
 }
 
 function SettingsTab({
@@ -41,6 +42,7 @@ function SettingsTab({
   logData,
   overwrite,
   setOverwrite,
+  os,
 }: IProps) {
   // STATES
   const [currentModel, setCurrentModel] = useState<{
