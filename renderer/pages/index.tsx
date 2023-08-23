@@ -14,6 +14,7 @@ import { logAtom } from "../atoms/logAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 import { batchModeAtom, scaleAtom } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
+import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
 
 const Home = () => {
   // STATES
@@ -45,6 +46,8 @@ const Home = () => {
   const [logData, setLogData] = useAtom(logAtom);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
   const [scale] = useAtom(scaleAtom);
+
+  const [showCloudModal, setShowCloudModal] = useState(false);
 
   const { logit } = useLog();
 
@@ -438,9 +441,12 @@ const Home = () => {
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
       <div className="flex h-screen w-128 flex-col rounded-r-3xl bg-base-100">
+        <UpscaylCloudModal show={showCloudModal} setShow={setShowCloudModal} />
         {/* HEADER */}
-        <Header version={version} />
-
+        <div className="flex flex-row items-center">
+          <Header version={version} />
+          <button className="rounded-full bg-violet-500 font-bold text-slate-200 animate-pulse duration-75 w-8 h-8" onClick={() => {setShowCloudModal(true)}}>U</button>
+        </div>
         <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
         {selectedTab === 0 && (
