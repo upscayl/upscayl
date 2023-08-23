@@ -47,7 +47,7 @@ const Home = () => {
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
   const [scale] = useAtom(scaleAtom);
 
-  const [showCloudModal, setShowCloudModal] = useState(false);
+  const [showCloudModal, setShowCloudModal] = useState(true);
 
   const { logit } = useLog();
 
