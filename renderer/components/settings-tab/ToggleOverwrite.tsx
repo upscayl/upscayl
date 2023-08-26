@@ -18,7 +18,7 @@ const ToggleOverwrite = ({ overwrite, setOverwrite }: ToggleOverwriteProps) => {
       <p className="text-sm font-medium">OVERWRITE PREVIOUS UPSCALE</p>
       <input
         type="checkbox"
-        className="toggle-primary toggle"
+        className="toggle"
         checked={overwrite}
         onClick={() => {
           setOverwrite((oldValue) => {

@@ -149,6 +149,18 @@
   animation: animate-step-in 0.6s cubic-bezier(0.07, 0.43, 0.02, 1);
 }
 
+[data-theme="upscayl"] .btn {
+  @apply ring-1 ring-slate-500 font-medium normal-case !min-h-min h-10 py-2 px-3;
+}
+
+[data-theme="upscayl"] input[type="range"] {
+  @apply rounded-full;
+}
+
+[data-theme="upscayl"] .react-select-container .react-select__control {
+  @apply rounded-btn h-10 ring-1 ring-slate-500 cursor-pointer !border-0 !border-none !border-transparent bg-primary shadow-none;
+}
+
 @keyframes animate-step-in {
   0% {
     opacity: 0;
