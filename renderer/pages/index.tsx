@@ -407,6 +407,7 @@ const Home = () => {
           gpuId: gpuId.length === 0 ? null : gpuId,
           saveImageAs,
           scale,
+          overwrite,
         });
         logit("🏁 UPSCAYL");
       }

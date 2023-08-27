@@ -10,7 +10,7 @@ const ToggleOverwrite = ({ overwrite, setOverwrite }: ToggleOverwriteProps) => {
     if (!localStorage.getItem("overwrite")) {
       localStorage.setItem("overwrite", JSON.stringify(overwrite));
     } else {
-      setOverwrite(localStorage.getItem("overwrite"));
+      setOverwrite(localStorage.getItem("overwrite") === 'true');
     }
   }, []);
   return (

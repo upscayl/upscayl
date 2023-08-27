@@ -164,15 +164,6 @@ app.on("ready", async () => {
         quality = parseInt(overwriteToggle);
       }
     });
-  // GET OVERWRITE SETTINGS FROM LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("overwrite");', true)
-    .then((lastSavedOverwrite: boolean | null) => {
-      if (lastSavedOverwrite !== null) {
-        overwrite = lastSavedOverwrite;
-      }
-    });
-
   mainWindow.webContents.send(commands.OS, getPlatform());
 });
 
@@ -379,6 +370,7 @@ ipcMain.handle(commands.SELECT_CUSTOM_MODEL_FOLDER, async (event, message) => {
 //------------------------Image Upscayl-----------------------------//
 ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   if (!mainWindow) return;
+  overwrite = payload.overwrite;
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
