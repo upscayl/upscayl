@@ -1,32 +1,35 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
-export const UpscaylCloudModal = ({show, setShow}) => {
-    return (
-        <dialog className={`modal ${show && 'modal-open'}`}>
-            <section className="modal-box flex flex-col text-center items-center gap-4">
-                <p className="text-2xl font-semibold text-slate-200">Introducing Upscayl Cloud!</p>
-                <p>We have opened a pre-registration survey for this new beta feature</p>
-                <section className="text-start">
-                    <ul className="list-disc">
-                        <li>
-                            <p>Harness the power of cloud!</p>
-                        </li>
-                        <li>
-                            <p>Limited by hardware power? No more!</p>
-                        </li>
-                        <li>
-                            <p>Use on any device!</p>
-                        </li>
-                    </ul>
-                </section>
-                <Image src="/1080p_banner.jpg" width={480} height={240} alt="Screenshot of the new homepage of Upscayl" />
-                <p>Fill out the survey and...</p>
-                <Link href={`https://www.upscayl.org` } target='_blank'><button className="bg-green-600 text-white rounded-2xl px-4 py-2">Join us on this new adventure!</button></Link>
-            </section>
-            <form method="dialog" className="modal-backdrop">
-                <button onClick={() => setShow(false)}>close</button>
-            </form>
-        </dialog>
-    )
-}
+export const UpscaylCloudModal = ({ show, setShow }) => {
+  return (
+    <dialog className={`modal ${show && "modal-open"}`}>
+      <div className="modal-box flex flex-col text-center items-center gap-4">
+        <p className="text-2xl font-semibold">Introducing Upscayl Cloud!</p>
+        <p className="w-9/12 font-medium text-lg">
+          No more hardware issues, quality compromises or long loading times!
+        </p>
+
+        <div className="flex flex-col gap-2 text-start">
+          <p>🌐 Upscayl anywhere, anytime, any device</p>
+          <p>☁️ No Graphics Card or hardware required</p>
+          <p>👩 Face Enhancement</p>
+          <p>🦋 10+ models to choose from</p>
+          <p>🏎 5x faster than Upscayl Desktop</p>
+          <p>🎞 Video Upscaling</p>
+          <p>💰 Commercial Usage</p>
+          <p>😴 Upscayl while you sleep</p>
+        </div>
+
+        <Link href="https://www.upscayl.org/join" target="_blank">
+          <button className="bg-success text-success-content rounded-2xl px-4 py-2">
+            Join the waitlist
+          </button>
+        </Link>
+      </div>
+      <form method="dialog" className="modal-backdrop">
+        <button onClick={() => setShow(false)}>close</button>
+      </form>
+    </dialog>
+  );
+};
