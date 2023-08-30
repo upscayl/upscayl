@@ -20,9 +20,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+console.log("🚀 => file: firebase.ts:23 => db:", db);
 
 const createCollection = <T = DocumentData>(collectionName: string) => {
   return collection(db, collectionName) as CollectionReference<T>;
 };
 
-export const waitlistCollection = createCollection("waitlist");
+export const waitlistCollection = createCollection<{
+  name: string;
+  email: string;
+}>("waitlist");

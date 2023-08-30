@@ -457,9 +457,7 @@ const Home = () => {
           <div className="pt-8 mac-titlebar"></div>
         )}
         {/* HEADER */}
-        <div className="flex flex-row items-center">
-          <Header version={version} />
-        </div>
+        <Header version={version} />
         <button
           className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
           onClick={() => {

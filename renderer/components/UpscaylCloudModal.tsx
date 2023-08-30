@@ -1,6 +1,6 @@
-import { doc, setDoc } from "@firebase/firestore";
 import { useState } from "react";
-import { waitlistCollection } from "@common/firebase";
+import { waitlistCollection } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const nameRegex = /^[A-Za-z\s.'-]+$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -30,21 +30,10 @@ export const UpscaylCloudModal = ({ show, setShow }) => {
           <p>😴 Upscayl while you sleep</p>
         </div>
 
-        <div className="gap-2 flex">
-          <input
-            type="text"
-            className="input input-bordered"
-            placeholder="Name"
-          />
-          <input
-            type="text"
-            className="input input-bordered"
-            placeholder="Email"
-          />
-        </div>
-        <button
-          className="bg-success text-success-content rounded-2xl px-4 py-2"
-          onClick={async () => {
+        <form
+          className="flex flex-col items-center gap-3"
+          onSubmit={async (e) => {
+            e.preventDefault();
             if (
               name &&
               email &&
@@ -52,14 +41,16 @@ export const UpscaylCloudModal = ({ show, setShow }) => {
               emailRegex.test(email)
             ) {
               try {
-                const result = await setDoc(doc(waitlistCollection, email), {
+                await setDoc(doc(waitlistCollection, email), {
                   name,
                   email,
                 });
               } catch (error) {
-                alert("Error joining the waitlist. Please try again later...");
+                alert("Error joining the waitlist. Please try again...");
                 return;
               }
+              setName("");
+              setEmail("");
               alert(
                 "Thank you for joining the waitlist! We will notify you when Upscayl Cloud is ready for you."
               );
@@ -67,8 +58,28 @@ export const UpscaylCloudModal = ({ show, setShow }) => {
               alert("Please fill in all the fields correctly.");
             }
           }}>
-          Join the waitlist
-        </button>
+          <div className="gap-2 flex">
+            <input
+              type="text"
+              className="input input-bordered"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="email"
+              className="input input-bordered"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-success text-success-content rounded-2xl px-4 py-2">
+            Join the waitlist
+          </button>
+        </form>
       </div>
 
       <form method="dialog" className="modal-backdrop">
