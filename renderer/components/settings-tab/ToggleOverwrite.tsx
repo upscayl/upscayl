@@ -10,9 +10,13 @@ const ToggleOverwrite = ({ overwrite, setOverwrite }: ToggleOverwriteProps) => {
     if (!localStorage.getItem("overwrite")) {
       localStorage.setItem("overwrite", JSON.stringify(overwrite));
     } else {
-      setOverwrite(localStorage.getItem("overwrite") === 'true');
+      const currentlySavedOverwrite = localStorage.getItem("overwrite");
+      if (currentlySavedOverwrite) {
+        setOverwrite(JSON.parse(currentlySavedOverwrite));
+      }
     }
   }, []);
+
   return (
     <div className="flex flex-col gap-2">
       <p className="text-sm font-medium">OVERWRITE PREVIOUS UPSCALE</p>
@@ -21,11 +25,13 @@ const ToggleOverwrite = ({ overwrite, setOverwrite }: ToggleOverwriteProps) => {
         className="toggle"
         checked={overwrite}
         onClick={() => {
-          setOverwrite((oldValue) => {
-            if (oldValue === true) {
+          setOverwrite((oldValue: boolean) => {
+            if (oldValue) {
               localStorage.removeItem("overwrite");
+              return false;
+            } else {
+              return true;
             }
-            return !oldValue;
           });
           localStorage.setItem("overwrite", JSON.stringify(!overwrite));
         }}

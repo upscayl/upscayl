@@ -78,6 +78,7 @@ app.on("ready", async () => {
       webSecurity: false,
       preload: join(__dirname, "preload.js"),
     },
+    titleBarStyle: getPlatform() === "mac" ? "hiddenInset" : "default",
   });
   const url = isDev
     ? "http://localhost:8000"
@@ -159,9 +160,9 @@ app.on("ready", async () => {
   // GET IMAGE QUALITY (NUMBER) TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("quality");', true)
-    .then((overwriteToggle: string | null) => {
-      if (overwriteToggle !== null) {
-        quality = parseInt(overwriteToggle);
+    .then((lastSavedQuality: string | null) => {
+      if (lastSavedQuality !== null) {
+        quality = parseInt(lastSavedQuality);
       }
     });
   mainWindow.webContents.send(commands.OS, getPlatform());
@@ -408,8 +409,18 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
     "." +
     saveImageAs;
 
+  // GET OVERWRITE SETTINGS FROM LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("overwrite");', true)
+    .then((lastSavedOverwrite: boolean | null) => {
+      if (lastSavedOverwrite !== null) {
+        console.log("Overwrite: ", lastSavedOverwrite);
+        overwrite = lastSavedOverwrite;
+      }
+    });
+
   // UPSCALE
-  if (fs.existsSync(outFile) && !overwrite) {
+  if (fs.existsSync(outFile) && overwrite === false) {
     // If already upscayled, just output that file
     logit("✅ Already upscayled at: ", outFile);
     mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
