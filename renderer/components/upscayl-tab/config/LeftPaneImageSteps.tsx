@@ -130,7 +130,8 @@ function LeftPaneImageSteps({
   };
 
   return (
-    <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
+    <div
+      className={`animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden`}>
       {/* BATCH OPTION */}
       <div className="flex flex-row items-center gap-2">
         <input
@@ -139,7 +140,7 @@ function LeftPaneImageSteps({
           defaultChecked={batchMode}
           onClick={() => setBatchMode((oldValue) => !oldValue)}></input>
         <p
-          className="mr-1 inline-block  cursor-help text-sm"
+          className="mr-1 inline-block cursor-help text-sm"
           data-tooltip-id="tooltip"
           data-tooltip-content="This will let you Upscayl all files in a folder at once">
           Batch Upscayl

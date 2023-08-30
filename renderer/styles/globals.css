@@ -161,6 +161,10 @@
   @apply rounded-btn h-10 ring-1 ring-slate-500 cursor-pointer !border-0 !border-none !border-transparent bg-primary shadow-none;
 }
 
+.mac-titlebar {
+  -webkit-app-region: drag;
+}
+
 @keyframes animate-step-in {
   0% {
     opacity: 0;
