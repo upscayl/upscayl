@@ -58,7 +58,7 @@ export const UpscaylCloudModal = ({ show, setShow }) => {
               alert("Please fill in all the fields correctly.");
             }
           }}>
-          <div className="gap-2 flex">
+          <div className="gap-2 grid grid-cols-2">
             <input
               type="text"
               className="input input-bordered"
