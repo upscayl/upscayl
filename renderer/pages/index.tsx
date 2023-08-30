@@ -451,20 +451,23 @@ const Home = () => {
 
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
-<<<<<<< HEAD
-      <div className="flex h-screen w-128 flex-col rounded-r-3xl bg-base-100">
-        <UpscaylCloudModal show={showCloudModal} setShow={setShowCloudModal} />
-=======
       <div className={`flex h-screen w-128 flex-col bg-base-100`}>
+        <UpscaylCloudModal show={showCloudModal} setShow={setShowCloudModal} />
         {window.electron.platform === "mac" && (
           <div className="pt-8 mac-titlebar"></div>
         )}
->>>>>>> origin/main
         {/* HEADER */}
         <div className="flex flex-row items-center">
           <Header version={version} />
-          <button className="rounded-full bg-violet-500 font-bold text-slate-200 animate-pulse duration-75 w-8 h-8" onClick={() => {setShowCloudModal(true)}}>U</button>
         </div>
+        <button
+          className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
+          onClick={() => {
+            setShowCloudModal(true);
+          }}>
+          Introducing Upscayl Cloud
+        </button>
+
         <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
         {selectedTab === 0 && (
