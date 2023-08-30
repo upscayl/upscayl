@@ -1,6 +1,7 @@
 import React from "react";
 export function ThemeSelect() {
   const availableThemes = [
+    { label: "upscayl", value: "upscayl" },
     { label: "light", value: "light" },
     { label: "dark", value: "dark" },
     { label: "cupcake", value: "cupcake" },

@@ -410,6 +410,7 @@ const Home = () => {
           gpuId: gpuId.length === 0 ? null : gpuId,
           saveImageAs,
           scale,
+          overwrite,
         });
         logit("🏁 UPSCAYL");
       }
@@ -438,10 +439,27 @@ const Home = () => {
 
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
 
+  if (typeof window === "undefined") {
+    return (
+      <img
+        src="/icon.png"
+        alt="Upscayl icon"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 animate-pulse"
+      />
+    );
+  }
+
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
+<<<<<<< HEAD
       <div className="flex h-screen w-128 flex-col rounded-r-3xl bg-base-100">
         <UpscaylCloudModal show={showCloudModal} setShow={setShowCloudModal} />
+=======
+      <div className={`flex h-screen w-128 flex-col bg-base-100`}>
+        {window.electron.platform === "mac" && (
+          <div className="pt-8 mac-titlebar"></div>
+        )}
+>>>>>>> origin/main
         {/* HEADER */}
         <div className="flex flex-row items-center">
           <Header version={version} />
@@ -498,6 +516,10 @@ const Home = () => {
         onDragEnter={(e) => handleDragEnter(e)}
         onDragLeave={(e) => handleDragLeave(e)}
         onPaste={(e) => handlePaste(e)}>
+        {window.electron.platform === "mac" && (
+          <div className="absolute top-0 w-full h-8 mac-titlebar"></div>
+        )}
+
         {progress.length > 0 &&
         upscaledImagePath.length === 0 &&
         upscaledBatchFolderPath.length === 0 ? (
@@ -576,7 +598,7 @@ const Home = () => {
               All done!
             </p>
             <button
-              className="btn btn-primary bg-gradient-blue rounded-lg p-3 font-medium text-white/90 transition-colors"
+              className="btn btn-primary bg-gradient-blue rounded-btn p-3 font-medium text-white/90 transition-colors"
               onClick={openFolderHandler}>
               Open Upscayled Folder
             </button>

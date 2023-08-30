@@ -11,9 +11,12 @@ export function QualityInput({
 }: QualityInputProps) {
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium uppercase">
-        Image Compression ({quality}%)
-      </p>
+      <div className="flex gap-1 text-sm font-medium uppercase">
+        <p className="shrink-0">Image Compression ({quality}%)</p>
+        <p className="badge-primary badge text-[10px] font-medium">
+          EXPERIMENTAL
+        </p>
+      </div>
       <input
         type="range"
         placeholder="Type here"

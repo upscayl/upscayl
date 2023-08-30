@@ -20,6 +20,26 @@ module.exports = {
   plugins: [require("daisyui"), require("tailwind-scrollbar")],
   daisyui: {
     themes: [
+      {
+        upscayl: {
+          primary: "#334155",
+          secondary: "#4f46e5",
+          accent: "#6d28d9",
+          neutral: "#475569",
+          "base-100": "#1e293b",
+          "base-200": "#0f172a",
+          "base-300": "#020617",
+          "--rounded-btn": "2rem", // border radius rounded-btn utility class, used in buttons and similar element
+          "--rounded-badge": "2rem", // border radius rounded-badge utility class, used in badges and similar
+          "--animation-btn": "0.5s", // duration of animation when you click on button
+          "--animation-input": "0.5s", // duration of animation for inputs like checkbox, toggle, radio, etc
+          "--btn-text-case": "uppercase", // set default text transform for buttons
+          "--btn-focus-scale": "0.95", // scale transform of button when you focus on it
+          "--border-btn": "1px", // border width of buttons
+          "--tab-border": "1px", // border width of tabs
+          "--tab-radius": "0.5rem", // border radius of tabs
+        },
+      },
       "light",
       "dark",
       "cupcake",
