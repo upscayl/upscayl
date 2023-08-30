@@ -14,6 +14,7 @@ import { logAtom } from "../atoms/logAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 import { batchModeAtom, scaleAtom } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
+import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
 
 const Home = () => {
   // STATES
@@ -45,6 +46,8 @@ const Home = () => {
   const [logData, setLogData] = useAtom(logAtom);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
   const [scale] = useAtom(scaleAtom);
+
+  const [showCloudModal, setShowCloudModal] = useState(true);
 
   const { logit } = useLog();
 
@@ -449,11 +452,19 @@ const Home = () => {
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
       <div className={`flex h-screen w-128 flex-col bg-base-100`}>
+        <UpscaylCloudModal show={showCloudModal} setShow={setShowCloudModal} />
         {window.electron.platform === "mac" && (
           <div className="pt-8 mac-titlebar"></div>
         )}
         {/* HEADER */}
         <Header version={version} />
+        <button
+          className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
+          onClick={() => {
+            setShowCloudModal(true);
+          }}>
+          Introducing Upscayl Cloud
+        </button>
 
         <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 

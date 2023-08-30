@@ -6,6 +6,7 @@
 .pnp.js
 
 /main/*.js
+*.js
 
 # testing
 /coverage

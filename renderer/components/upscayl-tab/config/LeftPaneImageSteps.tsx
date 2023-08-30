@@ -1,10 +1,11 @@
 import { useAtomValue } from "jotai";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 import { Tooltip } from "react-tooltip";
 import { themeChange } from "theme-change";
 import { modelsListAtom } from "../../../atoms/modelsListAtom";
 import useLog from "../../hooks/useLog";
+import { scaleAtom } from "../../../atoms/userSettingsAtom";
 
 interface IProps {
   progress: string;
@@ -55,6 +56,7 @@ function LeftPaneImageSteps({
   });
 
   const modelOptions = useAtomValue(modelsListAtom);
+  const scale = useAtomValue(scaleAtom);
 
   const { logit } = useLog();
 
@@ -104,30 +106,33 @@ function LeftPaneImageSteps({
     logit("🔀 Setting model to", currentModel.value);
   }, [currentModel]);
 
-  const getUpscaleResolution = () => {
+  const getUpscaleResolution = useCallback(() => {
+    console.log("running");
     const newDimensions = {
       width: dimensions.width,
       height: dimensions.height,
     };
-    if (doubleUpscayl) {
-      newDimensions.width = dimensions.width * 16;
-      newDimensions.height = dimensions.height * 16;
-    } else {
-      newDimensions.width = dimensions.width * 4;
-      newDimensions.height = dimensions.height * 4;
-    }
 
-    if (newDimensions.width > 32768) {
-      logit("🚫 Upscale width is too large, setting to a maximum of 32768px");
-      newDimensions.width = 32384;
-    }
-    if (newDimensions.height > 32768) {
-      logit("🚫 Upscale height is too large, setting to a maximum of 32768px");
-      newDimensions.height = 32384;
+    const doubleScale = parseInt(scale) * parseInt(scale);
+    const singleScale = parseInt(scale);
+
+    if (doubleUpscayl) {
+      const newWidth = dimensions.width * doubleScale;
+      const newHeight = dimensions.height * doubleScale;
+      if (newWidth < 32768 || newHeight < 32768) {
+        newDimensions.width = newWidth;
+        newDimensions.height = newHeight;
+      } else {
+        newDimensions.width = 32384;
+        newDimensions.height = 32384;
+      }
+    } else {
+      newDimensions.width = dimensions.width * singleScale;
+      newDimensions.height = dimensions.height * singleScale;
     }
 
     return newDimensions;
-  };
+  }, [dimensions.width, dimensions.height, doubleUpscayl, scale]);
 
   return (
     <div
