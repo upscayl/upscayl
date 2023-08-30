@@ -11,7 +11,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <title>Upscayl</title>
       </Head>
       <Provider>
-        <Component {...pageProps} data-theme="dark" />
+        <Component {...pageProps} data-theme="upscayl" />
       </Provider>
     </>
   );
