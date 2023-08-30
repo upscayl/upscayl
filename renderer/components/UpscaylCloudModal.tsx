@@ -5,6 +5,7 @@ export const UpscaylCloudModal = ({ show, setShow }) => {
   return (
     <dialog className={`modal ${show && "modal-open"}`}>
       <div className="modal-box flex flex-col text-center items-center gap-4">
+        <p className="badge badge-neutral text-xs">Coming soon!</p>
         <p className="text-2xl font-semibold">Introducing Upscayl Cloud!</p>
         <p className="w-9/12 font-medium text-lg">
           No more hardware issues, quality compromises or long loading times!
