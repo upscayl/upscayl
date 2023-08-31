@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect, useCallback } from "react";
 import commands from "../../electron/commands";
 import { ReactCompareSlider } from "react-compare-slider";
@@ -47,7 +48,7 @@ const Home = () => {
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
   const [scale] = useAtom(scaleAtom);
 
-  const [showCloudModal, setShowCloudModal] = useState(true);
+  const [showCloudModal, setShowCloudModal] = useState(false);
 
   const { logit } = useLog();
 
@@ -169,6 +170,11 @@ const Home = () => {
         setModelOptions(uniqueModelOptions);
       }
     );
+    if (!localStorage.getItem("upscaylCloudModalShown")) {
+      logit("⚙️ upscayl cloud show to true");
+      localStorage.setItem("upscaylCloudModalShown", "true");
+      setShowCloudModal(true);
+    } 
   }, []);
 
   useEffect(() => {
