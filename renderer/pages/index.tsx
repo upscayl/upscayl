@@ -448,7 +448,7 @@ const Home = () => {
   if (typeof window === "undefined") {
     return (
       <img
-        src="/icon.png"
+        src="icon.png"
         alt="Upscayl icon"
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 animate-pulse"
       />
