@@ -15,6 +15,7 @@ jobs:
     steps:
       - uses: actions/stale@v8
         with:
+          operations-per-run: 100
           stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. If this is still happening, please reply to indicate so.'
           stale-pr-message: 'This PR has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. If you are still working on this, please reply to indicate so.'
           days-before-issue-stale: 30
