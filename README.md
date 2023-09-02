@@ -35,7 +35,7 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
 
 **https://upscayl.org**  
 
-![Screenshot](https://raw.githubusercontent.com/upscayl/upscayl/main/1080p_explainer.jpg)
+![Screenshot](https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/upscayl-desktop.png)
 
 ```diff
 - NOTE: You'll need a Vulkan compatible GPU to upscale images. Many CPU and iGPUs do not work but no harm in trying.
