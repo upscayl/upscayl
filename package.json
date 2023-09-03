@@ -56,6 +56,8 @@
     "appId": "org.upscayl.app",
     "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
     "asar": true,
+    "notarize": false,
+    "afterSign": "scripts/notarize.js",
     "extraFiles": [
       {
         "from": "resources/${os}/bin",
@@ -157,7 +159,6 @@
     ]
   },
   "devDependencies": {
-    "@electron/notarize": "^2.1.0",
     "@types/electron": "^1.6.10",
     "@types/node": "^18.15.12",
     "@types/react": "^18.0.37",
