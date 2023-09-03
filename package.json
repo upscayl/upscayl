@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "2.7.5",
+  "version": "2.8.0",
   "productName": "Upscayl",
   "homepage": "https://github.com/TGS963/upscayl",
   "contributors": [
@@ -56,7 +56,6 @@
     "appId": "org.upscayl.app",
     "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
     "asar": true,
-    "notarize": false,
     "afterSign": "scripts/notarize.js",
     "extraFiles": [
       {
@@ -97,6 +96,7 @@
       "hardenedRuntime": true,
       "entitlements": "resources/entitlements.mac.plist",
       "entitlementsInherit": "resources/entitlements.mac.plist",
+      "notarize": false,
       "gatekeeperAssess": false,
       "target": [
         {

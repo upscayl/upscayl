@@ -13,3 +13,8 @@ export const rememberOutputFolderAtom = atomWithStorage<boolean>(
   "rememberOutputFolder",
   false
 );
+
+export const dontShowCloudModalAtom = atomWithStorage<boolean>(
+  "dontShowCloudModal",
+  false
+);

@@ -5,13 +5,38 @@ import { doc, setDoc } from "firebase/firestore";
 const nameRegex = /^[A-Za-z\s.'-]+$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-export const UpscaylCloudModal = ({ show, setShow }) => {
+export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   return (
     <dialog className={`modal ${show && "modal-open"}`}>
       <div className="modal-box flex flex-col text-center items-center gap-4">
+        <button
+          className="absolute top-2 right-4 btn btn-circle"
+          onClick={() => setShow(false)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24">
+            <rect
+              x="0"
+              y="0"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="none"
+            />
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="1.5"
+              d="m8.464 15.535l7.072-7.07m-7.072 0l7.072 7.07"
+            />
+          </svg>
+        </button>
         <p className="badge badge-neutral text-xs">Coming soon!</p>
         <p className="text-2xl font-semibold">Introducing Upscayl Cloud!</p>
         <p className="w-9/12 font-medium text-lg">
@@ -46,11 +71,15 @@ export const UpscaylCloudModal = ({ show, setShow }) => {
                   email,
                 });
               } catch (error) {
-                alert("Error joining the waitlist. Please try again...");
+                alert(
+                  `Thank you ${name}! It seems that your email has already been registered :D If that's not the case, please try again.`
+                );
                 return;
               }
               setName("");
               setEmail("");
+              setDontShowCloudModal(true);
+              setShow(false);
               alert(
                 "Thank you for joining the waitlist! We will notify you when Upscayl Cloud is ready for you."
               );
@@ -78,6 +107,16 @@ export const UpscaylCloudModal = ({ show, setShow }) => {
             type="submit"
             className="bg-success text-success-content rounded-2xl px-4 py-2">
             Join the waitlist
+          </button>
+
+          <button
+            className="text-xs text-base-content/50"
+            onClick={() => {
+              setDontShowCloudModal(true);
+              setShow(false);
+            }}
+            type="button">
+            DON'T SHOW AGAIN
           </button>
         </form>
       </div>

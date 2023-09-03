@@ -14,6 +14,8 @@ import { modelsListAtom } from "../../atoms/modelsListAtom";
 import useLog from "../hooks/useLog";
 import { QualityInput } from "./QualityInput";
 import ToggleOverwrite from "./ToggleOverwrite";
+import { UpscaylCloudModal } from "../UpscaylCloudModal";
+import { ResetSettings } from "./ResetSettings";
 
 interface IProps {
   batchMode: boolean;
@@ -28,6 +30,9 @@ interface IProps {
   overwrite: boolean;
   setOverwrite: (arg: any) => void;
   os: "linux" | "mac" | "win" | undefined;
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  setDontShowCloudModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function SettingsTab({
@@ -43,6 +48,9 @@ function SettingsTab({
   overwrite,
   setOverwrite,
   os,
+  show,
+  setShow,
+  setDontShowCloudModal,
 }: IProps) {
   // STATES
   const [currentModel, setCurrentModel] = useState<{
@@ -194,6 +202,23 @@ function SettingsTab({
       <CustomModelsFolderSelect
         customModelsPath={customModelsPath}
         setCustomModelsPath={setCustomModelsPath}
+      />
+
+      {/* RESET SETTINGS */}
+      <ResetSettings />
+
+      <button
+        className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
+        onClick={() => {
+          setShow(true);
+        }}>
+        Introducing Upscayl Cloud
+      </button>
+
+      <UpscaylCloudModal
+        show={show}
+        setShow={setShow}
+        setDontShowCloudModal={setDontShowCloudModal}
       />
     </div>
   );

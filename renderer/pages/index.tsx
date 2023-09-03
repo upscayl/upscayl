@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect, useCallback } from "react";
 import commands from "../../electron/commands";
 import { ReactCompareSlider } from "react-compare-slider";
@@ -13,7 +13,11 @@ import SettingsTab from "../components/settings-tab";
 import { useAtom } from "jotai";
 import { logAtom } from "../atoms/logAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
-import { batchModeAtom, scaleAtom } from "../atoms/userSettingsAtom";
+import {
+  batchModeAtom,
+  dontShowCloudModalAtom,
+  scaleAtom,
+} from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
 import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
 
@@ -47,6 +51,9 @@ const Home = () => {
   const [logData, setLogData] = useAtom(logAtom);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
   const [scale] = useAtom(scaleAtom);
+  const [dontShowCloudModal, setDontShowCloudModal] = useAtom(
+    dontShowCloudModalAtom
+  );
 
   const [showCloudModal, setShowCloudModal] = useState(false);
 
@@ -174,7 +181,7 @@ const Home = () => {
       logit("⚙️ upscayl cloud show to true");
       localStorage.setItem("upscaylCloudModalShown", "true");
       setShowCloudModal(true);
-    } 
+    }
   }, []);
 
   useEffect(() => {
@@ -458,19 +465,25 @@ const Home = () => {
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
       <div className={`flex h-screen w-128 flex-col bg-base-100`}>
-        <UpscaylCloudModal show={showCloudModal} setShow={setShowCloudModal} />
+        <UpscaylCloudModal
+          show={showCloudModal}
+          setShow={setShowCloudModal}
+          setDontShowCloudModal={setDontShowCloudModal}
+        />
         {window.electron.platform === "mac" && (
           <div className="pt-8 mac-titlebar"></div>
         )}
         {/* HEADER */}
         <Header version={version} />
-        <button
-          className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
-          onClick={() => {
-            setShowCloudModal(true);
-          }}>
-          Introducing Upscayl Cloud
-        </button>
+        {!dontShowCloudModal && (
+          <button
+            className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
+            onClick={() => {
+              setShowCloudModal(true);
+            }}>
+            Introducing Upscayl Cloud
+          </button>
+        )}
 
         <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
@@ -509,6 +522,9 @@ const Home = () => {
             overwrite={overwrite}
             setOverwrite={setOverwrite}
             os={os}
+            show={showCloudModal}
+            setShow={setShowCloudModal}
+            setDontShowCloudModal={setDontShowCloudModal}
           />
         )}
         {/* )} */}
