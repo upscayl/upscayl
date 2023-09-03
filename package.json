@@ -60,7 +60,7 @@
     "afterSign": "scripts/notarize.js",
     "extraFiles": [
       {
-        "from": "resources/${os}/bin",
+        "from": "resources/${os}/${arch}/bin",
         "to": "resources/bin",
         "filter": [
           "**/*"
