@@ -54,7 +54,7 @@
   "build": {
     "productName": "Upscayl",
     "appId": "org.upscayl.app",
-    "artifactName": "${name}-${version}-${os}.${ext}",
+    "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
     "asar": true,
     "extraFiles": [
       {
@@ -93,20 +93,21 @@
     "mac": {
       "type": "distribution",
       "hardenedRuntime": true,
-      "entitlements": "main/resources/entitlements.mac.plist",
-      "entitlementsInherit": "main/resources/entitlements.mac.plist",
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mac.plist",
       "gatekeeperAssess": false,
       "target": [
         {
           "target": "dmg",
           "arch": [
-            "x64"
+            "universal"
           ]
         }
       ],
       "x64ArchFiles": "*"
     },
     "dmg": {
+      "sign": "false",
       "contents": [
         {
           "x": 130,
@@ -156,11 +157,13 @@
     ]
   },
   "devDependencies": {
+    "@electron/notarize": "^2.1.0",
     "@types/electron": "^1.6.10",
     "@types/node": "^18.15.12",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "autoprefixer": "^10.4.14",
+    "cross-env": "^7.0.3",
     "electron": "^25.3.1",
     "electron-builder": "^24.4.0",
     "next": "^13.3.0",
@@ -174,6 +177,7 @@
   },
   "dependencies": {
     "daisyui": "^3.3.1",
+    "dotenv": "^16.3.1",
     "electron-is-dev": "^2.0.0",
     "electron-log": "^5.0.0-beta.16",
     "electron-next": "^3.1.5",
