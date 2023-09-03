@@ -1,5 +1,4 @@
 import React from "react";
-import commands from "../../../electron/commands";
 
 export function ResetSettings() {
   return (

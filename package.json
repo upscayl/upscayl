@@ -92,6 +92,7 @@
       }
     ],
     "mac": {
+      "category": "public.app-category.photography",
       "type": "distribution",
       "hardenedRuntime": true,
       "entitlements": "resources/entitlements.mac.plist",
@@ -101,6 +102,12 @@
       "target": [
         {
           "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        },
+        {
+          "target": "zip",
           "arch": [
             "universal"
           ]
