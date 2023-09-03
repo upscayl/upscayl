@@ -28,7 +28,7 @@
 # 🆙 Upscayl 
 
 #### Free and Open Source AI Image Upscaler
-Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms.
+Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms.  
 Enlarge images without losing quality, it's almost like magic! 🎩🪄   
 
 Upscayl is a cross-platform application built with the Linux-first philosophy.   
