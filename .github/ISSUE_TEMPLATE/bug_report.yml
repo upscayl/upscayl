@@ -1,6 +1,6 @@
 name: Bug Report
 description: Bugs in the software itself
-labels: bug
+labels: [bug]
 body:
 - type: checkboxes
   attributes:
@@ -16,11 +16,7 @@ body:
   attributes: 
     label: Paste the logs
     description: 💥 Paste the logs below ([Guide](https://github.com/upscayl/upscayl/wiki/Guide#logs))
-    value: |
-      <details><summary>Logs</summary><pre>
-      <!-- 📃 PASTE THE LOG BELOW THIS LINE! -->
-      
-      </pre></details>
+    render: sh
   validations:
     required: true
     
