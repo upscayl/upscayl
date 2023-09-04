@@ -28,7 +28,8 @@
 # 🆙 Upscayl 
 
 #### Free and Open Source AI Image Upscaler
-Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms. Enlarge images without losing quality, it's almost like magic! 🎩🪄   
+Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms.  
+Enlarge images without losing quality, it's almost like magic! 🎩🪄   
 
 Upscayl is a cross-platform application built with the Linux-first philosophy.   
 This means that Linux users receive pre-release builds earlier but Upscayl itself is available on all major desktop operating systems :)   
@@ -37,11 +38,10 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
 
 ![Screenshot](https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/upscayl-desktop.png)
 
-```diff
-- NOTE: You'll need a Vulkan compatible GPU to upscale images. Many CPU and iGPUs do not work but no harm in trying.
-```
-  
 </div>
+
+> [!IMPORTANT]
+> You'll need a Vulkan compatible GPU to upscale images. Many CPU and iGPUs do not work but no harm in trying.
 
 # 👨‍💻 Installation 
 
