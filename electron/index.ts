@@ -1,6 +1,6 @@
 // Native
 import { autoUpdater } from "electron-updater";
-import getPlatform from "./getPlatform";
+import { getPlatform } from "./getDeviceSpecs";
 import { join, parse } from "path";
 import log from "electron-log";
 import { format } from "url";
@@ -61,7 +61,7 @@ let mainWindow: BrowserWindow | null = null;
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
-  log.info("🚀 UPSCAYL EXEC PATH: ", execPath(""));
+  log.info("🚀 UPSCAYL EXEC PATH: ", execPath("realesrgan"));
   log.info("🚀 MODELS PATH: ", modelsPath);
 
   mainWindow = new BrowserWindow({

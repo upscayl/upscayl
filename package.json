@@ -54,12 +54,11 @@
   "build": {
     "productName": "Upscayl",
     "appId": "org.upscayl.app",
-    "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
+    "artifactName": "${name}-${version}-${os}.${ext}",
     "asar": true,
-    "afterSign": "scripts/notarize.js",
     "extraFiles": [
       {
-        "from": "resources/${os}/${arch}/bin",
+        "from": "resources/${os}/bin",
         "to": "resources/bin",
         "filter": [
           "**/*"

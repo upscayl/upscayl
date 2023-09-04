@@ -24,8 +24,12 @@ import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
 const Home = () => {
   // STATES
   const [os, setOs] = useState<"linux" | "mac" | "win" | undefined>(undefined);
-  const [imagePath, SetImagePath] = useState("");
-  const [upscaledImagePath, setUpscaledImagePath] = useState("");
+  const [imagePath, SetImagePath] = useState(
+    "/Users/macbook-air/Downloads/wp9454111_upscayl_4x_realesrgan-x4plus.png"
+  );
+  const [upscaledImagePath, setUpscaledImagePath] = useState(
+    "/Users/macbook-air/Downloads/wp9454111_upscayl_4x_realesrgan-x4plus.png"
+  );
   const [outputPath, setOutputPath] = useState("");
   const [scaleFactor] = useState(4);
   const [progress, setProgress] = useState("");
@@ -106,6 +110,8 @@ const Home = () => {
     window.electron.on(commands.UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
+      } else if (data.includes("converting")) {
+        setProgress("Scaling and converting image...");
       }
       handleErrors(data);
       logit(`🚧 UPSCAYL_PROGRESS: `, data);
@@ -645,13 +651,7 @@ const Home = () => {
 
                   <img
                     /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                    src={
-                      "file:///" +
-                      imagePath.replace(
-                        /([^/\\]+)$/i,
-                        encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0])
-                      )
-                    }
+                    src={"file:///" + imagePath}
                     alt="Original"
                     onMouseMove={handleMouseMove}
                     style={{
@@ -670,15 +670,10 @@ const Home = () => {
                   </p>
                   <img
                     /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                    src={
-                      "file://" +
-                      upscaledImagePath.replace(
-                        /([^/\\]+)$/i,
-                        encodeURIComponent(
-                          upscaledImagePath.match(/[^/\\]+$/i)[0]
-                        )
-                      )
-                    }
+                    src={"file:///" + upscaledImagePath}
+                    onChange={(e) => {
+                      console.log(e.currentTarget);
+                    }}
                     alt="Upscayl"
                     style={{
                       objectFit: "contain",

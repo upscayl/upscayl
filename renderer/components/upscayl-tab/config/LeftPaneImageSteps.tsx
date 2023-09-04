@@ -107,7 +107,6 @@ function LeftPaneImageSteps({
   }, [currentModel]);
 
   const getUpscaleResolution = useCallback(() => {
-    console.log("running");
     const newDimensions = {
       width: dimensions.width,
       height: dimensions.height,

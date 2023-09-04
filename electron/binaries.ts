@@ -5,14 +5,14 @@
 */
 
 import { join, dirname, resolve } from "path";
-import getPlatform from "./getPlatform";
+import { getArch, getPlatform } from "./getDeviceSpecs";
 import isDev from "electron-is-dev";
 import { app } from "electron";
 
 const appRootDir = app.getAppPath();
 
 const binariesPath = isDev
-  ? join(appRootDir, "resources", getPlatform()!, "bin")
+  ? join(appRootDir, "resources", getPlatform()!, getArch()!, "bin")
   : join(dirname(appRootDir), "bin");
 
 const execPath = (execName) =>

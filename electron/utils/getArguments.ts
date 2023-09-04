@@ -1,4 +1,4 @@
-import getPlatform from "../getPlatform";
+import { getPlatform } from "../getDeviceSpecs";
 const slash: string = getPlatform() === "win" ? "\\" : "/";
 
 export const getSingleImageArguments = (
