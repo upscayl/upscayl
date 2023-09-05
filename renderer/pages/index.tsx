@@ -24,12 +24,8 @@ import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
 const Home = () => {
   // STATES
   const [os, setOs] = useState<"linux" | "mac" | "win" | undefined>(undefined);
-  const [imagePath, SetImagePath] = useState(
-    "/Users/macbook-air/Downloads/wp9454111_upscayl_4x_realesrgan-x4plus.png"
-  );
-  const [upscaledImagePath, setUpscaledImagePath] = useState(
-    "/Users/macbook-air/Downloads/wp9454111_upscayl_4x_realesrgan-x4plus.png"
-  );
+  const [imagePath, SetImagePath] = useState("");
+  const [upscaledImagePath, setUpscaledImagePath] = useState("");
   const [outputPath, setOutputPath] = useState("");
   const [scaleFactor] = useState(4);
   const [progress, setProgress] = useState("");
@@ -141,7 +137,7 @@ const Home = () => {
     // UPSCAYL DONE
     window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
-      setUpscaledImagePath(data);
+      setTimeout(() => setUpscaledImagePath(data), 500);
       logit("upscaledImagePath: ", data);
       logit(`💯 UPSCAYL_DONE: `, data);
     });

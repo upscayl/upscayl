@@ -12,7 +12,8 @@ import { app } from "electron";
 const appRootDir = app.getAppPath();
 
 const binariesPath = isDev
-  ? join(appRootDir, "resources", getPlatform()!, getArch()!, "bin")
+  ? getPlatform() === 'mac' ? join(appRootDir, "resources", getPlatform()!, getArch()!, "bin") :
+    join(appRootDir, "resources", getPlatform()!, "bin")
   : join(dirname(appRootDir), "bin");
 
 const execPath = (execName) =>
