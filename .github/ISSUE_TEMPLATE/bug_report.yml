@@ -11,7 +11,7 @@ body:
       - label: I have checked that this issue isn't addressed in any other issue or pull request.
         required: true
       - label: I have tried [setting my GPU ID](https://github.com/upscayl/upscayl/wiki/Guide#gpu-id).
-        required: true
+        required: false
 - type: textarea
   attributes: 
     label: Paste the logs
