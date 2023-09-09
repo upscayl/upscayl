@@ -73,13 +73,7 @@ Upscayl should be available on the software listings of most Linux operating sys
 
 *You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).*
 
-### 🍎 macOS
-> [!NOTE]
-> Upscayl is only compiled for x86_64 (Intel) and ARM (Apple Silicon) devices might experience subpar performance. Devices below macOS 11 are not supported.
->
-> This is because GitHub Actions only supports building on macOS 11+ x86_64 (Intel) devices.
->
-> Our builds aren't signed as we haven't sorted out required paid developer certificates yet. In the meantime, right click the `.app` and click Open, then click Open in the dialog window. 
+### 🍎 macOS 
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
 2. Download the `upscayl-x.x.x-mac.dmg` file.
