@@ -63,7 +63,7 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
     <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
   </a>
 
-Upscayl should be available on the Software Store of most Linux operating systems. You can download the [Flatpak](https://flatpak.org/setup) or Snap version, if your distro's Store App supports them.
+Upscayl should be available on the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap version.
 
 #### Portable Method
 
@@ -76,7 +76,9 @@ Upscayl should be available on the Software Store of most Linux operating system
 *You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).*
 
 ### 🍎 macOS
-(macOS 11 and later)
+> [!NOTE]
+> Upscayl is only compiled for x86_64 (Intel) and ARM (Apple Silicon) devices might experience subpar performance. Devices below macOS 11 are not supported.
+> This is because GitHub Actions only supports building on macOS 11+ x86_64 (Intel) devices.
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
 
