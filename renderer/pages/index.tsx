@@ -102,6 +102,11 @@ const Home = () => {
       logit(`🐞 BACKEND REPORTED: `, data);
     });
 
+    window.electron.on(commands.UPSCAYL_ERROR, (_, data: string) => {
+      alert(data);
+      resetImagePaths();
+    });
+
     // UPSCAYL PROGRESS
     window.electron.on(commands.UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {

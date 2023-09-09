@@ -164,7 +164,7 @@ function LeftPaneImageSteps({
       {/* STEP 2 */}
       <div className="animate-step-in">
         <p className="step-heading">Step 2</p>
-        <p className="mb-2 text-sm">Select Upscayling Type</p>
+        <p className="mb-2 text-sm">Select Model</p>
 
         <Select
           options={modelOptions}

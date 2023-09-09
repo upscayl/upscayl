@@ -29,7 +29,7 @@ export function ImageFormatSelect({
           {/* PNG */}
           <button
             className={`btn-primary btn ${
-              saveImageAs === "png" && "btn-accent"
+              saveImageAs === "png" && "btn-accent ring-2 ring-primary"
             }`}
             onClick={() => setExportType("png")}>
             PNG
@@ -37,7 +37,7 @@ export function ImageFormatSelect({
           {/* JPG */}
           <button
             className={`btn-primary btn ${
-              saveImageAs === "jpg" && "btn-accent"
+              saveImageAs === "jpg" && "btn-accent !ring-2 !ring-primary"
             }`}
             onClick={() => setExportType("jpg")}>
             JPG
