@@ -49,7 +49,8 @@
     "publish-app": "tsc && npm run build && electron-builder -wl --publish always",
     "publish-linux-app": "tsc && npm run build && electron-builder -l --publish always",
     "publish-win-app": "tsc && npm run build && electron-builder -w --publish always",
-    "publish-mac-app": "tsc && npm run build && electron-builder --mac --universal --publish always"
+    "publish-mac-universal-app": "tsc && npm run build && electron-builder --mac --universal --publish always"
+    "publish-mac-app": "tsc && npm run build && electron-builder --mac --x64 --publish always"
   },
   "build": {
     "productName": "Upscayl",
