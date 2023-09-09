@@ -399,6 +399,7 @@ const Home = () => {
   const upscaylHandler = async () => {
     logit("🔄 Resetting Upscaled Image Path");
     setUpscaledImagePath("");
+    setUpscaledBatchFolderPath("");
 
     if (imagePath !== "" || batchFolderPath !== "") {
       setProgress("Hold on...");
@@ -620,8 +621,9 @@ const Home = () => {
         {batchMode &&
           upscaledBatchFolderPath.length === 0 &&
           batchFolderPath.length > 0 && (
-            <p className="select-none font-bold text-neutral-50">
-              Selected folder: {batchFolderPath}
+            <p className="select-none text-neutral-50">
+              <span className="font-bold">Selected folder:</span>{" "}
+              {batchFolderPath}
             </p>
           )}
 

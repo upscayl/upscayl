@@ -255,7 +255,7 @@ const convertAndScale = async (
     .withMetadata(); // Keep metadata
   // Change the output according to the saveImageAs
   if (saveImageAs === "png") {
-    newImage.png({ compressionLevel: quality });
+    newImage.png({ quality: 100 - quality });
   } else if (saveImageAs === "jpg") {
     console.log("Quality: ", quality);
     newImage.jpeg({ quality: 100 - quality });
@@ -555,7 +555,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   }
 });
 
-//------------------------Folder Upscayl-----------------------------//
+//------------------------Batch Upscayl-----------------------------//
 ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
   if (!mainWindow) return;
   // GET THE MODEL
@@ -656,7 +656,7 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
           await convertAndScale(
             inputDir + slash + file,
             outputDir + slash + file.slice(0, -3) + "png",
-            outputDir + slash + file,
+            outputDir + slash + file.slice(0, -3) + saveImageAs,
             payload.scale,
             saveImageAs,
             onError
