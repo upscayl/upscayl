@@ -23,6 +23,8 @@ const commands = {
   LOG: "Log",
   STOP: "Stop the current operation",
   OS: "Get OS",
+  SCALING_AND_CONVERTING: "Adding some finishing touches",
+  UPSCAYL_ERROR: "Upscaling Error",
 };
 
 export default commands;

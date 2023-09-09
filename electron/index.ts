@@ -1,10 +1,11 @@
 // Native
 import { autoUpdater } from "electron-updater";
 import { getPlatform } from "./getDeviceSpecs";
-import { join, parse } from "path";
+import path, { join, parse } from "path";
 import log from "electron-log";
 import { format } from "url";
 import fs from "fs";
+import sharp from "sharp";
 
 import { execPath, modelsPath } from "./binaries";
 // Packages
@@ -29,7 +30,6 @@ import {
   getSingleImageArguments,
 } from "./utils/getArguments";
 import { spawnUpscayl } from "./upscayl";
-import Jimp from "jimp";
 
 let childProcesses: {
   process: ChildProcessWithoutNullStreams;
@@ -48,7 +48,7 @@ let folderPath: string | undefined = undefined;
 let customModelsFolderPath: string | undefined = undefined;
 let outputFolderPath: string | undefined = undefined;
 let saveOutputFolder = false;
-let quality = 100;
+let quality = 0;
 let overwrite = false;
 
 let stopped = false;
@@ -162,7 +162,11 @@ app.on("ready", async () => {
     .executeJavaScript('localStorage.getItem("quality");', true)
     .then((lastSavedQuality: string | null) => {
       if (lastSavedQuality !== null) {
-        quality = parseInt(lastSavedQuality);
+        if (parseInt(lastSavedQuality) === 100) {
+          quality = 99;
+        } else {
+          quality = parseInt(lastSavedQuality);
+        }
       }
     });
   mainWindow.webContents.send(commands.OS, getPlatform());
@@ -227,6 +231,46 @@ const getModels = (folderPath: string) => {
 
   logit("🔎 Detected Custom Models: ", models);
   return models;
+};
+
+//------------------------Save Last Paths-----------------------------//
+const convertAndScale = async (
+  originalImagePath: string,
+  upscaledImagePath: string,
+  processedImagePath: string,
+  scale: string,
+  saveImageAs: string,
+  onError: (error: any) => void
+) => {
+  const originalImage = await sharp(originalImagePath).metadata();
+  if (!mainWindow || !originalImage) {
+    throw new Error("Could not grab the original image!");
+  }
+  // Resize the image to the scale
+  const newImage = sharp(upscaledImagePath)
+    .resize(
+      originalImage.width && originalImage.width * parseInt(scale),
+      originalImage.height && originalImage.height * parseInt(scale)
+    )
+    .withMetadata(); // Keep metadata
+  // Change the output according to the saveImageAs
+  if (saveImageAs === "png") {
+    newImage.png({ compressionLevel: quality });
+  } else if (saveImageAs === "jpg") {
+    console.log("Quality: ", quality);
+    newImage.jpeg({ quality: 100 - quality });
+  }
+  // Save the image
+  const buffer = await newImage.toBuffer();
+  sharp(buffer)
+    .toFile(processedImagePath)
+    .then(() => {
+      logit("✅ Done converting to: ", upscaledImagePath);
+    })
+    .catch((error) => {
+      logit("❌ Error converting to: ", saveImageAs, error);
+      onError(error);
+    });
 };
 
 //------------------------Open Folder-----------------------------//
@@ -435,7 +479,7 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
         model,
         scale,
         gpuId,
-        saveImageAs
+        "png"
       ),
       logit
     );
@@ -473,31 +517,31 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       if (!failed && !stopped) {
         logit("💯 Done upscaling");
         logit("♻ Scaling and converting now...");
-        const originalImage = await Jimp.read(inputDir + slash + fullfileName);
+        // Free up memory
+        upscayl.kill();
         try {
-          const newImage = await Jimp.read(
-            isAlpha ? outFile + ".png" : outFile
+          if (!mainWindow) return;
+          await convertAndScale(
+            inputDir + slash + fullfileName,
+            isAlpha ? outFile + ".png" : outFile,
+            isAlpha ? outFile + ".png" : outFile,
+            payload.scale,
+            saveImageAs,
+            onError
           );
-          try {
-            if (!mainWindow) return;
-            newImage
-              .quality(100 - quality)
-              .scaleToFit(
-                originalImage.getWidth() * parseInt(payload.scale),
-                originalImage.getHeight() * parseInt(payload.scale)
-              )
-              .write(isAlpha ? outFile + ".png" : outFile);
-            mainWindow.setProgressBar(-1);
-            mainWindow.webContents.send(
-              commands.UPSCAYL_DONE,
-              isAlpha ? outFile + ".png" : outFile
-            );
-          } catch (error) {
-            logit("❌ Error converting to PNG: ", error);
-            onError(error);
-          }
+          mainWindow.setProgressBar(-1);
+          mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
         } catch (error) {
-          logit("❌ Error reading original image metadata", error);
+          logit(
+            "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
+            error
+          );
+          upscayl.kill();
+          mainWindow &&
+            mainWindow.webContents.send(
+              commands.UPSCAYL_ERROR,
+              "Error processing (scaling and converting) the image. Please report this error on GitHub."
+            );
           onError(error);
         }
       }
@@ -599,26 +643,38 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
     if (!failed && !stopped) {
       logit("💯 Done upscaling");
       logit("♻ Scaling and converting now...");
+      upscayl.kill();
       // Get number of files in output folder
       const files = fs.readdirSync(inputDir);
-      files.forEach(async (file) => {
-        console.log("Filename: ", file.slice(0, -3));
-        // Resize the image to the original size
-        const originalImage = await Jimp.read(inputDir + slash + file);
-        const newImage = await Jimp.read(
-          outputDir + slash + file.slice(0, -3) + "png"
+      try {
+        files.forEach(async (file) => {
+          console.log("Filename: ", file.slice(0, -3));
+          await convertAndScale(
+            inputDir + slash + file,
+            outputDir + slash + file.slice(0, -3) + "png",
+            outputDir + slash + file,
+            payload.scale,
+            saveImageAs,
+            onError
+          );
+          // Remove the png file (default) if the saveImageAs is not png
+          if (saveImageAs !== "png") {
+            fs.unlinkSync(outputDir + slash + file.slice(0, -3) + "png");
+          }
+        });
+      } catch (error) {
+        logit(
+          "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
+          error
         );
-        newImage
-          .quality(100 - quality)
-          .scaleToFit(
-            originalImage.getWidth() * parseInt(payload.scale),
-            originalImage.getHeight() * parseInt(payload.scale)
-          )
-          .write(outputDir + slash + file);
-        if (saveImageAs !== "png") {
-          fs.unlinkSync(outputDir + slash + file.slice(0, -3) + "png");
-        }
-      });
+        upscayl.kill();
+        mainWindow &&
+          mainWindow.webContents.send(
+            commands.UPSCAYL_ERROR,
+            "Error processing (scaling and converting) the image. Please report this error on GitHub."
+          );
+        onError(error);
+      }
 
       mainWindow.webContents.send(commands.FOLDER_UPSCAYL_DONE, outputDir);
     } else {
@@ -636,8 +692,9 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
   if (!mainWindow) return;
 
   const model = payload.model as string;
-  let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
-  let outputDir = payload.outputPath as string;
+  const imagePath = payload.imagePath;
+  let inputDir = (imagePath.match(/(.*)[\/\\]/) || [""])[1];
+  let outputDir = path.normalize(payload.outputPath);
 
   if (saveOutputFolder === true && outputFolderPath) {
     outputDir = outputFolderPath;
@@ -649,7 +706,7 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
 
   // COPY IMAGE TO TMP FOLDER
 
-  const fullfileName = payload.imagePath.split(slash).slice(-1)[0] as string;
+  const fullfileName = imagePath.split(slash).slice(-1)[0] as string;
   const fileName = parse(fullfileName).name;
   const outFile =
     outputDir + slash + fileName + "_upscayl_16x_" + model + "." + saveImageAs;
@@ -718,28 +775,51 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
     if (!failed2 && !stopped) {
       logit("💯 Done upscaling");
       logit("♻ Scaling and converting now...");
-      const originalImage = await Jimp.read(inputDir + slash + fullfileName);
+      mainWindow.webContents.send(commands.SCALING_AND_CONVERTING);
       try {
-        const newImage = await Jimp.read(isAlpha ? outFile + ".png" : outFile);
-        try {
-          newImage
-            .quality(100 - quality)
-            .scaleToFit(
-              originalImage.getWidth() * parseInt(payload.scale),
-              originalImage.getHeight() * parseInt(payload.scale)
-            )
-            .write(isAlpha ? outFile + ".png" : outFile);
-          mainWindow.setProgressBar(-1);
-          mainWindow.webContents.send(
-            commands.DOUBLE_UPSCAYL_DONE,
-            isAlpha ? outFile + ".png" : outFile
-          );
-        } catch (error) {
-          logit("❌ Error converting to PNG: ", error);
-          onError(error);
+        const originalImage = await sharp(
+          inputDir + slash + fullfileName
+        ).metadata();
+        if (!mainWindow || !originalImage) {
+          throw new Error("Could not grab the original image!");
         }
+        // Resize the image to the scale
+        const newImage = sharp(isAlpha ? outFile + ".png" : outFile)
+          .resize(
+            originalImage.width &&
+              originalImage.width * parseInt(payload.scale),
+            originalImage.height &&
+              originalImage.height * parseInt(payload.scale)
+          )
+          .withMetadata(); // Keep metadata
+        // Change the output according to the saveImageAs
+        if (saveImageAs === "png") {
+          newImage.png({ quality: 100 - quality });
+        } else if (saveImageAs === "jpg") {
+          newImage.jpeg({ quality: 100 - quality });
+        }
+        // Save the image
+        await newImage
+          .toFile(isAlpha ? outFile + ".png" : outFile)
+          .then(() => {
+            logit(
+              "✅ Done converting to: ",
+              isAlpha ? outFile + ".png" : outFile
+            );
+          })
+          .catch((error) => {
+            logit("❌ Error converting to: ", saveImageAs, error);
+            upscayl.kill();
+            onError(error);
+          });
+        mainWindow.setProgressBar(-1);
+        mainWindow.webContents.send(
+          commands.DOUBLE_UPSCAYL_DONE,
+          isAlpha ? outFile + ".png" : outFile
+        );
       } catch (error) {
         logit("❌ Error reading original image metadata", error);
+        upscayl.kill();
         onError(error);
       }
     }

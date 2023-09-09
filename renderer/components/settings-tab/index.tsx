@@ -127,6 +127,19 @@ function SettingsTab({
     }
   }, []);
 
+  useEffect(() => {
+    if (!localStorage.getItem("quality")) {
+      logit("⚙️ Setting quality to 100%");
+      localStorage.setItem("quality", JSON.stringify(quality));
+    } else {
+      const currentlySavedQuality = localStorage.getItem("quality");
+      logit("⚙️ Getting quality from localStorage", quality);
+      if (currentlySavedQuality) {
+        setQuality(JSON.parse(currentlySavedQuality));
+      }
+    }
+  }, []);
+
   // HANDLERS
   const setExportType = (format: string) => {
     setSaveImageAs(format);
