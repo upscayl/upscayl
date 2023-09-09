@@ -282,7 +282,7 @@ ipcMain.on(commands.OPEN_FOLDER, async (event, payload) => {
 //------------------------Stop Command-----------------------------//
 ipcMain.on(commands.STOP, async (event, payload) => {
   stopped = true;
-
+  mainWindow && mainWindow.setProgressBar(-1);
   childProcesses.forEach((child) => {
     logit("🛑 Stopping Upscaling Process", child.process.pid);
     child.kill();
