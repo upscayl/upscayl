@@ -590,19 +590,7 @@ const Home = () => {
               <img
                 src={
                   "file://" +
-                  `${
-                    upscaledImagePath
-                      ? upscaledImagePath.replace(
-                          /([^/\\]+)$/i,
-                          encodeURIComponent(
-                            upscaledImagePath.match(/[^/\\]+$/i)[0]
-                          )
-                        )
-                      : imagePath.replace(
-                          /([^/\\]+)$/i,
-                          encodeURIComponent(imagePath.match(/[^/\\]+$/i)[0])
-                        )
-                  }`
+                  `${upscaledImagePath ? upscaledImagePath : imagePath}`
                 }
                 onLoad={(e: any) => {
                   setDimensions({
@@ -678,9 +666,6 @@ const Home = () => {
                   <img
                     /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
                     src={"file:///" + upscaledImagePath}
-                    onChange={(e) => {
-                      console.log(e.currentTarget);
-                    }}
                     alt="Upscayl"
                     style={{
                       objectFit: "contain",
