@@ -467,7 +467,13 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
   if (fs.existsSync(outFile) && overwrite === false) {
     // If already upscayled, just output that file
     logit("✅ Already upscayled at: ", outFile);
-    mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+    mainWindow.webContents.send(
+      commands.UPSCAYL_DONE,
+      outFile.replace(
+        /([^/\\]+)$/i,
+        encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
+      )
+    );
   } else {
     const upscayl = spawnUpscayl(
       "realesrgan",
@@ -532,7 +538,13 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
             onError
           );
           mainWindow.setProgressBar(-1);
-          mainWindow.webContents.send(commands.UPSCAYL_DONE, outFile);
+          mainWindow.webContents.send(
+            commands.UPSCAYL_DONE,
+            outFile.replace(
+              /([^/\\]+)$/i,
+              encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
+            )
+          );
         } catch (error) {
           logit(
             "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
@@ -819,7 +831,15 @@ ipcMain.on(commands.DOUBLE_UPSCAYL, async (event, payload) => {
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
           commands.DOUBLE_UPSCAYL_DONE,
-          isAlpha ? outFile + ".png" : outFile
+          isAlpha
+            ? (outFile + ".png").replace(
+                /([^/\\]+)$/i,
+                encodeURIComponent((outFile + ".png").match(/[^/\\]+$/i)![0])
+              )
+            : outFile.replace(
+                /([^/\\]+)$/i,
+                encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
+              )
         );
       } catch (error) {
         logit("❌ Error reading original image metadata", error);
