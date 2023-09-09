@@ -135,21 +135,23 @@ npm run publish-app
 
 # 🤓 FAQ 
 
-- How does Upscayl work?
+- **How does Upscayl work?**
   - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN to achieve this.
-- Is there a CLI available?
+- **Is there a CLI available?**
   - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
-- Do I need a GPU for this to work?
+- **Do I need a GPU for this to work?**
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
-- How can I contribute?
+- **How can I contribute?**
   - You can fix code, add features by submitting PRs, report issues or donate :)
-- What's the GPU ID for?
+- **What's the GPU ID for?**
   - It is for selecting which GPU to use. The specific procedure is detailed in the [Wiki](https://github.com/upscayl/upscayl/wiki/Guide).
     - Note that for Windows systems, if Upscayl is not set the performance mode, the system may override this setting.
-- You are not fully open source!!😡
+- **You are not fully open source!!😡**
   - We are! We're using completely free and open source tech. We do ship a binary but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience, if you do not trust it, then you can compile your own since everything is free and open source here :)
+- **Where do I find more models?**
+  -  More models can be taken from here: https://github.com/upscayl/custom-models/
 
-Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images. More models and algorithms will come soon.
+Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images.
 
 # 🎁 Donate
 
