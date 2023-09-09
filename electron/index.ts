@@ -517,6 +517,8 @@ ipcMain.on(commands.UPSCAYL, async (event, payload) => {
       if (!failed && !stopped) {
         logit("💯 Done upscaling");
         logit("♻ Scaling and converting now...");
+        mainWindow &&
+          mainWindow.webContents.send(commands.SCALING_AND_CONVERTING);
         // Free up memory
         upscayl.kill();
         try {
@@ -644,6 +646,8 @@ ipcMain.on(commands.FOLDER_UPSCAYL, async (event, payload) => {
       logit("💯 Done upscaling");
       logit("♻ Scaling and converting now...");
       upscayl.kill();
+      mainWindow &&
+        mainWindow.webContents.send(commands.SCALING_AND_CONVERTING);
       // Get number of files in output folder
       const files = fs.readdirSync(inputDir);
       try {

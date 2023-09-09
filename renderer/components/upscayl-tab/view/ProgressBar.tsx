@@ -7,12 +7,20 @@ function ProgressBar({
   stopHandler,
   batchMode,
 }) {
+  const [batchProgress, setBatchProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    if (progress.includes("0.00%")) {
+      setBatchProgress((prev) => prev + 1);
+    }
+  }, [progress]);
+
   return (
     <div className="absolute flex h-full w-full flex-col items-center justify-center bg-base-300/50 backdrop-blur-lg">
       <div className="flex flex-col items-center gap-2">
         <Spinner />
         <p className="rounded-full bg-base-300 px-2 py-1 font-bold">
-          {batchMode && "In Progress"}
+          {batchMode && "Batch Upscale In Progress: " + batchProgress}
           {!batchMode &&
             (doubleUpscaylCounter > 0
               ? `${progress}\nPass ${doubleUpscaylCounter}`

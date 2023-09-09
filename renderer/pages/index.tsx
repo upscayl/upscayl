@@ -102,6 +102,10 @@ const Home = () => {
       logit(`🐞 BACKEND REPORTED: `, data);
     });
 
+    window.electron.on(commands.SCALING_AND_CONVERTING, (_, data: string) => {
+      setProgress("Processing the image...");
+    });
+
     window.electron.on(commands.UPSCAYL_ERROR, (_, data: string) => {
       alert(data);
       resetImagePaths();
