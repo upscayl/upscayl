@@ -28,24 +28,24 @@ export function ImageFormatSelect({
         <div className="flex flex-wrap gap-2">
           {/* PNG */}
           <button
-            className={`btn-primary btn ${
-              saveImageAs === "png" && "btn-accent ring-2 ring-primary"
+            className={`btn ${
+              saveImageAs === "png" && "btn-primary"
             }`}
             onClick={() => setExportType("png")}>
             PNG
           </button>
           {/* JPG */}
           <button
-            className={`btn-primary btn ${
-              saveImageAs === "jpg" && "btn-accent !ring-2 !ring-primary"
+            className={`btn ${
+              saveImageAs === "jpg" && "btn-primary"
             }`}
             onClick={() => setExportType("jpg")}>
             JPG
           </button>
           {/* WEBP
           <button
-            className={`btn-primary btn ${
-              saveImageAs === "webp" && "btn-accent"
+            className={`btn ${
+              saveImageAs === "webp" && "btn-primary"
             }`}
             onClick={() => setExportType("webp")}>
             WEBP
