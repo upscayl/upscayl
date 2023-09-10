@@ -1,17 +1,6 @@
-import { BrowserWindow, shell } from "electron";
-import { getPlatform } from "./get-device-specs";
+import { BrowserWindow } from "electron";
+import { getPlatform } from "./utils/get-device-specs";
 import { join } from "path";
-import {
-  setCustomModelsFolderPath,
-  setFolderPath,
-  setImagePath,
-  setOutputFolderPath,
-  setOverwrite,
-  setQuality,
-  setSaveOutputFolder,
-} from "./utils/config-variables";
-import COMMAND from "./constants/commands";
-import electronIsDev from "electron-is-dev";
 
 let mainWindow: BrowserWindow | null;
 

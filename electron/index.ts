@@ -32,9 +32,9 @@ import {
 } from "./utils/config-variables";
 import { createMainWindow, getMainWindow } from "./main-window";
 import electronIsDev from "electron-is-dev";
-import { getPlatform } from "./get-device-specs";
+import { getPlatform } from "./utils/get-device-specs";
 import { join } from "path";
-import { execPath, modelsPath } from "./binaries";
+import { execPath, modelsPath } from "./utils/get-resource-paths";
 
 // INITIALIZATION
 log.initialize({ preload: true });
