@@ -1,20 +1,22 @@
 import { MessageBoxOptions, dialog } from "electron";
-import mainWindow from "../main-window";
 import {
-  getCustomModelsFolderPath,
+  customModelsFolderPath,
   setCustomModelsFolderPath,
 } from "../utils/config-variables";
 import logit from "../utils/logit";
 import slash from "../utils/slash";
 import COMMAND from "../constants/commands";
 import getModels from "../utils/get-models";
+import { getMainWindow } from "../main-window";
+
+const mainWindow = getMainWindow();
 
 const customModelsSelect = async (event, message) => {
   if (!mainWindow) return;
   const { canceled, filePaths: folderPaths } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
     title: "Select Custom Models Folder",
-    defaultPath: getCustomModelsFolderPath(),
+    defaultPath: customModelsFolderPath,
   });
   if (canceled) {
     logit("🚫 Select Custom Models Folder Operation Cancelled");
@@ -40,11 +42,11 @@ const customModelsSelect = async (event, message) => {
 
     mainWindow.webContents.send(
       COMMAND.CUSTOM_MODEL_FILES_LIST,
-      getModels(getCustomModelsFolderPath())
+      getModels(customModelsFolderPath)
     );
 
-    logit("📁 Custom Folder Path: ", getCustomModelsFolderPath());
-    return getCustomModelsFolderPath();
+    logit("📁 Custom Folder Path: ", customModelsFolderPath);
+    return customModelsFolderPath;
   }
 };
 

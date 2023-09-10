@@ -1,89 +1,49 @@
 import { ChildProcessWithoutNullStreams } from "child_process";
 
-let _imagePath: string | undefined = undefined;
-let _folderPath: string | undefined = undefined;
-let _customModelsFolderPath: string | undefined = undefined;
-let _outputFolderPath: string | undefined = undefined;
-let _saveOutputFolder = false;
-let _quality = 0;
-let _overwrite = false;
-let _stop = false;
-let childProcesses: {
+export let imagePath: string | undefined = "";
+export let folderPath: string | undefined = undefined;
+export let customModelsFolderPath: string | undefined = undefined;
+export let outputFolderPath: string | undefined = undefined;
+export let saveOutputFolder = false;
+export let quality = 0;
+export let overwrite = false;
+export let stopped = false;
+export let childProcesses: {
   process: ChildProcessWithoutNullStreams;
   kill: () => boolean;
 }[] = [];
 
-// GETTERS
-export function getImagePath(): string | undefined {
-  return _imagePath;
-}
-
 export function setImagePath(value: string | undefined): void {
-  _imagePath = value;
-}
-
-export function getFolderPath(): string | undefined {
-  return _folderPath;
+  imagePath = value;
 }
 
 export function setFolderPath(value: string | undefined): void {
-  _folderPath = value;
-}
-
-export function getCustomModelsFolderPath(): string | undefined {
-  return _customModelsFolderPath;
+  folderPath = value;
 }
 
 export function setCustomModelsFolderPath(value: string | undefined): void {
-  _customModelsFolderPath = value;
-}
-
-export function getOutputFolderPath(): string | undefined {
-  return _outputFolderPath;
-}
-
-export function getStop(): boolean {
-  return _stop;
-}
-
-export function getChildProcesses(): {
-  process: ChildProcessWithoutNullStreams;
-  kill: () => boolean;
-}[] {
-  return childProcesses;
+  customModelsFolderPath = value;
 }
 
 // SETTERS
 export function setOutputFolderPath(value: string | undefined): void {
-  _outputFolderPath = value;
-}
-
-export function getSaveOutputFolder(): boolean {
-  return _saveOutputFolder;
+  outputFolderPath = value;
 }
 
 export function setSaveOutputFolder(value: boolean): void {
-  _saveOutputFolder = value;
-}
-
-export function getQuality(): number {
-  return _quality;
+  saveOutputFolder = value;
 }
 
 export function setQuality(value: number): void {
-  _quality = value;
-}
-
-export function getOverwrite(): boolean {
-  return _overwrite;
+  quality = value;
 }
 
 export function setOverwrite(value: boolean): void {
-  _overwrite = value;
+  overwrite = value;
 }
 
-export function setStop(value: boolean): void {
-  _stop = value;
+export function setStopped(value: boolean): void {
+  stopped = value;
 }
 
 export function setChildProcesses(value: {

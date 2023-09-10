@@ -1,11 +1,13 @@
-import mainWindow from "../main-window";
-import { getChildProcesses, setStop } from "../utils/config-variables";
+import { getMainWindow } from "../main-window";
+import { childProcesses, setStopped } from "../utils/config-variables";
 import logit from "../utils/logit";
 
+const mainWindow = getMainWindow();
+
 const stop = async (event, payload) => {
-  setStop(true);
+  setStopped(true);
   mainWindow && mainWindow.setProgressBar(-1);
-  getChildProcesses().forEach((child) => {
+  childProcesses.forEach((child) => {
     logit("🛑 Stopping Upscaling Process", child.process.pid);
     child.kill();
   });

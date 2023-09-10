@@ -1,11 +1,11 @@
 import { dialog } from "electron";
-import { getFolderPath, setFolderPath } from "../utils/config-variables";
+import { folderPath, setFolderPath } from "../utils/config-variables";
 import logit from "../utils/logit";
 
 const selectFolder = async (event, message) => {
   const { canceled, filePaths: folderPaths } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
-    defaultPath: getFolderPath(),
+    defaultPath: folderPath,
   });
 
   if (canceled) {
@@ -13,7 +13,7 @@ const selectFolder = async (event, message) => {
     return null;
   } else {
     setFolderPath(folderPaths[0]);
-    logit("📁 Selected Folder Path: ", getFolderPath());
+    logit("📁 Selected Folder Path: ", folderPath);
     return folderPaths[0];
   }
 };

@@ -1,14 +1,15 @@
 import { MessageBoxOptions, dialog } from "electron";
-import mainWindow from "../main-window";
-import { getImagePath, setImagePath } from "../utils/config-variables";
+import { getMainWindow } from "../main-window";
+import { imagePath, setImagePath } from "../utils/config-variables";
 import logit from "../utils/logit";
 
+const mainWindow = getMainWindow();
+
 const selectFile = async () => {
-  if (!mainWindow) return;
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openFile", "multiSelections"],
     title: "Select Image",
-    defaultPath: getImagePath(),
+    defaultPath: imagePath,
   });
 
   if (canceled) {
@@ -43,6 +44,7 @@ const selectFile = async () => {
         message:
           "The selected file is not a valid image. Make sure you select a '.png', '.jpg', or '.webp' file.",
       };
+      if (!mainWindow) return null;
       dialog.showMessageBoxSync(mainWindow, options);
       return null;
     }

@@ -1,6 +1,15 @@
+import prepareNext from "electron-next";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
-import { app, ipcMain, dialog, MessageBoxOptions } from "electron";
+import {
+  app,
+  ipcMain,
+  dialog,
+  MessageBoxOptions,
+  shell,
+  protocol,
+  net,
+} from "electron";
 import COMMAND from "./constants/commands";
 import logit from "./utils/logit";
 import openFolder from "./commands/open-folder";
@@ -10,19 +19,41 @@ import selectFile from "./commands/select-file";
 import getModelsList from "./commands/get-models-list";
 import customModelsSelect from "./commands/custom-models-select";
 import imageUpscayl from "./commands/image-upscayl";
-import { setStop } from "./utils/config-variables";
+import {
+  setCustomModelsFolderPath,
+  setFolderPath,
+  setImagePath,
+  setOutputFolderPath,
+  setQuality,
+  setSaveOutputFolder,
+  setStopped,
+} from "./utils/config-variables";
+import { createMainWindow, getMainWindow } from "./main-window";
+import electronIsDev from "electron-is-dev";
+import { getPlatform } from "./get-device-specs";
+import { join } from "path";
+import { execPath, modelsPath } from "./binaries";
 
 // INITIALIZATION
-setStop(false);
 log.initialize({ preload: true });
+logit("🚃 App Path: ", app.getAppPath());
 
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
-}
+app.whenReady().then(async () => {
+  await prepareNext("./renderer");
+  createMainWindow();
+  log.info("🚀 UPSCAYL EXEC PATH: ", execPath("realesrgan"));
+  log.info("🚀 MODELS PATH: ", modelsPath);
+  protocol.handle("file:", (request) => {
+    const pathname = decodeURI(request.url);
+    return net.fetch(pathname);
+  });
+  if (!electronIsDev) {
+    autoUpdater.checkForUpdates();
+  }
+});
 
 // Quit the app once all windows are closed
 app.on("window-all-closed", app.quit);
-logit("🚃 App Path: ", app.getAppPath());
 
 //------------------------Open Folder-----------------------------//
 ipcMain.on(COMMAND.OPEN_FOLDER, openFolder);

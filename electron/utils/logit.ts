@@ -1,10 +1,11 @@
-import Logger from "electron-log";
-import mainWindow from "../main-window";
+import log from "electron-log";
 import COMMAND from "../constants/commands";
+import { getMainWindow } from "../main-window";
 
 const logit = (...args: any) => {
-  Logger.log(...args);
+  const mainWindow = getMainWindow();
   if (!mainWindow) return;
+  log.log(...args);
   mainWindow.webContents.send(COMMAND.LOG, args.join(" "));
 };
 
