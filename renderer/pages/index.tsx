@@ -207,6 +207,16 @@ const Home = () => {
     const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
     const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
 
+    // GET OVERWRITE
+    if (!localStorage.getItem("overwrite")) {
+      localStorage.setItem("overwrite", JSON.stringify(overwrite));
+    } else {
+      const currentlySavedOverwrite = localStorage.getItem("overwrite");
+      if (currentlySavedOverwrite) {
+        setOverwrite(currentlySavedOverwrite === "true");
+      }
+    }
+
     if (rememberOutputFolder === "true") {
       setOutputPath(lastOutputFolderPath);
     } else {

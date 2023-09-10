@@ -12,7 +12,7 @@ const ToggleOverwrite = ({ overwrite, setOverwrite }: ToggleOverwriteProps) => {
     } else {
       const currentlySavedOverwrite = localStorage.getItem("overwrite");
       if (currentlySavedOverwrite) {
-        setOverwrite(JSON.parse(currentlySavedOverwrite));
+        setOverwrite(currentlySavedOverwrite === "true");
       }
     }
   }, []);

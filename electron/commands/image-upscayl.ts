@@ -28,11 +28,12 @@ const imageUpscayl = async (event, payload) => {
     console.log("No main window");
     return;
   }
+
+  setOverwrite(payload.overwrite);
   console.log({
     overwrite: payload.overwrite,
   });
 
-  setOverwrite(payload.overwrite);
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
@@ -70,17 +71,6 @@ const imageUpscayl = async (event, payload) => {
     model +
     "." +
     saveImageAs;
-
-  // GET OVERWRITE SETTINGS FROM LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("overwrite");', true)
-    .then((lastSavedOverwrite: boolean | null) => {
-      if (lastSavedOverwrite !== null) {
-        console.log("Overwrite: ", lastSavedOverwrite);
-        setOverwrite(lastSavedOverwrite);
-        console.log("NEW OVERWRITE: ", overwrite);
-      }
-    });
 
   // UPSCALE
   if (fs.existsSync(outFile) && !overwrite) {
