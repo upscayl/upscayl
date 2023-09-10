@@ -7,9 +7,9 @@ import {
 import getModels from "../utils/get-models";
 import logit from "../utils/logit";
 
-const mainWindow = getMainWindow();
-
 const getModelsList = async (event, payload) => {
+  const mainWindow = getMainWindow();
+
   if (!mainWindow) return;
   if (payload) {
     setCustomModelsFolderPath(payload);

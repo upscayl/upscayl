@@ -20,7 +20,6 @@ import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { parse } from "path";
 import DEFAULT_MODELS from "../constants/models";
 import { getMainWindow } from "../main-window";
-import stop from "./stop";
 
 const imageUpscayl = async (event, payload) => {
   const mainWindow = getMainWindow();
@@ -73,18 +72,18 @@ const imageUpscayl = async (event, payload) => {
     saveImageAs;
 
   // GET OVERWRITE SETTINGS FROM LOCAL STORAGE
-
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("overwrite");', true)
     .then((lastSavedOverwrite: boolean | null) => {
       if (lastSavedOverwrite !== null) {
         console.log("Overwrite: ", lastSavedOverwrite);
         setOverwrite(lastSavedOverwrite);
+        console.log("NEW OVERWRITE: ", overwrite);
       }
     });
 
   // UPSCALE
-  if (fs.existsSync(outFile) && overwrite === false) {
+  if (fs.existsSync(outFile) && !overwrite) {
     // If already upscayled, just output that file
     logit("✅ Already upscayled at: ", outFile);
     mainWindow.webContents.send(

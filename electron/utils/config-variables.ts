@@ -13,6 +13,18 @@ export let childProcesses: {
   kill: () => boolean;
 }[] = [];
 
+console.log({
+  imagePath,
+  folderPath,
+  customModelsFolderPath,
+  outputFolderPath,
+  saveOutputFolder,
+  quality,
+  overwrite,
+  stopped,
+  childProcesses,
+});
+
 export function setImagePath(value: string | undefined): void {
   imagePath = value;
 }
