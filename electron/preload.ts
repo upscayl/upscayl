@@ -1,5 +1,5 @@
 import { ipcRenderer, contextBridge } from "electron";
-import { getPlatform } from "./getDeviceSpecs";
+import { getPlatform } from "./get-device-specs";
 
 // 'ipcRenderer' will be available in index.js with the method 'window.electron'
 contextBridge.exposeInMainWorld("electron", {

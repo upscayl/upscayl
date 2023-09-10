@@ -1,4 +1,4 @@
-const commands = {
+const COMMAND = {
   SELECT_FILE: "Select a File",
   SELECT_FOLDER: "Select a Folder",
   UPSCAYL: "Upscale the Image",
@@ -27,4 +27,4 @@ const commands = {
   UPSCAYL_ERROR: "Upscaling Error",
 };
 
-export default commands;
+export default COMMAND;

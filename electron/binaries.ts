@@ -5,7 +5,7 @@
 */
 
 import { join, dirname, resolve } from "path";
-import { getPlatform } from "./getDeviceSpecs";
+import { getPlatform } from "./get-device-specs";
 import isDev from "electron-is-dev";
 import { app } from "electron";
 

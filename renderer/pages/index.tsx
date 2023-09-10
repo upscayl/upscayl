@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import commands from "../../electron/commands";
+import commands from "../../electron/constants/commands";
 import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
