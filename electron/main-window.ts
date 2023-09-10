@@ -1,63 +1,46 @@
-import prepareNext from "electron-next";
-import { BrowserWindow, app, net, protocol, shell } from "electron";
-import COMMAND from "./constants/commands";
+import { BrowserWindow, shell } from "electron";
 import { getPlatform } from "./get-device-specs";
 import { join } from "path";
-import { execPath, modelsPath } from "./binaries";
-import log from "electron-log";
-import isDev from "electron-is-dev";
-import { autoUpdater } from "electron-updater";
 import {
   setCustomModelsFolderPath,
   setFolderPath,
   setImagePath,
   setOutputFolderPath,
+  setOverwrite,
   setQuality,
   setSaveOutputFolder,
 } from "./utils/config-variables";
+import COMMAND from "./constants/commands";
+import electronIsDev from "electron-is-dev";
 
-// Prepare the renderer once the app is ready
-let _mainWindow: BrowserWindow | null = null;
+let mainWindow: BrowserWindow | null;
 
-const getMainWindow = () => {
-  if (!_mainWindow) {
-    _mainWindow = new BrowserWindow({
-      icon: join(__dirname, "build", "icon.png"),
-      width: 1300,
-      height: 940,
-      minHeight: 500,
-      minWidth: 500,
-      show: false,
-      backgroundColor: "#171717",
-      webPreferences: {
-        nodeIntegration: true,
-        nodeIntegrationInWorker: true,
-        webSecurity: false,
-        preload: join(__dirname, "preload.js"),
-      },
-      titleBarStyle: getPlatform() === "mac" ? "hiddenInset" : "default",
-    });
-  }
+const createMainWindow = () => {
+  mainWindow = new BrowserWindow({
+    icon: join(__dirname, "build", "icon.png"),
+    width: 1300,
+    height: 940,
+    minHeight: 500,
+    minWidth: 500,
+    show: false,
+    backgroundColor: "#171717",
+    webPreferences: {
+      nodeIntegration: true,
+      nodeIntegrationInWorker: true,
+      webSecurity: false,
+      preload: join(__dirname, "preload.js"),
+    },
+    titleBarStyle: getPlatform() === "mac" ? "hiddenInset" : "default",
+  });
 
-  return _mainWindow;
-};
+  mainWindow.setMenuBarVisibility(false);
 
-const mainWindow = getMainWindow();
-
-app.on("ready", async () => {
-  await prepareNext("./renderer");
-
-  log.info("🚀 UPSCAYL EXEC PATH: ", execPath("realesrgan"));
-  log.info("🚀 MODELS PATH: ", modelsPath);
-
-  const url = isDev
+  const url = electronIsDev
     ? "http://localhost:8000"
     : (new URL("file:///").pathname = join(
         __dirname,
         "../renderer/out/index.html"
       )).toString();
-
-  mainWindow.setMenuBarVisibility(false);
   mainWindow.loadURL(url);
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
@@ -68,21 +51,8 @@ app.on("ready", async () => {
   mainWindow.once("ready-to-show", () => {
     if (!mainWindow) return;
     mainWindow.show();
-    mainWindow.webContents.setZoomFactor(1);
   });
 
-  app.whenReady().then(() => {
-    protocol.handle("file", (request) => {
-      const pathname = decodeURI(request.url.replace("file:///", ""));
-      return net.fetch(pathname);
-    });
-  });
-
-  if (!isDev) {
-    autoUpdater.checkForUpdates();
-  }
-
-  // <------------------------Save Last Paths----------------------------->
   // GET LAST IMAGE PATH TO LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("lastImagePath");', true)
@@ -138,7 +108,19 @@ app.on("ready", async () => {
         }
       }
     });
+  // GET IMAGE QUALITY (NUMBER) TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("overwrite");', true)
+    .then((lastSavedOverwrite: string | null) => {
+      if (lastSavedOverwrite !== null) {
+        setOverwrite(lastSavedOverwrite === "true");
+      }
+    });
   mainWindow.webContents.send(COMMAND.OS, getPlatform());
-});
+};
 
-export default mainWindow;
+const getMainWindow = () => {
+  return mainWindow;
+};
+
+export { createMainWindow, getMainWindow };

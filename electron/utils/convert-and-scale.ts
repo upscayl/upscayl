@@ -1,7 +1,7 @@
 import sharp from "sharp";
-import mainWindow from "../main-window";
-import { getQuality } from "./config-variables";
 import logit from "./logit";
+import { getMainWindow } from "../main-window";
+import { quality } from "./config-variables";
 
 const convertAndScale = async (
   originalImagePath: string,
@@ -11,6 +11,8 @@ const convertAndScale = async (
   saveImageAs: string,
   onError: (error: any) => void
 ) => {
+  const mainWindow = getMainWindow();
+
   const originalImage = await sharp(originalImagePath).metadata();
   if (!mainWindow || !originalImage) {
     throw new Error("Could not grab the original image!");
@@ -24,10 +26,10 @@ const convertAndScale = async (
     .withMetadata(); // Keep metadata
   // Change the output according to the saveImageAs
   if (saveImageAs === "png") {
-    newImage.png({ quality: 100 - getQuality() });
+    newImage.png({ quality: 100 - quality });
   } else if (saveImageAs === "jpg") {
-    console.log("Quality: ", getQuality());
-    newImage.jpeg({ quality: 100 - getQuality() });
+    console.log("Quality: ", quality);
+    newImage.jpeg({ quality: 100 - quality });
   }
   // Save the image
   const buffer = await newImage.toBuffer();

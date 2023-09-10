@@ -1,17 +1,16 @@
 import fs from "fs";
 import { modelsPath } from "../binaries";
 import COMMAND from "../constants/commands";
-import mainWindow from "../main-window";
 import {
-  getCustomModelsFolderPath,
-  getFolderPath,
-  getOutputFolderPath,
-  getOverwrite,
-  getSaveOutputFolder,
-  getStop,
+  customModelsFolderPath,
+  folderPath,
+  outputFolderPath,
+  overwrite,
+  saveOutputFolder,
   setChildProcesses,
   setOverwrite,
-  setStop,
+  setStopped,
+  stopped,
 } from "../utils/config-variables";
 import convertAndScale from "../utils/convert-and-scale";
 import { getSingleImageArguments } from "../utils/get-arguments";
@@ -20,9 +19,20 @@ import slash from "../utils/slash";
 import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { parse } from "path";
 import DEFAULT_MODELS from "../constants/models";
+import { getMainWindow } from "../main-window";
+import stop from "./stop";
 
 const imageUpscayl = async (event, payload) => {
-  if (!mainWindow) return;
+  const mainWindow = getMainWindow();
+
+  if (!mainWindow) {
+    console.log("No main window");
+    return;
+  }
+  console.log({
+    overwrite: payload.overwrite,
+  });
+
   setOverwrite(payload.overwrite);
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;
@@ -30,10 +40,10 @@ const imageUpscayl = async (event, payload) => {
 
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
   let outputDir: string | undefined =
-    getFolderPath() || (payload.outputPath as string);
+    folderPath || (payload.outputPath as string);
 
-  if (getSaveOutputFolder() === true && getOutputFolderPath()) {
-    outputDir = getOutputFolderPath();
+  if (saveOutputFolder === true && outputFolderPath) {
+    outputDir = outputFolderPath;
   }
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
@@ -63,6 +73,7 @@ const imageUpscayl = async (event, payload) => {
     saveImageAs;
 
   // GET OVERWRITE SETTINGS FROM LOCAL STORAGE
+
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("overwrite");', true)
     .then((lastSavedOverwrite: boolean | null) => {
@@ -73,7 +84,7 @@ const imageUpscayl = async (event, payload) => {
     });
 
   // UPSCALE
-  if (fs.existsSync(outFile) && getOverwrite() === false) {
+  if (fs.existsSync(outFile) && overwrite === false) {
     // If already upscayled, just output that file
     logit("✅ Already upscayled at: ", outFile);
     mainWindow.webContents.send(
@@ -90,7 +101,7 @@ const imageUpscayl = async (event, payload) => {
         inputDir,
         fullfileName,
         outFile,
-        isDefaultModel ? modelsPath : getCustomModelsFolderPath() ?? modelsPath,
+        isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
         model,
         scale,
         gpuId,
@@ -101,12 +112,11 @@ const imageUpscayl = async (event, payload) => {
 
     setChildProcesses(upscayl);
 
-    setStop(false);
+    setStopped(false);
     let isAlpha = false;
     let failed = false;
 
     const onData = (data: string) => {
-      if (!mainWindow) return;
       logit("image upscayl: ", data.toString());
       mainWindow.setProgressBar(parseFloat(data.slice(0, data.length)) / 100);
       data = data.toString();
@@ -130,15 +140,13 @@ const imageUpscayl = async (event, payload) => {
       return;
     };
     const onClose = async () => {
-      if (!failed && !getStop()) {
+      if (!failed && !stopped) {
         logit("💯 Done upscaling");
         logit("♻ Scaling and converting now...");
-        mainWindow &&
-          mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+        mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
         // Free up memory
         upscayl.kill();
         try {
-          if (!mainWindow) return;
           await convertAndScale(
             inputDir + slash + fullfileName,
             isAlpha ? outFile + ".png" : outFile,
@@ -161,11 +169,10 @@ const imageUpscayl = async (event, payload) => {
             error
           );
           upscayl.kill();
-          mainWindow &&
-            mainWindow.webContents.send(
-              COMMAND.UPSCAYL_ERROR,
-              "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page."
-            );
+          mainWindow.webContents.send(
+            COMMAND.UPSCAYL_ERROR,
+            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page."
+          );
         }
       }
     };
