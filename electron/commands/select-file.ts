@@ -3,9 +3,9 @@ import { getMainWindow } from "../main-window";
 import { imagePath, setImagePath } from "../utils/config-variables";
 import logit from "../utils/logit";
 
-const mainWindow = getMainWindow();
-
 const selectFile = async () => {
+  const mainWindow = getMainWindow();
+
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openFile", "multiSelections"],
     title: "Select Image",

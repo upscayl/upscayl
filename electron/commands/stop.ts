@@ -2,9 +2,9 @@ import { getMainWindow } from "../main-window";
 import { childProcesses, setStopped } from "../utils/config-variables";
 import logit from "../utils/logit";
 
-const mainWindow = getMainWindow();
-
 const stop = async (event, payload) => {
+  const mainWindow = getMainWindow();
+
   setStopped(true);
   mainWindow && mainWindow.setProgressBar(-1);
   childProcesses.forEach((child) => {

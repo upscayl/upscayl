@@ -9,9 +9,9 @@ import COMMAND from "../constants/commands";
 import getModels from "../utils/get-models";
 import { getMainWindow } from "../main-window";
 
-const mainWindow = getMainWindow();
-
 const customModelsSelect = async (event, message) => {
+  const mainWindow = getMainWindow();
+
   if (!mainWindow) return;
   const { canceled, filePaths: folderPaths } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
