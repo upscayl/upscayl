@@ -1,5 +1,5 @@
 import fs from "fs";
-import { modelsPath } from "../binaries";
+import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../constants/commands";
 import {
   customModelsFolderPath,
