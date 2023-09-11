@@ -1,4 +1,4 @@
-import { getPlatform } from "../getDeviceSpecs";
+import { getPlatform } from "./get-device-specs";
 const slash: string = getPlatform() === "win" ? "\\" : "/";
 
 export const getSingleImageArguments = (
@@ -131,33 +131,6 @@ export const getBatchArguments = (
     modelsPath,
     "-n",
     model,
-    gpuId ? "-g" : "",
-    gpuId ? gpuId : "",
-    "-f",
-    saveImageAs,
-  ];
-};
-
-// ! REDUNDANT
-export const getBatchSharpenArguments = (
-  inputDir: string,
-  outputDir: string,
-  modelsPath: string,
-  model: string,
-  gpuId: string,
-  saveImageAs: string,
-  scale: string
-) => {
-  return [
-    "-i",
-    inputDir,
-    "-o",
-    outputDir,
-    "-s",
-    scale,
-    "-x",
-    "-m",
-    modelsPath + slash + model,
     gpuId ? "-g" : "",
     gpuId ? gpuId : "",
     "-f",

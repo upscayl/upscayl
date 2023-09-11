@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import commands from "../../electron/commands";
+import COMMAND from "../../electron/constants/commands";
 import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -89,7 +89,7 @@ const Home = () => {
     };
 
     window.electron.on(
-      commands.OS,
+      COMMAND.OS,
       (_, data: "linux" | "mac" | "win" | undefined) => {
         if (data) {
           setOs(data);
@@ -98,21 +98,21 @@ const Home = () => {
     );
 
     // LOG
-    window.electron.on(commands.LOG, (_, data: string) => {
+    window.electron.on(COMMAND.LOG, (_, data: string) => {
       logit(`🐞 BACKEND REPORTED: `, data);
     });
 
-    window.electron.on(commands.SCALING_AND_CONVERTING, (_, data: string) => {
+    window.electron.on(COMMAND.SCALING_AND_CONVERTING, (_, data: string) => {
       setProgress("Processing the image...");
     });
 
-    window.electron.on(commands.UPSCAYL_ERROR, (_, data: string) => {
+    window.electron.on(COMMAND.UPSCAYL_ERROR, (_, data: string) => {
       alert(data);
       resetImagePaths();
     });
 
     // UPSCAYL PROGRESS
-    window.electron.on(commands.UPSCAYL_PROGRESS, (_, data: string) => {
+    window.electron.on(COMMAND.UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       } else if (data.includes("converting")) {
@@ -123,7 +123,7 @@ const Home = () => {
     });
 
     // FOLDER UPSCAYL PROGRESS
-    window.electron.on(commands.FOLDER_UPSCAYL_PROGRESS, (_, data: string) => {
+    window.electron.on(COMMAND.FOLDER_UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       }
@@ -132,7 +132,7 @@ const Home = () => {
     });
 
     // DOUBLE UPSCAYL PROGRESS
-    window.electron.on(commands.DOUBLE_UPSCAYL_PROGRESS, (_, data: string) => {
+    window.electron.on(COMMAND.DOUBLE_UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
         if (data === "0.00%") {
           setDoubleUpscaylCounter(doubleUpscaylCounter + 1);
@@ -144,7 +144,7 @@ const Home = () => {
     });
 
     // UPSCAYL DONE
-    window.electron.on(commands.UPSCAYL_DONE, (_, data: string) => {
+    window.electron.on(COMMAND.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setTimeout(() => setUpscaledImagePath(data), 500);
       logit("upscaledImagePath: ", data);
@@ -152,42 +152,39 @@ const Home = () => {
     });
 
     // FOLDER UPSCAYL DONE
-    window.electron.on(commands.FOLDER_UPSCAYL_DONE, (_, data: string) => {
+    window.electron.on(COMMAND.FOLDER_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledBatchFolderPath(data);
       logit(`💯 FOLDER_UPSCAYL_DONE: `, data);
     });
 
     // DOUBLE UPSCAYL DONE
-    window.electron.on(commands.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
+    window.electron.on(COMMAND.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
+      setTimeout(() => setUpscaledImagePath(data), 500);
       setDoubleUpscaylCounter(0);
-      setUpscaledImagePath(data);
       logit(`💯 DOUBLE_UPSCAYL_DONE: `, data);
     });
 
     // CUSTOM FOLDER LISTENER
-    window.electron.on(
-      commands.CUSTOM_MODEL_FILES_LIST,
-      (_, data: string[]) => {
-        logit(`📜 CUSTOM_MODEL_FILES_LIST: `, data);
-        const newModelOptions = data.map((model) => {
-          return {
-            value: model,
-            label: model,
-          };
-        });
+    window.electron.on(COMMAND.CUSTOM_MODEL_FILES_LIST, (_, data: string[]) => {
+      logit(`📜 CUSTOM_MODEL_FILES_LIST: `, data);
+      const newModelOptions = data.map((model) => {
+        return {
+          value: model,
+          label: model,
+        };
+      });
 
-        // Add newModelsList to modelOptions and remove duplicates
-        const combinedModelOptions = [...modelOptions, ...newModelOptions];
-        const uniqueModelOptions = combinedModelOptions.filter(
-          // Check if any model in the array appears more than once
-          (model, index, array) =>
-            array.findIndex((t) => t.value === model.value) === index
-        );
-        setModelOptions(uniqueModelOptions);
-      }
-    );
+      // Add newModelsList to modelOptions and remove duplicates
+      const combinedModelOptions = [...modelOptions, ...newModelOptions];
+      const uniqueModelOptions = combinedModelOptions.filter(
+        // Check if any model in the array appears more than once
+        (model, index, array) =>
+          array.findIndex((t) => t.value === model.value) === index
+      );
+      setModelOptions(uniqueModelOptions);
+    });
     if (!localStorage.getItem("upscaylCloudModalShown")) {
       logit("⚙️ upscayl cloud show to true");
       localStorage.setItem("upscaylCloudModalShown", "true");
@@ -201,7 +198,7 @@ const Home = () => {
     );
 
     if (customModelsPath !== null) {
-      window.electron.send(commands.GET_MODELS_LIST, customModelsPath);
+      window.electron.send(COMMAND.GET_MODELS_LIST, customModelsPath);
       logit("🎯 GET_MODELS_LIST: ", customModelsPath);
     }
   }, []);
@@ -209,6 +206,16 @@ const Home = () => {
   useEffect(() => {
     const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
     const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
+
+    // GET OVERWRITE
+    if (!localStorage.getItem("overwrite")) {
+      localStorage.setItem("overwrite", JSON.stringify(overwrite));
+    } else {
+      const currentlySavedOverwrite = localStorage.getItem("overwrite");
+      if (currentlySavedOverwrite) {
+        setOverwrite(currentlySavedOverwrite === "true");
+      }
+    }
 
     if (rememberOutputFolder === "true") {
       setOutputPath(lastOutputFolderPath);
@@ -267,7 +274,7 @@ const Home = () => {
   const selectImageHandler = async () => {
     resetImagePaths();
 
-    var path = await window.electron.invoke(commands.SELECT_FILE);
+    var path = await window.electron.invoke(COMMAND.SELECT_FILE);
 
     if (path !== null) {
       logit("🖼 Selected Image Path: ", path);
@@ -281,7 +288,7 @@ const Home = () => {
   const selectFolderHandler = async () => {
     resetImagePaths();
 
-    var path = await window.electron.invoke(commands.SELECT_FOLDER);
+    var path = await window.electron.invoke(COMMAND.SELECT_FOLDER);
 
     if (path !== null) {
       logit("🖼 Selected Folder Path: ", path);
@@ -319,7 +326,7 @@ const Home = () => {
 
   const openFolderHandler = (e) => {
     logit("📂 OPEN_FOLDER: ", upscaledBatchFolderPath);
-    window.electron.send(commands.OPEN_FOLDER, upscaledBatchFolderPath);
+    window.electron.send(COMMAND.OPEN_FOLDER, upscaledBatchFolderPath);
   };
 
   const handleDrop = (e) => {
@@ -380,7 +387,7 @@ const Home = () => {
   };
 
   const outputHandler = async () => {
-    var path = await window.electron.invoke(commands.SELECT_FOLDER);
+    var path = await window.electron.invoke(COMMAND.SELECT_FOLDER);
     if (path !== null) {
       logit("🗂 Setting Output Path: ", path);
       setOutputPath(path);
@@ -405,7 +412,7 @@ const Home = () => {
       setProgress("Hold on...");
 
       if (doubleUpscayl) {
-        window.electron.send(commands.DOUBLE_UPSCAYL, {
+        window.electron.send(COMMAND.DOUBLE_UPSCAYL, {
           imagePath,
           outputPath,
           model,
@@ -416,7 +423,7 @@ const Home = () => {
         logit("🏁 DOUBLE_UPSCAYL");
       } else if (batchMode) {
         setDoubleUpscayl(false);
-        window.electron.send(commands.FOLDER_UPSCAYL, {
+        window.electron.send(COMMAND.FOLDER_UPSCAYL, {
           scaleFactor,
           batchFolderPath,
           outputPath,
@@ -427,7 +434,7 @@ const Home = () => {
         });
         logit("🏁 FOLDER_UPSCAYL");
       } else {
-        window.electron.send(commands.UPSCAYL, {
+        window.electron.send(COMMAND.UPSCAYL, {
           scaleFactor,
           imagePath,
           outputPath,
@@ -457,7 +464,7 @@ const Home = () => {
   };
 
   const stopHandler = () => {
-    window.electron.send(commands.STOP);
+    window.electron.send(COMMAND.STOP);
     logit("🛑 Stopping Upscayl");
     resetImagePaths();
   };
@@ -588,10 +595,7 @@ const Home = () => {
                 hideZoomOptions={true}
               />
               <img
-                src={
-                  "file://" +
-                  `${upscaledImagePath ? upscaledImagePath : imagePath}`
-                }
+                src={"file:///" + imagePath}
                 onLoad={(e: any) => {
                   setDimensions({
                     width: e.target.naturalWidth,

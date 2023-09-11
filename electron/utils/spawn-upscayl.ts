@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import { execPath } from "./binaries";
+import { execPath } from "./get-resource-paths";
 
 export const spawnUpscayl = (
   binaryName: string,
