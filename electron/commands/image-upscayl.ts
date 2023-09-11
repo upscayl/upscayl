@@ -25,14 +25,11 @@ const imageUpscayl = async (event, payload) => {
   const mainWindow = getMainWindow();
 
   if (!mainWindow) {
-    console.log("No main window");
+    logit("No main window found");
     return;
   }
 
   setOverwrite(payload.overwrite);
-  console.log({
-    overwrite: payload.overwrite,
-  });
 
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;
