@@ -176,7 +176,7 @@ function LeftPaneImageSteps({
             handleModelChange(e);
             setCurrentModel({ label: e.label, value: e.value });
           }}
-          className="react-select-container"
+          className="react-select-container active:w-full focus:w-full hover:w-full transition-all"
           classNamePrefix="react-select"
           value={currentModel}
         />
