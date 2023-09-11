@@ -1,14 +1,7 @@
 import prepareNext from "electron-next";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
-import {
-  app,
-  ipcMain,
-  dialog,
-  MessageBoxOptions,
-  protocol,
-  net,
-} from "electron";
+import { app, ipcMain, protocol, net } from "electron";
 import COMMAND from "./constants/commands";
 import logit from "./utils/logit";
 import openFolder from "./commands/open-folder";
@@ -23,6 +16,7 @@ import electronIsDev from "electron-is-dev";
 import { execPath, modelsPath } from "./utils/get-resource-paths";
 import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
+import autoUpdate from "./commands/auto-update";
 
 // INITIALIZATION
 log.initialize({ preload: true });
@@ -70,25 +64,4 @@ ipcMain.on(COMMAND.FOLDER_UPSCAYL, batchUpscayl);
 
 ipcMain.on(COMMAND.DOUBLE_UPSCAYL, doubleUpscayl);
 
-//------------------------Auto-Update Code-----------------------------//
-autoUpdater.autoInstallOnAppQuit = false;
-
-autoUpdater.on("update-downloaded", (event) => {
-  autoUpdater.autoInstallOnAppQuit = false;
-  const dialogOpts: MessageBoxOptions = {
-    type: "info",
-    buttons: ["Install update", "No Thanks"],
-    title: "New Upscayl Update",
-    message: event.releaseName as string,
-    detail:
-      "A new version has been downloaded. Restart the application to apply the updates.",
-  };
-  logit("✅ Update Downloaded");
-  dialog.showMessageBox(dialogOpts).then((returnValue) => {
-    if (returnValue.response === 0) {
-      autoUpdater.quitAndInstall();
-    } else {
-      logit("🚫 Update Installation Cancelled");
-    }
-  });
-});
+autoUpdater.on("update-downloaded", autoUpdate);
