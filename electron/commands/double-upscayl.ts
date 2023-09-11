@@ -20,6 +20,7 @@ import { modelsPath } from "../utils/get-resource-paths";
 import logit from "../utils/logit";
 import COMMAND from "../constants/commands";
 import sharp from "sharp";
+import convertAndScale from "../utils/convert-and-scale";
 
 const doubleUpscayl = async (event, payload) => {
   const mainWindow = getMainWindow();
@@ -42,8 +43,6 @@ const doubleUpscayl = async (event, payload) => {
 
   const fullfileName = imagePath.split(slash).slice(-1)[0] as string;
   const fileName = parse(fullfileName).name;
-  const outFile =
-    outputDir + slash + fileName + "_upscayl_16x_" + model + "." + saveImageAs;
 
   let scale = "4";
   if (model.includes("x2")) {
@@ -53,6 +52,17 @@ const doubleUpscayl = async (event, payload) => {
   } else {
     scale = "4";
   }
+
+  const outFile =
+    outputDir +
+    slash +
+    fileName +
+    "_upscayl_" +
+    parseInt(payload.scale) * parseInt(payload.scale) +
+    "x_" +
+    model +
+    "." +
+    saveImageAs;
 
   // UPSCALE
   let upscayl = spawnUpscayl(
@@ -117,41 +127,14 @@ const doubleUpscayl = async (event, payload) => {
       logit("♻ Scaling and converting now...");
       mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
       try {
-        const originalImage = await sharp(
-          inputDir + slash + fullfileName
-        ).metadata();
-        if (!mainWindow || !originalImage) {
-          throw new Error("Could not grab the original image!");
-        }
-        // Resize the image to the scale
-        const newImage = sharp(isAlpha ? outFile + ".png" : outFile)
-          .resize(
-            originalImage.width &&
-              originalImage.width * parseInt(payload.scale),
-            originalImage.height &&
-              originalImage.height * parseInt(payload.scale)
-          )
-          .withMetadata(); // Keep metadata
-        // Change the output according to the saveImageAs
-        if (saveImageAs === "png") {
-          newImage.png({ quality: 100 - quality });
-        } else if (saveImageAs === "jpg") {
-          newImage.jpeg({ quality: 100 - quality });
-        }
-        // Save the image
-        await newImage
-          .toFile(isAlpha ? outFile + ".png" : outFile)
-          .then(() => {
-            logit(
-              "✅ Done converting to: ",
-              isAlpha ? outFile + ".png" : outFile
-            );
-          })
-          .catch((error) => {
-            logit("❌ Error converting to: ", saveImageAs, error);
-            upscayl.kill();
-            onError(error);
-          });
+        await convertAndScale(
+          inputDir + slash + fullfileName,
+          isAlpha ? outFile + ".png" : outFile,
+          outFile,
+          payload.scale,
+          saveImageAs,
+          onError
+        );
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
           COMMAND.DOUBLE_UPSCAYL_DONE,

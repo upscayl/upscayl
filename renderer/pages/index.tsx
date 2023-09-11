@@ -161,8 +161,8 @@ const Home = () => {
     // DOUBLE UPSCAYL DONE
     window.electron.on(COMMAND.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
+      setTimeout(() => setUpscaledImagePath(data), 500);
       setDoubleUpscaylCounter(0);
-      setUpscaledImagePath(data);
       logit(`💯 DOUBLE_UPSCAYL_DONE: `, data);
     });
 
@@ -595,7 +595,7 @@ const Home = () => {
                 hideZoomOptions={true}
               />
               <img
-                src={`file:///${imagePath}`}
+                src={"file:///" + imagePath}
                 onLoad={(e: any) => {
                   setDimensions({
                     width: e.target.naturalWidth,

@@ -17,9 +17,11 @@ import { execPath, modelsPath } from "./utils/get-resource-paths";
 import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
+import sharp from "sharp";
 
 // INITIALIZATION
 log.initialize({ preload: true });
+sharp.cache(false);
 logit("🚃 App Path: ", app.getAppPath());
 
 app.whenReady().then(async () => {
