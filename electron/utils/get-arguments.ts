@@ -137,30 +137,3 @@ export const getBatchArguments = (
     saveImageAs,
   ];
 };
-
-// ! REDUNDANT
-export const getBatchSharpenArguments = (
-  inputDir: string,
-  outputDir: string,
-  modelsPath: string,
-  model: string,
-  gpuId: string,
-  saveImageAs: string,
-  scale: string
-) => {
-  return [
-    "-i",
-    inputDir,
-    "-o",
-    outputDir,
-    "-s",
-    scale,
-    "-x",
-    "-m",
-    modelsPath + slash + model,
-    gpuId ? "-g" : "",
-    gpuId ? gpuId : "",
-    "-f",
-    saveImageAs,
-  ];
-};
