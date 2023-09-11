@@ -113,7 +113,7 @@
           ]
         }
       ],
-      "x64ArchFiles": "*"
+      "x64ArchFiles": "*.*"
     },
     "dmg": {
       "sign": "false",
