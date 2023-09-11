@@ -4,7 +4,6 @@ import {
   childProcesses,
   customModelsFolderPath,
   outputFolderPath,
-  quality,
   saveOutputFolder,
   setStopped,
   stopped,
@@ -19,7 +18,6 @@ import {
 import { modelsPath } from "../utils/get-resource-paths";
 import logit from "../utils/logit";
 import COMMAND from "../constants/commands";
-import sharp from "sharp";
 import convertAndScale from "../utils/convert-and-scale";
 
 const doubleUpscayl = async (event, payload) => {
