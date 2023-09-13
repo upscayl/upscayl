@@ -13,7 +13,7 @@
 
   <description>
     <p>
-      Upscayl is a free and open source AI Image Upscaler built with linux-first philosophy.
+      Upscayl is a free and open source AI Image Upscaler.
     </p>
   </description>
 
@@ -34,11 +34,29 @@
     <screenshot type="default">
       <caption>Regular Screenshot</caption>
       <image>
-        https://user-images.githubusercontent.com/25067102/237209401-ca4c118b-2b9a-4652-adc3-871e1cd19ecc.jpg</image>
+        https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/upscayl-desktop.png</image>
     </screenshot>
   </screenshots>
 
   <releases>
+    <release version="v2.8.1" date="2023-06-13">
+      <description>
+        <p>Changes</p>
+        <ul>
+            <li>We're introducing MacOS Apple Chip support in v2.8.1 🥳</li>
+            <li>HUGE codebase refactor, to save us devs some time 🥇</li>
+            <li>Batch upscale will now show you progress 💯</li>
+            <li>We've integrated better compression and scaling ♻️</li>
+            <li>Fixed the empty upscaled image bug 🗑️</li>
+            <li>Added helpful tips for Upscayl options in settings 💁🏻‍♀️</li>
+            <li>Added performance mode reminder for Windows users 🏇🏻</li>
+            <li>Fix large image upscale performance bug 🐌</li>
+            <li>Auto-update for MacOS, sorry for ignoring for so long 😅</li>
+            <li>Fixed the annoying Upscayl Cloud bug. It won't appear again and again and you can make it disappear like it's MAGIC! 🪄</li>
+          <li>Fix re-upscayl folder progress bug 🐞</li>
+        </ul>
+      </description>
+    </release>
     <release version="v2.5.5" date="2023-06-04">
       <description>
         <p>Changes</p>
