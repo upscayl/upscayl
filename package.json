@@ -58,6 +58,9 @@
     "appId": "org.upscayl.app",
     "artifactName": "${name}-${version}-${os}.${ext}",
     "asar": true,
+    "asarUnpack": [
+      "**/node_modules/sharp/**/*"
+    ],
     "extraFiles": [
       {
         "from": "resources/${os}/bin",
