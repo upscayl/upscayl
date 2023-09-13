@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-
 type QualityInputProps = {
   compression: number;
   handleQualityChange: (arg: any) => void;
