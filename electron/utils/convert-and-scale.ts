@@ -33,15 +33,14 @@ const convertAndScale = async (
   }
   // Save the image
   const buffer = await newImage.toBuffer();
-  sharp(buffer)
-    .toFile(processedImagePath)
-    .then(() => {
-      logit("✅ Done converting to: ", upscaledImagePath);
-    })
-    .catch((error) => {
-      logit("❌ Error converting to: ", saveImageAs, error);
-      onError(error);
-    });
+  try {
+    await sharp(buffer).toFile(processedImagePath);
+  } catch (error) {
+    logit("❌ Error converting to: ", saveImageAs, error);
+    onError(error);
+  }
+
+  logit("✅ Done converting to: ", upscaledImagePath);
 };
 
 export default convertAndScale;

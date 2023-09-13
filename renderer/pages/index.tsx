@@ -146,7 +146,7 @@ const Home = () => {
     // UPSCAYL DONE
     window.electron.on(COMMAND.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
-      setTimeout(() => setUpscaledImagePath(data), 500);
+      setUpscaledImagePath(data);
       logit("upscaledImagePath: ", data);
       logit(`💯 UPSCAYL_DONE: `, data);
     });
@@ -499,7 +499,8 @@ const Home = () => {
             className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
             onClick={() => {
               setShowCloudModal(true);
-            }}>
+            }}
+          >
             Introducing Upscayl Cloud
           </button>
         )}
@@ -557,7 +558,8 @@ const Home = () => {
         onDragOver={(e) => handleDragOver(e)}
         onDragEnter={(e) => handleDragEnter(e)}
         onDragLeave={(e) => handleDragLeave(e)}
-        onPaste={(e) => handlePaste(e)}>
+        onPaste={(e) => handlePaste(e)}
+      >
         {window.electron.platform === "mac" && (
           <div className="absolute top-0 w-full h-8 mac-titlebar"></div>
         )}
@@ -627,7 +629,8 @@ const Home = () => {
             </p>
             <button
               className="btn btn-primary bg-gradient-blue rounded-btn p-3 font-medium text-white/90 transition-colors"
-              onClick={openFolderHandler}>
+              onClick={openFolderHandler}
+            >
               Open Upscayled Folder
             </button>
           </>
