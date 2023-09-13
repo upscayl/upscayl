@@ -40,7 +40,6 @@ jobs:
           rm -rf node_modules/sharp
           npm install --platform=darwin --arch=x64 sharp
           npm rebuild --platform=darwin --arch=arm64 sharp
-          ./node_modules/.bin/electron-rebuild
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-mac-app
 
   windows:
