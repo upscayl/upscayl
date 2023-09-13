@@ -13,8 +13,9 @@ import {
   setSaveOutputFolder,
 } from "./utils/config-variables";
 import electronIsDev from "electron-is-dev";
+import { format } from "url";
 
-let mainWindow: BrowserWindow | null;
+let mainWindow: BrowserWindow | undefined;
 
 const createMainWindow = () => {
   mainWindow = new BrowserWindow({
@@ -36,10 +37,12 @@ const createMainWindow = () => {
 
   const url = electronIsDev
     ? "http://localhost:8000"
-    : (new URL("file:///").pathname = join(
-        __dirname,
-        "../renderer/out/index.html"
-      )).toString();
+    : format({
+        pathname: join(__dirname, "../renderer/out/index.html"),
+        protocol: "file:",
+        slashes: true,
+      });
+
   mainWindow.loadURL(url);
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {

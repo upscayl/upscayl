@@ -50,7 +50,8 @@
     "publish-linux-app": "tsc && npm run build && electron-builder -l --publish always",
     "publish-win-app": "tsc && npm run build && electron-builder -w --publish always",
     "publish-mac-universal-app": "tsc && npm run build && electron-builder --mac --universal --publish always",
-    "publish-mac-app": "tsc && npm run build && electron-builder --mac --x64 --publish always"
+    "publish-mac-app": "tsc && npm run build && electron-builder --mac --x64 --publish always",
+    "publish-mac-arm-app": "tsc && npm run build && electron-builder --mac --arm64 --publish always"
   },
   "build": {
     "productName": "Upscayl",
@@ -99,6 +100,7 @@
       "entitlementsInherit": "resources/entitlements.mac.plist",
       "notarize": false,
       "gatekeeperAssess": false,
+      "mergeASARs": false,
       "target": [
         {
           "target": "dmg",

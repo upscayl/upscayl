@@ -24,21 +24,24 @@ log.initialize({ preload: true });
 sharp.cache(false);
 logit("🚃 App Path: ", app.getAppPath());
 
-app.whenReady().then(async () => {
+app.on("ready", async () => {
   await prepareNext("./renderer");
-  createMainWindow();
 
-  log.info("🚀 UPSCAYL EXEC PATH: ", execPath("realesrgan"));
-  log.info("🚀 MODELS PATH: ", modelsPath);
-
-  protocol.handle("file:", (request) => {
-    const pathname = decodeURI(request.url);
-    return net.fetch(pathname);
+  app.whenReady().then(() => {
+    protocol.registerFileProtocol("file", (request, callback) => {
+      const pathname = decodeURI(request.url.replace("file:///", ""));
+      callback(pathname);
+    });
   });
+
+  createMainWindow();
 
   if (!electronIsDev) {
     autoUpdater.checkForUpdates();
   }
+
+  log.info("🚀 UPSCAYL EXEC PATH: ", execPath("realesrgan"));
+  log.info("🚀 MODELS PATH: ", modelsPath);
 });
 
 // Quit the app once all windows are closed
