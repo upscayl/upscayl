@@ -1,7 +1,7 @@
 import sharp from "sharp";
 import logit from "./logit";
 import { getMainWindow } from "../main-window";
-import { quality } from "./config-variables";
+import { compression } from "./config-variables";
 
 const convertAndScale = async (
   originalImagePath: string,
@@ -26,10 +26,10 @@ const convertAndScale = async (
     .withMetadata(); // Keep metadata
   // Change the output according to the saveImageAs
   if (saveImageAs === "png") {
-    newImage.png({ quality: 100 - quality });
+    newImage.png({ quality: 100 - compression });
   } else if (saveImageAs === "jpg") {
-    console.log("Quality: ", quality);
-    newImage.jpeg({ quality: 100 - quality });
+    console.log("Quality: ", compression);
+    newImage.jpeg({ quality: 100 - compression });
   }
   // Save the image
   const buffer = await newImage.toBuffer();

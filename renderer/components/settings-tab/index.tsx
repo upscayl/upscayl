@@ -22,8 +22,8 @@ interface IProps {
   setModel: React.Dispatch<React.SetStateAction<string>>;
   saveImageAs: string;
   setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
-  quality: number;
-  setQuality: React.Dispatch<React.SetStateAction<number>>;
+  compression: number;
+  setCompression: React.Dispatch<React.SetStateAction<number>>;
   gpuId: string;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
   logData: string[];
@@ -38,8 +38,8 @@ interface IProps {
 function SettingsTab({
   batchMode,
   setModel,
-  quality,
-  setQuality,
+  compression,
+  setCompression,
   gpuId,
   setGpuId,
   saveImageAs,
@@ -78,7 +78,7 @@ function SettingsTab({
     } else {
       const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
       logit(
-        "⚙️ Getting saveImageAs from localStorage",
+        "⚙️ Getting saveImageAs from localStorage: ",
         currentlySavedImageFormat
       );
       setSaveImageAs(currentlySavedImageFormat);
@@ -96,7 +96,7 @@ function SettingsTab({
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
       logit(
-        "⚙️ Getting model from localStorage",
+        "⚙️ Getting model from localStorage: ",
         JSON.stringify(currentlySavedModel)
       );
     }
@@ -107,7 +107,7 @@ function SettingsTab({
     } else {
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
-      logit("⚙️ Getting gpuId from localStorage", currentlySavedGpuId);
+      logit("⚙️ Getting gpuId from localStorage: ", currentlySavedGpuId);
     }
 
     if (!localStorage.getItem("rememberOutputFolder")) {
@@ -118,24 +118,22 @@ function SettingsTab({
         "rememberOutputFolder"
       );
       logit(
-        "⚙️ Getting rememberOutputFolder from localStorage",
+        "⚙️ Getting rememberOutputFolder from localStorage: ",
         currentlySavedRememberOutputFolder
       );
       setRememberOutputFolder(
         currentlySavedRememberOutputFolder === "true" ? true : false
       );
     }
-  }, []);
 
-  useEffect(() => {
     if (!localStorage.getItem("quality")) {
       logit("⚙️ Setting quality to 100%");
-      localStorage.setItem("quality", JSON.stringify(quality));
+      localStorage.setItem("quality", JSON.stringify(compression));
     } else {
       const currentlySavedQuality = localStorage.getItem("quality");
-      logit("⚙️ Getting quality from localStorage", quality);
+      logit("⚙️ Getting quality from localStorage", compression);
       if (currentlySavedQuality) {
-        setQuality(JSON.parse(currentlySavedQuality));
+        setCompression(JSON.parse(currentlySavedQuality));
       }
     }
   }, []);
@@ -147,7 +145,7 @@ function SettingsTab({
   };
 
   const handleQualityChange = (e) => {
-    setQuality(e.target.value);
+    setCompression(e.target.value);
     localStorage.setItem("quality", e.target.value);
   };
 
@@ -197,7 +195,7 @@ function SettingsTab({
       <ImageScaleSelect scale={scale} setScale={setScale} />
 
       <QualityInput
-        quality={quality}
+        compression={compression}
         handleQualityChange={handleQualityChange}
       />
 

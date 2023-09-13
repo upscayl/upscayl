@@ -38,7 +38,7 @@ const Home = () => {
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
   const [overwrite, setOverwrite] = useState(false);
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
-  const [quality, setQuality] = useState(0);
+  const [compression, setCompression] = useState(0);
   const [gpuId, setGpuId] = useState("");
   const [saveImageAs, setSaveImageAs] = useState("png");
   const [zoomAmount, setZoomAmount] = useState("100%");
@@ -531,8 +531,8 @@ const Home = () => {
           <SettingsTab
             batchMode={batchMode}
             setModel={setModel}
-            quality={quality}
-            setQuality={setQuality}
+            compression={compression}
+            setCompression={setCompression}
             gpuId={gpuId}
             setGpuId={setGpuId}
             saveImageAs={saveImageAs}

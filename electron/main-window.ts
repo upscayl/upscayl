@@ -9,7 +9,7 @@ import {
   setImagePath,
   setOutputFolderPath,
   setOverwrite,
-  setQuality,
+  setCompression,
   setSaveOutputFolder,
 } from "./utils/config-variables";
 import electronIsDev from "electron-is-dev";
@@ -104,9 +104,9 @@ const createMainWindow = () => {
     .then((lastSavedQuality: string | null) => {
       if (lastSavedQuality !== null) {
         if (parseInt(lastSavedQuality) === 100) {
-          setQuality(99);
+          setCompression(99);
         } else {
-          setQuality(parseInt(lastSavedQuality));
+          setCompression(parseInt(lastSavedQuality));
         }
       }
     });

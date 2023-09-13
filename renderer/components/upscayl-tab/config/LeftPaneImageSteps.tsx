@@ -69,7 +69,7 @@ function LeftPaneImageSteps({
     } else {
       const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
       logit(
-        "⚙️ Getting saveImageAs from localStorage",
+        "⚙️ Getting saveImageAs from localStorage: ",
         currentlySavedImageFormat
       );
       setSaveImageAs(currentlySavedImageFormat);
@@ -87,7 +87,7 @@ function LeftPaneImageSteps({
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
       logit(
-        "⚙️ Getting model from localStorage",
+        "⚙️ Getting model from localStorage: ",
         JSON.stringify(currentlySavedModel)
       );
     }
@@ -98,7 +98,7 @@ function LeftPaneImageSteps({
     } else {
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
-      logit("⚙️ Getting gpuId from localStorage", currentlySavedGpuId);
+      logit("⚙️ Getting gpuId from localStorage: ", currentlySavedGpuId);
     }
   }, []);
 

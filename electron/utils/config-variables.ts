@@ -5,7 +5,7 @@ export let folderPath: string | undefined = undefined;
 export let customModelsFolderPath: string | undefined = undefined;
 export let outputFolderPath: string | undefined = undefined;
 export let saveOutputFolder = false;
-export let quality = 0;
+export let compression = 0;
 export let overwrite = false;
 export let stopped = false;
 export let childProcesses: {
@@ -34,8 +34,8 @@ export function setSaveOutputFolder(value: boolean): void {
   saveOutputFolder = value;
 }
 
-export function setQuality(value: number): void {
-  quality = value;
+export function setCompression(value: number): void {
+  compression = value;
 }
 
 export function setOverwrite(value: boolean): void {
