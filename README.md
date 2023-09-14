@@ -27,6 +27,8 @@
 
 # 🆙 Upscayl 
 
+<img src="https://github.com/upscayl/upscayl/assets/25067102/9d122347-b0bc-4ca0-beb8-354724d6ea32" width="700px" />
+
 #### Free and Open Source AI Image Upscaler
 Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms.  
 Enlarge images without losing quality, it's almost like magic! 🎩🪄   
