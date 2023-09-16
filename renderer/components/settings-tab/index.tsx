@@ -12,7 +12,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { customModelsPathAtom, scaleAtom } from "../../atoms/userSettingsAtom";
 import { modelsListAtom } from "../../atoms/modelsListAtom";
 import useLog from "../hooks/useLog";
-import { QualityInput } from "./QualityInput";
+import { CompressionInput } from "./CompressionInput";
 import ToggleOverwrite from "./ToggleOverwrite";
 import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
@@ -126,14 +126,14 @@ function SettingsTab({
       );
     }
 
-    if (!localStorage.getItem("quality")) {
-      logit("⚙️ Setting quality to 100%");
-      localStorage.setItem("quality", JSON.stringify(compression));
+    if (!localStorage.getItem("compression")) {
+      logit("⚙️ Setting compression to 100%");
+      localStorage.setItem("compression", JSON.stringify(compression));
     } else {
-      const currentlySavedQuality = localStorage.getItem("quality");
-      logit("⚙️ Getting quality from localStorage", compression);
-      if (currentlySavedQuality) {
-        setCompression(JSON.parse(currentlySavedQuality));
+      const currentlySavedCompression = localStorage.getItem("compression");
+      logit("⚙️ Getting compression from localStorage", compression);
+      if (currentlySavedCompression) {
+        setCompression(JSON.parse(currentlySavedCompression));
       }
     }
   }, []);
@@ -144,9 +144,9 @@ function SettingsTab({
     localStorage.setItem("saveImageAs", format);
   };
 
-  const handleQualityChange = (e) => {
+  const handleCompressionChange = (e) => {
     setCompression(e.target.value);
-    localStorage.setItem("quality", e.target.value);
+    localStorage.setItem("compression", e.target.value);
   };
 
   const handleGpuIdChange = (e) => {
@@ -194,9 +194,9 @@ function SettingsTab({
       {/* IMAGE SCALE */}
       <ImageScaleSelect scale={scale} setScale={setScale} />
 
-      <QualityInput
+      <CompressionInput
         compression={compression}
-        handleQualityChange={handleQualityChange}
+        handleCompressionChange={handleCompressionChange}
       />
 
       <SaveOutputFolderToggle

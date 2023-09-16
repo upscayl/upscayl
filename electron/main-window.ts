@@ -98,19 +98,15 @@ const createMainWindow = () => {
         setSaveOutputFolder(lastSaveOutputFolder);
       }
     });
-  // GET IMAGE QUALITY (NUMBER) TO LOCAL STORAGE
+  // GET IMAGE COMPRESSION (NUMBER) FROM LOCAL STORAGE
   mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("quality");', true)
-    .then((lastSavedQuality: string | null) => {
-      if (lastSavedQuality !== null) {
-        if (parseInt(lastSavedQuality) === 100) {
-          setCompression(99);
-        } else {
-          setCompression(parseInt(lastSavedQuality));
-        }
+    .executeJavaScript('localStorage.getItem("compression");', true)
+    .then((lastSavedCompression: string | null) => {
+      if (lastSavedCompression !== null) {
+        setCompression(parseInt(lastSavedCompression));
       }
     });
-  // GET IMAGE QUALITY (NUMBER) TO LOCAL STORAGE
+  // GET OVERWRITE (BOOLEAN) FROM LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("overwrite");', true)
     .then((lastSavedOverwrite: string | null) => {

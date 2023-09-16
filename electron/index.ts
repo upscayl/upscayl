@@ -46,9 +46,7 @@ app.on("ready", async () => {
 
 // Quit the app once all windows are closed
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  app.quit();
 });
 
 ipcMain.on(COMMAND.STOP, stop);

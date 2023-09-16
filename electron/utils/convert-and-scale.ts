@@ -18,23 +18,29 @@ const convertAndScale = async (
     throw new Error("Could not grab the original image!");
   }
   // Resize the image to the scale
-  const newImage = sharp(upscaledImagePath)
+  const newImage = sharp(upscaledImagePath, {
+    limitInputPixels: false,
+  })
     .resize(
       originalImage.width && originalImage.width * parseInt(scale),
       originalImage.height && originalImage.height * parseInt(scale)
     )
     .withMetadata(); // Keep metadata
+  // Convert compression percentage (0-100) to compressionLevel (0-9)
+  const compressionLevel = Math.round((compression / 100) * 9);
   // Change the output according to the saveImageAs
   if (saveImageAs === "png") {
-    newImage.png({ quality: 100 - compression });
+    newImage.png({ compressionLevel });
   } else if (saveImageAs === "jpg") {
-    console.log("Quality: ", compression);
-    newImage.jpeg({ quality: 100 - compression });
+    console.log("compression: ", compression);
+    newImage.jpeg({ quality: compression });
   }
   // Save the image
   const buffer = await newImage.toBuffer();
   try {
-    await sharp(buffer).toFile(processedImagePath);
+    await sharp(buffer, {
+      limitInputPixels: false,
+    }).toFile(processedImagePath);
   } catch (error) {
     logit("❌ Error converting to: ", saveImageAs, error);
     onError(error);

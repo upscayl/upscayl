@@ -1,12 +1,12 @@
-type QualityInputProps = {
+type CompressionInputProps = {
   compression: number;
-  handleQualityChange: (arg: any) => void;
+  handleCompressionChange: (arg: any) => void;
 };
 
-export function QualityInput({
+export function CompressionInput({
   compression,
-  handleQualityChange,
-}: QualityInputProps) {
+  handleCompressionChange,
+}: CompressionInputProps) {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-1 text-sm font-medium uppercase">
@@ -22,7 +22,7 @@ export function QualityInput({
         min={0}
         max={100}
         value={compression}
-        onChange={handleQualityChange}
+        onChange={handleCompressionChange}
       />
     </div>
   );
