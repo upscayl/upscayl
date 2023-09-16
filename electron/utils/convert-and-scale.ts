@@ -26,14 +26,17 @@ const convertAndScale = async (
       originalImage.height && originalImage.height * parseInt(scale)
     )
     .withMetadata(); // Keep metadata
+
   // Convert compression percentage (0-100) to compressionLevel (0-9)
   const compressionLevel = Math.round((compression / 100) * 9);
-  // Change the output according to the saveImageAs
   if (saveImageAs === "png") {
+    // Change the output according to the saveImageAs
     newImage.png({ compressionLevel });
   } else if (saveImageAs === "jpg") {
     console.log("compression: ", compression);
-    newImage.jpeg({ quality: compression });
+    newImage.jpeg({
+      quality: 100 - (compression === 100 ? 99 : compression),
+    });
   }
   // Save the image
   const buffer = await newImage.toBuffer();
