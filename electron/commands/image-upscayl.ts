@@ -2,6 +2,7 @@ import fs from "fs";
 import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../constants/commands";
 import {
+  compression,
   customModelsFolderPath,
   folderPath,
   outputFolderPath,
@@ -133,14 +134,16 @@ const imageUpscayl = async (event, payload) => {
         // Free up memory
         upscayl.kill();
         try {
-          await convertAndScale(
-            inputDir + slash + fullfileName,
-            isAlpha ? outFile + ".png" : outFile,
-            outFile,
-            payload.scale,
-            saveImageAs,
-            onError
-          );
+          if (saveImageAs !== "png" && scale !== "4" && compression !== 0) {
+            await convertAndScale(
+              inputDir + slash + fullfileName,
+              isAlpha ? outFile + ".png" : outFile,
+              outFile,
+              payload.scale,
+              saveImageAs,
+              onError
+            );
+          }
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,

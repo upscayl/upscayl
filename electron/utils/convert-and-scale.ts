@@ -36,8 +36,14 @@ const convertAndScale = async (
       limitInputPixels: false,
     })
       .toFormat(saveImageAs as keyof FormatEnum, {
-        quality: 100 - (compression === 100 ? 99 : compression),
-        compressionLevel,
+        ...(saveImageAs === "jpg" && {
+          quality: 100 - (compression === 100 ? 99 : compression),
+          chromaSubsampling: "4:4:4",
+        }),
+        ...(saveImageAs === "png" && {
+          compressionLevel,
+        }),
+        force: true,
       })
       .withMetadata({
         orientation: originalImage.orientation,
