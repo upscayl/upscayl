@@ -1,4 +1,4 @@
-import sharp from "sharp";
+import sharp, { FormatEnum } from "sharp";
 import logit from "./logit";
 import { getMainWindow } from "../main-window";
 import { compression } from "./config-variables";
@@ -28,22 +28,17 @@ const convertAndScale = async (
 
   // Convert compression percentage (0-100) to compressionLevel (0-9)
   const compressionLevel = Math.round((compression / 100) * 9);
-  if (saveImageAs === "png") {
-    // Change the output according to the saveImageAs
-    newImage.png({ compressionLevel });
-  } else if (saveImageAs === "jpg") {
-    console.log("compression: ", compression);
-    newImage.jpeg({
-      quality: 100 - (compression === 100 ? 99 : compression),
-      chromaSubsampling: "4:4:4",
-    });
-  }
+  logit("Compression: ", compression);
 
   const buffer = await newImage.toBuffer();
   try {
     await sharp(buffer, {
       limitInputPixels: false,
     })
+      .toFormat(saveImageAs as keyof FormatEnum, {
+        quality: 100 - (compression === 100 ? 99 : compression),
+        compressionLevel,
+      })
       .withMetadata({
         orientation: originalImage.orientation,
         density: originalImage.density,

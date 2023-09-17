@@ -15,6 +15,9 @@ export function CompressionInput({
           EXPERIMENTAL
         </p>
       </div>
+      <p className="text-xs text-base-content/80">
+        Please restart the app after changing this setting.
+      </p>
       <input
         type="range"
         placeholder="Type here"
