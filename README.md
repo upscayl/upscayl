@@ -169,6 +169,7 @@ Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images.
 - @aaronliu0130 for providing community support :)
 - Foolhardy for their [Remacri model](https://upscale.wiki/wiki/Model_Database).
 - [Kim2091](https://upscale.wiki/wiki/User:Kim2091)	for their [Ultrasharp and Ultramix Balanced model](https://upscale.wiki/wiki/Model_Database).
+- NicKoehler for the amazing logo.
 #
 
 <div align="center">
