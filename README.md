@@ -25,18 +25,18 @@
   <img src="https://user-images.githubusercontent.com/25067102/215301815-b9922b27-4e65-435a-aa9d-239da0ac61b4.png" width="200px" />
 </a>
 
-# 🆙 Upscayl 
+# 🆙 Upscayl
 
 <img src="https://github.com/upscayl/upscayl/assets/25067102/9d122347-b0bc-4ca0-beb8-354724d6ea32" width="700px" />
 
 #### Free and Open Source AI Image Upscaler
-Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms.  
-Enlarge images without losing quality, it's almost like magic! 🎩🪄   
+Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms.
+Enlarge images without losing quality. It's almost like magic! 🎩🪄
 
-Upscayl is a cross-platform application built with the Linux-first philosophy.   
-This means that Linux users receive pre-release builds earlier but Upscayl itself is available on all major desktop operating systems :)   
+Upscayl is a cross-platform application built with the Linux-first philosophy.
+This means that Linux users receive pre-release builds earlier, but Upscayl itself is available on all major desktop operating systems. 😊
 
-**https://upscayl.org**  
+**https://upscayl.org**
 
 ![Screenshot](https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/upscayl-desktop.png)
 
@@ -45,9 +45,9 @@ This means that Linux users receive pre-release builds earlier but Upscayl itsel
 > [!IMPORTANT]
 > You'll need a Vulkan compatible GPU to upscale images. Many CPU and iGPUs do not work but no harm in trying.
 
-# 👨‍💻 Installation 
+# 👨‍💻 Installation
 
-### 🐧 Linux 
+### 🐧 Linux
 
   <a href="https://flathub.org/apps/org.upscayl.Upscayl">
     <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" height="50px"/>
@@ -75,7 +75,7 @@ Upscayl should be available on the software listings of most Linux operating sys
 
 *You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).*
 
-### 🍎 macOS 
+### 🍎 macOS
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
 2. Download the `upscayl-x.x.x-mac.dmg` file.
@@ -90,7 +90,7 @@ Upscayl should be available on the software listings of most Linux operating sys
 2. Download the `.exe` file.
 3. Double click exe file, wait for installation, profit.
 
-# 👨‍🏫 Wiki - Tutorials and Guides 
+# 👨‍🏫 Wiki - Tutorials and Guides
 
 Check out our Wiki [here](https://github.com/upscayl/upscayl/wiki/Guide).
 
@@ -99,18 +99,18 @@ Check out our Wiki [here](https://github.com/upscayl/upscayl/wiki/Guide).
 - [Compatibility List](https://github.com/upscayl/upscayl/wiki/Compatibility-List)
 - [Troubleshooting](https://github.com/upscayl/upscayl/wiki/Troubleshooting)
 
-# ⚖️ Results 
+# ⚖️ Results
 
 Check out Upscayl before/after comparisons [here](COMPARISONS.MD).
 
-# 🤫 Roadmap 
+# 🤫 Roadmap
 
 You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 - Fix bugs
 - Make the whole world use FOSS (WIP 🚧)
 
-# 🛠 Development 
+# 🛠 Development
 
 I recommend using Volta: https://volta.sh for installing Node.js.
 Download and install volta, then do: `volta install node`.
@@ -135,21 +135,21 @@ npm run dist
 npm run publish-app
 ```
 
-# 🤓 FAQ 
+# 🤓 FAQ
 
 - **How does Upscayl work?**
   - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN to achieve this.
 - **Is there a CLI available?**
   - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
 - **Do I need a GPU for this to work?**
-  - Yes, unfortunately. NCNN Vulkan requires a Vulkan compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
+  - Yes, unfortunately. NCNN Vulkan requires a Vulkan-compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying. 😉
 - **How can I contribute?**
-  - You can fix code, add features by submitting PRs, report issues or donate :)
+  - You can fix code, add features by submitting PRs, report issues, or donate. 😊
 - **What's the GPU ID for?**
   - It is for selecting which GPU to use. The specific procedure is detailed in the [Wiki](https://github.com/upscayl/upscayl/wiki/Guide).
-    - Note that for Windows systems, if Upscayl is not set the performance mode, the system may override this setting.
+    - Note that for Windows systems, if Upscayl is not set to performance mode, the system may override this setting.
 - **You are not fully open source!!😡**
-  - We are! We're using completely free and open source tech. We do ship a binary but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience, if you do not trust it, then you can compile your own since everything is free and open source here :)
+  - We are! We're using completely free and open-source technology. We do ship a binary, but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience. If you do not trust it, then you can compile your own since everything is free and open source here. 😊
 - **Where do I find more models?**
   -  More models can be taken from here: https://github.com/upscayl/custom-models/
 
@@ -161,9 +161,9 @@ Upscayl uses Real-ESRGAN-ncnn-vulkan binaries to upscale images.
   <img src="https://user-images.githubusercontent.com/25067102/154570688-9e143f2b-fee3-4b05-a9d2-a7a3013b2b51.png" />
 <a/>
 
-# ❤ Credits 
+# ❤ Credits
 
-- Real-ESRGAN for their wonderful research work.  
+- Real-ESRGAN for their wonderful research work.
 [Real-ESRGAN: Copyright (c) 2021, Xintao Wang](https://github.com/xinntao/Real-ESRGAN/)
 - @JanDeDinoMan, @xanderfrangos, @Fdawgs, @keturn for their code contributions :)
 - @aaronliu0130 for providing community support :)
