@@ -110,8 +110,11 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 I recommend using Volta: https://volta.sh for installing Node.js.
 Download and install volta, then do: `volta install node`.
+You can also use pnpm instead.
 
-```bash
+## 🏃 Running
+
+```sh
 # FOR EVERYONE
 git clone https://github.com/upscayl/upscayl
 cd upscayl
@@ -122,12 +125,19 @@ npm install
 # RUN THE DEVELOPMENT SERVER LOCALLY
 ## YOUR LOGS WILL NOW APPEAR IN THE TERMINAL
 npm run dev
+```
 
+## 🏗️ Building
+
+```
 # FOR DEVS
-## PACKAGE THE APP
+# INSTALL DEPENDENCIES
+npm install
+
+# PACKAGE THE APP
 npm run dist
 
-## PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
+# PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
 npm run publish-app
 ```
 
