@@ -69,7 +69,7 @@ Upscayl should be available in the software listings of most Linux operating sys
 
 #### Portable Method
 
-1. Go to the [releases section.](https://github.com/upscayl/upscayl/releases/latest)
+1. Go to the [releases section](https://github.com/upscayl/upscayl/releases/latest).
 2. Download the `upscayl-x.x.x-linux.AppImage` file.
 3. Right-click AppImage -> Go to the Permissions tab -> Check 'allow file to execute' and then double-click the file to run Upscayl.
 
@@ -77,7 +77,7 @@ Upscayl should be available in the software listings of most Linux operating sys
 
 ### 🍎 macOS
 
-1. Go to the [releases section.](https://github.com/upscayl/upscayl/releases/latest)
+1. Go to the [releases section](https://github.com/upscayl/upscayl/releases/latest).
 2. Download the `upscayl-x.x.x-mac.dmg` file.
 3. Double-click dmg and drag the Upscayl icon into the Applications folder.
 4. Open Finder and click the 'Applications' tab in the left sidebar. Find Upscayl and right-click on it. Select 'Open'.
@@ -86,9 +86,9 @@ Upscayl should be available in the software listings of most Linux operating sys
 ### 🐌 Windows
 (Windows 10 and later)
 
-1. Go to the [releases section.](https://github.com/upscayl/upscayl/releases/latest)
+1. Go to the [releases section](https://github.com/upscayl/upscayl/releases/latest).
 2. Download the `.exe` file.
-3. Double-click the exe file, wait for installation, and profit.
+3. Double-click the `.exe` file, wait for installation, and profit.
 
 # 👨‍🏫 Wiki - Tutorials and Guides
 
