@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 
-type ToggleOverwriteProps = {
+type OverwriteToggleProps = {
   overwrite: boolean;
   setOverwrite: (arg: any) => void;
 };
 
-const ToggleOverwrite = ({ overwrite, setOverwrite }: ToggleOverwriteProps) => {
+const OverwriteToggle = ({ overwrite, setOverwrite }: OverwriteToggleProps) => {
   useEffect(() => {
     if (!localStorage.getItem("overwrite")) {
       localStorage.setItem("overwrite", JSON.stringify(overwrite));
@@ -44,4 +44,4 @@ const ToggleOverwrite = ({ overwrite, setOverwrite }: ToggleOverwriteProps) => {
   );
 };
 
-export default ToggleOverwrite;
+export default OverwriteToggle;

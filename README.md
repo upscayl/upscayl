@@ -1,9 +1,5 @@
 <div align="center">
 
-<a href="https://github.com/upscayl/upscayl/releases/latest">
-<img src="https://github.com/upscayl/upscayl/assets/25067102/d552a63c-1ec4-4e2b-9865-73567f3cc42e" />
-</a>
-
 # [v2.8.1 is out! 🥳](https://github.com/upscayl/upscayl/releases/tag/v2.8.1)
 
 <a href="https://upscayl.org/#download">
@@ -114,8 +110,11 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 I recommend using Volta (https://volta.sh) for installing Node.js.
 Download and install volta, then do: `volta install node`.
+You can also use pnpm instead.
 
-```bash
+## 🏃 Running
+
+```sh
 # FOR EVERYONE
 git clone https://github.com/upscayl/upscayl
 cd upscayl
@@ -126,12 +125,19 @@ npm install
 # RUN THE DEVELOPMENT SERVER LOCALLY
 ## YOUR LOGS WILL NOW APPEAR IN THE TERMINAL
 npm run dev
+```
 
+## 🏗️ Building
+
+```
 # FOR DEVS
-## PACKAGE THE APP
+# INSTALL DEPENDENCIES
+npm install
+
+# PACKAGE THE APP
 npm run dist
 
-## PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
+# PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
 npm run publish-app
 ```
 
@@ -148,8 +154,8 @@ npm run publish-app
 - **What's the GPU ID for?**
   - It is for selecting which GPU to use. The specific procedure is detailed in the [Wiki](https://github.com/upscayl/upscayl/wiki/Guide).
     - Note that for Windows systems, if Upscayl is not set to performance mode, the system may override this setting.
-- **You are not fully open source!!!😡**
-  - We are! We're using completely free and open-source technology. We do ship a binary, but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience; if you do not trust it, then you can compile your own since everything is free and open source here 😁
+- **You are not fully open source!!😡**
+  - We are! We're using completely free and open-source tech. We do ship a binary, but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience; if you do not trust it, then you can compile your own since everything is free and open source here 😁
 - **Where do I find more models?**
   -  More models can be taken from here: https://github.com/upscayl/custom-models/
 

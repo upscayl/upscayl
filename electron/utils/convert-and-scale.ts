@@ -18,20 +18,33 @@ const convertAndScale = async (
   if (!mainWindow || !originalImage) {
     throw new Error("Could not grab the original image!");
   }
+
   // Resize the image to the scale
   const newImage = sharp(upscaledImagePath, {
     limitInputPixels: false,
   }).resize(
     originalImage.width && originalImage.width * parseInt(scale),
-    originalImage.height && originalImage.height * parseInt(scale)
+    originalImage.height && originalImage.height * parseInt(scale),
+    {
+      fit: "outside",
+    }
   );
 
   // Convert compression percentage (0-100) to compressionLevel (0-9)
   const compressionLevel = Math.round((compression / 100) * 9);
-  logit("Compression: ", compression);
+
+  logit("📐 Processing Image: ", {
+    originalWidth: originalImage.width,
+    originalHeight: originalImage.height,
+    scale,
+    saveImageAs,
+    compressionPercentage: compression,
+    compressionLevel,
+  });
 
   const buffer = await newImage.toBuffer();
   try {
+    logit("");
     await sharp(buffer, {
       limitInputPixels: false,
     })

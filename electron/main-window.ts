@@ -11,6 +11,7 @@ import {
   setOverwrite,
   setCompression,
   setSaveOutputFolder,
+  fetchLocalStorage,
 } from "./utils/config-variables";
 import electronIsDev from "electron-is-dev";
 import { format } from "url";
@@ -55,65 +56,7 @@ const createMainWindow = () => {
     mainWindow.show();
   });
 
-  // GET LAST IMAGE PATH TO LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("lastImagePath");', true)
-    .then((lastImagePath: string | null) => {
-      if (lastImagePath && lastImagePath.length > 0) {
-        setImagePath(lastImagePath);
-      }
-    });
-  // GET LAST FOLDER PATH TO LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("lastFolderPath");', true)
-    .then((lastFolderPath: string | null) => {
-      if (lastFolderPath && lastFolderPath.length > 0) {
-        setFolderPath(lastFolderPath);
-      }
-    });
-  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript(
-      'localStorage.getItem("lastCustomModelsFolderPath");',
-      true
-    )
-    .then((lastCustomModelsFolderPath: string | null) => {
-      if (lastCustomModelsFolderPath && lastCustomModelsFolderPath.length > 0) {
-        setCustomModelsFolderPath(lastCustomModelsFolderPath);
-      }
-    });
-  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("lastOutputFolderPath");', true)
-    .then((lastOutputFolderPath: string | null) => {
-      if (lastOutputFolderPath && lastOutputFolderPath.length > 0) {
-        setOutputFolderPath(lastOutputFolderPath);
-      }
-    });
-  // GET LAST SAVE OUTPUT FOLDER (BOOLEAN) TO LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
-    .then((lastSaveOutputFolder: boolean | null) => {
-      if (lastSaveOutputFolder !== null) {
-        setSaveOutputFolder(lastSaveOutputFolder);
-      }
-    });
-  // GET IMAGE COMPRESSION (NUMBER) FROM LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("compression");', true)
-    .then((lastSavedCompression: string | null) => {
-      if (lastSavedCompression !== null) {
-        setCompression(parseInt(lastSavedCompression));
-      }
-    });
-  // GET OVERWRITE (BOOLEAN) FROM LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("overwrite");', true)
-    .then((lastSavedOverwrite: string | null) => {
-      if (lastSavedOverwrite !== null) {
-        setOverwrite(lastSavedOverwrite === "true");
-      }
-    });
+  fetchLocalStorage();
 
   mainWindow.webContents.send(COMMAND.OS, getPlatform());
 
