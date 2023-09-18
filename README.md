@@ -33,7 +33,7 @@
 Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms.
 Enlarge images without losing quality. It's almost like magic! 🎩🪄
 
-Upscayl is a cross-platform application built with the Linux-first philosophy.
+Upscayl is a cross-platform application built using the Linux-first philosophy.
 This means that Linux users receive pre-release builds earlier, but Upscayl itself is available on all major desktop operating systems :)
 
 **https://upscayl.org**
@@ -43,7 +43,7 @@ This means that Linux users receive pre-release builds earlier, but Upscayl itse
 </div>
 
 > [!IMPORTANT]
-> You'll need a Vulkan compatible GPU to upscale images. Many CPU and iGPUs do not work but no harm in trying.
+> You'll need a Vulkan-compatible GPU to upscale images. Many CPUs and iGPUs do not work, but there is no harm in trying.
 
 # 👨‍💻 Installation
 
@@ -65,30 +65,30 @@ This means that Linux users receive pre-release builds earlier, but Upscayl itse
     <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
   </a>
 
-Upscayl should be available on the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap version.
+Upscayl should be available in the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap versions.
 
 #### Portable Method
 
-1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
+1. Go to the [releases section.](https://github.com/upscayl/upscayl/releases/latest)
 2. Download the `upscayl-x.x.x-linux.AppImage` file.
-3. Right Click AppImage -> Go to Permissions tab -> Check 'allow file to execute' and then double click the file to run Upscayl.
+3. Right-click AppImage -> Go to the Permissions tab -> Check 'allow file to execute' and then double-click the file to run Upscayl.
 
-*You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).*
+*You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu-based), and ZIP (any Linux OS).*
 
 ### 🍎 macOS
 
-1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
+1. Go to the [releases section.](https://github.com/upscayl/upscayl/releases/latest)
 2. Download the `upscayl-x.x.x-mac.dmg` file.
-3. Double click dmg, drag Upscayl icon into Applications folder.
-4. Open Finder, click 'Applications' tab in the left sidebar. Find Upscayl and right click on it. Select 'Open'.
+3. Double-click dmg and drag the Upscayl icon into the Applications folder.
+4. Open Finder and click the 'Applications' tab in the left sidebar. Find Upscayl and right-click on it. Select 'Open'.
 5. In the window that appears, press 'Open' yet again.
 
 ### 🐌 Windows
 (Windows 10 and later)
 
-1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
+1. Go to the [releases section.](https://github.com/upscayl/upscayl/releases/latest)
 2. Download the `.exe` file.
-3. Double click exe file, wait for installation, profit.
+3. Double-click the exe file, wait for installation, and profit.
 
 # 👨‍🏫 Wiki - Tutorials and Guides
 
@@ -112,7 +112,7 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 # 🛠 Development
 
-I recommend using Volta: https://volta.sh for installing Node.js.
+I recommend using Volta (https://volta.sh) for installing Node.js.
 Download and install volta, then do: `volta install node`.
 
 ```bash
@@ -140,15 +140,15 @@ npm run publish-app
 - **How does Upscayl work?**
   - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN to achieve this.
 - **Is there a CLI available?**
-  - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
+  - The CLI tool is called real-esrgan-ncnn-vulkan, and it's available on the Real-ESRGAN repository.
 - **Do I need a GPU for this to work?**
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan-compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
 - **How can I contribute?**
-  - You can report issues, fix code and add features by submitting PRs, or donate! 😊
+  - You can report issues, fix code, and add features by submitting PRs or donating! 😊
 - **What's the GPU ID for?**
   - It is for selecting which GPU to use. The specific procedure is detailed in the [Wiki](https://github.com/upscayl/upscayl/wiki/Guide).
     - Note that for Windows systems, if Upscayl is not set to performance mode, the system may override this setting.
-- **You are not fully open source!!😡**
+- **You are not fully open source!!!😡**
   - We are! We're using completely free and open-source technology. We do ship a binary, but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience; if you do not trust it, then you can compile your own since everything is free and open source here 😁
 - **Where do I find more models?**
   -  More models can be taken from here: https://github.com/upscayl/custom-models/
