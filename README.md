@@ -115,23 +115,26 @@ You can also use pnpm instead.
 
 ## 🏃 Running
 
+You can download pnpm [here](https://github.com/pnpm/pnpm/releases/latest). 
+
+> [!NOTE]
+> If you are not willing to install [git](https://git-scm.com/downloads), you can skip the first line, download [the source zip](https://github.com/upscayl/upscayl/archive/refs/heads/main.zip) and extract it to `upscayl` instead and carry on with the rest of the instructions.
+
 ```sh
-# FOR EVERYONE
 git clone https://github.com/upscayl/upscayl
 cd upscayl
 
 # INSTALL DEPENDENCIES
-npm install
+pnpm install
 
 # RUN THE DEVELOPMENT SERVER LOCALLY
 ## YOUR LOGS WILL NOW APPEAR IN THE TERMINAL
-npm run dev
+pnpm run start
 ```
 
 ## 🏗️ Building
 
-```
-# FOR DEVS
+```sh
 # INSTALL DEPENDENCIES
 npm install
 
