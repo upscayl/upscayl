@@ -69,7 +69,7 @@ function LeftPaneImageSteps({
     } else {
       const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
       logit(
-        "⚙️ Getting saveImageAs from localStorage",
+        "⚙️ Getting saveImageAs from localStorage: ",
         currentlySavedImageFormat
       );
       setSaveImageAs(currentlySavedImageFormat);
@@ -87,7 +87,7 @@ function LeftPaneImageSteps({
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
       logit(
-        "⚙️ Getting model from localStorage",
+        "⚙️ Getting model from localStorage: ",
         JSON.stringify(currentlySavedModel)
       );
     }
@@ -98,7 +98,7 @@ function LeftPaneImageSteps({
     } else {
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
-      logit("⚙️ Getting gpuId from localStorage", currentlySavedGpuId);
+      logit("⚙️ Getting gpuId from localStorage: ", currentlySavedGpuId);
     }
   }, []);
 
@@ -107,7 +107,6 @@ function LeftPaneImageSteps({
   }, [currentModel]);
 
   const getUpscaleResolution = useCallback(() => {
-    console.log("running");
     const newDimensions = {
       width: dimensions.width,
       height: dimensions.height,
@@ -165,7 +164,7 @@ function LeftPaneImageSteps({
       {/* STEP 2 */}
       <div className="animate-step-in">
         <p className="step-heading">Step 2</p>
-        <p className="mb-2 text-sm">Select Upscayling Type</p>
+        <p className="mb-2 text-sm">Select Model</p>
 
         <Select
           options={modelOptions}
@@ -177,7 +176,7 @@ function LeftPaneImageSteps({
             handleModelChange(e);
             setCurrentModel({ label: e.label, value: e.value });
           }}
-          className="react-select-container"
+          className="react-select-container active:w-full focus:w-full hover:w-full transition-all"
           classNamePrefix="react-select"
           value={currentModel}
         />

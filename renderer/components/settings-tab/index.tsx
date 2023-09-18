@@ -12,7 +12,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { customModelsPathAtom, scaleAtom } from "../../atoms/userSettingsAtom";
 import { modelsListAtom } from "../../atoms/modelsListAtom";
 import useLog from "../hooks/useLog";
-import { QualityInput } from "./QualityInput";
+import { CompressionInput } from "./CompressionInput";
 import ToggleOverwrite from "./ToggleOverwrite";
 import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
@@ -22,8 +22,8 @@ interface IProps {
   setModel: React.Dispatch<React.SetStateAction<string>>;
   saveImageAs: string;
   setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
-  quality: number;
-  setQuality: React.Dispatch<React.SetStateAction<number>>;
+  compression: number;
+  setCompression: React.Dispatch<React.SetStateAction<number>>;
   gpuId: string;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
   logData: string[];
@@ -38,8 +38,8 @@ interface IProps {
 function SettingsTab({
   batchMode,
   setModel,
-  quality,
-  setQuality,
+  compression,
+  setCompression,
   gpuId,
   setGpuId,
   saveImageAs,
@@ -78,7 +78,7 @@ function SettingsTab({
     } else {
       const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
       logit(
-        "⚙️ Getting saveImageAs from localStorage",
+        "⚙️ Getting saveImageAs from localStorage: ",
         currentlySavedImageFormat
       );
       setSaveImageAs(currentlySavedImageFormat);
@@ -96,7 +96,7 @@ function SettingsTab({
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
       logit(
-        "⚙️ Getting model from localStorage",
+        "⚙️ Getting model from localStorage: ",
         JSON.stringify(currentlySavedModel)
       );
     }
@@ -107,7 +107,7 @@ function SettingsTab({
     } else {
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
-      logit("⚙️ Getting gpuId from localStorage", currentlySavedGpuId);
+      logit("⚙️ Getting gpuId from localStorage: ", currentlySavedGpuId);
     }
 
     if (!localStorage.getItem("rememberOutputFolder")) {
@@ -118,12 +118,23 @@ function SettingsTab({
         "rememberOutputFolder"
       );
       logit(
-        "⚙️ Getting rememberOutputFolder from localStorage",
+        "⚙️ Getting rememberOutputFolder from localStorage: ",
         currentlySavedRememberOutputFolder
       );
       setRememberOutputFolder(
         currentlySavedRememberOutputFolder === "true" ? true : false
       );
+    }
+
+    if (!localStorage.getItem("compression")) {
+      logit("⚙️ Setting compression to 100%");
+      localStorage.setItem("compression", JSON.stringify(compression));
+    } else {
+      const currentlySavedCompression = localStorage.getItem("compression");
+      logit("⚙️ Getting compression from localStorage", compression);
+      if (currentlySavedCompression) {
+        setCompression(JSON.parse(currentlySavedCompression));
+      }
     }
   }, []);
 
@@ -133,9 +144,9 @@ function SettingsTab({
     localStorage.setItem("saveImageAs", format);
   };
 
-  const handleQualityChange = (e) => {
-    setQuality(e.target.value);
-    localStorage.setItem("quality", e.target.value);
+  const handleCompressionChange = (e) => {
+    setCompression(e.target.value);
+    localStorage.setItem("compression", e.target.value);
   };
 
   const handleGpuIdChange = (e) => {
@@ -183,9 +194,9 @@ function SettingsTab({
       {/* IMAGE SCALE */}
       <ImageScaleSelect scale={scale} setScale={setScale} />
 
-      <QualityInput
-        quality={quality}
-        handleQualityChange={handleQualityChange}
+      <CompressionInput
+        compression={compression}
+        handleCompressionChange={handleCompressionChange}
       />
 
       <SaveOutputFolderToggle

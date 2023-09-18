@@ -1,5 +1,5 @@
 import React from "react";
-import commands from "../../../electron/commands";
+import commands from "../../../electron/constants/commands";
 
 type CustomModelsFolderSelectProps = {
   customModelsPath: string;

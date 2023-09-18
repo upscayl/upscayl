@@ -21,7 +21,6 @@ export function LogArea({ copyOnClickHandler, isCopied, logData }) {
         )}
 
         {logData.map((logLine: any) => {
-          console.log(logData);
           return <p className="">{logLine}</p>;
         })}
       </code>

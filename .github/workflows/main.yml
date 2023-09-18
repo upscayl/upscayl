@@ -18,7 +18,11 @@ jobs:
         run: |
           sudo apt-get install elfutils -y
           sudo apt install rpm
+          npm install -g node-gyp
           npm install
+          rm -rf node_modules/sharp
+          SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install --arch=x64 --platform=linux --libc=glibc --build-from-source sharp
+          ./node_modules/.bin/electron-rebuild
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-linux-app
 
   macos:
@@ -33,6 +37,9 @@ jobs:
       - name: Install Modules and Publish build
         run: |
           npm install
+          rm -rf node_modules/sharp
+          npm install --platform=darwin --arch=x64 sharp
+          npm rebuild --platform=darwin --arch=arm64 sharp
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-mac-app
 
   windows:
@@ -49,4 +56,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm install
+          ./node_modules/.bin/electron-rebuild
           npm run publish-win-app

@@ -1,6 +1,6 @@
 [Desktop Entry]
 X-Desktop-File-Install-Version=0.26
-Exec=upscayl-run %U
+Exec=upscayl-run %U --enable-features=UseOzonePlatform --ozone-platform=wayland
 Icon=org.upscayl.Upscayl
 Comment=Upscale Images with AI
 Name=Upscayl

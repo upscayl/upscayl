@@ -12,7 +12,7 @@ const ToggleOverwrite = ({ overwrite, setOverwrite }: ToggleOverwriteProps) => {
     } else {
       const currentlySavedOverwrite = localStorage.getItem("overwrite");
       if (currentlySavedOverwrite) {
-        setOverwrite(JSON.parse(currentlySavedOverwrite));
+        setOverwrite(currentlySavedOverwrite === "true");
       }
     }
   }, []);
@@ -20,6 +20,10 @@ const ToggleOverwrite = ({ overwrite, setOverwrite }: ToggleOverwriteProps) => {
   return (
     <div className="flex flex-col gap-2">
       <p className="text-sm font-medium">OVERWRITE PREVIOUS UPSCALE</p>
+      <p className="text-xs text-base-content/80">
+        If enabled, Upscayl will process the image again instead of loading it
+        directly.
+      </p>
       <input
         type="checkbox"
         className="toggle"

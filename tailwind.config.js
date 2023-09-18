@@ -19,7 +19,7 @@ module.exports = {
   },
   plugins: [require("daisyui"), require("tailwind-scrollbar")],
   daisyui: {
-    darkTheme: 'upscayl',
+    darkTheme: "upscayl",
     themes: [
       {
         upscayl: {
