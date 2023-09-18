@@ -1,9 +1,5 @@
 <div align="center">
 
-<a href="https://github.com/upscayl/upscayl/releases/latest">
-<img src="https://github.com/upscayl/upscayl/assets/25067102/d552a63c-1ec4-4e2b-9865-73567f3cc42e" />
-</a>
-
 # [v2.8.1 is out! 🥳](https://github.com/upscayl/upscayl/releases/tag/v2.8.1)
 
 <a href="https://upscayl.org/#download">
@@ -34,7 +30,7 @@ Upscayl lets you enlarge and enhance low-resolution images using advanced AI alg
 Enlarge images without losing quality. It's almost like magic! 🎩🪄
 
 Upscayl is a cross-platform application built with the Linux-first philosophy.
-This means that Linux users receive pre-release builds earlier, but Upscayl itself is available on all major desktop operating systems. 😊
+This means that Linux users receive pre-release builds earlier, but Upscayl itself is available on all major desktop operating systems :)
 
 **https://upscayl.org**
 
@@ -142,14 +138,14 @@ npm run publish-app
 - **Is there a CLI available?**
   - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
 - **Do I need a GPU for this to work?**
-  - Yes, unfortunately. NCNN Vulkan requires a Vulkan-compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying. 😉
+  - Yes, unfortunately. NCNN Vulkan requires a Vulkan-compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
 - **How can I contribute?**
-  - You can fix code, add features by submitting PRs, report issues, or donate. 😊
+  - You can report issues, fix code and add features by submitting PRs, or donate! 😊
 - **What's the GPU ID for?**
   - It is for selecting which GPU to use. The specific procedure is detailed in the [Wiki](https://github.com/upscayl/upscayl/wiki/Guide).
     - Note that for Windows systems, if Upscayl is not set to performance mode, the system may override this setting.
 - **You are not fully open source!!😡**
-  - We are! We're using completely free and open-source technology. We do ship a binary, but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience. If you do not trust it, then you can compile your own since everything is free and open source here. 😊
+  - We are! We're using completely free and open-source tech. We do ship a binary, but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience; if you do not trust it, then you can compile your own since everything is free and open source here 😁
 - **Where do I find more models?**
   -  More models can be taken from here: https://github.com/upscayl/custom-models/
 
