@@ -594,7 +594,7 @@ const Home = () => {
                 zoomAmount={zoomAmount}
                 setZoomAmount={setZoomAmount}
                 resetImagePaths={resetImagePaths}
-                hideZoomOptions={true}
+                hideZoomOptions
               />
               <img
                 src={"file:///" + imagePath}
