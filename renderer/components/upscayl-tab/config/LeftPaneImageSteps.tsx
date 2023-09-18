@@ -135,7 +135,7 @@ function LeftPaneImageSteps({
 
   return (
     <div
-      className={`animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden`}>
+      className={"animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden"}>
       {/* BATCH OPTION */}
       <div className="flex flex-row items-center gap-2">
         <input
