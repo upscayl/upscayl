@@ -9,13 +9,18 @@ import { DonateButton } from "./DonateButton";
 import React, { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 import { useAtom, useAtomValue } from "jotai";
-import { customModelsPathAtom, scaleAtom } from "../../atoms/userSettingsAtom";
+import {
+  customModelsPathAtom,
+  noImageProcessingAtom,
+  scaleAtom,
+} from "../../atoms/userSettingsAtom";
 import { modelsListAtom } from "../../atoms/modelsListAtom";
 import useLog from "../hooks/useLog";
 import { CompressionInput } from "./CompressionInput";
-import ToggleOverwrite from "./ToggleOverwrite";
+import OverwriteToggle from "./OverwriteToggle";
 import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
+import ProcessImageToggle from "./ProcessImageToggle";
 
 interface IProps {
   batchMode: boolean;
@@ -66,6 +71,9 @@ function SettingsTab({
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
   const modelOptions = useAtomValue(modelsListAtom);
   const [scale, setScale] = useAtom(scaleAtom);
+  const [noImageProcessing, setNoImageProcessing] = useAtom(
+    noImageProcessingAtom
+  );
 
   const { logit } = useLog();
 
@@ -191,20 +199,29 @@ function SettingsTab({
         setExportType={setExportType}
       />
 
-      {/* IMAGE SCALE */}
-      <ImageScaleSelect scale={scale} setScale={setScale} />
-
-      <CompressionInput
-        compression={compression}
-        handleCompressionChange={handleCompressionChange}
+      <ProcessImageToggle
+        noImageProcessing={noImageProcessing}
+        setNoImageProcessing={setNoImageProcessing}
       />
+
+      {!noImageProcessing && (
+        <>
+          {/* IMAGE SCALE */}
+          <ImageScaleSelect scale={scale} setScale={setScale} />
+
+          <CompressionInput
+            compression={compression}
+            handleCompressionChange={handleCompressionChange}
+          />
+        </>
+      )}
 
       <SaveOutputFolderToggle
         rememberOutputFolder={rememberOutputFolder}
         setRememberOutputFolder={setRememberOutputFolder}
       />
 
-      <ToggleOverwrite overwrite={overwrite} setOverwrite={setOverwrite} />
+      <OverwriteToggle overwrite={overwrite} setOverwrite={setOverwrite} />
 
       {/* GPU ID INPUT */}
       <GpuIdInput gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />

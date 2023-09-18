@@ -6,7 +6,11 @@ type LogAreaProps = {
   logData: string[];
 };
 
-export function LogArea({ copyOnClickHandler, isCopied, logData }) {
+export function LogArea({
+  copyOnClickHandler,
+  isCopied,
+  logData,
+}: LogAreaProps) {
   return (
     <div className="relative flex flex-col gap-2">
       <button

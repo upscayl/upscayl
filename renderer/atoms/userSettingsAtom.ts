@@ -19,3 +19,8 @@ export const dontShowCloudModalAtom = atomWithStorage<boolean>(
   "dontShowCloudModal",
   false
 );
+
+export const noImageProcessingAtom = atomWithStorage<boolean>(
+  "noImageProcessing",
+  false
+);

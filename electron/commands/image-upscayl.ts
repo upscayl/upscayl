@@ -5,6 +5,7 @@ import {
   compression,
   customModelsFolderPath,
   folderPath,
+  noImageProcessing,
   outputFolderPath,
   overwrite,
   saveOutputFolder,
@@ -50,21 +51,23 @@ const imageUpscayl = async (event, payload) => {
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
 
-  let scale = "4";
+  let initialScale = "4";
   if (model.includes("x2")) {
-    scale = "2";
+    initialScale = "2";
   } else if (model.includes("x3")) {
-    scale = "3";
+    initialScale = "3";
   } else {
-    scale = "4";
+    initialScale = "4";
   }
+
+  const desiredScale = payload.scale;
 
   const outFile =
     outputDir +
     slash +
     fileName +
     "_upscayl_" +
-    payload.scale +
+    desiredScale +
     "x_" +
     model +
     "." +
@@ -82,6 +85,19 @@ const imageUpscayl = async (event, payload) => {
       )
     );
   } else {
+    logit("✅ Upscayl Variables: ", {
+      model,
+      gpuId,
+      saveImageAs,
+      inputDir,
+      outputDir,
+      fullfileName,
+      fileName,
+      initialScale: initialScale,
+      desiredScale,
+      outFile,
+      compression,
+    });
     const upscayl = spawnUpscayl(
       "realesrgan",
       getSingleImageArguments(
@@ -90,7 +106,7 @@ const imageUpscayl = async (event, payload) => {
         outFile,
         isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
         model,
-        scale,
+        initialScale,
         gpuId,
         "png"
       ),
@@ -130,20 +146,40 @@ const imageUpscayl = async (event, payload) => {
       if (!failed && !stopped) {
         logit("💯 Done upscaling");
         logit("♻ Scaling and converting now...");
-        mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
-        // Free up memory
-        upscayl.kill();
-        try {
-          if (saveImageAs !== "png" && scale !== "4" && compression !== 0) {
+        if (noImageProcessing === false) {
+          mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+          // Free up memory
+          upscayl.kill();
+          try {
             await convertAndScale(
               inputDir + slash + fullfileName,
               isAlpha ? outFile + ".png" : outFile,
               outFile,
-              payload.scale,
+              desiredScale,
               saveImageAs,
               onError
             );
+            mainWindow.setProgressBar(-1);
+            mainWindow.webContents.send(
+              COMMAND.UPSCAYL_DONE,
+              outFile.replace(
+                /([^/\\]+)$/i,
+                encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
+              )
+            );
+          } catch (error) {
+            logit(
+              "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
+              error
+            );
+            upscayl.kill();
+            mainWindow.webContents.send(
+              COMMAND.UPSCAYL_ERROR,
+              "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page."
+            );
           }
+        } else {
+          logit("🚫 Skipping scaling and converting");
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,
@@ -151,16 +187,6 @@ const imageUpscayl = async (event, payload) => {
               /([^/\\]+)$/i,
               encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
             )
-          );
-        } catch (error) {
-          logit(
-            "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
-            error
-          );
-          upscayl.kill();
-          mainWindow.webContents.send(
-            COMMAND.UPSCAYL_ERROR,
-            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page."
           );
         }
       }
