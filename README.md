@@ -150,7 +150,7 @@ npm run publish-app
 - **Do I need a GPU for this to work?**
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan-compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
 - **How can I contribute?**
-  - You can report issues, fix code, and add features by submitting PRs or donating! 😊
+  - You can report issues, fix code and add features by submitting PRs, or donate! 😊
 - **What's the GPU ID for?**
   - It is for selecting which GPU to use. The specific procedure is detailed in the [Wiki](https://github.com/upscayl/upscayl/wiki/Guide).
     - Note that for Windows systems, if Upscayl is not set to performance mode, the system may override this setting.
