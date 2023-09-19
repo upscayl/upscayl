@@ -28,6 +28,7 @@ interface IProps {
     height: number | null;
   };
   setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
+  model: string;
   setModel: React.Dispatch<React.SetStateAction<string>>;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -47,6 +48,7 @@ function LeftPaneImageSteps({
   setDoubleUpscayl,
   dimensions,
   setSaveImageAs,
+  model,
   setModel,
   setGpuId,
 }: IProps) {
@@ -121,9 +123,9 @@ function LeftPaneImageSteps({
 
     if (noImageProcessing) {
       let initialScale = 4;
-      if (currentModel.value.includes("x2")) {
+      if (model.includes("x2")) {
         initialScale = 2;
-      } else if (currentModel.value.includes("x3")) {
+      } else if (model.includes("x3")) {
         initialScale = 3;
       } else {
         initialScale = 4;

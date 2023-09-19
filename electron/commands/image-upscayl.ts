@@ -156,6 +156,7 @@ const imageUpscayl = async (event, payload) => {
               encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
             )
           );
+          return;
         }
         mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
         // Free up memory
