@@ -39,7 +39,7 @@ This means that Linux users receive pre-release builds earlier, but Upscayl itse
 </div>
 
 > [!IMPORTANT]
-> You'll need a Vulkan-compatible GPU to upscale images. Many CPUs and iGPUs do not work, but there is no harm in trying.
+> You'll need a Vulkan-compatible GPU to upscale images. Many CPUs and iGPUs do not work, but there’s no harm in trying.
 
 # 👨‍💻 Installation
 
