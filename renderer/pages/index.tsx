@@ -99,7 +99,7 @@ const Home = () => {
 
     // LOG
     window.electron.on(COMMAND.LOG, (_, data: string) => {
-      logit(`🐞 BACKEND REPORTED: `, data);
+      logit("🐞 BACKEND REPORTED: ", data);
     });
 
     window.electron.on(COMMAND.SCALING_AND_CONVERTING, (_, data: string) => {
@@ -119,7 +119,7 @@ const Home = () => {
         setProgress("Scaling and converting image...");
       }
       handleErrors(data);
-      logit(`🚧 UPSCAYL_PROGRESS: `, data);
+      logit("🚧 UPSCAYL_PROGRESS: ", data);
     });
 
     // FOLDER UPSCAYL PROGRESS
@@ -128,7 +128,7 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      logit(`🚧 FOLDER_UPSCAYL_PROGRESS: `, data);
+      logit("🚧 FOLDER_UPSCAYL_PROGRESS: ", data);
     });
 
     // DOUBLE UPSCAYL PROGRESS
@@ -140,7 +140,7 @@ const Home = () => {
         setProgress(data);
       }
       handleErrors(data);
-      logit(`🚧 DOUBLE_UPSCAYL_PROGRESS: `, data);
+      logit("🚧 DOUBLE_UPSCAYL_PROGRESS: ", data);
     });
 
     // UPSCAYL DONE
@@ -148,14 +148,14 @@ const Home = () => {
       setProgress("");
       setUpscaledImagePath(data);
       logit("upscaledImagePath: ", data);
-      logit(`💯 UPSCAYL_DONE: `, data);
+      logit("💯 UPSCAYL_DONE: ", data);
     });
 
     // FOLDER UPSCAYL DONE
     window.electron.on(COMMAND.FOLDER_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledBatchFolderPath(data);
-      logit(`💯 FOLDER_UPSCAYL_DONE: `, data);
+      logit("💯 FOLDER_UPSCAYL_DONE: ", data);
     });
 
     // DOUBLE UPSCAYL DONE
@@ -163,12 +163,12 @@ const Home = () => {
       setProgress("");
       setTimeout(() => setUpscaledImagePath(data), 500);
       setDoubleUpscaylCounter(0);
-      logit(`💯 DOUBLE_UPSCAYL_DONE: `, data);
+      logit("💯 DOUBLE_UPSCAYL_DONE: ", data);
     });
 
     // CUSTOM FOLDER LISTENER
     window.electron.on(COMMAND.CUSTOM_MODEL_FILES_LIST, (_, data: string[]) => {
-      logit(`📜 CUSTOM_MODEL_FILES_LIST: `, data);
+      logit("📜 CUSTOM_MODEL_FILES_LIST: ", data);
       const newModelOptions = data.map((model) => {
         return {
           value: model,
@@ -458,7 +458,7 @@ const Home = () => {
     // });
     // }
     else {
-      alert(`Please select an image to upscale`);
+      alert("Please select an image to upscale");
       logit("🚫 No valid image selected");
     }
   };
@@ -483,7 +483,7 @@ const Home = () => {
 
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
-      <div className={`flex h-screen w-128 flex-col bg-base-100`}>
+      <div className={"flex h-screen w-128 flex-col bg-base-100"}>
         <UpscaylCloudModal
           show={showCloudModal}
           setShow={setShowCloudModal}

@@ -5,7 +5,7 @@ export default function Header({ version }: { version: string }) {
     <a
       href="https://github.com/upscayl/upscayl"
       target="_blank"
-      className={`outline-none focus-visible:ring-2`}
+      className={"outline-none focus-visible:ring-2"}
       data-tooltip-id="tooltip"
       data-tooltip-content="Star us on GitHub 😁">
       <div className="flex items-center gap-3 px-5 py-5">
