@@ -85,7 +85,7 @@ Upscayl should be available in the software listings of most Linux operating sys
 
 1. Go to the [releases section](https://github.com/upscayl/upscayl/releases/latest).
 2. Download the `.exe` file.
-3. Double-click the `.exe` file, wait for installation, and profit.
+3. Double-click the `.exe` file, wait for installation, profit.
 
 # 👨‍🏫 Wiki - Tutorials and Guides
 
