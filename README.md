@@ -61,7 +61,7 @@ This means that Linux users receive pre-release builds earlier, but Upscayl itse
     <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
   </a>
 
-Upscayl should be available in the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap versions.
+Upscayl should be available in the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap version.
 
 #### Portable Method
 
