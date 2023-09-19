@@ -67,7 +67,7 @@ const imageUpscayl = async (event, payload) => {
     slash +
     fileName +
     "_upscayl_" +
-    desiredScale +
+    (noImageProcessing ? initialScale : desiredScale) +
     "x_" +
     model +
     "." +

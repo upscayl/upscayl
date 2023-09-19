@@ -5,7 +5,10 @@ import { Tooltip } from "react-tooltip";
 import { themeChange } from "theme-change";
 import { modelsListAtom } from "../../../atoms/modelsListAtom";
 import useLog from "../../hooks/useLog";
-import { scaleAtom } from "../../../atoms/userSettingsAtom";
+import {
+  noImageProcessingAtom,
+  scaleAtom,
+} from "../../../atoms/userSettingsAtom";
 
 interface IProps {
   progress: string;
@@ -57,6 +60,7 @@ function LeftPaneImageSteps({
 
   const modelOptions = useAtomValue(modelsListAtom);
   const scale = useAtomValue(scaleAtom);
+  const noImageProcessing = useAtomValue(noImageProcessingAtom);
 
   const { logit } = useLog();
 
@@ -112,8 +116,21 @@ function LeftPaneImageSteps({
       height: dimensions.height,
     };
 
-    const doubleScale = parseInt(scale) * parseInt(scale);
-    const singleScale = parseInt(scale);
+    let doubleScale = parseInt(scale) * parseInt(scale);
+    let singleScale = parseInt(scale);
+
+    if (noImageProcessing) {
+      let initialScale = 4;
+      if (currentModel.value.includes("x2")) {
+        initialScale = 2;
+      } else if (currentModel.value.includes("x3")) {
+        initialScale = 3;
+      } else {
+        initialScale = 4;
+      }
+      doubleScale = initialScale * initialScale;
+      singleScale = initialScale;
+    }
 
     if (doubleUpscayl) {
       const newWidth = dimensions.width * doubleScale;
