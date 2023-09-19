@@ -23,7 +23,8 @@
 
 # 🆙 Upscayl
 
-<img src="https://github.com/upscayl/upscayl/assets/25067102/9d122347-b0bc-4ca0-beb8-354724d6ea32" width="700px" />
+<img src="https://github.com/upscayl/upscayl/assets/11874211/5c7b31a4-1c15-4bdf-aa0a-2fbedb781524" width="700px" />
+
 
 #### Free and Open Source AI Image Upscaler
 Upscayl lets you enlarge and enhance low-resolution images using advanced AI algorithms.
@@ -110,24 +111,37 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 I recommend using Volta: https://volta.sh for installing Node.js.
 Download and install volta, then do: `volta install node`.
+You can also use pnpm instead.
 
-```bash
-# FOR EVERYONE
+## 🏃 Running
+
+You can download pnpm [here](https://github.com/pnpm/pnpm/releases/latest). 
+
+> [!NOTE]
+> If you are not willing to install [git](https://git-scm.com/downloads), you can skip the first line, download [the source zip](https://github.com/upscayl/upscayl/archive/refs/heads/main.zip) and extract it to `upscayl` instead and carry on with the rest of the instructions.
+
+```sh
 git clone https://github.com/upscayl/upscayl
 cd upscayl
 
 # INSTALL DEPENDENCIES
-npm install
+pnpm install
 
 # RUN THE DEVELOPMENT SERVER LOCALLY
 ## YOUR LOGS WILL NOW APPEAR IN THE TERMINAL
-npm run dev
+pnpm run start
+```
 
-# FOR DEVS
-## PACKAGE THE APP
+## 🏗️ Building
+
+```sh
+# INSTALL DEPENDENCIES
+npm install
+
+# PACKAGE THE APP
 npm run dist
 
-## PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
+# PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
 npm run publish-app
 ```
 
