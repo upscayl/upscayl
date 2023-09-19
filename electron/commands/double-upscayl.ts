@@ -3,6 +3,7 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   customModelsFolderPath,
+  noImageProcessing,
   outputFolderPath,
   saveOutputFolder,
   setStopped,
@@ -42,21 +43,24 @@ const doubleUpscayl = async (event, payload) => {
   const fullfileName = imagePath.split(slash).slice(-1)[0] as string;
   const fileName = parse(fullfileName).name;
 
-  let scale = "4";
+  let initialScale = "4";
   if (model.includes("x2")) {
-    scale = "2";
+    initialScale = "2";
   } else if (model.includes("x3")) {
-    scale = "3";
+    initialScale = "3";
   } else {
-    scale = "4";
+    initialScale = "4";
   }
+  const desiredScale = parseInt(payload.scale) * parseInt(payload.scale);
 
   const outFile =
     outputDir +
     slash +
     fileName +
     "_upscayl_" +
-    parseInt(payload.scale) * parseInt(payload.scale) +
+    (noImageProcessing
+      ? parseInt(initialScale) * parseInt(initialScale)
+      : desiredScale) +
     "x_" +
     model +
     "." +
@@ -73,7 +77,7 @@ const doubleUpscayl = async (event, payload) => {
       model,
       gpuId,
       saveImageAs,
-      scale
+      initialScale
     ),
     logit
   );
@@ -124,6 +128,24 @@ const doubleUpscayl = async (event, payload) => {
       logit("💯 Done upscaling");
       logit("♻ Scaling and converting now...");
       mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+      if (noImageProcessing) {
+        logit("🚫 Skipping scaling and converting");
+        mainWindow.setProgressBar(-1);
+        mainWindow.webContents.send(
+          COMMAND.DOUBLE_UPSCAYL_DONE,
+          isAlpha
+            ? (outFile + ".png").replace(
+                /([^/\\]+)$/i,
+                encodeURIComponent((outFile + ".png").match(/[^/\\]+$/i)![0])
+              )
+            : outFile.replace(
+                /([^/\\]+)$/i,
+                encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
+              )
+        );
+        return;
+      }
+
       try {
         await convertAndScale(
           inputDir + slash + fullfileName,
@@ -173,7 +195,7 @@ const doubleUpscayl = async (event, payload) => {
           model,
           gpuId,
           saveImageAs,
-          scale
+          initialScale
         ),
         logit
       );

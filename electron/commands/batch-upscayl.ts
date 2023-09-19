@@ -3,6 +3,7 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   customModelsFolderPath,
+  noImageProcessing,
   outputFolderPath,
   saveOutputFolder,
   setStopped,
@@ -115,6 +116,12 @@ const batchUpscayl = async (event, payload) => {
       logit("♻ Scaling and converting now...");
       upscayl.kill();
       mainWindow && mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+      if (noImageProcessing) {
+        logit("🚫 Skipping scaling and converting");
+        mainWindow.setProgressBar(-1);
+        mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);
+        return;
+      }
       // Get number of files in output folder
       const files = fs.readdirSync(inputDir);
       try {

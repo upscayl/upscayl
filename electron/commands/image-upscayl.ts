@@ -146,39 +146,7 @@ const imageUpscayl = async (event, payload) => {
       if (!failed && !stopped) {
         logit("💯 Done upscaling");
         logit("♻ Scaling and converting now...");
-        if (noImageProcessing === false) {
-          mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
-          // Free up memory
-          upscayl.kill();
-          try {
-            await convertAndScale(
-              inputDir + slash + fullfileName,
-              isAlpha ? outFile + ".png" : outFile,
-              outFile,
-              desiredScale,
-              saveImageAs,
-              onError
-            );
-            mainWindow.setProgressBar(-1);
-            mainWindow.webContents.send(
-              COMMAND.UPSCAYL_DONE,
-              outFile.replace(
-                /([^/\\]+)$/i,
-                encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
-              )
-            );
-          } catch (error) {
-            logit(
-              "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
-              error
-            );
-            upscayl.kill();
-            mainWindow.webContents.send(
-              COMMAND.UPSCAYL_ERROR,
-              "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page."
-            );
-          }
-        } else {
+        if (noImageProcessing) {
           logit("🚫 Skipping scaling and converting");
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
@@ -187,6 +155,37 @@ const imageUpscayl = async (event, payload) => {
               /([^/\\]+)$/i,
               encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
             )
+          );
+        }
+        mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+        // Free up memory
+        upscayl.kill();
+        try {
+          await convertAndScale(
+            inputDir + slash + fullfileName,
+            isAlpha ? outFile + ".png" : outFile,
+            outFile,
+            desiredScale,
+            saveImageAs,
+            onError
+          );
+          mainWindow.setProgressBar(-1);
+          mainWindow.webContents.send(
+            COMMAND.UPSCAYL_DONE,
+            outFile.replace(
+              /([^/\\]+)$/i,
+              encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
+            )
+          );
+        } catch (error) {
+          logit(
+            "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
+            error
+          );
+          upscayl.kill();
+          mainWindow.webContents.send(
+            COMMAND.UPSCAYL_ERROR,
+            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page."
           );
         }
       }
