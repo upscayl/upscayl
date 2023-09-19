@@ -30,7 +30,7 @@ const createMainWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInWorker: true,
-      webSecurity: false,
+      webSecurity: true,
       preload: join(__dirname, "preload.js"),
     },
     titleBarStyle: getPlatform() === "mac" ? "hiddenInset" : "default",
