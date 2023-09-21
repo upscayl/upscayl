@@ -3,6 +3,9 @@ name: Deploy Release
 # this will help you specify where to run
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - v*
 # this is where the magic happens, each job happens in parallel btw
 jobs:
   linux:
@@ -27,20 +30,24 @@ jobs:
 
   macos:
     runs-on: macos-11
+    env:
+      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      CSC_LINK: ${{ secrets.CSC_LINK }}
+      APPLEID: ${{ secrets.APPLEID }}
+      APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-node@v3.5.0
         with:
           node-version: 16
-
       - name: Install Modules and Publish build
         run: |
           npm install
           rm -rf node_modules/sharp
           npm install --platform=darwin --arch=x64 sharp
           npm rebuild --platform=darwin --arch=arm64 sharp
-          GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-mac-app
+          npm run publish-mac-app
 
   windows:
     runs-on: windows-latest
