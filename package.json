@@ -101,9 +101,6 @@
       "entitlements": "resources/entitlements.mac.plist",
       "entitlementsInherit": "resources/entitlements.mac.plist",
       "mergeASARs": false,
-      "binaries": [
-        "./dist/mac-universal/Upscayl.app/Contents/Resources/app.asar.unpacked/node_modules/sharp/vendor/8.14.4/darwin-arm64v8/lib/libvips-cpp.42.dylib"
-      ],
       "target": [
         {
           "target": "dmg",
