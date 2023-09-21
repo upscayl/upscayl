@@ -35,6 +35,7 @@ jobs:
       CSC_LINK: ${{ secrets.CSC_LINK }}
       APPLEID: ${{ secrets.APPLEID }}
       APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+      TEAMID: ${{ secrets.TEAMID }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
