@@ -39,6 +39,21 @@
   </screenshots>
 
   <releases>
+    <release version="v2.8.5" date="2023-09-21">
+      <description>
+        <p>Changes</p>
+        <ul>
+          <li>Updated electron version ⚡️</li>
+          <li>Fixed scaling and conversion ⚖️</li>
+          <li>Added 4:4:4 subsampling by default 🌈</li>
+          <li>Added the option to switch off post-processing ⌥</li>
+          <li>MacOS builds are now signed, which means no weird security warnings (App Store soon 😉)</li>
+          <li>Fixed macOS issue with closed Windows (#471) ❌</li>
+          <li>Fixed grainy picture issue (#474) 💥</li>
+          <li>Fixed compression 🗜️</li>
+        </ul>
+      </description>
+    </release>
     <release version="v2.8.1" date="2023-06-13">
       <description>
         <p>Changes</p>
