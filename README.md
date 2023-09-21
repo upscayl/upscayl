@@ -111,12 +111,8 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 I recommend using Volta: https://volta.sh for installing Node.js.
 Download and install volta, then do: `volta install node`.
-You can also use pnpm instead.
 
 ## 🏃 Running
-
-You can download pnpm [here](https://github.com/pnpm/pnpm/releases/latest). 
-
 > [!NOTE]
 > If you are not willing to install [git](https://git-scm.com/downloads), you can skip the first line, download [the source zip](https://github.com/upscayl/upscayl/archive/refs/heads/main.zip) and extract it to `upscayl` instead and carry on with the rest of the instructions.
 
@@ -125,11 +121,11 @@ git clone https://github.com/upscayl/upscayl
 cd upscayl
 
 # INSTALL DEPENDENCIES
-pnpm install
+npm install
 
 # RUN THE DEVELOPMENT SERVER LOCALLY
 ## YOUR LOGS WILL NOW APPEAR IN THE TERMINAL
-pnpm run start
+npm run start
 ```
 
 ## 🏗️ Building
