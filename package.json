@@ -169,6 +169,7 @@
     ]
   },
   "devDependencies": {
+    "@electron/notarize": "^2.1.0",
     "@electron/rebuild": "^3.3.0",
     "@types/node": "^18.15.12",
     "@types/react": "^18.0.37",
@@ -177,7 +178,6 @@
     "cross-env": "^7.0.3",
     "electron": "^25.8.1",
     "electron-builder": "^24.6.4",
-    "electron-notarize": "^1.2.2",
     "next": "^13.3.0",
     "postcss": "^8.4.23",
     "prettier": "^3.0.0",
