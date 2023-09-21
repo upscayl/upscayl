@@ -25,7 +25,6 @@ jobs:
           npm install
           rm -rf node_modules/sharp
           SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install --arch=x64 --platform=linux --libc=glibc --build-from-source sharp
-          ./node_modules/.bin/electron-rebuild
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-linux-app
 
   macos:
@@ -64,5 +63,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm install
-          ./node_modules/.bin/electron-rebuild
           npm run publish-win-app
