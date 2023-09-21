@@ -47,3 +47,5 @@ build-dir/
 
 main/*.js
 main/utils/*.js
+
+.env

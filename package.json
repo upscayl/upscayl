@@ -61,6 +61,7 @@
     "productName": "Upscayl",
     "appId": "org.upscayl.app",
     "artifactName": "${name}-${version}-${os}.${ext}",
+    "afterSign": "scripts/notarize.js",
     "asar": true,
     "asarUnpack": [
       "**/node_modules/sharp/**/*"
@@ -81,33 +82,28 @@
         ]
       },
       {
-        "from": "resources/icon_128x128.png",
-        "to": "icon_128x128.png",
-        "filter": [
-          "**/*"
-        ]
-      },
-      {
-        "from": "resources/icon_512x512.png",
-        "to": "icon_512x512.png",
-        "filter": [
-          "**/*"
-        ]
-      },
-      {
         "from": "org.upscayl.Upscayl.desktop",
-        "to": "org.upscayl.Upscayl.desktop"
+        "to": "resources/org.upscayl.Upscayl.desktop"
+      },
+      {
+        "from": "resources/icons/128x128.png",
+        "to": "resources/128x128.png"
+      },
+      {
+        "from": "resources/icons/512x512.png",
+        "to": "resources/512x512.png"
       }
     ],
     "mac": {
       "category": "public.app-category.photography",
-      "type": "distribution",
       "hardenedRuntime": true,
+      "gatekeeperAssess": false,
       "entitlements": "resources/entitlements.mac.plist",
       "entitlementsInherit": "resources/entitlements.mac.plist",
-      "notarize": false,
-      "gatekeeperAssess": false,
       "mergeASARs": false,
+      "binaries": [
+        "./dist/mac-universal/Upscayl.app/Contents/Resources/app.asar.unpacked/node_modules/sharp/vendor/8.14.4/darwin-arm64v8/lib/libvips-cpp.42.dylib"
+      ],
       "target": [
         {
           "target": "dmg",
@@ -152,7 +148,8 @@
       "maintainer": "Nayam Amarshe <simplelogin-newsletter.j1zez@aleeas.com>",
       "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
       "synopsis": "AI Image Upscaler",
-      "description": "Free and Open Source AI Image Upscaler"
+      "description": "Free and Open Source AI Image Upscaler",
+      "icon": "resources/icons/512x512.png"
     },
     "win": {
       "publish": [
@@ -182,7 +179,8 @@
     "autoprefixer": "^10.4.14",
     "cross-env": "^7.0.3",
     "electron": "^25.8.1",
-    "electron-builder": "^24.4.0",
+    "electron-builder": "^24.6.4",
+    "electron-notarize": "^1.2.2",
     "next": "^13.3.0",
     "postcss": "^8.4.23",
     "prettier": "^3.0.0",
