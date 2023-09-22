@@ -151,7 +151,7 @@ const doubleUpscayl = async (event, payload) => {
           inputDir + slash + fullfileName,
           isAlpha ? outFile + ".png" : outFile,
           outFile,
-          payload.scale,
+          desiredScale.toString(),
           saveImageAs,
           onError
         );
