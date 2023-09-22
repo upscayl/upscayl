@@ -149,6 +149,7 @@ npm run publish-app
   - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
 - **Do I need a GPU for this to work?**
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan-compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
+    - @Wyrdgirn has contributed a workaround for Windows and Linux in [#390](https://github.com/upscayl/upscayl/issues/390)! Nobody knows how to manipulate the macOS and Haiku frameworks...
 - **How can I contribute?**
   - You can report issues, fix code and add features by submitting PRs, or donate! 😊
 - **What's the GPU ID for?**
