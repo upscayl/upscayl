@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "2.8.5",
+  "version": "2.8.6",
   "productName": "Upscayl",
   "homepage": "https://github.com/TGS963/upscayl",
   "contributors": [
@@ -50,7 +50,7 @@
     "dist:mac-arm64": "tsc && npm run build && electron-builder --mac --arm64",
     "dist:win": "tsc && npm run build && electron-builder --win",
     "dist:linux": "tsc && npm run build && electron-builder --linux",
-    "publish-app": "tsc && npm run build && electron-builder -wl --publish always",
+    "publish-app": "tsc && npm run build && electron-builder -wlm --publish always",
     "publish-linux-app": "tsc && npm run build && electron-builder -l --publish always",
     "publish-win-app": "tsc && npm run build && electron-builder -w --publish always",
     "publish-mac-universal-app": "tsc && npm run build && electron-builder --mac --universal --publish always",
