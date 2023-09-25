@@ -98,9 +98,18 @@ function SettingsTab({
       localStorage.setItem("model", JSON.stringify(modelOptions[0]));
       logit("🔀 Setting model to", modelOptions[0].value);
     } else {
-      const currentlySavedModel = JSON.parse(
+      let currentlySavedModel = JSON.parse(
         localStorage.getItem("model")
       ) as (typeof modelOptions)[0];
+      if (
+        modelOptions.find(
+          (model) => model.value === currentlySavedModel.value
+        ) === undefined
+      ) {
+        localStorage.setItem("model", JSON.stringify(modelOptions[0]));
+        logit("🔀 Setting model to", modelOptions[0].value);
+        currentlySavedModel = modelOptions[0];
+      }
       setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
       logit(

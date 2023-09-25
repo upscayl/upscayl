@@ -10,7 +10,9 @@ function ProgressBar({
   const [batchProgress, setBatchProgress] = React.useState(0);
 
   React.useEffect(() => {
-    if (progress.includes("0.00%")) {
+    const progressString = progress.replace(/\n/g, "");
+    console.log({ progressString });
+    if (progressString.length === 5 && progressString === "0.00%") {
       setBatchProgress((prev) => prev + 1);
     }
   }, [progress]);

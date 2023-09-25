@@ -293,7 +293,7 @@ const Home = () => {
     if (path !== null) {
       logit("🖼 Selected Folder Path: ", path);
       setBatchFolderPath(path);
-      setOutputPath(path + "_upscayled");
+      setOutputPath(path);
     } else {
       logit("🚫 Folder selection cancelled");
       setBatchFolderPath("");

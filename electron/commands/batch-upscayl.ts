@@ -47,7 +47,7 @@ const batchUpscayl = async (event, payload) => {
     scale = "4";
   }
 
-  outputDir += `_${model}_x${payload.scale}`;
+  outputDir += slash + `upscayl_${model}_x${payload.scale}`;
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
