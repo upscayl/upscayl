@@ -175,7 +175,7 @@
     "@types/react-dom": "^18.0.11",
     "autoprefixer": "^10.4.14",
     "cross-env": "^7.0.3",
-    "electron": "^25.8.1",
+    "electron": "^25.8.4",
     "electron-builder": "^24.6.4",
     "next": "^13.3.0",
     "postcss": "^8.4.23",
