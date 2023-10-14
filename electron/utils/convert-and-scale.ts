@@ -12,6 +12,10 @@ const convertAndScale = async (
   saveImageAs: string,
   onError: (error: any) => void
 ) => {
+  if (saveImageAs === "png" && scale === "4" && compression === 0) {
+    logit("Skipping png compression for 4x scale");
+    return;
+  }
   const mainWindow = getMainWindow();
 
   const originalImage = await sharp(originalImagePath).metadata();
