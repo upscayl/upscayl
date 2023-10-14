@@ -164,12 +164,13 @@ const imageUpscayl = async (event, payload) => {
         try {
           await convertAndScale(
             inputDir + slash + fullfileName,
-            isAlpha ? outFile + ".png" : outFile,
+            outFile,
             outFile,
             desiredScale,
             saveImageAs,
             onError
           );
+          if (saveImageAs === "jpg") fs.unlinkSync(outFile);
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,
@@ -186,7 +187,8 @@ const imageUpscayl = async (event, payload) => {
           upscayl.kill();
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_ERROR,
-            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page."
+            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
+              error
           );
         }
       }

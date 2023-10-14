@@ -40,18 +40,20 @@ const convertAndScale = async (
   // Convert compression percentage (0-100) to compressionLevel (0-9)
   const compressionLevel = Math.round((compression / 100) * 9);
 
-  logit("📐 Processing Image: ", {
-    originalWidth: originalImage.width,
-    originalHeight: originalImage.height,
-    scale,
-    saveImageAs,
-    compressionPercentage: compression,
-    compressionLevel,
-  });
+  logit(
+    "📐 Processing Image: ",
+    JSON.stringify({
+      originalWidth: originalImage.width,
+      originalHeight: originalImage.height,
+      scale,
+      saveImageAs,
+      compressionPercentage: compression,
+      compressionLevel,
+    })
+  );
 
   const buffer = await newImage.toBuffer();
   try {
-    logit("");
     await sharp(buffer, {
       limitInputPixels: false,
     })

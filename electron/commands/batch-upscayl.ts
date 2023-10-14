@@ -147,7 +147,8 @@ const batchUpscayl = async (event, payload) => {
         mainWindow &&
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_ERROR,
-            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page."
+            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
+              error
           );
       }
     } else {
