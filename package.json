@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "2.8.6",
+  "version": "2.9.0",
   "productName": "Upscayl",
   "homepage": "https://github.com/TGS963/upscayl",
   "contributors": [
@@ -43,7 +43,8 @@
     "dist:deb": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l deb",
     "dist:rpm": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l rpm",
     "dist:zip": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l zip",
-    "dist:dmg": "tsc && npm run build && cross-env DEBUG=* electron-builder build -m dmg",
+    "dist:mac-zip": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l zip",
+    "dist:dmg": "tsc && npm run build && electron-builder build -m dmg",
     "dist:msi": "tsc && npm run build && cross-env DEBUG=* electron-builder build -w nsis",
     "dist:pkg": "tsc && npm run build && cross-env DEBUG=* electron-builder build -m pkg",
     "dist:mac": "tsc && npm run build && electron-builder --mac --universal",
@@ -115,23 +116,16 @@
           "arch": [
             "universal"
           ]
-        },
-        {
-          "target": "mas",
-          "arch": [
-            "universal"
-          ]
         }
       ],
-      "x64ArchFiles": "*",
-      "provisioningProfile": "embedded.provisionprofile"
+      "x64ArchFiles": "*"
     },
     "mas": {
       "hardenedRuntime": false,
       "type": "distribution",
       "category": "public.app-category.photography",
       "entitlements": "resources/entitlements.mac.plist",
-      "entitlementsInherit": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mas.inherit.plist",
       "provisioningProfile": "embedded.provisionprofile",
       "mergeASARs": false,
       "icon": "build/icon.icns",

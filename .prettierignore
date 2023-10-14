@@ -1,0 +1,3 @@
+**/*.plist
+**/resources/**/*
+*.plist
