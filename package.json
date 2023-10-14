@@ -60,7 +60,7 @@
   },
   "build": {
     "productName": "Upscayl",
-    "appId": "org.upscayl.app",
+    "appId": "org.upscayl.Upscayl",
     "artifactName": "${name}-${version}-${os}.${ext}",
     "afterSign": "scripts/notarize.js",
     "asar": true,
