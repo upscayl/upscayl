@@ -1,3 +1,4 @@
+import fs from "fs";
 import sharp, { FormatEnum } from "sharp";
 import logit from "./logit";
 import { getMainWindow } from "../main-window";
@@ -14,6 +15,12 @@ const convertAndScale = async (
   const mainWindow = getMainWindow();
 
   const originalImage = await sharp(originalImagePath).metadata();
+
+  fs.access(originalImagePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      throw new Error("Could not grab the original image!");
+    }
+  });
 
   if (!mainWindow || !originalImage) {
     throw new Error("Could not grab the original image!");
