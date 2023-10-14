@@ -21,6 +21,7 @@ import OverwriteToggle from "./OverwriteToggle";
 import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
 import ProcessImageToggle from "./ProcessImageToggle";
+import { flag } from "@/utils/flags";
 
 interface IProps {
   batchMode: boolean;
@@ -189,7 +190,7 @@ function SettingsTab({
           target="_blank">
           Read Wiki Guide
         </a>
-        <DonateButton />
+        {flag("IS_APPLE_STORE_BUILD") && <DonateButton />}
       </div>
 
       <LogArea

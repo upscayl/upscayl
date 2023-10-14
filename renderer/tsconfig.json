@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./*"],
       "@common/*": ["../common/*"]
     }
   },

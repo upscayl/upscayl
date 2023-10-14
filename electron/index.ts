@@ -40,7 +40,7 @@ app.on("ready", async () => {
     autoUpdater.checkForUpdates();
   }
 
-  log.info("🚀 UPSCAYL EXEC PATH: ", execPath("realesrgan"));
+  log.info("🚀 UPSCAYL EXEC PATH: ", execPath("bin"));
   log.info("🚀 MODELS PATH: ", modelsPath);
 });
 

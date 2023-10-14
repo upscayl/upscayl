@@ -8,7 +8,7 @@ export const spawnUpscayl = (
 ) => {
   logit("📢 Upscayl Command: ", command);
 
-  const spawnedProcess = spawn(execPath(binaryName), command, {
+  const spawnedProcess = spawn(execPath("bin"), command, {
     cwd: undefined,
     detached: false,
   });

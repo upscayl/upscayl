@@ -48,6 +48,7 @@
     "dist:pkg": "tsc && npm run build && cross-env DEBUG=* electron-builder build -m pkg",
     "dist:mac": "tsc && npm run build && electron-builder --mac --universal",
     "dist:mac-arm64": "tsc && npm run build && electron-builder --mac --arm64",
+    "dist:mac-mas": "tsc && npm run build && electron-builder --mac mas --universal",
     "dist:win": "tsc && npm run build && electron-builder --win",
     "dist:linux": "tsc && npm run build && electron-builder --linux",
     "publish-app": "tsc && npm run build && electron-builder -wlm --publish always",
@@ -95,6 +96,7 @@
       }
     ],
     "mac": {
+      "type": "distribution",
       "category": "public.app-category.photography",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
@@ -113,9 +115,34 @@
           "arch": [
             "universal"
           ]
+        },
+        {
+          "target": "mas",
+          "arch": [
+            "universal"
+          ]
         }
       ],
-      "x64ArchFiles": "*"
+      "x64ArchFiles": "*",
+      "provisioningProfile": "embedded.provisionprofile"
+    },
+    "mas": {
+      "hardenedRuntime": false,
+      "type": "distribution",
+      "category": "public.app-category.photography",
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mac.plist",
+      "provisioningProfile": "embedded.provisionprofile",
+      "mergeASARs": false,
+      "x64ArchFiles": "*",
+      "target": [
+        {
+          "target": "pkg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ]
     },
     "dmg": {
       "sign": "false",

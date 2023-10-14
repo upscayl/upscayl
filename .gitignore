@@ -49,3 +49,4 @@ main/*.js
 main/utils/*.js
 
 .env
+*.provisionprofile

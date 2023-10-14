@@ -605,7 +605,7 @@ const Home = () => {
                 }}
                 draggable="false"
                 alt=""
-                className="h-full w-full bg-[#1d1c23] object-contain"
+                className="h-full w-full bg-gradient-to-br from-base-300 to-base-100 object-contain"
               />
             </>
           )}
@@ -659,7 +659,7 @@ const Home = () => {
                       backgroundPosition: "0% 0%",
                       transformOrigin: backgroundPosition,
                     }}
-                    className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
+                    className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}]`}
                   />
                 </>
               }
@@ -678,7 +678,7 @@ const Home = () => {
                       transformOrigin: backgroundPosition,
                     }}
                     onMouseMove={handleMouseMove}
-                    className={`h-full w-full bg-[#1d1c23] transition-transform group-hover:scale-[${zoomAmount}]`}
+                    className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}]`}
                   />
                 </>
               }

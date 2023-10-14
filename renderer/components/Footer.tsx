@@ -18,7 +18,7 @@ function Footer() {
           href="https://github.com/upscayl"
           className="font-bold"
           target="_blank">
-          TGS963 and Nayam Amarshe
+          The Upscayl Team
         </a>
       </p>
     </div>
