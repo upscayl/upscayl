@@ -170,7 +170,10 @@ const imageUpscayl = async (event, payload) => {
             saveImageAs,
             onError
           );
-          if (saveImageAs === "jpg") fs.unlinkSync(outFile);
+          // Remove the png file (default) if the saveImageAs is not png
+          if (saveImageAs !== "png") {
+            fs.unlinkSync(outFile.slice(0, -3) + "png");
+          }
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,
