@@ -134,6 +134,7 @@
       "entitlementsInherit": "resources/entitlements.mac.plist",
       "provisioningProfile": "embedded.provisionprofile",
       "mergeASARs": false,
+      "icon": "build/icon.icns",
       "x64ArchFiles": "*",
       "target": [
         {

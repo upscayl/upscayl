@@ -190,7 +190,7 @@ function SettingsTab({
           target="_blank">
           Read Wiki Guide
         </a>
-        {flag("IS_APPLE_STORE_BUILD") && <DonateButton />}
+        {flag("APP_STORE_BUILD") && <DonateButton />}
       </div>
 
       <LogArea

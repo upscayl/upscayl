@@ -1,5 +1,5 @@
 export const FLAGS = {
-  IS_APPLE_STORE_BUILD: "IS_APPLE_STORE_BUILD",
+  APP_STORE_BUILD: "APP_STORE_BUILD",
 };
 
 // Get flag from process.env
