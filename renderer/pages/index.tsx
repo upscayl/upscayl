@@ -54,6 +54,7 @@ const Home = () => {
   const [dontShowCloudModal, setDontShowCloudModal] = useAtom(
     dontShowCloudModalAtom
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   const [showCloudModal, setShowCloudModal] = useState(false);
 
@@ -245,6 +246,10 @@ const Home = () => {
       resetImagePaths();
     }
   }, [imagePath]);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   const resetImagePaths = () => {
     logit("🔄 Resetting image paths");
@@ -471,7 +476,7 @@ const Home = () => {
 
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
 
-  if (typeof window === "undefined") {
+  if (isLoading) {
     return (
       <img
         src="icon.png"
