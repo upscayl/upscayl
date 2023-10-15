@@ -96,6 +96,25 @@
         "to": "resources/512x512.png"
       }
     ],
+    "mas": {
+      "hardenedRuntime": false,
+      "type": "distribution",
+      "category": "public.app-category.photography",
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mas.inherit.plist",
+      "provisioningProfile": "embedded.provisionprofile",
+      "mergeASARs": false,
+      "icon": "build/icon.icns",
+      "x64ArchFiles": "*",
+      "target": [
+        {
+          "target": "pkg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ]
+    },
     "mac": {
       "type": "distribution",
       "category": "public.app-category.photography",
@@ -120,25 +139,6 @@
         }
       ],
       "x64ArchFiles": "*"
-    },
-    "mas": {
-      "hardenedRuntime": false,
-      "type": "distribution",
-      "category": "public.app-category.photography",
-      "entitlements": "resources/entitlements.mac.plist",
-      "entitlementsInherit": "resources/entitlements.mas.inherit.plist",
-      "provisioningProfile": "embedded.provisionprofile",
-      "mergeASARs": false,
-      "icon": "build/icon.icns",
-      "x64ArchFiles": "*",
-      "target": [
-        {
-          "target": "pkg",
-          "arch": [
-            "universal"
-          ]
-        }
-      ]
     },
     "dmg": {
       "sign": "false",

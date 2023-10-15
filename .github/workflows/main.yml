@@ -36,6 +36,7 @@ jobs:
       APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
       TEAMID: ${{ secrets.TEAMID }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PROVISION_PROFILE: ${{ secrets.PROVISION_PROFILE }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3.5.0
@@ -45,6 +46,7 @@ jobs:
         run: |
           npm install
           rm -rf node_modules/sharp
+          echo -n "$PROVISION_PROFILE" | base64 --decode > embedded.provisionprofile
           npm install --platform=darwin --arch=x64 sharp
           npm rebuild --platform=darwin --arch=arm64 sharp
           npm run publish-mac-app
