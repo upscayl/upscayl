@@ -50,3 +50,4 @@ main/utils/*.js
 
 .env
 *.provisionprofile
+flags.ts
