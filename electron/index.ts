@@ -18,6 +18,7 @@ import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
 import sharp from "sharp";
+import { getPlatform } from "./utils/get-device-specs";
 
 // INITIALIZATION
 log.initialize({ preload: true });
@@ -50,7 +51,9 @@ app.on("window-all-closed", () => {
 });
 
 // ! ENABLE THIS FOR MACOS APP STORE BUILD
-app.commandLine.appendSwitch("in-process-gpu");
+if (getPlatform() === "mac") {
+  app.commandLine.appendSwitch("in-process-gpu");
+}
 
 ipcMain.on(COMMAND.STOP, stop);
 
