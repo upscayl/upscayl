@@ -12,6 +12,8 @@
 	<true/>
 	<key>com.apple.security.cs.debugger</key>
 	<true/>
+	<key>com.apple.security.application-groups</key>
+	<string>W2T4W74X87.org.upscayl.Upscayl</string>
 	<key>com.apple.security.cs.disable-library-validation</key>
 	<true/>
 	<key>com.apple.security.files.user-selected.read-write</key>
