@@ -1,6 +1,6 @@
 <div align="center">
 
-# [v2.9.0 Pre-Release is out for Linux!](https://github.com/upscayl/upscayl/tag/2.9.0)
+# [v2.9.0 Pre-Release is out for Linux!](https://github.com/upscayl/upscayl/releases/tag/2.9.0)
 # [v2.8.6 is out! 🥳](https://github.com/upscayl/upscayl/releases/tag/v2.8.6)
 
 <a href="https://upscayl.org/#download">
