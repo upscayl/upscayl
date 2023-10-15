@@ -190,7 +190,7 @@ function SettingsTab({
           target="_blank">
           Read Wiki Guide
         </a>
-        {FLAGS.APP_STORE_BUILD && <DonateButton />}
+        {!FLAGS.APP_STORE_BUILD && <DonateButton />}
       </div>
 
       <LogArea

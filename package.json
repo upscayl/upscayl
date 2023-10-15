@@ -101,7 +101,6 @@
       "type": "distribution",
       "category": "public.app-category.photography",
       "entitlements": "resources/entitlements.mas.plist",
-      "entitlementsInherit": "resources/entitlements.mas.inherit.plist",
       "provisioningProfile": "embedded.provisionprofile",
       "mergeASARs": false,
       "icon": "build/icon.icns",

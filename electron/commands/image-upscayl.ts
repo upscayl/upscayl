@@ -103,7 +103,7 @@ const imageUpscayl = async (event, payload) => {
       getSingleImageArguments(
         inputDir,
         fullfileName,
-        outFile,
+        outFile.slice(0, -3) + "png",
         isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
         model,
         initialScale,
@@ -164,16 +164,19 @@ const imageUpscayl = async (event, payload) => {
         try {
           await convertAndScale(
             inputDir + slash + fullfileName,
-            outFile,
+            outFile.slice(0, -3) + "png",
             outFile,
             desiredScale,
             saveImageAs,
             onError
           );
           // Remove the png file (default) if the saveImageAs is not png
-          if (saveImageAs !== "png") {
-            fs.unlinkSync(outFile.slice(0, -3) + "png");
-          }
+          fs.access(outFile.slice(0, -3) + "png", fs.constants.F_OK, (err) => {
+            if (!err && saveImageAs !== "png") {
+              logit("🗑 Removing png file");
+              fs.unlinkSync(outFile.slice(0, -3) + "png");
+            }
+          });
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,

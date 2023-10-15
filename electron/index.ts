@@ -49,6 +49,9 @@ app.on("window-all-closed", () => {
   app.quit();
 });
 
+// ! ENABLE THIS FOR MACOS APP STORE BUILD
+app.commandLine.appendSwitch("in-process-gpu");
+
 ipcMain.on(COMMAND.STOP, stop);
 
 ipcMain.on(COMMAND.OPEN_FOLDER, openFolder);
