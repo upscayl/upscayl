@@ -119,6 +119,8 @@ const Home = () => {
         setProgress(data);
       } else if (data.includes("converting")) {
         setProgress("Scaling and converting image...");
+      } else if (data.includes("Successful")) {
+        setProgress("Upscayl done!");
       }
       handleErrors(data);
       logit(`🚧 UPSCAYL_PROGRESS: `, data);

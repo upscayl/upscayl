@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Spinner from "../../icons/Spinner";
 
 function ProgressBar({
@@ -14,11 +14,15 @@ function ProgressBar({
 }) {
   const [batchProgress, setBatchProgress] = React.useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const progressString = progress.trim().replace(/\n/g, "");
+    console.log(
+      "🚀 => file: ProgressBar.tsx:19 => progressString:",
+      progressString
+    );
+
     // Remove trailing and leading spaces
-    console.log({ progressString });
-    if (progressString.length === 5 && progressString === "0.00%") {
+    if (progressString.includes("Successful")) {
       setBatchProgress((prev) => prev + 1);
     }
   }, [progress]);

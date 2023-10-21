@@ -153,7 +153,7 @@
 }
 
 [data-theme="upscayl"] .btn {
-  @apply ring-1 ring-slate-500 font-medium normal-case !min-h-min h-10 py-2 px-3;
+  @apply font-medium normal-case !min-h-min h-10 py-2 px-3;
 }
 
 [data-theme="upscayl"] input[type="range"] {
@@ -161,7 +161,7 @@
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__control {
-  @apply ring-1 ring-slate-500 rounded-btn h-10 cursor-pointer !border-0 !border-none !border-transparent bg-primary shadow-none;
+  @apply rounded-btn h-10 cursor-pointer !border-0 !border-none !border-transparent bg-primary shadow-none;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__single-value {
