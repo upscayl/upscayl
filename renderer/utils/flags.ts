@@ -1,3 +1,3 @@
 export const FLAGS = {
-  APP_STORE_BUILD: false,
+  APP_STORE_BUILD: true,
 };

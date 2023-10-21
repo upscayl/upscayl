@@ -6,11 +6,17 @@ function ProgressBar({
   doubleUpscaylCounter,
   stopHandler,
   batchMode,
+}: {
+  progress: string;
+  doubleUpscaylCounter: number;
+  stopHandler: () => void;
+  batchMode: boolean;
 }) {
   const [batchProgress, setBatchProgress] = React.useState(0);
 
   React.useEffect(() => {
-    const progressString = progress.replace(/\n/g, "");
+    const progressString = progress.trim().replace(/\n/g, "");
+    // Remove trailing and leading spaces
     console.log({ progressString });
     if (progressString.length === 5 && progressString === "0.00%") {
       setBatchProgress((prev) => prev + 1);

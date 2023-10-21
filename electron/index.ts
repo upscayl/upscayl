@@ -51,9 +51,9 @@ app.on("window-all-closed", () => {
 });
 
 // ! ENABLE THIS FOR MACOS APP STORE BUILD
-// if (getPlatform() === "mac") {
-//   app.commandLine.appendSwitch("in-process-gpu");
-// }
+if (getPlatform() === "mac") {
+  app.commandLine.appendSwitch("in-process-gpu");
+}
 
 ipcMain.on(COMMAND.STOP, stop);
 
@@ -73,4 +73,4 @@ ipcMain.on(COMMAND.FOLDER_UPSCAYL, batchUpscayl);
 
 ipcMain.on(COMMAND.DOUBLE_UPSCAYL, doubleUpscayl);
 
-autoUpdater.on("update-downloaded", autoUpdate);
+// autoUpdater.on("update-downloaded", autoUpdate);

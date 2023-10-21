@@ -57,7 +57,8 @@
     "publish-win-app": "tsc && npm run build && electron-builder -w --publish always",
     "publish-mac-universal-app": "tsc && npm run build && electron-builder --mac --universal --publish always",
     "publish-mac-app": "tsc && npm run build && electron-builder --mac --x64 --publish always",
-    "publish-mac-arm-app": "tsc && npm run build && electron-builder --mac --arm64 --publish always"
+    "publish-mac-arm-app": "tsc && npm run build && electron-builder --mac --arm64 --publish always",
+    "dist:appstore": "CSC_KEY_PASSWORD=$PASSWORD CSC_LINK=$(openssl base64 -in $CERTIFICATE_PATH) npm run dist:mac-mas"
   },
   "build": {
     "productName": "Upscayl",
@@ -101,13 +102,15 @@
       "type": "distribution",
       "category": "public.app-category.photography",
       "entitlements": "resources/entitlements.mas.plist",
+      "entitlementsInherit": "resources/entitlements.mas.inherit.plist",
       "provisioningProfile": "embedded.provisionprofile",
       "mergeASARs": false,
+      "gatekeeperAssess": false,
       "icon": "build/icon.icns",
       "x64ArchFiles": "*",
       "target": [
         {
-          "target": "pkg",
+          "target": "mas",
           "arch": [
             "universal"
           ]
