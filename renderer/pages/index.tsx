@@ -120,7 +120,7 @@ const Home = () => {
       } else if (data.includes("converting")) {
         setProgress("Scaling and converting image...");
       } else if (data.includes("Successful")) {
-        setProgress("Upscayl done!");
+        setProgress("Upscayl Successful!");
       }
       handleErrors(data);
       logit(`🚧 UPSCAYL_PROGRESS: `, data);
@@ -128,6 +128,9 @@ const Home = () => {
 
     // FOLDER UPSCAYL PROGRESS
     window.electron.on(COMMAND.FOLDER_UPSCAYL_PROGRESS, (_, data: string) => {
+      if (data.includes("Successful")) {
+        setProgress("Upscayl Successful!");
+      }
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       }
