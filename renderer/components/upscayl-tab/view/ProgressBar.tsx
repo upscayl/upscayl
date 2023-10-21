@@ -16,11 +16,6 @@ function ProgressBar({
 
   useEffect(() => {
     const progressString = progress.trim().replace(/\n/g, "");
-    console.log(
-      "🚀 => file: ProgressBar.tsx:19 => progressString:",
-      progressString
-    );
-
     // Remove trailing and leading spaces
     if (progressString.includes("Successful")) {
       setBatchProgress((prev) => prev + 1);
