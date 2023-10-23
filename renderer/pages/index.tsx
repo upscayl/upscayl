@@ -22,42 +22,48 @@ import useLog from "../components/hooks/useLog";
 import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
 import { FLAGS } from "@/utils/flags";
 
+type dimentionsType = {
+  width: number | null,
+  height: number | null
+}
+
+
 const Home = () => {
   // STATES
   const [os, setOs] = useState<"linux" | "mac" | "win" | undefined>(undefined);
-  const [imagePath, SetImagePath] = useState("");
-  const [upscaledImagePath, setUpscaledImagePath] = useState("");
-  const [outputPath, setOutputPath] = useState("");
-  const [scaleFactor] = useState(4);
-  const [progress, setProgress] = useState("");
-  const [model, setModel] = useState("realesrgan-x4plus");
-  const [loaded, setLoaded] = useState(false);
-  const [version, setVersion] = useState("");
+  const [imagePath, SetImagePath] = useState<string>("");
+  const [upscaledImagePath, setUpscaledImagePath] = useState<string>("");
+  const [outputPath, setOutputPath] = useState<string>("");
+  const [scaleFactor] = useState<number>(4);
+  const [progress, setProgress] = useState<string>("");
+  const [model, setModel] = useState<string>("realesrgan-x4plus");
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [version, setVersion] = useState<string>("");
   const [batchMode, setBatchMode] = useAtom(batchModeAtom);
-  const [batchFolderPath, setBatchFolderPath] = useState("");
-  const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
-  const [doubleUpscayl, setDoubleUpscayl] = useState(false);
-  const [overwrite, setOverwrite] = useState(false);
-  const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
-  const [compression, setCompression] = useState(0);
-  const [gpuId, setGpuId] = useState("");
-  const [saveImageAs, setSaveImageAs] = useState("png");
-  const [zoomAmount, setZoomAmount] = useState("100%");
-  const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
-  const [dimensions, setDimensions] = useState({
+  const [batchFolderPath, setBatchFolderPath] = useState<string>("");
+  const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState<string>("");
+  const [doubleUpscayl, setDoubleUpscayl] = useState<boolean>(false);
+  const [overwrite, setOverwrite] = useState<boolean>(false);
+  const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState<number>(0);
+  const [compression, setCompression] = useState<number>(0);
+  const [gpuId, setGpuId] = useState<string>("");
+  const [saveImageAs, setSaveImageAs] = useState<'png' | 'jpg' | 'jpeg' | 'webp'>("png");
+  const [zoomAmount, setZoomAmount] = useState<string>("100%");
+  const [backgroundPosition, setBackgroundPosition] = useState<string>("0% 0%");
+  const [dimensions, setDimensions] = useState<dimentionsType>({
     width: null,
     height: null,
   });
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [logData, setLogData] = useAtom(logAtom);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
   const [scale] = useAtom(scaleAtom);
   const [dontShowCloudModal, setDontShowCloudModal] = useAtom(
     dontShowCloudModalAtom
   );
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [showCloudModal, setShowCloudModal] = useState(false);
+  const [showCloudModal, setShowCloudModal] = useState<boolean>(false);
 
   const { logit } = useLog();
 
