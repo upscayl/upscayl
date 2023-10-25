@@ -19,6 +19,12 @@
       "@common/*": ["../common/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../app.module.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "../app.module.ts",
+    "../common/**/*"
+  ],
   "exclude": ["node_modules"]
 }

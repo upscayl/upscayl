@@ -29,7 +29,7 @@
     "KDE",
     "Gnome"
   ],
-  "main": "main/index.js",
+  "main": "export/electron/index.js",
   "scripts": {
     "clean": "rimraf dist renderer/.next renderer/out",
     "start": "tsc && electron .",
@@ -180,7 +180,7 @@
       "target": [
         "nsis"
       ],
-      "icon": "main/build/icon.png"
+      "icon": "build/icon.png"
     },
     "nsis": {
       "allowToChangeInstallationDirectory": true,
@@ -189,7 +189,7 @@
       "perMachine": true
     },
     "files": [
-      "main",
+      "export",
       "renderer/out"
     ]
   },

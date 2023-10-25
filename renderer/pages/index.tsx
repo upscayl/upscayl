@@ -20,7 +20,7 @@ import {
 } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
 import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
-import { FLAGS } from "@/utils/flags";
+import { featureFlags } from "@common/feature-flags";
 
 const Home = () => {
   // STATES
@@ -505,7 +505,7 @@ const Home = () => {
         )}
         {/* HEADER */}
         <Header version={version} />
-        {!dontShowCloudModal && !FLAGS.APP_STORE_BUILD && (
+        {!dontShowCloudModal && !featureFlags.APP_STORE_BUILD && (
           <button
             className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
             onClick={() => {

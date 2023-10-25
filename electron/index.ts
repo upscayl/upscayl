@@ -1,7 +1,7 @@
 import prepareNext from "electron-next";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
-import { app, ipcMain, protocol, net } from "electron";
+import { app, ipcMain, protocol } from "electron";
 import COMMAND from "./constants/commands";
 import logit from "./utils/logit";
 import openFolder from "./commands/open-folder";
@@ -18,7 +18,7 @@ import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
 import sharp from "sharp";
-import { getPlatform } from "./utils/get-device-specs";
+import { featureFlags } from "../common/feature-flags";
 
 // INITIALIZATION
 log.initialize({ preload: true });
@@ -51,7 +51,8 @@ app.on("window-all-closed", () => {
 });
 
 // ! ENABLE THIS FOR MACOS APP STORE BUILD
-if (getPlatform() === "mac") {
+if (featureFlags.APP_STORE_BUILD) {
+  logit("🚀 APP STORE BUILD ENABLED");
   app.commandLine.appendSwitch("in-process-gpu");
 }
 
@@ -73,4 +74,6 @@ ipcMain.on(COMMAND.FOLDER_UPSCAYL, batchUpscayl);
 
 ipcMain.on(COMMAND.DOUBLE_UPSCAYL, doubleUpscayl);
 
-// autoUpdater.on("update-downloaded", autoUpdate);
+if (!featureFlags.APP_STORE_BUILD) {
+  autoUpdater.on("update-downloaded", autoUpdate);
+}

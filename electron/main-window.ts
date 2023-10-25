@@ -2,23 +2,14 @@ import { BrowserWindow, shell } from "electron";
 import { getPlatform } from "./utils/get-device-specs";
 import { join } from "path";
 import COMMAND from "./constants/commands";
-import {
-  overwrite,
-  setCustomModelsFolderPath,
-  setFolderPath,
-  setImagePath,
-  setOutputFolderPath,
-  setOverwrite,
-  setCompression,
-  setSaveOutputFolder,
-  fetchLocalStorage,
-} from "./utils/config-variables";
+import { fetchLocalStorage } from "./utils/config-variables";
 import electronIsDev from "electron-is-dev";
 import { format } from "url";
 
 let mainWindow: BrowserWindow | undefined;
 
 const createMainWindow = () => {
+  console.log("📂 DIRNAME", __dirname);
   mainWindow = new BrowserWindow({
     icon: join(__dirname, "build", "icon.png"),
     width: 1300,

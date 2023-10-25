@@ -16,7 +16,9 @@
 /renderer/out/
 
 # production
-/dist
+/dist/
+/export/electron
+/export/common
 
 # misc
 .DS_Store

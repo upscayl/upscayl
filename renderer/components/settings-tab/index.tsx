@@ -21,7 +21,7 @@ import OverwriteToggle from "./OverwriteToggle";
 import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
 import ProcessImageToggle from "./ProcessImageToggle";
-import { FLAGS } from "@/utils/flags";
+import { featureFlags } from "@common/feature-flags";
 
 interface IProps {
   batchMode: boolean;
@@ -190,7 +190,7 @@ function SettingsTab({
           target="_blank">
           Read Wiki Guide
         </a>
-        {!FLAGS.APP_STORE_BUILD && <DonateButton />}
+        {!featureFlags.APP_STORE_BUILD && <DonateButton />}
       </div>
 
       <LogArea
