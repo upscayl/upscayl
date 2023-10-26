@@ -202,7 +202,7 @@
     "cross-env": "^7.0.3",
     "electron": "^25.8.4",
     "electron-builder": "^24.6.4",
-    "next": "^13.3.0",
+    "next": "^13.5.0",
     "postcss": "^8.4.31",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.4.1",
