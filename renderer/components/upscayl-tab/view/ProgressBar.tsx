@@ -22,10 +22,6 @@ function ProgressBar({
     }
   }, [progress]);
 
-  console.log({
-    progress,
-  });
-
   return (
     <div className="absolute flex h-full w-full flex-col items-center justify-center bg-base-300/50 backdrop-blur-lg">
       <div className="flex flex-col items-center gap-2">
