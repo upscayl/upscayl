@@ -3,5 +3,5 @@ type FeatureFlags = {
 };
 
 export const featureFlags: FeatureFlags = {
-  APP_STORE_BUILD: true,
+  APP_STORE_BUILD: false,
 };

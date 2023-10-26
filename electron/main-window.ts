@@ -30,7 +30,7 @@ const createMainWindow = () => {
   const url = electronIsDev
     ? "http://localhost:8000"
     : format({
-        pathname: join(__dirname, "../renderer/out/index.html"),
+        pathname: join(__dirname, "../../renderer/out/index.html"),
         protocol: "file:",
         slashes: true,
       });
