@@ -1,12 +1,12 @@
-import { MessageBoxOptions, dialog } from "electron";
-import { autoUpdater } from "electron-updater";
+import { MessageBoxOptions, dialog, shell } from "electron";
+import { UpdateDownloadedEvent, autoUpdater } from "electron-updater";
 import logit from "../utils/logit";
 
-const autoUpdate = (event) => {
+const autoUpdate = (event: UpdateDownloadedEvent) => {
   autoUpdater.autoInstallOnAppQuit = false;
   const dialogOpts: MessageBoxOptions = {
     type: "info",
-    buttons: ["Install update", "No Thanks"],
+    buttons: ["Install update", "No Thanks", "Check Release Notes"],
     title: "New Upscayl Update",
     message: event.releaseName as string,
     detail:
@@ -16,6 +16,10 @@ const autoUpdate = (event) => {
   dialog.showMessageBox(dialogOpts).then((returnValue) => {
     if (returnValue.response === 0) {
       autoUpdater.quitAndInstall();
+    } else if (returnValue.response === 2) {
+      shell.openExternal(
+        "https://github.com/upscayl/upscayl/releases/tag/v" + event.version
+      );
     } else {
       logit("🚫 Update Installation Cancelled");
     }
