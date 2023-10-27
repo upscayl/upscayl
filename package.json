@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "2.9.1",
+  "version": "2.8.5",
   "productName": "Upscayl",
   "homepage": "https://github.com/TGS963/upscayl",
   "contributors": [
@@ -64,7 +64,7 @@
     "productName": "Upscayl",
     "appId": "org.upscayl.Upscayl",
     "artifactName": "${name}-${version}-${os}.${ext}",
-    "afterSign": "scripts/notarize.js",
+    "afterSign": "./notarize.js",
     "asar": true,
     "asarUnpack": [
       "**/node_modules/sharp/**/*"
@@ -118,7 +118,6 @@
       ]
     },
     "mac": {
-      "type": "distribution",
       "category": "public.app-category.photography",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
