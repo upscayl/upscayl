@@ -24,21 +24,40 @@
   <screenshots>
     <screenshot>
       <caption>Banner</caption>
-      <image>https://raw.githubusercontent.com/upscayl/upscayl/main/1080p_banner.jpg</image>
+      <image>https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/1.png</image>
     </screenshot>
-    <screenshot type="default">
-      <caption>Explainer</caption>
-      <image>
-        https://raw.githubusercontent.com/upscayl/upscayl/main/1080p_explainer.jpg</image>
+    <screenshot>
+      <caption>Science Fiction to Reality</caption>
+      <image>https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/2.png</image>
     </screenshot>
-    <screenshot type="default">
-      <caption>Regular Screenshot</caption>
-      <image>
-        https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/upscayl-desktop.png</image>
+    <screenshot>
+      <caption>5+ Upscaling Modes</caption>
+      <image>https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/3.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Upscale Transparent PNGs</caption>
+      <image>https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/4.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Upscale thousands of images at once</caption>
+      <image>https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/5.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Fully Customizable</caption>
+      <image>https://raw.githubusercontent.com/upscayl/upscayl.github.io/main/static/6.png</image>
     </screenshot>
   </screenshots>
 
   <releases>
+    <release version="v2.9.1" date="2023-10-28">
+      <description>
+        <p>Changes</p>
+        <ul>
+          <li>Updated dependencies ⚡️</li>
+          <li>Squashed bugs</li>
+        </ul>
+      </description>
+    </release>
     <release version="v2.8.5" date="2023-09-21">
       <description>
         <p>Changes</p>
