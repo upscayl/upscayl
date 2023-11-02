@@ -1,0 +1,50 @@
+{
+  "productName": "Upscayl",
+  "appId": "org.upscayl.Upscayl",
+  "afterSign": "./notarize.js",
+  "asar": true,
+  "asarUnpack": ["**/node_modules/sharp/**/*"],
+  "extraFiles": [
+    {
+      "from": "resources/${os}/bin",
+      "to": "resources/bin",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "resources/models",
+      "to": "resources/models",
+      "filter": ["**/*"]
+    }
+  ],
+  "buildVersion": "3.11.23",
+  "mas": {
+    "type": "distribution",
+    "hardenedRuntime": false,
+    "electronLanguages": ["en"],
+    "category": "public.app-category.photography",
+    "entitlements": "resources/entitlements.mas.plist",
+    "entitlementsInherit": "resources/entitlements.mas.plist",
+    "provisioningProfile": "prod.provisionprofile",
+    "mergeASARs": false,
+    "gatekeeperAssess": false,
+    "icon": "build/icon.icns",
+    "x64ArchFiles": "*",
+    "target": [
+      {
+        "target": "mas",
+        "arch": ["universal"]
+      }
+    ]
+  },
+  "mac": {
+    "type": "distribution",
+    "mergeASARs": false,
+    "x64ArchFiles": "*",
+    "provisioningProfile": "prod.provisionprofile",
+    "category": "public.app-category.photography",
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false,
+    "entitlements": "resources/entitlements.mac.plist",
+    "entitlementsInherit": "resources/entitlements.mac.plist"
+  }
+}

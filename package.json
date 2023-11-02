@@ -1,8 +1,13 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "2.9.1",
+  "version": "2.9.3",
   "productName": "Upscayl",
+  "author": {
+    "name": "Nayam Amarshe",
+    "email": "nayam.emikx@aleeas.com",
+    "url": "https://github.com/NayamAmarshe"
+  },
   "homepage": "https://github.com/TGS963/upscayl",
   "contributors": [
     {
@@ -49,7 +54,8 @@
     "dist:pkg": "tsc && npm run build && cross-env DEBUG=* electron-builder build -m pkg",
     "dist:mac": "tsc && npm run build && electron-builder --mac --universal",
     "dist:mac-arm64": "tsc && npm run build && electron-builder --mac --arm64",
-    "dist:mac-mas": "tsc && npm run build && electron-builder --mac mas --universal",
+    "dist:mas": "tsc && npm run build && electron-builder --mac mas --universal",
+    "dist:mas-dev": "tsc && npm run build && electron-builder --mac mas-dev --universal -c mas-dev.json",
     "dist:win": "tsc && npm run build && electron-builder --win",
     "dist:linux": "tsc && npm run build && electron-builder --linux",
     "publish-app": "tsc && npm run build && electron-builder -wlm --publish always",
@@ -66,6 +72,7 @@
     "artifactName": "${name}-${version}-${os}.${ext}",
     "afterSign": "./notarize.js",
     "asar": true,
+    "buildVersion": "23.11.3",
     "asarUnpack": [
       "**/node_modules/sharp/**/*"
     ],
@@ -99,7 +106,9 @@
     ],
     "mas": {
       "hardenedRuntime": false,
-      "type": "distribution",
+      "electronLanguages": [
+        "en"
+      ],
       "category": "public.app-category.photography",
       "entitlements": "resources/entitlements.mas.plist",
       "entitlementsInherit": "resources/entitlements.mas.inherit.plist",
@@ -123,6 +132,7 @@
       "gatekeeperAssess": false,
       "entitlements": "resources/entitlements.mac.plist",
       "entitlementsInherit": "resources/entitlements.mac.plist",
+      "provisioningProfile": "embedded.provisionprofile",
       "mergeASARs": false,
       "target": [
         {

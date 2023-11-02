@@ -2,15 +2,22 @@ import { MessageBoxOptions, dialog } from "electron";
 import { getMainWindow } from "../main-window";
 import { imagePath, setImagePath } from "../utils/config-variables";
 import logit from "../utils/logit";
+import { settings } from "../utils/settings";
 
 const selectFile = async () => {
   const mainWindow = getMainWindow();
 
-  const { canceled, filePaths } = await dialog.showOpenDialog({
+  const { canceled, filePaths, bookmarks } = await dialog.showOpenDialog({
     properties: ["openFile", "multiSelections"],
     title: "Select Image",
     defaultPath: imagePath,
+    securityScopedBookmarks: true,
   });
+
+  if (bookmarks && bookmarks.length > 0) {
+    logit("📁 Bookmarks: ", bookmarks);
+    settings.set("file-bookmarks", bookmarks[0]);
+  }
 
   if (canceled) {
     logit("🚫 File Operation Cancelled");

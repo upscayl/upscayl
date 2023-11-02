@@ -19,11 +19,26 @@ import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
 import sharp from "sharp";
 import { featureFlags } from "../common/feature-flags";
+import { settings } from "./utils/settings";
 
 // INITIALIZATION
 log.initialize({ preload: true });
 sharp.cache(false);
 logit("🚃 App Path: ", app.getAppPath());
+
+// SECURITY SCOPED BOOKMARKS
+const fileBookmarks = settings.get("file-bookmarks", true);
+const folderBookmarks = settings.get("folder-bookmarks", true);
+const customModelsBookmarks = settings.get("custom-models-bookmarks", true);
+if (fileBookmarks) {
+  app.startAccessingSecurityScopedResource(fileBookmarks);
+}
+if (folderBookmarks) {
+  app.startAccessingSecurityScopedResource(folderBookmarks as string);
+}
+if (customModelsBookmarks) {
+  app.startAccessingSecurityScopedResource(customModelsBookmarks as string);
+}
 
 app.on("ready", async () => {
   await prepareNext("./renderer");

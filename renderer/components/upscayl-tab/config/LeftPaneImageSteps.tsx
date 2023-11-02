@@ -9,6 +9,7 @@ import {
   noImageProcessingAtom,
   scaleAtom,
 } from "../../../atoms/userSettingsAtom";
+import { featureFlags } from "@common/feature-flags";
 
 interface IProps {
   progress: string;
@@ -236,10 +237,21 @@ function LeftPaneImageSteps({
         className="animate-step-in"
         data-tooltip-content={outputPath}
         data-tooltip-id="tooltip">
-        <p className="step-heading">Step 3</p>
-        <p className="mb-2 text-sm">
-          Defaults to {!batchMode ? "Image's" : "Folder's"} path
-        </p>
+        <div className="step-heading flex items-center gap-2">
+          <span>Step 3</span>
+          {!outputPath && (
+            <div className="text-xs">
+              <span className="bg-error font-medium uppercase text-error-content rounded-btn px-2">
+                Not selected
+              </span>
+            </div>
+          )}
+        </div>
+        {!batchMode && !featureFlags.APP_STORE_BUILD && (
+          <p className="mb-2 text-sm">
+            Defaults to {!batchMode ? "Image's" : "Folder's"} path
+          </p>
+        )}
         <button className="btn-primary btn" onClick={outputHandler}>
           Set Output Folder
         </button>
@@ -263,7 +275,7 @@ function LeftPaneImageSteps({
         <button
           className="btn-accent btn"
           onClick={upscaylHandler}
-          disabled={progress.length > 0}>
+          disabled={progress.length > 0 || !outputPath}>
           {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
         </button>
       </div>

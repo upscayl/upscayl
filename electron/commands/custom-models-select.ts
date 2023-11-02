@@ -8,16 +8,28 @@ import slash from "../utils/slash";
 import COMMAND from "../constants/commands";
 import getModels from "../utils/get-models";
 import { getMainWindow } from "../main-window";
+import { settings } from "../utils/settings";
 
 const customModelsSelect = async (event, message) => {
   const mainWindow = getMainWindow();
 
   if (!mainWindow) return;
-  const { canceled, filePaths: folderPaths } = await dialog.showOpenDialog({
+  const {
+    canceled,
+    filePaths: folderPaths,
+    bookmarks,
+  } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
     title: "Select Custom Models Folder",
     defaultPath: customModelsFolderPath,
+    securityScopedBookmarks: true,
   });
+
+  if (bookmarks && bookmarks.length > 0) {
+    logit("📁 Bookmarks: ", bookmarks);
+    settings.set("custom-models-bookmarks", bookmarks[0]);
+  }
+
   if (canceled) {
     logit("🚫 Select Custom Models Folder Operation Cancelled");
     return null;

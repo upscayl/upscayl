@@ -245,19 +245,23 @@ function SettingsTab({
       {/* RESET SETTINGS */}
       <ResetSettings />
 
-      <button
-        className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
-        onClick={() => {
-          setShow(true);
-        }}>
-        Introducing Upscayl Cloud
-      </button>
+      {featureFlags.SHOW_UPSCAYL_CLOUD_INFO && (
+        <>
+          <button
+            className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
+            onClick={() => {
+              setShow(true);
+            }}>
+            Introducing Upscayl Cloud
+          </button>
 
-      <UpscaylCloudModal
-        show={show}
-        setShow={setShow}
-        setDontShowCloudModal={setDontShowCloudModal}
-      />
+          <UpscaylCloudModal
+            show={show}
+            setShow={setShow}
+            setDontShowCloudModal={setDontShowCloudModal}
+          />
+        </>
+      )}
     </div>
   );
 }

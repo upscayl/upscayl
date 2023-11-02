@@ -1,0 +1,29 @@
+{
+  "appId": "org.upscayl.Upscayl",
+  "extraFiles": [
+    {
+      "from": "resources/${os}/bin",
+      "to": "resources/bin",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "resources/models",
+      "to": "resources/models",
+      "filter": ["**/*"]
+    }
+  ],
+  "mac": {
+    "type": "development",
+    "identity": null,
+    "mergeASARs": false,
+    "x64ArchFiles": "*"
+  },
+  "masDev": {
+    "type": "development",
+    "artifactName": "${name}_${version}_macos.${ext}",
+    "category": "public.app-category.photography",
+    "hardenedRuntime": false,
+    "entitlements": "resources/entitlements.mas.plist",
+    "entitlementsInherit": "resources/entitlements.mas.plist"
+  }
+}

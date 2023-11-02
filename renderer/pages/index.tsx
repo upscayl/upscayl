@@ -292,7 +292,9 @@ const Home = () => {
       SetImagePath(path);
       var dirname = path.match(/(.*)[\/\\]/)[1] || "";
       logit("📁 Selected Image Directory: ", dirname);
-      setOutputPath(dirname);
+      if (!featureFlags.APP_STORE_BUILD) {
+        setOutputPath(dirname);
+      }
     }
   };
 
@@ -495,17 +497,19 @@ const Home = () => {
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
       <div className={`flex h-screen w-128 flex-col bg-base-100`}>
-        <UpscaylCloudModal
-          show={showCloudModal}
-          setShow={setShowCloudModal}
-          setDontShowCloudModal={setDontShowCloudModal}
-        />
+        {featureFlags.SHOW_UPSCAYL_CLOUD_INFO && (
+          <UpscaylCloudModal
+            show={showCloudModal}
+            setShow={setShowCloudModal}
+            setDontShowCloudModal={setDontShowCloudModal}
+          />
+        )}
         {window.electron.platform === "mac" && (
           <div className="pt-8 mac-titlebar"></div>
         )}
         {/* HEADER */}
         <Header version={version} />
-        {!dontShowCloudModal && !featureFlags.APP_STORE_BUILD && (
+        {!dontShowCloudModal && featureFlags.SHOW_UPSCAYL_CLOUD_INFO && (
           <button
             className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
             onClick={() => {
