@@ -12,9 +12,9 @@ import { getMainWindow } from "../main-window";
  * settings.set("key", value);
  */
 export const settings = {
-  get: (key: string, parse: boolean = false) => {
+  get: (key: string, parse: boolean = false): any => {
     const mainWindow = getMainWindow();
-    if (!mainWindow) return;
+    if (!mainWindow) return null;
     let result = null;
     mainWindow.webContents
       .executeJavaScript(`localStorage.getItem("${key}");`, true)

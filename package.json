@@ -72,7 +72,7 @@
     "artifactName": "${name}-${version}-${os}.${ext}",
     "afterSign": "./notarize.js",
     "asar": true,
-    "buildVersion": "23.11.3",
+    "buildVersion": "23.11.4",
     "asarUnpack": [
       "**/node_modules/sharp/**/*"
     ],

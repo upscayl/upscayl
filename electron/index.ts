@@ -26,20 +26,6 @@ log.initialize({ preload: true });
 sharp.cache(false);
 logit("🚃 App Path: ", app.getAppPath());
 
-// SECURITY SCOPED BOOKMARKS
-const fileBookmarks = settings.get("file-bookmarks", true);
-const folderBookmarks = settings.get("folder-bookmarks", true);
-const customModelsBookmarks = settings.get("custom-models-bookmarks", true);
-if (fileBookmarks) {
-  app.startAccessingSecurityScopedResource(fileBookmarks);
-}
-if (folderBookmarks) {
-  app.startAccessingSecurityScopedResource(folderBookmarks as string);
-}
-if (customModelsBookmarks) {
-  app.startAccessingSecurityScopedResource(customModelsBookmarks as string);
-}
-
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
@@ -58,6 +44,23 @@ app.on("ready", async () => {
 
   log.info("🚀 UPSCAYL EXEC PATH: ", execPath("bin"));
   log.info("🚀 MODELS PATH: ", modelsPath);
+
+  // SECURITY SCOPED BOOKMARKS
+  const fileBookmarks = settings.get("file-bookmarks", true);
+  const folderBookmarks = settings.get("folder-bookmarks", true);
+  const customModelsBookmarks = settings.get("custom-models-bookmarks", true);
+  if (fileBookmarks) {
+    log.info("📁 File Bookmarks: ", fileBookmarks);
+    app.startAccessingSecurityScopedResource(fileBookmarks);
+  }
+  if (folderBookmarks) {
+    log.info("📁 Folder Bookmarks: ", folderBookmarks);
+    app.startAccessingSecurityScopedResource(folderBookmarks);
+  }
+  if (customModelsBookmarks) {
+    log.info("📁 Custom Models Bookmarks: ", customModelsBookmarks);
+    app.startAccessingSecurityScopedResource(customModelsBookmarks);
+  }
 });
 
 // Quit the app once all windows are closed
