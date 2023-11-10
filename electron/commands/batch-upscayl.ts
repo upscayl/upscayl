@@ -39,7 +39,9 @@ const batchUpscayl = async (event, payload) => {
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
   let scale = "4";
-  if (model.includes("x2")) {
+  if (model.includes("x1")) {
+    scale = "1";
+  } else if (model.includes("x2")) {
     scale = "2";
   } else if (model.includes("x3")) {
     scale = "3";

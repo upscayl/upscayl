@@ -44,7 +44,9 @@ const doubleUpscayl = async (event, payload) => {
   const fileName = parse(fullfileName).name;
 
   let initialScale = "4";
-  if (model.includes("x2")) {
+  if (model.includes("x1")) {
+    initialScale = "1";
+  } else if (model.includes("x2")) {
     initialScale = "2";
   } else if (model.includes("x3")) {
     initialScale = "3";
