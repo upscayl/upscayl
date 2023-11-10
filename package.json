@@ -182,6 +182,7 @@
       "icon": "resources/icons/512x512.png"
     },
     "win": {
+      "publisherName": "Upscayl Team",
       "publish": [
         "github"
       ],
