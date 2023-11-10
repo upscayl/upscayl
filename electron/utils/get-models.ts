@@ -1,10 +1,28 @@
 import fs from "fs";
 import logit from "./logit";
-import { MessageBoxOptions, dialog } from "electron";
+import { MessageBoxOptions, app, dialog } from "electron";
+import settings from "electron-settings";
 
-const getModels = (folderPath: string | undefined) => {
+const getModels = async (folderPath: string | undefined) => {
   let models: string[] = [];
   let isValid = false;
+
+  // SECURITY SCOPED BOOKMARKS
+  let closeAccess;
+  const customModelsBookmarks = await settings.get("custom-models-bookmarks");
+  if (customModelsBookmarks) {
+    console.log(
+      "🚀 => file: get-models.ts:18 => customModelsBookmarks:",
+      customModelsBookmarks
+    );
+    try {
+      closeAccess = app.startAccessingSecurityScopedResource(
+        customModelsBookmarks as string
+      );
+    } catch (error) {
+      logit("📁 Custom Models Bookmarks Error: ", error);
+    }
+  }
 
   if (!folderPath) {
     logit("❌ Invalid Custom Model Folder Detected");

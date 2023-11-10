@@ -1,4 +1,4 @@
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 import { Tooltip } from "react-tooltip";
@@ -7,12 +7,13 @@ import { modelsListAtom } from "../../../atoms/modelsListAtom";
 import useLog from "../../hooks/useLog";
 import {
   noImageProcessingAtom,
+  outputPathAtom,
+  progressAtom,
   scaleAtom,
 } from "../../../atoms/userSettingsAtom";
 import { featureFlags } from "@common/feature-flags";
 
 interface IProps {
-  progress: string;
   selectImageHandler: () => Promise<void>;
   selectFolderHandler: () => Promise<void>;
   handleModelChange: (e: any) => void;
@@ -21,7 +22,6 @@ interface IProps {
   batchMode: boolean;
   setBatchMode: React.Dispatch<React.SetStateAction<boolean>>;
   imagePath: string;
-  outputPath: string;
   doubleUpscayl: boolean;
   setDoubleUpscayl: React.Dispatch<React.SetStateAction<boolean>>;
   dimensions: {
@@ -35,7 +35,6 @@ interface IProps {
 }
 
 function LeftPaneImageSteps({
-  progress,
   selectImageHandler,
   selectFolderHandler,
   handleModelChange,
@@ -44,7 +43,6 @@ function LeftPaneImageSteps({
   batchMode,
   setBatchMode,
   imagePath,
-  outputPath,
   doubleUpscayl,
   setDoubleUpscayl,
   dimensions,
@@ -64,6 +62,8 @@ function LeftPaneImageSteps({
   const modelOptions = useAtomValue(modelsListAtom);
   const scale = useAtomValue(scaleAtom);
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
+  const [outputPath, setOutputPath] = useAtom(outputPathAtom);
+  const [progress, setProgress] = useAtom(progressAtom);
 
   const { logit } = useLog();
 
@@ -162,7 +162,11 @@ function LeftPaneImageSteps({
           type="checkbox"
           className="toggle"
           defaultChecked={batchMode}
-          onClick={() => setBatchMode((oldValue) => !oldValue)}></input>
+          onClick={() => {
+            setOutputPath("");
+            setProgress("");
+            setBatchMode((oldValue) => !oldValue);
+          }}></input>
         <p
           className="mr-1 inline-block cursor-help text-sm"
           data-tooltip-id="tooltip"
@@ -182,7 +186,7 @@ function LeftPaneImageSteps({
       </div>
 
       {/* STEP 2 */}
-      <div className="animate-step-in">
+      <div className="animate-step-in group">
         <p className="step-heading">Step 2</p>
         <p className="mb-2 text-sm">Select Model</p>
 
@@ -196,7 +200,7 @@ function LeftPaneImageSteps({
             handleModelChange(e);
             setCurrentModel({ label: e.label, value: e.value });
           }}
-          className="react-select-container active:w-full focus:w-full hover:w-full transition-all"
+          className="react-select-container group-active:w-full focus:w-full group-hover:w-full transition-all"
           classNamePrefix="react-select"
           value={currentModel}
         />
@@ -239,9 +243,9 @@ function LeftPaneImageSteps({
         data-tooltip-id="tooltip">
         <div className="step-heading flex items-center gap-2">
           <span>Step 3</span>
-          {!outputPath && (
+          {!outputPath && featureFlags.APP_STORE_BUILD && (
             <div className="text-xs">
-              <span className="bg-error font-medium uppercase text-error-content rounded-btn px-2">
+              <span className="bg-base-200 font-medium uppercase text-base-content/50 rounded-btn px-2">
                 Not selected
               </span>
             </div>
@@ -274,8 +278,11 @@ function LeftPaneImageSteps({
         )}
         <button
           className="btn-accent btn"
-          onClick={upscaylHandler}
-          disabled={progress.length > 0 || !outputPath}>
+          onClick={
+            progress.length > 0 || !outputPath
+              ? () => alert("Please select an output folder first")
+              : upscaylHandler
+          }>
           {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
         </button>
       </div>

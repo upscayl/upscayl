@@ -16,6 +16,8 @@ import { modelsListAtom } from "../atoms/modelsListAtom";
 import {
   batchModeAtom,
   dontShowCloudModalAtom,
+  outputPathAtom,
+  progressAtom,
   scaleAtom,
 } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
@@ -27,9 +29,9 @@ const Home = () => {
   const [os, setOs] = useState<"linux" | "mac" | "win" | undefined>(undefined);
   const [imagePath, SetImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
-  const [outputPath, setOutputPath] = useState("");
+  const [outputPath, setOutputPath] = useAtom(outputPathAtom);
   const [scaleFactor] = useState(4);
-  const [progress, setProgress] = useState("");
+  const [progress, setProgress] = useAtom(progressAtom);
   const [model, setModel] = useState("realesrgan-x4plus");
   const [loaded, setLoaded] = useState(false);
   const [version, setVersion] = useState("");
@@ -77,7 +79,7 @@ const Home = () => {
         if (batchMode) return;
         alert(
           data.includes("encode")
-            ? "ENCODING ERROR => "
+            ? `ENCODING ERROR: ${data}`
             : "DECODING ERROR => " +
                 "This image is possibly corrupt or not supported by Upscayl, or your GPU drivers are acting funny (Did you check if your GPU is compatible and drivers are alright?). You could try converting the image into another format and upscaling again. Also make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely there's not much we can do to help, sorry."
         );
@@ -175,6 +177,8 @@ const Home = () => {
 
     // CUSTOM FOLDER LISTENER
     window.electron.on(COMMAND.CUSTOM_MODEL_FILES_LIST, (_, data: string[]) => {
+      console.log("🚀 => file: index.tsx:178 => data:", data);
+
       logit(`📜 CUSTOM_MODEL_FILES_LIST: `, data);
       const newModelOptions = data.map((model) => {
         return {
@@ -182,7 +186,10 @@ const Home = () => {
           label: model,
         };
       });
-
+      console.log(
+        "🚀 => file: index.tsx:185 => newModelOptions:",
+        newModelOptions
+      );
       // Add newModelsList to modelOptions and remove duplicates
       const combinedModelOptions = [...modelOptions, ...newModelOptions];
       const uniqueModelOptions = combinedModelOptions.filter(
@@ -190,8 +197,13 @@ const Home = () => {
         (model, index, array) =>
           array.findIndex((t) => t.value === model.value) === index
       );
+      console.log(
+        "🚀 => file: index.tsx:197 => uniqueModelOptions:",
+        uniqueModelOptions
+      );
       setModelOptions(uniqueModelOptions);
     });
+
     if (!localStorage.getItem("upscaylCloudModalShown")) {
       logit("⚙️ upscayl cloud show to true");
       localStorage.setItem("upscaylCloudModalShown", "true");
@@ -210,10 +222,15 @@ const Home = () => {
     }
   }, []);
 
+  // CHECK IF OUTPUT FOLDER IS REMEMBERED
   useEffect(() => {
     const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
-    const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
+    console.log(
+      "🚀 => file: index.tsx:226 => rememberOutputFolder:",
+      rememberOutputFolder
+    );
 
+    const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
     // GET OVERWRITE
     if (!localStorage.getItem("overwrite")) {
       localStorage.setItem("overwrite", JSON.stringify(overwrite));
@@ -223,19 +240,14 @@ const Home = () => {
         setOverwrite(currentlySavedOverwrite === "true");
       }
     }
-
     if (rememberOutputFolder === "true") {
+      logit("🧠 Recalling Output Folder: ", lastOutputFolderPath);
       setOutputPath(lastOutputFolderPath);
     } else {
       setOutputPath("");
       localStorage.removeItem("lastOutputFolderPath");
     }
   }, []);
-
-  useEffect(() => {
-    setProgress("");
-    setOutputPath("");
-  }, [batchMode]);
 
   useEffect(() => {
     if (imagePath.length > 0) {
@@ -523,7 +535,6 @@ const Home = () => {
 
         {selectedTab === 0 && (
           <LeftPaneImageSteps
-            progress={progress}
             selectImageHandler={selectImageHandler}
             selectFolderHandler={selectFolderHandler}
             handleModelChange={handleModelChange}
@@ -532,7 +543,6 @@ const Home = () => {
             batchMode={batchMode}
             setBatchMode={setBatchMode}
             imagePath={imagePath}
-            outputPath={outputPath}
             doubleUpscayl={doubleUpscayl}
             setDoubleUpscayl={setDoubleUpscayl}
             dimensions={dimensions}

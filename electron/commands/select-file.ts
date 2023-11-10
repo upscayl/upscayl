@@ -1,21 +1,37 @@
-import { MessageBoxOptions, dialog } from "electron";
+import { MessageBoxOptions, app, dialog } from "electron";
 import { getMainWindow } from "../main-window";
 import { imagePath, setImagePath } from "../utils/config-variables";
 import logit from "../utils/logit";
-import { settings } from "../utils/settings";
+import settings from "electron-settings";
 
 const selectFile = async () => {
   const mainWindow = getMainWindow();
 
   const { canceled, filePaths, bookmarks } = await dialog.showOpenDialog({
-    properties: ["openFile", "multiSelections"],
+    properties: ["openFile"],
     title: "Select Image",
     defaultPath: imagePath,
     securityScopedBookmarks: true,
+    message: "Select Image to Upscale",
+    filters: [
+      {
+        name: "Images",
+        extensions: [
+          "png",
+          "jpg",
+          "jpeg",
+          "webp",
+          "PNG",
+          "JPG",
+          "JPEG",
+          "WEBP",
+        ],
+      },
+    ],
   });
 
   if (bookmarks && bookmarks.length > 0) {
-    logit("📁 Bookmarks: ", bookmarks);
+    console.log("🚨 Setting Bookmark: ", bookmarks);
     settings.set("file-bookmarks", bookmarks[0]);
   }
 

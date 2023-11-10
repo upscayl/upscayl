@@ -17,7 +17,7 @@ export function SaveOutputFolderToggle({
       </p>
       <input
         type="checkbox"
-        className="toggle-primary toggle"
+        className="toggle"
         checked={rememberOutputFolder}
         onClick={() => {
           setRememberOutputFolder((oldValue) => {

@@ -8,7 +8,7 @@ import slash from "../utils/slash";
 import COMMAND from "../constants/commands";
 import getModels from "../utils/get-models";
 import { getMainWindow } from "../main-window";
-import { settings } from "../utils/settings";
+import settings from "electron-settings";
 
 const customModelsSelect = async (event, message) => {
   const mainWindow = getMainWindow();
@@ -23,11 +23,12 @@ const customModelsSelect = async (event, message) => {
     title: "Select Custom Models Folder",
     defaultPath: customModelsFolderPath,
     securityScopedBookmarks: true,
+    message: "Select Custom Models Folder that is named 'models'",
   });
 
   if (bookmarks && bookmarks.length > 0) {
-    logit("📁 Bookmarks: ", bookmarks);
-    settings.set("custom-models-bookmarks", bookmarks[0]);
+    console.log("🚨 Setting Bookmark: ", bookmarks);
+    await settings.set("custom-models-bookmarks", bookmarks[0]);
   }
 
   if (canceled) {
@@ -52,10 +53,8 @@ const customModelsSelect = async (event, message) => {
       return null;
     }
 
-    mainWindow.webContents.send(
-      COMMAND.CUSTOM_MODEL_FILES_LIST,
-      getModels(customModelsFolderPath)
-    );
+    const models = await getModels(customModelsFolderPath);
+    mainWindow.webContents.send(COMMAND.CUSTOM_MODEL_FILES_LIST, models);
 
     logit("📁 Custom Folder Path: ", customModelsFolderPath);
     return customModelsFolderPath;

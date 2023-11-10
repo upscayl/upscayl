@@ -11,8 +11,8 @@ import { getMainWindow } from "../main-window";
  * // Set a value
  * settings.set("key", value);
  */
-export const settings = {
-  get: (key: string, parse: boolean = false): any => {
+export const localStorage = {
+  get: <T>(key: string, parse: boolean = false): T | null => {
     const mainWindow = getMainWindow();
     if (!mainWindow) return null;
     let result = null;

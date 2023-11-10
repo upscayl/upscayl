@@ -15,11 +15,9 @@ const getModelsList = async (event, payload) => {
     setCustomModelsFolderPath(payload);
 
     logit("📁 Custom Models Folder Path: ", customModelsFolderPath);
+    const models = await getModels(payload);
 
-    mainWindow.webContents.send(
-      COMMAND.CUSTOM_MODEL_FILES_LIST,
-      getModels(payload)
-    );
+    mainWindow.webContents.send(COMMAND.CUSTOM_MODEL_FILES_LIST, models);
   }
 };
 

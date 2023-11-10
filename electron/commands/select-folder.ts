@@ -1,9 +1,22 @@
-import { dialog } from "electron";
+import { app, dialog } from "electron";
 import { folderPath, setFolderPath } from "../utils/config-variables";
 import logit from "../utils/logit";
-import { settings } from "../utils/settings";
+import settings from "electron-settings";
 
 const selectFolder = async (event, message) => {
+  let closeAccess;
+  const folderBookmarks = await settings.get("folder-bookmarks");
+  if (folderBookmarks) {
+    logit("🚨 Folder Bookmarks: ", folderBookmarks);
+    try {
+      closeAccess = app.startAccessingSecurityScopedResource(
+        folderBookmarks as string
+      );
+    } catch (error) {
+      logit("📁 Folder Bookmarks Error: ", error);
+    }
+  }
+
   const {
     canceled,
     filePaths: folderPaths,
@@ -15,8 +28,8 @@ const selectFolder = async (event, message) => {
   });
 
   if (bookmarks && bookmarks.length > 0) {
-    logit("📁 Bookmarks: ", bookmarks);
-    settings.set("folder-bookmarks", bookmarks[0]);
+    console.log("🚨 Setting folder Bookmark: ", bookmarks);
+    await settings.set("folder-bookmarks", bookmarks[0]);
   }
 
   if (canceled) {
