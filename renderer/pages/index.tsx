@@ -582,6 +582,13 @@ const Home = () => {
         onDragOver={(e) => handleDragOver(e)}
         onDragEnter={(e) => handleDragEnter(e)}
         onDragLeave={(e) => handleDragLeave(e)}
+        onDoubleClick={() => {
+          if (batchMode) {
+            selectFolderHandler();
+          } else {
+            selectImageHandler();
+          }
+        }}
         onPaste={(e) => handlePaste(e)}>
         {window.electron.platform === "mac" && (
           <div className="absolute top-0 w-full h-8 mac-titlebar"></div>
