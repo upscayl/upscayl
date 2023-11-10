@@ -79,9 +79,8 @@ const Home = () => {
         if (batchMode) return;
         alert(
           data.includes("encode")
-            ? `ENCODING ERROR: ${data}`
-            : "DECODING ERROR => " +
-                "This image is possibly corrupt or not supported by Upscayl, or your GPU drivers are acting funny (Did you check if your GPU is compatible and drivers are alright?). You could try converting the image into another format and upscaling again. Also make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely there's not much we can do to help, sorry."
+            ? `ENCODING ERROR: ${data}. For troubleshooting, please read the Upscayl Wiki.`
+            : `DECODING ERROR: ${data}. Additional Info: This image is possibly corrupt or not supported by Upscayl, or your GPU drivers are acting funny (PLEASE READ THE UPSCAYL WIKI). You could try converting the image into another format and upscaling again. Also make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortuantely there's not much we can do to help, sorry.`
         );
         resetImagePaths();
       } else if (data.includes("uncaughtException")) {
