@@ -233,7 +233,7 @@
     "react-compare-slider": "^2.2.0",
     "react-select": "^5.7.4",
     "react-tooltip": "^5.18.1",
-    "sharp": "^0.32.5",
+    "sharp": "^0.32.6",
     "tailwind-scrollbar": "^3.0.4",
     "theme-change": "^2.5.0"
   },
