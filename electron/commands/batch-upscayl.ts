@@ -6,6 +6,7 @@ import {
   noImageProcessing,
   outputFolderPath,
   saveOutputFolder,
+  setNoImageProcessing,
   setStopped,
   stopped,
 } from "../utils/config-variables";
@@ -17,8 +18,9 @@ import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../constants/commands";
 import convertAndScale from "../utils/convert-and-scale";
 import DEFAULT_MODELS from "../constants/models";
+import { BatchUpscaylPayload } from "../../common/types/types";
 
-const batchUpscayl = async (event, payload) => {
+const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
   // GET THE MODEL
@@ -35,6 +37,8 @@ const batchUpscayl = async (event, payload) => {
   if (saveOutputFolder === true && outputFolderPath) {
     outputDir = outputFolderPath;
   }
+
+  setNoImageProcessing(payload.noImageProcessing);
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 

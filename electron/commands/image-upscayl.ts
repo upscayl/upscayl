@@ -10,6 +10,7 @@ import {
   overwrite,
   saveOutputFolder,
   setChildProcesses,
+  setNoImageProcessing,
   setOverwrite,
   setStopped,
   stopped,
@@ -22,8 +23,9 @@ import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { parse } from "path";
 import DEFAULT_MODELS from "../constants/models";
 import { getMainWindow } from "../main-window";
+import { ImageUpscaylPayload } from "../../common/types/types";
 
-const imageUpscayl = async (event, payload) => {
+const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
 
   if (!mainWindow) {
@@ -32,12 +34,13 @@ const imageUpscayl = async (event, payload) => {
   }
 
   setOverwrite(payload.overwrite);
+  setNoImageProcessing(payload.noImageProcessing);
 
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
 
-  let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)[1] || "") as string;
+  let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)?.[1] || "") as string;
   let outputDir: string | undefined =
     folderPath || (payload.outputPath as string);
 

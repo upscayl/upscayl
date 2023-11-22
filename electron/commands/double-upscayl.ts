@@ -6,6 +6,7 @@ import {
   noImageProcessing,
   outputFolderPath,
   saveOutputFolder,
+  setNoImageProcessing,
   setStopped,
   stopped,
 } from "../utils/config-variables";
@@ -20,8 +21,9 @@ import { modelsPath } from "../utils/get-resource-paths";
 import logit from "../utils/logit";
 import COMMAND from "../constants/commands";
 import convertAndScale from "../utils/convert-and-scale";
+import { DoubleUpscaylPayload } from "../../common/types/types";
 
-const doubleUpscayl = async (event, payload) => {
+const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
 
@@ -35,6 +37,8 @@ const doubleUpscayl = async (event, payload) => {
   }
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as string;
+
+  setNoImageProcessing(payload.noImageProcessing);
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
