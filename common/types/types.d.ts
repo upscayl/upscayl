@@ -6,6 +6,7 @@ export type ImageUpscaylPayload = {
   gpuId: string;
   saveImageAs: string;
   overwrite: boolean;
+  compression: number;
   noImageProcessing: boolean;
 };
 
@@ -16,6 +17,7 @@ export type DoubleUpscaylPayload = {
   scale: string;
   gpuId: string;
   saveImageAs: string;
+  compression: number;
   noImageProcessing: boolean;
 };
 
@@ -26,5 +28,6 @@ export type BatchUpscaylPayload = {
   gpuId: string;
   saveImageAs: string;
   scale: string;
+  compression: number;
   noImageProcessing: boolean;
 };

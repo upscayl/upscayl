@@ -449,6 +449,7 @@ const Home = () => {
           saveImageAs,
           scale,
           noImageProcessing,
+          compression,
         });
         logit("🏁 DOUBLE_UPSCAYL");
       } else if (batchMode) {
@@ -462,6 +463,7 @@ const Home = () => {
           saveImageAs,
           scale,
           noImageProcessing,
+          compression,
         });
         logit("🏁 FOLDER_UPSCAYL");
       } else {
@@ -475,6 +477,7 @@ const Home = () => {
           scale,
           overwrite,
           noImageProcessing,
+          compression,
         });
         logit("🏁 UPSCAYL");
       }
