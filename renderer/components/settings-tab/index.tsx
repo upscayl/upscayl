@@ -143,17 +143,6 @@ function SettingsTab({
         currentlySavedRememberOutputFolder === "true" ? true : false
       );
     }
-
-    if (!localStorage.getItem("compression")) {
-      logit("⚙️ Setting compression to 100%");
-      localStorage.setItem("compression", JSON.stringify(compression));
-    } else {
-      const currentlySavedCompression = localStorage.getItem("compression");
-      logit("⚙️ Getting compression from localStorage", compression);
-      if (currentlySavedCompression) {
-        setCompression(JSON.parse(currentlySavedCompression));
-      }
-    }
   }, []);
 
   // HANDLERS
@@ -164,7 +153,6 @@ function SettingsTab({
 
   const handleCompressionChange = (e) => {
     setCompression(e.target.value);
-    localStorage.setItem("compression", e.target.value);
   };
 
   const handleGpuIdChange = (e) => {

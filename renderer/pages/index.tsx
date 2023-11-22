@@ -15,6 +15,7 @@ import { logAtom } from "../atoms/logAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 import {
   batchModeAtom,
+  compressionAtom,
   dontShowCloudModalAtom,
   noImageProcessingAtom,
   outputPathAtom,
@@ -42,7 +43,6 @@ const Home = () => {
   const [overwrite, setOverwrite] = useState(false);
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
-  const [compression, setCompression] = useState(0);
   const [gpuId, setGpuId] = useState("");
   const [saveImageAs, setSaveImageAs] = useState("png");
   const [zoomAmount, setZoomAmount] = useState("100%");
@@ -57,6 +57,7 @@ const Home = () => {
 
   // ATOMIC STATES
   const [outputPath, setOutputPath] = useAtom(outputPathAtom);
+  const [compression, setCompression] = useAtom(compressionAtom);
   const [progress, setProgress] = useAtom(progressAtom);
   const [batchMode, setBatchMode] = useAtom(batchModeAtom);
   const [logData, setLogData] = useAtom(logAtom);

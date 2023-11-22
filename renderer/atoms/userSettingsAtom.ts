@@ -24,3 +24,5 @@ export const noImageProcessingAtom = atomWithStorage<boolean>(
   "noImageProcessing",
   false
 );
+
+export const compressionAtom = atomWithStorage<number>("compression", 0);
