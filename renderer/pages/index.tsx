@@ -30,6 +30,7 @@ import {
   DoubleUpscaylPayload,
   ImageUpscaylPayload,
 } from "@common/types/types";
+import { newsAtom } from "@/atoms/newsAtom";
 
 const Home = () => {
   // LOCAL STATES
@@ -67,13 +68,16 @@ const Home = () => {
     dontShowCloudModalAtom
   );
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
+  const [news, setNews] = useAtom(newsAtom);
 
   const { logit } = useLog();
 
   // EFFECTS
   useEffect(() => {
     setVersion(navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1]);
-
+    if (!news) {
+      setNews(navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1]);
+    }
     const handleErrors = (data: string) => {
       if (data.includes("invalid gpu")) {
         alert(
@@ -224,6 +228,10 @@ const Home = () => {
       window.electron.send(COMMAND.GET_MODELS_LIST, customModelsPath);
       logit("🎯 GET_MODELS_LIST: ", customModelsPath);
     }
+  }, []);
+
+  useEffect(() => {
+    // Fetch news
   }, []);
 
   // CHECK IF OUTPUT FOLDER IS REMEMBERED
