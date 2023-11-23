@@ -33,9 +33,11 @@ import {
 import { newsAtom } from "@/atoms/newsAtom";
 
 const Home = () => {
+  const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
+
   // LOCAL STATES
   const [os, setOs] = useState<"linux" | "mac" | "win" | undefined>(undefined);
-  const [imagePath, SetImagePath] = useState("");
+  const [imagePath, setImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
   const [model, setModel] = useState("realesrgan-x4plus");
   const [version, setVersion] = useState("");
@@ -72,12 +74,21 @@ const Home = () => {
 
   const { logit } = useLog();
 
-  // EFFECTS
+  // * EFFECTS
+  // SET CONFIG VARIABLES ON FIRST RUN
   useEffect(() => {
-    setVersion(navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1]);
-    if (!news) {
-      setNews(navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1]);
+    // UPSCAYL VERSION
+    const upscaylVersion = navigator?.userAgent?.match(
+      /Upscayl\/([\d\.]+\d+)/
+    )[1];
+    setVersion(upscaylVersion);
+    // NEWS
+    if (news.seen === false) {
     }
+  }, []);
+
+  // EVENT LISTENERS
+  useEffect(() => {
     const handleErrors = (data: string) => {
       if (data.includes("invalid gpu")) {
         alert(
@@ -99,7 +110,7 @@ const Home = () => {
         resetImagePaths();
       }
     };
-
+    // OS
     window.electron.on(
       COMMAND.OS,
       (_, data: "linux" | "mac" | "win" | undefined) => {
@@ -108,21 +119,19 @@ const Home = () => {
         }
       }
     );
-
     // LOG
     window.electron.on(COMMAND.LOG, (_, data: string) => {
       logit(`🐞 BACKEND REPORTED: `, data);
     });
-
+    // SCALING AND CONVERTING
     window.electron.on(COMMAND.SCALING_AND_CONVERTING, (_, data: string) => {
       setProgress("Processing the image...");
     });
-
+    // UPSCAYL ERROR
     window.electron.on(COMMAND.UPSCAYL_ERROR, (_, data: string) => {
       alert(data);
       resetImagePaths();
     });
-
     // UPSCAYL PROGRESS
     window.electron.on(COMMAND.UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
@@ -135,7 +144,6 @@ const Home = () => {
       handleErrors(data);
       logit(`🚧 UPSCAYL_PROGRESS: `, data);
     });
-
     // FOLDER UPSCAYL PROGRESS
     window.electron.on(COMMAND.FOLDER_UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.includes("Successful")) {
@@ -147,7 +155,6 @@ const Home = () => {
       handleErrors(data);
       logit(`🚧 FOLDER_UPSCAYL_PROGRESS: `, data);
     });
-
     // DOUBLE UPSCAYL PROGRESS
     window.electron.on(COMMAND.DOUBLE_UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
@@ -159,7 +166,6 @@ const Home = () => {
       handleErrors(data);
       logit(`🚧 DOUBLE_UPSCAYL_PROGRESS: `, data);
     });
-
     // UPSCAYL DONE
     window.electron.on(COMMAND.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
@@ -167,14 +173,12 @@ const Home = () => {
       logit("upscaledImagePath: ", data);
       logit(`💯 UPSCAYL_DONE: `, data);
     });
-
     // FOLDER UPSCAYL DONE
     window.electron.on(COMMAND.FOLDER_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledBatchFolderPath(data);
       logit(`💯 FOLDER_UPSCAYL_DONE: `, data);
     });
-
     // DOUBLE UPSCAYL DONE
     window.electron.on(COMMAND.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
@@ -182,11 +186,8 @@ const Home = () => {
       setDoubleUpscaylCounter(0);
       logit(`💯 DOUBLE_UPSCAYL_DONE: `, data);
     });
-
     // CUSTOM FOLDER LISTENER
     window.electron.on(COMMAND.CUSTOM_MODEL_FILES_LIST, (_, data: string[]) => {
-      console.log("🚀 => file: index.tsx:178 => data:", data);
-
       logit(`📜 CUSTOM_MODEL_FILES_LIST: `, data);
       const newModelOptions = data.map((model) => {
         return {
@@ -194,10 +195,6 @@ const Home = () => {
           label: model,
         };
       });
-      console.log(
-        "🚀 => file: index.tsx:185 => newModelOptions:",
-        newModelOptions
-      );
       // Add newModelsList to modelOptions and remove duplicates
       const combinedModelOptions = [...modelOptions, ...newModelOptions];
       const uniqueModelOptions = combinedModelOptions.filter(
@@ -205,43 +202,44 @@ const Home = () => {
         (model, index, array) =>
           array.findIndex((t) => t.value === model.value) === index
       );
-      console.log(
-        "🚀 => file: index.tsx:197 => uniqueModelOptions:",
-        uniqueModelOptions
-      );
       setModelOptions(uniqueModelOptions);
     });
-
-    if (!localStorage.getItem("upscaylCloudModalShown")) {
-      logit("⚙️ upscayl cloud show to true");
-      localStorage.setItem("upscaylCloudModalShown", "true");
-      setShowCloudModal(true);
-    }
   }, []);
 
+  // FETCH CUSTOM MODELS FROM CUSTOM MODELS PATH
   useEffect(() => {
     const customModelsPath = JSON.parse(
       localStorage.getItem("customModelsPath")
     );
-
     if (customModelsPath !== null) {
       window.electron.send(COMMAND.GET_MODELS_LIST, customModelsPath);
       logit("🎯 GET_MODELS_LIST: ", customModelsPath);
     }
   }, []);
 
+  // FETCH NEWS
   useEffect(() => {
-    // Fetch news
+    fetch("/news.json")
+      .then((res) => {
+        console.log("🚀 => file: index.tsx:237 => res:", res);
+        return res.blob();
+      })
+      .then(async (data) => {
+        const version = navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1];
+        const newsData = JSON.parse(await data.text());
+        if (newsData[version]) {
+          console.log(
+            "🚀 => file: index.tsx:244 => newsData[version]:",
+            newsData[version]
+          );
+          setNews(newsData[version]);
+        }
+      });
   }, []);
 
-  // CHECK IF OUTPUT FOLDER IS REMEMBERED
+  // CONFIGURE SAVED OUTPUT PATH
   useEffect(() => {
     const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
-    console.log(
-      "🚀 => file: index.tsx:226 => rememberOutputFolder:",
-      rememberOutputFolder
-    );
-
     const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
     // GET OVERWRITE
     if (!localStorage.getItem("overwrite")) {
@@ -261,26 +259,15 @@ const Home = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (imagePath.length > 0) {
-      logit("🖼 imagePath: ", imagePath);
+  // IMAGE PATH VALIDATION
+  useEffect(() => {}, [imagePath]);
 
-      const extension = imagePath.toLocaleLowerCase().split(".").pop();
-      logit("🔤 Extension: ", extension);
-
-      if (!allowedFileTypes.includes(extension.toLowerCase())) {
-        alert("Please select an image");
-        resetImagePaths();
-      }
-    } else {
-      resetImagePaths();
-    }
-  }, [imagePath]);
-
+  // LOADING STATE
   useEffect(() => {
     setIsLoading(false);
   }, []);
 
+  // * HANDLERS
   const resetImagePaths = () => {
     logit("🔄 Resetting image paths");
 
@@ -291,11 +278,27 @@ const Home = () => {
 
     setProgress("");
 
-    SetImagePath("");
+    setImagePath("");
     setUpscaledImagePath("");
 
     setBatchFolderPath("");
     setUpscaledBatchFolderPath("");
+  };
+
+  // UTILS
+  // CHECK IF IMAGE IS VALID
+  const validateImagePath = (path: string) => {
+    if (path.length > 0) {
+      logit("🖼 imagePath: ", path);
+      const extension = path.toLocaleLowerCase().split(".").pop();
+      logit("🔤 Extension: ", extension);
+      if (!allowedFileTypes.includes(extension.toLowerCase())) {
+        alert("Please select an image");
+        resetImagePaths();
+      }
+    } else {
+      resetImagePaths();
+    }
   };
 
   // HANDLERS
@@ -308,25 +311,21 @@ const Home = () => {
 
   const selectImageHandler = async () => {
     resetImagePaths();
-
     var path = await window.electron.invoke(COMMAND.SELECT_FILE);
-
-    if (path !== null) {
-      logit("🖼 Selected Image Path: ", path);
-      SetImagePath(path);
-      var dirname = path.match(/(.*)[\/\\]/)[1] || "";
-      logit("📁 Selected Image Directory: ", dirname);
-      if (!featureFlags.APP_STORE_BUILD) {
-        setOutputPath(dirname);
-      }
+    if (path === null) return;
+    logit("🖼 Selected Image Path: ", path);
+    setImagePath(path);
+    var dirname = path.match(/(.*)[\/\\]/)[1] || "";
+    logit("📁 Selected Image Directory: ", dirname);
+    if (!featureFlags.APP_STORE_BUILD) {
+      setOutputPath(dirname);
     }
+    validateImagePath(path);
   };
 
   const selectFolderHandler = async () => {
     resetImagePaths();
-
     var path = await window.electron.invoke(COMMAND.SELECT_FOLDER);
-
     if (path !== null) {
       logit("🖼 Selected Folder Path: ", path);
       setBatchFolderPath(path);
@@ -360,7 +359,6 @@ const Home = () => {
     e.preventDefault();
     console.log("drag over");
   };
-
   const openFolderHandler = (e) => {
     logit("📂 OPEN_FOLDER: ", upscaledBatchFolderPath);
     window.electron.send(COMMAND.OPEN_FOLDER, upscaledBatchFolderPath);
@@ -369,7 +367,6 @@ const Home = () => {
   const handleDrop = (e) => {
     e.preventDefault();
     resetImagePaths();
-
     if (
       e.dataTransfer.items.length === 0 ||
       e.dataTransfer.files.length === 0
@@ -378,12 +375,10 @@ const Home = () => {
       alert("Please drag and drop an image");
       return;
     }
-
     const type = e.dataTransfer.items[0].type;
     const filePath = e.dataTransfer.files[0].path;
     const extension = e.dataTransfer.files[0].name.split(".").at(-1);
     logit("⤵️ Dropped file: ", JSON.stringify({ type, filePath, extension }));
-
     if (
       !type.includes("image") ||
       !allowedFileTypes.includes(extension.toLowerCase())
@@ -392,31 +387,28 @@ const Home = () => {
       alert("Please drag and drop an image");
     } else {
       logit("🖼 Setting image path: ", filePath);
-      SetImagePath(filePath);
-
+      setImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       logit("🗂 Setting output path: ", dirname);
       setOutputPath(dirname);
+      validateImagePath(filePath);
     }
   };
 
   const handlePaste = (e) => {
     resetImagePaths();
     e.preventDefault();
-
     const type = e.clipboardData.items[0].type;
     const filePath = e.clipboardData.files[0].path;
     const extension = e.clipboardData.files[0].name.split(".").at(-1);
-
     logit("📋 Pasted file: ", JSON.stringify({ type, filePath, extension }));
-
     if (
       !type.includes("image") &&
       !allowedFileTypes.includes(extension.toLowerCase())
     ) {
       alert("Please drag and drop an image");
     } else {
-      SetImagePath(filePath);
+      setImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       logit("🗂 Setting output path: ", dirname);
       setOutputPath(dirname);
@@ -428,9 +420,7 @@ const Home = () => {
     if (path !== null) {
       logit("🗂 Setting Output Path: ", path);
       setOutputPath(path);
-
       const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
-
       if (rememberOutputFolder) {
         logit("🧠 Remembering Output Folder: ", path);
         localStorage.setItem("lastOutputFolderPath", path);
@@ -444,7 +434,6 @@ const Home = () => {
     logit("🔄 Resetting Upscaled Image Path");
     setUpscaledImagePath("");
     setUpscaledBatchFolderPath("");
-
     if (imagePath !== "" || batchFolderPath !== "") {
       setProgress("Hold on...");
       // Double Upscayl
@@ -500,8 +489,6 @@ const Home = () => {
     logit("🛑 Stopping Upscayl");
     resetImagePaths();
   };
-
-  const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
 
   if (isLoading) {
     return (
