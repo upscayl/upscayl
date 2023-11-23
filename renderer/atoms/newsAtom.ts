@@ -1,6 +1,4 @@
 import { atomWithStorage } from "jotai/utils";
 
-export const newsAtom = atomWithStorage("news", {
-  seen: false,
-  version: null,
-});
+export const newsSeenAtom = atomWithStorage("newsSeen", false);
+export const newsAtom = atomWithStorage("news", []);

@@ -30,7 +30,8 @@ import {
   DoubleUpscaylPayload,
   ImageUpscaylPayload,
 } from "@common/types/types";
-import { newsAtom } from "@/atoms/newsAtom";
+import { NewsModal } from "@/components/NewsModal";
+import { newsAtom, newsSeenAtom } from "@/atoms/newsAtom";
 
 const Home = () => {
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
@@ -57,6 +58,7 @@ const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [showCloudModal, setShowCloudModal] = useState(false);
+  const [showNewsModal, setShowNewsModal] = useState(false);
 
   // ATOMIC STATES
   const [outputPath, setOutputPath] = useAtom(outputPathAtom);
@@ -70,6 +72,7 @@ const Home = () => {
     dontShowCloudModalAtom
   );
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
+  const [newsSeen, setNewsSeen] = useAtom(newsSeenAtom);
   const [news, setNews] = useAtom(newsAtom);
 
   const { logit } = useLog();
@@ -82,12 +85,9 @@ const Home = () => {
       /Upscayl\/([\d\.]+\d+)/
     )[1];
     setVersion(upscaylVersion);
-    // NEWS
-    if (news.seen === false) {
-    }
   }, []);
 
-  // EVENT LISTENERS
+  // ELECTRON EVENT LISTENERS
   useEffect(() => {
     const handleErrors = (data: string) => {
       if (data.includes("invalid gpu")) {
@@ -221,19 +221,19 @@ const Home = () => {
   useEffect(() => {
     fetch("/news.json")
       .then((res) => {
-        console.log("🚀 => file: index.tsx:237 => res:", res);
         return res.blob();
       })
       .then(async (data) => {
-        const version = navigator?.userAgent?.match(/Upscayl\/([\d\.]+\d+)/)[1];
+        const currentVersion = navigator?.userAgent?.match(
+          /Upscayl\/([\d\.]+\d+)/
+        )[1];
         const newsData = JSON.parse(await data.text());
-        if (newsData[version]) {
-          console.log(
-            "🚀 => file: index.tsx:244 => newsData[version]:",
-            newsData[version]
-          );
-          setNews(newsData[version]);
+        if (newsSeen === true) {
+          setShowNewsModal(false);
+          return;
         }
+        setNews(newsData);
+        setShowNewsModal(true);
       });
   }, []);
 
@@ -270,17 +270,13 @@ const Home = () => {
   // * HANDLERS
   const resetImagePaths = () => {
     logit("🔄 Resetting image paths");
-
     setDimensions({
       width: null,
       height: null,
     });
-
     setProgress("");
-
     setImagePath("");
     setUpscaledImagePath("");
-
     setBatchFolderPath("");
     setUpscaledBatchFolderPath("");
   };
@@ -524,6 +520,15 @@ const Home = () => {
             Introducing Upscayl Cloud
           </button>
         )}
+
+        <NewsModal
+          show={showNewsModal}
+          setShow={(val: boolean) => {
+            setShowNewsModal(val);
+            setNews((prev) => ({ ...prev, seen: true }));
+          }}
+          news={news}
+        />
 
         <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
