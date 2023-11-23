@@ -6,6 +6,7 @@ import {
   noImageProcessing,
   outputFolderPath,
   saveOutputFolder,
+  setCompression,
   setNoImageProcessing,
   setStopped,
   stopped,
@@ -39,6 +40,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const saveImageAs = payload.saveImageAs as string;
 
   setNoImageProcessing(payload.noImageProcessing);
+  setCompression(parseInt(payload.compression));
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 

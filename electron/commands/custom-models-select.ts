@@ -9,6 +9,7 @@ import COMMAND from "../constants/commands";
 import getModels from "../utils/get-models";
 import { getMainWindow } from "../main-window";
 import settings from "electron-settings";
+import { featureFlags } from "../../common/feature-flags";
 
 const customModelsSelect = async (event, message) => {
   const mainWindow = getMainWindow();
@@ -26,7 +27,7 @@ const customModelsSelect = async (event, message) => {
     message: "Select Custom Models Folder that is named 'models'",
   });
 
-  if (bookmarks && bookmarks.length > 0) {
+  if (featureFlags.APP_STORE_BUILD && bookmarks && bookmarks.length > 0) {
     console.log("🚨 Setting Bookmark: ", bookmarks);
     await settings.set("custom-models-bookmarks", bookmarks[0]);
   }

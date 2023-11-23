@@ -10,6 +10,7 @@ import {
   overwrite,
   saveOutputFolder,
   setChildProcesses,
+  setCompression,
   setNoImageProcessing,
   setOverwrite,
   setStopped,
@@ -35,6 +36,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
 
   setOverwrite(payload.overwrite);
   setNoImageProcessing(payload.noImageProcessing);
+  setCompression(parseInt(payload.compression));
 
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;

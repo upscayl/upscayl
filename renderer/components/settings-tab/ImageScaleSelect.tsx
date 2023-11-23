@@ -10,10 +10,10 @@ export function ImageScaleSelect({ scale, setScale }: ImageScaleSelectProps) {
     <div>
       <div className="flex flex-row gap-1">
         <p className="text-sm font-medium">IMAGE SCALE</p>
-
+        {/* 
         <p className="badge-primary badge text-[10px] font-medium">
           EXPERIMENTAL
-        </p>
+        </p> */}
       </div>
       <input
         type="range"

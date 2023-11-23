@@ -66,9 +66,16 @@ const convertAndScale = async (
           quality: 100 - (compression === 100 ? 99 : compression),
           chromaSubsampling: "4:4:4",
         }),
-        ...(saveImageAs === "png" && {
-          compressionLevel,
-        }),
+        // For PNGs, compression enables indexed colors automatically,
+        // so we need to warn the user that this will happen
+        // https://sharp.pixelplumbing.com/api-output#png
+        ...(saveImageAs === "png" &&
+          compression > 0 && {
+            ...(compression > 0 && {
+              quality: 100 - (compression === 100 ? 99 : compression),
+            }),
+            compressionLevel: 9,
+          }),
         force: true,
       })
       .withMetadata({

@@ -449,7 +449,7 @@ const Home = () => {
           saveImageAs,
           scale,
           noImageProcessing,
-          compression,
+          compression: compression.toString(),
         });
         logit("🏁 DOUBLE_UPSCAYL");
       } else if (batchMode) {
@@ -463,7 +463,7 @@ const Home = () => {
           saveImageAs,
           scale,
           noImageProcessing,
-          compression,
+          compression: compression.toString(),
         });
         logit("🏁 FOLDER_UPSCAYL");
       } else {
@@ -477,7 +477,7 @@ const Home = () => {
           scale,
           overwrite,
           noImageProcessing,
-          compression,
+          compression: compression.toString(),
         });
         logit("🏁 UPSCAYL");
       }

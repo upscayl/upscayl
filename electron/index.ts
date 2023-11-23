@@ -47,7 +47,7 @@ app.on("ready", async () => {
 
   let closeAccess;
   const folderBookmarks = await settings.get("folder-bookmarks");
-  if (folderBookmarks) {
+  if (featureFlags.APP_STORE_BUILD && folderBookmarks) {
     logit("🚨 Folder Bookmarks: ", folderBookmarks);
     try {
       closeAccess = app.startAccessingSecurityScopedResource(

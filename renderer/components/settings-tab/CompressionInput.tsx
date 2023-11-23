@@ -15,6 +15,13 @@ export function CompressionInput({
           EXPERIMENTAL
         </p>
       </div>
+      {compression > 0 && (
+        <p className="text-xs text-base-content/80">
+          This option can cause color issues with some images. For PNGs, if you
+          use compression, they'll use indexed colors. Keep compression to 0 for
+          PNGs for lossless quality.
+        </p>
+      )}
       <input
         type="range"
         placeholder="Type here"
