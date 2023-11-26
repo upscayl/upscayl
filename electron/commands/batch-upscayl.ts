@@ -28,13 +28,11 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const model = payload.model;
   const gpuId = payload.gpuId;
   const saveImageAs = payload.saveImageAs;
-  // const scale = payload.scale as string;
 
   // GET THE IMAGE DIRECTORY
   let inputDir = payload.batchFolderPath;
   // GET THE OUTPUT DIRECTORY
   let outputDir = payload.outputPath;
-
   if (saveOutputFolder === true && outputFolderPath) {
     outputDir = outputFolderPath;
   }
@@ -44,27 +42,39 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
-  let scale = "4";
+  let initialScale = "4";
   if (model.includes("x1")) {
-    scale = "1";
+    initialScale = "1";
   } else if (model.includes("x2")) {
-    scale = "2";
+    initialScale = "2";
   } else if (model.includes("x3")) {
-    scale = "3";
+    initialScale = "3";
   } else {
-    scale = "4";
+    initialScale = "4";
   }
+  const desiredScale = payload.scale as string;
 
-  outputDir += slash + `upscayl_${model}_x${payload.scale}`;
+  const tempDirectory = outputDir + slash + "upscayl_temp";
+  outputDir +=
+    slash +
+    `upscayl_${model}_x${noImageProcessing ? initialScale : desiredScale}`;
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  // Delete .DS_Store files
+  // Create a folder in the output directory to store the original images
+  if (!fs.existsSync(tempDirectory)) {
+    fs.mkdirSync(tempDirectory, { recursive: true });
+  }
+  // Copy the files from the input directory to the output directory
   fs.readdirSync(inputDir).forEach((file) => {
-    if (file === ".DS_Store") {
-      logit("🗑️ Deleting .DS_Store file");
-      fs.unlinkSync(inputDir + slash + file);
+    if (
+      file.toLocaleLowerCase().endsWith(".png") ||
+      file.toLocaleLowerCase().endsWith(".jpg") ||
+      file.toLocaleLowerCase().endsWith(".jpeg") ||
+      file.toLocaleLowerCase().endsWith(".webp")
+    ) {
+      fs.copyFileSync(inputDir + slash + file, tempDirectory + slash + file);
     }
   });
 
@@ -72,13 +82,13 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const upscayl = spawnUpscayl(
     "realesrgan",
     getBatchArguments(
-      inputDir,
+      tempDirectory,
       outputDir,
       isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
       model,
       gpuId,
       "png",
-      scale
+      initialScale
     ),
     logit
   );
@@ -131,15 +141,15 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         return;
       }
       // Get number of files in output folder
-      const files = fs.readdirSync(inputDir);
+      const files = fs.readdirSync(tempDirectory);
       try {
         files.forEach(async (file) => {
           console.log("Filename: ", file.slice(0, -3));
           await convertAndScale(
-            inputDir + slash + file,
+            tempDirectory + slash + file,
             outputDir + slash + file.slice(0, -3) + "png",
             outputDir + slash + file.slice(0, -3) + saveImageAs,
-            payload.scale,
+            desiredScale,
             saveImageAs,
             onError
           );
