@@ -234,6 +234,10 @@ const Home = () => {
         const markdownData = matter(newsData);
         if (!markdownData) return;
 
+        if (markdownData && markdownData.data.dontShow) {
+          return;
+        }
+
         if (
           markdownData &&
           news &&
