@@ -1,12 +1,20 @@
+import { GrayMatterFile } from "gray-matter";
 import React from "react";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-export const NewsModal = ({ show, setShow, news }) => {
-  console.log("🚀 => file: NewsModal.tsx:4 => news:", news);
-
+export const NewsModal = ({
+  show,
+  setShow,
+  news,
+}: {
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  news: GrayMatterFile<string>;
+}) => {
   return (
     <dialog className={`modal ${show && "modal-open"}`}>
       <div className="modal-box flex flex-col text-center items-center gap-4">
-        <button onClick={() => setShow(false)}>Don't show again</button>
         <button
           className="absolute top-2 right-4 btn btn-circle"
           onClick={() => setShow(false)}>
@@ -33,8 +41,12 @@ export const NewsModal = ({ show, setShow, news }) => {
           </svg>
         </button>
 
-        <div className="h-80">
-          <h2 className="text-2xl font-bold text-center">{news.title}</h2>
+        <div>
+          {news && (
+            <Markdown remarkPlugins={[remarkGfm]} className="prose">
+              {news.content}
+            </Markdown>
+          )}
         </div>
       </div>
 

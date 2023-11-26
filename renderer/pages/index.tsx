@@ -31,7 +31,8 @@ import {
   ImageUpscaylPayload,
 } from "@common/types/types";
 import { NewsModal } from "@/components/NewsModal";
-import { newsAtom, newsSeenAtom } from "@/atoms/newsAtom";
+import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
+import matter from "gray-matter";
 
 const Home = () => {
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
@@ -58,7 +59,6 @@ const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [showCloudModal, setShowCloudModal] = useState(false);
-  const [showNewsModal, setShowNewsModal] = useState(false);
 
   // ATOMIC STATES
   const [outputPath, setOutputPath] = useAtom(outputPathAtom);
@@ -72,8 +72,8 @@ const Home = () => {
     dontShowCloudModalAtom
   );
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
-  const [newsSeen, setNewsSeen] = useAtom(newsSeenAtom);
   const [news, setNews] = useAtom(newsAtom);
+  const [showNewsModal, setShowNewsModal] = useAtom(showNewsModalAtom);
 
   const { logit } = useLog();
 
@@ -219,23 +219,31 @@ const Home = () => {
 
   // FETCH NEWS
   useEffect(() => {
-    fetch("/news.json")
+    fetch("/news.md")
       .then((res) => {
         return res.blob();
       })
       .then(async (data) => {
-        const currentVersion = navigator?.userAgent?.match(
-          /Upscayl\/([\d\.]+\d+)/
-        )[1];
-        const newsData = JSON.parse(await data.text());
-        if (newsSeen === true) {
-          setShowNewsModal(false);
-          return;
+        const newsData = await data.text();
+        const markdownData = matter(newsData);
+        console.log("🚀 => file: index.tsx:229 => markdownData:", markdownData);
+        console.log("🚀 => file: index.tsx:229 => news:", news);
+
+        if (
+          markdownData &&
+          news &&
+          markdownData?.data?.version === news?.data?.version
+        ) {
+          console.log("📰 News is up to date");
+          if (showNewsModal === false) {
+            setShowNewsModal(false);
+          }
+        } else if (markdownData && news) {
+          setNews(matter(newsData));
+          setShowNewsModal(true);
         }
-        setNews(newsData);
-        setShowNewsModal(true);
       });
-  }, []);
+  }, [news]);
 
   // CONFIGURE SAVED OUTPUT PATH
   useEffect(() => {
