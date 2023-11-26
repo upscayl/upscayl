@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs, { rmdir } from "fs";
 import { getMainWindow } from "../main-window";
 import {
   childProcesses,
@@ -61,7 +61,6 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
-
   // Create a folder in the output directory to store the original images
   if (!fs.existsSync(tempDirectory)) {
     fs.mkdirSync(tempDirectory, { recursive: true });
@@ -140,7 +139,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);
         return;
       }
-      // Get number of files in output folder
+
       const files = fs.readdirSync(tempDirectory);
       try {
         files.forEach(async (file) => {
@@ -153,13 +152,25 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             saveImageAs,
             onError
           );
+        });
+        files.forEach(async (file) => {
           // Remove the png file (default) if the saveImageAs is not png
           if (saveImageAs !== "png") {
             fs.unlinkSync(outputDir + slash + file.slice(0, -3) + "png");
           }
         });
         mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);
-        fs.rmdirSync(tempDirectory, { recursive: true });
+        rmdir(
+          tempDirectory,
+          {
+            recursive: true,
+          },
+          (err) => {
+            if (err) {
+              logit("🚫 Error deleting temp folder", err);
+            }
+          }
+        );
       } catch (error) {
         logit("❌ Error processing (scaling and converting) the image.", error);
         upscayl.kill();
@@ -169,7 +180,6 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
               error
           );
-        fs.rmdirSync(tempDirectory, { recursive: true });
       }
     } else {
       upscayl.kill();

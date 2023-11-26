@@ -1,5 +1,5 @@
 import fs from "fs";
-import sharp, { FormatEnum } from "sharp";
+import sharp, { FormatEnum, Metadata } from "sharp";
 import logit from "./logit";
 import { getMainWindow } from "../main-window";
 import { compression } from "./config-variables";
@@ -17,8 +17,13 @@ const convertAndScale = async (
     return;
   }
   const mainWindow = getMainWindow();
+  let originalImage: Metadata | undefined;
 
-  const originalImage = await sharp(originalImagePath).metadata();
+  try {
+    originalImage = await sharp(originalImagePath).metadata();
+  } catch (error) {
+    logit("❌ Error with original Image: ", error);
+  }
 
   fs.access(originalImagePath, fs.constants.F_OK, (err) => {
     if (err) {
