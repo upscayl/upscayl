@@ -159,6 +159,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           }
         });
         mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);
+        fs.rmdirSync(tempDirectory, { recursive: true });
       } catch (error) {
         logit("❌ Error processing (scaling and converting) the image.", error);
         upscayl.kill();
@@ -168,12 +169,12 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
               error
           );
+        fs.rmdirSync(tempDirectory, { recursive: true });
       }
     } else {
       upscayl.kill();
     }
   };
-
   upscayl.process.stderr.on("data", onData);
   upscayl.process.on("error", onError);
   upscayl.process.on("close", onClose);
