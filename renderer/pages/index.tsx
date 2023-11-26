@@ -219,12 +219,13 @@ const Home = () => {
 
   // FETCH NEWS
   useEffect(() => {
-    fetch("/news.md")
+    fetch("https://raw.githubusercontent.com/upscayl/upscayl/main/news.md")
       .then((res) => {
         return res.blob();
       })
       .then(async (data) => {
         const newsData = await data.text();
+        if (!newsData) return;
         const markdownData = matter(newsData);
         console.log("🚀 => file: index.tsx:229 => markdownData:", markdownData);
         console.log("🚀 => file: index.tsx:229 => news:", news);
