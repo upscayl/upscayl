@@ -219,16 +219,20 @@ const Home = () => {
 
   // FETCH NEWS
   useEffect(() => {
-    fetch("https://raw.githubusercontent.com/upscayl/upscayl/main/news.md")
+    fetch("https://raw.githubusercontent.com/upscayl/upscayl/main/news.md", {
+      cache: "no-cache",
+    })
       .then((res) => {
-        return res.blob();
+        return res.text();
       })
-      .then(async (data) => {
-        const newsData = await data.text();
-        if (!newsData) return;
+      .then((result) => {
+        const newsData = result;
+        if (!newsData) {
+          console.log("📰 Could not fetch news data");
+          return;
+        }
         const markdownData = matter(newsData);
-        console.log("🚀 => file: index.tsx:229 => markdownData:", markdownData);
-        console.log("🚀 => file: index.tsx:229 => news:", news);
+        if (!markdownData) return;
 
         if (
           markdownData &&
@@ -239,7 +243,7 @@ const Home = () => {
           if (showNewsModal === false) {
             setShowNewsModal(false);
           }
-        } else if (markdownData && news) {
+        } else if (markdownData) {
           setNews(matter(newsData));
           setShowNewsModal(true);
         }
