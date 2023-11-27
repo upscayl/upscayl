@@ -92,19 +92,22 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       )
     );
   } else {
-    logit("✅ Upscayl Variables: ", {
-      model,
-      gpuId,
-      saveImageAs,
-      inputDir,
-      outputDir,
-      fullfileName,
-      fileName,
-      initialScale: initialScale,
-      desiredScale,
-      outFile,
-      compression,
-    });
+    logit(
+      "✅ Upscayl Variables: ",
+      JSON.stringify({
+        model,
+        gpuId,
+        saveImageAs,
+        inputDir,
+        outputDir,
+        fullfileName,
+        fileName,
+        initialScale: initialScale,
+        desiredScale,
+        outFile,
+        compression,
+      })
+    );
     const upscayl = spawnUpscayl(
       "realesrgan",
       getSingleImageArguments(

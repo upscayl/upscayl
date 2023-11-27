@@ -62,7 +62,13 @@ export function setChildProcesses(value: {
   kill: () => boolean;
 }): void {
   childProcesses.push(value);
-  logit("👶 Updating Child Processes: ", childProcesses);
+  logit(
+    "👶 Updating Child Processes: ",
+    JSON.stringify({
+      binary: childProcesses[0].process.spawnfile,
+      args: childProcesses[0].process.spawnargs,
+    })
+  );
 }
 
 export function setNoImageProcessing(value: boolean): void {
