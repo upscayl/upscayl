@@ -137,6 +137,17 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         logit("🚫 Skipping scaling and converting");
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);
+        rmdir(
+          tempDirectory,
+          {
+            recursive: true,
+          },
+          (err) => {
+            if (err) {
+              logit("🚫 Error deleting temp folder", err);
+            }
+          }
+        );
         return;
       }
 
