@@ -17,7 +17,15 @@ body:
   attributes: 
     label: Paste the logs
     description: 💥 Paste the logs below ([Guide](https://github.com/upscayl/upscayl/wiki/Guide#logs))
-    render: sh
+    value: |
+      <details><summary>Logs</summary>
+      
+      ```sh
+      <!-- 📃 PASTE THE LOG BELOW THIS LINE! -->
+      
+      ```
+      
+      </details>
   validations:
     required: true
     
