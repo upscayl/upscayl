@@ -219,39 +219,43 @@ const Home = () => {
 
   // FETCH NEWS
   useEffect(() => {
-    fetch("https://raw.githubusercontent.com/upscayl/upscayl/main/news.md", {
-      cache: "no-cache",
-    })
-      .then((res) => {
-        return res.text();
+    // TODO: Disable on no internet
+    try {
+      return;
+      fetch("https://raw.githubusercontent.com/upscayl/upscayl/main/news.md", {
+        cache: "no-cache",
       })
-      .then((result) => {
-        const newsData = result;
-        if (!newsData) {
-          console.log("📰 Could not fetch news data");
-          return;
-        }
-        const markdownData = matter(newsData);
-        if (!markdownData) return;
-
-        if (markdownData && markdownData.data.dontShow) {
-          return;
-        }
-
-        if (
-          markdownData &&
-          news &&
-          markdownData?.data?.version === news?.data?.version
-        ) {
-          console.log("📰 News is up to date");
-          if (showNewsModal === false) {
-            setShowNewsModal(false);
+        .then((res) => {
+          return res.text();
+        })
+        .then((result) => {
+          const newsData = result;
+          if (!newsData) {
+            console.log("📰 Could not fetch news data");
+            return;
           }
-        } else if (markdownData) {
-          setNews(matter(newsData));
-          setShowNewsModal(true);
-        }
-      });
+          const markdownData = matter(newsData);
+          if (!markdownData) return;
+          if (markdownData && markdownData.data.dontShow) {
+            return;
+          }
+          if (
+            markdownData &&
+            news &&
+            markdownData?.data?.version === news?.data?.version
+          ) {
+            console.log("📰 News is up to date");
+            if (showNewsModal === false) {
+              setShowNewsModal(false);
+            }
+          } else if (markdownData) {
+            setNews(matter(newsData));
+            setShowNewsModal(true);
+          }
+        });
+    } catch (error) {
+      console.log("Could not fetch Upscayl News");
+    }
   }, [news]);
 
   // CONFIGURE SAVED OUTPUT PATH

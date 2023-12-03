@@ -2,9 +2,9 @@
   "productName": "Upscayl",
   "appId": "org.upscayl.Upscayl",
   "afterSign": "./notarize.js",
-  "buildVersion": "23.11.5",
+  "buildVersion": "23.12.03",
   "asar": true,
-  "asarUnpack": ["**/node_modules/sharp/**/*"],
+  "asarUnpack": ["**/node_modules/sharp/**/*", "**/node_modules/@img/**/*"],
   "extraFiles": [
     {
       "from": "resources/${os}/bin",
@@ -25,6 +25,8 @@
     "entitlements": "resources/entitlements.mas.plist",
     "entitlementsInherit": "resources/entitlements.mas.inherit.plist",
     "provisioningProfile": "embedded.provisionprofile",
+    "icon": "build/icon.icns",
+    "x64ArchFiles": "*",
     "target": [
       {
         "target": "mas",

@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "2.9.4",
+  "version": "2.9.5",
   "productName": "Upscayl",
   "author": {
     "name": "Nayam Amarshe",
@@ -232,6 +232,8 @@
     "firebase": "^10.3.0",
     "gray-matter": "^4.0.3",
     "jotai": "^2.2.2",
+    "node-addon-api": "^7.0.0",
+    "node-gyp": "^10.0.1",
     "react-compare-slider": "^2.2.0",
     "react-markdown": "^9.0.1",
     "react-select": "^5.7.4",
@@ -242,6 +244,6 @@
     "theme-change": "^2.5.0"
   },
   "volta": {
-    "node": "16.17.0"
+    "node": "18.17.0"
   }
 }

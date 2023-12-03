@@ -54,26 +54,18 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   }
   const desiredScale = payload.scale as string;
 
-  const tempDirectory = outputDir + slash + "upscayl_temp";
   outputDir +=
     slash +
     `upscayl_${model}_x${noImageProcessing ? initialScale : desiredScale}`;
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
-  // Create a folder in the output directory to store the original images
-  if (!fs.existsSync(tempDirectory)) {
-    fs.mkdirSync(tempDirectory, { recursive: true });
-  }
-  // Copy the files from the input directory to the output directory
+
+  // Delete .DS_Store files
   fs.readdirSync(inputDir).forEach((file) => {
-    if (
-      file.toLocaleLowerCase().endsWith(".png") ||
-      file.toLocaleLowerCase().endsWith(".jpg") ||
-      file.toLocaleLowerCase().endsWith(".jpeg") ||
-      file.toLocaleLowerCase().endsWith(".webp")
-    ) {
-      fs.copyFileSync(inputDir + slash + file, tempDirectory + slash + file);
+    if (file === ".DS_Store") {
+      logit("🗑️ Deleting .DS_Store file");
+      fs.unlinkSync(inputDir + slash + file);
     }
   });
 
@@ -81,7 +73,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const upscayl = spawnUpscayl(
     "realesrgan",
     getBatchArguments(
-      tempDirectory,
+      inputDir,
       outputDir,
       isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
       model,
@@ -137,51 +129,28 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         logit("🚫 Skipping scaling and converting");
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);
-        rmdir(
-          tempDirectory,
-          {
-            recursive: true,
-          },
-          (err) => {
-            if (err) {
-              logit("🚫 Error deleting temp folder", err);
-            }
-          }
-        );
         return;
       }
 
-      const files = fs.readdirSync(tempDirectory);
+      const files = fs.readdirSync(inputDir);
       try {
         files.forEach(async (file) => {
           console.log("Filename: ", file.slice(0, -3));
           await convertAndScale(
-            tempDirectory + slash + file,
+            inputDir + slash + file,
             outputDir + slash + file.slice(0, -3) + "png",
             outputDir + slash + file.slice(0, -3) + saveImageAs,
             desiredScale,
             saveImageAs,
             onError
           );
-        });
-        files.forEach(async (file) => {
           // Remove the png file (default) if the saveImageAs is not png
           if (saveImageAs !== "png") {
+            logit("Removing output PNG");
             fs.unlinkSync(outputDir + slash + file.slice(0, -3) + "png");
           }
         });
         mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);
-        rmdir(
-          tempDirectory,
-          {
-            recursive: true,
-          },
-          (err) => {
-            if (err) {
-              logit("🚫 Error deleting temp folder", err);
-            }
-          }
-        );
       } catch (error) {
         logit("❌ Error processing (scaling and converting) the image.", error);
         upscayl.kill();
