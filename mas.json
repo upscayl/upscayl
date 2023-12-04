@@ -2,7 +2,7 @@
   "productName": "Upscayl",
   "appId": "org.upscayl.Upscayl",
   "afterSign": "./notarize.js",
-  "buildVersion": "23.12.03",
+  "buildVersion": "23.12.04",
   "asar": true,
   "asarUnpack": ["**/node_modules/sharp/**/*", "**/node_modules/@img/**/*"],
   "extraFiles": [

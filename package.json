@@ -232,8 +232,6 @@
     "firebase": "^10.3.0",
     "gray-matter": "^4.0.3",
     "jotai": "^2.2.2",
-    "node-addon-api": "^7.0.0",
-    "node-gyp": "^10.0.1",
     "react-compare-slider": "^2.2.0",
     "react-markdown": "^9.0.1",
     "react-select": "^5.7.4",
