@@ -56,7 +56,7 @@ body:
 - type: input
   attributes:
     label: OS Version
-    description: What's the version of your operating system? (Example: Ubuntu 22.04, MacOS Monterey or Windows 10)
+    description: "What's the version of your operating system? (Example: Ubuntu 22.04, MacOS Monterey or Windows 10)"
   validations:
     required: true
 
