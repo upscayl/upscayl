@@ -37,15 +37,30 @@ body:
 
 - type: input
   attributes:
-    label: Version/Commit Hash
-    description: ✍️ What version of Upscayl did you use?
+    label: Version (or commit hash)
+    description: ✍️ What version of Upscayl did you use? If you used Mac App Store version, please mention it!
+  validations:
+    required: true
+
+- type: dropdown
+  attributes:
+    label: Select your Operating System
+    description: What operating system do you use?
+    options: ['Linux', 'MacOS', 'Windows']
+  validations:
+    required: true
+
+- type: input
+  attributes:
+    label: OS Version
+    description: What's the version of your operating system? Example: Ubuntu 22.04, MacOS Monterey or Windows 10 
   validations:
     required: true
     
 - type: input
   attributes:
-    label: OS Specifics
-    description: 📝 Please write your GPU name, your OS name and your OS version
+    label: GPU Name
+    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop.
   validations:
     required: true
     
