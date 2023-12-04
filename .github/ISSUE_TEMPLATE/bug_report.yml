@@ -46,7 +46,10 @@ body:
   attributes:
     label: Select your Operating System
     description: What operating system do you use?
-    options: ['Linux', 'MacOS', 'Windows']
+    options:
+      - Linux
+      - MacOS
+      - Windows
   validations:
     required: true
 
