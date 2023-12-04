@@ -12,18 +12,19 @@ const autoUpdate = (event: UpdateDownloadedEvent) => {
     detail:
       "A new version has been downloaded. Restart the application to apply the updates.",
   };
+
+  const dialogResponse = dialog.showMessageBoxSync(dialogOpts);
+
   logit("✅ Update Downloaded");
-  dialog.showMessageBox(dialogOpts).then((returnValue) => {
-    if (returnValue.response === 0) {
-      autoUpdater.quitAndInstall();
-    } else if (returnValue.response === 2) {
-      shell.openExternal(
-        "https://github.com/upscayl/upscayl/releases/tag/v" + event.version
-      );
-    } else {
-      logit("🚫 Update Installation Cancelled");
-    }
-  });
+  if (dialogResponse === 0) {
+    autoUpdater.quitAndInstall();
+  } else if (dialogResponse === 2) {
+    shell.openExternal(
+      "https://github.com/upscayl/upscayl/releases/tag/v" + event.version
+    );
+  } else {
+    logit("🚫 Update Installation Cancelled");
+  }
 };
 
 export default autoUpdate;
