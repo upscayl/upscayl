@@ -13,13 +13,6 @@ body:
       - label: I have tried [setting my GPU ID](https://github.com/upscayl/upscayl/wiki/Guide#gpu-id).
         required: false
       - label: I am using Windows and I've tried [common troubleshooting steps](https://github.com/upscayl/upscayl/wiki/Troubleshooting).
-- type: textarea
-  attributes: 
-    label: Paste the logs
-    description: 💥 Paste the logs below ([Guide](https://github.com/upscayl/upscayl/wiki/Guide#logs))
-    render: sh
-  validations:
-    required: true
     
 - type: textarea
   attributes: 
@@ -78,3 +71,11 @@ body:
   attributes:
     label: Screenshots
     description: 🤳 Got screenshots?
+
+- type: textarea
+  attributes: 
+    label: Paste the logs
+    description: 💥 Paste the logs below ([Guide](https://github.com/upscayl/upscayl/wiki/Guide#logs))
+    render: sh
+  validations:
+    required: true
