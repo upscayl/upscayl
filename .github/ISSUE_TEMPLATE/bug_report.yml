@@ -56,7 +56,7 @@ body:
 - type: input
   attributes:
     label: GPU Name
-    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop.
+    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, STOP and read the third bullet point of the FAQ. 
   validations:
     required: true
     
