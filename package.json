@@ -197,8 +197,7 @@
       "renderer/out"
     ],
     "publish": {
-      "provider": "github",
-      "releaseType": "release"
+      "provider": "github"
     }
   },
   "devDependencies": {
