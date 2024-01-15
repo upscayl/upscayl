@@ -49,7 +49,7 @@ jobs:
           echo -n "$PROVISION_PROFILE" | base64 --decode > embedded.provisionprofile
           npm install --platform=darwin --arch=x64 sharp
           npm rebuild --platform=darwin --arch=arm64 sharp
-          npm run publish-mac-app
+          npm run publish-mac-universal-app
 
   windows:
     runs-on: windows-latest
