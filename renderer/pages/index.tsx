@@ -604,7 +604,6 @@ const Home = () => {
         {window.electron.platform === "mac" && (
           <div className="absolute top-0 w-full h-8 mac-titlebar"></div>
         )}
-
         {progress.length > 0 &&
         upscaledImagePath.length === 0 &&
         upscaledBatchFolderPath.length === 0 ? (
@@ -656,7 +655,7 @@ const Home = () => {
         {batchMode &&
           upscaledBatchFolderPath.length === 0 &&
           batchFolderPath.length > 0 && (
-            <p className="select-none text-neutral-50">
+            <p className="select-none text-base-content">
               <span className="font-bold">Selected folder:</span>{" "}
               {batchFolderPath}
             </p>
@@ -665,7 +664,7 @@ const Home = () => {
         {/* BATCH UPSCALE DONE INFO */}
         {batchMode && upscaledBatchFolderPath.length > 0 && (
           <>
-            <p className="select-none py-4 font-bold text-neutral-50">
+            <p className="select-none py-4 font-bold text-base-content">
               All done!
             </p>
             <button
