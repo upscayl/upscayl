@@ -187,7 +187,8 @@
         "github"
       ],
       "target": [
-        "nsis"
+        "nsis",
+        "zip"
       ],
       "icon": "build/icon.png"
     },

@@ -169,7 +169,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         try {
           await convertAndScale(
             inputDir + slash + fullfileName,
-            outFile,
+            isAlpha ? outFile + ".png" : outFile,
             outFile,
             desiredScale,
             saveImageAs,
