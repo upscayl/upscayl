@@ -13,13 +13,6 @@ body:
       - label: I have tried [setting my GPU ID](https://github.com/upscayl/upscayl/wiki/Guide#gpu-id).
         required: false
       - label: I am using Windows and I've tried [common troubleshooting steps](https://github.com/upscayl/upscayl/wiki/Troubleshooting).
-- type: textarea
-  attributes: 
-    label: Paste the logs
-    description: 💥 Paste the logs below ([Guide](https://github.com/upscayl/upscayl/wiki/Guide#logs))
-    render: sh
-  validations:
-    required: true
     
 - type: textarea
   attributes: 
@@ -63,7 +56,7 @@ body:
 - type: input
   attributes:
     label: GPU Name
-    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop.
+    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, STOP and read the third bullet point of the FAQ. 
   validations:
     required: true
     
@@ -78,3 +71,11 @@ body:
   attributes:
     label: Screenshots
     description: 🤳 Got screenshots?
+
+- type: textarea
+  attributes: 
+    label: Paste the logs
+    description: 💥 Paste the logs below ([Guide](https://github.com/upscayl/upscayl/wiki/Guide#logs))
+    render: sh
+  validations:
+    required: true
