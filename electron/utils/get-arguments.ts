@@ -1,4 +1,5 @@
 import { getPlatform } from "./get-device-specs";
+import { ImageFormat } from "./types";
 const slash: string = getPlatform() === "win" ? "\\" : "/";
 
 export const getSingleImageArguments = (
@@ -9,7 +10,7 @@ export const getSingleImageArguments = (
   model: string,
   scale: any,
   gpuId: string,
-  saveImageAs: string
+  saveImageAs: ImageFormat
 ) => {
   return [
     "-i",
@@ -37,7 +38,7 @@ export const getSingleImageSharpenArguments = (
   model: string,
   scale: any,
   gpuId: string,
-  saveImageAs: string
+  saveImageAs: ImageFormat
 ) => {
   return [
     "-i",
@@ -63,7 +64,7 @@ export const getDoubleUpscaleArguments = (
   modelsPath: string,
   model: string,
   gpuId: string,
-  saveImageAs: string,
+  saveImageAs: ImageFormat,
   scale: string
 ) => {
   return [
@@ -90,7 +91,7 @@ export const getDoubleUpscaleSecondPassArguments = (
   modelsPath: string,
   model: string,
   gpuId: string,
-  saveImageAs: string,
+  saveImageAs: ImageFormat,
   scale: string
 ) => {
   return [
@@ -117,7 +118,7 @@ export const getBatchArguments = (
   modelsPath: string,
   model: string,
   gpuId: string,
-  saveImageAs: string,
+  saveImageAs: ImageFormat,
   scale: string
 ) => {
   return [

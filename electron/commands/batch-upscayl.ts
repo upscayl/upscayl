@@ -74,7 +74,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
       model,
       gpuId,
-      "png",
+      saveImageAs,
       initialScale
     ),
     logit
@@ -138,7 +138,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           console.log("Filename: ", removeFileExtension(file));
           await convertAndScale(
             inputDir + slash + file,
-            `${outputFolderPath}${slash}${removeFileExtension(file)}.png`,
+            `${outputFolderPath}${slash}${removeFileExtension(
+              file
+            )}.${saveImageAs}`,
             `${outputFolderPath}/${removeFileExtension(file)}.${saveImageAs}`,
             desiredScale,
             saveImageAs,
