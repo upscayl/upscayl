@@ -141,18 +141,13 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             `${outputFolderPath}${slash}${removeFileExtension(
               file
             )}.${saveImageAs}`,
-            `${outputFolderPath}/${removeFileExtension(file)}.${saveImageAs}`,
+            `${outputFolderPath}${slash}${removeFileExtension(
+              file
+            )}.${saveImageAs}`,
             desiredScale,
             saveImageAs,
             onError
           );
-          // Remove the png file (default) if the saveImageAs is not png
-          if (saveImageAs !== "png") {
-            logit("Removing output PNG");
-            fs.unlinkSync(
-              `${outputFolderPath}${slash}${removeFileExtension(file)}.png`
-            );
-          }
         });
         mainWindow.webContents.send(
           COMMAND.FOLDER_UPSCAYL_DONE,
