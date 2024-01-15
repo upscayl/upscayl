@@ -220,9 +220,9 @@ const Home = () => {
 
   // FETCH NEWS
   useEffect(() => {
-    // TODO: Disable on no internet
+    // TODO: ADD AN ABOUT TAB
+    if (window && window.navigator.onLine === false) return;
     try {
-      return;
       fetch("https://raw.githubusercontent.com/upscayl/upscayl/main/news.md", {
         cache: "no-cache",
       })
@@ -237,7 +237,7 @@ const Home = () => {
           }
           const markdownData = matter(newsData);
           if (!markdownData) return;
-          if (markdownData && markdownData.data.dontShow) {
+          if (markdownData && !markdownData.data.dontShow) {
             return;
           }
           if (
