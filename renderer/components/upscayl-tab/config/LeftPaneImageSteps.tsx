@@ -12,6 +12,7 @@ import {
   scaleAtom,
 } from "../../../atoms/userSettingsAtom";
 import { featureFlags } from "@common/feature-flags";
+import getModelScale from "@common/check-model-scale";
 
 interface IProps {
   selectImageHandler: () => Promise<void>;
@@ -123,16 +124,7 @@ function LeftPaneImageSteps({
     let singleScale = parseInt(scale);
 
     if (noImageProcessing) {
-      let initialScale = 4;
-      if (model.includes("x1")) {
-        initialScale = 1;
-      } else if (model.includes("x2")) {
-        initialScale = 2;
-      } else if (model.includes("x3")) {
-        initialScale = 3;
-      } else {
-        initialScale = 4;
-      }
+      let initialScale = parseInt(getModelScale(model));
       doubleScale = initialScale * initialScale;
       singleScale = initialScale;
     }

@@ -24,6 +24,7 @@ import DEFAULT_MODELS from "../constants/models";
 import { getMainWindow } from "../main-window";
 import { ImageUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
+import getModelScale from "../../common/check-model-scale";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -55,16 +56,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
 
-  let initialScale = "4";
-  if (model.includes("x1")) {
-    initialScale = "1";
-  } else if (model.includes("x2")) {
-    initialScale = "2";
-  } else if (model.includes("x3")) {
-    initialScale = "3";
-  } else {
-    initialScale = "4";
-  }
+  let initialScale = getModelScale(model);
 
   const desiredScale = payload.scale;
 

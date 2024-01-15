@@ -21,6 +21,7 @@ import convertAndScale from "../utils/convert-and-scale";
 import DEFAULT_MODELS from "../constants/models";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
+import getModelScale from "../../common/check-model-scale";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -43,16 +44,8 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
-  let initialScale = "4";
-  if (model.includes("x1")) {
-    initialScale = "1";
-  } else if (model.includes("x2")) {
-    initialScale = "2";
-  } else if (model.includes("x3")) {
-    initialScale = "3";
-  } else {
-    initialScale = "4";
-  }
+  let initialScale = getModelScale(model);
+
   const desiredScale = payload.scale as string;
 
   outputDir +=

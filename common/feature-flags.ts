@@ -4,6 +4,6 @@ type FeatureFlags = {
 };
 
 export const featureFlags: FeatureFlags = {
-  APP_STORE_BUILD: false,
+  APP_STORE_BUILD: true,
   SHOW_UPSCAYL_CLOUD_INFO: false,
 };

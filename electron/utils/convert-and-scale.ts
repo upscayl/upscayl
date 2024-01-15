@@ -82,6 +82,12 @@ const convertAndScale = async (
             }),
             compressionLevel: 9,
           }),
+        ...(saveImageAs === "webp" && {
+          quality: 100 - (compression === 100 ? 99 : compression),
+          alphaQuality: 100,
+          lossless: compression === 0,
+          smartSubsample: true,
+        }),
         force: true,
       })
       .withMetadata({

@@ -399,7 +399,7 @@ const Home = () => {
       setImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       logit("🗂 Setting output path: ", dirname);
-      setOutputPath(dirname);
+      if (!featureFlags.APP_STORE_BUILD) setOutputPath(dirname);
       validateImagePath(filePath);
     }
   };
