@@ -166,9 +166,6 @@
       ]
     },
     "linux": {
-      "publish": [
-        "github"
-      ],
       "target": [
         "AppImage",
         "zip",
@@ -183,9 +180,6 @@
     },
     "win": {
       "publisherName": "Upscayl Team",
-      "publish": [
-        "github"
-      ],
       "target": [
         "nsis",
         "zip"
@@ -201,7 +195,11 @@
     "files": [
       "export",
       "renderer/out"
-    ]
+    ],
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
+    }
   },
   "devDependencies": {
     "@electron/notarize": "^2.1.0",
