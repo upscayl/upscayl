@@ -22,6 +22,7 @@ const autoUpdate = (event: UpdateDownloadedEvent) => {
     shell.openExternal(
       "https://github.com/upscayl/upscayl/releases/tag/v" + event.version
     );
+    dialog.showMessageBoxSync(dialogOpts);
   } else {
     logit("🚫 Update Installation Cancelled");
   }
