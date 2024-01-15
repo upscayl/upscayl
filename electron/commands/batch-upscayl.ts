@@ -1,10 +1,9 @@
-import fs, { rmdir } from "fs";
+import fs from "fs";
 import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   customModelsFolderPath,
   noImageProcessing,
-  outputFolderPath,
   saveOutputFolder,
   setCompression,
   setNoImageProcessing,
