@@ -42,6 +42,8 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as ImageFormat;
+  console.log("🚀 => saveImageAs:", saveImageAs);
+
   const overwrite = payload.overwrite as boolean;
 
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)?.[1] || "") as string;
@@ -106,12 +108,12 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       getSingleImageArguments(
         inputDir,
         fullfileName,
-        removeFileExtension(outFile) + ".png",
+        outFile,
         isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
         model,
         initialScale,
         gpuId,
-        "png"
+        saveImageAs
       ),
       logit
     );
@@ -167,23 +169,23 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         try {
           await convertAndScale(
             inputDir + slash + fullfileName,
-            removeFileExtension(outFile) + ".png",
+            outFile,
             outFile,
             desiredScale,
             saveImageAs,
             onError
           );
           // Remove the png file (default) if the saveImageAs is not png
-          fs.access(
-            removeFileExtension(outFile) + ".png",
-            fs.constants.F_OK,
-            (err) => {
-              if (!err && saveImageAs !== "png") {
-                logit("🗑 Removing png file");
-                fs.unlinkSync(removeFileExtension(outFile) + ".png");
-              }
-            }
-          );
+          // fs.access(
+          //   removeFileExtension(outFile) + ".png",
+          //   fs.constants.F_OK,
+          //   (err) => {
+          //     if (!err && saveImageAs !== "png") {
+          //       logit("🗑 Removing png file");
+          //       fs.unlinkSync(removeFileExtension(outFile) + ".png");
+          //     }
+          //   }
+          // );
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,
