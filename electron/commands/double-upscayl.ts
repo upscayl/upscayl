@@ -26,6 +26,7 @@ import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
 import showNotification from "../utils/show-notification";
+import { unlinkSync } from "fs";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -162,16 +163,14 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
           COMMAND.DOUBLE_UPSCAYL_DONE,
-          isAlpha
-            ? (outFile + ".png").replace(
-                /([^/\\]+)$/i,
-                encodeURIComponent((outFile + ".png").match(/[^/\\]+$/i)![0])
-              )
-            : outFile.replace(
-                /([^/\\]+)$/i,
-                encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
-              )
+          outFile.replace(
+            /([^/\\]+)$/i,
+            encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
+          )
         );
+        if (isAlpha && saveImageAs === "jpg") {
+          unlinkSync(outFile + ".png");
+        }
         showNotification("Upscayled", "Image upscayled successfully!");
       } catch (error) {
         logit("❌ Error reading original image metadata", error);

@@ -84,6 +84,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   setStopped(false);
   let failed = false;
+  let isAlpha = false;
 
   const onData = (data: any) => {
     if (!mainWindow) return;
@@ -96,6 +97,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       logit("❌ INVALID GPU OR INVALID FILES IN FOLDER - FAILED");
       failed = true;
       upscayl.kill();
+    }
+    if (data.includes("has alpha channel")) {
+      isAlpha = true;
     }
   };
   const onError = (data: any) => {
@@ -138,9 +142,11 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           console.log("Filename: ", removeFileExtension(file));
           await convertAndScale(
             inputDir + slash + file,
-            `${outputFolderPath}${slash}${removeFileExtension(
-              file
-            )}.${saveImageAs}`,
+            isAlpha
+              ? `${outputFolderPath}${slash}${removeFileExtension(file)}.png`
+              : `${outputFolderPath}${slash}${removeFileExtension(
+                  file
+                )}.${saveImageAs}`,
             `${outputFolderPath}${slash}${removeFileExtension(
               file
             )}.${saveImageAs}`,
