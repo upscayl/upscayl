@@ -20,6 +20,7 @@ import COMMAND from "../constants/commands";
 import convertAndScale from "../utils/convert-and-scale";
 import DEFAULT_MODELS from "../constants/models";
 import { BatchUpscaylPayload } from "../../common/types/types";
+import { ImageFormat } from "../utils/types";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -27,7 +28,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   // GET THE MODEL
   const model = payload.model;
   const gpuId = payload.gpuId;
-  const saveImageAs = payload.saveImageAs;
+  const saveImageAs = payload.saveImageAs as ImageFormat;
 
   // GET THE IMAGE DIRECTORY
   let inputDir = payload.batchFolderPath;

@@ -19,6 +19,7 @@ import {
   dontShowCloudModalAtom,
   noImageProcessingAtom,
   outputPathAtom,
+  overwriteAtom,
   progressAtom,
   scaleAtom,
 } from "../atoms/userSettingsAtom";
@@ -45,7 +46,7 @@ const Home = () => {
   const [version, setVersion] = useState("");
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
-  const [overwrite, setOverwrite] = useState(false);
+  const overwrite = useAtomValue(overwriteAtom);
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const [gpuId, setGpuId] = useState("");
@@ -262,15 +263,6 @@ const Home = () => {
   useEffect(() => {
     const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
     const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
-    // GET OVERWRITE
-    if (!localStorage.getItem("overwrite")) {
-      localStorage.setItem("overwrite", JSON.stringify(overwrite));
-    } else {
-      const currentlySavedOverwrite = localStorage.getItem("overwrite");
-      if (currentlySavedOverwrite) {
-        setOverwrite(currentlySavedOverwrite === "true");
-      }
-    }
     if (rememberOutputFolder === "true") {
       logit("🧠 Recalling Output Folder: ", lastOutputFolderPath);
       setOutputPath(lastOutputFolderPath);
@@ -584,8 +576,6 @@ const Home = () => {
             saveImageAs={saveImageAs}
             setSaveImageAs={setSaveImageAs}
             logData={logData}
-            overwrite={overwrite}
-            setOverwrite={setOverwrite}
             os={os}
             show={showCloudModal}
             setShow={setShowCloudModal}

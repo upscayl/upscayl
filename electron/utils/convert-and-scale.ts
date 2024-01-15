@@ -3,13 +3,14 @@ import sharp, { FormatEnum, Metadata } from "sharp";
 import logit from "./logit";
 import { getMainWindow } from "../main-window";
 import { compression } from "./config-variables";
+import { ImageFormat } from "./types";
 
 const convertAndScale = async (
   originalImagePath: string,
   upscaledImagePath: string,
   processedImagePath: string,
   scale: string,
-  saveImageAs: string,
+  saveImageAs: ImageFormat,
   onError: (error: any) => void
 ) => {
   if (saveImageAs === "png" && scale === "4" && compression === 0) {

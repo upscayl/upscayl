@@ -1,21 +1,9 @@
+import { overwriteAtom } from "@/atoms/userSettingsAtom";
+import { useAtom } from "jotai";
 import React, { useEffect } from "react";
 
-type OverwriteToggleProps = {
-  overwrite: boolean;
-  setOverwrite: (arg: any) => void;
-};
-
-const OverwriteToggle = ({ overwrite, setOverwrite }: OverwriteToggleProps) => {
-  useEffect(() => {
-    if (!localStorage.getItem("overwrite")) {
-      localStorage.setItem("overwrite", JSON.stringify(overwrite));
-    } else {
-      const currentlySavedOverwrite = localStorage.getItem("overwrite");
-      if (currentlySavedOverwrite) {
-        setOverwrite(currentlySavedOverwrite === "true");
-      }
-    }
-  }, []);
+const OverwriteToggle = () => {
+  const [overwrite, setOverwrite] = useAtom(overwriteAtom);
 
   return (
     <div className="flex flex-col gap-2">

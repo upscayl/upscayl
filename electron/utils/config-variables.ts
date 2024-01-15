@@ -8,7 +8,6 @@ export let customModelsFolderPath: string | undefined = undefined;
 export let outputFolderPath: string | undefined = undefined;
 export let saveOutputFolder = false;
 export let compression = 0;
-export let overwrite = false;
 export let stopped = false;
 export let childProcesses: {
   process: ChildProcessWithoutNullStreams;
@@ -45,11 +44,6 @@ export function setSaveOutputFolder(value: boolean): void {
 export function setCompression(value: number): void {
   compression = value;
   logit("📐 Updating Compression: ", compression);
-}
-
-export function setOverwrite(value: boolean): void {
-  overwrite = value;
-  logit("📝 Updating Overwrite: ", overwrite);
 }
 
 export function setStopped(value: boolean): void {
@@ -130,14 +124,6 @@ export function fetchLocalStorage(): void {
     .then((lastSavedCompression: string | null) => {
       if (lastSavedCompression !== null) {
         setCompression(parseInt(lastSavedCompression));
-      }
-    });
-  // GET OVERWRITE (BOOLEAN) FROM LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("overwrite");', true)
-    .then((lastSavedOverwrite: string | null) => {
-      if (lastSavedOverwrite !== null) {
-        setOverwrite(lastSavedOverwrite === "true");
       }
     });
   // GET PROCESS IMAGE (BOOLEAN) FROM LOCAL STORAGE

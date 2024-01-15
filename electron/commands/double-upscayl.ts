@@ -23,6 +23,7 @@ import logit from "../utils/logit";
 import COMMAND from "../constants/commands";
 import convertAndScale from "../utils/convert-and-scale";
 import { DoubleUpscaylPayload } from "../../common/types/types";
+import { ImageFormat } from "../utils/types";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -37,7 +38,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     outputDir = outputFolderPath;
   }
   const gpuId = payload.gpuId as string;
-  const saveImageAs = payload.saveImageAs as string;
+  const saveImageAs = payload.saveImageAs as ImageFormat;
 
   setNoImageProcessing(payload.noImageProcessing);
   setCompression(parseInt(payload.compression));

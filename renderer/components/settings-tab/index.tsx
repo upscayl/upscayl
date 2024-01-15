@@ -12,6 +12,7 @@ import { useAtom, useAtomValue } from "jotai";
 import {
   customModelsPathAtom,
   noImageProcessingAtom,
+  overwriteAtom,
   scaleAtom,
 } from "../../atoms/userSettingsAtom";
 import { modelsListAtom } from "../../atoms/modelsListAtom";
@@ -33,8 +34,6 @@ interface IProps {
   gpuId: string;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
   logData: string[];
-  overwrite: boolean;
-  setOverwrite: (arg: any) => void;
   os: "linux" | "mac" | "win" | undefined;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,8 +50,6 @@ function SettingsTab({
   saveImageAs,
   setSaveImageAs,
   logData,
-  overwrite,
-  setOverwrite,
   os,
   show,
   setShow,
@@ -219,7 +216,7 @@ function SettingsTab({
         setRememberOutputFolder={setRememberOutputFolder}
       />
 
-      <OverwriteToggle overwrite={overwrite} setOverwrite={setOverwrite} />
+      <OverwriteToggle />
 
       {/* GPU ID INPUT */}
       <GpuIdInput gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />

@@ -26,3 +26,5 @@ export const noImageProcessingAtom = atomWithStorage<boolean>(
 );
 
 export const compressionAtom = atomWithStorage<number>("compression", 0);
+
+export const overwriteAtom = atomWithStorage("overwrite", false);

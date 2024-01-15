@@ -7,12 +7,10 @@ import {
   folderPath,
   noImageProcessing,
   outputFolderPath,
-  overwrite,
   saveOutputFolder,
   setChildProcesses,
   setCompression,
   setNoImageProcessing,
-  setOverwrite,
   setStopped,
   stopped,
 } from "../utils/config-variables";
@@ -25,6 +23,7 @@ import { parse } from "path";
 import DEFAULT_MODELS from "../constants/models";
 import { getMainWindow } from "../main-window";
 import { ImageUpscaylPayload } from "../../common/types/types";
+import { ImageFormat } from "../utils/types";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -34,13 +33,13 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     return;
   }
 
-  setOverwrite(payload.overwrite);
   setNoImageProcessing(payload.noImageProcessing);
   setCompression(parseInt(payload.compression));
 
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;
-  const saveImageAs = payload.saveImageAs as string;
+  const saveImageAs = payload.saveImageAs as ImageFormat;
+  const overwrite = payload.overwrite as boolean;
 
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)?.[1] || "") as string;
   let outputDir: string | undefined =

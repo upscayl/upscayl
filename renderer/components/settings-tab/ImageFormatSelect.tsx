@@ -51,14 +51,12 @@ export function ImageFormatSelect({
             disabled={noImageProcessing}>
             JPG
           </button>
-          {/* WEBP
+          {/* WEBP */}
           <button
-            className={`btn ${
-              saveImageAs === "webp" && "btn-primary"
-            }`}
+            className={`btn ${saveImageAs === "webp" && "btn-primary"}`}
             onClick={() => setExportType("webp")}>
             WEBP
-          </button> */}
+          </button>
         </div>
       </div>
     </div>
