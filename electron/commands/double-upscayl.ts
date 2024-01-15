@@ -25,6 +25,7 @@ import convertAndScale from "../utils/convert-and-scale";
 import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
+import showNotification from "../utils/show-notification";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -120,6 +121,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
         COMMAND.UPSCAYL_ERROR,
         "Error upscaling image. Error: " + data
       );
+    showNotification("Upscayl Failure", "Failed to upscale image!");
     upscayl.kill();
     return;
   };
@@ -170,6 +172,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
                 encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
               )
         );
+        showNotification("Upscayled", "Image upscayled successfully!");
       } catch (error) {
         logit("❌ Error reading original image metadata", error);
         mainWindow &&
@@ -178,6 +181,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
             "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
               error
           );
+        showNotification("Upscayl Failure", "Failed to upscale image!");
         upscayl.kill();
       }
     }
@@ -229,6 +233,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
             COMMAND.UPSCAYL_ERROR,
             "Error upscaling image. Error: " + data
           );
+        showNotification("Upscayl Failure", "Failed to upscale image!");
         upscayl2.kill();
         return;
       });

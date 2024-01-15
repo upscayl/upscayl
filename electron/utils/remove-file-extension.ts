@@ -1,3 +1,5 @@
+import { Dirent } from "fs";
+
 /**
  * Returns the filename without the extension.
  * @param filename The filename to remove the extension from.

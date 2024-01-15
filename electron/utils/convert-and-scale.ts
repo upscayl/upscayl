@@ -1,7 +1,6 @@
 import fs from "fs";
 import sharp, { FormatEnum, Metadata } from "sharp";
 import logit from "./logit";
-import { getMainWindow } from "../main-window";
 import { compression } from "./config-variables";
 import { ImageFormat } from "./types";
 
@@ -17,22 +16,24 @@ const convertAndScale = async (
     logit("Skipping png compression for 4x scale");
     return;
   }
-  const mainWindow = getMainWindow();
   let originalImage: Metadata | undefined;
 
   try {
     originalImage = await sharp(originalImagePath).metadata();
   } catch (error) {
-    logit("❌ Error with original Image: ", error);
+    logit("❌ Error with original Image: ", error, " - ", originalImagePath);
   }
 
   fs.access(originalImagePath, fs.constants.F_OK, (err) => {
+    logit("🖼️ Checking if original image exists: ", originalImagePath);
     if (err) {
-      throw new Error("Could not grab the original image!");
+      throw new Error(
+        "Could not grab the original image from the path provided! - " + err
+      );
     }
   });
 
-  if (!mainWindow || !originalImage) {
+  if (!originalImage) {
     throw new Error("Could not grab the original image!");
   }
 

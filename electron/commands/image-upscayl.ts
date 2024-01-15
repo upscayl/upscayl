@@ -26,6 +26,7 @@ import { ImageUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
 import removeFileExtension from "../utils/remove-file-extension";
+import showNotification from "../utils/show-notification";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -191,6 +192,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
               encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
             )
           );
+          showNotification("Upscayl", "Image upscayled successfully!");
         } catch (error) {
           logit(
             "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
@@ -202,6 +204,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
             "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
               error
           );
+          showNotification("Upscayl Failure", "Failed to upscale image!");
         }
       }
     };

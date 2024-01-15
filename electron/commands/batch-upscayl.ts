@@ -23,6 +23,7 @@ import { BatchUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
 import removeFileExtension from "../utils/remove-file-extension";
+import showNotification from "../utils/show-notification";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -35,9 +36,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   // GET THE IMAGE DIRECTORY
   let inputDir = payload.batchFolderPath;
   // GET THE OUTPUT DIRECTORY
-  let outputDir = payload.outputPath;
+  let outputFolderPath = payload.outputPath;
   if (saveOutputFolder === true && outputFolderPath) {
-    outputDir = outputFolderPath;
+    outputFolderPath = outputFolderPath;
   }
 
   setNoImageProcessing(payload.noImageProcessing);
@@ -49,11 +50,12 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   const desiredScale = payload.scale as string;
 
-  outputDir +=
-    slash +
-    `upscayl_${model}_x${noImageProcessing ? initialScale : desiredScale}`;
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
+  const outputFolderName = `upscayl_${model}_x${
+    noImageProcessing ? initialScale : desiredScale
+  }`;
+  outputFolderPath += slash + outputFolderName;
+  if (!fs.existsSync(outputFolderPath)) {
+    fs.mkdirSync(outputFolderPath, { recursive: true });
   }
 
   // Delete .DS_Store files
@@ -69,7 +71,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     "realesrgan",
     getBatchArguments(
       inputDir,
-      outputDir,
+      outputFolderPath,
       isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
       model,
       gpuId,
@@ -123,18 +125,22 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       if (noImageProcessing) {
         logit("🚫 Skipping scaling and converting");
         mainWindow.setProgressBar(-1);
-        mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);
+        mainWindow.webContents.send(
+          COMMAND.FOLDER_UPSCAYL_DONE,
+          outputFolderPath
+        );
         return;
       }
 
       const files = fs.readdirSync(inputDir);
       try {
         files.forEach(async (file) => {
+          if (file.startsWith(".") || file === outputFolderName) return;
           console.log("Filename: ", removeFileExtension(file));
           await convertAndScale(
             inputDir + slash + file,
-            `${outputDir}${slash}${removeFileExtension(file)}.png`,
-            `${outputDir}/${removeFileExtension(file)}.${saveImageAs}`,
+            `${outputFolderPath}${slash}${removeFileExtension(file)}.png`,
+            `${outputFolderPath}/${removeFileExtension(file)}.${saveImageAs}`,
             desiredScale,
             saveImageAs,
             onError
@@ -143,11 +149,15 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           if (saveImageAs !== "png") {
             logit("Removing output PNG");
             fs.unlinkSync(
-              `${outputDir}${slash}${removeFileExtension(file)}.png`
+              `${outputFolderPath}${slash}${removeFileExtension(file)}.png`
             );
           }
         });
-        mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);
+        mainWindow.webContents.send(
+          COMMAND.FOLDER_UPSCAYL_DONE,
+          outputFolderPath
+        );
+        showNotification("Upscayled", "Image upscayled successfully!");
       } catch (error) {
         logit("❌ Error processing (scaling and converting) the image.", error);
         upscayl.kill();
@@ -157,6 +167,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
               error
           );
+        showNotification("Upscayl Failure", "Failed to upscale image!");
       }
     } else {
       upscayl.kill();
