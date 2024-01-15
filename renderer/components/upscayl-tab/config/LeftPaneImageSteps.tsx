@@ -221,10 +221,10 @@ function LeftPaneImageSteps({
               Double Upscayl
             </p>
             <button
-              className="badge-info badge cursor-help"
+              className="badge badge-sm badge-neutral cursor-help"
               data-tooltip-id="tooltip"
               data-tooltip-content="Enable this option to get a 16x upscayl (we just run upscayl twice). Note that this may not always work properly with all images, for example, images with really large resolutions.">
-              i
+              ?
             </button>
           </div>
         )}
@@ -237,6 +237,17 @@ function LeftPaneImageSteps({
         data-tooltip-id="tooltip">
         <div className="step-heading flex items-center gap-2">
           <span>Step 3</span>
+          {featureFlags.APP_STORE_BUILD && (
+            <button
+              className="badge badge-sm badge-outline cursor-pointer"
+              onClick={() =>
+                alert(
+                  "Due to MacOS App Store security restrictions, Upscayl requires you to select an output folder everytime you start it.\n\nTo avoid this, you can permanently save a default output folder in the Upscayl 'Settings' tab."
+                )
+              }>
+              ?
+            </button>
+          )}
           {!outputPath && featureFlags.APP_STORE_BUILD && (
             <div className="text-xs">
               <span className="bg-base-200 font-medium uppercase text-base-content/50 rounded-btn px-2">

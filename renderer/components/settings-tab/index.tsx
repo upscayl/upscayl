@@ -175,6 +175,12 @@ function SettingsTab({
           target="_blank">
           Read Wiki Guide
         </a>
+        <a
+          className="btn-primary btn"
+          href="mailto:nayam.emikx@aleeas.com?subject=Upscayl%20Issue:%20&body=Describe%20your%20issue%20here."
+          target="_blank">
+          Email Developer
+        </a>
         {!featureFlags.APP_STORE_BUILD && <DonateButton />}
       </div>
 

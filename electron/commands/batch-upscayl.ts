@@ -22,6 +22,7 @@ import DEFAULT_MODELS from "../constants/models";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
+import removeFileExtension from "../utils/remove-file-extension";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -129,11 +130,11 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       const files = fs.readdirSync(inputDir);
       try {
         files.forEach(async (file) => {
-          console.log("Filename: ", file.slice(0, -3));
+          console.log("Filename: ", removeFileExtension(file));
           await convertAndScale(
             inputDir + slash + file,
-            outputDir + slash + file.slice(0, -3) + "png",
-            outputDir + slash + file.slice(0, -3) + saveImageAs,
+            `${outputDir}${slash}${removeFileExtension(file)}.png`,
+            `${outputDir}/${removeFileExtension(file)}.${saveImageAs}`,
             desiredScale,
             saveImageAs,
             onError
@@ -141,7 +142,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           // Remove the png file (default) if the saveImageAs is not png
           if (saveImageAs !== "png") {
             logit("Removing output PNG");
-            fs.unlinkSync(outputDir + slash + file.slice(0, -3) + "png");
+            fs.unlinkSync(
+              `${outputDir}${slash}${removeFileExtension(file)}.png`
+            );
           }
         });
         mainWindow.webContents.send(COMMAND.FOLDER_UPSCAYL_DONE, outputDir);

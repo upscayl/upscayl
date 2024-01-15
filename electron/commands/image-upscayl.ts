@@ -25,6 +25,7 @@ import { getMainWindow } from "../main-window";
 import { ImageUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
+import removeFileExtension from "../utils/remove-file-extension";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -104,7 +105,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       getSingleImageArguments(
         inputDir,
         fullfileName,
-        outFile.slice(0, -3) + "png",
+        removeFileExtension(outFile) + ".png",
         isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
         model,
         initialScale,
@@ -165,19 +166,23 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         try {
           await convertAndScale(
             inputDir + slash + fullfileName,
-            outFile.slice(0, -3) + "png",
+            removeFileExtension(outFile) + ".png",
             outFile,
             desiredScale,
             saveImageAs,
             onError
           );
           // Remove the png file (default) if the saveImageAs is not png
-          fs.access(outFile.slice(0, -3) + "png", fs.constants.F_OK, (err) => {
-            if (!err && saveImageAs !== "png") {
-              logit("🗑 Removing png file");
-              fs.unlinkSync(outFile.slice(0, -3) + "png");
+          fs.access(
+            removeFileExtension(outFile) + ".png",
+            fs.constants.F_OK,
+            (err) => {
+              if (!err && saveImageAs !== "png") {
+                logit("🗑 Removing png file");
+                fs.unlinkSync(removeFileExtension(outFile) + ".png");
+              }
             }
-          });
+          );
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,
