@@ -59,7 +59,11 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   // Delete .DS_Store files
   fs.readdirSync(inputDir).forEach((file) => {
-    if (file === ".DS_Store") {
+    if (
+      file === ".DS_Store" ||
+      file.toLowerCase() === "desktop.ini" ||
+      file.startsWith(".")
+    ) {
       logit("🗑️ Deleting .DS_Store file");
       fs.unlinkSync(inputDir + slash + file);
     }
