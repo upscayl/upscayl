@@ -98,7 +98,6 @@ const convertAndScale = async (
       .toFile(processedImagePath);
   } catch (error) {
     logit("❌ Error converting to: ", saveImageAs, error);
-    onError(error);
   }
 
   logit("✅ Done converting to: ", upscaledImagePath);

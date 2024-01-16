@@ -3,6 +3,7 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   customModelsFolderPath,
+  fetchLocalStorage,
   noImageProcessing,
   saveOutputFolder,
   setCompression,
@@ -31,7 +32,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const model = payload.model;
   const gpuId = payload.gpuId;
   const saveImageAs = payload.saveImageAs as ImageFormat;
-
+  console.log("PAYLOAD: ", payload);
   // GET THE IMAGE DIRECTORY
   let inputDir = payload.batchFolderPath;
   // GET THE OUTPUT DIRECTORY
@@ -39,7 +40,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   if (saveOutputFolder === true && outputFolderPath) {
     outputFolderPath = outputFolderPath;
   }
-
+  // ! Don't do fetchLocalStorage() again, it causes the values to be reset
   setNoImageProcessing(payload.noImageProcessing);
   setCompression(parseInt(payload.compression));
 
