@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import COMMAND from "../../electron/constants/commands";
+import COMMAND from "../../common/commands";
 import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -271,9 +271,6 @@ const Home = () => {
       localStorage.removeItem("lastOutputFolderPath");
     }
   }, []);
-
-  // IMAGE PATH VALIDATION
-  useEffect(() => {}, [imagePath]);
 
   // LOADING STATE
   useEffect(() => {

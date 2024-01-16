@@ -14,6 +14,7 @@ export let childProcesses: {
   kill: () => boolean;
 }[] = [];
 export let noImageProcessing: boolean = false;
+export let turnOffNotifications: boolean = false;
 
 export function setImagePath(value: string | undefined): void {
   imagePath = value;
@@ -68,6 +69,11 @@ export function setChildProcesses(value: {
 export function setNoImageProcessing(value: boolean): void {
   noImageProcessing = value;
   logit("🖼️ Updating No Image Processing: ", noImageProcessing);
+}
+
+export function setTurnOffNotifications(value: boolean): void {
+  turnOffNotifications = value;
+  logit("🔕 Updating Turn Off Notifications: ", turnOffNotifications);
 }
 
 // LOCAL STORAGE
@@ -132,6 +138,15 @@ export function fetchLocalStorage(): void {
     .then((lastSaved: string | null) => {
       if (lastSaved !== null) {
         setNoImageProcessing(lastSaved === "true");
+      }
+    });
+
+  // GET TURN OFF NOTIFICATIONS (BOOLEAN) FROM LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("turnOffNotifications");', true)
+    .then((lastSaved: string | null) => {
+      if (lastSaved !== null) {
+        setTurnOffNotifications(lastSaved === "true");
       }
     });
 }

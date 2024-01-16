@@ -1,5 +1,5 @@
 import React from "react";
-import commands from "../../../electron/constants/commands";
+import commands from "../../../common/commands";
 
 type CustomModelsFolderSelectProps = {
   customModelsPath: string;
@@ -13,6 +13,15 @@ export function CustomModelsFolderSelect({
   return (
     <div className="flex flex-col items-start gap-2">
       <p className="text-sm font-medium">ADD CUSTOM MODELS</p>
+      <p className="text-xs text-base-content/80">
+        You can add your own models easily. For more details:{" "}
+        <a
+          href="https://github.com/upscayl/custom-models/blob/main/README.md"
+          className="underline link"
+          target="_blank">
+          Custom Models Repository
+        </a>
+      </p>
       <p className="text-sm text-base-content/60">{customModelsPath}</p>
       <button
         className="btn-primary btn"

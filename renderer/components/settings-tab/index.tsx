@@ -23,6 +23,7 @@ import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
 import ProcessImageToggle from "./ProcessImageToggle";
 import { featureFlags } from "@common/feature-flags";
+import TurnOffNotificationsToggle from "./TurnOffNotificationsToggle";
 
 interface IProps {
   batchMode: boolean;
@@ -225,6 +226,7 @@ function SettingsTab({
       />
 
       <OverwriteToggle />
+      <TurnOffNotificationsToggle />
 
       {/* GPU ID INPUT */}
       <GpuIdInput gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />
