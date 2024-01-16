@@ -5,12 +5,19 @@ export const spawnUpscayl = (
   command: string[],
   logit: (...args: any) => void
 ) => {
-  logit("📢 Upscayl Command: ", command);
+  logit(
+    "📢 Upscayl Command: ",
+    command.filter((arg) => arg !== "")
+  );
 
-  const spawnedProcess = spawn(execPath, command, {
-    cwd: undefined,
-    detached: false,
-  });
+  const spawnedProcess = spawn(
+    execPath,
+    command.filter((arg) => arg !== ""),
+    {
+      cwd: undefined,
+      detached: false,
+    }
+  );
 
   return {
     process: spawnedProcess,
