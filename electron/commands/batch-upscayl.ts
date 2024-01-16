@@ -3,7 +3,6 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   customModelsFolderPath,
-  fetchLocalStorage,
   noImageProcessing,
   saveOutputFolder,
   setCompression,
