@@ -1,6 +1,6 @@
 import fs from "fs";
 import { modelsPath } from "../utils/get-resource-paths";
-import COMMAND from "../constants/commands";
+import COMMAND from "../../common/commands";
 import {
   compression,
   customModelsFolderPath,
@@ -20,13 +20,13 @@ import logit from "../utils/logit";
 import slash from "../utils/slash";
 import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { parse } from "path";
-import DEFAULT_MODELS from "../constants/models";
 import { getMainWindow } from "../main-window";
 import { ImageUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
 import removeFileExtension from "../utils/remove-file-extension";
 import showNotification from "../utils/show-notification";
+import { DEFAULT_MODELS } from "../../common/models-list";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -55,7 +55,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   }
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
-
+  logit("Is Default Model? : ", isDefaultModel);
   const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
@@ -104,7 +104,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       })
     );
     const upscayl = spawnUpscayl(
-      "realesrgan",
       getSingleImageArguments(
         inputDir,
         fullfileName,

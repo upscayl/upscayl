@@ -5,7 +5,7 @@ import {
 } from "../utils/config-variables";
 import logit from "../utils/logit";
 import slash from "../utils/slash";
-import COMMAND from "../constants/commands";
+import COMMAND from "../../common/commands";
 import getModels from "../utils/get-models";
 import { getMainWindow } from "../main-window";
 import settings from "electron-settings";

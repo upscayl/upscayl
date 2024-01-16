@@ -1,5 +1,5 @@
 import log from "electron-log";
-import COMMAND from "../constants/commands";
+import COMMAND from "../../common/commands";
 import { getMainWindow } from "../main-window";
 
 const logit = (...args: any) => {

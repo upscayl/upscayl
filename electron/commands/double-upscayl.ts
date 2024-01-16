@@ -11,7 +11,6 @@ import {
   setStopped,
   stopped,
 } from "../utils/config-variables";
-import DEFAULT_MODELS from "../constants/models";
 import slash from "../utils/slash";
 import { spawnUpscayl } from "../utils/spawn-upscayl";
 import {
@@ -20,13 +19,14 @@ import {
 } from "../utils/get-arguments";
 import { modelsPath } from "../utils/get-resource-paths";
 import logit from "../utils/logit";
-import COMMAND from "../constants/commands";
+import COMMAND from "../../common/commands";
 import convertAndScale from "../utils/convert-and-scale";
 import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
 import showNotification from "../utils/show-notification";
 import { unlinkSync } from "fs";
+import { DEFAULT_MODELS } from "../../common/models-list";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -72,7 +72,6 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
 
   // UPSCALE
   let upscayl = spawnUpscayl(
-    "realesrgan",
     getDoubleUpscaleArguments(
       inputDir,
       fullfileName,
@@ -193,7 +192,6 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     if (!failed && !stopped) {
       // UPSCALE
       let upscayl2 = spawnUpscayl(
-        "realesrgan",
         getDoubleUpscaleSecondPassArguments(
           isAlpha,
           outFile,

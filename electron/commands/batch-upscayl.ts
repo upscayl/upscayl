@@ -15,14 +15,14 @@ import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { getBatchArguments } from "../utils/get-arguments";
 import slash from "../utils/slash";
 import { modelsPath } from "../utils/get-resource-paths";
-import COMMAND from "../constants/commands";
+import COMMAND from "../../common/commands";
 import convertAndScale from "../utils/convert-and-scale";
-import DEFAULT_MODELS from "../constants/models";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
 import removeFileExtension from "../utils/remove-file-extension";
 import showNotification from "../utils/show-notification";
+import { DEFAULT_MODELS } from "../../common/models-list";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -67,7 +67,6 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   // UPSCALE
   const upscayl = spawnUpscayl(
-    "realesrgan",
     getBatchArguments(
       inputDir,
       outputFolderPath,

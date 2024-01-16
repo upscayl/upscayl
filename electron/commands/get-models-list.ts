@@ -1,4 +1,4 @@
-import COMMAND from "../constants/commands";
+import COMMAND from "../../common/commands";
 import { getMainWindow } from "../main-window";
 import {
   customModelsFolderPath,

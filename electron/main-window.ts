@@ -1,7 +1,7 @@
 import { BrowserWindow, shell } from "electron";
 import { getPlatform } from "./utils/get-device-specs";
 import { join } from "path";
-import COMMAND from "./constants/commands";
+import COMMAND from "../common/commands";
 import { fetchLocalStorage } from "./utils/config-variables";
 import electronIsDev from "electron-is-dev";
 import { format } from "url";

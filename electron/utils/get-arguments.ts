@@ -136,5 +136,5 @@ export const getBatchArguments = (
     gpuId ? gpuId : "",
     "-f",
     saveImageAs,
-  ];
+  ].filter((arg) => arg !== "");
 };
