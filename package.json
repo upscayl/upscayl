@@ -54,7 +54,7 @@
     "dist:pkg": "tsc && npm run build && cross-env DEBUG=* electron-builder build -m pkg",
     "dist:mac": "tsc && npm run build && electron-builder --mac --universal",
     "dist:mac-arm64": "tsc && npm run build && electron-builder --mac --arm64",
-    "dist:mas": "tsc && npm run build && electron-builder --mac mas --universal -c mas.json",
+    "dist:mas": "npm run enable-store && tsc && npm run build && electron-builder --mac mas --universal -c mas.json && npm run disable-store",
     "dist:mas-dev": "tsc && npm run build && electron-builder --mac mas-dev --universal -c mas-dev.json",
     "dist:win": "tsc && npm run build && electron-builder --win",
     "dist:linux": "tsc && npm run build && electron-builder --linux",
@@ -64,7 +64,9 @@
     "publish-mac-universal-app": "tsc && npm run build && electron-builder --mac --universal --publish always",
     "publish-mac-app": "tsc && npm run build && electron-builder --mac --x64 --publish always",
     "publish-mac-arm-app": "tsc && npm run build && electron-builder --mac --arm64 --publish always",
-    "dist:appstore": "CSC_KEY_PASSWORD=$PASSWORD CSC_LINK=$(openssl base64 -in $CERTIFICATE_PATH) npm run dist:mac-mas"
+    "dist:appstore": "CSC_KEY_PASSWORD=$PASSWORD CSC_LINK=$(openssl base64 -in $CERTIFICATE_PATH) npm run dist:mac-mas",
+    "enable-store": "sed -i '' -e 's/APP_STORE_BUILD: false,/APP_STORE_BUILD: true,/' common/feature-flags.ts",
+    "disable-store": "sed -i '' -e 's/APP_STORE_BUILD: true,/APP_STORE_BUILD: false,/' common/feature-flags.ts"
   },
   "build": {
     "productName": "Upscayl",
