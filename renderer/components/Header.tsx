@@ -1,3 +1,4 @@
+import { featureFlags } from "@common/feature-flags";
 import React from "react";
 
 export default function Header({ version }: { version: string }) {
@@ -12,7 +13,10 @@ export default function Header({ version }: { version: string }) {
         <img src="icon.png" className="inline-block w-14" alt="Upscayl Logo" />
         <div className="flex flex-col justify-center">
           <h1 className="text-3xl font-bold">
-            Upscayl <span className="text-xs">{version}</span>
+            Upscayl{" "}
+            <span className="text-xs">
+              {version} {featureFlags.APP_STORE_BUILD && "Mac"}
+            </span>
           </h1>
           <p className="">AI Image Upscaler</p>
         </div>
