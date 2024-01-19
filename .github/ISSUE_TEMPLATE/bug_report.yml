@@ -37,11 +37,11 @@ body:
 
 - type: checkboxes
   attributes:
-    label: Did you download Upscayl from Mac App Store?
-    description: ✍️ Please leave this blank if you downloaded from the website or GitHub.
-  validations:
-    - label: Yes, I downloaded Upscayl from Mac App Store
-      required: false
+    label: "Did you download Upscayl from the Mac App Store?"
+    description: "Please leave this blank if you downloaded Upscayl from GitHub or the website"
+    options:
+      - label: "Yes, I downloaded Upscayl from the Mac App Store!"
+        required: false
 
 - type: dropdown
   attributes:
