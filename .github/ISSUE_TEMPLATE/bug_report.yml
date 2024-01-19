@@ -40,7 +40,8 @@ body:
     label: Did you download Upscayl from Mac App Store?
     description: ✍️ Please leave this blank if you downloaded from the website or GitHub.
   validations:
-    required: false
+    - label: Yes, I downloaded Upscayl from Mac App Store
+      required: false
 
 - type: dropdown
   attributes:
