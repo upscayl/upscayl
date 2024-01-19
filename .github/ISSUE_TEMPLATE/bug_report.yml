@@ -75,7 +75,7 @@ body:
 - type: textarea
   attributes: 
     label: Paste the logs
-    description: 💥 Paste the logs below ([Guide](https://github.com/upscayl/upscayl/wiki/Guide#logs))
+    description: 💥 Paste the logs below. ([Here's a Guide if you don't know how to do that](https://github.com/upscayl/upscayl/wiki/Guide#logs))
     render: sh
   validations:
     required: true
