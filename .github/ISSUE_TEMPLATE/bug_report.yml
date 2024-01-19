@@ -35,6 +35,13 @@ body:
   validations:
     required: true
 
+- type: checkboxes
+  attributes:
+    label: Did you download Upscayl from Mac App Store?
+    description: ✍️ Please leave this blank if you downloaded from the website or GitHub.
+  validations:
+    required: false
+
 - type: dropdown
   attributes:
     label: Select your Operating System
