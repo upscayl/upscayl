@@ -36,18 +36,25 @@ const convertAndScale = async (
   if (!originalImage) {
     throw new Error("Could not grab the original image!");
   }
+  console.log("🚀 => originalImage:", originalImage);
 
   // Resize the image to the scale
   const newImage = sharp(upscaledImagePath, {
     limitInputPixels: false,
-  }).resize(
-    originalImage.width && originalImage.width * parseInt(scale),
-    originalImage.height && originalImage.height * parseInt(scale),
-    {
-      fit: "outside",
-    }
-  );
+  })
+    .resize(
+      originalImage.width && originalImage.width * parseInt(scale),
+      originalImage.height && originalImage.height * parseInt(scale),
+      {
+        fit: "outside",
+      }
+    )
+    .withMetadata({
+      density: originalImage.density,
+      orientation: originalImage.orientation,
+    });
 
+  console.log("🚀 => newImage:", newImage);
   // Convert compression percentage (0-100) to compressionLevel (0-9)
   const compressionLevel = Math.round((compression / 100) * 9);
 
@@ -63,11 +70,21 @@ const convertAndScale = async (
     })
   );
 
-  const buffer = await newImage.toBuffer();
+  const buffer = await newImage
+    .withMetadata({
+      density: originalImage.density,
+      orientation: originalImage.orientation,
+    })
+    .toBuffer();
+
   try {
     await sharp(buffer, {
       limitInputPixels: false,
     })
+      .withMetadata({
+        density: originalImage.density,
+        orientation: originalImage.orientation,
+      })
       .toFormat(saveImageAs as keyof FormatEnum, {
         ...(saveImageAs === "jpg" && {
           quality: 100 - (compression === 100 ? 99 : compression),
@@ -89,11 +106,8 @@ const convertAndScale = async (
           lossless: compression === 0,
           smartSubsample: true,
         }),
+
         force: true,
-      })
-      .withMetadata({
-        orientation: originalImage.orientation,
-        density: originalImage.density,
       })
       .toFile(processedImagePath);
   } catch (error) {
