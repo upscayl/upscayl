@@ -4,7 +4,7 @@ module.exports = {
     "./renderer/components/**/*.{js,ts,jsx,tsx}",
   ],
   safelist: [
-    ...[...Array(99).keys()].flatMap((index) => [
+    ...[...Array(101).keys()].flatMap((index) => [
       `group-hover:scale-[${index * 10}%]`,
       `group-hover:scale-[${index * 10}%]`,
     ]),

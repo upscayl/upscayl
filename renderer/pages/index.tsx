@@ -696,7 +696,7 @@ const Home = () => {
               className="relative group overflow-hidden h-full w-full"
               onMouseMove={handleMouseMoveCompare}>
               <img
-                className={`absolute left-0 top-0 object-contain w-full h-full group-hover:scale-[${
+                className={`absolute left-0 top-0 object-contain w-full h-full transition-transform group-hover:scale-[${
                   zoomAmount + "%"
                 }]`}
                 src={"file:///" + imagePath}
@@ -706,7 +706,7 @@ const Home = () => {
                 }}
               />
               <div
-                className={`absolute left-0 top-0 bg-white mix-blend-difference w-full h-full group-hover:visible invisible group-hover:scale-[${
+                className={`absolute left-0 top-0 bg-white mix-blend-difference w-full h-full transition-transform group-hover:visible invisible group-hover:scale-[${
                   zoomAmount + "%"
                 }]`}
                 style={{
@@ -718,7 +718,7 @@ const Home = () => {
                 }}
               />
               <img
-                className={`absolute top-0 object-contain left-0 w-full h-full group-hover:scale-[${
+                className={`absolute top-0 object-contain left-0 w-full h-full transition-transform group-hover:scale-[${
                   zoomAmount + "%"
                 }]`}
                 src={"file:///" + upscaledImagePath}
@@ -755,9 +755,7 @@ const Home = () => {
                         backgroundPosition: "0% 0%",
                         transformOrigin: backgroundPosition,
                       }}
-                      className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${
-                        parseInt(zoomAmount.slice(0, -1)) / 100
-                      }]`}
+                      className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}%]`}
                     />
                   </>
                 }

@@ -53,23 +53,34 @@ const ImageOptions = ({
           <button className="btn-primary btn" onClick={resetImagePaths}>
             Reset Image
           </button>
-          {!hideZoomOptions && (
-            <div className="flex flex-col gap-2">
-              <p className="font-medium text-sm">Zoom Amount ({zoomAmount}%)</p>
-              <input
-                type="range"
-                min="100"
-                max="990"
-                step={10}
-                className="range range-md"
-                value={parseInt(zoomAmount)}
-                onChange={(e) => {
-                  setZoomAmount(e.target.value);
-                  localStorage.setItem("zoomAmount", e.target.value);
-                }}
-              />
-            </div>
-          )}
+
+          <div className="flex flex-row items-center gap-2">
+            <p className="font-medium text-sm">Lens View</p>
+            <input
+              type="checkbox"
+              className="toggle"
+              onChange={(e) => {
+                setViewType(e.target.checked ? "slider" : "lens");
+              }}
+            />
+            <p className="font-medium text-sm">Slider View</p>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p className="font-medium text-sm">Zoom Amount ({zoomAmount}%)</p>
+            <input
+              type="range"
+              min="100"
+              max="1000"
+              step={10}
+              className="range range-md"
+              value={parseInt(zoomAmount)}
+              onChange={(e) => {
+                setZoomAmount(e.target.value);
+                localStorage.setItem("zoomAmount", e.target.value);
+              }}
+            />
+          </div>
 
           <div className="flex flex-col gap-2">
             <p className="font-medium text-sm">Lens Size ({lensSize / 10})</p>
