@@ -155,7 +155,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             )}.${saveImageAs}`,
             desiredScale,
             saveImageAs,
-            onError
+            isAlpha
           );
         });
         mainWindow.webContents.send(

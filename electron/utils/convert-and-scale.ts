@@ -10,10 +10,10 @@ const convertAndScale = async (
   processedImagePath: string,
   scale: string,
   saveImageAs: ImageFormat,
-  onError: (error: any) => void
+  isAlpha: boolean
 ) => {
-  if (scale === "4" && compression === 0) {
-    logit("Skipping png compression for 4x scale and 0% compression");
+  if (!isAlpha && scale === "4" && compression === 0) {
+    logit("Skipping compression for 4x scale and 0% compression");
     return;
   }
   let originalImage: Metadata | undefined;
