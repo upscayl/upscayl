@@ -4,11 +4,10 @@ module.exports = {
     "./renderer/components/**/*.{js,ts,jsx,tsx}",
   ],
   safelist: [
-    "group-hover:scale-[100%]",
-    "group-hover:scale-[125%]",
-    "group-hover:scale-[150%]",
-    "group-hover:scale-[175%]",
-    "group-hover:scale-[200%]",
+    ...[...Array(99).keys()].flatMap((index) => [
+      `group-hover:scale-[${index * 10}%]`,
+      `group-hover:scale-[${index * 10}%]`,
+    ]),
   ],
   theme: {
     extend: {

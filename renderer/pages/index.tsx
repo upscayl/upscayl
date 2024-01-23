@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import COMMAND from "../../common/commands";
 import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
@@ -15,6 +15,7 @@ import { logAtom } from "../atoms/logAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 import {
   batchModeAtom,
+  lensSizeAtom,
   compressionAtom,
   dontShowCloudModalAtom,
   noImageProcessingAtom,
@@ -22,6 +23,7 @@ import {
   overwriteAtom,
   progressAtom,
   scaleAtom,
+  viewTypeAtom,
 } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
 import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
@@ -51,7 +53,7 @@ const Home = () => {
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const [gpuId, setGpuId] = useState("");
   const [saveImageAs, setSaveImageAs] = useState("png");
-  const [zoomAmount, setZoomAmount] = useState("100%");
+  const [zoomAmount, setZoomAmount] = useState("100");
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
   const [dimensions, setDimensions] = useState({
     width: null,
@@ -60,6 +62,8 @@ const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [showCloudModal, setShowCloudModal] = useState(false);
+
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   // ATOMIC STATES
   const [outputPath, setOutputPath] = useAtom(outputPathAtom);
@@ -75,10 +79,22 @@ const Home = () => {
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
   const [news, setNews] = useAtom(newsAtom);
   const [showNewsModal, setShowNewsModal] = useAtom(showNewsModalAtom);
+  const viewType = useAtomValue(viewTypeAtom);
+  const lensSize = useAtomValue(lensSizeAtom);
 
   const { logit } = useLog();
 
-  // * EFFECTS
+  const handleMouseMoveCompare = (e: React.MouseEvent) => {
+    const { left, top, height, width } =
+      e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    setCursorPosition({ x, y });
+    const xZoom = ((e.pageX - left) / width) * 100;
+    const yZoom = ((e.pageY - top) / height) * 100;
+    setBackgroundPosition(`${xZoom}% ${yZoom}%`);
+  };
+
   // SET CONFIG VARIABLES ON FIRST RUN
   useEffect(() => {
     // UPSCAYL VERSION
@@ -611,7 +627,6 @@ const Home = () => {
             stopHandler={stopHandler}
           />
         ) : null}
-
         {/* DEFAULT PANE INFO */}
         {((!batchMode &&
           imagePath.length === 0 &&
@@ -621,7 +636,6 @@ const Home = () => {
             upscaledBatchFolderPath.length === 0)) && (
           <RightPaneInfo version={version} batchMode={batchMode} />
         )}
-
         {/* SHOW SELECTED IMAGE */}
         {!batchMode &&
           upscaledImagePath.length === 0 &&
@@ -647,7 +661,6 @@ const Home = () => {
               />
             </>
           )}
-
         {/* BATCH UPSCALE SHOW SELECTED FOLDER */}
         {batchMode &&
           upscaledBatchFolderPath.length === 0 &&
@@ -657,7 +670,6 @@ const Home = () => {
               {batchFolderPath}
             </p>
           )}
-
         {/* BATCH UPSCALE DONE INFO */}
         {batchMode && upscaledBatchFolderPath.length > 0 && (
           <>
@@ -671,59 +683,109 @@ const Home = () => {
             </button>
           </>
         )}
-
+        <ImageOptions
+          zoomAmount={zoomAmount}
+          setZoomAmount={setZoomAmount}
+          resetImagePaths={resetImagePaths}
+        />
+        {!batchMode &&
+          viewType === "lens" &&
+          upscaledImagePath &&
+          imagePath && (
+            <div
+              className="relative group overflow-hidden h-full w-full"
+              onMouseMove={handleMouseMoveCompare}>
+              <img
+                className={`absolute left-0 top-0 object-contain w-full h-full group-hover:scale-[${
+                  zoomAmount + "%"
+                }]`}
+                src={"file:///" + imagePath}
+                style={{
+                  backgroundPosition: "0% 0%",
+                  transformOrigin: backgroundPosition,
+                }}
+              />
+              <div
+                className={`absolute left-0 top-0 bg-white mix-blend-difference w-full h-full group-hover:visible invisible group-hover:scale-[${
+                  zoomAmount + "%"
+                }]`}
+                style={{
+                  clipPath: `circle(${
+                    (lensSize + 2) / (parseInt(zoomAmount) / 100)
+                  }px at ${cursorPosition.x}px ${cursorPosition.y}px)`,
+                  backgroundPosition: "0% 0%",
+                  transformOrigin: backgroundPosition,
+                }}
+              />
+              <img
+                className={`absolute top-0 object-contain left-0 w-full h-full group-hover:scale-[${
+                  zoomAmount + "%"
+                }]`}
+                src={"file:///" + upscaledImagePath}
+                style={{
+                  clipPath: `circle(${
+                    lensSize / (parseInt(zoomAmount) / 100)
+                  }px at ${cursorPosition.x}px ${cursorPosition.y}px)`,
+                  backgroundPosition: "0% 0%",
+                  transformOrigin: backgroundPosition,
+                }}
+              />
+            </div>
+          )}
         {/* COMPARISON SLIDER */}
-        {!batchMode && imagePath.length > 0 && upscaledImagePath.length > 0 && (
-          <>
-            <ImageOptions
-              zoomAmount={zoomAmount}
-              setZoomAmount={setZoomAmount}
-              resetImagePaths={resetImagePaths}
-            />
-            <ReactCompareSlider
-              itemOne={
-                <>
-                  <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                    Original
-                  </p>
+        {!batchMode &&
+          viewType === "slider" &&
+          imagePath.length > 0 &&
+          upscaledImagePath.length > 0 && (
+            <>
+              <ReactCompareSlider
+                itemOne={
+                  <>
+                    <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                      Original
+                    </p>
 
-                  <img
-                    /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                    src={"file:///" + imagePath}
-                    alt="Original"
-                    onMouseMove={handleMouseMove}
-                    style={{
-                      objectFit: "contain",
-                      backgroundPosition: "0% 0%",
-                      transformOrigin: backgroundPosition,
-                    }}
-                    className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}]`}
-                  />
-                </>
-              }
-              itemTwo={
-                <>
-                  <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                    Upscayled
-                  </p>
-                  <img
-                    /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                    src={"file:///" + upscaledImagePath}
-                    alt="Upscayl"
-                    style={{
-                      objectFit: "contain",
-                      backgroundPosition: "0% 0%",
-                      transformOrigin: backgroundPosition,
-                    }}
-                    onMouseMove={handleMouseMove}
-                    className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}]`}
-                  />
-                </>
-              }
-              className="group h-screen"
-            />
-          </>
-        )}
+                    <img
+                      /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
+                      src={"file:///" + imagePath}
+                      alt="Original"
+                      onMouseMove={handleMouseMove}
+                      style={{
+                        objectFit: "contain",
+                        backgroundPosition: "0% 0%",
+                        transformOrigin: backgroundPosition,
+                      }}
+                      className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${
+                        parseInt(zoomAmount.slice(0, -1)) / 100
+                      }]`}
+                    />
+                  </>
+                }
+                itemTwo={
+                  <>
+                    <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+                      Upscayled
+                    </p>
+                    <img
+                      /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
+                      src={"file:///" + upscaledImagePath}
+                      alt="Upscayl"
+                      style={{
+                        objectFit: "contain",
+                        backgroundPosition: "0% 0%",
+                        transformOrigin: backgroundPosition,
+                      }}
+                      onMouseMove={handleMouseMove}
+                      className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${
+                        zoomAmount || "100%"
+                      }%]`}
+                    />
+                  </>
+                }
+                className="group h-screen"
+              />
+            </>
+          )}
       </div>
     </div>
   );
