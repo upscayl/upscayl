@@ -8,11 +8,10 @@ body:
     options:
       - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/upscayl/upscayl#-faq).
         required: true
+      - label: My error involves vkEnumeratePhysicalDevices or vkCreateInstance, which means I should ignore the other issues and file this one despite the next checkbox. I will try the last two checkboxes in the checklist.
       - label: I have checked that this issue isn't addressed in any other issue or pull request.
-        description: [ ] My error involves vkEnumeratePhysicalDevices or vkCreateInstance, which means I should ignore the other issues and file a new one.
         required: true
       - label: I have tried [setting my GPU ID](https://github.com/upscayl/upscayl/wiki/Guide#gpu-id).
-        required: false
       - label: I am using Windows and I've tried [common troubleshooting steps](https://github.com/upscayl/upscayl/wiki/Troubleshooting).
     
 - type: textarea
