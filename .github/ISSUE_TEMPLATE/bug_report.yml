@@ -35,21 +35,15 @@ body:
   validations:
     required: true
 
-- type: checkboxes
-  attributes:
-    label: "Did you download Upscayl from the Mac App Store?"
-    description: "🍎 Please leave this blank if you downloaded Upscayl from GitHub or the website"
-    options:
-      - label: "Yes, I downloaded Upscayl from the Mac App Store!"
-        required: false
-
 - type: dropdown
   attributes:
-    label: Select your Operating System
-    description: 🧑‍💻 What operating system do you use?
+    label: Platform
+    description: 🧑‍💻 What operating system or distribution platform do you use? Select the last one that applies.
     options:
       - Linux
-      - MacOS
+      - macOS .dmg / Homebrew
+      - Mac App Store
+      - Flatpak
       - Windows
   validations:
     required: true
