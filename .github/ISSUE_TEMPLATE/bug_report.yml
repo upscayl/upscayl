@@ -13,7 +13,7 @@ body:
         required: true
       - label: I have tried [setting my GPU ID](https://github.com/upscayl/upscayl/wiki/Guide#gpu-id).
       - label: I am using Windows and I've tried [common troubleshooting steps](https://github.com/upscayl/upscayl/wiki/Troubleshooting).
-    
+      - label: https://github.com/SaschaWillems/VulkanCapsViewer reports Vulkan capabilities.
 - type: textarea
   attributes: 
     label: Describe the Bug
