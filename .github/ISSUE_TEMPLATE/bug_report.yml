@@ -6,9 +6,9 @@ body:
   attributes:
     label: Checklist
     options:
-      - label: Have you tried **ALL THE STEPS** in the [troubleshooting guide](https://github.com/upscayl/upscayl/wiki/Troubleshooting) already?
+      - label: Have you **tried ALL THE STEPS** in the [troubleshooting guide](https://github.com/upscayl/upscayl/wiki/Troubleshooting) already?
         required: true
-      - label: Have you already **searched** for your issue in the [issues tab](https://github.com/upscayl/upscayl/issues?q=)?
+      - label: Have you **already searched** for your issue in the [issues tab](https://github.com/upscayl/upscayl/issues?q=)?
         required: true
 - type: textarea
   attributes: 
