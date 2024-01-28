@@ -8,7 +8,7 @@ body:
     options:
       - label: I have tried **ALL** of the applicable steps in the [troubleshooting guide](https://github.com/upscayl/upscayl/wiki/Troubleshooting).
         required: true
-      - label: I have checked that this issue isn't addressed in any other issue by searching in the [issues tab](https://github.com/upscayl/upscayl/issues?q=).
+      - label: I have searched for my issue in the [issues tab](https://github.com/upscayl/upscayl/issues?q=).
         required: true
       - label: My error involves vkEnumeratePhysicalDevices or vkCreateInstance, which means I should ignore the other issues and file this one despite the last checkbox.
 - type: textarea
