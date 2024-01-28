@@ -7,10 +7,8 @@ body:
     label: Checklist
     options:
       - label: Have you tried **ALL THE STEPS** in the [troubleshooting guide](https://github.com/upscayl/upscayl/wiki/Troubleshooting) already?
-        description: If yes, check the box.
         required: true
       - label: Have you already **searched** for your issue in the [issues tab](https://github.com/upscayl/upscayl/issues?q=)?
-        description: If yes, check the box. Please always search the existing issues.
         required: true
 - type: textarea
   attributes: 
