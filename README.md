@@ -161,8 +161,7 @@ npm run publish-app
 - **How does Upscayl work?**
   - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN to achieve this.
 - **Is there a CLI available?**
-  - The CLI tool is called real-esrgan-ncnn-vulkan and it's available on the Real-ESRGAN repository.
-  - As of v2.9, we're using our fork of Real-ESRGAN-ncnn-vulkan at https://github.com/upscayl/upscayl-ncnn.
+  - The CLI tool is called [upscayl-ncnn](https://github.com/upscayl/upscayl-ncnn).
 - **Do I need a GPU for this to work?**
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan-compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
     - @Wyrdgirn has contributed a workaround for Windows and Linux in [#390](https://github.com/upscayl/upscayl/issues/390)! Nobody knows how to manipulate the macOS and Haiku frameworks...
