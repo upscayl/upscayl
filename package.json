@@ -179,7 +179,7 @@
       "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
       "synopsis": "AI Image Upscaler",
       "description": "Free and Open Source AI Image Upscaler",
-      "icon": "resources/icons/512x512.png"
+      "icon": "resources/icons/"
     },
     "win": {
       "publisherName": "Upscayl Team",
