@@ -6,14 +6,12 @@ body:
   attributes:
     label: Checklist
     options:
-      - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/upscayl/upscayl#-faq).
+      - label: Have you tried **ALL THE STEPS** in the [troubleshooting guide](https://github.com/upscayl/upscayl/wiki/Troubleshooting) already?
+        description: If yes, check the box.
         required: true
-      - label: My error involves vkEnumeratePhysicalDevices or vkCreateInstance, which means I should ignore the other issues and file this one despite the next checkbox. I will try the last two checkboxes in the checklist.
-      - label: I have checked that this issue isn't addressed in any other issue or pull request.
+      - label: Have you already **searched** for your issue in the [issues tab](https://github.com/upscayl/upscayl/issues?q=)?
+        description: If yes, check the box. Please always search the existing issues.
         required: true
-      - label: I have tried [setting my GPU ID](https://github.com/upscayl/upscayl/wiki/Guide#gpu-id).
-      - label: I am using Windows and I've tried [common troubleshooting steps](https://github.com/upscayl/upscayl/wiki/Troubleshooting).
-      - label: https://github.com/SaschaWillems/VulkanCapsViewer reports Vulkan capabilities.
 - type: textarea
   attributes: 
     label: Describe the Bug
@@ -30,8 +28,8 @@ body:
 
 - type: input
   attributes:
-    label: Version (or commit hash)
-    description: ✍️ What version of Upscayl did you use? If you used Mac App Store version, please mention it!
+    label: Upscayl Version (or commit hash)
+    description: ✍️ What version of Upscayl did you use?
   validations:
     required: true
 
@@ -41,8 +39,8 @@ body:
     description: 🧑‍💻 What operating system or distribution platform do you use? Select the last one that applies.
     options:
       - Linux
-      - macOS .dmg / Homebrew
       - Mac App Store
+      - MacOS DMG / Homebrew
       - Flatpak
       - Windows
   validations:
@@ -58,20 +56,20 @@ body:
 - type: input
   attributes:
     label: GPU Name
-    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, STOP and read the third bullet point of the FAQ. 
+    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, [STOP and read the 3rd FAQ](https://github.com/upscayl/upscayl?tab=readme-ov-file#-faq). 
   validations:
     required: true
     
 - type: textarea
   attributes:
-    label: Expected Behavior
+    label: Expected Behavior (OPTIONAL)
     description: 🤓 What should've happened?
   validations:
     required: false
     
 - type: textarea
   attributes:
-    label: Screenshots
+    label: Screenshots (OPTIONAL)
     description: 🤳 Got screenshots?
 
 - type: textarea
