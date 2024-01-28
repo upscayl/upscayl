@@ -6,8 +6,6 @@ body:
   attributes:
     label: Checklist
     options:
-      - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/upscayl/upscayl#-faq).
-        required: true
       - label: I have tried **ALL** of the applicable steps in the [troubleshooting guide](https://github.com/upscayl/upscayl/wiki/Troubleshooting).
         required: true
       - label: I have checked that this issue isn't addressed in any other issue by searching in the [issues tab](https://github.com/upscayl/upscayl/issues?q=).
