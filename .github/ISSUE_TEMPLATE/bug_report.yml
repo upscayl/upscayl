@@ -6,10 +6,13 @@ body:
   attributes:
     label: Checklist
     options:
-      - label: Have you **tried ALL THE STEPS** in the [troubleshooting guide](https://github.com/upscayl/upscayl/wiki/Troubleshooting) already?
+      - label: I have checked that this issue isn't addressed in [the FAQ](https://github.com/upscayl/upscayl#-faq).
         required: true
-      - label: Have you **already searched** for your issue in the [issues tab](https://github.com/upscayl/upscayl/issues?q=)?
+      - label: I have tried **ALL** of the applicable steps in the [troubleshooting guide](https://github.com/upscayl/upscayl/wiki/Troubleshooting).
         required: true
+      - label: I have checked that this issue isn't addressed in any other issue by searching in the [issues tab](https://github.com/upscayl/upscayl/issues?q=).
+        required: true
+      - label: My error involves vkEnumeratePhysicalDevices or vkCreateInstance, which means I should ignore the other issues and file this one despite the last checkbox.
 - type: textarea
   attributes: 
     label: Describe the Bug
@@ -54,26 +57,24 @@ body:
 - type: input
   attributes:
     label: GPU Name
-    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, [STOP and read the 3rd FAQ](https://github.com/upscayl/upscayl?tab=readme-ov-file#-faq). 
+    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, [STOP and read the 3rd point in the FAQ](https://github.com/upscayl/upscayl?tab=readme-ov-file#-faq). 
   validations:
     required: true
     
 - type: textarea
   attributes:
-    label: Expected Behavior (OPTIONAL)
+    label: Expected Behavior
     description: 🤓 What should've happened?
-  validations:
-    required: false
     
 - type: textarea
   attributes:
-    label: Screenshots (OPTIONAL)
-    description: 🤳 Got screenshots?
+    label: Screenshots
+    description: 🤳 Share us your screen!
 
 - type: textarea
   attributes: 
-    label: Paste the logs
-    description: 💥 Paste the logs below. ([Here's a Guide if you don't know how to do that](https://github.com/upscayl/upscayl/wiki/Guide#logs))
+    label: Logs
+    description: 💥 Paste the logs below. [Here's a Guide if you don't know how to do that](https://github.com/upscayl/upscayl/wiki/Guide#logs).
     render: sh
   validations:
     required: true
