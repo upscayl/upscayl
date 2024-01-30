@@ -39,7 +39,7 @@ body:
     options:
       - Linux
       - Mac App Store
-      - MacOS DMG / Homebrew
+      - Mac DMG / Homebrew
       - Flatpak
       - Windows
   validations:
