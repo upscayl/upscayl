@@ -7,7 +7,7 @@ export function DonateButton({}) {
         href="https://buymeacoffee.com/fossisthefuture"
         target="_blank"
         className="btn-primary btn">
-        Donate
+        DONATE
       </a>
     </div>
   );

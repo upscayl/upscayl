@@ -16,7 +16,7 @@ export function LogArea({
       <div className="flex items-center gap-2">
         <p className="text-sm font-medium">LOGS</p>
         <button className="btn-primary btn-xs btn" onClick={copyOnClickHandler}>
-          {isCopied ? <span>Copied ✅</span> : <span>Copy Logs 📋</span>}
+          {isCopied ? <span>COPIED ✅</span> : <span>COPY LOGS 📋</span>}
         </button>
       </div>
       <code className="rounded-btn rounded-r-none relative flex h-52 max-h-52 flex-col gap-3 overflow-y-auto break-all bg-base-200 p-4 text-xs">

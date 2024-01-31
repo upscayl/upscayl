@@ -166,22 +166,26 @@ function SettingsTab({
     }, 2000);
   };
 
+  const upscaylVersion = navigator?.userAgent?.match(
+    /Upscayl\/([\d\.]+\d+)/
+  )[1];
+
   return (
     <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto p-5 overflow-x-hidden">
-      <div className="flex flex-col gap-2 text-sm font-medium">
+      <div className="flex flex-col gap-2 text-sm font-medium uppercase">
         <p>Having issues?</p>
         <a
           className="btn-primary btn"
           href="https://github.com/upscayl/upscayl/wiki/"
           target="_blank">
-          Read Wiki Guide
+          HELP ME!
         </a>
         {featureFlags.APP_STORE_BUILD && (
           <a
             className="btn-primary btn"
-            href="mailto:nayam.emikx@aleeas.com?subject=Upscayl%20Issue:%20&body=Describe%20your%20issue%20here."
+            href={`mailto:upscayl@gmail.com?subject=Upscayl%20Issue%3A%20%3CIssue%20name%20here%3E&body=Device%20Name%3A%20%3CYOUR%20DEVICE%20MODEL%3E%0AOperating%20System%3A%20%3CYOUR%20OPERATING%20SYSTEM%20VERSION%3E%0AUpscayl%20Version%3A%20${upscaylVersion}%0A%0AHi%2C%20I'm%20having%20an%20issue%20with%20Upscayl.%20%3CDESCRIBE%20ISSUE%20HERE%3E`}
             target="_blank">
-            Email Developer
+            EMAIL DEVELOPER
           </a>
         )}
         {!featureFlags.APP_STORE_BUILD && <DonateButton />}
