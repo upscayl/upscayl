@@ -8,8 +8,8 @@
   "favicon": "https://raw.githubusercontent.com/upscayl/upscayl/main/resources/icons/128x128.png",
   "colors": {
     "primary": "#6366f1",
-    "light": "#07C983",
-    "dark": "#0D9373"
+    "light": "#6366f1",
+    "dark": "#6366f1"
   },
   "topbarLinks": [
     {
