@@ -10,10 +10,6 @@
     "primary": "#6366f1",
     "light": "#07C983",
     "dark": "#0D9373",
-    "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
-    }
   },
   "topbarLinks": [
     {
