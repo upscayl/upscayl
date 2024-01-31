@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Upscayl Docs",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "https://raw.githubusercontent.com/upscayl/upscayl/main/resources/icons/128x128.png",
+    "light": "https://raw.githubusercontent.com/upscayl/upscayl/main/resources/icons/128x128.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://raw.githubusercontent.com/upscayl/upscayl/main/resources/icons/128x128.png",
   "colors": {
-    "primary": "#0D9373",
+    "primary": "#6366f1",
     "light": "#07C983",
     "dark": "#0D9373",
     "anchors": {
