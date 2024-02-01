@@ -1,0 +1,1 @@
+- [Using Upscayl on Windows without GPU](https://github.com/orgs/upscayl/discussions/580)
