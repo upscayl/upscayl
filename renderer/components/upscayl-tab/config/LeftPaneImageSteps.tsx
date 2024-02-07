@@ -299,14 +299,27 @@ function LeftPaneImageSteps({
                 className="input input-primary h-8 w-16 px-2 py-0 text-sm font-bold"
                 defaultValue={getUpscaleResolution().width}
                 value={targetWidth}
-                onChange={(e) => setTargetWidth(parseInt(e.target.value))}
+                onChange={(e) => {
+                  if (parseInt(e.target.value) > 32768) {
+                    setTargetWidth(32768);
+                  } else if (e.target.value === "") {
+                    setTargetWidth(1);
+                  }
+                  setTargetWidth(parseInt(e.target.value));
+                }}
               />{" "}
               x{" "}
               <input
                 className="input input-primary h-8 w-16 px-2 py-0 text-sm font-bold"
                 defaultValue={getUpscaleResolution().width}
                 value={targetHeight}
-                onChange={(e) => setTargetHeight(parseInt(e.target.value))}
+                onChange={(e) => {
+                  if (parseInt(e.target.value) > 32768) {
+                    setTargetHeight(32768);
+                  } else if (e.target.value === "") {
+                    setTargetHeight(1);
+                  } else setTargetHeight(parseInt(e.target.value));
+                }}
               />
             </div>
             {/* <span className="font-bold">
