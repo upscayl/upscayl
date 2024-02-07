@@ -74,7 +74,7 @@ const Home = () => {
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
   const [scale] = useAtom(scaleAtom);
   const [dontShowCloudModal, setDontShowCloudModal] = useAtom(
-    dontShowCloudModalAtom
+    dontShowCloudModalAtom,
   );
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
   const [news, setNews] = useAtom(newsAtom);
@@ -99,7 +99,7 @@ const Home = () => {
   useEffect(() => {
     // UPSCAYL VERSION
     const upscaylVersion = navigator?.userAgent?.match(
-      /Upscayl\/([\d\.]+\d+)/
+      /Upscayl\/([\d\.]+\d+)/,
     )[1];
     setVersion(upscaylVersion);
   }, []);
@@ -109,7 +109,7 @@ const Home = () => {
     const handleErrors = (data: string) => {
       if (data.includes("invalid gpu")) {
         alert(
-          "Error. Please make sure you have a Vulkan compatible GPU (Most modern GPUs support Vulkan). Upscayl does not work with CPU or iGPU sadly."
+          "Error. Please make sure you have a Vulkan compatible GPU (Most modern GPUs support Vulkan). Upscayl does not work with CPU or iGPU sadly.",
         );
         resetImagePaths();
       } else if (data.includes("failed")) {
@@ -117,12 +117,12 @@ const Home = () => {
         alert(
           data.includes("encode")
             ? `ENCODING ERROR: ${data}. For troubleshooting, please read the Upscayl Wiki.`
-            : `DECODING ERROR: ${data}. Additional Info: This image is possibly corrupt or not supported by Upscayl, or your GPU drivers are acting funny (PLEASE READ THE UPSCAYL WIKI). You could try converting the image into another format and upscaling again. Also make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortunately there's not much we can do to help, sorry.`
+            : `DECODING ERROR: ${data}. Additional Info: This image is possibly corrupt or not supported by Upscayl, or your GPU drivers are acting funny (PLEASE READ THE UPSCAYL WIKI). You could try converting the image into another format and upscaling again. Also make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortunately there's not much we can do to help, sorry.`,
         );
         resetImagePaths();
       } else if (data.includes("uncaughtException")) {
         alert(
-          "Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try checking the logs to see if you get any information. You can post an issue on Upscayl's GitHub repository for more help."
+          "Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try checking the logs to see if you get any information. You can post an issue on Upscayl's GitHub repository for more help.",
         );
         resetImagePaths();
       }
@@ -134,7 +134,7 @@ const Home = () => {
         if (data) {
           setOs(data);
         }
-      }
+      },
     );
     // LOG
     window.electron.on(COMMAND.LOG, (_, data: string) => {
@@ -217,7 +217,7 @@ const Home = () => {
       const uniqueModelOptions = combinedModelOptions.filter(
         // Check if any model in the array appears more than once
         (model, index, array) =>
-          array.findIndex((t) => t.value === model.value) === index
+          array.findIndex((t) => t.value === model.value) === index,
       );
       setModelOptions(uniqueModelOptions);
     });
@@ -226,7 +226,7 @@ const Home = () => {
   // FETCH CUSTOM MODELS FROM CUSTOM MODELS PATH
   useEffect(() => {
     const customModelsPath = JSON.parse(
-      localStorage.getItem("customModelsPath")
+      localStorage.getItem("customModelsPath"),
     );
     if (customModelsPath !== null) {
       window.electron.send(COMMAND.GET_MODELS_LIST, customModelsPath);
@@ -364,7 +364,7 @@ const Home = () => {
     logit("🔀 Model changed: ", e.value);
     localStorage.setItem(
       "model",
-      JSON.stringify({ label: e.label, value: e.value })
+      JSON.stringify({ label: e.label, value: e.value }),
     );
   };
 
@@ -517,7 +517,7 @@ const Home = () => {
       <img
         src="icon.png"
         alt="Upscayl icon"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 animate-pulse"
+        className="absolute left-1/2 top-1/2 w-36 -translate-x-1/2 -translate-y-1/2 animate-pulse"
       />
     );
   }
@@ -533,16 +533,17 @@ const Home = () => {
           />
         )}
         {window.electron.platform === "mac" && (
-          <div className="pt-8 mac-titlebar"></div>
+          <div className="mac-titlebar pt-8"></div>
         )}
         {/* HEADER */}
         <Header version={version} />
         {!dontShowCloudModal && featureFlags.SHOW_UPSCAYL_CLOUD_INFO && (
           <button
-            className="mb-5 rounded-btn p-1 mx-5 bg-success shadow-lg shadow-success/40 text-slate-50 animate-pulse text-sm"
+            className="rounded-btn mx-5 mb-5 animate-pulse bg-success p-1 text-sm text-slate-50 shadow-lg shadow-success/40"
             onClick={() => {
               setShowCloudModal(true);
-            }}>
+            }}
+          >
             Introducing Upscayl Cloud
           </button>
         )}
@@ -613,9 +614,10 @@ const Home = () => {
             selectImageHandler();
           }
         }}
-        onPaste={(e) => handlePaste(e)}>
+        onPaste={(e) => handlePaste(e)}
+      >
         {window.electron.platform === "mac" && (
-          <div className="absolute top-0 w-full h-8 mac-titlebar"></div>
+          <div className="mac-titlebar absolute top-0 h-8 w-full"></div>
         )}
         {progress.length > 0 &&
         upscaledImagePath.length === 0 &&
@@ -677,8 +679,9 @@ const Home = () => {
               All done!
             </p>
             <button
-              className="btn btn-primary bg-gradient-blue rounded-btn p-3 font-medium text-white/90 transition-colors"
-              onClick={openFolderHandler}>
+              className="bg-gradient-blue btn btn-primary rounded-btn p-3 font-medium text-white/90 transition-colors"
+              onClick={openFolderHandler}
+            >
               Open Upscayled Folder
             </button>
           </>
@@ -693,10 +696,11 @@ const Home = () => {
           upscaledImagePath &&
           imagePath && (
             <div
-              className="relative group overflow-hidden h-full w-full"
-              onMouseMove={handleMouseMoveCompare}>
+              className="img-with-border group relative h-full w-full overflow-hidden"
+              onMouseMove={handleMouseMoveCompare}
+            >
               <img
-                className={`absolute left-0 top-0 object-contain w-full h-full transition-transform group-hover:scale-[${
+                className={`absolute left-0 top-0 h-full w-full object-contain transition-transform group-hover:scale-[${
                   zoomAmount + "%"
                 }]`}
                 src={"file:///" + imagePath}
@@ -706,27 +710,28 @@ const Home = () => {
                 }}
               />
               <div
-                className={`absolute left-0 top-0 bg-white mix-blend-difference w-full h-full transition-transform group-hover:visible invisible group-hover:scale-[${
+                className={`invisible absolute left-0 top-0 h-full w-full bg-red-500 mix-blend-difference group-hover:visible group-hover:scale-[${
                   zoomAmount + "%"
                 }]`}
                 style={{
                   clipPath: `circle(${
-                    (lensSize + 2) / (parseInt(zoomAmount) / 100)
+                    lensSize / (parseInt(zoomAmount) / 100)
                   }px at ${cursorPosition.x}px ${cursorPosition.y}px)`,
                   backgroundPosition: "0% 0%",
                   transformOrigin: backgroundPosition,
                 }}
               />
               <img
-                className={`absolute top-0 object-contain left-0 w-full h-full transition-transform group-hover:scale-[${
+                className={`absolute h-full w-full object-contain transition-transform group-hover:scale-[${
                   zoomAmount + "%"
                 }]`}
                 src={"file:///" + upscaledImagePath}
                 style={{
                   clipPath: `circle(${
-                    lensSize / (parseInt(zoomAmount) / 100)
+                    (lensSize - parseInt(zoomAmount) / 100) /
+                    (parseInt(zoomAmount) / 100)
                   }px at ${cursorPosition.x}px ${cursorPosition.y}px)`,
-                  backgroundPosition: "0% 0%",
+                  backgroundPosition: backgroundPosition,
                   transformOrigin: backgroundPosition,
                 }}
               />

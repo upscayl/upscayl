@@ -153,7 +153,7 @@
 }
 
 [data-theme="upscayl"] .btn {
-  @apply font-medium normal-case !min-h-min h-10 py-2 px-3;
+  @apply h-10 !min-h-min px-3 py-2 font-medium normal-case;
 }
 
 [data-theme="upscayl"] input[type="range"] {
@@ -165,15 +165,15 @@
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__single-value {
-  @apply text-primary-content normal-case font-medium;
+  @apply font-medium normal-case text-primary-content;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__input-container {
-  @apply text-xs text-primary-content normal-case font-medium;
+  @apply text-xs font-medium normal-case text-primary-content;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__menu {
-  @apply rounded-lg bg-primary p-1 normal-case font-medium;
+  @apply rounded-lg bg-primary p-1 font-medium normal-case;
 }
 
 .mac-titlebar {

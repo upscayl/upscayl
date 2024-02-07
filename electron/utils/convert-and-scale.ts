@@ -106,7 +106,6 @@ const convertAndScale = async (
           lossless: compression === 0,
           smartSubsample: true,
         }),
-
         force: true,
       })
       .toFile(processedImagePath);
