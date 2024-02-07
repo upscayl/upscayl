@@ -696,7 +696,7 @@ const Home = () => {
           upscaledImagePath &&
           imagePath && (
             <div
-              className="img-with-border group relative h-full w-full overflow-hidden"
+              className="group relative h-full w-full overflow-hidden"
               onMouseMove={handleMouseMoveCompare}
             >
               <img
@@ -715,7 +715,8 @@ const Home = () => {
                 }]`}
                 style={{
                   clipPath: `circle(${
-                    lensSize / (parseInt(zoomAmount) / 100)
+                    (lensSize + 2 * (parseInt(zoomAmount) / 100)) /
+                    (parseInt(zoomAmount) / 100)
                   }px at ${cursorPosition.x}px ${cursorPosition.y}px)`,
                   backgroundPosition: "0% 0%",
                   transformOrigin: backgroundPosition,
@@ -728,7 +729,7 @@ const Home = () => {
                 src={"file:///" + upscaledImagePath}
                 style={{
                   clipPath: `circle(${
-                    (lensSize - parseInt(zoomAmount) / 100) /
+                    (lensSize + parseInt(zoomAmount) / 100) /
                     (parseInt(zoomAmount) / 100)
                   }px at ${cursorPosition.x}px ${cursorPosition.y}px)`,
                   backgroundPosition: backgroundPosition,
