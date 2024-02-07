@@ -710,7 +710,7 @@ const Home = () => {
                 }}
               />
               <div
-                className={`invisible absolute left-0 top-0 h-full w-full bg-red-500 mix-blend-difference group-hover:visible group-hover:scale-[${
+                className={`invisible absolute left-0 top-0 h-full w-full bg-white mix-blend-difference group-hover:visible group-hover:scale-[${
                   zoomAmount + "%"
                 }]`}
                 style={{
