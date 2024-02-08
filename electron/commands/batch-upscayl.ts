@@ -3,12 +3,14 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   customModelsFolderPath,
+  customWidth,
   noImageProcessing,
   saveOutputFolder,
   setCompression,
   setNoImageProcessing,
   setStopped,
   stopped,
+  useCustomWidth,
 } from "../utils/config-variables";
 import logit from "../utils/logit";
 import { spawnUpscayl } from "../utils/spawn-upscayl";
@@ -47,11 +49,11 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   let initialScale = getModelScale(model);
 
-  const desiredScale = payload.scale as string;
+  const desiredScale = useCustomWidth
+    ? customWidth || payload.scale
+    : payload.scale;
 
-  const outputFolderName = `upscayl_${model}_x${
-    noImageProcessing ? initialScale : desiredScale
-  }`;
+  const outputFolderName = `upscayl_${model}_${noImageProcessing ? initialScale : desiredScale}${useCustomWidth ? "px_" : "x_"}`;
   outputFolderPath += slash + outputFolderName;
   if (!fs.existsSync(outputFolderPath)) {
     fs.mkdirSync(outputFolderPath, { recursive: true });
@@ -78,9 +80,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       model,
       gpuId,
       saveImageAs,
-      initialScale
+      initialScale,
     ),
-    logit
+    logit,
   );
 
   childProcesses.push(upscayl);
@@ -94,7 +96,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     data = data.toString();
     mainWindow.webContents.send(
       COMMAND.FOLDER_UPSCAYL_PROGRESS,
-      data.toString()
+      data.toString(),
     );
     if (data.includes("invalid") || data.includes("failed")) {
       logit("❌ INVALID GPU OR INVALID FILES IN FOLDER - FAILED");
@@ -110,14 +112,14 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     mainWindow.setProgressBar(-1);
     mainWindow.webContents.send(
       COMMAND.FOLDER_UPSCAYL_PROGRESS,
-      data.toString()
+      data.toString(),
     );
     failed = true;
     upscayl.kill();
     mainWindow &&
       mainWindow.webContents.send(
         COMMAND.UPSCAYL_ERROR,
-        "Error upscaling image. Error: " + data
+        "Error upscaling image. Error: " + data,
       );
     return;
   };
@@ -133,7 +135,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
           COMMAND.FOLDER_UPSCAYL_DONE,
-          outputFolderPath
+          outputFolderPath,
         );
         return;
       }
@@ -148,19 +150,19 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             isAlpha
               ? `${outputFolderPath}${slash}${removeFileExtension(file)}.png`
               : `${outputFolderPath}${slash}${removeFileExtension(
-                  file
+                  file,
                 )}.${saveImageAs}`,
             `${outputFolderPath}${slash}${removeFileExtension(
-              file
+              file,
             )}.${saveImageAs}`,
             desiredScale,
             saveImageAs,
-            isAlpha
+            isAlpha,
           );
         });
         mainWindow.webContents.send(
           COMMAND.FOLDER_UPSCAYL_DONE,
-          outputFolderPath
+          outputFolderPath,
         );
         showNotification("Upscayled", "Image upscayled successfully!");
       } catch (error) {
@@ -170,7 +172,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_ERROR,
             "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
-              error
+              error,
           );
         showNotification("Upscayl Failure", "Failed to upscale image!");
       }

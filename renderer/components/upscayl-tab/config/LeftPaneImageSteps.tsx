@@ -289,42 +289,14 @@ function LeftPaneImageSteps({
         <p className="step-heading">Step 4</p>
         {dimensions.width && dimensions.height && (
           <p className="mb-2 text-sm">
-            Upscayl from <br />
+            Upscayl from{" "}
             <span className="font-bold">
               {dimensions.width}x{dimensions.height}
             </span>{" "}
-            to
-            <div className="flex items-center gap-1">
-              <input
-                className="input input-primary h-8 w-16 px-2 py-0 text-sm font-bold"
-                defaultValue={getUpscaleResolution().width}
-                value={targetWidth}
-                onChange={(e) => {
-                  if (parseInt(e.target.value) > 32768) {
-                    setTargetWidth(32768);
-                  } else if (e.target.value === "") {
-                    setTargetWidth(1);
-                  }
-                  setTargetWidth(parseInt(e.target.value));
-                }}
-              />{" "}
-              x{" "}
-              <input
-                className="input input-primary h-8 w-16 px-2 py-0 text-sm font-bold"
-                defaultValue={getUpscaleResolution().width}
-                value={targetHeight}
-                onChange={(e) => {
-                  if (parseInt(e.target.value) > 32768) {
-                    setTargetHeight(32768);
-                  } else if (e.target.value === "") {
-                    setTargetHeight(1);
-                  } else setTargetHeight(parseInt(e.target.value));
-                }}
-              />
-            </div>
-            {/* <span className="font-bold">
+            to{" "}
+            <span className="font-bold">
               {getUpscaleResolution().width}x{getUpscaleResolution().height}
-            </span> */}
+            </span>
           </p>
         )}
         <button

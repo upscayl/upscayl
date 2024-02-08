@@ -4,6 +4,7 @@ import COMMAND from "../../common/commands";
 import {
   compression,
   customModelsFolderPath,
+  customWidth,
   folderPath,
   noImageProcessing,
   outputFolderPath,
@@ -13,6 +14,7 @@ import {
   setNoImageProcessing,
   setStopped,
   stopped,
+  useCustomWidth,
 } from "../utils/config-variables";
 import convertAndScale from "../utils/convert-and-scale";
 import { getSingleImageArguments } from "../utils/get-arguments";
@@ -62,7 +64,9 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
 
   let initialScale = getModelScale(model);
 
-  const desiredScale = payload.scale;
+  const desiredScale = useCustomWidth
+    ? customWidth || payload.scale
+    : payload.scale;
 
   const outFile =
     outputDir +
@@ -70,7 +74,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     fileName +
     "_upscayl_" +
     (noImageProcessing ? initialScale : desiredScale) +
-    "x_" +
+    (useCustomWidth ? "px_" : "x_") +
     model +
     "." +
     saveImageAs;
@@ -83,8 +87,8 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       COMMAND.UPSCAYL_DONE,
       outFile.replace(
         /([^/\\]+)$/i,
-        encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
-      )
+        encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
+      ),
     );
   } else {
     logit(
@@ -101,7 +105,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         desiredScale,
         outFile,
         compression,
-      })
+      }),
     );
     const upscayl = spawnUpscayl(
       getSingleImageArguments(
@@ -112,9 +116,9 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         model,
         initialScale,
         gpuId,
-        saveImageAs
+        saveImageAs,
       ),
-      logit
+      logit,
     );
 
     setChildProcesses(upscayl);
@@ -157,8 +161,8 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
             COMMAND.UPSCAYL_DONE,
             outFile.replace(
               /([^/\\]+)$/i,
-              encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
-            )
+              encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
+            ),
           );
           return;
         }
@@ -172,7 +176,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
             outFile,
             desiredScale,
             saveImageAs,
-            isAlpha
+            isAlpha,
           );
           // Remove the png file (default) if the saveImageAs is not png
           // fs.access(
@@ -190,20 +194,20 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
             COMMAND.UPSCAYL_DONE,
             outFile.replace(
               /([^/\\]+)$/i,
-              encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
-            )
+              encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
+            ),
           );
           showNotification("Upscayl", "Image upscayled successfully!");
         } catch (error) {
           logit(
             "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
-            error
+            error,
           );
           upscayl.kill();
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_ERROR,
             "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
-              error
+              error,
           );
           showNotification("Upscayl Failure", "Failed to upscale image!");
         }

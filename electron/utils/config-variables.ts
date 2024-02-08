@@ -15,6 +15,8 @@ export let childProcesses: {
 }[] = [];
 export let noImageProcessing: boolean = false;
 export let turnOffNotifications: boolean = false;
+export let customWidth: string | null = null;
+export let useCustomWidth: boolean = false;
 
 export function setImagePath(value: string | undefined): void {
   imagePath = value;
@@ -62,7 +64,7 @@ export function setChildProcesses(value: {
     JSON.stringify({
       binary: childProcesses[0].process.spawnfile,
       args: childProcesses[0].process.spawnargs,
-    })
+    }),
   );
 }
 
@@ -74,6 +76,16 @@ export function setNoImageProcessing(value: boolean): void {
 export function setTurnOffNotifications(value: boolean): void {
   turnOffNotifications = value;
   logit("🔕 Updating Turn Off Notifications: ", turnOffNotifications);
+}
+
+export function setCustomWidth(value: string | null): void {
+  customWidth = value;
+  logit("📏 Updating Custom Width: ", customWidth);
+}
+
+export function setUseCustomWidth(value: boolean): void {
+  useCustomWidth = value;
+  logit("📏 Updating Use Custom Width: ", useCustomWidth);
 }
 
 // LOCAL STORAGE
@@ -101,7 +113,7 @@ export function fetchLocalStorage(): void {
   mainWindow.webContents
     .executeJavaScript(
       'localStorage.getItem("lastCustomModelsFolderPath");',
-      true
+      true,
     )
     .then((lastCustomModelsFolderPath: string | null) => {
       if (lastCustomModelsFolderPath && lastCustomModelsFolderPath.length > 0) {
@@ -147,6 +159,24 @@ export function fetchLocalStorage(): void {
     .then((lastSaved: string | null) => {
       if (lastSaved !== null) {
         setTurnOffNotifications(lastSaved === "true");
+      }
+    });
+
+  // GET CUSTOM WIDTH (STRING) FROM LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("customWidth");', true)
+    .then((lastSaved: string | null) => {
+      if (lastSaved !== null) {
+        setCustomWidth(lastSaved);
+      }
+    });
+
+  // GET USE CUSTOM WIDTH (BOOLEAN) FROM LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("useCustomWidth");', true)
+    .then((lastSaved: string | null) => {
+      if (lastSaved !== null) {
+        setUseCustomWidth(lastSaved === "true");
       }
     });
 }

@@ -1,3 +1,5 @@
+import { useCustomWidthAtom } from "@/atoms/userSettingsAtom";
+import { useAtom } from "jotai";
 import React from "react";
 
 type ImageScaleSelectProps = {
@@ -6,16 +8,21 @@ type ImageScaleSelectProps = {
 };
 
 export function ImageScaleSelect({ scale, setScale }: ImageScaleSelectProps) {
+  const [useCustomWidth, setUseCustomWidth] = useAtom(useCustomWidthAtom);
+
   return (
-    <div>
+    <div className={`${useCustomWidth && "opacity-50"}`}>
       <div className="flex flex-row gap-1">
-        <p className="text-sm font-medium">IMAGE SCALE</p>
+        <p className="text-sm font-medium">
+          IMAGE SCALE {useCustomWidth && "DISABLED"}
+        </p>
         {/* 
         <p className="badge-primary badge text-[10px] font-medium">
           EXPERIMENTAL
         </p> */}
       </div>
       <input
+        disabled={useCustomWidth}
         type="range"
         min="1"
         max="4"

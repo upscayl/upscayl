@@ -3,6 +3,7 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   customModelsFolderPath,
+  customWidth,
   noImageProcessing,
   outputFolderPath,
   saveOutputFolder,
@@ -10,6 +11,7 @@ import {
   setNoImageProcessing,
   setStopped,
   stopped,
+  useCustomWidth,
 } from "../utils/config-variables";
 import slash from "../utils/slash";
 import { spawnUpscayl } from "../utils/spawn-upscayl";
@@ -55,7 +57,9 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
 
   let initialScale = getModelScale(model);
 
-  const desiredScale = parseInt(payload.scale) * parseInt(payload.scale);
+  const desiredScale = useCustomWidth
+    ? customWidth || parseInt(payload.scale) * parseInt(payload.scale)
+    : parseInt(payload.scale) * parseInt(payload.scale);
 
   const outFile =
     outputDir +
@@ -65,7 +69,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     (noImageProcessing
       ? parseInt(initialScale) * parseInt(initialScale)
       : desiredScale) +
-    "x_" +
+    (useCustomWidth ? "px_" : "x_") +
     model +
     "." +
     saveImageAs;
@@ -80,9 +84,9 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       model,
       gpuId,
       saveImageAs,
-      initialScale
+      initialScale,
     ),
-    logit
+    logit,
   );
 
   childProcesses.push(upscayl);
@@ -119,7 +123,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     mainWindow &&
       mainWindow.webContents.send(
         COMMAND.UPSCAYL_ERROR,
-        "Error upscaling image. Error: " + data
+        "Error upscaling image. Error: " + data,
       );
     showNotification("Upscayl Failure", "Failed to upscale image!");
     upscayl.kill();
@@ -140,12 +144,12 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           isAlpha
             ? (outFile + ".png").replace(
                 /([^/\\]+)$/i,
-                encodeURIComponent((outFile + ".png").match(/[^/\\]+$/i)![0])
+                encodeURIComponent((outFile + ".png").match(/[^/\\]+$/i)![0]),
               )
             : outFile.replace(
                 /([^/\\]+)$/i,
-                encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
-              )
+                encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
+              ),
         );
         return;
       }
@@ -157,15 +161,15 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           outFile,
           desiredScale.toString(),
           saveImageAs,
-          isAlpha
+          isAlpha,
         );
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
           COMMAND.DOUBLE_UPSCAYL_DONE,
           outFile.replace(
             /([^/\\]+)$/i,
-            encodeURIComponent(outFile.match(/[^/\\]+$/i)![0])
-          )
+            encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
+          ),
         );
         if (isAlpha && saveImageAs === "jpg") {
           unlinkSync(outFile + ".png");
@@ -177,7 +181,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_ERROR,
             "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
-              error
+              error,
           );
         showNotification("Upscayl Failure", "Failed to upscale image!");
         upscayl.kill();
@@ -199,9 +203,9 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           model,
           gpuId,
           saveImageAs,
-          initialScale
+          initialScale,
         ),
-        logit
+        logit,
       );
 
       childProcesses.push(upscayl2);
@@ -228,7 +232,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
         mainWindow &&
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_ERROR,
-            "Error upscaling image. Error: " + data
+            "Error upscaling image. Error: " + data,
           );
         showNotification("Upscayl Failure", "Failed to upscale image!");
         upscayl2.kill();

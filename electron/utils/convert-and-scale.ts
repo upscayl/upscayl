@@ -1,7 +1,7 @@
 import fs from "fs";
 import sharp, { FormatEnum, Metadata } from "sharp";
 import logit from "./logit";
-import { compression } from "./config-variables";
+import { compression, customWidth } from "./config-variables";
 import { ImageFormat } from "./types";
 
 const convertAndScale = async (
@@ -10,9 +10,9 @@ const convertAndScale = async (
   processedImagePath: string,
   scale: string,
   saveImageAs: ImageFormat,
-  isAlpha: boolean
+  isAlpha: boolean,
 ) => {
-  if (!isAlpha && scale === "4" && compression === 0) {
+  if (!isAlpha && !customWidth && scale === "4" && compression === 0) {
     logit("Skipping compression for 4x scale and 0% compression");
     return;
   }
@@ -28,7 +28,7 @@ const convertAndScale = async (
     logit("🖼️ Checking if original image exists: ", originalImagePath);
     if (err) {
       throw new Error(
-        "Could not grab the original image from the path provided! - " + err
+        "Could not grab the original image from the path provided! - " + err,
       );
     }
   });
@@ -38,23 +38,6 @@ const convertAndScale = async (
   }
   console.log("🚀 => originalImage:", originalImage);
 
-  // Resize the image to the scale
-  const newImage = sharp(upscaledImagePath, {
-    limitInputPixels: false,
-  })
-    .resize(
-      originalImage.width && originalImage.width * parseInt(scale),
-      originalImage.height && originalImage.height * parseInt(scale),
-      {
-        fit: "outside",
-      }
-    )
-    .withMetadata({
-      density: originalImage.density,
-      orientation: originalImage.orientation,
-    });
-
-  console.log("🚀 => newImage:", newImage);
   // Convert compression percentage (0-100) to compressionLevel (0-9)
   const compressionLevel = Math.round((compression / 100) * 9);
 
@@ -63,12 +46,32 @@ const convertAndScale = async (
     JSON.stringify({
       originalWidth: originalImage.width,
       originalHeight: originalImage.height,
+      customWidth,
       scale,
       saveImageAs,
       compressionPercentage: compression,
       compressionLevel,
-    })
+    }),
   );
+
+  // Resize the image to the scale
+  const newImage = sharp(upscaledImagePath, {
+    limitInputPixels: false,
+  })
+    .resize(
+      customWidth
+        ? parseInt(customWidth)
+        : originalImage.width && originalImage.width * parseInt(scale),
+      customWidth
+        ? null
+        : originalImage.height && originalImage.height * parseInt(scale),
+    )
+    .withMetadata({
+      density: originalImage.density,
+      orientation: originalImage.orientation,
+    });
+
+  console.log("🚀 => newImage:", newImage);
 
   const buffer = await newImage
     .withMetadata({
