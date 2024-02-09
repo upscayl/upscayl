@@ -177,17 +177,9 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
             desiredScale,
             saveImageAs,
           );
-          // Remove the png file (default) if the saveImageAs is not png
-          // fs.access(
-          //   removeFileExtension(outFile) + ".png",
-          //   fs.constants.F_OK,
-          //   (err) => {
-          //     if (!err && saveImageAs !== "png") {
-          //       logit("🗑 Removing png file");
-          //       fs.unlinkSync(removeFileExtension(outFile) + ".png");
-          //     }
-          //   }
-          // );
+          if (isAlpha && saveImageAs === "jpg") {
+            fs.unlinkSync(outFile + ".png");
+          }
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,
