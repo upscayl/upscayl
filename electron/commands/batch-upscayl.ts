@@ -145,20 +145,37 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         files.forEach(async (file) => {
           if (file.startsWith(".") || file === outputFolderName) return;
           console.log("Filename: ", removeFileExtension(file));
+          let upscaledImagePath = `${outputFolderPath}${slash}${removeFileExtension(
+            file,
+          )}.${saveImageAs}`;
+          if (
+            isAlpha &&
+            saveImageAs === "jpg" &&
+            fs.existsSync(
+              `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`,
+            )
+          ) {
+            console.log("This is an Alpha image!");
+            upscaledImagePath = `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`;
+          }
           await convertAndScale(
             inputDir + slash + file,
-            isAlpha
-              ? `${outputFolderPath}${slash}${removeFileExtension(file)}.png`
-              : `${outputFolderPath}${slash}${removeFileExtension(
-                  file,
-                )}.${saveImageAs}`,
+            upscaledImagePath,
             `${outputFolderPath}${slash}${removeFileExtension(
               file,
             )}.${saveImageAs}`,
             desiredScale,
             saveImageAs,
-            isAlpha,
           );
+          if (
+            isAlpha &&
+            saveImageAs === "jpg" &&
+            fs.existsSync(
+              `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`,
+            )
+          ) {
+            fs.unlinkSync(upscaledImagePath);
+          }
         });
         mainWindow.webContents.send(
           COMMAND.FOLDER_UPSCAYL_DONE,

@@ -10,9 +10,8 @@ const convertAndScale = async (
   processedImagePath: string,
   scale: string,
   saveImageAs: ImageFormat,
-  isAlpha: boolean,
 ) => {
-  if (!isAlpha && !customWidth && scale === "4" && compression === 0) {
+  if (!customWidth && scale === "4" && compression === 0) {
     logit("Skipping compression for 4x scale and 0% compression");
     return;
   }
@@ -36,7 +35,6 @@ const convertAndScale = async (
   if (!originalImage) {
     throw new Error("Could not grab the original image!");
   }
-  console.log("🚀 => originalImage:", originalImage);
 
   // Convert compression percentage (0-100) to compressionLevel (0-9)
   const compressionLevel = Math.round((compression / 100) * 9);
@@ -70,8 +68,6 @@ const convertAndScale = async (
       density: originalImage.density,
       orientation: originalImage.orientation,
     });
-
-  console.log("🚀 => newImage:", newImage);
 
   const buffer = await newImage
     .withMetadata({
