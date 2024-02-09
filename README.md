@@ -4,6 +4,7 @@
 <img src="https://github.com/upscayl/upscayl/assets/25067102/d552a63c-1ec4-4e2b-9865-73567f3cc42e" />
 </a>
 
+# [v2.9.9 Pre-release is out! 🥳](https://github.com/upscayl/upscayl/releases/tag/v2.9.9)
 # [v2.9.8 is out! 🥳](https://github.com/upscayl/upscayl/releases/tag/v2.9.8)
 
 <a href="https://upscayl.org/#download">
