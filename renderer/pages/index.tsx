@@ -138,13 +138,7 @@ const Home = () => {
     );
     // LOG
     window.electron.on(COMMAND.LOG, (_, data: string) => {
-      if (
-        !data.includes("Updating") &&
-        !data.includes("Custom Models Folder Path") &&
-        !data.includes("Detected Custom Models")
-      ) {
-        logit(`🐞 BACKEND REPORTED: `, data);
-      }
+      logit(`🐞 BACKEND REPORTED: `, data);
     });
     // SCALING AND CONVERTING
     window.electron.on(COMMAND.SCALING_AND_CONVERTING, (_, data: string) => {
