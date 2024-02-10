@@ -10,11 +10,30 @@ const convertAndScale = async (
   processedImagePath: string,
   scale: string,
   saveImageAs: ImageFormat,
+  imageIsAlpha?: boolean,
 ) => {
-  if (!customWidth && scale === "4" && compression === 0) {
+  // Skip conversion when the scale is 4x and compression is 0
+  // - When output format is WebP or PNG
+  // - When the image is not alpha and the output format is JPEG
+  if (
+    !customWidth &&
+    (saveImageAs === "png" || saveImageAs === "webp") &&
+    scale === "4" &&
+    compression === 0
+  ) {
+    logit("Skipping compression for 4x scale and 0% compression");
+    return;
+  } else if (
+    !customWidth &&
+    saveImageAs === "jpg" &&
+    scale === "4" &&
+    compression === 0 &&
+    !imageIsAlpha
+  ) {
     logit("Skipping compression for 4x scale and 0% compression");
     return;
   }
+
   let originalImage: Metadata | undefined;
 
   try {

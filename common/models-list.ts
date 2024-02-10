@@ -2,7 +2,7 @@ export const defaultModelsList = [
   { label: "General Photo (Real-ESRGAN)", value: "realesrgan-x4plus" },
   {
     label: "General Photo (Fast Real-ESRGAN)",
-    value: "RealESRGAN_General_x4_v3",
+    value: "realesrgan-x4fast",
   },
   { label: "General Photo (Remacri)", value: "remacri" },
   { label: "General Photo (Ultramix Balanced)", value: "ultramix_balanced" },

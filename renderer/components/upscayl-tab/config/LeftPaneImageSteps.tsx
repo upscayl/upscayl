@@ -311,7 +311,7 @@ function LeftPaneImageSteps({
         </button>
       </div>
 
-      <Tooltip className="max-w-sm" id="tooltip" />
+      <Tooltip className="z-50 max-w-sm" id="tooltip" />
     </div>
   );
 }

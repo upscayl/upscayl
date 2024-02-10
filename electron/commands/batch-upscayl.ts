@@ -53,7 +53,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     ? customWidth || payload.scale
     : payload.scale;
 
-  const outputFolderName = `upscayl_${model}_${noImageProcessing ? initialScale : desiredScale}${useCustomWidth ? "px_" : "x_"}`;
+  const outputFolderName = `upscayl_${saveImageAs}_${model}_${noImageProcessing ? initialScale : desiredScale}${useCustomWidth ? "px" : "x"}`;
   outputFolderPath += slash + outputFolderName;
   if (!fs.existsSync(outputFolderPath)) {
     fs.mkdirSync(outputFolderPath, { recursive: true });
@@ -148,6 +148,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           let upscaledImagePath = `${outputFolderPath}${slash}${removeFileExtension(
             file,
           )}.${saveImageAs}`;
+          let imageIsAlpha = false;
           if (
             isAlpha &&
             saveImageAs === "jpg" &&
@@ -155,6 +156,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
               `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`,
             )
           ) {
+            imageIsAlpha = true;
             console.log("This is an Alpha image!");
             upscaledImagePath = `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`;
           }
@@ -166,6 +168,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             )}.${saveImageAs}`,
             desiredScale,
             saveImageAs,
+            imageIsAlpha,
           );
           if (
             isAlpha &&
