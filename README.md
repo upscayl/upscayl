@@ -153,6 +153,7 @@ npm install
 npm run dist
 
 # PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
+# ONLY DO THIS IF YOU'RE A MAINTAINER
 npm run publish-app
 ```
 
