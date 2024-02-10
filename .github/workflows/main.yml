@@ -3,9 +3,6 @@ name: Deploy Release
 # this will help you specify where to run
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - v*
 # this is where the magic happens, each job happens in parallel btw
 jobs:
   linux:
