@@ -72,13 +72,13 @@ This means that Linux users receive pre-release builds earlier, but Upscayl itse
 
 Upscayl should be available on the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap version.
 
-#### Portable Method
+#### 💼 Portable Method
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
 2. Download the `upscayl-x.x.x-linux.AppImage` file.
 3. Right Click AppImage -> Go to Permissions tab -> Check 'allow file to execute' and then double click the file to run Upscayl.
 
-*You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any Linux OS).*
+*You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any x86 Linux OS).*
 
 ### 🍎 macOS
 (MacOS 12 and later)
@@ -87,13 +87,15 @@ Upscayl should be available on the software listings of most Linux operating sys
   <img src="https://www.upscayl.org/appstore.svg" height="60px"/>
 </a>
 
-#### Portable Method
-
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
 2. Download the `upscayl-x.x.x-mac.dmg` file.
 3. Double click dmg, drag Upscayl icon into Applications folder.
 4. Open Finder, click 'Applications' tab in the left sidebar. Find Upscayl and right click on it. Select 'Open'.
 5. In the window that appears, press 'Open' yet again.
+
+#### 🍺 Homebrew
+
+`brew install --cask upscayl`
 
 ### 🐌 Windows
 (Windows 10 and later)
