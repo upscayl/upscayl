@@ -162,7 +162,7 @@ npm run publish-app
 # 🤓 FAQ
 
 - **How does Upscayl work?**
-  - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN architecture to achieve this.
+  - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN and Vulkan architecture to achieve this. [Our backend](https://github.com/upscayl/upscayl-ncnn) is fully open-source under the AGPLv3 license.
 - **I don't see a drastic change in my upscaled image. Why is that?**
   - Upscayl can enhance low resolution images and images that are pixelated but it cannot de-blur or do focus adjustment on your image. If your image is out-of-focus or totally blurred, Upscayl is not the right tool for it. Please use images that are similar to the [examples we've given here.](COMPARISONS.MD)
 - **Is there a CLI available?**
