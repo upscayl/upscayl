@@ -162,7 +162,9 @@ npm run publish-app
 # 🤓 FAQ
 
 - **How does Upscayl work?**
-  - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN to achieve this.
+  - Upscayl uses AI models to enhance your images by guessing what the details could be. It uses Real-ESRGAN architecture to achieve this.
+- **I don't see a drastic change in my upscaled image. Why is that?**
+  - Upscayl can enhance low resolution images and images that are pixelated but it cannot de-blur or do focus adjustment on your image. If your image is out-of-focus or totally blurred, Upscayl is not the right tool for it. Please use images that are similar to the [examples we've given here.](COMPARISONS.MD)
 - **Is there a CLI available?**
   - The CLI tool is called [upscayl-ncnn](https://github.com/upscayl/upscayl-ncnn).
 - **Do I need a GPU for this to work?**
@@ -173,9 +175,6 @@ npm run publish-app
 - **What's the GPU ID for?**
   - It is for selecting which GPU to use. The specific procedure is detailed in the [Wiki](https://github.com/upscayl/upscayl/wiki/Guide).
     - Note that for Windows systems, if Upscayl is not set to performance mode, the system may override this setting.
-- **You are not fully open source!!😡**
-  - We are! We're using completely free and open-source tech. We do ship a binary, but that's because not including it would kill the entire purpose of the project. If you want to deal with all those PyTorch, NCNN, and Python errors, you're more than welcome to compile your own binary using the code provided by Real-ESRGAN. The binary is pre-compiled for convenience; if you do not trust it, then you can compile your own since everything is free and open source here 😁
-  - As of v2.9, we're using our fork of Real-ESRGAN-ncnn-vulkan at https://github.com/upscayl/upscayl-ncnn.
 - **Where do I find more models?**
   -  More models can be taken from here: https://github.com/upscayl/custom-models
 
