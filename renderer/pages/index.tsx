@@ -24,6 +24,7 @@ import {
   progressAtom,
   scaleAtom,
   viewTypeAtom,
+  rememberOutputFolderAtom,
 } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
 import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
@@ -81,6 +82,7 @@ const Home = () => {
   const [showNewsModal, setShowNewsModal] = useAtom(showNewsModalAtom);
   const viewType = useAtomValue(viewTypeAtom);
   const lensSize = useAtomValue(lensSizeAtom);
+  const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
 
   const { logit } = useLog();
 
@@ -275,19 +277,6 @@ const Home = () => {
     }
   }, [news]);
 
-  // CONFIGURE SAVED OUTPUT PATH
-  useEffect(() => {
-    const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
-    const lastOutputFolderPath = localStorage.getItem("lastOutputFolderPath");
-    if (rememberOutputFolder === "true") {
-      logit("🧠 Recalling Output Folder: ", lastOutputFolderPath);
-      setOutputPath(lastOutputFolderPath);
-    } else {
-      setOutputPath("");
-      localStorage.removeItem("lastOutputFolderPath");
-    }
-  }, []);
-
   // LOADING STATE
   useEffect(() => {
     setIsLoading(false);
@@ -340,7 +329,9 @@ const Home = () => {
     var dirname = path.match(/(.*)[\/\\]/)[1] || "";
     logit("📁 Selected Image Directory: ", dirname);
     if (!featureFlags.APP_STORE_BUILD) {
-      setOutputPath(dirname);
+      if (!rememberOutputFolder) {
+        setOutputPath(dirname);
+      }
     }
     validateImagePath(path);
   };
@@ -351,11 +342,15 @@ const Home = () => {
     if (path !== null) {
       logit("🖼 Selected Folder Path: ", path);
       setBatchFolderPath(path);
-      setOutputPath(path);
+      if (!rememberOutputFolder) {
+        setOutputPath(path);
+      }
     } else {
       logit("🚫 Folder selection cancelled");
       setBatchFolderPath("");
-      setOutputPath("");
+      if (!rememberOutputFolder) {
+        setOutputPath("");
+      }
     }
   };
 
@@ -412,7 +407,11 @@ const Home = () => {
       setImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       logit("🗂 Setting output path: ", dirname);
-      if (!featureFlags.APP_STORE_BUILD) setOutputPath(dirname);
+      if (!featureFlags.APP_STORE_BUILD) {
+        if (!rememberOutputFolder) {
+          setOutputPath(dirname);
+        }
+      }
       validateImagePath(filePath);
     }
   };
@@ -433,22 +432,9 @@ const Home = () => {
       setImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
       logit("🗂 Setting output path: ", dirname);
-      setOutputPath(dirname);
-    }
-  };
-
-  const outputHandler = async () => {
-    var path = await window.electron.invoke(COMMAND.SELECT_FOLDER);
-    if (path !== null) {
-      logit("🗂 Setting Output Path: ", path);
-      setOutputPath(path);
-      const rememberOutputFolder = localStorage.getItem("rememberOutputFolder");
-      if (rememberOutputFolder) {
-        logit("🧠 Remembering Output Folder: ", path);
-        localStorage.setItem("lastOutputFolderPath", path);
+      if (!rememberOutputFolder) {
+        setOutputPath(dirname);
       }
-    } else {
-      setOutputPath("");
     }
   };
 
@@ -564,7 +550,6 @@ const Home = () => {
             selectImageHandler={selectImageHandler}
             selectFolderHandler={selectFolderHandler}
             handleModelChange={handleModelChange}
-            outputHandler={outputHandler}
             upscaylHandler={upscaylHandler}
             batchMode={batchMode}
             setBatchMode={setBatchMode}
@@ -674,7 +659,7 @@ const Home = () => {
           )}
         {/* BATCH UPSCALE DONE INFO */}
         {batchMode && upscaledBatchFolderPath.length > 0 && (
-          <>
+          <div className="z-50 flex flex-col items-center">
             <p className="select-none py-4 font-bold text-base-content">
               All done!
             </p>
@@ -684,7 +669,7 @@ const Home = () => {
             >
               Open Upscayled Folder
             </button>
-          </>
+          </div>
         )}
         <ImageOptions
           zoomAmount={zoomAmount}
