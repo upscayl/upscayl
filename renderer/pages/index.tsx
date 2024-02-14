@@ -674,7 +674,7 @@ const Home = () => {
           )}
         {/* BATCH UPSCALE DONE INFO */}
         {batchMode && upscaledBatchFolderPath.length > 0 && (
-          <>
+          <div className="z-50 flex flex-col items-center">
             <p className="select-none py-4 font-bold text-base-content">
               All done!
             </p>
@@ -684,7 +684,7 @@ const Home = () => {
             >
               Open Upscayled Folder
             </button>
-          </>
+          </div>
         )}
         <ImageOptions
           zoomAmount={zoomAmount}
