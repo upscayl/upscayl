@@ -161,6 +161,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           outFile,
           desiredScale.toString(),
           saveImageAs,
+          isAlpha,
         );
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(

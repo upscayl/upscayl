@@ -176,6 +176,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
             outFile,
             desiredScale,
             saveImageAs,
+            isAlpha,
           );
           if (isAlpha && saveImageAs === "jpg") {
             fs.unlinkSync(outFile + ".png");

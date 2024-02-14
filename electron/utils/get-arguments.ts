@@ -10,7 +10,7 @@ export const getSingleImageArguments = (
   model: string,
   scale: any,
   gpuId: string,
-  saveImageAs: ImageFormat
+  saveImageAs: ImageFormat,
 ) => {
   return [
     "-i",
@@ -38,7 +38,7 @@ export const getSingleImageSharpenArguments = (
   model: string,
   scale: any,
   gpuId: string,
-  saveImageAs: ImageFormat
+  saveImageAs: ImageFormat,
 ) => {
   return [
     "-i",
@@ -65,7 +65,7 @@ export const getDoubleUpscaleArguments = (
   model: string,
   gpuId: string,
   saveImageAs: ImageFormat,
-  scale: string
+  scale: string,
 ) => {
   return [
     "-i",
@@ -92,7 +92,7 @@ export const getDoubleUpscaleSecondPassArguments = (
   model: string,
   gpuId: string,
   saveImageAs: ImageFormat,
-  scale: string
+  scale: string,
 ) => {
   return [
     "-i",
@@ -107,7 +107,7 @@ export const getDoubleUpscaleSecondPassArguments = (
     model,
     gpuId ? "-g" : "",
     gpuId ? gpuId : "",
-    "-f",
+    isAlpha ? "" : "-f",
     isAlpha ? "" : saveImageAs,
   ];
 };
@@ -119,7 +119,7 @@ export const getBatchArguments = (
   model: string,
   gpuId: string,
   saveImageAs: ImageFormat,
-  scale: string
+  scale: string,
 ) => {
   return [
     "-i",
