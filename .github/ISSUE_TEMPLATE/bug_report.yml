@@ -48,14 +48,14 @@ body:
 - type: input
   attributes:
     label: OS Version
-    description: "✍️ What's the version of your operating system? (Example: Ubuntu 22.04, MacOS Monterey or Windows 10)"
+    description: ✍️ For example: Ubuntu 22.04.03, macOS 12.7.3, Windows 11 23H2
   validations:
     required: true
 
 - type: input
   attributes:
     label: GPU Name
-    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, [STOP and read the 3rd point in the FAQ](https://github.com/upscayl/upscayl?tab=readme-ov-file#-faq). 
+    description: 📝 What GPU do you have? If you do not know, please just write the name of your device. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, [STOP and read the 3rd point in the FAQ](https://github.com/upscayl/upscayl?tab=readme-ov-file#-faq). 
   validations:
     required: true
     
