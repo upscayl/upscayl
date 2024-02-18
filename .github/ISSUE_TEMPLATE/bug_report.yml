@@ -48,7 +48,7 @@ body:
 - type: input
   attributes:
     label: OS Version
-    description: ✍️ For example: Ubuntu 22.04.03, macOS 12.7.3, Windows 11 23H2
+    description: "✍️ For example: Ubuntu 22.04.03, macOS 12.7.3, Windows 11 23H2"
   validations:
     required: true
 
