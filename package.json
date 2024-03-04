@@ -230,7 +230,7 @@
     "electron-next": "^3.1.5",
     "electron-settings": "^4.0.2",
     "electron-updater": "^6.1.4",
-    "firebase": "^10.3.0",
+    "firebase": "^10.8.1",
     "gray-matter": "^4.0.3",
     "jotai": "^2.2.2",
     "react-compare-slider": "^3.0.1",
