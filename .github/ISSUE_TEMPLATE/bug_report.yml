@@ -14,7 +14,7 @@ body:
 - type: textarea
   attributes: 
     label: Describe the Bug
-    description: 💥 What's the bug?
+    description: 💥 Say it in words. Don't put the logs here.
   validations:
     required: true
     
