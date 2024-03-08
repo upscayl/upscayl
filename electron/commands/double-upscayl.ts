@@ -4,6 +4,7 @@ import {
   childProcesses,
   customModelsFolderPath,
   customWidth,
+  folderPath,
   noImageProcessing,
   outputFolderPath,
   saveOutputFolder,

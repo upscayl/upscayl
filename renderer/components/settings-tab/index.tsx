@@ -65,7 +65,6 @@ function SettingsTab({
     label: null,
     value: null,
   });
-  const [rememberOutputFolder, setRememberOutputFolder] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
 
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
@@ -125,22 +124,6 @@ function SettingsTab({
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
       logit("⚙️ Getting gpuId from localStorage: ", currentlySavedGpuId);
-    }
-
-    if (!localStorage.getItem("rememberOutputFolder")) {
-      logit("⚙️ Setting rememberOutputFolder to false");
-      localStorage.setItem("rememberOutputFolder", "false");
-    } else {
-      const currentlySavedRememberOutputFolder = localStorage.getItem(
-        "rememberOutputFolder",
-      );
-      logit(
-        "⚙️ Getting rememberOutputFolder from localStorage: ",
-        currentlySavedRememberOutputFolder,
-      );
-      setRememberOutputFolder(
-        currentlySavedRememberOutputFolder === "true" ? true : false,
-      );
     }
   }, []);
 
@@ -229,10 +212,7 @@ function SettingsTab({
         </>
       )}
 
-      <SaveOutputFolderToggle
-        rememberOutputFolder={rememberOutputFolder}
-        setRememberOutputFolder={setRememberOutputFolder}
-      />
+      <SaveOutputFolderToggle />
 
       <OverwriteToggle />
       <TurnOffNotificationsToggle />
