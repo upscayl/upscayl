@@ -2,7 +2,7 @@ import { lensSizeAtom, viewTypeAtom } from "@/atoms/userSettingsAtom";
 import SidebarClosed from "@/components/icons/SidebarClosed";
 import SidebarOpened from "@/components/icons/SidebarOpened";
 import { useAtom } from "jotai";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ImageOptions = ({
   zoomAmount,
@@ -32,42 +32,46 @@ const ImageOptions = ({
       onDoubleClick={(e) => {
         e.stopPropagation();
       }}
-      className="w-full h-full absolute">
+      className="absolute h-full w-full"
+    >
       <div
-        className={`transition-all duration-500 bg-base-100 text-base-content h-screen w-[28rem] fixed right-0 top-0 z-50 shadow-xl shadow-black ${
+        className={`fixed right-0 top-0 z-50 h-screen w-[28rem] bg-base-100 text-base-content shadow-xl shadow-black transition-all duration-500 ${
           openSidebar ? "right-0" : "-right-full translate-x-full"
-        }`}>
+        }`}
+      >
         <div
-          className={`transition-all duration-500 bg-base-100 p-4 rounded-btn rounded-r-none absolute top-1/2 right-[100%] z-50 cursor-pointer flex items-center group gap-2`}
+          className={`group rounded-btn absolute right-[100%] top-1/2 z-50 flex cursor-pointer items-center gap-2 rounded-r-none bg-base-100 p-4 transition-all duration-500`}
           onClick={() => {
             setOpenSidebar(!openSidebar);
-          }}>
+          }}
+        >
           {openSidebar ? (
-            <SidebarOpened className="text-white text-xl" />
+            <SidebarOpened className="text-xl text-white" />
           ) : (
-            <SidebarClosed className="text-white text-xl" />
+            <SidebarClosed className="text-xl text-white" />
           )}
         </div>
 
         <div className="flex flex-col justify-center gap-5 overflow-auto p-5">
-          <button className="btn-primary btn" onClick={resetImagePaths}>
+          <button className="btn btn-primary" onClick={resetImagePaths}>
             Reset Image
           </button>
 
           <div className="flex flex-row items-center gap-2">
-            <p className="font-medium text-sm">Lens View</p>
+            <p className="text-sm font-medium">Lens View</p>
             <input
               type="checkbox"
               className="toggle"
+              checked={viewType === "slider"}
               onChange={(e) => {
                 setViewType(e.target.checked ? "slider" : "lens");
               }}
             />
-            <p className="font-medium text-sm">Slider View</p>
+            <p className="text-sm font-medium">Slider View</p>
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="font-medium text-sm">Zoom Amount ({zoomAmount}%)</p>
+            <p className="text-sm font-medium">Zoom Amount ({zoomAmount}%)</p>
             <input
               type="range"
               min="100"
@@ -83,7 +87,7 @@ const ImageOptions = ({
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="font-medium text-sm">Lens Size ({lensSize / 10})</p>
+            <p className="text-sm font-medium">Lens Size ({lensSize / 10})</p>
             <input
               type="range"
               min="20"

@@ -74,7 +74,6 @@
     "artifactName": "${name}-${version}-${os}.${ext}",
     "afterSign": "./notarize.js",
     "asar": true,
-    "buildVersion": "23.11.4",
     "asarUnpack": [
       "**/node_modules/sharp/**/*"
     ],
@@ -213,7 +212,7 @@
     "cross-env": "^7.0.3",
     "daisyui": "^3.9.4",
     "electron": "^27.2.4",
-    "electron-builder": "^24.9.1",
+    "electron-builder": "^24.13.3",
     "next": "^13.5.6",
     "postcss": "^8.4.31",
     "prettier": "^3.2.5",
@@ -230,7 +229,7 @@
     "electron-next": "^3.1.5",
     "electron-settings": "^4.0.2",
     "electron-updater": "^6.1.4",
-    "firebase": "^10.3.0",
+    "firebase": "^10.8.1",
     "gray-matter": "^4.0.3",
     "jotai": "^2.2.2",
     "react-compare-slider": "^3.0.1",

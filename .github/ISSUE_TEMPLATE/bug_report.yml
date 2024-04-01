@@ -8,13 +8,13 @@ body:
     options:
       - label: I have **tried ALL** of the steps mentioned in the [troubleshooting guide](https://github.com/upscayl/upscayl/wiki/Troubleshooting).
         required: true
-      - label: I have **searched** for my issue in the [issues tab](https://github.com/upscayl/upscayl/issues?q=).
+      - label: I have **searched** for this in the [issues tab](https://github.com/upscayl/upscayl/issues?q=).
         required: true
       - label: My error involves vkEnumeratePhysicalDevices or vkCreateInstance, which means I should ignore the other issues and file this one despite the last checkbox.
 - type: textarea
   attributes: 
     label: Describe the Bug
-    description: 💥 What's the bug?
+    description: 💥 Say it in words. Don't put the logs here.
   validations:
     required: true
     
@@ -48,14 +48,14 @@ body:
 - type: input
   attributes:
     label: OS Version
-    description: "✍️ What's the version of your operating system? (Example: Ubuntu 22.04, MacOS Monterey or Windows 10)"
+    description: "✍️ For example: Ubuntu 22.04.03, macOS 12.7.3, Windows 11 23H2"
   validations:
     required: true
 
 - type: input
   attributes:
     label: GPU Name
-    description: 📝 What GPU do you have? If you do not know, please just write your device name if it's a laptop. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, [STOP and read the 3rd point in the FAQ](https://github.com/upscayl/upscayl?tab=readme-ov-file#-faq). 
+    description: 📝 What GPU do you have? If you do not know, please just write the name of your device. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, [STOP and read the 3rd point in the FAQ](https://github.com/upscayl/upscayl?tab=readme-ov-file#-faq). 
   validations:
     required: true
     
