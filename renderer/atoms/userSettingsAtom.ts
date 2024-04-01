@@ -36,7 +36,7 @@ export const turnOffNotificationsAtom = atomWithStorage(
 
 export const viewTypeAtom = atomWithStorage<"slider" | "lens">(
   "viewType",
-  "lens",
+  "slider",
 );
 
 export const lensSizeAtom = atomWithStorage<number>("lensSize", 100);
