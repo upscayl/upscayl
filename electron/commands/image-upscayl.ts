@@ -16,7 +16,6 @@ import {
   stopped,
   useCustomWidth,
 } from "../utils/config-variables";
-import convertAndScale from "../utils/convert-and-scale";
 import { getSingleImageArguments } from "../utils/get-arguments";
 import logit from "../utils/logit";
 import slash from "../utils/slash";
@@ -170,17 +169,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         // Free up memory
         upscayl.kill();
         try {
-          await convertAndScale(
-            inputDir + slash + fullfileName,
-            isAlpha ? outFile + ".png" : outFile,
-            outFile,
-            desiredScale,
-            saveImageAs,
-            isAlpha,
-          );
-          if (isAlpha && saveImageAs === "jpg") {
-            fs.unlinkSync(outFile + ".png");
-          }
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,

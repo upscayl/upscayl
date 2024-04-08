@@ -23,7 +23,6 @@ import {
 import { modelsPath } from "../utils/get-resource-paths";
 import logit from "../utils/logit";
 import COMMAND from "../../common/commands";
-import convertAndScale from "../utils/convert-and-scale";
 import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
@@ -104,11 +103,11 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     // SEND UPSCAYL PROGRESS TO RENDERER
     mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
-    if (data.includes("invalid gpu") || data.includes("failed")) {
+    if (data.includes("Error") || data.includes("failed")) {
       upscayl.kill();
       failed = true;
     }
-    if (data.includes("has alpha channel")) {
+    if (data.includes("alpha channel")) {
       isAlpha = true;
     }
   };
@@ -142,28 +141,15 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
           COMMAND.DOUBLE_UPSCAYL_DONE,
-          isAlpha
-            ? (outFile + ".png").replace(
-                /([^/\\]+)$/i,
-                encodeURIComponent((outFile + ".png").match(/[^/\\]+$/i)![0]),
-              )
-            : outFile.replace(
-                /([^/\\]+)$/i,
-                encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
-              ),
+          outFile.replace(
+            /([^/\\]+)$/i,
+            encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
+          ),
         );
         return;
       }
 
       try {
-        await convertAndScale(
-          inputDir + slash + fullfileName,
-          isAlpha ? outFile + ".png" : outFile,
-          outFile,
-          desiredScale.toString(),
-          saveImageAs,
-          isAlpha,
-        );
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(
           COMMAND.DOUBLE_UPSCAYL_DONE,
@@ -172,9 +158,6 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
             encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
           ),
         );
-        if (isAlpha && saveImageAs === "jpg") {
-          unlinkSync(outFile + ".png");
-        }
         showNotification("Upscayled", "Image upscayled successfully!");
       } catch (error) {
         logit("❌ Error reading original image metadata", error);

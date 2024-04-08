@@ -17,13 +17,11 @@ import { execPath, modelsPath } from "./utils/get-resource-paths";
 import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
-import sharp from "sharp";
 import { featureFlags } from "../common/feature-flags";
 import settings from "electron-settings";
 
 // INITIALIZATION
 log.initialize({ preload: true });
-sharp.cache(false);
 logit("🚃 App Path: ", app.getAppPath());
 
 app.on("ready", async () => {
@@ -51,7 +49,7 @@ app.on("ready", async () => {
     logit("🚨 Folder Bookmarks: ", folderBookmarks);
     try {
       closeAccess = app.startAccessingSecurityScopedResource(
-        folderBookmarks as string
+        folderBookmarks as string,
       );
     } catch (error) {
       logit("📁 Folder Bookmarks Error: ", error);

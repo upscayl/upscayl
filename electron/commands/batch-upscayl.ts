@@ -18,7 +18,6 @@ import { getBatchArguments } from "../utils/get-arguments";
 import slash from "../utils/slash";
 import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../../common/commands";
-import convertAndScale from "../utils/convert-and-scale";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
@@ -98,7 +97,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       COMMAND.FOLDER_UPSCAYL_PROGRESS,
       data.toString(),
     );
-    if (data.includes("invalid") || data.includes("failed")) {
+    if (data.includes("Error") || data.includes("failed")) {
       logit("❌ INVALID GPU OR INVALID FILES IN FOLDER - FAILED");
       failed = true;
       upscayl.kill();
@@ -139,47 +138,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         );
         return;
       }
-
-      const files = fs.readdirSync(inputDir);
       try {
-        files.forEach(async (file) => {
-          if (file.startsWith(".") || file === outputFolderName) return;
-          console.log("Filename: ", removeFileExtension(file));
-          let upscaledImagePath = `${outputFolderPath}${slash}${removeFileExtension(
-            file,
-          )}.${saveImageAs}`;
-          let imageIsAlpha = false;
-          if (
-            isAlpha &&
-            saveImageAs === "jpg" &&
-            fs.existsSync(
-              `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`,
-            )
-          ) {
-            imageIsAlpha = true;
-            console.log("This is an Alpha image!");
-            upscaledImagePath = `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`;
-          }
-          await convertAndScale(
-            inputDir + slash + file,
-            upscaledImagePath,
-            `${outputFolderPath}${slash}${removeFileExtension(
-              file,
-            )}.${saveImageAs}`,
-            desiredScale,
-            saveImageAs,
-            imageIsAlpha,
-          );
-          if (
-            isAlpha &&
-            saveImageAs === "jpg" &&
-            fs.existsSync(
-              `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`,
-            )
-          ) {
-            fs.unlinkSync(upscaledImagePath);
-          }
-        });
         mainWindow.webContents.send(
           COMMAND.FOLDER_UPSCAYL_DONE,
           outputFolderPath,
