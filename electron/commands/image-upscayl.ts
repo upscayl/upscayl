@@ -2,13 +2,13 @@ import fs from "fs";
 import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../../common/commands";
 import {
-  compression,
-  customModelsFolderPath,
+  savedCompression,
+  savedCustomModelsPath,
   customWidth,
-  folderPath,
+  savedBatchUpscaylFolderPath,
   noImageProcessing,
-  outputFolderPath,
-  saveOutputFolder,
+  savedOutputPath,
+  rememberOutputFolder,
   setChildProcesses,
   setCompression,
   setNoImageProcessing,
@@ -16,7 +16,6 @@ import {
   stopped,
   useCustomWidth,
 } from "../utils/config-variables";
-import convertAndScale from "../utils/convert-and-scale";
 import { getSingleImageArguments } from "../utils/get-arguments";
 import logit from "../utils/logit";
 import slash from "../utils/slash";
@@ -26,7 +25,6 @@ import { getMainWindow } from "../main-window";
 import { ImageUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
-import removeFileExtension from "../utils/remove-file-extension";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
 
@@ -41,29 +39,27 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   setNoImageProcessing(payload.noImageProcessing);
   setCompression(parseInt(payload.compression));
 
+  // GET VARIABLES
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as ImageFormat;
-  console.log("🚀 => saveImageAs:", saveImageAs);
-
   const overwrite = payload.overwrite as boolean;
-
   let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)?.[1] || "") as string;
   let outputDir: string | undefined =
-    folderPath || (payload.outputPath as string);
-
-  if (saveOutputFolder === true && outputFolderPath) {
-    outputDir = outputFolderPath;
+    savedBatchUpscaylFolderPath || (payload.outputPath as string);
+  if (
+    rememberOutputFolder === true &&
+    savedOutputPath &&
+    savedOutputPath?.length > 0
+  ) {
+    logit("🧠 Using saved output path");
+    outputDir = savedOutputPath;
   }
-
   const isDefaultModel = DEFAULT_MODELS.includes(model);
   logit("Is Default Model? : ", isDefaultModel);
   const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
-
-  let initialScale = getModelScale(model);
-
   const desiredScale = useCustomWidth
     ? customWidth || payload.scale
     : payload.scale;
@@ -73,7 +69,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     slash +
     fileName +
     "_upscayl_" +
-    (noImageProcessing ? initialScale : desiredScale) +
+    desiredScale +
     (useCustomWidth ? "px_" : "x_") +
     model +
     "." +
@@ -101,23 +97,25 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         outputDir,
         fullfileName,
         fileName,
-        initialScale: initialScale,
+        scale: desiredScale,
         desiredScale,
         outFile,
-        compression,
+        compression: savedCompression,
       }),
     );
     const upscayl = spawnUpscayl(
-      getSingleImageArguments(
+      getSingleImageArguments({
         inputDir,
         fullfileName,
         outFile,
-        isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+        modelsPath: isDefaultModel
+          ? modelsPath
+          : savedCustomModelsPath ?? modelsPath,
         model,
-        initialScale,
+        scale: desiredScale,
         gpuId,
         saveImageAs,
-      ),
+      }),
       logit,
     );
 
@@ -170,17 +168,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         // Free up memory
         upscayl.kill();
         try {
-          await convertAndScale(
-            inputDir + slash + fullfileName,
-            isAlpha ? outFile + ".png" : outFile,
-            outFile,
-            desiredScale,
-            saveImageAs,
-            isAlpha,
-          );
-          if (isAlpha && saveImageAs === "jpg") {
-            fs.unlinkSync(outFile + ".png");
-          }
           mainWindow.setProgressBar(-1);
           mainWindow.webContents.send(
             COMMAND.UPSCAYL_DONE,

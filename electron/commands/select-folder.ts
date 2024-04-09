@@ -1,5 +1,8 @@
 import { app, dialog } from "electron";
-import { folderPath, setFolderPath } from "../utils/config-variables";
+import {
+  savedBatchUpscaylFolderPath,
+  setSavedBatchUpscaylFolderPath,
+} from "../utils/config-variables";
 import logit from "../utils/logit";
 import settings from "electron-settings";
 import { featureFlags } from "../../common/feature-flags";
@@ -11,7 +14,7 @@ const selectFolder = async (event, message) => {
     logit("🚨 Folder Bookmarks: ", folderBookmarks);
     try {
       closeAccess = app.startAccessingSecurityScopedResource(
-        folderBookmarks as string
+        folderBookmarks as string,
       );
     } catch (error) {
       logit("📁 Folder Bookmarks Error: ", error);
@@ -24,7 +27,7 @@ const selectFolder = async (event, message) => {
     bookmarks,
   } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
-    defaultPath: folderPath,
+    defaultPath: savedBatchUpscaylFolderPath,
     securityScopedBookmarks: true,
   });
 
@@ -37,8 +40,8 @@ const selectFolder = async (event, message) => {
     logit("🚫 Select Folder Operation Cancelled");
     return null;
   } else {
-    setFolderPath(folderPaths[0]);
-    logit("📁 Selected Folder Path: ", folderPath);
+    setSavedBatchUpscaylFolderPath(folderPaths[0]);
+    logit("📁 Selected Folder Path: ", savedBatchUpscaylFolderPath);
     return folderPaths[0];
   }
 };

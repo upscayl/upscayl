@@ -237,7 +237,6 @@
     "react-select": "^5.7.4",
     "react-tooltip": "^5.18.1",
     "remark-gfm": "^4.0.0",
-    "sharp": "^0.32.6",
     "tailwind-scrollbar": "^3.0.4",
     "theme-change": "^2.5.0"
   },

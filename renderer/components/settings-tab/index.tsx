@@ -21,10 +21,8 @@ import { CompressionInput } from "./CompressionInput";
 import OverwriteToggle from "./OverwriteToggle";
 import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
-import ProcessImageToggle from "./ProcessImageToggle";
 import { featureFlags } from "@common/feature-flags";
 import TurnOffNotificationsToggle from "./TurnOffNotificationsToggle";
-import { CustomResolutionInput } from "./CustomResolutionInput";
 
 interface IProps {
   batchMode: boolean;
@@ -65,7 +63,6 @@ function SettingsTab({
     label: null,
     value: null,
   });
-  const [rememberOutputFolder, setRememberOutputFolder] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
 
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
@@ -125,22 +122,6 @@ function SettingsTab({
       const currentlySavedGpuId = localStorage.getItem("gpuId");
       setGpuId(currentlySavedGpuId);
       logit("⚙️ Getting gpuId from localStorage: ", currentlySavedGpuId);
-    }
-
-    if (!localStorage.getItem("rememberOutputFolder")) {
-      logit("⚙️ Setting rememberOutputFolder to false");
-      localStorage.setItem("rememberOutputFolder", "false");
-    } else {
-      const currentlySavedRememberOutputFolder = localStorage.getItem(
-        "rememberOutputFolder",
-      );
-      logit(
-        "⚙️ Getting rememberOutputFolder from localStorage: ",
-        currentlySavedRememberOutputFolder,
-      );
-      setRememberOutputFolder(
-        currentlySavedRememberOutputFolder === "true" ? true : false,
-      );
     }
   }, []);
 
@@ -210,29 +191,15 @@ function SettingsTab({
         setExportType={setExportType}
       />
 
-      <ProcessImageToggle
-        noImageProcessing={noImageProcessing}
-        setNoImageProcessing={setNoImageProcessing}
+      {/* IMAGE SCALE */}
+      <ImageScaleSelect scale={scale} setScale={setScale} />
+
+      <CompressionInput
+        compression={compression}
+        handleCompressionChange={handleCompressionChange}
       />
 
-      {!noImageProcessing && (
-        <>
-          {/* IMAGE SCALE */}
-          <ImageScaleSelect scale={scale} setScale={setScale} />
-
-          <CustomResolutionInput />
-
-          <CompressionInput
-            compression={compression}
-            handleCompressionChange={handleCompressionChange}
-          />
-        </>
-      )}
-
-      <SaveOutputFolderToggle
-        rememberOutputFolder={rememberOutputFolder}
-        setRememberOutputFolder={setRememberOutputFolder}
-      />
+      <SaveOutputFolderToggle />
 
       <OverwriteToggle />
       <TurnOffNotificationsToggle />

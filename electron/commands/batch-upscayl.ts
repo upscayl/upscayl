@@ -2,10 +2,10 @@ import fs from "fs";
 import { getMainWindow } from "../main-window";
 import {
   childProcesses,
-  customModelsFolderPath,
+  savedCustomModelsPath,
   customWidth,
   noImageProcessing,
-  saveOutputFolder,
+  rememberOutputFolder,
   setCompression,
   setNoImageProcessing,
   setStopped,
@@ -18,7 +18,6 @@ import { getBatchArguments } from "../utils/get-arguments";
 import slash from "../utils/slash";
 import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../../common/commands";
-import convertAndScale from "../utils/convert-and-scale";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
 import getModelScale from "../../common/check-model-scale";
@@ -38,7 +37,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   let inputDir = payload.batchFolderPath;
   // GET THE OUTPUT DIRECTORY
   let outputFolderPath = payload.outputPath;
-  if (saveOutputFolder === true && outputFolderPath) {
+  if (rememberOutputFolder === true && outputFolderPath) {
     outputFolderPath = outputFolderPath;
   }
   // ! Don't do fetchLocalStorage() again, it causes the values to be reset
@@ -47,13 +46,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
-  let initialScale = getModelScale(model);
+  const scale = payload.scale;
 
-  const desiredScale = useCustomWidth
-    ? customWidth || payload.scale
-    : payload.scale;
-
-  const outputFolderName = `upscayl_${saveImageAs}_${model}_${noImageProcessing ? initialScale : desiredScale}${useCustomWidth ? "px" : "x"}`;
+  const outputFolderName = `upscayl_${saveImageAs}_${model}_${scale}${useCustomWidth ? "px" : "x"}`;
   outputFolderPath += slash + outputFolderName;
   if (!fs.existsSync(outputFolderPath)) {
     fs.mkdirSync(outputFolderPath, { recursive: true });
@@ -73,15 +68,17 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   // UPSCALE
   const upscayl = spawnUpscayl(
-    getBatchArguments(
+    getBatchArguments({
       inputDir,
-      outputFolderPath,
-      isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+      outputDir: outputFolderPath,
+      modelsPath: isDefaultModel
+        ? modelsPath
+        : savedCustomModelsPath ?? modelsPath,
       model,
       gpuId,
       saveImageAs,
-      initialScale,
-    ),
+      scale,
+    }),
     logit,
   );
 
@@ -98,7 +95,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       COMMAND.FOLDER_UPSCAYL_PROGRESS,
       data.toString(),
     );
-    if (data.includes("invalid") || data.includes("failed")) {
+    if (data.includes("Error") || data.includes("failed")) {
       logit("❌ INVALID GPU OR INVALID FILES IN FOLDER - FAILED");
       failed = true;
       upscayl.kill();
@@ -139,47 +136,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         );
         return;
       }
-
-      const files = fs.readdirSync(inputDir);
       try {
-        files.forEach(async (file) => {
-          if (file.startsWith(".") || file === outputFolderName) return;
-          console.log("Filename: ", removeFileExtension(file));
-          let upscaledImagePath = `${outputFolderPath}${slash}${removeFileExtension(
-            file,
-          )}.${saveImageAs}`;
-          let imageIsAlpha = false;
-          if (
-            isAlpha &&
-            saveImageAs === "jpg" &&
-            fs.existsSync(
-              `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`,
-            )
-          ) {
-            imageIsAlpha = true;
-            console.log("This is an Alpha image!");
-            upscaledImagePath = `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`;
-          }
-          await convertAndScale(
-            inputDir + slash + file,
-            upscaledImagePath,
-            `${outputFolderPath}${slash}${removeFileExtension(
-              file,
-            )}.${saveImageAs}`,
-            desiredScale,
-            saveImageAs,
-            imageIsAlpha,
-          );
-          if (
-            isAlpha &&
-            saveImageAs === "jpg" &&
-            fs.existsSync(
-              `${outputFolderPath}${slash}${removeFileExtension(file)}.jpg.png`,
-            )
-          ) {
-            fs.unlinkSync(upscaledImagePath);
-          }
-        });
         mainWindow.webContents.send(
           COMMAND.FOLDER_UPSCAYL_DONE,
           outputFolderPath,

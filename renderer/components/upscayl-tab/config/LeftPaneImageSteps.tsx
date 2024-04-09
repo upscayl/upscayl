@@ -7,18 +7,19 @@ import { modelsListAtom } from "../../../atoms/modelsListAtom";
 import useLog from "../../hooks/useLog";
 import {
   noImageProcessingAtom,
-  outputPathAtom,
+  savedOutputPathAtom,
   progressAtom,
+  rememberOutputFolderAtom,
   scaleAtom,
 } from "../../../atoms/userSettingsAtom";
 import { featureFlags } from "@common/feature-flags";
 import getModelScale from "@common/check-model-scale";
+import COMMAND from "@common/commands";
 
 interface IProps {
   selectImageHandler: () => Promise<void>;
   selectFolderHandler: () => Promise<void>;
   handleModelChange: (e: any) => void;
-  outputHandler: () => Promise<void>;
   upscaylHandler: () => Promise<void>;
   batchMode: boolean;
   setBatchMode: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,7 +40,6 @@ function LeftPaneImageSteps({
   selectImageHandler,
   selectFolderHandler,
   handleModelChange,
-  outputHandler,
   upscaylHandler,
   batchMode,
   setBatchMode,
@@ -63,13 +63,24 @@ function LeftPaneImageSteps({
   const modelOptions = useAtomValue(modelsListAtom);
   const scale = useAtomValue(scaleAtom);
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
-  const [outputPath, setOutputPath] = useAtom(outputPathAtom);
+  const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [progress, setProgress] = useAtom(progressAtom);
+  const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
 
   const [targetWidth, setTargetWidth] = useState<number>(null);
   const [targetHeight, setTargetHeight] = useState<number>(null);
 
   const { logit } = useLog();
+
+  const outputHandler = async () => {
+    var path = await window.electron.invoke(COMMAND.SELECT_FOLDER);
+    if (path !== null) {
+      logit("🗂 Setting Output Path: ", path);
+      setOutputPath(path);
+    } else {
+      setOutputPath(null);
+    }
+  };
 
   useEffect(() => {
     themeChange(false);
@@ -166,7 +177,9 @@ function LeftPaneImageSteps({
           className="toggle"
           defaultChecked={batchMode}
           onClick={() => {
-            setOutputPath("");
+            if (!rememberOutputFolder) {
+              setOutputPath("");
+            }
             setProgress("");
             setBatchMode((oldValue) => !oldValue);
           }}

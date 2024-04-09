@@ -1,20 +1,22 @@
-import React from "react";
+import {
+  savedOutputPathAtom,
+  rememberOutputFolderAtom,
+} from "@/atoms/userSettingsAtom";
+import { useAtom } from "jotai";
 
-type SaveOutputFolderToggleProps = {
-  rememberOutputFolder: boolean;
-  setRememberOutputFolder: (arg: any) => void;
-};
-
-export function SaveOutputFolderToggle({
-  rememberOutputFolder,
-  setRememberOutputFolder,
-}: SaveOutputFolderToggleProps) {
+export function SaveOutputFolderToggle() {
+  const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
+  const [rememberOutputFolder, setRememberOutputFolder] = useAtom(
+    rememberOutputFolderAtom,
+  );
   return (
     <div className="flex flex-col gap-2">
       <p className="text-sm font-medium">SAVE OUTPUT FOLDER</p>
       <p className="text-xs text-base-content/80">
         If enabled, the output folder will be remembered between sessions.
       </p>
+
+      <p>{outputPath}</p>
       <input
         type="checkbox"
         className="toggle"
@@ -22,13 +24,13 @@ export function SaveOutputFolderToggle({
         onClick={() => {
           setRememberOutputFolder((oldValue) => {
             if (oldValue === true) {
-              localStorage.removeItem("lastOutputFolderPath");
+              setOutputPath("");
             }
             return !oldValue;
           });
           localStorage.setItem(
             "rememberOutputFolder",
-            JSON.stringify(!rememberOutputFolder)
+            JSON.stringify(!rememberOutputFolder),
           );
         }}
       />

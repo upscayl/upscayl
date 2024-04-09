@@ -2,16 +2,25 @@ import { getPlatform } from "./get-device-specs";
 import { ImageFormat } from "./types";
 const slash: string = getPlatform() === "win" ? "\\" : "/";
 
-export const getSingleImageArguments = (
-  inputDir: string,
-  fullfileName: string,
-  outFile: string,
-  modelsPath: string,
-  model: string,
-  scale: any,
-  gpuId: string,
-  saveImageAs: ImageFormat,
-) => {
+export const getSingleImageArguments = ({
+  inputDir,
+  fullfileName,
+  outFile,
+  modelsPath,
+  model,
+  scale,
+  gpuId,
+  saveImageAs,
+}: {
+  inputDir: string;
+  fullfileName: string;
+  outFile: string;
+  modelsPath: string;
+  model: string;
+  scale: any;
+  gpuId: string;
+  saveImageAs: ImageFormat;
+}) => {
   return [
     "-i",
     inputDir + slash + fullfileName,
@@ -30,43 +39,25 @@ export const getSingleImageArguments = (
   ];
 };
 
-export const getSingleImageSharpenArguments = (
-  inputDir: string,
-  fullfileName: string,
-  outFile: string,
-  modelsPath: string,
-  model: string,
-  scale: any,
-  gpuId: string,
-  saveImageAs: ImageFormat,
-) => {
-  return [
-    "-i",
-    inputDir + slash + fullfileName,
-    "-o",
-    outFile,
-    "-s",
-    scale,
-    "-x",
-    "-m",
-    modelsPath + slash + model,
-    gpuId ? "-g" : "",
-    gpuId ? gpuId : "",
-    "-f",
-    saveImageAs,
-  ];
-};
-
-export const getDoubleUpscaleArguments = (
-  inputDir: string,
-  fullfileName: string,
-  outFile: string,
-  modelsPath: string,
-  model: string,
-  gpuId: string,
-  saveImageAs: ImageFormat,
-  scale: string,
-) => {
+export const getDoubleUpscaleArguments = ({
+  inputDir,
+  fullfileName,
+  outFile,
+  modelsPath,
+  model,
+  gpuId,
+  saveImageAs,
+  scale,
+}: {
+  inputDir: string;
+  fullfileName: string;
+  outFile: string;
+  modelsPath: string;
+  model: string;
+  gpuId: string;
+  saveImageAs: ImageFormat;
+  scale: string;
+}) => {
   return [
     "-i",
     inputDir + slash + fullfileName,
@@ -85,15 +76,23 @@ export const getDoubleUpscaleArguments = (
   ];
 };
 
-export const getDoubleUpscaleSecondPassArguments = (
-  isAlpha: boolean,
-  outFile: string,
-  modelsPath: string,
-  model: string,
-  gpuId: string,
-  saveImageAs: ImageFormat,
-  scale: string,
-) => {
+export const getDoubleUpscaleSecondPassArguments = ({
+  isAlpha,
+  outFile,
+  modelsPath,
+  model,
+  gpuId,
+  saveImageAs,
+  scale,
+}: {
+  isAlpha: boolean;
+  outFile: string;
+  modelsPath: string;
+  model: string;
+  gpuId: string;
+  saveImageAs: ImageFormat;
+  scale: string;
+}) => {
   return [
     "-i",
     isAlpha ? outFile + ".png" : outFile,
@@ -112,15 +111,23 @@ export const getDoubleUpscaleSecondPassArguments = (
   ];
 };
 
-export const getBatchArguments = (
-  inputDir: string,
-  outputDir: string,
-  modelsPath: string,
-  model: string,
-  gpuId: string,
-  saveImageAs: ImageFormat,
-  scale: string,
-) => {
+export const getBatchArguments = ({
+  inputDir,
+  outputDir,
+  modelsPath,
+  model,
+  gpuId,
+  saveImageAs,
+  scale,
+}: {
+  inputDir: string;
+  outputDir: string;
+  modelsPath: string;
+  model: string;
+  gpuId: string;
+  saveImageAs: ImageFormat;
+  scale: string;
+}) => {
   return [
     "-i",
     inputDir,

@@ -11,15 +11,10 @@ export function CompressionInput({
     <div className="flex flex-col gap-2">
       <div className="flex gap-1 text-sm font-medium uppercase">
         <p className="shrink-0">Image Compression ({compression}%)</p>
-        <p className="badge-primary badge text-[10px] font-medium">
-          EXPERIMENTAL
-        </p>
       </div>
       {compression > 0 && (
         <p className="text-xs text-base-content/80">
-          This option can cause color issues with some images. For PNGs, if you
-          use compression, they'll use indexed colors. Keep compression to 0 for
-          PNGs for lossless quality.
+          PNG compression is not supported at the moment.
         </p>
       )}
       <input

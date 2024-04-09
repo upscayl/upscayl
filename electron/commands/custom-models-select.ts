@@ -1,7 +1,7 @@
 import { MessageBoxOptions, dialog } from "electron";
 import {
-  customModelsFolderPath,
-  setCustomModelsFolderPath,
+  savedCustomModelsPath,
+  setSavedCustomModelsPath,
 } from "../utils/config-variables";
 import logit from "../utils/logit";
 import slash from "../utils/slash";
@@ -22,7 +22,7 @@ const customModelsSelect = async (event, message) => {
   } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
     title: "Select Custom Models Folder",
-    defaultPath: customModelsFolderPath,
+    defaultPath: savedCustomModelsPath,
     securityScopedBookmarks: true,
     message: "Select Custom Models Folder that is named 'models'",
   });
@@ -36,7 +36,7 @@ const customModelsSelect = async (event, message) => {
     logit("🚫 Select Custom Models Folder Operation Cancelled");
     return null;
   } else {
-    setCustomModelsFolderPath(folderPaths[0]);
+    setSavedCustomModelsPath(folderPaths[0]);
 
     if (
       !folderPaths[0].endsWith(slash + "models") &&
@@ -54,11 +54,11 @@ const customModelsSelect = async (event, message) => {
       return null;
     }
 
-    const models = await getModels(customModelsFolderPath);
+    const models = await getModels(savedCustomModelsPath);
     mainWindow.webContents.send(COMMAND.CUSTOM_MODEL_FILES_LIST, models);
 
-    logit("📁 Custom Folder Path: ", customModelsFolderPath);
-    return customModelsFolderPath;
+    logit("📁 Custom Folder Path: ", savedCustomModelsPath);
+    return savedCustomModelsPath;
   }
 };
 
