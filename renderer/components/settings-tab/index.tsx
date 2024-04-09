@@ -21,10 +21,8 @@ import { CompressionInput } from "./CompressionInput";
 import OverwriteToggle from "./OverwriteToggle";
 import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
-import ProcessImageToggle from "./ProcessImageToggle";
 import { featureFlags } from "@common/feature-flags";
 import TurnOffNotificationsToggle from "./TurnOffNotificationsToggle";
-import { CustomResolutionInput } from "./CustomResolutionInput";
 
 interface IProps {
   batchMode: boolean;
@@ -193,24 +191,13 @@ function SettingsTab({
         setExportType={setExportType}
       />
 
-      <ProcessImageToggle
-        noImageProcessing={noImageProcessing}
-        setNoImageProcessing={setNoImageProcessing}
+      {/* IMAGE SCALE */}
+      <ImageScaleSelect scale={scale} setScale={setScale} />
+
+      <CompressionInput
+        compression={compression}
+        handleCompressionChange={handleCompressionChange}
       />
-
-      {!noImageProcessing && (
-        <>
-          {/* IMAGE SCALE */}
-          <ImageScaleSelect scale={scale} setScale={setScale} />
-
-          <CustomResolutionInput />
-
-          <CompressionInput
-            compression={compression}
-            handleCompressionChange={handleCompressionChange}
-          />
-        </>
-      )}
 
       <SaveOutputFolderToggle />
 
