@@ -2,12 +2,12 @@ import path, { parse } from "path";
 import { getMainWindow } from "../main-window";
 import {
   childProcesses,
-  customModelsFolderPath,
+  savedCustomModelsPath,
   customWidth,
-  folderPath,
+  savedBatchUpscaylFolderPath,
   noImageProcessing,
-  outputFolderPath,
-  saveOutputFolder,
+  savedOutputPath,
+  rememberOutputFolder,
   setCompression,
   setNoImageProcessing,
   setStopped,
@@ -39,8 +39,8 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   let inputDir = (imagePath.match(/(.*)[\/\\]/) || [""])[1];
   let outputDir = path.normalize(payload.outputPath);
 
-  if (saveOutputFolder === true && outputFolderPath) {
-    outputDir = outputFolderPath;
+  if (rememberOutputFolder === true && savedOutputPath) {
+    outputDir = savedOutputPath;
   }
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as ImageFormat;
@@ -55,20 +55,14 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const fullfileName = imagePath.split(slash).slice(-1)[0] as string;
   const fileName = parse(fullfileName).name;
 
-  let initialScale = getModelScale(model);
-
-  const desiredScale = useCustomWidth
-    ? customWidth || parseInt(payload.scale) * parseInt(payload.scale)
-    : parseInt(payload.scale) * parseInt(payload.scale);
+  const scale = parseInt(payload.scale) * parseInt(payload.scale);
 
   const outFile =
     outputDir +
     slash +
     fileName +
     "_upscayl_" +
-    (noImageProcessing
-      ? parseInt(initialScale) * parseInt(initialScale)
-      : desiredScale) +
+    scale +
     (useCustomWidth ? "px_" : "x_") +
     model +
     "." +
@@ -76,16 +70,18 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
 
   // UPSCALE
   let upscayl = spawnUpscayl(
-    getDoubleUpscaleArguments(
+    getDoubleUpscaleArguments({
       inputDir,
       fullfileName,
       outFile,
-      isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+      modelsPath: isDefaultModel
+        ? modelsPath
+        : savedCustomModelsPath ?? modelsPath,
       model,
       gpuId,
       saveImageAs,
-      initialScale,
-    ),
+      scale: scale.toString(),
+    }),
     logit,
   );
 
@@ -180,15 +176,17 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     if (!failed && !stopped) {
       // UPSCALE
       let upscayl2 = spawnUpscayl(
-        getDoubleUpscaleSecondPassArguments(
+        getDoubleUpscaleSecondPassArguments({
           isAlpha,
           outFile,
-          isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+          modelsPath: isDefaultModel
+            ? modelsPath
+            : savedCustomModelsPath ?? modelsPath,
           model,
           gpuId,
           saveImageAs,
-          initialScale,
-        ),
+          scale: scale.toString(),
+        }),
         logit,
       );
 

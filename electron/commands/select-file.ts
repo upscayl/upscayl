@@ -1,6 +1,6 @@
 import { MessageBoxOptions, app, dialog } from "electron";
 import { getMainWindow } from "../main-window";
-import { imagePath, setImagePath } from "../utils/config-variables";
+import { savedImagePath, setSavedImagePath } from "../utils/config-variables";
 import logit from "../utils/logit";
 import settings from "electron-settings";
 import { featureFlags } from "../../common/feature-flags";
@@ -11,7 +11,7 @@ const selectFile = async () => {
   const { canceled, filePaths, bookmarks } = await dialog.showOpenDialog({
     properties: ["openFile"],
     title: "Select Image",
-    defaultPath: imagePath,
+    defaultPath: savedImagePath,
     securityScopedBookmarks: true,
     message: "Select Image to Upscale",
     filters: [
@@ -40,7 +40,7 @@ const selectFile = async () => {
     logit("🚫 File Operation Cancelled");
     return null;
   } else {
-    setImagePath(filePaths[0]);
+    setSavedImagePath(filePaths[0]);
 
     let isValid = false;
     // READ SELECTED FILES

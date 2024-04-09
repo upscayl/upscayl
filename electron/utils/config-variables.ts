@@ -2,52 +2,81 @@ import { ChildProcessWithoutNullStreams } from "child_process";
 import { getMainWindow } from "../main-window";
 import logit from "./logit";
 
-export let imagePath: string | undefined = "";
-export let folderPath: string | undefined = undefined;
-export let customModelsFolderPath: string | undefined = undefined;
-export let outputFolderPath: string | undefined = undefined;
-export let saveOutputFolder = false;
-export let compression = 0;
+/**
+ * The saved image path so that the select image dialog can open to the last used path.
+ */
+export let savedImagePath: string | undefined = "";
+export function setSavedImagePath(value: string | undefined): void {
+  savedImagePath = value;
+  logit("🖼️ Updating Image Path: ", savedImagePath);
+}
+
+/**
+ * The saved folder path so that the select folder to upscayl dialog can open to the last used path.
+ */
+export let savedBatchUpscaylFolderPath: string | undefined = undefined;
+export function setSavedBatchUpscaylFolderPath(
+  value: string | undefined,
+): void {
+  savedBatchUpscaylFolderPath = value;
+  logit("📁 Updating Folder Path: ", savedBatchUpscaylFolderPath);
+}
+
+export let savedCustomModelsPath: string | undefined = undefined;
+export function setSavedCustomModelsPath(value: string | undefined): void {
+  savedCustomModelsPath = value;
+  logit("📁 Updating Custom Models Folder Path: ", savedCustomModelsPath);
+}
+
+export let savedOutputPath: string | undefined = undefined;
+export function setSavedOutputPath(value: string | undefined): void {
+  savedOutputPath = value;
+  logit("📁 Updating Output Folder Path: ", savedOutputPath);
+}
+
+export let rememberOutputFolder = false;
+export function setRememberOutputFolder(value: boolean): void {
+  rememberOutputFolder = value;
+  logit("💾 Updating Remember Output Folder: ", rememberOutputFolder);
+}
+
+export let savedCompression = 0;
+export function setCompression(value: number): void {
+  savedCompression = value;
+  logit("📐 Updating Compression: ", savedCompression);
+}
+
 export let stopped = false;
 export let childProcesses: {
   process: ChildProcessWithoutNullStreams;
   kill: () => boolean;
 }[] = [];
+
 export let noImageProcessing: boolean = false;
+export function setNoImageProcessing(value: boolean): void {
+  noImageProcessing = value;
+  logit("🖼️ Updating No Image Processing: ", noImageProcessing);
+}
+
 export let turnOffNotifications: boolean = false;
+export function setTurnOffNotifications(value: boolean): void {
+  turnOffNotifications = value;
+  logit("🔕 Updating Turn Off Notifications: ", turnOffNotifications);
+}
+
 export let customWidth: string | null = null;
+export function setCustomWidth(value: string | null): void {
+  customWidth = value;
+  logit("📏 Updating Custom Width: ", customWidth);
+}
+
 export let useCustomWidth: boolean = false;
-
-export function setImagePath(value: string | undefined): void {
-  imagePath = value;
-  logit("🖼️ Updating Image Path: ", imagePath);
-}
-
-export function setFolderPath(value: string | undefined): void {
-  folderPath = value;
-  logit("📁 Updating Folder Path: ", folderPath);
-}
-
-export function setCustomModelsFolderPath(value: string | undefined): void {
-  customModelsFolderPath = value;
-  logit("📁 Updating Custom Models Folder Path: ", customModelsFolderPath);
+export function setUseCustomWidth(value: boolean): void {
+  useCustomWidth = value;
+  logit("📏 Updating Use Custom Width: ", useCustomWidth);
 }
 
 // SETTERS
-export function setOutputFolderPath(value: string | undefined): void {
-  outputFolderPath = value;
-  logit("📁 Updating Output Folder Path: ", outputFolderPath);
-}
-
-export function setSaveOutputFolder(value: boolean): void {
-  saveOutputFolder = value;
-  logit("💾 Updating Save Output Folder: ", saveOutputFolder);
-}
-
-export function setCompression(value: number): void {
-  compression = value;
-  logit("📐 Updating Compression: ", compression);
-}
 
 export function setStopped(value: boolean): void {
   stopped = value;
@@ -68,26 +97,6 @@ export function setChildProcesses(value: {
   );
 }
 
-export function setNoImageProcessing(value: boolean): void {
-  noImageProcessing = value;
-  logit("🖼️ Updating No Image Processing: ", noImageProcessing);
-}
-
-export function setTurnOffNotifications(value: boolean): void {
-  turnOffNotifications = value;
-  logit("🔕 Updating Turn Off Notifications: ", turnOffNotifications);
-}
-
-export function setCustomWidth(value: string | null): void {
-  customWidth = value;
-  logit("📏 Updating Custom Width: ", customWidth);
-}
-
-export function setUseCustomWidth(value: boolean): void {
-  useCustomWidth = value;
-  logit("📏 Updating Use Custom Width: ", useCustomWidth);
-}
-
 // LOCAL STORAGE
 export function fetchLocalStorage(): void {
   const mainWindow = getMainWindow();
@@ -98,34 +107,37 @@ export function fetchLocalStorage(): void {
     .executeJavaScript('localStorage.getItem("lastImagePath");', true)
     .then((lastImagePath: string | null) => {
       if (lastImagePath && lastImagePath.length > 0) {
-        setImagePath(lastImagePath);
+        setSavedImagePath(lastImagePath);
       }
     });
   // GET LAST FOLDER PATH TO LOCAL STORAGE
   mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("lastFolderPath");', true)
-    .then((lastFolderPath: string | null) => {
-      if (lastFolderPath && lastFolderPath.length > 0) {
-        setFolderPath(lastFolderPath);
-      }
-    });
-  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
-  mainWindow.webContents
     .executeJavaScript(
-      'localStorage.getItem("lastCustomModelsFolderPath");',
+      'localStorage.getItem("lastSavedBatchUpscaylFolderPath");',
       true,
     )
-    .then((lastCustomModelsFolderPath: string | null) => {
-      if (lastCustomModelsFolderPath && lastCustomModelsFolderPath.length > 0) {
-        setCustomModelsFolderPath(lastCustomModelsFolderPath);
+    .then((lastSavedBatchUpscaylFolderPath: string | null) => {
+      if (
+        lastSavedBatchUpscaylFolderPath &&
+        lastSavedBatchUpscaylFolderPath.length > 0
+      ) {
+        setSavedBatchUpscaylFolderPath(lastSavedBatchUpscaylFolderPath);
       }
     });
   // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
   mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("lastOutputFolderPath");', true)
-    .then((lastOutputFolderPath: string | null) => {
-      if (lastOutputFolderPath && lastOutputFolderPath.length > 0) {
-        setOutputFolderPath(lastOutputFolderPath);
+    .executeJavaScript('localStorage.getItem("customModelsFolderPath");', true)
+    .then((value: string | null) => {
+      if (value && value.length > 0) {
+        setSavedCustomModelsPath(value);
+      }
+    });
+  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
+  mainWindow.webContents
+    .executeJavaScript('localStorage.getItem("savedOutputPath");', true)
+    .then((savedOutputPath: string | null) => {
+      if (savedOutputPath && savedOutputPath.length > 0) {
+        setSavedOutputPath(savedOutputPath);
       }
     });
   // GET LAST SAVE OUTPUT FOLDER (BOOLEAN) TO LOCAL STORAGE
@@ -133,7 +145,7 @@ export function fetchLocalStorage(): void {
     .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
     .then((lastSaveOutputFolder: boolean | null) => {
       if (lastSaveOutputFolder !== null) {
-        setSaveOutputFolder(lastSaveOutputFolder);
+        setRememberOutputFolder(lastSaveOutputFolder);
       }
     });
   // GET IMAGE COMPRESSION (NUMBER) FROM LOCAL STORAGE

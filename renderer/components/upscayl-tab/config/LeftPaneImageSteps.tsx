@@ -7,7 +7,7 @@ import { modelsListAtom } from "../../../atoms/modelsListAtom";
 import useLog from "../../hooks/useLog";
 import {
   noImageProcessingAtom,
-  outputPathAtom,
+  savedOutputPathAtom,
   progressAtom,
   rememberOutputFolderAtom,
   scaleAtom,
@@ -63,7 +63,7 @@ function LeftPaneImageSteps({
   const modelOptions = useAtomValue(modelsListAtom);
   const scale = useAtomValue(scaleAtom);
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
-  const [outputPath, setOutputPath] = useAtom(outputPathAtom);
+  const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [progress, setProgress] = useAtom(progressAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
 

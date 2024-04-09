@@ -19,7 +19,7 @@ import {
   compressionAtom,
   dontShowCloudModalAtom,
   noImageProcessingAtom,
-  outputPathAtom,
+  savedOutputPathAtom,
   overwriteAtom,
   progressAtom,
   scaleAtom,
@@ -67,7 +67,7 @@ const Home = () => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   // ATOMIC STATES
-  const [outputPath, setOutputPath] = useAtom(outputPathAtom);
+  const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [compression, setCompression] = useAtom(compressionAtom);
   const [progress, setProgress] = useAtom(progressAtom);
   const [batchMode, setBatchMode] = useAtom(batchModeAtom);

@@ -2,10 +2,10 @@ import fs from "fs";
 import { getMainWindow } from "../main-window";
 import {
   childProcesses,
-  customModelsFolderPath,
+  savedCustomModelsPath,
   customWidth,
   noImageProcessing,
-  saveOutputFolder,
+  rememberOutputFolder,
   setCompression,
   setNoImageProcessing,
   setStopped,
@@ -37,7 +37,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   let inputDir = payload.batchFolderPath;
   // GET THE OUTPUT DIRECTORY
   let outputFolderPath = payload.outputPath;
-  if (saveOutputFolder === true && outputFolderPath) {
+  if (rememberOutputFolder === true && outputFolderPath) {
     outputFolderPath = outputFolderPath;
   }
   // ! Don't do fetchLocalStorage() again, it causes the values to be reset
@@ -46,13 +46,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
-  let initialScale = getModelScale(model);
+  const scale = payload.scale;
 
-  const desiredScale = useCustomWidth
-    ? customWidth || payload.scale
-    : payload.scale;
-
-  const outputFolderName = `upscayl_${saveImageAs}_${model}_${noImageProcessing ? initialScale : desiredScale}${useCustomWidth ? "px" : "x"}`;
+  const outputFolderName = `upscayl_${saveImageAs}_${model}_${scale}${useCustomWidth ? "px" : "x"}`;
   outputFolderPath += slash + outputFolderName;
   if (!fs.existsSync(outputFolderPath)) {
     fs.mkdirSync(outputFolderPath, { recursive: true });
@@ -72,15 +68,17 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   // UPSCALE
   const upscayl = spawnUpscayl(
-    getBatchArguments(
+    getBatchArguments({
       inputDir,
-      outputFolderPath,
-      isDefaultModel ? modelsPath : customModelsFolderPath ?? modelsPath,
+      outputDir: outputFolderPath,
+      modelsPath: isDefaultModel
+        ? modelsPath
+        : savedCustomModelsPath ?? modelsPath,
       model,
       gpuId,
       saveImageAs,
-      initialScale,
-    ),
+      scale,
+    }),
     logit,
   );
 

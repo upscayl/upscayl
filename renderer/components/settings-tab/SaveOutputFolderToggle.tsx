@@ -1,11 +1,11 @@
 import {
-  outputPathAtom,
+  savedOutputPathAtom,
   rememberOutputFolderAtom,
 } from "@/atoms/userSettingsAtom";
 import { useAtom } from "jotai";
 
 export function SaveOutputFolderToggle() {
-  const [outputPath, setOutputPath] = useAtom(outputPathAtom);
+  const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [rememberOutputFolder, setRememberOutputFolder] = useAtom(
     rememberOutputFolderAtom,
   );
