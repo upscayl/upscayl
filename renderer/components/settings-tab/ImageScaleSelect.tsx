@@ -1,7 +1,3 @@
-import { useCustomWidthAtom } from "@/atoms/userSettingsAtom";
-import { useAtom } from "jotai";
-import React from "react";
-
 type ImageScaleSelectProps = {
   scale: "4" | "2" | "3";
   setScale: (arg: "4" | "2" | "3") => void;
