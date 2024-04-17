@@ -161,7 +161,7 @@ function SettingsTab({
           href="https://github.com/upscayl/upscayl/wiki/"
           target="_blank"
         >
-          HELP ME!
+          GET HELP!
         </a>
         {featureFlags.APP_STORE_BUILD && (
           <a
