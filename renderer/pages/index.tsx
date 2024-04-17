@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import COMMAND from "../../common/commands";
 import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
@@ -25,6 +25,7 @@ import {
   scaleAtom,
   viewTypeAtom,
   rememberOutputFolderAtom,
+  showSidebarAtom,
 } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
 import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
@@ -37,6 +38,8 @@ import {
 import { NewsModal } from "@/components/NewsModal";
 import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
 import matter from "gray-matter";
+import { PanelLeftCloseIcon, PanelRightCloseIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const Home = () => {
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
@@ -63,7 +66,7 @@ const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [showCloudModal, setShowCloudModal] = useState(false);
-
+  const [minSize, setMinSize] = useState(22);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   // ATOMIC STATES
@@ -83,6 +86,7 @@ const Home = () => {
   const viewType = useAtomValue(viewTypeAtom);
   const lensSize = useAtomValue(lensSizeAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
+  const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
 
   const { logit } = useLog();
 
@@ -510,7 +514,35 @@ const Home = () => {
 
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-base-300">
-      <div className={`flex h-screen w-128 flex-col bg-base-100`}>
+      {/* TOP LOGO WHEN SIDEBAR IS HIDDEN */}
+      {!showSidebar && (
+        <div className="fixed right-2 top-2 z-50 flex items-center justify-center gap-2 rounded-[7px] bg-base-300 px-2 py-1 font-medium text-base-content ">
+          <img src="/icon.png" alt="Logo" className="w-5" />
+          Upscayl
+        </div>
+      )}
+
+      {/* SIDEBAR BUTTON */}
+      <button
+        className={cn(
+          "fixed left-0 top-1/2 z-50 -translate-y-1/2 rounded-r-full bg-base-100 p-4 ",
+          showSidebar ? "hidden" : "",
+        )}
+        onClick={() => setShowSidebar((prev) => !prev)}
+      >
+        <PanelRightCloseIcon />
+      </button>
+      {/* LEFT PANE */}
+      <div
+        className={`relative flex h-screen min-w-[350px] max-w-[350px] flex-col bg-base-100 ${showSidebar ? "" : "hidden"}`}
+      >
+        <button
+          className="absolute -right-0 top-1/2 z-50 -translate-y-1/2 translate-x-1/2 rounded-full bg-base-100 p-4"
+          onClick={() => setShowSidebar((prev) => !prev)}
+        >
+          <PanelLeftCloseIcon />
+        </button>
+        {/* UPSCAYL CLOUD MODAL */}
         {featureFlags.SHOW_UPSCAYL_CLOUD_INFO && (
           <UpscaylCloudModal
             show={showCloudModal}
@@ -518,6 +550,7 @@ const Home = () => {
             setDontShowCloudModal={setDontShowCloudModal}
           />
         )}
+        {/* MACOS TITLEBAR */}
         {window.electron.platform === "mac" && (
           <div className="mac-titlebar pt-8"></div>
         )}
@@ -534,6 +567,7 @@ const Home = () => {
           </button>
         )}
 
+        {/* NEWS DIALOG */}
         <NewsModal
           show={showNewsModal}
           setShow={(val: boolean) => {

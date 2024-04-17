@@ -211,7 +211,7 @@
     "autoprefixer": "^10.4.16",
     "cross-env": "^7.0.3",
     "daisyui": "^3.9.4",
-    "electron": "^27.2.4",
+    "electron": "^27.3.10",
     "electron-builder": "^24.13.3",
     "next": "^13.5.6",
     "postcss": "^8.4.31",
@@ -223,6 +223,12 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "cmdk": "^1.0.0",
     "dotenv": "^16.3.1",
     "electron-is-dev": "^2.0.0",
     "electron-log": "^5.0.0-beta.16",
@@ -232,12 +238,16 @@
     "firebase": "^10.8.1",
     "gray-matter": "^4.0.3",
     "jotai": "^2.2.2",
+    "lucide-react": "^0.366.0",
     "react-compare-slider": "^3.0.1",
     "react-markdown": "^9.0.1",
+    "react-resizable-panels": "^2.0.16",
     "react-select": "^5.7.4",
     "react-tooltip": "^5.18.1",
     "remark-gfm": "^4.0.0",
+    "tailwind-merge": "^2.2.2",
     "tailwind-scrollbar": "^3.0.4",
+    "tailwindcss-animate": "^1.0.7",
     "theme-change": "^2.5.0"
   },
   "volta": {

@@ -1,6 +1,5 @@
 import { useAtom, useAtomValue } from "jotai";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import Select from "react-select";
+import React, { useCallback, useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { themeChange } from "theme-change";
 import { modelsListAtom } from "../../../atoms/modelsListAtom";
@@ -15,6 +14,20 @@ import {
 import { featureFlags } from "@common/feature-flags";
 import getModelScale from "@common/check-model-scale";
 import COMMAND from "@common/commands";
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ChevronsUpDownIcon } from "lucide-react";
 
 interface IProps {
   selectImageHandler: () => Promise<void>;
@@ -66,6 +79,7 @@ function LeftPaneImageSteps({
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [progress, setProgress] = useAtom(progressAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
+  const [open, setOpen] = React.useState(false);
 
   const [targetWidth, setTargetWidth] = useState<number>(null);
   const [targetHeight, setTargetHeight] = useState<number>(null);
@@ -209,6 +223,44 @@ function LeftPaneImageSteps({
         <p className="step-heading">Step 2</p>
         <p className="mb-2 text-sm">Select Model</p>
 
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="default"
+              role="combobox"
+              aria-expanded={open}
+              className="w-[200px] justify-between truncate transition-all group-hover:w-full group-active:w-full focus:w-full"
+            >
+              <p className="truncate">
+                {currentModel.value
+                  ? modelOptions.find(
+                      (modelOption) => modelOption.value === currentModel.value,
+                    )?.label
+                  : "Select model..."}
+              </p>
+              <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <Command>
+              <CommandInput placeholder="Search framework..." className="h-9" />
+              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandGroup>
+                {modelOptions?.map(({ value, label }) => {
+                  return (
+                    <CommandItem
+                      key={value.toString()}
+                      value={value.toString()}
+                    >
+                      {label.toString()}
+                    </CommandItem>
+                  );
+                })}
+              </CommandGroup>
+            </Command>
+          </PopoverContent>
+        </Popover>
+        {/* 
         <Select
           options={modelOptions}
           components={{
@@ -222,7 +274,7 @@ function LeftPaneImageSteps({
           className="react-select-container transition-all group-hover:w-full group-active:w-full focus:w-full"
           classNamePrefix="react-select"
           value={currentModel}
-        />
+        /> */}
 
         {!batchMode && (
           <div className="mt-4 flex items-center gap-1">

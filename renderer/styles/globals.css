@@ -50,15 +50,15 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply rounded-full bg-base-300/80;
+    @apply bg-base-300/80 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-base-content/20;
+    @apply bg-base-content/20 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply rounded-full bg-base-content/50;
+    @apply bg-base-content/50 rounded-full;
   }
 }
 
@@ -66,24 +66,6 @@
   .animate {
     @apply transition-all duration-300 ease-in-out;
   }
-  /* .bg-gradient-purple {
-    @apply bg-gradient-to-br from-[#7741ff] to-[#af55ff] hover:from-[#af55ff] hover:to-[#7741ff];
-  }
-  .bg-gradient-red {
-    @apply bg-gradient-to-br from-rose-600 to-red-400 hover:from-red-400 hover:to-rose-600;
-  }
-  .bg-gradient-white {
-    @apply to-neutral-100 hover:from-neutral-100 bg-gradient-to-br from-slate-400 hover:to-slate-400;
-  }
-  .bg-gradient-upscayl {
-    @apply bg-gradient-to-br from-[#7741ff] to-[#af55ff] hover:from-[#af55ff] hover:to-[#7741ff];
-  }
-  .bg-gradient {
-    @apply bg-gradient-to-br from-green-500 to-lime-300 hover:from-lime-300 hover:to-green-500;
-  }
-  .bg-gradient-blue {
-    @apply bg-gradient-to-br from-blue-500 to-sky-400 hover:from-sky-400 hover:to-blue-500;
-  } */
   .step-heading {
     @apply mb-2 font-semibold;
   }
@@ -103,11 +85,11 @@
   }
 
   .react-select-container .react-select__single-value {
-    @apply text-sm font-semibold uppercase text-primary-content;
+    @apply text-primary-content text-sm font-semibold uppercase;
   }
 
   .react-select-container .react-select__input-container {
-    @apply text-sm font-semibold uppercase text-primary-content;
+    @apply text-primary-content text-sm font-semibold uppercase;
   }
 
   .react-select-container .react-select__menu {
@@ -115,11 +97,11 @@
   }
 
   .react-select-container .react-select__option {
-    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-primary-content hover:bg-primary-focus hover:text-primary-content;
+    @apply text-primary-content hover:bg-primary-focus hover:text-primary-content my-1 cursor-pointer break-all rounded-md bg-primary;
   }
 
   .react-select-container .react-select__option--is-selected {
-    @apply bg-accent text-accent-content;
+    @apply text-accent-content bg-accent;
   }
 
   .outline-title {
@@ -165,11 +147,11 @@
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__single-value {
-  @apply font-medium normal-case text-primary-content;
+  @apply text-primary-content font-medium normal-case;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__input-container {
-  @apply text-xs font-medium normal-case text-primary-content;
+  @apply text-primary-content text-xs font-medium normal-case;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__menu {
@@ -247,3 +229,81 @@
     -webkit-transform: perspective(120px) rotateX(-360deg) rotateY(-359.9deg);
   }
 }
+
+/* SHADCN CHANGES */
+/* @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  @layer base {
+    :root {
+      --background: 0 0% 100%;
+      --foreground: 222.2 84% 4.9%;
+
+      --card: 0 0% 100%;
+      --card-foreground: 222.2 84% 4.9%;
+
+      --popover: 0 0% 100%;
+      --popover-foreground: 222.2 84% 4.9%;
+
+      --primary: 222.2 47.4% 11.2%;
+      --primary-foreground: 210 40% 98%;
+
+      --secondary: 210 40% 96.1%;
+      --secondary-foreground: 222.2 47.4% 11.2%;
+
+      --muted: 210 40% 96.1%;
+      --muted-foreground: 215.4 16.3% 46.9%;
+
+      --accent: 210 40% 96.1%;
+      --accent-foreground: 222.2 47.4% 11.2%;
+
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 214.3 31.8% 91.4%;
+      --input: 214.3 31.8% 91.4%;
+      --ring: 222.2 84% 4.9%;
+
+      --radius: 0.5rem;
+    }
+
+    .dark {
+      --background: 222.2 84% 4.9%;
+      --foreground: 210 40% 98%;
+
+      --card: 222.2 84% 4.9%;
+      --card-foreground: 210 40% 98%;
+
+      --popover: 222.2 84% 4.9%;
+      --popover-foreground: 210 40% 98%;
+
+      --primary: 210 40% 98%;
+      --primary-foreground: 222.2 47.4% 11.2%;
+
+      --secondary: 217.2 32.6% 17.5%;
+      --secondary-foreground: 210 40% 98%;
+
+      --muted: 217.2 32.6% 17.5%;
+      --muted-foreground: 215 20.2% 65.1%;
+
+      --accent: 217.2 32.6% 17.5%;
+      --accent-foreground: 210 40% 98%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 217.2 32.6% 17.5%;
+      --input: 217.2 32.6% 17.5%;
+      --ring: 212.7 26.8% 83.9%;
+    }
+  }
+
+  @layer base {
+    * {
+      @apply border-border;
+    }
+    body {
+      @apply bg-background text-foreground;
+    }
+  } */

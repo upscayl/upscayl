@@ -8,8 +8,13 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@common/*": ["./common/*"],
+      "@electron/*": ["./electron/*"],
+      "@/*": ["./renderer/*"]
+    }
   },
-  "include": ["./electron/**/*", "./common/**/*"],
+  "include": ["./electron/**/*", "./common/**/*", "./renderer/**/*"],
   "exclude": ["node_modules", "public", "renderer"]
 }

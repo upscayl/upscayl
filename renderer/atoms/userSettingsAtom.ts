@@ -57,3 +57,6 @@ export const useCustomWidthAtom = atomWithStorage<boolean>(
   "useCustomWidth",
   false,
 );
+
+// CLIENT SIDE ONLY
+export const showSidebarAtom = atomWithStorage("showSidebar", true);

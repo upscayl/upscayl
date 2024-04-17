@@ -16,7 +16,9 @@
     "jsx": "preserve",
     "paths": {
       "@/*": ["./*"],
-      "@common/*": ["../common/*"]
+      "@common/*": ["../common/*"],
+      "@components/*": ["./components/*"],
+      "@lib/utils": ["./lib/utils/*"]
     }
   },
   "include": [

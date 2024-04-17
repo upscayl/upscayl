@@ -15,7 +15,7 @@ const createMainWindow = () => {
     width: 1300,
     height: 940,
     minHeight: 500,
-    minWidth: 500,
+    minWidth: 600,
     show: false,
     backgroundColor: "#171717",
     webPreferences: {
