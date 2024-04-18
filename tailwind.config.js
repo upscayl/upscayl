@@ -15,14 +15,14 @@ module.exports = {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
+      container: {
+        center: true,
+        padding: "2rem",
+        screens: {
+          "2xl": "1400px",
+        },
+      },
       spacing: {
         128: "28rem",
       },
@@ -83,8 +83,8 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
     require("daisyui"),
+    require("tailwindcss-animate"),
     require("tailwind-scrollbar"),
     require("@tailwindcss/typography"),
   ],

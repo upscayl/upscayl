@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "2.10.0",
+  "version": "2.11.0",
   "productName": "Upscayl",
   "author": {
     "name": "Nayam Amarshe",
@@ -210,7 +210,7 @@
     "@types/react-dom": "^18.0.11",
     "autoprefixer": "^10.4.16",
     "cross-env": "^7.0.3",
-    "daisyui": "^3.9.4",
+    "daisyui": "^4.10.2",
     "electron": "^27.3.10",
     "electron-builder": "^24.13.3",
     "next": "^13.5.6",

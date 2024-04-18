@@ -560,7 +560,7 @@ const Home = () => {
         <Header version={version} />
         {!dontShowCloudModal && featureFlags.SHOW_UPSCAYL_CLOUD_INFO && (
           <button
-            className="rounded-btn mx-5 mb-5 animate-pulse bg-success p-1 text-sm text-slate-50 shadow-lg shadow-success/40"
+            className="mx-5 mb-5 animate-pulse rounded-btn bg-success p-1 text-sm text-slate-50 shadow-lg shadow-success/40"
             onClick={() => {
               setShowCloudModal(true);
             }}

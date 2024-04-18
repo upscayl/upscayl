@@ -85,11 +85,11 @@
     @apply w-full;
   }
   .react-select-container .react-select__control {
-    @apply rounded-btn h-12 cursor-pointer !border-0 !border-none !border-transparent bg-primary shadow-none;
+    @apply h-12 cursor-pointer rounded-btn !border-0 !border-none !border-transparent bg-primary shadow-none;
   }
 
   .react-select-container .react-select__control--menu-is-open {
-    @apply bg-primary-focus text-primary-content;
+    @apply bg-primary-content text-primary-content;
   }
 
   .react-select-container .react-select__single-value {
@@ -105,7 +105,7 @@
   }
 
   .react-select-container .react-select__option {
-    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-primary-content hover:bg-primary-focus hover:text-primary-content;
+    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-primary-content hover:bg-primary-content hover:text-primary-content;
   }
 
   .react-select-container .react-select__option--is-selected {
@@ -151,7 +151,7 @@
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__control {
-  @apply rounded-btn h-10 cursor-pointer !border-0 !border-none !border-transparent bg-primary shadow-none;
+  @apply h-10 cursor-pointer rounded-btn !border-0 !border-none !border-transparent bg-primary shadow-none;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__single-value {

@@ -16,7 +16,7 @@ export function SaveOutputFolderToggle() {
         If enabled, the output folder will be remembered between sessions.
       </p>
 
-      <p>{outputPath}</p>
+      <p className="font-mono text-sm">{outputPath}</p>
       <input
         type="checkbox"
         className="toggle"
