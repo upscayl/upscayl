@@ -45,20 +45,28 @@
     font-family: "Poppins", sans-serif;
   }
 
+  .hide-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-transparent;
+  }
+
   ::-webkit-scrollbar {
     @apply w-3;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-base-300/80 rounded-full;
+    @apply rounded-full bg-base-300/30;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-base-content/20 rounded-full;
+    @apply rounded-full bg-base-content/20;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-base-content/50 rounded-full;
+    @apply rounded-full bg-base-content/50;
   }
 }
 
@@ -85,11 +93,11 @@
   }
 
   .react-select-container .react-select__single-value {
-    @apply text-primary-content text-sm font-semibold uppercase;
+    @apply text-sm font-semibold uppercase text-primary-content;
   }
 
   .react-select-container .react-select__input-container {
-    @apply text-primary-content text-sm font-semibold uppercase;
+    @apply text-sm font-semibold uppercase text-primary-content;
   }
 
   .react-select-container .react-select__menu {
@@ -97,11 +105,11 @@
   }
 
   .react-select-container .react-select__option {
-    @apply text-primary-content hover:bg-primary-focus hover:text-primary-content my-1 cursor-pointer break-all rounded-md bg-primary;
+    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-primary-content hover:bg-primary-focus hover:text-primary-content;
   }
 
   .react-select-container .react-select__option--is-selected {
-    @apply text-accent-content bg-accent;
+    @apply bg-accent text-accent-content;
   }
 
   .outline-title {
@@ -147,11 +155,11 @@
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__single-value {
-  @apply text-primary-content font-medium normal-case;
+  @apply font-medium normal-case text-primary-content;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__input-container {
-  @apply text-primary-content text-xs font-medium normal-case;
+  @apply text-xs font-medium normal-case text-primary-content;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__menu {

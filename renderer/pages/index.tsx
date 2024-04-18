@@ -532,6 +532,7 @@ const Home = () => {
       >
         <PanelRightCloseIcon />
       </button>
+
       {/* LEFT PANE */}
       <div
         className={`relative flex h-screen min-w-[350px] max-w-[350px] flex-col bg-base-100 ${showSidebar ? "" : "hidden"}`}
@@ -542,6 +543,7 @@ const Home = () => {
         >
           <PanelLeftCloseIcon />
         </button>
+
         {/* UPSCAYL CLOUD MODAL */}
         {featureFlags.SHOW_UPSCAYL_CLOUD_INFO && (
           <UpscaylCloudModal

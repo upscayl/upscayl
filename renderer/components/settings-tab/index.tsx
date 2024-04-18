@@ -23,6 +23,7 @@ import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
 import { featureFlags } from "@common/feature-flags";
 import TurnOffNotificationsToggle from "./TurnOffNotificationsToggle";
+import { cn } from "@/lib/utils";
 
 interface IProps {
   batchMode: boolean;
@@ -68,9 +69,8 @@ function SettingsTab({
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
   const modelOptions = useAtomValue(modelsListAtom);
   const [scale, setScale] = useAtom(scaleAtom);
-  const [noImageProcessing, setNoImageProcessing] = useAtom(
-    noImageProcessingAtom,
-  );
+  const [enableScrollbar, setEnableScrollbar] = useState(true);
+  const [timeoutId, setTimeoutId] = useState(null);
 
   const { logit } = useLog();
 
@@ -152,8 +152,39 @@ function SettingsTab({
     /Upscayl\/([\d\.]+\d+)/,
   )[1];
 
+  function disableScrolling() {
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+    }
+
+    setTimeoutId(
+      setTimeout(function () {
+        setEnableScrollbar(false);
+      }, 1000),
+    );
+  }
+
+  function enableScrolling() {
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+    }
+
+    setEnableScrollbar(true);
+  }
+
   return (
-    <div className="animate-step-in animate flex h-screen flex-col gap-7 overflow-y-auto overflow-x-hidden p-5">
+    <div
+      className={cn(
+        "animate-step-in animate z-50 flex h-screen flex-col gap-7 overflow-y-auto overflow-x-hidden p-5",
+        enableScrollbar ? "" : "hide-scrollbar",
+      )}
+      onScroll={() => {
+        if (enableScrollbar) disableScrolling();
+      }}
+      onWheel={() => {
+        enableScrolling();
+      }}
+    >
       <div className="flex flex-col gap-2 text-sm font-medium uppercase">
         <p>Having issues?</p>
         <a
@@ -161,7 +192,7 @@ function SettingsTab({
           href="https://github.com/upscayl/upscayl/wiki/"
           target="_blank"
         >
-          GET HELP!
+          GET HELP
         </a>
         {featureFlags.APP_STORE_BUILD && (
           <a
