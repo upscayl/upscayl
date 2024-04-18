@@ -170,6 +170,8 @@ npm run publish-app
 - **Do I need a GPU for this to work?**
   - Yes, unfortunately. NCNN Vulkan requires a Vulkan-compatible GPU. Upscayl won't work with **most** iGPUs or CPUs. But hey, no harm in trying ;)
     - @Wyrdgirn has contributed a workaround for Windows and Linux in [#390](https://github.com/upscayl/upscayl/issues/390)! Nobody knows how to manipulate the macOS and Haiku frameworks...
+- **I stopped the magic Batch Upscayl and my images haven't been processed, compressed, or are in the wrong scale!**
+  - When a model doesn't support an action, Upscayl will finish upscayling all the images first before post-processing them. What this means is that you should simply **wait** for the process to finish.
 - **How can I contribute?**
   - You can report issues, fix code and add features by submitting PRs, or donate! 😊
 - **What's the GPU ID for?**
