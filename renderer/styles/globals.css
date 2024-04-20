@@ -89,7 +89,7 @@
   }
 
   .react-select-container .react-select__control--menu-is-open {
-    @apply bg-primary-content text-primary-content;
+    @apply bg-primary text-primary-content;
   }
 
   .react-select-container .react-select__single-value {
@@ -105,7 +105,7 @@
   }
 
   .react-select-container .react-select__option {
-    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-primary-content hover:bg-primary-content hover:text-primary-content;
+    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-primary-content hover:bg-primary-content/20 hover:text-primary-content;
   }
 
   .react-select-container .react-select__option--is-selected {
