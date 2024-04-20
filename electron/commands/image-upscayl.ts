@@ -4,7 +4,6 @@ import COMMAND from "../../common/commands";
 import {
   savedCompression,
   savedCustomModelsPath,
-  customWidth,
   savedBatchUpscaylFolderPath,
   noImageProcessing,
   savedOutputPath,
@@ -14,7 +13,6 @@ import {
   setNoImageProcessing,
   setStopped,
   stopped,
-  useCustomWidth,
 } from "../utils/config-variables";
 import { getSingleImageArguments } from "../utils/get-arguments";
 import logit from "../utils/logit";
@@ -60,6 +58,9 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
+  const useCustomWidth = payload.useCustomWidth;
+  const customWidth = payload.customWidth;
+
   const desiredScale = useCustomWidth
     ? customWidth || payload.scale
     : payload.scale;
@@ -115,6 +116,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         scale: desiredScale,
         gpuId,
         saveImageAs,
+        customWidth,
       }),
       logit,
     );

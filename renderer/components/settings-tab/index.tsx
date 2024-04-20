@@ -24,6 +24,7 @@ import { ResetSettings } from "./ResetSettings";
 import { featureFlags } from "@common/feature-flags";
 import TurnOffNotificationsToggle from "./TurnOffNotificationsToggle";
 import { cn } from "@/lib/utils";
+import { CustomResolutionInput } from "./CustomResolutionInput";
 
 interface IProps {
   batchMode: boolean;
@@ -225,6 +226,8 @@ function SettingsTab({
       {/* IMAGE SCALE */}
       <ImageScaleSelect scale={scale} setScale={setScale} />
 
+      <CustomResolutionInput />
+
       <CompressionInput
         compression={compression}
         handleCompressionChange={handleCompressionChange}
@@ -250,7 +253,7 @@ function SettingsTab({
       {featureFlags.SHOW_UPSCAYL_CLOUD_INFO && (
         <>
           <button
-            className="rounded-btn mx-5 mb-5 animate-pulse bg-success p-1 text-sm text-slate-50 shadow-lg shadow-success/40"
+            className="mx-5 mb-5 animate-pulse rounded-btn bg-success p-1 text-sm text-slate-50 shadow-lg shadow-success/40"
             onClick={() => {
               setShow(true);
             }}

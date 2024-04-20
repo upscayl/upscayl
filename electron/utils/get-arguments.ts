@@ -11,6 +11,7 @@ export const getSingleImageArguments = ({
   scale,
   gpuId,
   saveImageAs,
+  customWidth,
 }: {
   inputDir: string;
   fullfileName: string;
@@ -20,6 +21,7 @@ export const getSingleImageArguments = ({
   scale: any;
   gpuId: string;
   saveImageAs: ImageFormat;
+  customWidth: string;
 }) => {
   return [
     "-i",
@@ -36,6 +38,7 @@ export const getSingleImageArguments = ({
     gpuId ? gpuId : "",
     "-f",
     saveImageAs,
+    customWidth ? `-w ${customWidth}` : "",
   ];
 };
 
@@ -84,6 +87,7 @@ export const getDoubleUpscaleSecondPassArguments = ({
   gpuId,
   saveImageAs,
   scale,
+  customWidth,
 }: {
   isAlpha: boolean;
   outFile: string;
@@ -92,6 +96,7 @@ export const getDoubleUpscaleSecondPassArguments = ({
   gpuId: string;
   saveImageAs: ImageFormat;
   scale: string;
+  customWidth: string;
 }) => {
   return [
     "-i",
@@ -108,6 +113,7 @@ export const getDoubleUpscaleSecondPassArguments = ({
     gpuId ? gpuId : "",
     isAlpha ? "" : "-f",
     isAlpha ? "" : saveImageAs,
+    customWidth ? `-w ${customWidth}` : "",
   ];
 };
 
@@ -119,6 +125,7 @@ export const getBatchArguments = ({
   gpuId,
   saveImageAs,
   scale,
+  customWidth,
 }: {
   inputDir: string;
   outputDir: string;
@@ -127,6 +134,7 @@ export const getBatchArguments = ({
   gpuId: string;
   saveImageAs: ImageFormat;
   scale: string;
+  customWidth: string;
 }) => {
   return [
     "-i",
@@ -143,5 +151,6 @@ export const getBatchArguments = ({
     gpuId ? gpuId : "",
     "-f",
     saveImageAs,
+    customWidth ? `-w ${customWidth}` : "",
   ];
 };

@@ -3,14 +3,12 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   savedCustomModelsPath,
-  customWidth,
   noImageProcessing,
   rememberOutputFolder,
   setCompression,
   setNoImageProcessing,
   setStopped,
   stopped,
-  useCustomWidth,
 } from "../utils/config-variables";
 import logit from "../utils/logit";
 import { spawnUpscayl } from "../utils/spawn-upscayl";
@@ -20,8 +18,6 @@ import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../../common/commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
-import getModelScale from "../../common/check-model-scale";
-import removeFileExtension from "../utils/remove-file-extension";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
 
@@ -47,8 +43,11 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
   const scale = payload.scale;
+  const customWidth = payload.customWidth;
+  const useCustomWidth = payload.useCustomWidth;
 
-  const outputFolderName = `upscayl_${saveImageAs}_${model}_${scale}${useCustomWidth ? "px" : "x"}`;
+  const outputFolderName = `upscayl_${saveImageAs}_${model}_${scale ? scale : ""}${useCustomWidth ? "px" : "x"}`;
+
   outputFolderPath += slash + outputFolderName;
   if (!fs.existsSync(outputFolderPath)) {
     fs.mkdirSync(outputFolderPath, { recursive: true });
@@ -78,6 +77,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       gpuId,
       saveImageAs,
       scale,
+      customWidth,
     }),
     logit,
   );

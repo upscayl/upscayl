@@ -8,6 +8,8 @@ export type ImageUpscaylPayload = {
   overwrite: boolean;
   compression: string;
   noImageProcessing: boolean;
+  customWidth: string;
+  useCustomWidth: boolean;
 };
 
 export type DoubleUpscaylPayload = {
@@ -19,6 +21,8 @@ export type DoubleUpscaylPayload = {
   saveImageAs: string;
   compression: string;
   noImageProcessing: boolean;
+  customWidth: string;
+  useCustomWidth: boolean;
 };
 
 export type BatchUpscaylPayload = {
@@ -30,4 +34,6 @@ export type BatchUpscaylPayload = {
   scale: string;
   compression: string;
   noImageProcessing: boolean;
+  customWidth: string;
+  useCustomWidth: boolean;
 };

@@ -3,8 +3,6 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   savedCustomModelsPath,
-  customWidth,
-  savedBatchUpscaylFolderPath,
   noImageProcessing,
   savedOutputPath,
   rememberOutputFolder,
@@ -12,7 +10,6 @@ import {
   setNoImageProcessing,
   setStopped,
   stopped,
-  useCustomWidth,
 } from "../utils/config-variables";
 import slash from "../utils/slash";
 import { spawnUpscayl } from "../utils/spawn-upscayl";
@@ -25,9 +22,7 @@ import logit from "../utils/logit";
 import COMMAND from "../../common/commands";
 import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../utils/types";
-import getModelScale from "../../common/check-model-scale";
 import showNotification from "../utils/show-notification";
-import { unlinkSync } from "fs";
 import { DEFAULT_MODELS } from "../../common/models-list";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
@@ -56,13 +51,15 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const fileName = parse(fullfileName).name;
 
   const scale = parseInt(payload.scale) * parseInt(payload.scale);
+  const customWidth = payload.customWidth;
+  const useCustomWidth = payload.useCustomWidth;
 
   const outFile =
     outputDir +
     slash +
     fileName +
     "_upscayl_" +
-    scale +
+    (scale ? scale : "") +
     (useCustomWidth ? "px_" : "x_") +
     model +
     "." +
@@ -186,6 +183,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           gpuId,
           saveImageAs,
           scale: scale.toString(),
+          customWidth,
         }),
         logit,
       );

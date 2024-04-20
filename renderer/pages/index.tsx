@@ -26,6 +26,8 @@ import {
   viewTypeAtom,
   rememberOutputFolderAtom,
   showSidebarAtom,
+  customWidthAtom,
+  useCustomWidthAtom,
 } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
 import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
@@ -87,6 +89,8 @@ const Home = () => {
   const lensSize = useAtomValue(lensSizeAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
   const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
+  const customWidth = useAtomValue(customWidthAtom);
+  const useCustomWidth = useAtomValue(useCustomWidthAtom);
 
   const { logit } = useLog();
 
@@ -459,6 +463,8 @@ const Home = () => {
           scale,
           noImageProcessing,
           compression: compression.toString(),
+          useCustomWidth,
+          customWidth: customWidth.toString(),
         });
         logit("🏁 DOUBLE_UPSCAYL");
       } else if (batchMode) {
@@ -473,6 +479,8 @@ const Home = () => {
           scale,
           noImageProcessing,
           compression: compression.toString(),
+          customWidth: customWidth.toString(),
+          useCustomWidth,
         });
         logit("🏁 FOLDER_UPSCAYL");
       } else {
@@ -487,6 +495,8 @@ const Home = () => {
           overwrite,
           noImageProcessing,
           compression: compression.toString(),
+          customWidth: customWidth.toString(),
+          useCustomWidth,
         });
         logit("🏁 UPSCAYL");
       }

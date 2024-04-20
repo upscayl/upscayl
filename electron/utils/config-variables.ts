@@ -64,17 +64,17 @@ export function setTurnOffNotifications(value: boolean): void {
   logit("🔕 Updating Turn Off Notifications: ", turnOffNotifications);
 }
 
-export let customWidth: string | null = null;
-export function setCustomWidth(value: string | null): void {
-  customWidth = value;
-  logit("📏 Updating Custom Width: ", customWidth);
-}
+// export let customWidth: string | null = null;
+// export function setCustomWidth(value: string | null): void {
+//   customWidth = value;
+//   logit("📏 Updating Custom Width: ", customWidth);
+// }
 
-export let useCustomWidth: boolean = false;
-export function setUseCustomWidth(value: boolean): void {
-  useCustomWidth = value;
-  logit("📏 Updating Use Custom Width: ", useCustomWidth);
-}
+// export let useCustomWidth: boolean = false;
+// export function setUseCustomWidth(value: boolean): void {
+//   useCustomWidth = value;
+//   logit("📏 Updating Use Custom Width: ", useCustomWidth);
+// }
 
 // SETTERS
 
@@ -174,21 +174,21 @@ export function fetchLocalStorage(): void {
       }
     });
 
-  // GET CUSTOM WIDTH (STRING) FROM LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("customWidth");', true)
-    .then((lastSaved: string | null) => {
-      if (lastSaved !== null) {
-        setCustomWidth(lastSaved);
-      }
-    });
+  // // GET CUSTOM WIDTH (STRING) FROM LOCAL STORAGE
+  // mainWindow.webContents
+  //   .executeJavaScript('localStorage.getItem("customWidth");', true)
+  //   .then((lastSaved: string | null) => {
+  //     if (lastSaved !== null) {
+  //       setCustomWidth(lastSaved);
+  //     }
+  //   });
 
-  // GET USE CUSTOM WIDTH (BOOLEAN) FROM LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("useCustomWidth");', true)
-    .then((lastSaved: string | null) => {
-      if (lastSaved !== null) {
-        setUseCustomWidth(lastSaved === "true");
-      }
-    });
+  // // GET USE CUSTOM WIDTH (BOOLEAN) FROM LOCAL STORAGE
+  // mainWindow.webContents
+  //   .executeJavaScript('localStorage.getItem("useCustomWidth");', true)
+  //   .then((lastSaved: string | null) => {
+  //     if (lastSaved !== null) {
+  //       setUseCustomWidth(lastSaved === "true");
+  //     }
+  //   });
 }
