@@ -16,6 +16,7 @@ import getModelScale from "@common/check-model-scale";
 import COMMAND from "@common/commands";
 import Select from "react-select";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
 
 interface IProps {
   selectImageHandler: () => Promise<void>;
@@ -70,6 +71,7 @@ function LeftPaneImageSteps({
   const [targetHeight, setTargetHeight] = useState<number>(null);
 
   const { logit } = useLog();
+  const { toast } = useToast();
 
   const outputHandler = async () => {
     var path = await window.electron.invoke(COMMAND.SELECT_FOLDER);
@@ -320,7 +322,10 @@ function LeftPaneImageSteps({
           className="btn btn-accent"
           onClick={
             progress.length > 0 || !outputPath
-              ? () => alert("Please select an output folder first")
+              ? () =>
+                  toast({
+                    description: "Please select an output folder first",
+                  })
               : upscaylHandler
           }
         >

@@ -42,6 +42,8 @@ import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
 import matter from "gray-matter";
 import { PanelLeftCloseIcon, PanelRightCloseIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const Home = () => {
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
@@ -93,6 +95,7 @@ const Home = () => {
   const useCustomWidth = useAtomValue(useCustomWidthAtom);
 
   const { logit } = useLog();
+  const { toast } = useToast();
 
   const handleMouseMoveCompare = (e: React.MouseEvent) => {
     const { left, top, height, width } =
@@ -117,23 +120,40 @@ const Home = () => {
   // ELECTRON EVENT LISTENERS
   useEffect(() => {
     const handleErrors = (data: string) => {
-      if (data.includes("invalid gpu")) {
-        alert(
-          "Error. Please make sure you have a Vulkan compatible GPU (Most modern GPUs support Vulkan). Upscayl does not work with CPU or iGPU sadly.",
-        );
+      if (data.includes("Invalid GPU")) {
+        toast({
+          title: "GPU Error",
+          description: `GPU error occurred. Please read the wiki for troubleshooting! ${data})`,
+          action: (
+            <a href="https://github.com/upscayl/upscayl/wiki/" target="_blank">
+              <ToastAction altText="Open Wiki">Troubleshoot</ToastAction>
+            </a>
+          ),
+        });
         resetImagePaths();
-      } else if (data.includes("failed")) {
+      } else if (data.includes("write") || data.includes("read")) {
         if (batchMode) return;
-        alert(
-          data.includes("encode")
-            ? `ENCODING ERROR: ${data}. For troubleshooting, please read the Upscayl Wiki.`
-            : `DECODING ERROR: ${data}. Additional Info: This image is possibly corrupt or not supported by Upscayl, or your GPU drivers are acting funny (PLEASE READ THE UPSCAYL WIKI). You could try converting the image into another format and upscaling again. Also make sure that the output path is correct and you have the proper write permissions for the directory. If not, then unfortunately there's not much we can do to help, sorry.`,
-        );
+        toast({
+          title: "Read/Write Error",
+          description: `Make sure that the path is correct and you have proper read/write permissions (${data})`,
+          action: (
+            <a href="https://github.com/upscayl/upscayl/wiki/" target="_blank">
+              <ToastAction altText="Open Wiki">Troubleshoot</ToastAction>
+            </a>
+          ),
+        });
+        resetImagePaths();
+      } else if (data.includes("tile size")) {
+        toast({
+          title: "Error",
+          description: `The tile size is wrong. Please change the tile size in the settings or set to 0 (${data})`,
+        });
         resetImagePaths();
       } else if (data.includes("uncaughtException")) {
-        alert(
-          "Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try checking the logs to see if you get any information. You can post an issue on Upscayl's GitHub repository for more help.",
-        );
+        toast({
+          title: "Exception Error",
+          description: `Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try checking the logs to see if you get any information. You can post an issue on Upscayl's GitHub repository for more help.`,
+        });
         resetImagePaths();
       }
     };
@@ -148,7 +168,7 @@ const Home = () => {
     );
     // LOG
     window.electron.on(COMMAND.LOG, (_, data: string) => {
-      logit(`🐞 BACKEND REPORTED: `, data);
+      logit(`𝌖 BACKEND REPORTED: `, data);
     });
     // SCALING AND CONVERTING
     window.electron.on(COMMAND.SCALING_AND_CONVERTING, (_, data: string) => {
@@ -156,7 +176,10 @@ const Home = () => {
     });
     // UPSCAYL ERROR
     window.electron.on(COMMAND.UPSCAYL_ERROR, (_, data: string) => {
-      alert(data);
+      toast({
+        title: "Error",
+        description: data,
+      });
       resetImagePaths();
     });
     // UPSCAYL PROGRESS
@@ -312,7 +335,11 @@ const Home = () => {
       const extension = path.toLocaleLowerCase().split(".").pop();
       logit("🔤 Extension: ", extension);
       if (!allowedFileTypes.includes(extension.toLowerCase())) {
-        alert("Please select an image");
+        toast({
+          title: "Invalid Image",
+          description:
+            "Please select an image with a valid extension like PNG, JPG, JPEG, or WEBP.",
+        });
         resetImagePaths();
       }
     } else {
@@ -397,7 +424,10 @@ const Home = () => {
       e.dataTransfer.files.length === 0
     ) {
       logit("👎 No valid files dropped");
-      alert("Please drag and drop an image");
+      toast({
+        title: "Invalid Image",
+        description: "Please drag and drop an image",
+      });
       return;
     }
     const type = e.dataTransfer.items[0].type;
@@ -409,7 +439,10 @@ const Home = () => {
       !allowedFileTypes.includes(extension.toLowerCase())
     ) {
       logit("🚫 Invalid file dropped");
-      alert("Please drag and drop an image");
+      toast({
+        title: "Invalid Image",
+        description: "Please drag and drop an image",
+      });
     } else {
       logit("🖼 Setting image path: ", filePath);
       setImagePath(filePath);
@@ -435,7 +468,10 @@ const Home = () => {
       !type.includes("image") &&
       !allowedFileTypes.includes(extension.toLowerCase())
     ) {
-      alert("Please drag and drop an image");
+      toast({
+        title: "Invalid Image",
+        description: "Please drag and drop an image",
+      });
     } else {
       setImagePath(filePath);
       var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
@@ -501,7 +537,10 @@ const Home = () => {
         logit("🏁 UPSCAYL");
       }
     } else {
-      alert(`Please select an image to upscale`);
+      toast({
+        title: "No image selected",
+        description: "Please select an image to upscale",
+      });
       logit("🚫 No valid image selected");
     }
   };

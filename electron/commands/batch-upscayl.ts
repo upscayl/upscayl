@@ -86,7 +86,6 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   setStopped(false);
   let failed = false;
-  let isAlpha = false;
 
   const onData = (data: any) => {
     if (!mainWindow) return;
@@ -95,13 +94,10 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       COMMAND.FOLDER_UPSCAYL_PROGRESS,
       data.toString(),
     );
-    if (data.includes("Error") || data.includes("failed")) {
-      logit("❌ INVALID GPU OR INVALID FILES IN FOLDER - FAILED");
+    if ((data as string).includes("Error")) {
+      logit("❌ ", data);
       failed = true;
       upscayl.kill();
-    }
-    if (data.includes("has alpha channel")) {
-      isAlpha = true;
     }
   };
   const onError = (data: any) => {
@@ -116,7 +112,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     mainWindow &&
       mainWindow.webContents.send(
         COMMAND.UPSCAYL_ERROR,
-        "Error upscaling image. Error: " + data,
+        `Error upscaling image! ${data}`,
       );
     return;
   };
