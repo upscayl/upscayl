@@ -148,17 +148,28 @@ function LeftPaneImageSteps({
     let doubleScale = parseInt(scale) * parseInt(scale);
     let singleScale = parseInt(scale);
 
-    if (useCustomWidth) {
-    }
-
     if (doubleUpscayl) {
-      const newWidth = dimensions.width * doubleScale;
-      const newHeight = dimensions.height * doubleScale;
-      newDimensions.width = newWidth;
-      newDimensions.height = newHeight;
+      if (useCustomWidth) {
+        newDimensions.width = customWidth;
+        newDimensions.height = Math.round(
+          customWidth * (dimensions.height / dimensions.width),
+        );
+      } else {
+        const newWidth = dimensions.width * doubleScale;
+        const newHeight = dimensions.height * doubleScale;
+        newDimensions.width = newWidth;
+        newDimensions.height = newHeight;
+      }
     } else {
-      newDimensions.width = dimensions.width * singleScale;
-      newDimensions.height = dimensions.height * singleScale;
+      if (useCustomWidth) {
+        newDimensions.width = customWidth;
+        newDimensions.height = Math.round(
+          customWidth * (dimensions.height / dimensions.width),
+        );
+      } else {
+        newDimensions.width = dimensions.width * singleScale;
+        newDimensions.height = dimensions.height * singleScale;
+      }
     }
 
     return newDimensions;

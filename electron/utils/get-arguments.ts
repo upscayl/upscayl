@@ -74,7 +74,6 @@ export const getDoubleUpscaleArguments = ({
     gpuId ? `-g ${gpuId}` : "",
     "-f",
     saveImageAs,
-    customWidth ? `-w ${customWidth}` : "",
   ];
 };
 
