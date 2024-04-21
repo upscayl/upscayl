@@ -61,18 +61,12 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const useCustomWidth = payload.useCustomWidth;
   const customWidth = useCustomWidth ? payload.customWidth : "";
 
-  const desiredScale = payload.scale;
+  const scale = payload.scale;
 
   const outFile =
-    outputDir +
-    slash +
-    fileName +
-    "_upscayl_" +
-    desiredScale +
-    (useCustomWidth ? "px_" : "x_") +
-    model +
-    "." +
-    saveImageAs;
+    outputDir + slash + fileName + "_upscayl_" + useCustomWidth
+      ? `${customWidth}px_`
+      : `${scale}x_` + model + "." + saveImageAs;
 
   // UPSCALE
   if (fs.existsSync(outFile) && !overwrite) {
@@ -96,8 +90,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         outputDir,
         fullfileName,
         fileName,
-        scale: desiredScale,
-        desiredScale,
+        scale,
         outFile,
         compression: savedCompression,
       }),
@@ -111,7 +104,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
           ? modelsPath
           : savedCustomModelsPath ?? modelsPath,
         model,
-        scale: desiredScale,
+        scale,
         gpuId,
         saveImageAs,
         customWidth,

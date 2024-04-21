@@ -46,7 +46,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const useCustomWidth = payload.useCustomWidth;
   const customWidth = useCustomWidth ? payload.customWidth : "";
 
-  const outputFolderName = `upscayl_${saveImageAs}_${model}_${scale ? scale : ""}${useCustomWidth ? "px" : "x"}`;
+  const outputFolderName = `upscayl_${saveImageAs}_${model}_${
+    useCustomWidth ? `${customWidth}px` : `${scale}x`
+  }`;
 
   outputFolderPath += slash + outputFolderName;
   if (!fs.existsSync(outputFolderPath)) {

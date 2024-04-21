@@ -55,15 +55,9 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const customWidth = useCustomWidth ? payload.customWidth : "";
 
   const outFile =
-    outputDir +
-    slash +
-    fileName +
-    "_upscayl_" +
-    (scale ? scale : "") +
-    (useCustomWidth ? "px_" : "x_") +
-    model +
-    "." +
-    saveImageAs;
+    outputDir + slash + fileName + "_upscayl_" + useCustomWidth
+      ? `${customWidth}px_`
+      : `${scale}x_` + model + "." + saveImageAs;
 
   // UPSCALE
   let upscayl = spawnUpscayl(
