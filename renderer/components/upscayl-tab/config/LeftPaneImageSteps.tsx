@@ -19,6 +19,7 @@ import COMMAND from "@common/commands";
 import Select from "react-select";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
+import { ImageScaleSelect } from "@/components/settings-tab/ImageScaleSelect";
 
 interface IProps {
   selectImageHandler: () => Promise<void>;
@@ -62,7 +63,7 @@ function LeftPaneImageSteps({
   });
 
   const modelOptions = useAtomValue(modelsListAtom);
-  const scale = useAtomValue(scaleAtom);
+  const [scale, setScale] = useAtom(scaleAtom);
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [progress, setProgress] = useAtom(progressAtom);
@@ -204,32 +205,34 @@ function LeftPaneImageSteps({
       </div>
 
       {/* STEP 2 */}
-      <div className="animate-step-in group">
-        <p className="step-heading">Step 2</p>
-        <p className="mb-2 text-sm">Select Model</p>
+      <div className="animate-step-in group flex flex-col gap-4">
+        <div>
+          <p className="step-heading">Step 2</p>
+          <p className="mb-2 text-sm">Select Model</p>
 
-        <Select
-          onMenuOpen={() => setOpen(true)}
-          onMenuClose={() => setOpen(false)}
-          options={modelOptions}
-          components={{
-            IndicatorSeparator: () => null,
-            DropdownIndicator: () => null,
-          }}
-          onChange={(e) => {
-            handleModelChange(e);
-            setCurrentModel({ label: e.label, value: e.value });
-          }}
-          className={cn(
-            "react-select-container transition-all group-hover:w-full group-active:w-full focus:w-full",
-            open && "!w-full",
-          )}
-          classNamePrefix="react-select"
-          value={currentModel}
-        />
+          <Select
+            onMenuOpen={() => setOpen(true)}
+            onMenuClose={() => setOpen(false)}
+            options={modelOptions}
+            components={{
+              IndicatorSeparator: () => null,
+              DropdownIndicator: () => null,
+            }}
+            onChange={(e) => {
+              handleModelChange(e);
+              setCurrentModel({ label: e.label, value: e.value });
+            }}
+            className={cn(
+              "react-select-container transition-all group-hover:w-full group-active:w-full focus:w-full",
+              open && "!w-full",
+            )}
+            classNamePrefix="react-select"
+            value={currentModel}
+          />
+        </div>
 
         {!batchMode && (
-          <div className="mt-4 flex items-center gap-1">
+          <div className="flex items-center gap-1">
             <input
               type="checkbox"
               className="checkbox"
@@ -259,6 +262,8 @@ function LeftPaneImageSteps({
             </button>
           </div>
         )}
+
+        <ImageScaleSelect scale={scale} setScale={setScale} hideInfo />
       </div>
 
       {/* STEP 3 */}

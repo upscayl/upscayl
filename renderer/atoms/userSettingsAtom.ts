@@ -6,7 +6,7 @@ export const customModelsPathAtom = atomWithStorage<string | null>(
   null,
 );
 
-export const scaleAtom = atomWithStorage<"2" | "3" | "4">("scale", "4");
+export const scaleAtom = atomWithStorage<string>("scale", "4");
 
 export const batchModeAtom = atom<boolean>(false);
 
