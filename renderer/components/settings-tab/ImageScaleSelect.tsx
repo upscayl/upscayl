@@ -20,10 +20,16 @@ export function ImageScaleSelect({ scale, setScale }: ImageScaleSelectProps) {
         Anything above 4X (except 16X Double Upscayl) only resizes the image and
         does not use AI upscaling.
       </p>
+      {parseInt(scale) >= 6 && (
+        <p className="text-xs text-base-content/80 text-red-500">
+          This may cause performance issues on some devices!
+        </p>
+      )}
       <input
         type="range"
         min="1"
         max="16"
+        placeholder="Example: 1320"
         value={scale}
         onChange={(e: any) => {
           setScale(e.target.value.toString());

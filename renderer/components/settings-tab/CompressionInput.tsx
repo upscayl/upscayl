@@ -14,7 +14,8 @@ export function CompressionInput({
       </div>
       {compression > 0 && (
         <p className="text-xs text-base-content/80">
-          PNG compression is not supported at the moment.
+          PNG compression is lossless. It might not have a significant effect on
+          some images.
         </p>
       )}
       <input

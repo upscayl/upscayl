@@ -51,8 +51,8 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const fileName = parse(fullfileName).name;
 
   const scale = parseInt(payload.scale) * parseInt(payload.scale);
-  const customWidth = payload.customWidth;
   const useCustomWidth = payload.useCustomWidth;
+  const customWidth = useCustomWidth ? payload.customWidth : "";
 
   const outFile =
     outputDir +
@@ -78,6 +78,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       gpuId,
       saveImageAs,
       scale: scale.toString(),
+      customWidth,
     }),
     logit,
   );
@@ -86,7 +87,6 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
 
   setStopped(false);
   let failed = false;
-  let isAlpha = false;
   let failed2 = false;
 
   const onData = (data) => {
@@ -99,10 +99,12 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     if (data.includes("Error") || data.includes("failed")) {
       upscayl.kill();
       failed = true;
+    } else if (data.includes("Resizing")) {
+      mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
     }
-    if (data.includes("alpha channel")) {
-      isAlpha = true;
-    }
+    // if (data.includes("alpha channel")) {
+    //   isAlpha = true;
+    // }
   };
 
   const onError = (data) => {
@@ -127,20 +129,6 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     if (!mainWindow) return;
     if (!failed2 && !stopped) {
       logit("💯 Done upscaling");
-      logit("♻ Scaling and converting now...");
-      mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
-      if (noImageProcessing) {
-        logit("🚫 Skipping scaling and converting");
-        mainWindow.setProgressBar(-1);
-        mainWindow.webContents.send(
-          COMMAND.DOUBLE_UPSCAYL_DONE,
-          outFile.replace(
-            /([^/\\]+)$/i,
-            encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
-          ),
-        );
-        return;
-      }
 
       try {
         mainWindow.setProgressBar(-1);
@@ -174,7 +162,6 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       // UPSCALE
       let upscayl2 = spawnUpscayl(
         getDoubleUpscaleSecondPassArguments({
-          isAlpha,
           outFile,
           modelsPath: isDefaultModel
             ? modelsPath

@@ -59,11 +59,9 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const fileName = parse(fullfileName).name;
   const fileExt = parse(fullfileName).ext;
   const useCustomWidth = payload.useCustomWidth;
-  const customWidth = payload.customWidth;
+  const customWidth = useCustomWidth ? payload.customWidth : "";
 
-  const desiredScale = useCustomWidth
-    ? customWidth || payload.scale
-    : payload.scale;
+  const desiredScale = payload.scale;
 
   const outFile =
     outputDir +
@@ -136,10 +134,11 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         logit("❌ INVALID GPU OR FAILED");
         upscayl.kill();
         failed = true;
-      }
-      if (data.includes("has alpha channel")) {
+      } else if (data.includes("has alpha channel")) {
         logit("📢 INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
         isAlpha = true;
+      } else if (data.includes("Resizing")) {
+        mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
       }
     };
     const onError = (data) => {
@@ -154,19 +153,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       if (!failed && !stopped) {
         logit("💯 Done upscaling");
         logit("♻ Scaling and converting now...");
-        if (noImageProcessing) {
-          logit("🚫 Skipping scaling and converting");
-          mainWindow.setProgressBar(-1);
-          mainWindow.webContents.send(
-            COMMAND.UPSCAYL_DONE,
-            outFile.replace(
-              /([^/\\]+)$/i,
-              encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
-            ),
-          );
-          return;
-        }
-        mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
         // Free up memory
         upscayl.kill();
         try {

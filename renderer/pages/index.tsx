@@ -499,8 +499,8 @@ const Home = () => {
           scale,
           noImageProcessing,
           compression: compression.toString(),
+          customWidth: customWidth > 0 ? customWidth.toString() : null,
           useCustomWidth,
-          customWidth: customWidth.toString(),
         });
         logit("🏁 DOUBLE_UPSCAYL");
       } else if (batchMode) {
@@ -515,7 +515,7 @@ const Home = () => {
           scale,
           noImageProcessing,
           compression: compression.toString(),
-          customWidth: customWidth.toString(),
+          customWidth: customWidth > 0 ? customWidth.toString() : null,
           useCustomWidth,
         });
         logit("🏁 FOLDER_UPSCAYL");
@@ -531,7 +531,7 @@ const Home = () => {
           overwrite,
           noImageProcessing,
           compression: compression.toString(),
-          customWidth: customWidth.toString(),
+          customWidth: customWidth > 0 ? customWidth.toString() : null,
           useCustomWidth,
         });
         logit("🏁 UPSCAYL");

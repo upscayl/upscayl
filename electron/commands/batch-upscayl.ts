@@ -43,8 +43,8 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
   const scale = payload.scale;
-  const customWidth = payload.customWidth;
   const useCustomWidth = payload.useCustomWidth;
+  const customWidth = useCustomWidth ? payload.customWidth : "";
 
   const outputFolderName = `upscayl_${saveImageAs}_${model}_${scale ? scale : ""}${useCustomWidth ? "px" : "x"}`;
 
@@ -98,6 +98,8 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       logit("❌ ", data);
       failed = true;
       upscayl.kill();
+    } else if (data.includes("Resizing")) {
+      mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
     }
   };
   const onError = (data: any) => {
@@ -123,15 +125,6 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       logit("♻ Scaling and converting now...");
       upscayl.kill();
       mainWindow && mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
-      if (noImageProcessing) {
-        logit("🚫 Skipping scaling and converting");
-        mainWindow.setProgressBar(-1);
-        mainWindow.webContents.send(
-          COMMAND.FOLDER_UPSCAYL_DONE,
-          outputFolderPath,
-        );
-        return;
-      }
       try {
         mainWindow.webContents.send(
           COMMAND.FOLDER_UPSCAYL_DONE,

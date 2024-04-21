@@ -28,14 +28,12 @@ export const getSingleImageArguments = ({
     inputDir + slash + fullfileName,
     "-o",
     outFile,
-    "-s",
-    scale,
+    customWidth ? "" : `-s ${scale}`,
     "-m",
     modelsPath,
     "-n",
     model,
-    gpuId ? "-g" : "",
-    gpuId ? gpuId : "",
+    gpuId ? `-g ${gpuId}` : "",
     "-f",
     saveImageAs,
     customWidth ? `-w ${customWidth}` : "",
@@ -51,45 +49,10 @@ export const getDoubleUpscaleArguments = ({
   gpuId,
   saveImageAs,
   scale,
+  customWidth,
 }: {
   inputDir: string;
   fullfileName: string;
-  outFile: string;
-  modelsPath: string;
-  model: string;
-  gpuId: string;
-  saveImageAs: ImageFormat;
-  scale: string;
-}) => {
-  return [
-    "-i",
-    inputDir + slash + fullfileName,
-    "-o",
-    outFile,
-    "-s",
-    scale,
-    "-m",
-    modelsPath,
-    "-n",
-    model,
-    gpuId ? "-g" : "",
-    gpuId ? gpuId : "",
-    "-f",
-    saveImageAs,
-  ];
-};
-
-export const getDoubleUpscaleSecondPassArguments = ({
-  isAlpha,
-  outFile,
-  modelsPath,
-  model,
-  gpuId,
-  saveImageAs,
-  scale,
-  customWidth,
-}: {
-  isAlpha: boolean;
   outFile: string;
   modelsPath: string;
   model: string;
@@ -100,19 +63,52 @@ export const getDoubleUpscaleSecondPassArguments = ({
 }) => {
   return [
     "-i",
-    isAlpha ? outFile + ".png" : outFile,
+    inputDir + slash + fullfileName,
     "-o",
-    isAlpha ? outFile + ".png" : outFile,
-    "-s",
-    scale,
+    outFile,
+    customWidth ? "" : `-s ${scale}`,
     "-m",
     modelsPath,
     "-n",
     model,
-    gpuId ? "-g" : "",
-    gpuId ? gpuId : "",
-    isAlpha ? "" : "-f",
-    isAlpha ? "" : saveImageAs,
+    gpuId ? `-g ${gpuId}` : "",
+    "-f",
+    saveImageAs,
+    customWidth ? `-w ${customWidth}` : "",
+  ];
+};
+
+export const getDoubleUpscaleSecondPassArguments = ({
+  outFile,
+  modelsPath,
+  model,
+  gpuId,
+  saveImageAs,
+  scale,
+  customWidth,
+}: {
+  outFile: string;
+  modelsPath: string;
+  model: string;
+  gpuId: string;
+  saveImageAs: ImageFormat;
+  scale: string;
+  customWidth: string;
+}) => {
+  return [
+    "-i",
+    outFile,
+    "-o",
+    outFile,
+    "-s",
+    customWidth ? "" : `-s ${scale}`,
+    "-m",
+    modelsPath,
+    "-n",
+    model,
+    gpuId ? `-g ${gpuId}` : "",
+    "-f",
+    saveImageAs,
     customWidth ? `-w ${customWidth}` : "",
   ];
 };
@@ -141,14 +137,12 @@ export const getBatchArguments = ({
     inputDir,
     "-o",
     outputDir,
-    "-s",
-    scale,
+    customWidth ? "" : `-s ${scale}`,
     "-m",
     modelsPath,
     "-n",
     model,
-    gpuId ? "-g" : "",
-    gpuId ? gpuId : "",
+    gpuId ? `-g ${gpuId}` : "",
     "-f",
     saveImageAs,
     customWidth ? `-w ${customWidth}` : "",

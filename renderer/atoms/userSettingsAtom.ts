@@ -48,10 +48,7 @@ export const viewTypeAtom = atomWithStorage<"slider" | "lens">(
 
 export const lensSizeAtom = atomWithStorage<number>("lensSize", 100);
 
-export const customWidthAtom = atomWithStorage<number | null>(
-  "customWidth",
-  null,
-);
+export const customWidthAtom = atomWithStorage<number>("customWidth", 0);
 
 export const useCustomWidthAtom = atomWithStorage<boolean>(
   "useCustomWidth",

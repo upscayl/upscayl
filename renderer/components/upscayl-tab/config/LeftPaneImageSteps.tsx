@@ -10,6 +10,8 @@ import {
   progressAtom,
   rememberOutputFolderAtom,
   scaleAtom,
+  customWidthAtom,
+  useCustomWidthAtom,
 } from "../../../atoms/userSettingsAtom";
 import { featureFlags } from "@common/feature-flags";
 import getModelScale from "@common/check-model-scale";
@@ -66,6 +68,8 @@ function LeftPaneImageSteps({
   const [progress, setProgress] = useAtom(progressAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
   const [open, setOpen] = React.useState(false);
+  const [customWidth, setCustomWidth] = useAtom(customWidthAtom);
+  const [useCustomWidth, setUseCustomWidth] = useAtom(useCustomWidthAtom);
 
   const [targetWidth, setTargetWidth] = useState<number>(null);
   const [targetHeight, setTargetHeight] = useState<number>(null);
@@ -143,22 +147,14 @@ function LeftPaneImageSteps({
     let doubleScale = parseInt(scale) * parseInt(scale);
     let singleScale = parseInt(scale);
 
-    if (noImageProcessing) {
-      let initialScale = parseInt(getModelScale(model));
-      doubleScale = initialScale * initialScale;
-      singleScale = initialScale;
+    if (useCustomWidth) {
     }
 
     if (doubleUpscayl) {
       const newWidth = dimensions.width * doubleScale;
       const newHeight = dimensions.height * doubleScale;
-      if (newWidth < 32768 || newHeight < 32768) {
-        newDimensions.width = newWidth;
-        newDimensions.height = newHeight;
-      } else {
-        newDimensions.width = 32384;
-        newDimensions.height = 32384;
-      }
+      newDimensions.width = newWidth;
+      newDimensions.height = newHeight;
     } else {
       newDimensions.width = dimensions.width * singleScale;
       newDimensions.height = dimensions.height * singleScale;
@@ -195,11 +191,13 @@ function LeftPaneImageSteps({
       </div>
 
       {/* STEP 1 */}
-      <div data-tooltip-id="tooltip" data-tooltip-content={imagePath}>
+      <div className="animate-step-in">
         <p className="step-heading">Step 1</p>
         <button
           className="btn btn-primary"
           onClick={!batchMode ? selectImageHandler : selectFolderHandler}
+          data-tooltip-id="tooltip"
+          data-tooltip-content={imagePath}
         >
           Select {batchMode ? "Folder" : "Image"}
         </button>
@@ -255,7 +253,7 @@ function LeftPaneImageSteps({
             <button
               className="badge badge-neutral badge-sm cursor-help"
               data-tooltip-id="tooltip"
-              data-tooltip-content="Enable this option to get a 16x upscayl (we just run upscayl twice). Note that this may not always work properly with all images, for example, images with really large resolutions."
+              data-tooltip-content="Enable this option to run upscayl twice on an image. Note that this may cause a significant increase in processing time and possibly performance issues for scales greater than 4X."
             >
               ?
             </button>
@@ -264,11 +262,7 @@ function LeftPaneImageSteps({
       </div>
 
       {/* STEP 3 */}
-      <div
-        className="animate-step-in"
-        data-tooltip-content={outputPath}
-        data-tooltip-id="tooltip"
-      >
+      <div className="animate-step-in">
         <div className="flex flex-col pb-2">
           <div className="step-heading flex items-center gap-2">
             <span className="leading-none">Step 3</span>
@@ -298,7 +292,12 @@ function LeftPaneImageSteps({
             Defaults to {!batchMode ? "Image's" : "Folder's"} path
           </p>
         )}
-        <button className="btn btn-primary" onClick={outputHandler}>
+        <button
+          className="btn btn-primary"
+          data-tooltip-content={outputPath}
+          data-tooltip-id="tooltip"
+          onClick={outputHandler}
+        >
           Set Output Folder
         </button>
       </div>
@@ -333,7 +332,10 @@ function LeftPaneImageSteps({
         </button>
       </div>
 
-      <Tooltip className="z-50 max-w-sm" id="tooltip" />
+      <Tooltip
+        className="z-[999] max-w-sm break-words !bg-secondary"
+        id="tooltip"
+      />
     </div>
   );
 }

@@ -3,11 +3,11 @@ import { execPath } from "./get-resource-paths";
 
 export const spawnUpscayl = (
   command: string[],
-  logit: (...args: any) => void
+  logit: (...args: any) => void,
 ) => {
   logit(
     "📢 Upscayl Command: ",
-    command.filter((arg) => arg !== "")
+    command.filter((arg) => arg !== ""),
   );
 
   const spawnedProcess = spawn(
@@ -16,7 +16,7 @@ export const spawnUpscayl = (
     {
       cwd: undefined,
       detached: false,
-    }
+    },
   );
 
   return {

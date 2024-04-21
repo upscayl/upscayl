@@ -13,8 +13,6 @@ export function ImageFormatSelect({
   saveImageAs,
   setExportType,
 }: ImageFormatSelectProps) {
-  const noImageProcessing = useAtomValue(noImageProcessingAtom);
-
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row gap-1">
@@ -25,29 +23,26 @@ export function ImageFormatSelect({
       </div>
       <div className="flex flex-col gap-2">
         {batchMode && <p className="text-xs text-base-content/80"></p>}
-        {noImageProcessing && (
-          <p className="text-xs text-base-content/80">
-            {batchMode && "Only PNG is supported in Batch Upscayl."} Only PNGs
-            are saved without image processing to preserve image quality.
-          </p>
-        )}
         <div className="flex flex-wrap gap-2">
           {/* PNG */}
           <button
             className={`btn ${saveImageAs === "png" && "btn-primary"}`}
-            onClick={() => setExportType("png")}>
+            onClick={() => setExportType("png")}
+          >
             PNG
           </button>
           {/* JPG */}
           <button
             className={`btn ${saveImageAs === "jpg" && "btn-primary"}`}
-            onClick={() => setExportType("jpg")}>
+            onClick={() => setExportType("jpg")}
+          >
             JPG
           </button>
           {/* WEBP */}
           <button
             className={`btn ${saveImageAs === "webp" && "btn-primary"}`}
-            onClick={() => setExportType("webp")}>
+            onClick={() => setExportType("webp")}
+          >
             WEBP
           </button>
         </div>
