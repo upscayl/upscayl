@@ -64,9 +64,14 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const scale = payload.scale;
 
   const outFile =
-    outputDir + slash + fileName + "_upscayl_" + useCustomWidth
-      ? `${customWidth}px_`
-      : `${scale}x_` + model + "." + saveImageAs;
+    outputDir +
+    slash +
+    fileName +
+    "_upscayl_" +
+    (useCustomWidth ? `${customWidth}px_` : `${scale}x_`) +
+    model +
+    "." +
+    saveImageAs;
 
   // UPSCALE
   if (fs.existsSync(outFile) && !overwrite) {
