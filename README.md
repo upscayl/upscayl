@@ -21,8 +21,8 @@
   <img src="https://user-images.githubusercontent.com/25067102/209297095-a3db856f-b760-40bb-a68e-f3a3086e18c7.png" width="200px" />   
 </a>      
 
-<a href="https://t.me/LinuxChats">
-  <img src="https://user-images.githubusercontent.com/25067102/215301815-b9922b27-4e65-435a-aa9d-239da0ac61b4.png" width="200px" />
+<a href="https://x.com/upscayl">
+  <img src="https://github.com/upscayl/upscayl/assets/25067102/917dcf6f-452b-43e6-95cd-2c6b0a47913d" width="200px" />
 </a>
 
 # 🆙 Upscayl
