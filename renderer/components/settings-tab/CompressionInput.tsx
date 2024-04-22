@@ -15,7 +15,8 @@ export function CompressionInput({
       {compression > 0 && (
         <p className="text-xs text-base-content/80">
           PNG compression is lossless, so it might not reduce the file size
-          significantly. JPG and WebP compression is lossy.
+          significantly and higher compression values might affect the
+          performance. JPG and WebP compression is lossy.
         </p>
       )}
       <input

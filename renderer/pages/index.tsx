@@ -40,7 +40,12 @@ import {
 import { NewsModal } from "@/components/NewsModal";
 import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
 import matter from "gray-matter";
-import { PanelLeftCloseIcon, PanelRightCloseIcon } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  PanelLeftCloseIcon,
+  PanelRightCloseIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -125,9 +130,22 @@ const Home = () => {
           title: "GPU Error",
           description: `GPU error occurred. Please read the wiki for troubleshooting! ${data})`,
           action: (
-            <a href="https://github.com/upscayl/upscayl/wiki/" target="_blank">
-              <ToastAction altText="Open Wiki">Troubleshoot</ToastAction>
-            </a>
+            <div className="flex flex-col gap-2">
+              <ToastAction
+                altText="Copy Error"
+                onClick={() => {
+                  navigator.clipboard.writeText(data);
+                }}
+              >
+                Copy Error
+              </ToastAction>
+              <a
+                href="https://github.com/upscayl/upscayl/wiki/"
+                target="_blank"
+              >
+                <ToastAction altText="Open Wiki">Troubleshoot</ToastAction>
+              </a>
+            </div>
           ),
         });
         resetImagePaths();
@@ -135,11 +153,24 @@ const Home = () => {
         if (batchMode) return;
         toast({
           title: "Read/Write Error",
-          description: `Make sure that the path is correct and you have proper read/write permissions (${data})`,
+          description: `Make sure that the path is correct and you have proper read/write permissions \n(${data})`,
           action: (
-            <a href="https://github.com/upscayl/upscayl/wiki/" target="_blank">
-              <ToastAction altText="Open Wiki">Troubleshoot</ToastAction>
-            </a>
+            <div className="flex flex-col gap-2">
+              <ToastAction
+                altText="Copy Error"
+                onClick={() => {
+                  navigator.clipboard.writeText(data);
+                }}
+              >
+                Copy Error
+              </ToastAction>
+              <a
+                href="https://github.com/upscayl/upscayl/wiki/"
+                target="_blank"
+              >
+                <ToastAction altText="Open Wiki">Troubleshoot</ToastAction>
+              </a>
+            </div>
           ),
         });
         resetImagePaths();
@@ -574,12 +605,12 @@ const Home = () => {
       {/* SIDEBAR BUTTON */}
       <button
         className={cn(
-          "fixed left-0 top-1/2 z-50 -translate-y-1/2 rounded-r-full bg-base-100 p-4 ",
+          "fixed left-0 top-1/2 z-[999] -translate-y-1/2 rounded-r-full bg-base-100 p-4 ",
           showSidebar ? "hidden" : "",
         )}
         onClick={() => setShowSidebar((prev) => !prev)}
       >
-        <PanelRightCloseIcon />
+        <ChevronRightIcon />
       </button>
 
       {/* LEFT PANE */}
@@ -587,10 +618,10 @@ const Home = () => {
         className={`relative flex h-screen min-w-[350px] max-w-[350px] flex-col bg-base-100 ${showSidebar ? "" : "hidden"}`}
       >
         <button
-          className="absolute -right-0 top-1/2 z-50 -translate-y-1/2 translate-x-1/2 rounded-full bg-base-100 p-4"
+          className="absolute -right-0 top-1/2 z-[999] -translate-y-1/2 translate-x-1/2 rounded-full bg-base-100 p-4"
           onClick={() => setShowSidebar((prev) => !prev)}
         >
-          <PanelLeftCloseIcon />
+          <ChevronLeftIcon />
         </button>
 
         {/* UPSCAYL CLOUD MODAL */}
