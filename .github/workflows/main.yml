@@ -12,7 +12,7 @@ jobs:
 
       - uses: actions/setup-node@v3.5.0
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install Modules and Publish build
         run: |
@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3.5.0
         with:
-          node-version: 16
+          node-version: 18
       - name: Install Modules and Publish build
         run: |
           npm install
@@ -55,7 +55,7 @@ jobs:
 
       - uses: actions/setup-node@v3.5.0
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install Modules and Publish build
         env:
