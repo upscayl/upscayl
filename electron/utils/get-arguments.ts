@@ -1,4 +1,4 @@
-import getModelScale from "@common/check-model-scale";
+import getModelScale from "../../common/check-model-scale";
 import { getPlatform } from "./get-device-specs";
 import { ImageFormat } from "../types/types";
 const slash: string = getPlatform() === "win" ? "\\" : "/";

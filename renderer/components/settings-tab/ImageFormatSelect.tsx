@@ -1,7 +1,3 @@
-import { noImageProcessingAtom } from "@/atoms/userSettingsAtom";
-import { useAtomValue } from "jotai";
-import React, { useEffect } from "react";
-
 type ImageFormatSelectProps = {
   batchMode: boolean;
   saveImageAs: string;

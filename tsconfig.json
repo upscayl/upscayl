@@ -10,7 +10,6 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "paths": {
-      "@common/*": ["./common/*"],
       "@electron/*": ["./electron/*"],
       "@/*": ["./renderer/*"]
     }
