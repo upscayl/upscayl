@@ -22,56 +22,38 @@ export function setSavedBatchUpscaylFolderPath(
   logit("📁 Updating Folder Path: ", savedBatchUpscaylFolderPath);
 }
 
+/**
+ * The saved custom models folder path so that we can load the list of custom models from that folder on startup.
+ */
 export let savedCustomModelsPath: string | undefined = undefined;
 export function setSavedCustomModelsPath(value: string | undefined): void {
   savedCustomModelsPath = value;
   logit("📁 Updating Custom Models Folder Path: ", savedCustomModelsPath);
 }
 
-export let savedOutputPath: string | undefined = undefined;
-export function setSavedOutputPath(value: string | undefined): void {
-  savedOutputPath = value;
-  logit("📁 Updating Output Folder Path: ", savedOutputPath);
-}
-
-export let rememberOutputFolder = false;
-export function setRememberOutputFolder(value: boolean): void {
-  rememberOutputFolder = value;
-  logit("💾 Updating Remember Output Folder: ", rememberOutputFolder);
-}
-
+/**
+ * The stopped variable to stop the batch upscayl process.
+ */
 export let stopped = false;
+
+/**
+ * The child processes array to store the spawned upscayl processes.
+ */
 export let childProcesses: {
   process: ChildProcessWithoutNullStreams;
   kill: () => boolean;
 }[] = [];
 
-export let noImageProcessing: boolean = false;
-export function setNoImageProcessing(value: boolean): void {
-  noImageProcessing = value;
-  logit("🖼️ Updating No Image Processing: ", noImageProcessing);
-}
-
+/**
+ * The turn off notifications variable, so that we can load this value on startup.
+ */
 export let turnOffNotifications: boolean = false;
 export function setTurnOffNotifications(value: boolean): void {
   turnOffNotifications = value;
   logit("🔕 Updating Turn Off Notifications: ", turnOffNotifications);
 }
 
-// export let customWidth: string | null = null;
-// export function setCustomWidth(value: string | null): void {
-//   customWidth = value;
-//   logit("📏 Updating Custom Width: ", customWidth);
-// }
-
-// export let useCustomWidth: boolean = false;
-// export function setUseCustomWidth(value: boolean): void {
-//   useCustomWidth = value;
-//   logit("📏 Updating Use Custom Width: ", useCustomWidth);
-// }
-
 // SETTERS
-
 export function setStopped(value: boolean): void {
   stopped = value;
   logit("🛑 Updating Stopped: ", stopped);
@@ -126,31 +108,6 @@ export function fetchLocalStorage(): void {
         setSavedCustomModelsPath(value);
       }
     });
-  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("savedOutputPath");', true)
-    .then((savedOutputPath: string | null) => {
-      if (savedOutputPath && savedOutputPath.length > 0) {
-        setSavedOutputPath(savedOutputPath);
-      }
-    });
-  // GET LAST SAVE OUTPUT FOLDER (BOOLEAN) TO LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("rememberOutputFolder");', true)
-    .then((lastSaveOutputFolder: boolean | null) => {
-      if (lastSaveOutputFolder !== null) {
-        setRememberOutputFolder(lastSaveOutputFolder);
-      }
-    });
-
-  // GET PROCESS IMAGE (BOOLEAN) FROM LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("noImageProcessing");', true)
-    .then((lastSaved: string | null) => {
-      if (lastSaved !== null) {
-        setNoImageProcessing(lastSaved === "true");
-      }
-    });
 
   // GET TURN OFF NOTIFICATIONS (BOOLEAN) FROM LOCAL STORAGE
   mainWindow.webContents
@@ -160,22 +117,4 @@ export function fetchLocalStorage(): void {
         setTurnOffNotifications(lastSaved === "true");
       }
     });
-
-  // // GET CUSTOM WIDTH (STRING) FROM LOCAL STORAGE
-  // mainWindow.webContents
-  //   .executeJavaScript('localStorage.getItem("customWidth");', true)
-  //   .then((lastSaved: string | null) => {
-  //     if (lastSaved !== null) {
-  //       setCustomWidth(lastSaved);
-  //     }
-  //   });
-
-  // // GET USE CUSTOM WIDTH (BOOLEAN) FROM LOCAL STORAGE
-  // mainWindow.webContents
-  //   .executeJavaScript('localStorage.getItem("useCustomWidth");', true)
-  //   .then((lastSaved: string | null) => {
-  //     if (lastSaved !== null) {
-  //       setUseCustomWidth(lastSaved === "true");
-  //     }
-  //   });
 }

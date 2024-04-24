@@ -17,7 +17,6 @@ export function sanitizePath(filePath: string) {
 
   // Combine the protocol prefix with the encoded file path to create the final file URL
   const fileUrl = encodedFilePath;
-  console.log("🚀 => fileUrl:", fileUrl);
 
   // Return the final Electron file URL
   return fileUrl;

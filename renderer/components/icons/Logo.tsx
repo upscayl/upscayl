@@ -155,8 +155,8 @@ const Logo = ({ ...rest }) => {
           y2="245.417"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#87BDFF" />
-          <stop offset="0.970833" stop-color="#4791CE" />
+          <stop stopColor="#87BDFF" />
+          <stop offset="0.970833" stopColor="#4791CE" />
         </linearGradient>
         <clipPath id="clip0_1263_67">
           <rect width="256" height="256" fill="white" />
