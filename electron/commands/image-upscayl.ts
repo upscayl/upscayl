@@ -118,7 +118,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     setChildProcesses(upscayl);
 
     setStopped(false);
-    let isAlpha = false;
     let failed = false;
 
     const onData = (data: string) => {
@@ -126,7 +125,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       mainWindow.setProgressBar(parseFloat(data.slice(0, data.length)) / 100);
       data = data.toString();
       mainWindow.webContents.send(COMMAND.UPSCAYL_PROGRESS, data.toString());
-      if (data.includes("invalid gpu") || data.includes("failed")) {
+      if (data.includes("Error")) {
         upscayl.kill();
         failed = true;
       } else if (data.includes("Resizing")) {

@@ -23,6 +23,7 @@ import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
+import getModelScale from "../../common/check-model-scale";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -49,7 +50,8 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const fullfileName = imagePath.split(slash).slice(-1)[0] as string;
   const fileName = parse(fullfileName).name;
 
-  const scale = parseInt(payload.scale) * parseInt(payload.scale);
+  const modelScale = getModelScale(model);
+  const scale = parseInt(payload.scale) ** 2;
   const useCustomWidth = payload.useCustomWidth;
   const customWidth = useCustomWidth ? payload.customWidth : "";
 
@@ -112,9 +114,11 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     // SEND UPSCAYL PROGRESS TO RENDERER
     mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
-    if (data.includes("invalid gpu") || data.includes("failed")) {
+    if (data.includes("Error")) {
       upscayl2.kill();
       failed2 = true;
+    } else if (data.includes("Resizing")) {
+      mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
     }
   };
 
@@ -187,6 +191,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
         }),
         logit,
       );
+      logit("🚀 Upscaling Second Pass");
       childProcesses.push(upscayl2);
       upscayl2.process.stderr.on("data", onData2);
       upscayl2.process.on("error", onError2);

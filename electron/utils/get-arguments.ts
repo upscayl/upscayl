@@ -110,7 +110,7 @@ export const getDoubleUpscaleSecondPassArguments = ({
   scale: string;
   customWidth: string;
 }) => {
-  const modelScale = getModelScale(model);
+  const modelScale = (parseInt(getModelScale(model)) ** 2).toString();
   let includeScale = modelScale !== scale && !customWidth;
   return [
     // INPUT IMAGE
