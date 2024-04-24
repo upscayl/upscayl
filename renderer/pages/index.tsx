@@ -49,6 +49,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import Logo from "@/components/icons/Logo";
 
 const Home = () => {
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
@@ -584,11 +585,7 @@ const Home = () => {
 
   if (isLoading) {
     return (
-      <img
-        src="icon.png"
-        alt="Upscayl icon"
-        className="absolute left-1/2 top-1/2 w-36 -translate-x-1/2 -translate-y-1/2 animate-pulse"
-      />
+      <Logo className="absolute left-1/2 top-1/2 w-36 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
     );
   }
 
@@ -597,7 +594,7 @@ const Home = () => {
       {/* TOP LOGO WHEN SIDEBAR IS HIDDEN */}
       {!showSidebar && (
         <div className="fixed right-2 top-2 z-50 flex items-center justify-center gap-2 rounded-[7px] bg-base-300 px-2 py-1 font-medium text-base-content ">
-          <img src="/icon.png" alt="Logo" className="w-5" />
+          <Logo className="w-5" />
           Upscayl
         </div>
       )}

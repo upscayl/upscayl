@@ -1,5 +1,6 @@
 import { featureFlags } from "@common/feature-flags";
 import React from "react";
+import Logo from "./icons/Logo";
 
 export default function Header({ version }: { version: string }) {
   return (
@@ -8,9 +9,10 @@ export default function Header({ version }: { version: string }) {
       target="_blank"
       className={`outline-none focus-visible:ring-2`}
       data-tooltip-id="tooltip"
-      data-tooltip-content="Star us on GitHub 😁">
+      data-tooltip-content="Star us on GitHub 😁"
+    >
       <div className="flex items-center gap-3 px-5 py-5">
-        <img src="icon.png" className="inline-block w-14" alt="Upscayl Logo" />
+        <Logo className="inline-block h-14 w-14" />
         <div className="flex flex-col justify-center">
           <h1 className="text-3xl font-bold">
             Upscayl{" "}
