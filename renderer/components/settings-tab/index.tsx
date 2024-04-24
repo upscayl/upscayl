@@ -186,7 +186,7 @@ function SettingsTab({
         <p>Having issues?</p>
         <a
           className="btn btn-primary"
-          href="https://github.com/upscayl/upscayl/wiki/"
+          href="https://docs.upscayl.org/"
           target="_blank"
         >
           🙏 GET HELP

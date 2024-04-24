@@ -105,9 +105,9 @@ Upscayl should be available on the software listings of most Linux operating sys
 2. Download the `.exe` file.
 3. Double click exe file, wait for installation, profit.
 
-# 👨‍🏫 Wiki - Tutorials and Guides
+# 👨‍🏫 Documentation - Tutorials and Guides
 
-Check out our Wiki [here](https://github.com/upscayl/upscayl/wiki/Guide).
+Check out our Documentation [here](https://docs.upscayl.org/).
 
 - [Try out even more new models!](https://github.com/upscayl/custom-models)
 - [Convert your own models](https://github.com/upscayl/upscayl/wiki/%F0%9F%96%A5%EF%B8%8F-Model-Conversion---Create-more-AI-models!)

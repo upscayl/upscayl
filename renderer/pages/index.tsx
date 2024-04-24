@@ -138,7 +138,7 @@ const Home = () => {
       if (data.includes("Invalid GPU")) {
         toast({
           title: "GPU Error",
-          description: `Ran into an issue with the GPU. Please read the wiki for troubleshooting! (${data})`,
+          description: `Ran into an issue with the GPU. Please read the docs for troubleshooting! (${data})`,
           action: (
             <div className="flex flex-col gap-2">
               <ToastAction
@@ -149,11 +149,8 @@ const Home = () => {
               >
                 Copy Error
               </ToastAction>
-              <a
-                href="https://github.com/upscayl/upscayl/wiki/"
-                target="_blank"
-              >
-                <ToastAction altText="Open Wiki">Troubleshoot</ToastAction>
+              <a href="https://docs.upscayl.org/" target="_blank">
+                <ToastAction altText="Open Docs">Troubleshoot</ToastAction>
               </a>
             </div>
           ),
@@ -174,11 +171,8 @@ const Home = () => {
               >
                 Copy Error
               </ToastAction>
-              <a
-                href="https://github.com/upscayl/upscayl/wiki/"
-                target="_blank"
-              >
-                <ToastAction altText="Open Wiki">Troubleshoot</ToastAction>
+              <a href="https://docs.upscayl.org/" target="_blank">
+                <ToastAction altText="Open Docs">Troubleshoot</ToastAction>
               </a>
             </div>
           ),
