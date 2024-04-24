@@ -20,6 +20,7 @@ import { featureFlags } from "@common/feature-flags";
 import TurnOffNotificationsToggle from "./TurnOffNotificationsToggle";
 import { cn } from "@/lib/utils";
 import { CustomResolutionInput } from "./CustomResolutionInput";
+import { TileSizeInput } from "./TileSizeInput";
 
 interface IProps {
   batchMode: boolean;
@@ -235,6 +236,8 @@ function SettingsTab({
 
       {/* GPU ID INPUT */}
       <GpuIdInput gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />
+
+      <TileSizeInput />
 
       {/* CUSTOM MODEL */}
       <CustomModelsFolderSelect

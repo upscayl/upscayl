@@ -59,5 +59,7 @@ export const useCustomWidthAtom = atomWithStorage<boolean>(
   false,
 );
 
+export const tileSizeAtom = atomWithStorage<number | null>("tileSize", null);
+
 // CLIENT SIDE ONLY
 export const showSidebarAtom = atomWithStorage("showSidebar", true);

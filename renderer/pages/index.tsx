@@ -28,6 +28,7 @@ import {
   showSidebarAtom,
   customWidthAtom,
   useCustomWidthAtom,
+  tileSizeAtom,
 } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
 import { UpscaylCloudModal } from "../components/UpscaylCloudModal";
@@ -96,6 +97,7 @@ const Home = () => {
   const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
   const customWidth = useAtomValue(customWidthAtom);
   const useCustomWidth = useAtomValue(useCustomWidthAtom);
+  const tileSize = useAtomValue(tileSizeAtom);
 
   const { logit } = useLog();
   const { toast } = useToast();
@@ -540,6 +542,7 @@ const Home = () => {
           compression: compression.toString(),
           customWidth: customWidth > 0 ? customWidth.toString() : null,
           useCustomWidth,
+          tileSize,
         });
         logit("🏁 DOUBLE_UPSCAYL");
       } else if (batchMode) {
@@ -556,6 +559,7 @@ const Home = () => {
           compression: compression.toString(),
           customWidth: customWidth > 0 ? customWidth.toString() : null,
           useCustomWidth,
+          tileSize,
         });
         logit("🏁 FOLDER_UPSCAYL");
       } else {
@@ -572,6 +576,7 @@ const Home = () => {
           compression: compression.toString(),
           customWidth: customWidth > 0 ? customWidth.toString() : null,
           useCustomWidth,
+          tileSize,
         });
         logit("🏁 UPSCAYL");
       }

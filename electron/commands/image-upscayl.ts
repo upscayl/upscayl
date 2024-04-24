@@ -30,6 +30,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   }
 
   // GET VARIABLES
+  const tileSize = payload.tileSize;
   const compression = payload.compression;
   const scale = payload.scale;
   const useCustomWidth = payload.useCustomWidth;
@@ -75,6 +76,9 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         fileName,
         scale,
         compression,
+        customWidth,
+        useCustomWidth,
+        tileSize,
       }),
     );
     const upscayl = spawnUpscayl(
@@ -90,6 +94,8 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         gpuId,
         saveImageAs,
         customWidth,
+        compression,
+        tileSize,
       }),
       logit,
     );

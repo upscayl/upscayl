@@ -27,6 +27,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
 
+  const tileSize = payload.tileSize;
   const compression = payload.compression;
   const scale = parseInt(payload.scale) ** 2;
   const useCustomWidth = payload.useCustomWidth;
@@ -66,6 +67,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       model,
       gpuId,
       saveImageAs,
+      tileSize,
     }),
     logit,
   );
@@ -172,6 +174,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           scale: scale.toString(),
           customWidth,
           compression,
+          tileSize,
         }),
         logit,
       );

@@ -20,6 +20,8 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
 
+  const tileSize = payload.tileSize;
+  const compression = payload.compression;
   const scale = payload.scale;
   const useCustomWidth = payload.useCustomWidth;
   const customWidth = useCustomWidth ? payload.customWidth : "";
@@ -54,6 +56,8 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       saveImageAs,
       scale,
       customWidth,
+      compression,
+      tileSize,
     }),
     logit,
   );

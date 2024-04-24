@@ -13,6 +13,8 @@ export const getSingleImageArguments = ({
   gpuId,
   saveImageAs,
   customWidth,
+  tileSize,
+  compression,
 }: {
   inputDir: string;
   fileNameWithExt: string;
@@ -23,6 +25,8 @@ export const getSingleImageArguments = ({
   gpuId: string;
   saveImageAs: ImageFormat;
   customWidth: string;
+  tileSize: number;
+  compression: string;
 }) => {
   const modelScale = getModelScale(model);
   let includeScale = modelScale !== scale && !customWidth;
@@ -51,6 +55,12 @@ export const getSingleImageArguments = ({
     // CUSTOM WIDTH
     customWidth ? `-w` : "",
     customWidth ? customWidth : "",
+    // COMPRESSION
+    "-c",
+    compression,
+    // TILE SIZE
+    tileSize ? `-t` : "",
+    tileSize ? tileSize.toString() : "",
   ];
 };
 
@@ -62,6 +72,7 @@ export const getDoubleUpscaleArguments = ({
   model,
   gpuId,
   saveImageAs,
+  tileSize,
 }: {
   inputDir: string;
   fullfileName: string;
@@ -70,6 +81,7 @@ export const getDoubleUpscaleArguments = ({
   model: string;
   gpuId: string;
   saveImageAs: ImageFormat;
+  tileSize: number;
 }) => {
   return [
     // INPUT IMAGE
@@ -90,6 +102,9 @@ export const getDoubleUpscaleArguments = ({
     // FORMAT
     "-f",
     saveImageAs,
+    // TILE SIZE
+    tileSize ? `-t` : "",
+    tileSize ? tileSize.toString() : "",
   ];
 };
 
@@ -101,6 +116,8 @@ export const getDoubleUpscaleSecondPassArguments = ({
   saveImageAs,
   scale,
   customWidth,
+  compression,
+  tileSize,
 }: {
   outFile: string;
   modelsPath: string;
@@ -110,6 +127,7 @@ export const getDoubleUpscaleSecondPassArguments = ({
   scale: string;
   customWidth: string;
   compression: string;
+  tileSize: number;
 }) => {
   const modelScale = (parseInt(getModelScale(model)) ** 2).toString();
   let includeScale = modelScale !== scale && !customWidth;
@@ -138,6 +156,12 @@ export const getDoubleUpscaleSecondPassArguments = ({
     // CUSTOM WIDTH
     customWidth ? `-w` : "",
     customWidth ? customWidth : "",
+    // COMPRESSION
+    "-c",
+    compression,
+    // TILE SIZE
+    tileSize ? `-t` : "",
+    tileSize ? tileSize.toString() : "",
   ];
 };
 
@@ -150,6 +174,8 @@ export const getBatchArguments = ({
   saveImageAs,
   scale,
   customWidth,
+  compression,
+  tileSize,
 }: {
   inputDir: string;
   outputDir: string;
@@ -159,6 +185,8 @@ export const getBatchArguments = ({
   saveImageAs: ImageFormat;
   scale: string;
   customWidth: string;
+  compression: string;
+  tileSize: number;
 }) => {
   const modelScale = getModelScale(model);
   let includeScale = modelScale !== scale && !customWidth;
@@ -188,5 +216,11 @@ export const getBatchArguments = ({
     // CUSTOM WIDTH
     customWidth ? `-w` : "",
     customWidth ? customWidth : "",
+    // COMPRESSION
+    "-c",
+    compression,
+    // TILE SIZE
+    tileSize ? `-t` : "",
+    tileSize ? tileSize.toString() : "",
   ];
 };
