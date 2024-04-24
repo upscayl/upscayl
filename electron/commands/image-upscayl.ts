@@ -2,14 +2,8 @@ import fs from "fs";
 import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../../common/commands";
 import {
-  savedCompression,
   savedCustomModelsPath,
-  savedBatchUpscaylFolderPath,
-  savedOutputPath,
-  rememberOutputFolder,
   setChildProcesses,
-  setCompression,
-  setNoImageProcessing,
   setStopped,
   stopped,
 } from "../utils/config-variables";
@@ -23,6 +17,9 @@ import { ImageUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
+import getFilenameFromPath from "../../common/get-file-name";
+import decodePath from "../../common/decode-path";
+import getDirectoryFromPath from "../../common/get-directory-from-path";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -32,34 +29,20 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     return;
   }
 
-  setNoImageProcessing(payload.noImageProcessing);
-  setCompression(parseInt(payload.compression));
-
   // GET VARIABLES
+  const compression = payload.compression;
+  const scale = payload.scale;
+  const useCustomWidth = payload.useCustomWidth;
+  const customWidth = useCustomWidth ? payload.customWidth : "";
   const model = payload.model as string;
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as ImageFormat;
   const overwrite = payload.overwrite as boolean;
-  let inputDir = (payload.imagePath.match(/(.*)[\/\\]/)?.[1] || "") as string;
-  let outputDir: string | undefined =
-    savedBatchUpscaylFolderPath || (payload.outputPath as string);
-  if (
-    rememberOutputFolder === true &&
-    savedOutputPath &&
-    savedOutputPath?.length > 0
-  ) {
-    logit("🧠 Using saved output path");
-    outputDir = savedOutputPath;
-  }
-  const isDefaultModel = DEFAULT_MODELS.includes(model);
-  logit("Is Default Model? : ", isDefaultModel);
-  const fullfileName = payload.imagePath.replace(/^.*[\\\/]/, "") as string;
-  const fileName = parse(fullfileName).name;
-  const fileExt = parse(fullfileName).ext;
-  const useCustomWidth = payload.useCustomWidth;
-  const customWidth = useCustomWidth ? payload.customWidth : "";
-
-  const scale = payload.scale;
+  const imagePath = decodePath(payload.imagePath);
+  let inputDir = getDirectoryFromPath(imagePath);
+  let outputDir = decodePath(payload.outputPath);
+  const fileNameWithExt = getFilenameFromPath(imagePath);
+  const fileName = parse(fileNameWithExt).name;
 
   const outFile =
     outputDir +
@@ -71,17 +54,13 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     "." +
     saveImageAs;
 
+  const isDefaultModel = DEFAULT_MODELS.includes(model);
+
   // UPSCALE
   if (fs.existsSync(outFile) && !overwrite) {
     // If already upscayled, just output that file
     logit("✅ Already upscayled at: ", outFile);
-    mainWindow.webContents.send(
-      COMMAND.UPSCAYL_DONE,
-      outFile.replace(
-        /([^/\\]+)$/i,
-        encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
-      ),
-    );
+    mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, outFile);
   } else {
     logit(
       "✅ Upscayl Variables: ",
@@ -90,18 +69,18 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         gpuId,
         saveImageAs,
         inputDir,
+        fileNameWithExt,
         outputDir,
-        fullfileName,
+        outFile,
         fileName,
         scale,
-        outFile,
-        compression: savedCompression,
+        compression,
       }),
     );
     const upscayl = spawnUpscayl(
       getSingleImageArguments({
-        inputDir,
-        fullfileName,
+        inputDir: decodeURIComponent(inputDir),
+        fileNameWithExt: decodeURIComponent(fileNameWithExt),
         outFile,
         modelsPath: isDefaultModel
           ? modelsPath
@@ -146,13 +125,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         // Free up memory
         upscayl.kill();
         mainWindow.setProgressBar(-1);
-        mainWindow.webContents.send(
-          COMMAND.UPSCAYL_DONE,
-          outFile.replace(
-            /([^/\\]+)$/i,
-            encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
-          ),
-        );
+        mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, outFile);
         showNotification("Upscayl", "Image upscayled successfully!");
       }
     };

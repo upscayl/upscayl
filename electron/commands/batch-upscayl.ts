@@ -3,9 +3,6 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   savedCustomModelsPath,
-  rememberOutputFolder,
-  setCompression,
-  setNoImageProcessing,
   setStopped,
   stopped,
 } from "../utils/config-variables";
@@ -16,55 +13,33 @@ import slash from "../utils/slash";
 import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../../common/commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
-import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
-  // GET THE MODEL
-  const model = payload.model;
-  const gpuId = payload.gpuId;
-  const saveImageAs = payload.saveImageAs as ImageFormat;
-  console.log("PAYLOAD: ", payload);
-  // GET THE IMAGE DIRECTORY
-  let inputDir = payload.batchFolderPath;
-  // GET THE OUTPUT DIRECTORY
-  let outputFolderPath = payload.outputPath;
-  if (rememberOutputFolder === true && outputFolderPath) {
-    outputFolderPath = outputFolderPath;
-  }
-  // ! Don't do fetchLocalStorage() again, it causes the values to be reset
-  setNoImageProcessing(payload.noImageProcessing);
-  setCompression(parseInt(payload.compression));
-
-  const isDefaultModel = DEFAULT_MODELS.includes(model);
 
   const scale = payload.scale;
   const useCustomWidth = payload.useCustomWidth;
   const customWidth = useCustomWidth ? payload.customWidth : "";
-
+  const model = payload.model;
+  const gpuId = payload.gpuId;
+  const saveImageAs = payload.saveImageAs;
+  // GET THE IMAGE DIRECTORY
+  let inputDir = decodeURIComponent(payload.batchFolderPath);
+  // GET THE OUTPUT DIRECTORY
+  let outputFolderPath = decodeURIComponent(payload.outputPath);
   const outputFolderName = `upscayl_${saveImageAs}_${model}_${
     useCustomWidth ? `${customWidth}px` : `${scale}x`
   }`;
-
   outputFolderPath += slash + outputFolderName;
+  // CREATE THE OUTPUT DIRECTORY
   if (!fs.existsSync(outputFolderPath)) {
     fs.mkdirSync(outputFolderPath, { recursive: true });
   }
 
-  // Delete .DS_Store files
-  fs.readdirSync(inputDir).forEach((file) => {
-    if (
-      file === ".DS_Store" ||
-      file.toLowerCase() === "desktop.ini" ||
-      file.startsWith(".")
-    ) {
-      logit("🗑️ Deleting .DS_Store file");
-      fs.unlinkSync(inputDir + slash + file);
-    }
-  });
+  const isDefaultModel = DEFAULT_MODELS.includes(model);
 
   // UPSCALE
   const upscayl = spawnUpscayl(

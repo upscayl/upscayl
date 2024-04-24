@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import COMMAND from "../../common/commands";
 import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
@@ -40,16 +40,13 @@ import {
 import { NewsModal } from "@/components/NewsModal";
 import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
 import matter from "gray-matter";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  PanelLeftCloseIcon,
-  PanelRightCloseIcon,
-} from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Logo from "@/components/icons/Logo";
+import { sanitizePath } from "@common/sanitize-path";
+import getDirectoryFromPath from "@common/get-directory-from-path";
 
 const Home = () => {
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
@@ -103,6 +100,16 @@ const Home = () => {
   const { logit } = useLog();
   const { toast } = useToast();
 
+  const sanitizedImagePath = useMemo(
+    () => sanitizePath(imagePath),
+    [imagePath],
+  );
+
+  const sanitizedUpscaledImagePath = useMemo(
+    () => sanitizePath(upscaledImagePath),
+    [upscaledImagePath],
+  );
+
   const handleMouseMoveCompare = (e: React.MouseEvent) => {
     const { left, top, height, width } =
       e.currentTarget.getBoundingClientRect();
@@ -129,7 +136,7 @@ const Home = () => {
       if (data.includes("Invalid GPU")) {
         toast({
           title: "GPU Error",
-          description: `GPU error occurred. Please read the wiki for troubleshooting! ${data})`,
+          description: `Ran into an issue with the GPU. Please read the wiki for troubleshooting! (${data})`,
           action: (
             <div className="flex flex-col gap-2">
               <ToastAction
@@ -345,7 +352,7 @@ const Home = () => {
     setIsLoading(false);
   }, []);
 
-  // * HANDLERS
+  // HANDLERS
   const resetImagePaths = () => {
     logit("🔄 Resetting image paths");
     setDimensions({
@@ -393,7 +400,7 @@ const Home = () => {
     if (path === null) return;
     logit("🖼 Selected Image Path: ", path);
     setImagePath(path);
-    var dirname = path.match(/(.*)[\/\\]/)[1] || "";
+    var dirname = getDirectoryFromPath(path);
     logit("📁 Selected Image Directory: ", dirname);
     if (!featureFlags.APP_STORE_BUILD) {
       if (!rememberOutputFolder) {
@@ -478,7 +485,7 @@ const Home = () => {
     } else {
       logit("🖼 Setting image path: ", filePath);
       setImagePath(filePath);
-      var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
+      var dirname = getDirectoryFromPath(filePath);
       logit("🗂 Setting output path: ", dirname);
       if (!featureFlags.APP_STORE_BUILD) {
         if (!rememberOutputFolder) {
@@ -506,7 +513,7 @@ const Home = () => {
       });
     } else {
       setImagePath(filePath);
-      var dirname = filePath.match(/(.*)[\/\\]/)[1] || "";
+      var dirname = getDirectoryFromPath(filePath);
       logit("🗂 Setting output path: ", dirname);
       if (!rememberOutputFolder) {
         setOutputPath(dirname);
@@ -748,7 +755,7 @@ const Home = () => {
                 hideZoomOptions={true}
               />
               <img
-                src={"file:///" + imagePath}
+                src={"file:///" + sanitizePath(imagePath)}
                 onLoad={(e: any) => {
                   setDimensions({
                     width: e.target.naturalWidth,
@@ -851,7 +858,7 @@ const Home = () => {
 
                     <img
                       /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                      src={"file:///" + imagePath}
+                      src={"file:///" + sanitizedImagePath}
                       alt="Original"
                       onMouseMove={handleMouseMove}
                       style={{
@@ -870,7 +877,7 @@ const Home = () => {
                     </p>
                     <img
                       /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                      src={"file:///" + upscaledImagePath}
+                      src={"file:///" + sanitizedUpscaledImagePath}
                       alt="Upscayl"
                       style={{
                         objectFit: "contain",

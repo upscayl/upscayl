@@ -334,7 +334,7 @@ function LeftPaneImageSteps({
           </p>
         )}
         <button
-          className="btn btn-accent"
+          className="btn btn-secondary"
           onClick={
             progress.length > 0 || !outputPath
               ? () =>

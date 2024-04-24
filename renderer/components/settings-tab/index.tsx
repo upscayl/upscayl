@@ -9,12 +9,7 @@ import { DonateButton } from "./DonateButton";
 import React, { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 import { useAtom, useAtomValue } from "jotai";
-import {
-  customModelsPathAtom,
-  noImageProcessingAtom,
-  overwriteAtom,
-  scaleAtom,
-} from "../../atoms/userSettingsAtom";
+import { customModelsPathAtom, scaleAtom } from "../../atoms/userSettingsAtom";
 import { modelsListAtom } from "../../atoms/modelsListAtom";
 import useLog from "../hooks/useLog";
 import { CompressionInput } from "./CompressionInput";

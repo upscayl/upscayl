@@ -10,6 +10,10 @@ export const scaleAtom = atomWithStorage<string>("scale", "4");
 
 export const batchModeAtom = atom<boolean>(false);
 
+/**
+ * The path to the last folder the user saved an image to.
+ * Reset to "" if rememberOutputFolder is false.
+ */
 export const savedOutputPathAtom = atomWithStorage<string | null>(
   "savedOutputPath",
   null,

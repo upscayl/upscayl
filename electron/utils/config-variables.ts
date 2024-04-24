@@ -40,12 +40,6 @@ export function setRememberOutputFolder(value: boolean): void {
   logit("💾 Updating Remember Output Folder: ", rememberOutputFolder);
 }
 
-export let savedCompression = 0;
-export function setCompression(value: number): void {
-  savedCompression = value;
-  logit("📐 Updating Compression: ", savedCompression);
-}
-
 export let stopped = false;
 export let childProcesses: {
   process: ChildProcessWithoutNullStreams;
@@ -148,14 +142,7 @@ export function fetchLocalStorage(): void {
         setRememberOutputFolder(lastSaveOutputFolder);
       }
     });
-  // GET IMAGE COMPRESSION (NUMBER) FROM LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("compression");', true)
-    .then((lastSavedCompression: string | null) => {
-      if (lastSavedCompression !== null) {
-        setCompression(parseInt(lastSavedCompression));
-      }
-    });
+
   // GET PROCESS IMAGE (BOOLEAN) FROM LOCAL STORAGE
   mainWindow.webContents
     .executeJavaScript('localStorage.getItem("noImageProcessing");', true)

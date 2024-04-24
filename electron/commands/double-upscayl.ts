@@ -1,12 +1,8 @@
-import path, { parse } from "path";
+import { parse } from "path";
 import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   savedCustomModelsPath,
-  savedOutputPath,
-  rememberOutputFolder,
-  setCompression,
-  setNoImageProcessing,
   setStopped,
   stopped,
 } from "../utils/config-variables";
@@ -23,37 +19,30 @@ import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
-import getModelScale from "../../common/check-model-scale";
+import getFilenameFromPath from "../../common/get-file-name";
+import decodePath from "../../common/decode-path";
+import getDirectoryFromPath from "../../common/get-directory-from-path";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
 
-  const model = payload.model as string;
-  const imagePath = payload.imagePath;
-  let inputDir = (imagePath.match(/(.*)[\/\\]/) || [""])[1];
-  let outputDir = path.normalize(payload.outputPath);
-
-  if (rememberOutputFolder === true && savedOutputPath) {
-    outputDir = savedOutputPath;
-  }
+  const compression = payload.compression;
+  const scale = parseInt(payload.scale) ** 2;
+  const useCustomWidth = payload.useCustomWidth;
+  const customWidth = useCustomWidth ? payload.customWidth : "";
+  const model = payload.model;
   const gpuId = payload.gpuId as string;
   const saveImageAs = payload.saveImageAs as ImageFormat;
-
-  setNoImageProcessing(payload.noImageProcessing);
-  setCompression(parseInt(payload.compression));
+  const imagePath = decodePath(payload.imagePath);
+  let inputDir = getDirectoryFromPath(imagePath);
+  let outputDir = decodePath(payload.outputPath);
+  const fullfileName = getFilenameFromPath(imagePath);
+  const fileName = parse(fullfileName).name;
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
   // COPY IMAGE TO TMP FOLDER
-
-  const fullfileName = imagePath.split(slash).slice(-1)[0] as string;
-  const fileName = parse(fullfileName).name;
-
-  const modelScale = getModelScale(model);
-  const scale = parseInt(payload.scale) ** 2;
-  const useCustomWidth = payload.useCustomWidth;
-  const customWidth = useCustomWidth ? payload.customWidth : "";
 
   const outFile =
     outputDir +
@@ -69,7 +58,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   let upscayl = spawnUpscayl(
     getDoubleUpscaleArguments({
       inputDir,
-      fullfileName,
+      fullfileName: decodeURIComponent(fullfileName),
       outFile,
       modelsPath: isDefaultModel
         ? modelsPath
@@ -128,13 +117,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       logit("💯 Done upscaling");
 
       mainWindow.setProgressBar(-1);
-      mainWindow.webContents.send(
-        COMMAND.DOUBLE_UPSCAYL_DONE,
-        outFile.replace(
-          /([^/\\]+)$/i,
-          encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
-        ),
-      );
+      mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_DONE, outFile);
       showNotification("Upscayled", "Image upscayled successfully!");
     }
   };
@@ -188,6 +171,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           saveImageAs,
           scale: scale.toString(),
           customWidth,
+          compression,
         }),
         logit,
       );

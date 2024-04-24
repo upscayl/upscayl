@@ -5,7 +5,7 @@ const slash: string = getPlatform() === "win" ? "\\" : "/";
 
 export const getSingleImageArguments = ({
   inputDir,
-  fullfileName,
+  fileNameWithExt,
   outFile,
   modelsPath,
   model,
@@ -15,7 +15,7 @@ export const getSingleImageArguments = ({
   customWidth,
 }: {
   inputDir: string;
-  fullfileName: string;
+  fileNameWithExt: string;
   outFile: string;
   modelsPath: string;
   model: string;
@@ -29,7 +29,7 @@ export const getSingleImageArguments = ({
   return [
     // INPUT IMAGE
     "-i",
-    inputDir + slash + fullfileName,
+    inputDir + slash + fileNameWithExt,
     // OUTPUT IMAGE
     "-o",
     outFile,
@@ -109,6 +109,7 @@ export const getDoubleUpscaleSecondPassArguments = ({
   saveImageAs: ImageFormat;
   scale: string;
   customWidth: string;
+  compression: string;
 }) => {
   const modelScale = (parseInt(getModelScale(model)) ** 2).toString();
   let includeScale = modelScale !== scale && !customWidth;
