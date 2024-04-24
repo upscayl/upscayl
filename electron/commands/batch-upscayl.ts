@@ -3,7 +3,6 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   savedCustomModelsPath,
-  noImageProcessing,
   rememberOutputFolder,
   setCompression,
   setNoImageProcessing,
@@ -17,7 +16,7 @@ import slash from "../utils/slash";
 import { modelsPath } from "../utils/get-resource-paths";
 import COMMAND from "../../common/commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
-import { ImageFormat } from "../utils/types";
+import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
 

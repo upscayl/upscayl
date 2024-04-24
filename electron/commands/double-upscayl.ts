@@ -3,7 +3,6 @@ import { getMainWindow } from "../main-window";
 import {
   childProcesses,
   savedCustomModelsPath,
-  noImageProcessing,
   savedOutputPath,
   rememberOutputFolder,
   setCompression,
@@ -21,7 +20,7 @@ import { modelsPath } from "../utils/get-resource-paths";
 import logit from "../utils/logit";
 import COMMAND from "../../common/commands";
 import { DoubleUpscaylPayload } from "../../common/types/types";
-import { ImageFormat } from "../utils/types";
+import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
 
@@ -76,8 +75,6 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       model,
       gpuId,
       saveImageAs,
-      scale: scale.toString(),
-      customWidth,
     }),
     logit,
   );

@@ -5,7 +5,6 @@ import {
   savedCompression,
   savedCustomModelsPath,
   savedBatchUpscaylFolderPath,
-  noImageProcessing,
   savedOutputPath,
   rememberOutputFolder,
   setChildProcesses,
@@ -21,8 +20,7 @@ import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { parse } from "path";
 import { getMainWindow } from "../main-window";
 import { ImageUpscaylPayload } from "../../common/types/types";
-import { ImageFormat } from "../utils/types";
-import getModelScale from "../../common/check-model-scale";
+import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
 

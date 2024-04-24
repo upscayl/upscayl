@@ -1,5 +1,6 @@
+import getModelScale from "@common/check-model-scale";
 import { getPlatform } from "./get-device-specs";
-import { ImageFormat } from "./types";
+import { ImageFormat } from "../types/types";
 const slash: string = getPlatform() === "win" ? "\\" : "/";
 
 export const getSingleImageArguments = ({
@@ -18,25 +19,38 @@ export const getSingleImageArguments = ({
   outFile: string;
   modelsPath: string;
   model: string;
-  scale: any;
+  scale: string;
   gpuId: string;
   saveImageAs: ImageFormat;
   customWidth: string;
 }) => {
+  const modelScale = getModelScale(model);
+  let includeScale = modelScale !== scale && !customWidth;
   return [
+    // INPUT IMAGE
     "-i",
     inputDir + slash + fullfileName,
+    // OUTPUT IMAGE
     "-o",
     outFile,
-    customWidth ? "" : `-s ${scale}`,
+    // OUTPUT SCALE
+    includeScale ? "-s" : "",
+    includeScale ? scale : "",
+    // MODELS PATH
     "-m",
     modelsPath,
+    // MODEL NAME
     "-n",
     model,
-    gpuId ? `-g ${gpuId}` : "",
+    // GPU ID
+    gpuId ? "-g" : "",
+    gpuId ? gpuId : "",
+    // FORMAT
     "-f",
     saveImageAs,
-    customWidth ? `-w ${customWidth}` : "",
+    // CUSTOM WIDTH
+    customWidth ? `-w` : "",
+    customWidth ? customWidth : "",
   ];
 };
 
@@ -48,8 +62,6 @@ export const getDoubleUpscaleArguments = ({
   model,
   gpuId,
   saveImageAs,
-  scale,
-  customWidth,
 }: {
   inputDir: string;
   fullfileName: string;
@@ -58,20 +70,24 @@ export const getDoubleUpscaleArguments = ({
   model: string;
   gpuId: string;
   saveImageAs: ImageFormat;
-  scale: string;
-  customWidth: string;
 }) => {
   return [
+    // INPUT IMAGE
     "-i",
     inputDir + slash + fullfileName,
+    // OUTPUT IMAGE
     "-o",
     outFile,
-    customWidth ? "" : `-s ${scale}`,
+    // MODELS PATH
     "-m",
     modelsPath,
+    // MODEL NAME
     "-n",
     model,
-    gpuId ? `-g ${gpuId}` : "",
+    // GPU ID
+    gpuId ? `-g` : "",
+    gpuId ? gpuId : "",
+    // FORMAT
     "-f",
     saveImageAs,
   ];
@@ -94,21 +110,33 @@ export const getDoubleUpscaleSecondPassArguments = ({
   scale: string;
   customWidth: string;
 }) => {
+  const modelScale = getModelScale(model);
+  let includeScale = modelScale !== scale && !customWidth;
   return [
+    // INPUT IMAGE
     "-i",
     outFile,
+    // OUTPUT IMAGE
     "-o",
     outFile,
-    "-s",
-    customWidth ? "" : `-s ${scale}`,
+    // OUTPUT SCALE
+    includeScale ? "-s" : "",
+    includeScale ? scale : "",
+    // MODELS PATH
     "-m",
     modelsPath,
+    // MODEL NAME
     "-n",
     model,
-    gpuId ? `-g ${gpuId}` : "",
+    // GPU ID
+    gpuId ? `-g` : "",
+    gpuId ? gpuId : "",
+    // FORMAT
     "-f",
     saveImageAs,
-    customWidth ? `-w ${customWidth}` : "",
+    // CUSTOM WIDTH
+    customWidth ? `-w` : "",
+    customWidth ? customWidth : "",
   ];
 };
 
@@ -131,19 +159,33 @@ export const getBatchArguments = ({
   scale: string;
   customWidth: string;
 }) => {
+  const modelScale = getModelScale(model);
+  let includeScale = modelScale !== scale && !customWidth;
+
   return [
+    // INPUT IMAGE
     "-i",
     inputDir,
+    // OUTPUT IMAGE
     "-o",
     outputDir,
-    customWidth ? "" : `-s ${scale}`,
+    // OUTPUT SCALE
+    includeScale ? "-s" : "",
+    includeScale ? scale : "",
+    // MODELS PATH
     "-m",
     modelsPath,
+    // MODEL NAME
     "-n",
     model,
-    gpuId ? `-g ${gpuId}` : "",
+    // GPU ID
+    gpuId ? `-g` : "",
+    gpuId ? gpuId : "",
+    // FORMAT
     "-f",
     saveImageAs,
-    customWidth ? `-w ${customWidth}` : "",
+    // CUSTOM WIDTH
+    customWidth ? `-w` : "",
+    customWidth ? customWidth : "",
   ];
 };
