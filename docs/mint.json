@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Upscayl Docs",
+  "name": "Upscayl",
   "logo": {
     "dark": "logo/logo.svg",
     "light": "logo/logo.svg"
