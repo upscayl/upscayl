@@ -1,9 +1,7 @@
 import { lensSizeAtom, viewTypeAtom } from "@/atoms/userSettingsAtom";
-import SidebarClosed from "@/components/icons/SidebarClosed";
-import SidebarOpened from "@/components/icons/SidebarOpened";
 import { cn } from "@/lib/utils";
 import { useAtom } from "jotai";
-import { Settings2Icon, WrenchIcon } from "lucide-react";
+import { WrenchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const ImageOptions = ({
@@ -39,7 +37,7 @@ const ImageOptions = ({
       }`}
     >
       <div
-        className={`group rounded-btn absolute right-[100%] top-1/2 z-50 flex cursor-pointer items-center gap-2 rounded-r-none bg-base-100 p-4 transition-all duration-500`}
+        className={`group absolute right-[100%] top-1/2 z-50 flex cursor-pointer items-center gap-2 rounded-btn rounded-r-none bg-base-100 p-4 transition-all duration-500`}
         onClick={() => {
           setOpenSidebar(!openSidebar);
         }}
