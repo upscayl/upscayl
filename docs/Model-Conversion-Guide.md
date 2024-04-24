@@ -7,7 +7,7 @@ This guide explains how you can convert PyTorch models to NCNN models for Upscay
 - [chaiNNer](https://github.com/chaiNNer-org/chaiNNer)
   - [This .chn file](https://gist.github.com/aaronliu0130/38b996f360dfee86d71130f129920f3a/raw/f06e711e03a4a239e6dc041fadf890a26fdd979a/pth2bin.chn). Right click the link, click "Save link as" and save it wherever you want.
 - A model in PyTorch (.pth) format. This guide is for converting PyTorch to NCNN (Upscayl's format) only.
-  - You can get models from <https://openmodeldb.info/>.
+  - You can get models from https://openmodeldb.info/.
 - A Text Editor
 
 ## Steps

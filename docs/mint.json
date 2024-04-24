@@ -2,10 +2,10 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Upscayl Docs",
   "logo": {
-    "dark": "https://raw.githubusercontent.com/upscayl/upscayl/main/resources/icons/128x128.png",
-    "light": "https://raw.githubusercontent.com/upscayl/upscayl/main/resources/icons/128x128.png"
+    "dark": "logo/logo.svg",
+    "light": "logo/logo.svg"
   },
-  "favicon": "https://raw.githubusercontent.com/upscayl/upscayl/main/resources/icons/128x128.png",
+  "favicon": "favicon.svg",
   "colors": {
     "primary": "#6366f1",
     "light": "#6366f1",
@@ -13,32 +13,45 @@
   },
   "topbarLinks": [
     {
-      "name": "Download",
-      "url": "https://upscayl.org/#download"
+      "name": "Home",
+      "url": "https://upscayl.org/"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://github.com/upscayl/upscayl"
     }
   ],
   "topbarCtaButton": {
-    "name": "Home",
-    "url": "https://upscayl.org"
+    "name": "Download Upscayl",
+    "url": "https://upscayl.org/#download"
   },
   "anchors": [
     {
       "name": "GitHub",
       "icon": "github",
       "url": "https://github.com/upscayl/"
+    },
+    {
+      "name": "Twitter",
+      "icon": "x",
+      "url": "https://twitter.com/upscayl"
+    },
+    {
+      "name": "Telegram",
+      "icon": "telegram",
+      "url": "https://t.me/iamnayam"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
+      "pages": ["introduction"]
     }
   ],
   "footerSocials": {
-    "github": "https://github.com/upscayl/"
+    "website": "https://upscayl.org/",
+    "github": "https://github.com/upscayl/",
+    "x": "https://twitter.com/upscayl",
+    "telegram": "https://t.me/iamnayam"
   }
 }
