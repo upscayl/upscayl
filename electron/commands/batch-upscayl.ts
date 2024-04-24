@@ -87,6 +87,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   setStopped(false);
   let failed = false;
+  let encounteredError = false;
 
   const onData = (data: any) => {
     if (!mainWindow) return;
@@ -97,8 +98,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     );
     if ((data as string).includes("Error")) {
       logit("❌ ", data);
-      failed = true;
-      upscayl.kill();
+      encounteredError = true;
     } else if (data.includes("Resizing")) {
       mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
     }
@@ -115,7 +115,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     mainWindow &&
       mainWindow.webContents.send(
         COMMAND.UPSCAYL_ERROR,
-        `Error upscaling image! ${data}`,
+        `Error upscaling images! ${data}`,
       );
     return;
   };
@@ -123,25 +123,18 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     if (!mainWindow) return;
     if (!failed && !stopped) {
       logit("💯 Done upscaling");
-      logit("♻ Scaling and converting now...");
       upscayl.kill();
-      mainWindow && mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
-      try {
-        mainWindow.webContents.send(
-          COMMAND.FOLDER_UPSCAYL_DONE,
-          outputFolderPath,
+      mainWindow.webContents.send(
+        COMMAND.FOLDER_UPSCAYL_DONE,
+        outputFolderPath,
+      );
+      if (!encounteredError) {
+        showNotification("Upscayled", "Images upscayled successfully!");
+      } else {
+        showNotification(
+          "Upscayled",
+          "Images were upscayled but encountered some errors!",
         );
-        showNotification("Upscayled", "Image upscayled successfully!");
-      } catch (error) {
-        logit("❌ Error processing (scaling and converting) the image.", error);
-        upscayl.kill();
-        mainWindow &&
-          mainWindow.webContents.send(
-            COMMAND.UPSCAYL_ERROR,
-            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
-              error,
-          );
-        showNotification("Upscayl Failure", "Failed to upscale image!");
       }
     } else {
       upscayl.kill();

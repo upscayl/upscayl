@@ -79,30 +79,63 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     logit,
   );
 
+  let upscayl2: ReturnType<typeof spawnUpscayl>;
+
   childProcesses.push(upscayl);
 
   setStopped(false);
   let failed = false;
   let failed2 = false;
 
-  const onData = (data) => {
+  // SECOND PASS FUNCTIONS
+  const onError2 = (data) => {
+    if (!mainWindow) return;
+    data.toString();
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
+    // SET FAILED TO TRUE
+    failed2 = true;
+    mainWindow &&
+      mainWindow.webContents.send(
+        COMMAND.UPSCAYL_ERROR,
+        "Error upscaling image. Error: " + data,
+      );
+    showNotification("Upscayl Failure", "Failed to upscale image!");
+    upscayl2.kill();
+    return;
+  };
+
+  const onData2 = (data) => {
     if (!mainWindow) return;
     // CONVERT DATA TO STRING
     data = data.toString();
     // SEND UPSCAYL PROGRESS TO RENDERER
     mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
-    if (data.includes("Error") || data.includes("failed")) {
-      upscayl.kill();
-      failed = true;
-    } else if (data.includes("Resizing")) {
-      mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+    if (data.includes("invalid gpu") || data.includes("failed")) {
+      upscayl2.kill();
+      failed2 = true;
     }
-    // if (data.includes("alpha channel")) {
-    //   isAlpha = true;
-    // }
   };
 
+  const onClose2 = async (code) => {
+    if (!mainWindow) return;
+    if (!failed2 && !stopped) {
+      logit("💯 Done upscaling");
+
+      mainWindow.setProgressBar(-1);
+      mainWindow.webContents.send(
+        COMMAND.DOUBLE_UPSCAYL_DONE,
+        outFile.replace(
+          /([^/\\]+)$/i,
+          encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
+        ),
+      );
+      showNotification("Upscayled", "Image upscayled successfully!");
+    }
+  };
+
+  // FIRST PASS FUNCTIONS
   const onError = (data) => {
     if (!mainWindow) return;
     mainWindow.setProgressBar(-1);
@@ -121,42 +154,26 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     return;
   };
 
-  const onClose2 = async (code) => {
+  const onData = (data) => {
     if (!mainWindow) return;
-    if (!failed2 && !stopped) {
-      logit("💯 Done upscaling");
-
-      try {
-        mainWindow.setProgressBar(-1);
-        mainWindow.webContents.send(
-          COMMAND.DOUBLE_UPSCAYL_DONE,
-          outFile.replace(
-            /([^/\\]+)$/i,
-            encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
-          ),
-        );
-        showNotification("Upscayled", "Image upscayled successfully!");
-      } catch (error) {
-        logit("❌ Error reading original image metadata", error);
-        mainWindow &&
-          mainWindow.webContents.send(
-            COMMAND.UPSCAYL_ERROR,
-            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
-              error,
-          );
-        showNotification("Upscayl Failure", "Failed to upscale image!");
-        upscayl.kill();
-      }
+    // CONVERT DATA TO STRING
+    data = data.toString();
+    // SEND UPSCAYL PROGRESS TO RENDERER
+    mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
+    // IF PROGRESS HAS ERROR, UPSCAYL FAILED
+    if (data.includes("Error") || data.includes("failed")) {
+      upscayl.kill();
+      failed = true;
+    } else if (data.includes("Resizing")) {
+      mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
     }
   };
 
-  upscayl.process.stderr.on("data", onData);
-  upscayl.process.on("error", onError);
-  upscayl.process.on("close", (code) => {
+  const onClose = (code) => {
     // IF NOT FAILED
     if (!failed && !stopped) {
-      // UPSCALE
-      let upscayl2 = spawnUpscayl(
+      // SPAWN A SECOND PASS
+      upscayl2 = spawnUpscayl(
         getDoubleUpscaleSecondPassArguments({
           outFile,
           modelsPath: isDefaultModel
@@ -170,40 +187,16 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
         }),
         logit,
       );
-
       childProcesses.push(upscayl2);
-
-      upscayl2.process.stderr.on("data", (data) => {
-        if (!mainWindow) return;
-        // CONVERT DATA TO STRING
-        data = data.toString();
-        // SEND UPSCAYL PROGRESS TO RENDERER
-        mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
-        // IF PROGRESS HAS ERROR, UPSCAYL FAILED
-        if (data.includes("invalid gpu") || data.includes("failed")) {
-          upscayl2.kill();
-          failed2 = true;
-        }
-      });
-      upscayl2.process.on("error", (data) => {
-        if (!mainWindow) return;
-        data.toString();
-        // SEND UPSCAYL PROGRESS TO RENDERER
-        mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
-        // SET FAILED TO TRUE
-        failed2 = true;
-        mainWindow &&
-          mainWindow.webContents.send(
-            COMMAND.UPSCAYL_ERROR,
-            "Error upscaling image. Error: " + data,
-          );
-        showNotification("Upscayl Failure", "Failed to upscale image!");
-        upscayl2.kill();
-        return;
-      });
+      upscayl2.process.stderr.on("data", onData2);
+      upscayl2.process.on("error", onError2);
       upscayl2.process.on("close", onClose2);
     }
-  });
+  };
+
+  upscayl.process.stderr.on("data", onData);
+  upscayl.process.on("error", onError);
+  upscayl.process.on("close", onClose);
 };
 
 export default doubleUpscayl;

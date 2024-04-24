@@ -122,17 +122,13 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     let failed = false;
 
     const onData = (data: string) => {
-      logit("image upscayl: ", data.toString());
+      logit(data.toString());
       mainWindow.setProgressBar(parseFloat(data.slice(0, data.length)) / 100);
       data = data.toString();
       mainWindow.webContents.send(COMMAND.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("invalid gpu") || data.includes("failed")) {
-        logit("❌ INVALID GPU OR FAILED");
         upscayl.kill();
         failed = true;
-      } else if (data.includes("has alpha channel")) {
-        logit("📢 INCLUDES ALPHA CHANNEL, CHANGING OUTFILE NAME!");
-        isAlpha = true;
       } else if (data.includes("Resizing")) {
         mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
       }
@@ -140,7 +136,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     const onError = (data) => {
       if (!mainWindow) return;
       mainWindow.setProgressBar(-1);
-      mainWindow.webContents.send(COMMAND.UPSCAYL_PROGRESS, data.toString());
+      mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, data.toString());
       failed = true;
       upscayl.kill();
       return;
@@ -148,32 +144,17 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     const onClose = async () => {
       if (!failed && !stopped) {
         logit("💯 Done upscaling");
-        logit("♻ Scaling and converting now...");
         // Free up memory
         upscayl.kill();
-        try {
-          mainWindow.setProgressBar(-1);
-          mainWindow.webContents.send(
-            COMMAND.UPSCAYL_DONE,
-            outFile.replace(
-              /([^/\\]+)$/i,
-              encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
-            ),
-          );
-          showNotification("Upscayl", "Image upscayled successfully!");
-        } catch (error) {
-          logit(
-            "❌ Error processing (scaling and converting) the image. Please report this error on GitHub.",
-            error,
-          );
-          upscayl.kill();
-          mainWindow.webContents.send(
-            COMMAND.UPSCAYL_ERROR,
-            "Error processing (scaling and converting) the image. Please report this error on Upscayl GitHub Issues page.\n" +
-              error,
-          );
-          showNotification("Upscayl Failure", "Failed to upscale image!");
-        }
+        mainWindow.setProgressBar(-1);
+        mainWindow.webContents.send(
+          COMMAND.UPSCAYL_DONE,
+          outFile.replace(
+            /([^/\\]+)$/i,
+            encodeURIComponent(outFile.match(/[^/\\]+$/i)![0]),
+          ),
+        );
+        showNotification("Upscayl", "Image upscayled successfully!");
       }
     };
 
