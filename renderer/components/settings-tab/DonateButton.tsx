@@ -6,8 +6,9 @@ export function DonateButton({}) {
       <a
         href="https://buymeacoffee.com/fossisthefuture"
         target="_blank"
-        className="btn-primary btn">
-        DONATE
+        className="btn btn-primary"
+      >
+        💎 DONATE
       </a>
     </div>
   );
