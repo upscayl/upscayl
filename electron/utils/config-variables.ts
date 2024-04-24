@@ -1,3 +1,8 @@
+/**
+ * This file contains all the global local storage variables that need to be accessed on startup or during the app lifecycle. These are the variables that are not sent by the renderer process but are the localstorage variables used by the main process.
+ * Our goal is to send as many variables as possible from the renderer process to the main process to avoid using local storage variables.
+ */
+
 import { ChildProcessWithoutNullStreams } from "child_process";
 import { getMainWindow } from "../main-window";
 import logit from "./logit";
