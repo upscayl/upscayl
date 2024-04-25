@@ -10,3 +10,5 @@ Here we're trying to build documentation around Upscayl for everyone. If you hav
 - [🖥️ Model Conversion Guide](https://github.com/upscayl/upscayl/wiki/Model-Conversion-Guide)
 - [🤫 Miscellaneous Configuration](https://github.com/upscayl/upscayl/wiki/Misc)
 - [🤯 Using Upscayl on Windows and Linux with only a CPU](https://github.com/upscayl/upscayl/issues/390)
+
+![alt text](image.png)
