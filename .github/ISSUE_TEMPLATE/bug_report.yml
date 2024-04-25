@@ -55,7 +55,7 @@ body:
 - type: input
   attributes:
     label: GPU Name
-    description: 📝 What GPU do you have? If you do not know, please just write the name of your device. If the name is something like "Intel Graphics" or "AMD Vega" and you can't Upscayl images, [STOP and read the 3rd point in the FAQ](https://github.com/upscayl/upscayl?tab=readme-ov-file#-faq). 
+    description: 📝 What GPU do you have? If you do not know, please just write the name of your device. If the name is something like "Intel Core", "Intel Graphics" or "AMD Vega" and you can't Upscayl images, [STOP and read the 3rd point in the FAQ](https://github.com/upscayl/upscayl?tab=readme-ov-file#-faq). 
   validations:
     required: true
     
