@@ -95,8 +95,8 @@ Upscayl should be available on the software listings of most Linux operating sys
 ## 🐌 Windows
 (Windows 10 and later)
 
-1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest) or Upscayl's website.
-2. Download the `upscayl-<version>-win.exe` file.
+1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest) or [our official website](https://upscayl.org/).
+2. Download the `upscayl-x.x.x-win.exe` file.
 3. Double click exe file to launch.
 4. If you get a SmartScreen warning - click 'More Info' and then 'Run Anyway' OR press 'YES' on the unverified publisher dialog.
 5. Follow the installation steps.
