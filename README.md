@@ -62,7 +62,7 @@ https://github.com/upscayl/upscayl/assets/25067102/ad2453b1-3c5a-4eb2-b992-4cf10
   </a>
 
   <a href="https://github.com/MrPenguin07/ebuilds">
-    <img src="https://github.com/MrPenguin07/ebuilds/blob/master/site-logo.png" height="50px"/>
+    <img src="https://github.com/upscayl/upscayl/assets/25067102/322aebc5-91aa-4fc6-ac3a-d5a054449554" height="50px"/>
   </a>
 
 Upscayl should be available on the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap version.
