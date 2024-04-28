@@ -43,7 +43,7 @@ https://github.com/upscayl/upscayl/assets/25067102/ad2453b1-3c5a-4eb2-b992-4cf10
 > [!IMPORTANT]
 > You'll need a Vulkan compatible GPU (Graphics Card) to upscale images. Many iGPUs (integrated graphics) do not work but, no harm in trying :)
 
-### 🐧 Linux
+## 🐧 Linux
 
   <a href="https://flathub.org/apps/org.upscayl.Upscayl">
     <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" height="50px"/>
@@ -67,7 +67,7 @@ https://github.com/upscayl/upscayl/assets/25067102/ad2453b1-3c5a-4eb2-b992-4cf10
 
 Upscayl should be available on the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap version.
 
-#### 💼 Portable Method
+### 💼 Portable Method
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
 2. Download the `upscayl-x.x.x-linux.AppImage` file.
@@ -75,7 +75,7 @@ Upscayl should be available on the software listings of most Linux operating sys
 
 *You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any x86 Linux OS).*
 
-### 🍎 macOS
+## 🍎 macOS
 (MacOS 12 and later)
 
 <a href="https://apps.apple.com/us/app/upscayl/id6468265473?mt=12">
@@ -88,16 +88,19 @@ Upscayl should be available on the software listings of most Linux operating sys
 4. Open Finder, click 'Applications' tab in the left sidebar. Find Upscayl and right click on it. Select 'Open'.
 5. In the window that appears, press 'Open' yet again.
 
-#### 🍺 Homebrew
+### 🍺 Homebrew
 
 `brew install --cask upscayl`
 
-### 🐌 Windows
+## 🐌 Windows
 (Windows 10 and later)
 
-1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest)
-2. Download the `.exe` file.
-3. Double click exe file, wait for installation, profit.
+1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest) or Upscayl's website.
+2. Download the `upscayl-<version>-win.exe` file.
+3. Double click exe file to launch.
+4. If you get a SmartScreen warning - click 'More Info' and then 'Run Anyway' OR press 'YES' on the unverified publisher dialog.
+5. Follow the installation steps.
+6. Profit!
 
 # 👨‍🏫 Documentation - Tutorials and Guides
 
