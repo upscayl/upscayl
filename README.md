@@ -38,10 +38,10 @@ https://github.com/upscayl/upscayl/assets/25067102/ad2453b1-3c5a-4eb2-b992-4cf10
 
 </div>
 
-> [!IMPORTANT]
-> You'll need a Vulkan compatible GPU to upscale images. Many CPU and iGPUs do not work but no harm in trying.
-
 # 👨‍💻 Installation
+
+> [!IMPORTANT]
+> You'll need a Vulkan compatible GPU (Graphics Card) to upscale images. Many iGPUs (integrated graphics) do not work but, no harm in trying :)
 
 ### 🐧 Linux
 
