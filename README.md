@@ -40,17 +40,17 @@ https://github.com/upscayl/upscayl/assets/25067102/ad2453b1-3c5a-4eb2-b992-4cf10
 
 # Contents
 
-- [👨‍💻 Installation](https://github.com/upscayl/upscayl/edit/main/README.md#-installation)
-  - [🐧 Linux](https://github.com/upscayl/upscayl/edit/main/README.md#-linux)
-  - [🍎 macOS](https://github.com/upscayl/upscayl/edit/main/README.md#-macos)
-  - [🐌 Windows](https://github.com/upscayl/upscayl/edit/main/README.md#-windows)
-- [👨‍🏫 Documentation - Tutorials and Guides](https://github.com/upscayl/upscayl/edit/main/README.md#-documentation---tutorials-and-guides)
-- [⚖️ Demo Results (Before and After)](https://github.com/upscayl/upscayl/edit/main/README.md#%EF%B8%8F-results)
-- [🤫 Roadmap](https://github.com/upscayl/upscayl/edit/main/README.md#-roadmap)
-- [🛠 Developing Upscayl](https://github.com/upscayl/upscayl/edit/main/README.md#-development)
-- [🤓 FAQ](https://github.com/upscayl/upscayl/edit/main/README.md#-faq)
-- [🎁 Donate and support the project](https://github.com/upscayl/upscayl/edit/main/README.md#-donate)
-- [❤ Credits](https://github.com/upscayl/upscayl/edit/main/README.md#-credits)
+- [👨‍💻 Installation](https://github.com/upscayl/upscayl/#-installation)
+  - [🐧 Linux](https://github.com/upscayl/upscayl/#-linux)
+  - [🍎 macOS](https://github.com/upscayl/upscayl/#-macos)
+  - [🐌 Windows](https://github.com/upscayl/upscayl/#-windows)
+- [👨‍🏫 Documentation - Tutorials and Guides](https://github.com/upscayl/upscayl/#-documentation---tutorials-and-guides)
+- [⚖️ Demo Results (Before and After)](https://github.com/upscayl/upscayl/#%EF%B8%8F-results)
+- [🤫 Roadmap](https://github.com/upscayl/upscayl/#-roadmap)
+- [🛠 Developing Upscayl](https://github.com/upscayl/upscayl/#-development)
+- [🤓 FAQ](https://github.com/upscayl/upscayl/#-faq)
+- [🎁 Donate and support the project](https://github.com/upscayl/upscayl/#-donate)
+- [❤ Credits](https://github.com/upscayl/upscayl/#-credits)
 
 # 👨‍💻 Installation
 
