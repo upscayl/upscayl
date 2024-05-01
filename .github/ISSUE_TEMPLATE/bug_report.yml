@@ -10,7 +10,6 @@ body:
         required: true
       - label: I have **searched** for this in the [issues tab](https://github.com/upscayl/upscayl/issues?q=).
         required: true
-      - label: My error involves vkEnumeratePhysicalDevices or vkCreateInstance, which means I should ignore the other issues and file this one despite the last checkbox.
 - type: textarea
   attributes: 
     label: Describe the Bug
