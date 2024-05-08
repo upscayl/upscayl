@@ -40,7 +40,7 @@ https://github.com/upscayl/upscayl/assets/25067102/ad2453b1-3c5a-4eb2-b992-4cf10
 
 # Contents
 
-- [👨‍💻 Installation](https://github.com/upscayl/upscayl/#-installation)
+- [👨‍💻 Installation](#-installation)
   - [🐧 Linux](https://github.com/upscayl/upscayl/#-linux)
   - [🍎 macOS](https://github.com/upscayl/upscayl/#-macos)
   - [🐌 Windows](https://github.com/upscayl/upscayl/#-windows)
