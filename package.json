@@ -213,7 +213,7 @@
     "daisyui": "^4.10.2",
     "electron": "^27.3.10",
     "electron-builder": "^24.13.3",
-    "next": "^13.5.6",
+    "next": "^14.1.1",
     "postcss": "^8.4.31",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.4.1",
