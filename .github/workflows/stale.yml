@@ -22,5 +22,5 @@ jobs:
           days-before-pr-stale: 45
           days-before-issue-close: 5
           days-before-pr-close: 10
-          exempt-issue-labels: help wanted, HIGH PRIORITY, vulkan
+          exempt-issue-labels: help wanted, HIGH PRIORITY
           exempt-issue-assignees: aaronliu0130, NayamAmarshe, TGS963
