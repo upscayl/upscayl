@@ -1,6 +1,6 @@
 import { Notification } from "electron/main";
 import { turnOffNotifications } from "./config-variables";
-import * as fs from 'fs';
+import fs from 'fs';
 
 export default function showNotification(title: string, body: string) {
   if (turnOffNotifications) return;
