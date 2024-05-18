@@ -39,7 +39,7 @@
     "clean": "rimraf dist renderer/.next renderer/out",
     "start": "tsc && electron .",
     "dev": "tsc && electron .",
-    "build": "tsc && next build renderer && next export renderer",
+    "build": "tsc && next build renderer",
     "tsc": "tsc",
     "pack-app": "tsc && npm run build && electron-builder --dir",
     "dist": "tsc && npm run build && cross-env DEBUG=* electron-builder",
