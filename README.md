@@ -34,7 +34,7 @@ Enlarge images without losing quality. It's almost like magic! 🎩🪄
 
 **https://upscayl.org**
 
-https://github.com/upscayl/upscayl/assets/25067102/ad2453b1-3c5a-4eb2-b992-4cf10e6a49f5
+<video src="https://github.com/upscayl/upscayl/assets/25067102/ad2453b1-3c5a-4eb2-b992-4cf10e6a49f5" autoplay muted loop />
 
 </div>
 
