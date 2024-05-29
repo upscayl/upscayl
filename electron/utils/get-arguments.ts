@@ -69,20 +69,26 @@ export const getDoubleUpscaleArguments = ({
   fullfileName,
   outFile,
   modelsPath,
+  scale,
   model,
   gpuId,
   saveImageAs,
+  customWidth,
   tileSize,
 }: {
   inputDir: string;
   fullfileName: string;
   outFile: string;
   modelsPath: string;
+  scale: string;
   model: string;
   gpuId: string;
   saveImageAs: ImageFormat;
+  customWidth: string;
   tileSize: number;
 }) => {
+  const modelScale = getModelScale(model);
+  let includeScale = modelScale !== scale && !customWidth;
   return [
     // INPUT IMAGE
     "-i",
@@ -90,6 +96,9 @@ export const getDoubleUpscaleArguments = ({
     // OUTPUT IMAGE
     "-o",
     outFile,
+    // OUTPUT SCALE
+    includeScale ? "-s" : "",
+    includeScale ? scale : "",
     // MODELS PATH
     "-m",
     modelsPath,
@@ -129,7 +138,7 @@ export const getDoubleUpscaleSecondPassArguments = ({
   compression: string;
   tileSize: number;
 }) => {
-  const modelScale = (parseInt(getModelScale(model)) ** 2).toString();
+  const modelScale = getModelScale(model);
   let includeScale = modelScale !== scale && !customWidth;
   return [
     // INPUT IMAGE

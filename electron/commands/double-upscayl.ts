@@ -29,7 +29,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
 
   const tileSize = payload.tileSize;
   const compression = payload.compression;
-  const scale = parseInt(payload.scale) ** 2;
+  const scale = payload.scale;
   const useCustomWidth = payload.useCustomWidth;
   const customWidth = useCustomWidth ? payload.customWidth : "";
   const model = payload.model;
@@ -65,6 +65,8 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
         ? modelsPath
         : savedCustomModelsPath ?? modelsPath,
       model,
+      scale,
+      customWidth,
       gpuId,
       saveImageAs,
       tileSize,
@@ -171,7 +173,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           model,
           gpuId,
           saveImageAs,
-          scale: scale.toString(),
+          scale,
           customWidth,
           compression,
           tileSize,
