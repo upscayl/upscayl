@@ -1,17 +1,14 @@
 import React, { useEffect } from "react";
 import Spinner from "../../icons/Spinner";
 import Logo from "@/components/icons/Logo";
-import NPBC from "@/components/NeonProgressBarComponent"
 
 function ProgressBar({
   progress,
-  progressFloat,
   doubleUpscaylCounter,
   stopHandler,
   batchMode,
 }: {
   progress: string;
-  progressFloat: number;
   doubleUpscaylCounter: number;
   stopHandler: () => void;
   batchMode: boolean;
@@ -38,7 +35,7 @@ function ProgressBar({
             (doubleUpscaylCounter > 0
               ? `${progress}\nPass ${doubleUpscaylCounter}`
               : `${progress}`)}
-          <NPBC value={progressFloat} />
+          <progress className='progress h-[0.4rem] w-96 transition-width duration-200 ease-in-out' value={parseFloat(progress.replace("%", ''))} max='100'></progress>
         </p>
 
         <p className="animate-pulse rounded-full px-2 pb-3 text-sm font-medium">

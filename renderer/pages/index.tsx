@@ -81,7 +81,6 @@ const Home = () => {
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [compression, setCompression] = useAtom(compressionAtom);
   const [progress, setProgress] = useAtom(progressAtom);
-  const [progressFloat, setProgressFloat] = useState(0.0);
   const [batchMode, setBatchMode] = useAtom(batchModeAtom);
   const [logData, setLogData] = useAtom(logAtom);
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
@@ -222,7 +221,6 @@ const Home = () => {
     window.electron.on(COMMAND.UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
-        setProgressFloat(parseFloat(data.replace(/%/g, '')));
       } else if (data.includes("converting")) {
         setProgress("Scaling and converting image...");
       } else if (data.includes("Successful")) {
@@ -238,7 +236,6 @@ const Home = () => {
       }
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
-        setProgressFloat(parseFloat(data.replace(/%/g, '')));
       }
       handleErrors(data);
       logit(`🚧 FOLDER_UPSCAYL_PROGRESS: `, data);
@@ -250,7 +247,6 @@ const Home = () => {
           setDoubleUpscaylCounter(doubleUpscaylCounter + 1);
         }
         setProgress(data);
-        setProgressFloat(parseFloat(data.replace(/%/g, ''))); 
       }
       handleErrors(data);
       logit(`🚧 DOUBLE_UPSCAYL_PROGRESS: `, data);
@@ -733,7 +729,6 @@ const Home = () => {
           <ProgressBar
             batchMode={batchMode}
             progress={progress}
-            progressFloat={progressFloat}
             doubleUpscaylCounter={doubleUpscaylCounter}
             stopHandler={stopHandler}
           />
