@@ -14,7 +14,7 @@ function ProgressBar({
   batchMode: boolean;
 }) {
   const [batchProgress, setBatchProgress] = React.useState(0);
-  
+
   useEffect(() => {
     const progressString = progress.trim().replace(/\n/g, "");
     
