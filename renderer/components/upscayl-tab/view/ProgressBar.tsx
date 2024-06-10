@@ -34,7 +34,7 @@ function ProgressBar({
             (doubleUpscaylCounter > 0
               ? `${progress}\nPass ${doubleUpscaylCounter}`
               : `${progress}`)}
-          <progress className='progress w-96 transition-width duration-200 ease-in-out' value={parseFloat(progress.replace("%", ''))} max='100' />
+          <progress className='progress progress-primary w-96 transition-width duration-200 ease-in-out' value={parseFloat(progress.replace("%", ''))} max='100' />
         </p>
 
         <p className="animate-pulse rounded-full px-2 pb-3 text-sm font-medium">
