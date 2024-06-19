@@ -27,16 +27,15 @@ function ProgressBar({
     <div className="absolute z-50 flex h-full w-full flex-col items-center justify-center bg-base-300/50 backdrop-blur-lg">
       <div className="flex flex-col items-center rounded-btn bg-base-100/50 p-4 backdrop-blur-lg">
         <Logo className="spinner mb-4 h-12 w-12" />
-        <p className="rounded-full px-2 pb-2 font-bold flex flex-col items-center">
-          {batchMode && "Batch Upscale In Progress: " + batchProgress}
-
-          {!batchMode &&
-            (doubleUpscaylCounter > 0
-              ? `${progress}\nPass ${doubleUpscaylCounter}`
-              : `${progress}`)}
-          <progress className='progress progress-primary w-96 transition-width duration-200 ease-in-out' value={parseFloat(progress.replace("%", ''))} max='100' />
+        <p className="rounded-full px-2 pb-2 font-bold">
+          {batchMode && `Batch Upscayl In Progress: ${batchProgress}` }
         </p>
-
+        {progress !== "Hold on..." ? (
+          <div className="radial-progress text-center" style={{ "--value": parseFloat(progress.replace("%", '')) }} role="progressbar">
+          {progress}
+          {!batchMode && (doubleUpscaylCounter > 0) && "\nPass " + doubleUpscaylCounter}
+          </div>
+        ) : progress}
         <p className="animate-pulse rounded-full px-2 pb-3 text-sm font-medium">
           Doing the Upscayl magic...
         </p>
