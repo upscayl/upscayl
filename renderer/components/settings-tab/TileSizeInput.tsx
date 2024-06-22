@@ -8,7 +8,7 @@ export function TileSizeInput() {
   return (
     <div>
       <div className="flex flex-col gap-1">
-        <p className="text-sm font-medium">CUSTOM TILE SIZE</p>
+        <p className="text-sm font-medium">Custom Tile Size</p>
         <p className="text-xs text-base-content/80">
           <br />
           Use a custom tile size for segmenting the image. This can help process

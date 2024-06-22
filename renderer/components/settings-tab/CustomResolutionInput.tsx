@@ -10,9 +10,9 @@ export function CustomResolutionInput() {
   return (
     <div>
       <div className="flex flex-col gap-1">
-        <p className="text-sm font-medium">CUSTOM OUTPUT WIDTH</p>
+        <p className="text-sm font-medium">Custom Output Width</p>
         <p className="text-xs text-base-content/80">
-          <b>REQUIRES RESTART</b>
+          <b>Requires Restart</b>
           <br />
           Use a custom width for the output images. The height will be adjusted
           automatically. Enabling this will override the scale setting.

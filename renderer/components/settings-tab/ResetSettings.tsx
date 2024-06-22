@@ -3,7 +3,7 @@ import React from "react";
 export function ResetSettings() {
   return (
     <div className="flex flex-col items-start gap-2">
-      <p className="text-sm font-medium">RESET UPSCAYL</p>
+      <p className="text-sm font-medium">Reset Upscayl</p>
       <button
         className="btn btn-primary"
         onClick={async () => {
@@ -11,7 +11,7 @@ export function ResetSettings() {
           alert("Upscayl has been reset. Please restart the app.");
         }}
       >
-        RESET UPSCAYL
+          Reset Upscayl
       </button>
     </div>
   );

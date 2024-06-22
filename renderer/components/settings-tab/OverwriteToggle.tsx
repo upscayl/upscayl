@@ -7,7 +7,7 @@ const OverwriteToggle = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">OVERWRITE PREVIOUS UPSCALE</p>
+      <p className="text-sm font-medium">Overwrite Previous Upscale</p>
       <p className="text-xs text-base-content/80">
         If enabled, Upscayl will process the image again instead of loading it
         directly.

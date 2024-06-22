@@ -9,7 +9,7 @@ export function CompressionInput({
 }: CompressionInputProps) {
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex gap-1 text-sm font-medium uppercase">
+      <div className="flex gap-1 text-sm font-medium ">
         <p className="shrink-0">Image Compression ({compression}%)</p>
       </div>
       {compression > 0 && (

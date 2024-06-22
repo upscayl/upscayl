@@ -12,7 +12,7 @@ export function CustomModelsFolderSelect({
 }: CustomModelsFolderSelectProps) {
   return (
     <div className="flex flex-col items-start gap-2">
-      <p className="text-sm font-medium">ADD CUSTOM MODELS</p>
+      <p className="text-sm font-medium">Add Custom Models</p>
       <p className="text-xs text-base-content/80">
         You can add your own models easily. For more details:{" "}
         <a

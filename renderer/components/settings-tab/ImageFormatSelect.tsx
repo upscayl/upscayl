@@ -12,7 +12,7 @@ export function ImageFormatSelect({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row gap-1">
-        <p className="text-sm font-medium">SAVE IMAGE AS</p>
+        <p className="text-sm font-medium capitalize">Save Image As</p>
         {/* <p className="badge-primary badge text-[10px] font-medium">
           EXPERIMENTAL
         </p> */}

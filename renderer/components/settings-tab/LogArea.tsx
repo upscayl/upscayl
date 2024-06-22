@@ -22,9 +22,9 @@ export function LogArea({
   return (
     <div className="relative flex flex-col gap-2">
       <div className="flex items-center gap-2">
-        <p className="text-sm font-medium">LOGS</p>
+        <p className="text-sm font-medium">Logs</p>
         <button className="btn btn-primary btn-xs" onClick={copyOnClickHandler}>
-          {isCopied ? <span>COPIED ✅</span> : <span>COPY LOGS 📋</span>}
+          {isCopied ? <span>COPIED ✅</span> : <span>Copy Logs 📋</span>}
         </button>
       </div>
       <code

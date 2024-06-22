@@ -8,7 +8,7 @@ type GpuIdInputProps = {
 export function GpuIdInput({ gpuId, handleGpuIdChange }) {
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">GPU ID</p>
+      <p className="text-sm font-medium ">GPU ID</p>
       <p className="text-xs text-base-content/80">
         Please read the Upscayl Documentation for more information.
       </p>

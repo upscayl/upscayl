@@ -8,7 +8,7 @@ const TurnOffNotificationsToggle = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">TURN OFF NOTIFICATIONS</p>
+      <p className="text-sm font-medium">Turn Off Notifications</p>
       <p className="text-xs text-base-content/80">
         If enabled, Upscayl will not send any system notifications on success or
         failure.

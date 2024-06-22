@@ -35,7 +35,7 @@ export function ThemeSelect() {
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">UPSCAYL THEME</p>
+      <p className="text-sm font-medium">Upscayl Theme</p>
       <select data-choose-theme className="select-primary select">
         {availableThemes.map((theme) => {
           return (

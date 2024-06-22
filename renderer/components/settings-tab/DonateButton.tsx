@@ -1,7 +1,7 @@
 import React from "react";
 export function DonateButton({}) {
   return (
-    <div className="flex flex-col gap-2 text-sm font-medium">
+    <div className="flex flex-col gap-2 text-sm font-medium capitalize">
       <p>If you like what we do :)</p>
       <a
         href="https://buymeacoffee.com/fossisthefuture"

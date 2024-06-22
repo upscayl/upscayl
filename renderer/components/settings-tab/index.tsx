@@ -182,7 +182,7 @@ function SettingsTab({
         enableScrolling();
       }}
     >
-      <div className="flex flex-col gap-2 text-sm font-medium uppercase">
+      <div className="flex flex-col gap-2 text-sm font-medium capitalize">
         <p>Having issues?</p>
         <a
           className="btn btn-primary"

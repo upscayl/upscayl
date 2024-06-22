@@ -19,7 +19,7 @@ export function ImageScaleSelect({
       <div className="flex flex-row gap-1">
         {hideInfo ? (
           <>
-            <p className="text-sm">
+            <p className="text-sm ">
               Image Scale <span className="text-xs">({scale}X)</span>
             </p>
             {hideInfo && parseInt(scale) >= 6 && (
@@ -33,8 +33,8 @@ export function ImageScaleSelect({
             )}
           </>
         ) : (
-          <p className="text-sm font-medium">
-            IMAGE SCALE ({scale}X) {useCustomWidth && "DISABLED"}
+          <p className="text-sm font-medium capitalize">
+              Image Scale ({scale}X) {useCustomWidth && "DISABLED"}
           </p>
         )}
       </div>

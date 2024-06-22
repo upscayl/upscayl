@@ -11,7 +11,7 @@ export function SaveOutputFolderToggle() {
   );
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">SAVE OUTPUT FOLDER</p>
+      <p className="text-sm font-medium">Save Output Folder</p>
       <p className="text-xs text-base-content/80">
         If enabled, the output folder will be remembered between sessions.
       </p>
