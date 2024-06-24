@@ -57,6 +57,12 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
 
   const isDefaultModel = DEFAULT_MODELS.includes(model);
 
+  // Check if windows can write the new filename to the file system
+  if (outFile.length >= 255) {
+    logit(" Filename is too long for windows file system.")
+    mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, data.toString());
+  }
+  
   // UPSCALE
   if (fs.existsSync(outFile) && !overwrite) {
     // If already upscayled, just output that file
