@@ -31,9 +31,9 @@ function ProgressBar({
           {batchMode && `Batch Upscayl In Progress: ${batchProgress}` }
         </p>
         {progress !== "Hold on..." ? (
-          <div className="radial-progress text-center" style={{ "--value": parseFloat(progress.replace("%", '')) }} role="progressbar">
-          {progress}
-          {!batchMode && (doubleUpscaylCounter > 0) && "\nPass " + doubleUpscaylCounter}
+          <div className="radial-progress text-center" style={{ "--value": parseFloat(progress.replace("%", '')) }} role="progressbar" aria-valuenow={ parseFloat(progress.replace("%", '')) } aria-valuemin="0" aria-valuemax="100">
+            {progress}
+            {!batchMode && (doubleUpscaylCounter > 0) && "\nPass " + doubleUpscaylCounter}
           </div>
         ) : progress}
         <p className="animate-pulse rounded-full px-2 pb-3 text-sm font-medium">
