@@ -59,8 +59,8 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
 
   // Check if windows can write the new filename to the file system
   if (outFile.length >= 255) {
-    logit(" Filename is too long for windows file system.")
-    mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, data.toString());
+    logit("Filename too long for Windows.");
+    mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.");
   }
   
   // UPSCALE
