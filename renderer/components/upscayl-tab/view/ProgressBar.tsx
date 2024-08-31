@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { CSSProperties, useEffect, useMemo } from "react";
 import Spinner from "../../icons/Spinner";
 import Logo from "@/components/icons/Logo";
 
@@ -23,22 +23,43 @@ function ProgressBar({
     }
   }, [progress]);
 
+  // const progressStyle = useMemo(() => {
+  //   if (progress.includes("%")) {
+  //     return {
+  //       "--value": parseFloat(progress.replace("%", "")),
+  //     };
+  //   } else if (progress.includes("Success")) {
+  //     return {
+  //       "--value": 100,
+  //     };
+  //   }
+  //   return {
+  //     "--value": 0,
+  //   };
+  // }, [progress]);
+
   return (
     <div className="absolute z-50 flex h-full w-full flex-col items-center justify-center bg-base-300/50 backdrop-blur-lg">
-      <div className="flex flex-col items-center rounded-btn bg-base-100/50 p-4 backdrop-blur-lg">
-        <Logo className="spinner mb-4 h-12 w-12" />
+      <div className="flex flex-col items-center gap-2 rounded-btn bg-base-100/50 p-4 backdrop-blur-lg">
+        <Logo className="spinner h-12 w-12" />
         <p className="rounded-full px-2 pb-2 font-bold">
-          {batchMode && `Batch Upscayl In Progress: ${batchProgress}` }
+          {batchMode && `Batch Upscayl In Progress: ${batchProgress}`}
         </p>
-        {progress !== "Hold on..." ? (
-          <div className="radial-progress text-center" style={{ "--value": parseFloat(progress.replace("%", '')) }} role="progressbar" aria-valuenow={ parseFloat(progress.replace("%", '')) } aria-valuemin="0" aria-valuemax="100">
-            {progress}
-            {!batchMode && (doubleUpscaylCounter > 0) && "\nPass " + doubleUpscaylCounter}
-          </div>
-        ) : progress}
-        <p className="animate-pulse rounded-full px-2 pb-3 text-sm font-medium">
-          Doing the Upscayl magic...
-        </p>
+        <div className="flex flex-col items-center gap-1">
+          {progress !== "Hold on..." ? (
+            <p className="text-sm font-bold">
+              {progress}
+              {!batchMode &&
+                doubleUpscaylCounter > 0 &&
+                "\nPass " + doubleUpscaylCounter}
+            </p>
+          ) : (
+            <p className="text-sm font-bold">{progress}</p>
+          )}
+          <p className="animate-pulse rounded-full px-2 pb-3 text-xs font-medium text-neutral-content/50">
+            Doing the Upscayl magic...
+          </p>
+        </div>
         <button onClick={stopHandler} className="btn btn-outline">
           STOP
         </button>
