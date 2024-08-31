@@ -21,6 +21,7 @@ import TurnOffNotificationsToggle from "./TurnOffNotificationsToggle";
 import { cn } from "@/lib/utils";
 import { CustomResolutionInput } from "./CustomResolutionInput";
 import { TileSizeInput } from "./TileSizeInput";
+import LanguageSwitcher from "./language-switcher";
 
 interface IProps {
   batchMode: boolean;
@@ -211,6 +212,8 @@ function SettingsTab({
 
       {/* THEME SELECTOR */}
       <ThemeSelect />
+
+      <LanguageSwitcher />
 
       {/* IMAGE FORMAT BUTTONS */}
       <ImageFormatSelect
