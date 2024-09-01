@@ -1,3 +1,5 @@
+import { translationAtom } from "@/atoms/translations-atom";
+import { useAtomValue } from "jotai";
 import React from "react";
 export function ThemeSelect() {
   const availableThemes = [
@@ -32,11 +34,12 @@ export function ThemeSelect() {
     { label: "coffee", value: "coffee" },
     { label: "winter", value: "winter" },
   ];
+  const t = useAtomValue(translationAtom);
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">UPSCAYL THEME</p>
-      <select data-choose-theme className="select-primary select">
+      <p className="text-sm font-medium">{t("APP.INFOS.THEME.TITLE")}</p>
+      <select data-choose-theme className="select select-primary">
         {availableThemes.map((theme) => {
           return (
             <option value={theme.value} key={theme.value}>

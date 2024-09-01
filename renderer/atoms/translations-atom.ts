@@ -1,11 +1,12 @@
 import { atom } from "jotai";
 import en from "../locales/en.json";
 import ru from "../locales/ru.json";
+import ja from "../locales/ja.json";
 import { atomWithStorage } from "jotai/utils";
 
 // Define the shape of the translations
 type Translations = typeof en;
-type Locales = "en" | "ru";
+type Locales = "en" | "ru" | "ja";
 
 // Utility function to access nested translation keys
 const getNestedTranslation = (obj: Translations, key: string): string => {
@@ -20,7 +21,7 @@ export const localeAtom = atomWithStorage<Locales>("language", "en");
 // Atom to get the translation function based on the current locale
 export const translationAtom = atom((get) => {
   const locale = get(localeAtom);
-  const translations: Record<Locales, Translations> = { en, ru };
+  const translations: Record<Locales, Translations> = { en, ru, ja };
 
   return (key: string, params: Record<string, string> = {}): string => {
     const template = getNestedTranslation(translations[locale], key);

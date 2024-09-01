@@ -1,3 +1,5 @@
+import { translationAtom } from "@/atoms/translations-atom";
+import { useAtomValue } from "jotai";
 import React, { useEffect } from "react";
 
 type LogAreaProps = {
@@ -12,6 +14,7 @@ export function LogArea({
   logData,
 }: LogAreaProps) {
   const ref = React.useRef<HTMLElement>(null);
+  const t = useAtomValue(translationAtom);
 
   useEffect(() => {
     if (ref.current) {
@@ -24,15 +27,21 @@ export function LogArea({
       <div className="flex items-center gap-2">
         <p className="text-sm font-medium">LOGS</p>
         <button className="btn btn-primary btn-xs" onClick={copyOnClickHandler}>
-          {isCopied ? <span>COPIED ✅</span> : <span>COPY LOGS 📋</span>}
+          {isCopied ? (
+            <span>{t("APP.INFOS.LOG_AREA.ON_COPY")}</span>
+          ) : (
+            <span>{t("APP.INFOS.LOG_AREA.COPY")}</span>
+          )}
         </button>
       </div>
       <code
-        className="rounded-btn relative flex h-52 max-h-52 flex-col gap-3 overflow-y-auto break-all rounded-r-none bg-base-200 p-4 text-xs"
+        className="relative flex h-52 max-h-52 flex-col gap-3 overflow-y-auto break-all rounded-btn rounded-r-none bg-base-200 p-4 text-xs"
         ref={ref}
       >
         {logData.length === 0 && (
-          <p className="text-base-content/70">No logs to show</p>
+          <p className="text-base-content/70">
+            {t("APP.INFOS.LOG_AREA.NO_LOGS")}
+          </p>
         )}
 
         {logData.map((logLine: any) => {

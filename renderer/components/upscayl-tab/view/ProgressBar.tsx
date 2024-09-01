@@ -1,6 +1,8 @@
 import React, { CSSProperties, useEffect, useMemo } from "react";
 import Spinner from "../../icons/Spinner";
 import Logo from "@/components/icons/Logo";
+import { useAtomValue } from "jotai";
+import { translationAtom } from "@/atoms/translations-atom";
 
 function ProgressBar({
   progress,
@@ -14,6 +16,7 @@ function ProgressBar({
   batchMode: boolean;
 }) {
   const [batchProgress, setBatchProgress] = React.useState(0);
+  const t = useAtomValue(translationAtom);
 
   useEffect(() => {
     const progressString = progress.trim().replace(/\n/g, "");
@@ -43,7 +46,8 @@ function ProgressBar({
       <div className="flex flex-col items-center gap-2 rounded-btn bg-base-100/50 p-4 backdrop-blur-lg">
         <Logo className="spinner h-12 w-12" />
         <p className="rounded-full px-2 pb-2 font-bold">
-          {batchMode && `Batch Upscayl In Progress: ${batchProgress}`}
+          {batchMode &&
+            `${t("APP.INFOS.PROGRESS_BAR.IN_PROGRESS")} ${batchProgress}`}
         </p>
         <div className="flex flex-col items-center gap-1">
           {progress !== "Hold on..." ? (
@@ -57,11 +61,11 @@ function ProgressBar({
             <p className="text-sm font-bold">{progress}</p>
           )}
           <p className="animate-pulse rounded-full px-2 pb-3 text-xs font-medium text-neutral-content/50">
-            Doing the Upscayl magic...
+            {t("APP.INFOS.PROGRESS_BAR.PROGRESS_CATCHY")}
           </p>
         </div>
         <button onClick={stopHandler} className="btn btn-outline">
-          STOP
+          {t("APP.INFOS.PROGRESS_BAR.STOP")}
         </button>
       </div>
     </div>

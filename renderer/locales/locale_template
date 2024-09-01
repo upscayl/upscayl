@@ -1,3 +1,9 @@
+// !!!!!!!!!!!!!!!!!!!!DO NOT DELETE THIS FILE!!!!!!!!!!!!!!
+// Copy this to a new file
+// Name the file {language}.json like en-US.json, ru-RU.json, etc
+// Replace the english strings present below with relevant languages
+// !!!!!!!!!!!!!!!!!!!!!KEEP ANYTHING PRESENT WITHIN FLOWER BRACES {variable} - THEY ARE VARIABLES!!!!!!!!!!!!!!!!!!!!!!!
+// Delete these comments starting with "//" as json format does not accept comments
 {
   "APP": {
     "TITLE": "Upscayl",

@@ -1,6 +1,7 @@
+import { translationAtom } from "@/atoms/translations-atom";
 import { lensSizeAtom, viewTypeAtom } from "@/atoms/userSettingsAtom";
 import { cn } from "@/lib/utils";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { WrenchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -18,6 +19,7 @@ const ImageOptions = ({
   const [openSidebar, setOpenSidebar] = useState(false);
   const [viewType, setViewType] = useAtom(viewTypeAtom);
   const [lensSize, setLensSize] = useAtom(lensSizeAtom);
+  const t = useAtomValue(translationAtom);
 
   useEffect(() => {
     if (!localStorage.getItem("zoomAmount")) {
@@ -52,11 +54,13 @@ const ImageOptions = ({
 
       <div className="flex flex-col justify-center gap-5 overflow-auto p-5">
         <button className="btn btn-primary" onClick={resetImagePaths}>
-          Reset Image
+          {t("APP.INFOS.IMAGE_OPTIONS.RESET")}
         </button>
 
         <div className="flex flex-row items-center gap-2">
-          <p className="text-sm font-medium">Lens View</p>
+          <p className="text-sm font-medium">
+            {t("APP.INFOS.IMAGE_OPTIONS.LENS_VIEW")}
+          </p>
           <input
             type="checkbox"
             className="toggle"
@@ -65,11 +69,15 @@ const ImageOptions = ({
               setViewType(e.target.checked ? "slider" : "lens");
             }}
           />
-          <p className="text-sm font-medium">Slider View</p>
+          <p className="text-sm font-medium">
+            {t("APP.INFOS.IMAGE_OPTIONS.SLIDER_VIEW")}
+          </p>
         </div>
 
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-medium">Zoom Amount ({zoomAmount}%)</p>
+          <p className="text-sm font-medium">
+            {t("APP.INFOS.IMAGE_OPTIONS.ZOOM_AMOUNT")} ({zoomAmount}%)
+          </p>
           <input
             type="range"
             min="100"
@@ -85,7 +93,9 @@ const ImageOptions = ({
         </div>
 
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-medium">Lens Size ({lensSize / 10})</p>
+          <p className="text-sm font-medium">
+            {t("APP.INFOS.IMAGE_OPTIONS.LENS_SIZE")} ({lensSize / 10})
+          </p>
           <input
             type="range"
             min="20"

@@ -1,4 +1,6 @@
+import { translationAtom } from "@/atoms/translations-atom";
 import { GrayMatterFile } from "gray-matter";
+import { useAtomValue } from "jotai";
 import React from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -12,17 +14,21 @@ export const NewsModal = ({
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   news: GrayMatterFile<string>;
 }) => {
+  const t = useAtomValue(translationAtom);
+
   return (
     <dialog className={`modal ${show && "modal-open"}`}>
-      <div className="modal-box flex flex-col text-center items-center gap-4">
+      <div className="modal-box flex flex-col items-center gap-4 text-center">
         <button
-          className="absolute top-2 right-4 btn btn-circle"
-          onClick={() => setShow(false)}>
+          className="btn btn-circle absolute right-4 top-2"
+          onClick={() => setShow(false)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+          >
             <rect
               x="0"
               y="0"
@@ -51,7 +57,9 @@ export const NewsModal = ({
       </div>
 
       <form method="dialog" className="modal-backdrop">
-        <button onClick={() => setShow(false)}>close</button>
+        <button onClick={() => setShow(false)}>
+          {t("APP.INFOS.DIALOG_BOX.CLOSE")}
+        </button>
       </form>
     </dialog>
   );
