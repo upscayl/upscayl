@@ -2,7 +2,7 @@ import { translationAtom } from "@/atoms/translations-atom";
 import { useAtomValue } from "jotai";
 import React from "react";
 
-export function DonateButton({}) {
+export function DonateButton() {
   const t = useAtomValue(translationAtom);
 
   return (
