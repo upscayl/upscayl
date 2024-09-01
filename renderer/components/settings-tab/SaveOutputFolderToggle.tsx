@@ -1,19 +1,24 @@
+import { translationAtom } from "@/atoms/translations-atom";
 import {
   savedOutputPathAtom,
   rememberOutputFolderAtom,
 } from "@/atoms/userSettingsAtom";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 
 export function SaveOutputFolderToggle() {
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [rememberOutputFolder, setRememberOutputFolder] = useAtom(
     rememberOutputFolderAtom,
   );
+  const t = useAtomValue(translationAtom);
+
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">SAVE OUTPUT FOLDER</p>
+      <p className="text-sm font-medium">
+        {t("APP.INFOS.SAVE_OUTPUT_FOLDER.TITLE")}
+      </p>
       <p className="text-xs text-base-content/80">
-        If enabled, the output folder will be remembered between sessions.
+        {t("APP.INFOS.SAVE_OUTPUT_FOLDER.DESC")}
       </p>
 
       <p className="font-mono text-sm">{outputPath}</p>

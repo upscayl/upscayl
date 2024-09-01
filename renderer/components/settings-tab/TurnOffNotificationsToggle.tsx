@@ -1,17 +1,20 @@
+import { translationAtom } from "@/atoms/translations-atom";
 import { turnOffNotificationsAtom } from "@/atoms/userSettingsAtom";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 
 const TurnOffNotificationsToggle = () => {
   const [turnOffNotifications, setTurnOffNotifications] = useAtom(
-    turnOffNotificationsAtom
+    turnOffNotificationsAtom,
   );
+  const t = useAtomValue(translationAtom);
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">TURN OFF NOTIFICATIONS</p>
+      <p className="text-sm font-medium">
+        {t("APP.INFOS.TURN_OFF_NOTIFICATIONS.TITLE")}
+      </p>
       <p className="text-xs text-base-content/80">
-        If enabled, Upscayl will not send any system notifications on success or
-        failure.
+        {t("APP.INFOS.TURN_OFF_NOTIFICATIONS.DESC")}
       </p>
       <input
         type="checkbox"

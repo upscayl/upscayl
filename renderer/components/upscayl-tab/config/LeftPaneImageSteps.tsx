@@ -20,6 +20,7 @@ import Select from "react-select";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { ImageScaleSelect } from "@/components/settings-tab/ImageScaleSelect";
+import { translationAtom } from "@/atoms/translations-atom";
 
 interface IProps {
   selectImageHandler: () => Promise<void>;
@@ -77,6 +78,7 @@ function LeftPaneImageSteps({
 
   const { logit } = useLog();
   const { toast } = useToast();
+  const t = useAtomValue(translationAtom);
 
   const outputHandler = async () => {
     var path = await window.electron.invoke(COMMAND.SELECT_FOLDER);
@@ -196,30 +198,38 @@ function LeftPaneImageSteps({
         <p
           className="mr-1 inline-block cursor-help text-sm"
           data-tooltip-id="tooltip"
-          data-tooltip-content="This will let you Upscayl all files in a folder at once"
+          data-tooltip-content={t("APP.INFOS.LEFT_PANE_PROCESS.BATCH.TT_INFO")}
         >
-          Batch Upscayl
+          {t("APP.INFOS.LEFT_PANE_PROCESS.BATCH.TITLE")}
         </p>
       </div>
 
       {/* STEP 1 */}
       <div className="animate-step-in">
-        <p className="step-heading">Step 1</p>
+        <p className="step-heading">
+          {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_1.TITLE")}
+        </p>
         <button
           className="btn btn-primary"
           onClick={!batchMode ? selectImageHandler : selectFolderHandler}
           data-tooltip-id="tooltip"
           data-tooltip-content={imagePath}
         >
-          Select {batchMode ? "Folder" : "Image"}
+          {batchMode
+            ? t("APP.INFOS.LEFT_PANE_PROCESS.STEP_1.BATCH_YES")
+            : t("APP.INFOS.LEFT_PANE_PROCESS.STEP_1.BATCH_NO")}
         </button>
       </div>
 
       {/* STEP 2 */}
       <div className="animate-step-in group flex flex-col gap-4">
         <div>
-          <p className="step-heading">Step 2</p>
-          <p className="mb-2 text-sm">Select Model</p>
+          <p className="step-heading">
+            {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_2.TITLE")}
+          </p>
+          <p className="mb-2 text-sm">
+            {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_2.SELECT_MODEL")}
+          </p>
 
           <Select
             onMenuOpen={() => setOpen(true)}
@@ -262,12 +272,14 @@ function LeftPaneImageSteps({
                 setDoubleUpscayl(!doubleUpscayl);
               }}
             >
-              Double Upscayl
+              {t("APP.INFOS.LEFT_PANE_PROCESS.DOUBLE_UPSCAYL.TITLE")}
             </p>
             <button
               className="badge badge-neutral badge-sm cursor-help"
               data-tooltip-id="tooltip"
-              data-tooltip-content="Enable this option to run upscayl twice on an image. Note that this may cause a significant increase in processing time and possibly performance issues for scales greater than 4X."
+              data-tooltip-content={t(
+                "APP.INFOS.LEFT_PANE_PROCESS.DOUBLE_UPSCAYL.TT_INFO",
+              )}
             >
               ?
             </button>
@@ -281,13 +293,17 @@ function LeftPaneImageSteps({
       <div className="animate-step-in">
         <div className="flex flex-col pb-2">
           <div className="step-heading flex items-center gap-2">
-            <span className="leading-none">Step 3</span>
+            <span className="leading-none">
+              {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.TITLE")}
+            </span>
             {featureFlags.APP_STORE_BUILD && (
               <button
                 className="badge badge-outline badge-sm cursor-pointer"
                 onClick={() =>
                   alert(
-                    "Due to MacOS App Store security restrictions, Upscayl requires you to select an output folder everytime you start it.\n\nTo avoid this, you can permanently save a default output folder in the Upscayl 'Settings' tab.",
+                    t(
+                      "APP.INFOS.LEFT_PANE_PROCESS.STEP_3.MACOS_RESTRICTION_ALERT",
+                    ),
                   )
                 }
               >
@@ -298,14 +314,16 @@ function LeftPaneImageSteps({
           {!outputPath && featureFlags.APP_STORE_BUILD && (
             <div className="text-xs">
               <span className="rounded-btn bg-base-200 px-2 font-medium uppercase text-base-content/50">
-                Not selected
+                {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.NOT_SELECTED")}
               </span>
             </div>
           )}
         </div>
         {!batchMode && !featureFlags.APP_STORE_BUILD && (
           <p className="mb-2 text-sm">
-            Defaults to {!batchMode ? "Image's" : "Folder's"} path
+            {!batchMode
+              ? t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.DEFAULT_IMG_PATH")
+              : t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.DEFAULT_FOLDER_PATH")}
           </p>
         )}
         <button
@@ -314,20 +332,22 @@ function LeftPaneImageSteps({
           data-tooltip-id="tooltip"
           onClick={outputHandler}
         >
-          Set Output Folder
+          {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.SET_OUTPUT_FOLDER")}
         </button>
       </div>
 
       {/* STEP 4 */}
       <div className="animate-step-in">
-        <p className="step-heading">Step 4</p>
+        <p className="step-heading">
+          {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.TITLE")}
+        </p>
         {dimensions.width && dimensions.height && (
           <p className="mb-2 text-sm">
-            Upscayl from{" "}
+            {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.UPSCAYL_FROM")}
             <span className="font-bold">
               {dimensions.width}x{dimensions.height}
-            </span>{" "}
-            to{" "}
+            </span>
+            {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.UPSCAYL_TO")}
             <span className="font-bold">
               {getUpscaleResolution().width}x{getUpscaleResolution().height}
             </span>
@@ -339,12 +359,16 @@ function LeftPaneImageSteps({
             progress.length > 0 || !outputPath
               ? () =>
                   toast({
-                    description: "Please select an output folder first",
+                    description: t(
+                      "APP.INFOS.LEFT_PANE_PROCESS.STEP_4.FOLDER_ALERT",
+                    ),
                   })
               : upscaylHandler
           }
         >
-          {progress.length > 0 ? "Upscayling⏳" : "Upscayl"}
+          {progress.length > 0
+            ? t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.PROCESS_IN_PROGRESS")
+            : t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.PROCESS_START")}
         </button>
       </div>
 

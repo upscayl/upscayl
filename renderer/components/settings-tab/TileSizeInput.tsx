@@ -1,18 +1,21 @@
+import { translationAtom } from "@/atoms/translations-atom";
 import { tileSizeAtom } from "@/atoms/userSettingsAtom";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import React from "react";
 
 export function TileSizeInput() {
   const [tileSize, setTileSize] = useAtom(tileSizeAtom);
+  const t = useAtomValue(translationAtom);
 
   return (
     <div>
       <div className="flex flex-col gap-1">
-        <p className="text-sm font-medium">CUSTOM TILE SIZE</p>
+        <p className="text-sm font-medium">
+          {t("APP.INFOS.CUSTOM_TILE_SIZE.TITLE")}
+        </p>
         <p className="text-xs text-base-content/80">
           <br />
-          Use a custom tile size for segmenting the image. This can help process
-          images faster by reducing the number of tiles generated.
+          {t("APP.INFOS.CUSTOM_TILE_SIZE.DESC")}
         </p>
       </div>
       <div className="mt-2 flex items-center gap-2">

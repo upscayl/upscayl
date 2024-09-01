@@ -1,5 +1,7 @@
 import React from "react";
 import commands from "../../../common/commands";
+import { useAtomValue } from "jotai";
+import { translationAtom } from "@/atoms/translations-atom";
 
 type CustomModelsFolderSelectProps = {
   customModelsPath: string;
@@ -10,24 +12,27 @@ export function CustomModelsFolderSelect({
   customModelsPath,
   setCustomModelsPath,
 }: CustomModelsFolderSelectProps) {
+  const t = useAtomValue(translationAtom);
+
   return (
     <div className="flex flex-col items-start gap-2">
-      <p className="text-sm font-medium">ADD CUSTOM MODELS</p>
+      <p className="text-sm font-medium">{t("APP.INFOS.CUSTOM_MODELS.ADD")}</p>
       <p className="text-xs text-base-content/80">
-        You can add your own models easily. For more details:{" "}
+        {t("APP.INFOS.CUSTOM_MODELS.INFO")}
         <a
           href="https://github.com/upscayl/custom-models/blob/main/README.md"
-          className="underline link"
-          target="_blank">
-          Custom Models Repository
+          className="link underline"
+          target="_blank"
+        >
+          {t("APP.INFOS.CUSTOM_MODELS.LINK_TEXT")}
         </a>
       </p>
       <p className="text-sm text-base-content/60">{customModelsPath}</p>
       <button
-        className="btn-primary btn"
+        className="btn btn-primary"
         onClick={async () => {
           const customModelPath = await window.electron.invoke(
-            commands.SELECT_CUSTOM_MODEL_FOLDER
+            commands.SELECT_CUSTOM_MODEL_FOLDER,
           );
 
           if (customModelPath !== null) {
@@ -36,8 +41,9 @@ export function CustomModelsFolderSelect({
           } else {
             setCustomModelsPath("");
           }
-        }}>
-        Select Folder
+        }}
+      >
+        {t("APP.INFOS.CUSTOM_MODELS.SELECT_FOLDER")}
       </button>
     </div>
   );

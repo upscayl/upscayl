@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { waitlistCollection } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { useAtomValue } from "jotai";
+import { translationAtom } from "@/atoms/translations-atom";
 
 const nameRegex = /^[A-Za-z\s.'-]+$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -8,18 +10,21 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const t = useAtomValue(translationAtom);
 
   return (
     <dialog className={`modal ${show && "modal-open"}`}>
-      <div className="modal-box flex flex-col text-center items-center gap-4">
+      <div className="modal-box flex flex-col items-center gap-4 text-center">
         <button
-          className="absolute top-2 right-4 btn btn-circle"
-          onClick={() => setShow(false)}>
+          className="btn btn-circle absolute right-4 top-2"
+          onClick={() => setShow(false)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+          >
             <rect
               x="0"
               y="0"
@@ -37,22 +42,18 @@ export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
             />
           </svg>
         </button>
-        <p className="badge badge-neutral text-xs">Coming soon!</p>
-        <p className="text-2xl font-semibold">Introducing Upscayl Cloud!</p>
-        <p className="w-9/12 font-medium text-lg">
-          No more errors, hardware issues, quality compromises or long loading
-          times!
+        <p className="badge badge-neutral text-xs">
+          {t("APP.UPSCAYL_CLOUD.COMING_SOON")}
+        </p>
+        <p className="text-2xl font-semibold">{t("APP.INTRO")}</p>
+        <p className="w-9/12 text-lg font-medium">
+          {t("APP.UPSCAYL_CLOUD.CATCHY_PHRASE_1")}
         </p>
 
         <div className="flex flex-col gap-2 text-start">
-          <p>🌐 Upscayl anywhere, anytime, any device</p>
-          <p>☁️ No Graphics Card or hardware required</p>
-          <p>👩 Face Enhancement</p>
-          <p>🦋 10+ models to choose from</p>
-          <p>🏎 5x faster than Upscayl Desktop</p>
-          <p>🎞 Video Upscaling</p>
-          <p>💰 Commercial Usage</p>
-          <p>😴 Upscayl while you sleep</p>
+          <pre style={{ fontFamily: "inherit" }} className="leading-8">
+            {t("APP.UPSCAYL_CLOUD.CATCHY_PHRASE_2")}
+          </pre>
         </div>
 
         <form
@@ -71,23 +72,20 @@ export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
                   email,
                 });
               } catch (error) {
-                alert(
-                  `Thank you ${name}! It seems that your email has already been registered :D If that's not the case, please try again.`
-                );
+                alert(t("APP.UPSCAYL_CLOUD.ALREADY_REGISTERED", { name }));
                 return;
               }
               setName("");
               setEmail("");
               setDontShowCloudModal(true);
               setShow(false);
-              alert(
-                "Thank you for joining the waitlist! We will notify you when Upscayl Cloud is ready for you."
-              );
+              alert(t("APP.UPSCAYL_CLOUD.ADD_SUCCESS"));
             } else {
-              alert("Please fill in all the fields correctly.");
+              alert(t("APP.UPSCAYL_CLOUD.INCORRECT_FIELDS"));
             }
-          }}>
-          <div className="gap-2 grid grid-cols-2">
+          }}
+        >
+          <div className="grid grid-cols-2 gap-2">
             <input
               type="text"
               className="input input-bordered"
@@ -105,8 +103,9 @@ export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
           </div>
           <button
             type="submit"
-            className="bg-success text-success-content rounded-2xl px-4 py-2">
-            Join the waitlist
+            className="rounded-2xl bg-success px-4 py-2 text-success-content"
+          >
+            {t("APP.UPSCAYL_CLOUD.JOIN_WAITLIST")}
           </button>
 
           <button
@@ -115,14 +114,17 @@ export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
               setDontShowCloudModal(true);
               setShow(false);
             }}
-            type="button">
-            DON'T SHOW AGAIN
+            type="button"
+          >
+            {t("APP.UPSCAYL_CLOUD.DONT_SHOW_AGAIN")}
           </button>
         </form>
       </div>
 
       <form method="dialog" className="modal-backdrop">
-        <button onClick={() => setShow(false)}>close</button>
+        <button onClick={() => setShow(false)}>
+          {t("APP.INFOS.DIALOG_BOX.CLOSE")}
+        </button>
       </form>
     </dialog>
   );
