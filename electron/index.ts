@@ -40,6 +40,11 @@ app.on("ready", async () => {
     autoUpdater.checkForUpdates();
   }
 
+  log.info(
+    "🆙 Upscayl version:",
+    app.getVersion(),
+    featureFlags.APP_STORE_BUILD && "MAC-APP-STORE",
+  );
   log.info("🚀 UPSCAYL EXEC PATH: ", execPath);
   log.info("🚀 MODELS PATH: ", modelsPath);
 
