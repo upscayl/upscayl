@@ -13,18 +13,18 @@ export default function Header({ version }: { version: string }) {
       target="_blank"
       className={`outline-none focus-visible:ring-2`}
       data-tooltip-id="tooltip"
-      data-tooltip-content={t("APP.HEADER.GITHUB_STAR_TT_INFO")}
+      data-tooltip-content={t("HEADER.GITHUB_BUTTON_TITLE")}
     >
       <div className="flex items-center gap-3 px-5 py-5">
         <Logo className="inline-block h-14 w-14" />
         <div className="flex flex-col justify-center">
           <h1 className="text-3xl font-bold">
-            {t("APP.TITLE")}
+            {t("TITLE")}
             <span className="text-xs">
               {version} {featureFlags.APP_STORE_BUILD && "Mac"}
             </span>
           </h1>
-          <p className="">{t("APP.HEADER.APP_INFO")}</p>
+          <p className="">{t("HEADER.DESCRIPTION")}</p>
         </div>
       </div>
     </a>

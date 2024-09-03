@@ -5,6 +5,9 @@ const locales = {
   en: "English",
   ru: "Русский",
   ja: "日本語",
+  zh: "漢語",
+  es: "Español",
+  fr: "Français",
 };
 
 const LanguageSwitcher = () => {
@@ -14,7 +17,7 @@ const LanguageSwitcher = () => {
   return (
     <div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium">{t("APP.SETTINGS.CHANGE_LANG")}</p>
+        <p className="text-sm font-medium">{t("SETTINGS.LANGUAGE.TITLE")}</p>
         <select
           data-choose-theme
           className="select select-primary"

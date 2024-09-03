@@ -1,0 +1,210 @@
+{
+  "TITLE": "Upscayl",
+  "INTRO": "¡Presentamos Upscayl Cloud!",
+  "HEADER": {
+    "GITHUB_BUTTON_TITLE": "Danos una estrella en GitHub 😁",
+    "DESCRIPTION": "Aumentador de imágenes con IA"
+  },
+  "FOOTER": {
+    "NEWS_TITLE": "NOTICIAS DE UPSCAYL",
+    "COPYRIGHT": "Copyright ©",
+    "TITLE": "Por ",
+    "LINK_TITLE": "El equipo de Upscayl"
+  },
+  "SETTINGS": {
+    "TITLE": "AJUSTES",
+    "CHANGE_LANGUAGE": { "TITLE": "Cambiar idioma" },
+    "IMAGE_COMPRESSION": {
+      "TITLE": "Compresión de imagen",
+      "DESCRIPTION": "La compresión PNG es sin pérdida, por lo que puede que no reduzca el tamaño del archivo significativamente y los valores de compresión más altos podrían afectar el rendimiento. La compresión JPG y WebP es con pérdida."
+    },
+    "CUSTOM_MODELS": {
+      "TITLE": "AÑADIR MODELOS PERSONALIZADOS",
+      "BUTTON_FOLDER": "Seleccionar carpeta",
+      "DESCRIPTION": "Puedes añadir tus propios modelos fácilmente. Para más detalles:",
+      "LINK_TITLE": "Repositorio de Modelos Personalizados"
+    },
+    "CUSTOM_INPUT_RESOLUTION": {
+      "TITLE": "ANCHO DE SALIDA PERSONALIZADO",
+      "RESTART": "REQUIERE REINICIO",
+      "DESCRIPTION": "Usa un ancho personalizado para las imágenes de salida. La altura se ajustará automáticamente. Al habilitar esto, se anulará la configuración de escala."
+    },
+    "DONATE": {
+      "DESCRIPTION": "Si te gusta lo que hacemos :)",
+      "BUTTON_TITLE": "💎 DONAR"
+    },
+    "GPU_ID_INPUT": {
+      "TITLE": "ID de GPU",
+      "DESCRIPTION": "Por favor, lee la documentación de Upscayl para más información.",
+      "ADDITIONAL_DESCRIPTION": "Habilita el modo de rendimiento en Windows para obtener mejores resultados."
+    },
+    "IMAGE_FORMAT": {
+      "TITLE": "GUARDAR IMAGEN COMO",
+      "PNG": "PNG",
+      "JPG": "JPG",
+      "WEBP": "WEBP"
+    },
+    "IMAGE_SCALE": {
+      "TITLE": "Escala de imagen",
+      "IMAGE_SCALED_BY": "ESCALA DE IMAGEN ({scale}X)",
+      "DESCRIPTION": "Cualquier cosa por encima de 4X (excepto 16X Double Upscayl) solo redimensiona la imagen y no usa aumento con IA.",
+      "WARNING": "¡Cualquier cosa por encima de 5X puede causar problemas de rendimiento en algunos dispositivos!",
+      "ADDITIONAL_WARNING": "¡Esto puede causar problemas de rendimiento en algunos dispositivos!"
+    },
+    "LOG_AREA": {
+      "ON_COPY": "COPIADO ✅",
+      "BUTTON_TITLE": "COPIAR REGISTROS 📋",
+      "NO_LOGS": "No hay registros para mostrar"
+    },
+    "OVERWRITE_TOGGLE": {
+      "TITLE": "SOBREESCRIBIR AUMENTO ANTERIOR",
+      "DESCRIPTION": "Si está habilitado, Upscayl procesará la imagen de nuevo en lugar de cargarla directamente."
+    },
+    "RESET_SETTINGS": {
+      "BUTTON_TITLE": "REINICIAR UPSCAYL",
+      "ALERT": "Upscayl ha sido reiniciado. Por favor, reinicia la aplicación."
+    },
+    "SAVE_OUTPUT_FOLDER": {
+      "TITLE": "GUARDAR CARPETA DE SALIDA",
+      "DESCRIPTION": "Si está habilitado, la carpeta de salida se recordará entre sesiones."
+    },
+    "THEME": {
+      "TITLE": "TEMA DE UPSCAYL"
+    },
+    "LANGUAGE": {
+      "TITLE": "IDIOMA DE UPSCAYL"
+    },
+    "CUSTOM_TILE_SIZE": {
+      "TITLE": "TAMAÑO DE MOSAICO PERSONALIZADO",
+      "DESCRIPTION": "Usa un tamaño de mosaico personalizado para segmentar la imagen. Esto puede ayudar a procesar las imágenes más rápido al reducir el número de mosaicos generados."
+    },
+    "TURN_OFF_NOTIFICATIONS": {
+      "TITLE": "APAGAR NOTIFICACIONES",
+      "DESCRIPTION": "Si está habilitado, Upscayl no enviará notificaciones del sistema al tener éxito o fallar."
+    },
+    "SUPPORT": {
+      "TITLE": "¿Tienes problemas?",
+      "DOCS_BUTTON_TITLE": "🙏 OBTENER AYUDA",
+      "EMAIL_BUTTON_TITLE": "📧 CORREO AL DESARROLLADOR"
+    }
+  },
+  "APP": {
+    "TITLE": "Upscayl",
+    "BATCH_MODE": {
+      "TITLE": "Aumento por lotes",
+      "DESCRIPTION": "Esto te permitirá aumentar todas las imágenes en una carpeta a la vez"
+    },
+    "FILE_SELECTION": {
+      "TITLE": "Paso 1",
+      "BATCH_MODE_TYPE": "Seleccionar carpeta",
+      "SINGLE_MODE_TYPE": "Seleccionar imagen"
+    },
+    "MODEL_SELECTION": {
+      "TITLE": "Paso 2",
+      "DESCRIPTION": "Seleccionar modelo"
+    },
+    "DOUBLE_UPSCAYL": {
+      "TITLE": "Doble Upscayl",
+      "DESCRIPTION": "Habilita esta opción para realizar dos aumentos en una imagen. Ten en cuenta que esto puede causar un aumento significativo en el tiempo de procesamiento y posiblemente problemas de rendimiento para escalas superiores a 4X."
+    },
+    "OUTPUT_PATH_SELECTION": {
+      "TITLE": "Paso 3",
+      "MAC_APP_STORE_ALERT": "Debido a las restricciones de seguridad de la MacOS App Store, Upscayl requiere que selecciones una carpeta de salida cada vez que lo inicies.\n\nPara evitar esto, puedes guardar permanentemente una carpeta de salida predeterminada en la pestaña 'Ajustes' de Upscayl.",
+      "NOT_SELECTED": "No seleccionado",
+      "DEFAULT_IMG_PATH": "Ruta predeterminada de la imagen",
+      "DEFAULT_FOLDER_PATH": "Ruta predeterminada de la carpeta",
+      "BUTTON_TITLE": "Establecer carpeta de salida"
+    },
+    "SCALE_SELECTION": {
+      "TITLE": "Paso 4",
+      "FROM_TITLE": "Aumentar desde ",
+      "TO_TITLE": " a ",
+      "NO_OUTPUT_FOLDER_ALERT": "Por favor, selecciona primero una carpeta de salida",
+      "START_BUTTON_TITLE": "Upscayl",
+      "IN_PROGRESS_BUTTON_TITLE": "Aumentando⏳"
+    },
+    "IMAGE_OPTIONS": {
+      "RESET_BUTTON_TITLE": "Restablecer imagen",
+      "LENS_VIEW_TITLE": "Vista de lente",
+      "SLIDER_VIEW_TITLE": "Vista de deslizador",
+      "ZOOM_AMOUNT_TITLE": "Cantidad de zoom",
+      "LENS_SIZE_TITLE": "Tamaño de lente"
+    },
+    "PROGRESS_BAR": {
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Aumento por lotes en progreso:",
+      "IN_PROGRESS_TITLE": "Haciendo la magia de Upscayl...",
+      "STOP_BUTTON_TITLE": "DETENER"
+    },
+    "RESET_BUTTON_TITLE": "Restablecer",
+    "RIGHT_PANE_INFO": {
+      "SELECT_FOLDER": "Selecciona una carpeta para aumentar",
+      "SELECT_IMAGE": "Selecciona una imagen para aumentar",
+      "SELECT_FOLDER_DESCRIPTION": "Asegúrate de que la carpeta no contenga nada excepto imágenes PNG, JPG, JPEG y WEBP.",
+      "SELECT_IMAGES_DESCRIPTION": "Selecciona o arrastra y suelta una imagen PNG, JPG, JPEG o WEBP."
+    },
+    "PROGRESS": {
+      "PROCESSING_TITLE": "Procesando la imagen...",
+      "SCALING_CONVERTING_TITLE": "Escalando y convirtiendo la imagen...",
+      "WAIT_TITLE": "Espera un momento...",
+      "SUCCESS_TITLE": "¡Aumento exitoso!",
+      "BATCH": {
+        "SELECTED_FOLDER_TITLE": "Carpeta seleccionada:",
+        "DONE_TITLE": "¡Todo listo!",
+        "OPEN_UPSCAYLED_FOLDER_TITLE": "Abrir carpeta con imágenes aumentadas"
+      }
+    },
+    "SLIDER": {
+      "ORIGINAL_TITLE": "Original",
+      "UPSCAYLED_TITLE": "Aumentado"
+    },
+    "DIALOG_BOX": {
+      "CLOSE": "Cerrar"
+    }
+  },
+  "ERRORS": {
+    "GPU_ERROR": {
+      "TITLE": "Error de GPU",
+      "DESCRIPTION": "Se encontró un problema con la GPU. Por favor, lee la documentación para solucionar problemas. ({data})"
+    },
+    "COPY_ERROR": {
+      "TITLE": "Error de copiado",
+      "DESCRIPTION": ""
+    },
+    "READ_WRITE_ERROR": {
+      "TITLE": "Error de lectura/escritura",
+      "DESCRIPTION": "Asegúrate de que la ruta sea correcta y que tengas los permisos adecuados de lectura/escritura \n({data})"
+    },
+    "TILE_SIZE_ERROR": {
+      "TITLE": "Error",
+      "DESCRIPTION": "El tamaño del mosaico es incorrecto. Cambia el tamaño del mosaico en los ajustes o configúralo en 0 ({data})"
+    },
+    "EXCEPTION_ERROR": {
+      "TITLE": "Error de excepción",
+      "DESCRIPTION": "Upscayl encontró un error. Es posible que el binario de Upscayl no haya ejecutado los comandos correctamente. Intenta revisar los registros para ver si obtienes alguna información. Puedes publicar un problema en el repositorio de GitHub de Upscayl para obtener más ayuda."
+    },
+    "GENERIC_ERROR": {
+      "TITLE": "Error"
+    },
+    "INVALID_IMAGE_ERROR": {
+      "TITLE": "Imagen inválida",
+      "DESCRIPTION": "Por favor, selecciona una imagen con una extensión válida como PNG, JPG, JPEG o WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Por favor, arrastra y suelta una imagen"
+    },
+    "NO_IMAGE_ERROR": {
+      "TITLE": "No se ha seleccionado imagen",
+      "DESCRIPTION": "Por favor, selecciona una imagen para aumentar"
+    },
+    "OPEN_DOCS_TITLE": "Abrir documentación",
+    "OPEN_DOCS_BUTTON_TITLE": "Solucionar problemas"
+  },
+  "UPSCAYL_CLOUD": {
+    "COMING_SOON": "¡Próximamente!",
+    "CATCHY_PHRASE_1": "¡No más errores, problemas de hardware, compromisos de calidad o largos tiempos de carga!",
+    "CATCHY_PHRASE_2": "🌐 Aumenta en cualquier lugar, en cualquier momento, en cualquier dispositivo\n☁️ No se requiere tarjeta gráfica ni hardware\n👩 Mejora de rostros\n🦋 Más de 10 modelos para elegir\n🏎 5 veces más rápido que Upscayl Desktop\n🎞 Aumento de videos\n💰 Uso comercial\n😴 Aumenta mientras duermes",
+    "ALREADY_REGISTERED_ALERT": "¡Gracias {name}! Parece que tu correo electrónico ya ha sido registrado :D Si no es así, por favor intenta de nuevo.",
+    "ADD_SUCCESS": "¡Gracias por unirte a la lista de espera! Te notificaremos cuando Upscayl Cloud esté listo para ti.",
+    "INCORRECT_FIELDS_ALERT": "Por favor, completa todos los campos correctamente.",
+    "JOIN_WAITLIST": "Únete a la lista de espera",
+    "DONT_SHOW_AGAIN": "NO MOSTRAR DE NUEVO"
+  }
+}

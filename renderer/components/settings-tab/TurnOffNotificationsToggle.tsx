@@ -11,10 +11,10 @@ const TurnOffNotificationsToggle = () => {
   return (
     <div className="flex flex-col gap-2">
       <p className="text-sm font-medium">
-        {t("APP.INFOS.TURN_OFF_NOTIFICATIONS.TITLE")}
+        {t("SETTINGS.TURN_OFF_NOTIFICATIONS.TITLE")}
       </p>
       <p className="text-xs text-base-content/80">
-        {t("APP.INFOS.TURN_OFF_NOTIFICATIONS.DESC")}
+        {t("SETTINGS.TURN_OFF_NOTIFICATIONS.DESCRIPTION")}
       </p>
       <input
         type="checkbox"

@@ -7,16 +7,16 @@ export function ResetSettings() {
   return (
     <div className="flex flex-col items-start gap-2">
       <p className="text-sm font-medium">
-        {t("APP.INFOS.RESET_SETTINGS.TITLE")}
+        {t("SETTINGS.RESET_SETTINGS.BUTTON_TITLE")}
       </p>
       <button
         className="btn btn-primary"
         onClick={async () => {
           localStorage.clear();
-          alert(t("APP.INFOS.RESET_SETTINGS.ON_RESET"));
+          alert(t("SETTINGS.RESET_SETTINGS.ALERT"));
         }}
       >
-        {t("APP.INFOS.RESET_SETTINGS.TITLE")}
+        {t("SETTINGS.RESET_SETTINGS.BUTTON_TITLE")}
       </button>
     </div>
   );

@@ -10,10 +10,10 @@ const OverwriteToggle = () => {
   return (
     <div className="flex flex-col gap-2">
       <p className="text-sm font-medium">
-        {t("APP.INFOS.OVERWRITE_TOGGLE.OW_PREV")}
+        {t("SETTINGS.OVERWRITE_TOGGLE.TITLE")}
       </p>
       <p className="text-xs text-base-content/80">
-        {t("APP.INFOS.OVERWRITE_TOGGLE.OW_TIP")}
+        {t("SETTINGS.OVERWRITE_TOGGLE.DESCRIPTION")}
       </p>
       <input
         type="checkbox"

@@ -198,17 +198,15 @@ function LeftPaneImageSteps({
         <p
           className="mr-1 inline-block cursor-help text-sm"
           data-tooltip-id="tooltip"
-          data-tooltip-content={t("APP.INFOS.LEFT_PANE_PROCESS.BATCH.TT_INFO")}
+          data-tooltip-content={t("APP.BATCH_MODE.DESCRIPTION")}
         >
-          {t("APP.INFOS.LEFT_PANE_PROCESS.BATCH.TITLE")}
+          {t("APP.BATCH_MODE.TITLE")}
         </p>
       </div>
 
       {/* STEP 1 */}
       <div className="animate-step-in">
-        <p className="step-heading">
-          {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_1.TITLE")}
-        </p>
+        <p className="step-heading">{t("APP.FILE_SELECTION.TITLE")}</p>
         <button
           className="btn btn-primary"
           onClick={!batchMode ? selectImageHandler : selectFolderHandler}
@@ -216,20 +214,16 @@ function LeftPaneImageSteps({
           data-tooltip-content={imagePath}
         >
           {batchMode
-            ? t("APP.INFOS.LEFT_PANE_PROCESS.STEP_1.BATCH_YES")
-            : t("APP.INFOS.LEFT_PANE_PROCESS.STEP_1.BATCH_NO")}
+            ? t("APP.FILE_SELECTION.BATCH_MODE_TYPE")
+            : t("APP.FILE_SELECTION.SINGLE_MODE_TYPE")}
         </button>
       </div>
 
       {/* STEP 2 */}
       <div className="animate-step-in group flex flex-col gap-4">
         <div>
-          <p className="step-heading">
-            {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_2.TITLE")}
-          </p>
-          <p className="mb-2 text-sm">
-            {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_2.SELECT_MODEL")}
-          </p>
+          <p className="step-heading">{t("APP.MODEL_SELECTION.TITLE")}</p>
+          <p className="mb-2 text-sm">{t("APP.MODEL_SELECTION.DESCRIPTION")}</p>
 
           <Select
             onMenuOpen={() => setOpen(true)}
@@ -272,14 +266,12 @@ function LeftPaneImageSteps({
                 setDoubleUpscayl(!doubleUpscayl);
               }}
             >
-              {t("APP.INFOS.LEFT_PANE_PROCESS.DOUBLE_UPSCAYL.TITLE")}
+              {t("APP.DOUBLE_UPSCAYL.TITLE")}
             </p>
             <button
               className="badge badge-neutral badge-sm cursor-help"
               data-tooltip-id="tooltip"
-              data-tooltip-content={t(
-                "APP.INFOS.LEFT_PANE_PROCESS.DOUBLE_UPSCAYL.TT_INFO",
-              )}
+              data-tooltip-content={t("APP.DOUBLE_UPSCAYL.DESCRIPTION")}
             >
               ?
             </button>
@@ -294,17 +286,13 @@ function LeftPaneImageSteps({
         <div className="flex flex-col pb-2">
           <div className="step-heading flex items-center gap-2">
             <span className="leading-none">
-              {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.TITLE")}
+              {t("APP.OUTPUT_PATH_SELECTION.TITLE")}
             </span>
             {featureFlags.APP_STORE_BUILD && (
               <button
                 className="badge badge-outline badge-sm cursor-pointer"
                 onClick={() =>
-                  alert(
-                    t(
-                      "APP.INFOS.LEFT_PANE_PROCESS.STEP_3.MACOS_RESTRICTION_ALERT",
-                    ),
-                  )
+                  alert(t("APP.OUTPUT_PATH_SELECTION.MAC_APP_STORE_ALERT"))
                 }
               >
                 ?
@@ -314,7 +302,7 @@ function LeftPaneImageSteps({
           {!outputPath && featureFlags.APP_STORE_BUILD && (
             <div className="text-xs">
               <span className="rounded-btn bg-base-200 px-2 font-medium uppercase text-base-content/50">
-                {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.NOT_SELECTED")}
+                {t("APP.OUTPUT_PATH_SELECTION.NOT_SELECTED")}
               </span>
             </div>
           )}
@@ -322,8 +310,8 @@ function LeftPaneImageSteps({
         {!batchMode && !featureFlags.APP_STORE_BUILD && (
           <p className="mb-2 text-sm">
             {!batchMode
-              ? t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.DEFAULT_IMG_PATH")
-              : t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.DEFAULT_FOLDER_PATH")}
+              ? t("APP.OUTPUT_PATH_SELECTION.DEFAULT_IMG_PATH")
+              : t("APP.OUTPUT_PATH_SELECTION.DEFAULT_FOLDER_PATH")}
           </p>
         )}
         <button
@@ -332,22 +320,20 @@ function LeftPaneImageSteps({
           data-tooltip-id="tooltip"
           onClick={outputHandler}
         >
-          {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_3.SET_OUTPUT_FOLDER")}
+          {t("APP.OUTPUT_PATH_SELECTION.BUTTON_TITLE")}
         </button>
       </div>
 
       {/* STEP 4 */}
       <div className="animate-step-in">
-        <p className="step-heading">
-          {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.TITLE")}
-        </p>
+        <p className="step-heading">{t("APP.SCALE_SELECTION.TITLE")}</p>
         {dimensions.width && dimensions.height && (
           <p className="mb-2 text-sm">
-            {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.UPSCAYL_FROM")}
+            {t("APP.SCALE_SELECTION.FROM_TITLE")}
             <span className="font-bold">
               {dimensions.width}x{dimensions.height}
             </span>
-            {t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.UPSCAYL_TO")}
+            {t("APP.SCALE_SELECTION.TO_TITLE")}
             <span className="font-bold">
               {getUpscaleResolution().width}x{getUpscaleResolution().height}
             </span>
@@ -360,15 +346,15 @@ function LeftPaneImageSteps({
               ? () =>
                   toast({
                     description: t(
-                      "APP.INFOS.LEFT_PANE_PROCESS.STEP_4.FOLDER_ALERT",
+                      "APP.SCALE_SELECTION.NO_OUTPUT_FOLDER_ALERT",
                     ),
                   })
               : upscaylHandler
           }
         >
           {progress.length > 0
-            ? t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.PROCESS_IN_PROGRESS")
-            : t("APP.INFOS.LEFT_PANE_PROCESS.STEP_4.PROCESS_START")}
+            ? t("APP.SCALE_SELECTION.IN_PROGRESS_BUTTON_TITLE")
+            : t("APP.SCALE_SELECTION.START_BUTTON_TITLE")}
         </button>
       </div>
 

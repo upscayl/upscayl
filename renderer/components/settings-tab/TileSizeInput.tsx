@@ -11,11 +11,11 @@ export function TileSizeInput() {
     <div>
       <div className="flex flex-col gap-1">
         <p className="text-sm font-medium">
-          {t("APP.INFOS.CUSTOM_TILE_SIZE.TITLE")}
+          {t("SETTINGS.CUSTOM_TILE_SIZE.TITLE")}
         </p>
         <p className="text-xs text-base-content/80">
           <br />
-          {t("APP.INFOS.CUSTOM_TILE_SIZE.DESC")}
+          {t("SETTINGS.CUSTOM_TILE_SIZE.DESCRIPTION")}
         </p>
       </div>
       <div className="mt-2 flex items-center gap-2">

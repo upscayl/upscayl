@@ -28,9 +28,9 @@ export function LogArea({
         <p className="text-sm font-medium">LOGS</p>
         <button className="btn btn-primary btn-xs" onClick={copyOnClickHandler}>
           {isCopied ? (
-            <span>{t("APP.INFOS.LOG_AREA.ON_COPY")}</span>
+            <span>{t("SETTINGS.LOG_AREA.ON_COPY")}</span>
           ) : (
-            <span>{t("APP.INFOS.LOG_AREA.COPY")}</span>
+            <span>{t("SETTINGS.LOG_AREA.BUTTON_TITLE")}</span>
           )}
         </button>
       </div>
@@ -40,7 +40,7 @@ export function LogArea({
       >
         {logData.length === 0 && (
           <p className="text-base-content/70">
-            {t("APP.INFOS.LOG_AREA.NO_LOGS")}
+            {t("SETTINGS.LOG_AREA.NO_LOGS")}
           </p>
         )}
 

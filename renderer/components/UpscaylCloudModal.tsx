@@ -43,16 +43,16 @@ export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
           </svg>
         </button>
         <p className="badge badge-neutral text-xs">
-          {t("APP.UPSCAYL_CLOUD.COMING_SOON")}
+          {t("UPSCAYL_CLOUD.COMING_SOON")}
         </p>
-        <p className="text-2xl font-semibold">{t("APP.INTRO")}</p>
+        <p className="text-2xl font-semibold">{t("INTRO")}</p>
         <p className="w-9/12 text-lg font-medium">
-          {t("APP.UPSCAYL_CLOUD.CATCHY_PHRASE_1")}
+          {t("UPSCAYL_CLOUD.CATCHY_PHRASE_1")}
         </p>
 
         <div className="flex flex-col gap-2 text-start">
           <pre style={{ fontFamily: "inherit" }} className="leading-8">
-            {t("APP.UPSCAYL_CLOUD.CATCHY_PHRASE_2")}
+            {t("UPSCAYL_CLOUD.CATCHY_PHRASE_2")}
           </pre>
         </div>
 
@@ -72,16 +72,16 @@ export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
                   email,
                 });
               } catch (error) {
-                alert(t("APP.UPSCAYL_CLOUD.ALREADY_REGISTERED", { name }));
+                alert(t("UPSCAYL_CLOUD.ALREADY_REGISTERED_ALERT", { name }));
                 return;
               }
               setName("");
               setEmail("");
               setDontShowCloudModal(true);
               setShow(false);
-              alert(t("APP.UPSCAYL_CLOUD.ADD_SUCCESS"));
+              alert(t("UPSCAYL_CLOUD.ADD_SUCCESS"));
             } else {
-              alert(t("APP.UPSCAYL_CLOUD.INCORRECT_FIELDS"));
+              alert(t("UPSCAYL_CLOUD.INCORRECT_FIELDS_ALERT"));
             }
           }}
         >
@@ -105,7 +105,7 @@ export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
             type="submit"
             className="rounded-2xl bg-success px-4 py-2 text-success-content"
           >
-            {t("APP.UPSCAYL_CLOUD.JOIN_WAITLIST")}
+            {t("UPSCAYL_CLOUD.JOIN_WAITLIST")}
           </button>
 
           <button
@@ -116,14 +116,14 @@ export const UpscaylCloudModal = ({ show, setShow, setDontShowCloudModal }) => {
             }}
             type="button"
           >
-            {t("APP.UPSCAYL_CLOUD.DONT_SHOW_AGAIN")}
+            {t("UPSCAYL_CLOUD.DONT_SHOW_AGAIN")}
           </button>
         </form>
       </div>
 
       <form method="dialog" className="modal-backdrop">
         <button onClick={() => setShow(false)}>
-          {t("APP.INFOS.DIALOG_BOX.CLOSE")}
+          {t("APP.DIALOG_BOX.CLOSE")}
         </button>
       </form>
     </dialog>

@@ -58,7 +58,7 @@ export const NewsModal = ({
 
       <form method="dialog" className="modal-backdrop">
         <button onClick={() => setShow(false)}>
-          {t("APP.INFOS.DIALOG_BOX.CLOSE")}
+          {t("APP.DIALOG_BOX.CLOSE")}
         </button>
       </form>
     </dialog>

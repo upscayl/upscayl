@@ -22,9 +22,9 @@ export function ImageScaleSelect({
         {hideInfo ? (
           <>
             <p className="text-sm">
-              {t("APP.INFOS.IMAGE_SCALE.TITLE")}{" "}
+              {t("SETTINGS.IMAGE_SCALE.TITLE")}{" "}
               <span className="text-xs">
-                {t("APP.INFOS.IMAGE_SCALE.SCALES_TIMES", {
+                {t("SETTINGS.IMAGE_SCALE.IMAGE_SCALED_BY", {
                   scale,
                 })}
               </span>
@@ -33,9 +33,7 @@ export function ImageScaleSelect({
               <p
                 className="badge badge-warning text-xs font-bold"
                 data-tooltip-id="tooltip"
-                data-tooltip-content={t(
-                  "APP.ERRORS.IMAGE_SCALE_WARN.PERF_ISSUE",
-                )}
+                data-tooltip-content={t("SETTINGS.IMAGE_SCALE.WARNING")}
               >
                 !
               </p>
@@ -43,8 +41,8 @@ export function ImageScaleSelect({
           </>
         ) : (
           <p className="text-sm font-medium">
-            {t("APP.INFOS.IMAGE_SCALE.TITLE_CAPS")}{" "}
-            {t("APP.INFOS.IMAGE_SCALE.SCALES_TIMES", {
+            {t("SETTINGS.IMAGE_SCALE.TITLE")}{" "}
+            {t("SETTINGS.IMAGE_SCALE.IMAGE_SCALED_BY", {
               scale,
             })}{" "}
             {useCustomWidth && "DISABLED"}
@@ -53,12 +51,12 @@ export function ImageScaleSelect({
       </div>
       {!hideInfo && (
         <p className="text-xs text-base-content/80">
-          {t("APP.INFOS.IMAGE_SCALE.AI_UPSCALE_RESIZE_INFO")}
+          {t("SETTINGS.IMAGE_SCALE.DESCRIPTION")}
         </p>
       )}
       {!hideInfo && parseInt(scale) >= 6 && (
         <p className="text-xs text-base-content/80 text-red-500">
-          {t("APP.ERRORS.IMAGE_SCALE_WARN.PERF_ISSUE_DEVICE")}
+          {t("SETTINGS.IMAGE_SCALE.ADDITIONAL_WARNING")}
         </p>
       )}
 

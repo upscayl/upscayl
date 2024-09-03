@@ -1,217 +1,210 @@
 {
+  "TITLE": "Upscayl",
+  "INTRO": "Upscayl Cloudを紹介します！",
+  "HEADER": {
+    "GITHUB_BUTTON_TITLE": "GitHubでスターをつけてください 😁",
+    "DESCRIPTION": "AI画像アップスケーラー"
+  },
+  "FOOTER": {
+    "NEWS_TITLE": "UPSCAYLニュース",
+    "COPYRIGHT": "著作権 ©",
+    "TITLE": "作成者: ",
+    "LINK_TITLE": "Upscaylチーム"
+  },
+  "SETTINGS": {
+    "TITLE": "設定",
+    "CHANGE_LANGUAGE": { "TITLE": "言語を変更する" },
+    "IMAGE_COMPRESSION": {
+      "TITLE": "画像圧縮",
+      "DESCRIPTION": "PNG圧縮は非可逆的であるため、ファイルサイズが大幅に削減されることはなく、高い圧縮値はパフォーマンスに影響を与える可能性があります。JPGおよびWebP圧縮は可逆的です。"
+    },
+    "CUSTOM_MODELS": {
+      "TITLE": "カスタムモデルを追加",
+      "BUTTON_FOLDER": "フォルダを選択",
+      "DESCRIPTION": "簡単に独自のモデルを追加できます。詳細については：",
+      "LINK_TITLE": "カスタムモデルリポジトリ"
+    },
+    "CUSTOM_INPUT_RESOLUTION": {
+      "TITLE": "カスタム出力幅",
+      "RESTART": "再起動が必要",
+      "DESCRIPTION": "出力画像のカスタム幅を使用します。高さは自動的に調整されます。これを有効にすると、スケール設定が上書きされます。"
+    },
+    "DONATE": {
+      "DESCRIPTION": "私たちの活動が気に入ったら :)",
+      "BUTTON_TITLE": "💎 寄付する"
+    },
+    "GPU_ID_INPUT": {
+      "TITLE": "GPU ID",
+      "DESCRIPTION": "詳細については、Upscaylのドキュメントをお読みください。",
+      "ADDITIONAL_DESCRIPTION": "Windowsでパフォーマンスモードを有効にして、より良い結果を得ることができます。"
+    },
+    "IMAGE_FORMAT": {
+      "TITLE": "画像を保存する形式",
+      "PNG": "PNG",
+      "JPG": "JPG",
+      "WEBP": "WEBP"
+    },
+    "IMAGE_SCALE": {
+      "TITLE": "画像スケール",
+      "IMAGE_SCALED_BY": "画像スケール ({scale}X)",
+      "DESCRIPTION": "4X以上のスケール（16X Double Upscaylを除く）は、画像をリサイズするだけで、AIアップスケーリングは行われません。",
+      "WARNING": "5X以上は一部のデバイスでパフォーマンスに問題を引き起こす可能性があります！",
+      "ADDITIONAL_WARNING": "これにより、一部のデバイスでパフォーマンスに問題が発生する可能性があります！"
+    },
+    "LOG_AREA": {
+      "ON_COPY": "コピーされました ✅",
+      "BUTTON_TITLE": "ログをコピー 📋",
+      "NO_LOGS": "表示するログがありません"
+    },
+    "OVERWRITE_TOGGLE": {
+      "TITLE": "以前のアップスケールを上書き",
+      "DESCRIPTION": "有効にすると、Upscaylは画像を再処理し、直接ロードするのではなく再度処理します。"
+    },
+    "RESET_SETTINGS": {
+      "BUTTON_TITLE": "Upscaylをリセット",
+      "ALERT": "Upscaylがリセットされました。アプリを再起動してください。"
+    },
+    "SAVE_OUTPUT_FOLDER": {
+      "TITLE": "出力フォルダを保存",
+      "DESCRIPTION": "有効にすると、セッション間で出力フォルダが記憶されます。"
+    },
+    "THEME": {
+      "TITLE": "UPSCAYLテーマ"
+    },
+    "LANGUAGE": {
+      "TITLE": "UPSCAYLの言語"
+    },
+    "CUSTOM_TILE_SIZE": {
+      "TITLE": "カスタムタイルサイズ",
+      "DESCRIPTION": "画像をセグメント化するためにカスタムタイルサイズを使用します。これにより、生成されるタイルの数を減らして画像をより速く処理できます。"
+    },
+    "TURN_OFF_NOTIFICATIONS": {
+      "TITLE": "通知をオフにする",
+      "DESCRIPTION": "有効にすると、Upscaylは成功または失敗時にシステム通知を送信しなくなります。"
+    },
+    "SUPPORT": {
+      "TITLE": "問題がありますか？",
+      "DOCS_BUTTON_TITLE": "🙏 サポートを受ける",
+      "EMAIL_BUTTON_TITLE": "📧 開発者にメール"
+    }
+  },
   "APP": {
     "TITLE": "Upscayl",
-    "INTRO": "Upscayl Cloudの紹介！",
-    "HEADER": {
-      "GITHUB_STAR_TT_INFO": "GitHubでスターをつけてください 😁",
-      "APP_INFO": "AI画像アップスケーラー"
+    "BATCH_MODE": {
+      "TITLE": "バッチUpscayl",
+      "DESCRIPTION": "これにより、フォルダ内のすべてのファイルを一度にUpscaylできます"
     },
-    "FOOTER": {
-      "NEWS_TITLE": "UPSCAYLニュース",
-      "COPYRIGHT": "著作権 ©",
-      "BY": "作成者 ",
-      "APP_TEAM": "Upscaylチーム"
+    "FILE_SELECTION": {
+      "TITLE": "ステップ 1",
+      "BATCH_MODE_TYPE": "フォルダを選択",
+      "SINGLE_MODE_TYPE": "画像を選択"
     },
-    "SETTINGS": {
-      "TITLE": "設定",
-      "CHANGE_LANG": "言語を変更"
+    "MODEL_SELECTION": {
+      "TITLE": "ステップ 2",
+      "DESCRIPTION": "モデルを選択"
     },
-    "INFOS": {
-      "IMAGE_PROCESSING": {
-        "START": "画像を処理中...",
-        "SCALE_CONVERT": "画像をスケールして変換中...",
-        "WAIT": "少々お待ちください...",
-        "SUCCESS": "Upscaylに成功しました！",
-        "BATCH": {
-          "SELECT": "選択されたフォルダ:",
-          "DONE": "すべて完了！",
-          "OPEN_DONE_FOLDER": "Upscayledフォルダを開く"
-        }
-      },
-      "COMPARISION": {
-        "SLIDER_ORIGINAL": "オリジナル",
-        "SLIDER_PROCESSED": "Upscayled"
-      },
-      "IMAGE_COMPRESSION": {
-        "TITLE": "画像圧縮 ({compression}%)",
-        "LOSSLESS_TIP": "PNG圧縮は無損失のため、ファイルサイズが大幅に減らない可能性があります。圧縮率を高くするとパフォーマンスに影響が出る場合があります。JPGとWebPの圧縮は有損です。"
-      },
-      "CUSTOM_MODELS": {
-        "ADD": "カスタムモデルを追加",
-        "SELECT_FOLDER": "フォルダを選択",
-        "INFO": "簡単に独自のモデルを追加できます。詳細については:",
-        "LINK_TEXT": "カスタムモデルリポジトリ"
-      },
-      "CUSTOM_INPUT_RESOLUTION": {
-        "WIDTH": "カスタム出力幅",
-        "RESTART": "再起動が必要",
-        "CUSTOM_WIDTH_TIP": "出力画像のカスタム幅を使用します。高さは自動的に調整されます。これを有効にすると、スケール設定が無効になります。"
-      },
-      "DONATE": {
-        "IF_LIKED": "気に入っていただけたら :)",
-        "DONATE": "💎 寄付する"
-      },
-      "GPU_ID_INPUT": {
-        "ID": "GPU ID",
-        "READ_DOCS": "詳細については、Upscaylのドキュメントをお読みください。",
-        "ENABLE_PERF_MODE": "Windowsでパフォーマンスモードを有効にして、より良い結果を得る。"
-      },
-      "IMAGE_FORMAT": {
-        "SAVE_AS": "画像を保存",
-        "PNG": "PNG",
-        "JPG": "JPG",
-        "WEBP": "WEBP"
-      },
-      "IMAGE_SCALE": {
-        "TITLE": "画像スケール",
-        "TITLE_CAPS": "画像スケール",
-        "SCALES_TIMES": "({scale}倍)",
-        "AI_UPSCALE_RESIZE_INFO": "4倍以上（16倍のDouble Upscaylを除く）は、画像のサイズ変更のみで、AIアップスケールは行われません。"
-      },
-      "LOG_AREA": {
-        "ON_COPY": "コピーされました ✅",
-        "COPY": "ログをコピー 📋",
-        "NO_LOGS": "表示するログがありません"
-      },
-      "OVERWRITE_TOGGLE": {
-        "OW_PREV": "以前のアップスケールを上書き",
-        "OW_TIP": "有効にすると、Upscaylは画像を再処理し、直接読み込むのではなく処理します。"
-      },
-      "RESET_SETTINGS": {
-        "TITLE": "UPSCAYLをリセット",
-        "ON_RESET": "Upscaylがリセットされました。アプリを再起動してください。"
-      },
-      "SAVE_OUTPUT_FOLDER": {
-        "TITLE": "出力フォルダを保存",
-        "DESC": "有効にすると、セッション間で出力フォルダが記憶されます。"
-      },
-      "THEME": {
-        "TITLE": "UPSCAYL テーマ"
-      },
-      "LANGUAGE": {
-        "TITLE": "UPSCAYL 言語"
-      },
-      "CUSTOM_TILE_SIZE": {
-        "TITLE": "カスタムタイルサイズ",
-        "DESC": "画像を分割するためのカスタムタイルサイズを使用します。これにより、生成されるタイルの数を減らすことで、画像処理を高速化できます。"
-      },
-      "TURN_OFF_NOTIFICATIONS": {
-        "TITLE": "通知をオフにする",
-        "DESC": "有効にすると、Upscaylは成功や失敗時のシステム通知を送信しません。"
-      },
-      "DIALOG_BOX": {
-        "CLOSE": "閉じる"
-      },
-      "LEFT_PANE_PROCESS": {
-        "BATCH": {
-          "TITLE": "バッチUpscayl",
-          "TT_INFO": "これにより、フォルダ内のすべてのファイルを一度にUpscaylできます"
-        },
-        "STEP_1": {
-          "TITLE": "ステップ1",
-          "BATCH_YES": "フォルダを選択",
-          "BATCH_NO": "画像を選択"
-        },
-        "STEP_2": {
-          "TITLE": "ステップ2",
-          "SELECT_MODEL": "モデルを選択"
-        },
-        "DOUBLE_UPSCAYL": {
-          "TITLE": "Double Upscayl",
-          "TT_INFO": "このオプションを有効にすると、画像に対して2回Upscaylを実行します。4倍以上のスケールでは、処理時間が大幅に増加し、パフォーマンス問題が発生する可能性があります。"
-        },
-        "STEP_3": {
-          "TITLE": "ステップ3",
-          "MACOS_RESTRICTION_ALERT": "MacOS App Storeのセキュリティ制限のため、Upscaylを起動するたびに出力フォルダを選択する必要があります。\n\nこれを避けるために、Upscaylの「設定」タブでデフォルトの出力フォルダを永続的に保存できます。",
-          "NOT_SELECTED": "未選択",
-          "DEFAULT_IMG_PATH": "画像のパスにデフォルト設定",
-          "DEFAULT_FOLDER_PATH": "フォルダのパスにデフォルト設定",
-          "SET_OUTPUT_FOLDER": "出力フォルダを設定"
-        },
-        "STEP_4": {
-          "TITLE": "ステップ4",
-          "UPSCAYL_FROM": "Upscaylから ",
-          "UPSCAYL_TO": " まで",
-          "FOLDER_ALERT": "まず出力フォルダを選択してください",
-          "PROCESS_START": "Upscayl",
-          "PROCESS_IN_PROGRESS": "Upscayling⏳"
-        }
-      },
-      "IMAGE_OPTIONS": {
-        "RESET": "画像をリセット",
-        "LENS_VIEW": "レンズビュー",
-        "SLIDER_VIEW": "スライダービュー",
-        "ZOOM_AMOUNT": "ズーム量",
-        "LENS_SIZE": "レンズサイズ"
-      },
-      "PROGRESS_BAR": {
-        "IN_PROGRESS": "バッチUpscayl進行中:",
-        "PROGRESS_CATCHY": "Upscaylの魔法を実行中...",
-        "STOP": "停止"
-      },
-      "RESET": "リセット",
-      "RIGHT_PANE_INFO": {
-        "SELECT_FOLDER": "Upscaylするフォルダを選択",
-        "SELECT_IMAGE": "Upscaylする画像を選択",
-        "NOTE_SPECIFIC_FORMATS_IN_FOLDER": "フォルダにはPNG、JPG、JPEG、およびWEBP画像以外を含めないでください。",
-        "SELECT_IMAGES": "PNG、JPG、JPEGまたはWEBP画像を選択するか、ドラッグ＆ドロップしてください。",
-        "APP_VERSION": "Upscayl v{version}"
+    "DOUBLE_UPSCAYL": {
+      "TITLE": "Double Upscayl",
+      "DESCRIPTION": "このオプションを有効にすると、画像に対して2回Upscaylを実行します。4X以上のスケールでは、処理時間が大幅に増加し、パフォーマンスに問題が発生する可能性があることに注意してください。"
+    },
+    "OUTPUT_PATH_SELECTION": {
+      "TITLE": "ステップ 3",
+      "MAC_APP_STORE_ALERT": "MacOS App Storeのセキュリティ制限のため、Upscaylを開始するたびに出力フォルダを選択する必要があります。\n\nこれを回避するには、Upscaylの「設定」タブでデフォルトの出力フォルダを永久に保存できます。",
+      "NOT_SELECTED": "未選択",
+      "DEFAULT_IMG_PATH": "画像のパスがデフォルトになります",
+      "DEFAULT_FOLDER_PATH": "フォルダのパスがデフォルトになります",
+      "BUTTON_TITLE": "出力フォルダを設定"
+    },
+    "SCALE_SELECTION": {
+      "TITLE": "ステップ 4",
+      "FROM_TITLE": "Upscayl元 ",
+      "TO_TITLE": " から ",
+      "NO_OUTPUT_FOLDER_ALERT": "まず出力フォルダを選択してください",
+      "START_BUTTON_TITLE": "Upscayl",
+      "IN_PROGRESS_BUTTON_TITLE": "Upscayl中⏳"
+    },
+    "IMAGE_OPTIONS": {
+      "RESET_BUTTON_TITLE": "画像をリセット",
+      "LENS_VIEW_TITLE": "レンズビュー",
+      "SLIDER_VIEW_TITLE": "スライダービュー",
+      "ZOOM_AMOUNT_TITLE": "ズーム量",
+      "LENS_SIZE_TITLE": "レンズサイズ"
+    },
+    "PROGRESS_BAR": {
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "バッチUpscayl進行中：",
+      "IN_PROGRESS_TITLE": "Upscaylの魔法をかけています...",
+      "STOP_BUTTON_TITLE": "停止"
+    },
+    "RESET_BUTTON_TITLE": "リセット",
+    "RIGHT_PANE_INFO": {
+      "SELECT_FOLDER": "Upscaylするフォルダを選択",
+      "SELECT_IMAGE": "Upscaylする画像を選択",
+      "SELECT_FOLDER_DESCRIPTION": "フォルダにはPNG、JPG、JPEG、WEBPの画像以外のものが含まれていないことを確認してください。",
+      "SELECT_IMAGES_DESCRIPTION": "PNG、JPG、JPEG、またはWEBP画像を選択するか、ドラッグアンドドロップしてください。"
+    },
+    "PROGRESS": {
+      "PROCESSING_TITLE": "画像を処理中...",
+      "SCALING_CONVERTING_TITLE": "画像をスケールおよび変換中...",
+      "WAIT_TITLE": "少々お待ちください...",
+      "SUCCESS_TITLE": "Upscaylが成功しました！",
+      "BATCH": {
+        "SELECTED_FOLDER_TITLE": "選択されたフォルダ：",
+        "DONE_TITLE": "すべて完了しました！",
+        "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscaylされたフォルダを開く"
       }
     },
-    "ERRORS": {
-      "GPU_ERROR": {
-        "TITLE": "GPUエラー",
-        "DESC": "GPUに問題が発生しました。トラブルシューティングについてはドキュメントをお読みください！ ({data})"
-      },
-      "COPY_ERROR": {
-        "TITLE": "コピーエラー",
-        "DESC": ""
-      },
-      "OPEN_DOCS": "ドキュメントを開く",
-      "TROUBLESHOOT": "トラブルシューティング",
-      "READ_WRITE_ERROR": {
-        "TITLE": "読み書きエラー",
-        "DESC": "パスが正しく、適切な読み書き権限があることを確認してください \n({data})"
-      },
-      "TILE_SIZE_ERROR": {
-        "TITLE": "エラー",
-        "DESC": "タイルサイズが間違っています。設定でタイルサイズを変更するか、0に設定してください ({data})"
-      },
-      "EXCEPTION_ERROR": {
-        "TITLE": "例外エラー",
-        "DESC": "Upscaylでエラーが発生しました。おそらく、Upscaylバイナリがコマンドを正しく実行できなかった可能性があります。ログを確認して情報を得てください。さらに支援が必要な場合は、UpscaylのGitHubリポジトリに問題を投稿できます。"
-      },
-      "GENERIC_ERROR": {
-        "TITLE": "エラー"
-      },
-      "INVALID_IMAGE_ERROR": {
-        "TITLE": "無効な画像",
-        "DESC": "PNG、JPG、JPEG、またはWEBPの有効な拡張子を持つ画像を選択してください。",
-        "DRAG_DESC": "画像をドラッグ＆ドロップしてください"
-      },
-      "NO_IMAGE_ERROR": {
-        "TITLE": "画像が選択されていません",
-        "DESC": "アップスケールする画像を選択してください"
-      },
-      "IMAGE_SCALE_WARN": {
-        "PERF_ISSUE": "5倍以上は一部のデバイスでパフォーマンス問題を引き起こす可能性があります！",
-        "PERF_ISSUE_DEVICE": "一部のデバイスでパフォーマンス問題が発生する可能性があります！"
-      },
-      "ISSUE_CHECK": {
-        "TITLE": "問題がありますか？",
-        "GET_HELP": "🙏 助けを得る",
-        "EMAIL_DEV": "📧 開発者にメール"
-      }
+    "SLIDER": {
+      "ORIGINAL_TITLE": "オリジナル",
+      "UPSCAYLED_TITLE": "Upscayl後"
     },
-    "UPSCAYL_CLOUD": {
-      "COMING_SOON": "近日公開！",
-      "CATCHY_PHRASE_1": "エラー、ハードウェアの問題、品質の妥協、長い読み込み時間はもうありません！",
-      "CATCHY_PHRASE_2": "🌐 どこでも、いつでも、どんなデバイスでもUpscayl\n☁️ グラフィックカードやハードウェア不要\n👩 顔の強化\n🦋 10以上のモデルから選択可能\n🏎 Upscaylデスクトップより5倍速い\n🎞 ビデオアップスケーリング\n💰 商用利用可\n😴 眠っている間にUpscayl",
-      "ALREADY_REGISTERED": "ありがとう{name}！あなたのメールはすでに登録されているようです :D もしそうでない場合は、もう一度お試しください。",
-      "ADD_SUCCESS": "待機リストへのご参加ありがとうございます！Upscayl Cloudが準備でき次第ご連絡いたします。",
-      "INCORRECT_FIELDS": "すべてのフィールドに正しく記入してください。",
-      "JOIN_WAITLIST": "待機リストに参加する",
-      "DONT_SHOW_AGAIN": "再び表示しない"
+    "DIALOG_BOX": {
+      "CLOSE": "閉じる"
     }
+  },
+  "ERRORS": {
+    "GPU_ERROR": {
+      "TITLE": "GPUエラー",
+      "DESCRIPTION": "GPUに問題が発生しました。トラブルシューティングのためにドキュメントを参照してください！ ({data})"
+    },
+    "COPY_ERROR": {
+      "TITLE": "コピーエラー",
+      "DESCRIPTION": ""
+    },
+    "READ_WRITE_ERROR": {
+      "TITLE": "読み取り/書き込みエラー",
+      "DESCRIPTION": "パスが正しいことを確認し、適切な読み取り/書き込み権限を持っていることを確認してください \n({data})"
+    },
+    "TILE_SIZE_ERROR": {
+      "TITLE": "エラー",
+      "DESCRIPTION": "タイルサイズが正しくありません。設定でタイルサイズを変更するか、0に設定してください ({data})"
+    },
+    "EXCEPTION_ERROR": {
+      "TITLE": "例外エラー",
+      "DESCRIPTION": "Upscaylでエラーが発生しました。おそらく、Upscaylのバイナリがコマンドを適切に実行できなかった可能性があります。ログを確認して情報を取得してみてください。さらに支援が必要な場合は、UpscaylのGitHubリポジトリに問題を投稿することができます。"
+    },
+    "GENERIC_ERROR": {
+      "TITLE": "エラー"
+    },
+    "INVALID_IMAGE_ERROR": {
+      "TITLE": "無効な画像",
+      "DESCRIPTION": "PNG、JPG、JPEG、またはWEBPなどの有効な拡張子を持つ画像を選択してください。",
+      "ADDITIONAL_DESCRIPTION": "画像をドラッグアンドドロップしてください"
+    },
+    "NO_IMAGE_ERROR": {
+      "TITLE": "画像が選択されていません",
+      "DESCRIPTION": "アップスケールする画像を選択してください"
+    },
+    "OPEN_DOCS_TITLE": "ドキュメントを開く",
+    "OPEN_DOCS_BUTTON_TITLE": "トラブルシューティング"
+  },
+  "UPSCAYL_CLOUD": {
+    "COMING_SOON": "近日公開！",
+    "CATCHY_PHRASE_1": "もうエラー、ハードウェアの問題、品質の妥協や長い読み込み時間はありません！",
+    "CATCHY_PHRASE_2": "🌐 いつでもどこでも、どのデバイスでもUpscayl\n☁️ グラフィックカードやハードウェアは不要\n👩 顔の改善\n🦋 10以上のモデルから選べます\n🏎 Upscaylデスクトップの5倍の速さ\n🎞 ビデオアップスケーリング\n💰 商用利用\n😴 寝ている間にUpscayl",
+    "ALREADY_REGISTERED_ALERT": "ありがとう {name}！あなたのメールはすでに登録されているようです :D そうでない場合は、もう一度お試しください。",
+    "ADD_SUCCESS": "待機リストにご参加いただきありがとうございます！Upscayl Cloudが準備でき次第お知らせします。",
+    "INCORRECT_FIELDS_ALERT": "すべてのフィールドに正しく入力してください。",
+    "JOIN_WAITLIST": "待機リストに参加",
+    "DONT_SHOW_AGAIN": "再表示しない"
   }
 }

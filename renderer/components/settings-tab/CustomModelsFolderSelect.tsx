@@ -16,15 +16,15 @@ export function CustomModelsFolderSelect({
 
   return (
     <div className="flex flex-col items-start gap-2">
-      <p className="text-sm font-medium">{t("APP.INFOS.CUSTOM_MODELS.ADD")}</p>
+      <p className="text-sm font-medium">{t("SETTINGS.CUSTOM_MODELS.TITLE")}</p>
       <p className="text-xs text-base-content/80">
-        {t("APP.INFOS.CUSTOM_MODELS.INFO")}
+        {t("SETTINGS.CUSTOM_MODELS.DESCRIPTION")}
         <a
           href="https://github.com/upscayl/custom-models/blob/main/README.md"
           className="link underline"
           target="_blank"
         >
-          {t("APP.INFOS.CUSTOM_MODELS.LINK_TEXT")}
+          {t("SETTINGS.CUSTOM_MODELS.LINK_TITLE")}
         </a>
       </p>
       <p className="text-sm text-base-content/60">{customModelsPath}</p>
@@ -43,7 +43,7 @@ export function CustomModelsFolderSelect({
           }
         }}
       >
-        {t("APP.INFOS.CUSTOM_MODELS.SELECT_FOLDER")}
+        {t("SETTINGS.CUSTOM_MODELS.BUTTON_FOLDER")}
       </button>
     </div>
   );
