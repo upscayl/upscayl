@@ -1,0 +1,210 @@
+{
+  "TITLE": "Upscayl",
+  "INTRO": "Présentation de Upscayl Cloud !",
+  "HEADER": {
+    "GITHUB_BUTTON_TITLE": "Étoilez-nous sur GitHub 😁",
+    "DESCRIPTION": "Suréchantillonneur d'images AI"
+  },
+  "FOOTER": {
+    "NEWS_TITLE": "NOUVELLES UPSCAYL",
+    "COPYRIGHT": "Droits d'auteur ©",
+    "TITLE": "Par ",
+    "LINK_TITLE": "L'équipe Upscayl"
+  },
+  "SETTINGS": {
+    "TITLE": "PARAMÈTRES",
+    "CHANGE_LANGUAGE": { "TITLE": "Changer de langue" },
+    "IMAGE_COMPRESSION": {
+      "TITLE": "Compression d'image",
+      "DESCRIPTION": "La compression PNG est sans perte, donc elle pourrait ne pas réduire la taille du fichier de manière significative et des valeurs de compression plus élevées pourraient affecter les performances. La compression JPG et WebP est avec perte."
+    },
+    "CUSTOM_MODELS": {
+      "TITLE": "AJOUTER DES MODÈLES PERSONNALISÉS",
+      "BUTTON_FOLDER": "Sélectionner un dossier",
+      "DESCRIPTION": "Vous pouvez ajouter vos propres modèles facilement. Pour plus de détails :",
+      "LINK_TITLE": "Répertoire des modèles personnalisés"
+    },
+    "CUSTOM_INPUT_RESOLUTION": {
+      "TITLE": "LARGEUR DE SORTIE PERSONNALISÉE",
+      "RESTART": "NÉCESSITE UN REDÉMARRAGE",
+      "DESCRIPTION": "Utilisez une largeur personnalisée pour les images de sortie. La hauteur sera ajustée automatiquement. Activer cela remplacera le paramètre d'échelle."
+    },
+    "DONATE": {
+      "DESCRIPTION": "Si vous aimez ce que nous faisons :)",
+      "BUTTON_TITLE": "💎 FAIRE UN DON"
+    },
+    "GPU_ID_INPUT": {
+      "TITLE": "ID GPU",
+      "DESCRIPTION": "Veuillez lire la documentation Upscayl pour plus d'informations.",
+      "ADDITIONAL_DESCRIPTION": "Activez le mode performance sur Windows pour de meilleurs résultats."
+    },
+    "IMAGE_FORMAT": {
+      "TITLE": "ENREGISTRER L'IMAGE SOUS",
+      "PNG": "PNG",
+      "JPG": "JPG",
+      "WEBP": "WEBP"
+    },
+    "IMAGE_SCALE": {
+      "TITLE": "Échelle de l'image",
+      "IMAGE_SCALED_BY": "ÉCHELLE DE L'IMAGE ({scale}X)",
+      "DESCRIPTION": "Tout ce qui dépasse 4X (sauf 16X Double Upscayl) ne fait que redimensionner l'image et n'utilise pas le suréchantillonnage AI.",
+      "WARNING": "Tout ce qui dépasse 5X peut causer des problèmes de performance sur certains appareils !",
+      "ADDITIONAL_WARNING": "Cela peut causer des problèmes de performance sur certains appareils !"
+    },
+    "LOG_AREA": {
+      "ON_COPY": "COPIÉ ✅",
+      "BUTTON_TITLE": "COPIER LES JOURNAUX 📋",
+      "NO_LOGS": "Aucun journal à afficher"
+    },
+    "OVERWRITE_TOGGLE": {
+      "TITLE": "ÉCRASER LE SURÉCHANTILLONNAGE PRÉCÉDENT",
+      "DESCRIPTION": "Si activé, Upscayl traitera à nouveau l'image au lieu de la charger directement."
+    },
+    "RESET_SETTINGS": {
+      "BUTTON_TITLE": "RÉINITIALISER UPSCAYL",
+      "ALERT": "Upscayl a été réinitialisé. Veuillez redémarrer l'application."
+    },
+    "SAVE_OUTPUT_FOLDER": {
+      "TITLE": "ENREGISTRER LE DOSSIER DE SORTIE",
+      "DESCRIPTION": "Si activé, le dossier de sortie sera mémorisé entre les sessions."
+    },
+    "THEME": {
+      "TITLE": "THÈME UPSCAYL"
+    },
+    "LANGUAGE": {
+      "TITLE": "LANGUE UPSCAYL"
+    },
+    "CUSTOM_TILE_SIZE": {
+      "TITLE": "TAILLE DE TUILE PERSONNALISÉE",
+      "DESCRIPTION": "Utilisez une taille de tuile personnalisée pour segmenter l'image. Cela peut aider à traiter les images plus rapidement en réduisant le nombre de tuiles générées."
+    },
+    "TURN_OFF_NOTIFICATIONS": {
+      "TITLE": "DÉSACTIVER LES NOTIFICATIONS",
+      "DESCRIPTION": "Si activé, Upscayl n'enverra aucune notification système en cas de succès ou d'échec."
+    },
+    "SUPPORT": {
+      "TITLE": "Vous avez des problèmes ?",
+      "DOCS_BUTTON_TITLE": "🙏 OBTENIR DE L'AIDE",
+      "EMAIL_BUTTON_TITLE": "📧 EMAIL AU DÉVELOPPEUR"
+    }
+  },
+  "APP": {
+    "TITLE": "Upscayl",
+    "BATCH_MODE": {
+      "TITLE": "Suréchantillonnage par lot",
+      "DESCRIPTION": "Cela vous permettra de suréchantillonner tous les fichiers d'un dossier en une seule fois"
+    },
+    "FILE_SELECTION": {
+      "TITLE": "Étape 1",
+      "BATCH_MODE_TYPE": "Sélectionner un dossier",
+      "SINGLE_MODE_TYPE": "Sélectionner une image"
+    },
+    "MODEL_SELECTION": {
+      "TITLE": "Étape 2",
+      "DESCRIPTION": "Sélectionner un modèle"
+    },
+    "DOUBLE_UPSCAYL": {
+      "TITLE": "Double Upscayl",
+      "DESCRIPTION": "Activez cette option pour exécuter le suréchantillonnage deux fois sur une image. Notez que cela peut entraîner une augmentation significative du temps de traitement et éventuellement des problèmes de performance pour des échelles supérieures à 4X."
+    },
+    "OUTPUT_PATH_SELECTION": {
+      "TITLE": "Étape 3",
+      "MAC_APP_STORE_ALERT": "En raison des restrictions de sécurité de l'App Store MacOS, Upscayl vous demande de sélectionner un dossier de sortie à chaque démarrage.\n\nPour éviter cela, vous pouvez enregistrer de manière permanente un dossier de sortie par défaut dans l'onglet 'Paramètres' d'Upscayl.",
+      "NOT_SELECTED": "Non sélectionné",
+      "DEFAULT_IMG_PATH": "Par défaut au chemin de l'image",
+      "DEFAULT_FOLDER_PATH": "Par défaut au chemin du dossier",
+      "BUTTON_TITLE": "Définir le dossier de sortie"
+    },
+    "SCALE_SELECTION": {
+      "TITLE": "Étape 4",
+      "FROM_TITLE": "Suréchantillonner de ",
+      "TO_TITLE": " à ",
+      "NO_OUTPUT_FOLDER_ALERT": "Veuillez d'abord sélectionner un dossier de sortie",
+      "START_BUTTON_TITLE": "Suréchantillonner",
+      "IN_PROGRESS_BUTTON_TITLE": "Suréchantillonnage⏳"
+    },
+    "IMAGE_OPTIONS": {
+      "RESET_BUTTON_TITLE": "Réinitialiser l'image",
+      "LENS_VIEW_TITLE": "Vue de la lentille",
+      "SLIDER_VIEW_TITLE": "Vue du curseur",
+      "ZOOM_AMOUNT_TITLE": "Niveau de zoom",
+      "LENS_SIZE_TITLE": "Taille de la lentille"
+    },
+    "PROGRESS_BAR": {
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Suréchantillonnage par lot en cours :",
+      "IN_PROGRESS_TITLE": "Faire la magie du suréchantillonnage...",
+      "STOP_BUTTON_TITLE": "ARRÊTER"
+    },
+    "RESET_BUTTON_TITLE": "Réinitialiser",
+    "RIGHT_PANE_INFO": {
+      "SELECT_FOLDER": "Sélectionnez un dossier à suréchantillonner",
+      "SELECT_IMAGE": "Sélectionnez une image à suréchantillonner",
+      "SELECT_FOLDER_DESCRIPTION": "Assurez-vous que le dossier ne contient rien d'autre que des images PNG, JPG, JPEG et WEBP.",
+      "SELECT_IMAGES_DESCRIPTION": "Sélectionnez ou glissez-déposez une image PNG, JPG, JPEG ou WEBP."
+    },
+    "PROGRESS": {
+      "PROCESSING_TITLE": "Traitement de l'image...",
+      "SCALING_CONVERTING_TITLE": "Mise à l'échelle et conversion de l'image...",
+      "WAIT_TITLE": "Patientez...",
+      "SUCCESS_TITLE": "Suréchantillonnage réussi !",
+      "BATCH": {
+        "SELECTED_FOLDER_TITLE": "Dossier sélectionné :",
+        "DONE_TITLE": "Tout est terminé !",
+        "OPEN_UPSCAYLED_FOLDER_TITLE": "Ouvrir le dossier suréchantillonné"
+      }
+    },
+    "SLIDER": {
+      "ORIGINAL_TITLE": "Original",
+      "UPSCAYLED_TITLE": "Suréchantillonné"
+    },
+    "DIALOG_BOX": {
+      "CLOSE": "Fermer"
+    }
+  },
+  "ERRORS": {
+    "GPU_ERROR": {
+      "TITLE": "Erreur GPU",
+      "DESCRIPTION": "Un problème est survenu avec le GPU. Veuillez lire la documentation pour le dépannage ! ({data})"
+    },
+    "COPY_ERROR": {
+      "TITLE": "Erreur de copie",
+      "DESCRIPTION": ""
+    },
+    "READ_WRITE_ERROR": {
+      "TITLE": "Erreur de lecture/écriture",
+      "DESCRIPTION": "Assurez-vous que le chemin est correct et que vous avez les permissions de lecture/écriture appropriées \n({data})"
+    },
+    "TILE_SIZE_ERROR": {
+      "TITLE": "Erreur",
+      "DESCRIPTION": "La taille de la tuile est incorrecte. Veuillez changer la taille de la tuile dans les paramètres ou la définir à 0 ({data})"
+    },
+    "EXCEPTION_ERROR": {
+      "TITLE": "Erreur d'exception",
+      "DESCRIPTION": "Upscayl a rencontré une erreur. Il est possible que le binaire Upscayl n'ait pas réussi à exécuter correctement les commandes. Essayez de vérifier les journaux pour voir si vous obtenez des informations. Vous pouvez poster un problème sur le dépôt GitHub d'Upscayl pour obtenir plus d'aide."
+    },
+    "GENERIC_ERROR": {
+      "TITLE": "Erreur"
+    },
+    "INVALID_IMAGE_ERROR": {
+      "TITLE": "Image invalide",
+      "DESCRIPTION": "Veuillez sélectionner une image avec une extension valide comme PNG, JPG, JPEG ou WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Veuillez glisser-déposer une image"
+    },
+    "NO_IMAGE_ERROR": {
+      "TITLE": "Aucune image sélectionnée",
+      "DESCRIPTION": "Veuillez sélectionner une image à suréchantillonner"
+    },
+    "OPEN_DOCS_TITLE": "Ouvrir la documentation",
+    "OPEN_DOCS_BUTTON_TITLE": "Dépanner"
+  },
+  "UPSCAYL_CLOUD": {
+    "COMING_SOON": "Bientôt disponible !",
+    "CATCHY_PHRASE_1": "Plus d'erreurs, de problèmes matériels, de compromis sur la qualité ou de longs temps de chargement !",
+    "CATCHY_PHRASE_2": "🌐 Suréchantillonnez n'importe où, n'importe quand, sur n'importe quel appareil\n☁️ Pas de carte graphique ou de matériel requis\n👩 Amélioration du visage\n🦋 Plus de 10 modèles au choix\n🏎 5x plus rapide que Upscayl Desktop\n🎞 Suréchantillonnage vidéo\n💰 Utilisation commerciale\n😴 Suréchantillonnez pendant que vous dormez",
+    "ALREADY_REGISTERED_ALERT": "Merci {name} ! Il semble que votre email ait déjà été enregistré :D Si ce n'est pas le cas, veuillez réessayer.",
+    "ADD_SUCCESS": "Merci de rejoindre la liste d'attente ! Nous vous informerons lorsque Upscayl Cloud sera prêt pour vous.",
+    "INCORRECT_FIELDS_ALERT": "Veuillez remplir correctement tous les champs.",
+    "JOIN_WAITLIST": "Rejoindre la liste d'attente",
+    "DONT_SHOW_AGAIN": "NE PLUS AFFICHER"
+  }
+}

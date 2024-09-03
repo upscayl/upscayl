@@ -7,13 +7,13 @@ export function DonateButton() {
 
   return (
     <div className="flex flex-col gap-2 text-sm font-medium">
-      <p>{t("APP.INFOS.DONATE.IF_LIKED")}</p>
+      <p>{t("SETTINGS.DONATE.DESCRIPTION")}</p>
       <a
         href="https://buymeacoffee.com/fossisthefuture"
         target="_blank"
         className="btn btn-primary"
       >
-        {t("APP.INFOS.DONATE.DONATE")}
+        {t("SETTINGS.DONATE.BUTTON_TITLE")}
       </a>
     </div>
   );

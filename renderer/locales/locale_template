@@ -5,219 +5,212 @@
 // !!!!!!!!!!!!!!!!!!!!!KEEP ANYTHING PRESENT WITHIN FLOWER BRACES {variable} - THEY ARE VARIABLES!!!!!!!!!!!!!!!!!!!!!!!
 // Delete these comments starting with "//" as json format does not accept comments
 {
+  "TITLE": "Upscayl",
+  "INTRO": "Introducing Upscayl Cloud!",
+  "HEADER": {
+    "GITHUB_BUTTON_TITLE": "Star us on GitHub 😁",
+    "DESCRIPTION": "AI Image Upscaler"
+  },
+  "FOOTER": {
+    "NEWS_TITLE": "UPSCAYL NEWS",
+    "COPYRIGHT": "Copyright ©",
+    "TITLE": "By ",
+    "LINK_TITLE": "The Upscayl Team"
+  },
+  "SETTINGS": {
+    "TITLE": "SETTINGS",
+    "CHANGE_LANGUAGE": { "TITLE": "Change Language" },
+    "IMAGE_COMPRESSION": {
+      "TITLE": "Image Compression",
+      "DESCRIPTION": "PNG compression is lossless, so it might not reduce the file size significantly and higher compression values might affect the performance. JPG and WebP compression is lossy."
+    },
+    "CUSTOM_MODELS": {
+      "TITLE": "ADD CUSTOM MODELS",
+      "BUTTON_FOLDER": "Select Folder",
+      "DESCRIPTION": "You can add your own models easily. For more details:",
+      "LINK_TITLE": "Custom Models Repository"
+    },
+    "CUSTOM_INPUT_RESOLUTION": {
+      "TITLE": "CUSTOM OUTPUT WIDTH",
+      "RESTART": "REQUIRES RESTART",
+      "DESCRIPTION": "Use a custom width for the output images. The height will be adjusted automatically. Enabling this will override the scale setting."
+    },
+    "DONATE": {
+      "DESCRIPTION": "If you like what we do :)",
+      "BUTTON_TITLE": "💎 DONATE"
+    },
+    "GPU_ID_INPUT": {
+      "TITLE": "GPU ID",
+      "DESCRIPTION": "Please read the Upscayl Documentation for more information.",
+      "ADDITIONAL_DESCRIPTION": "Enable performance mode on Windows for better results."
+    },
+    "IMAGE_FORMAT": {
+      "TITLE": "SAVE IMAGE AS",
+      "PNG": "PNG",
+      "JPG": "JPG",
+      "WEBP": "WEBP"
+    },
+    "IMAGE_SCALE": {
+      "TITLE": "Image Scale",
+      "IMAGE_SCALED_BY": "IMAGE SCALE ({scale}X)",
+      "DESCRIPTION": "Anything above 4X (except 16X Double Upscayl) only resizes the image and does not use AI upscaling.",
+      "WARNING": "Anything above 5X may cause performance issues on some devices!",
+      "ADDITIONAL_WARNING": "This may cause performance issues on some devices!"
+    },
+    "LOG_AREA": {
+      "ON_COPY": "COPIED ✅",
+      "BUTTON_TITLE": "COPY LOGS 📋",
+      "NO_LOGS": "No logs to show"
+    },
+    "OVERWRITE_TOGGLE": {
+      "TITLE": "OVERWRITE PREVIOUS UPSCALE",
+      "DESCRIPTION": "If enabled, Upscayl will process the image again instead of loading it directly."
+    },
+    "RESET_SETTINGS": {
+      "BUTTON_TITLE": "RESET UPSCAYL",
+      "ALERT": "Upscayl has been reset. Please restart the app."
+    },
+    "SAVE_OUTPUT_FOLDER": {
+      "TITLE": "SAVE OUTPUT FOLDER",
+      "DESCRIPTION": "If enabled, the output folder will be remembered between sessions."
+    },
+    "THEME": {
+      "TITLE": "UPSCAYL THEME"
+    },
+    "LANGUAGE": {
+      "TITLE": "UPSCAYL LANGUAGE"
+    },
+    "CUSTOM_TILE_SIZE": {
+      "TITLE": "CUSTOM TILE SIZE",
+      "DESCRIPTION": "Use a custom tile size for segmenting the image. This can help process images faster by reducing the number of tiles generated."
+    },
+    "TURN_OFF_NOTIFICATIONS": {
+      "TITLE": "TURN OFF NOTIFICATIONS",
+      "DESCRIPTION": "If enabled, Upscayl will not send any system notifications on success or failure."
+    },
+    "SUPPORT": {
+      "TITLE": "Having issues?",
+      "DOCS_BUTTON_TITLE": "🙏 GET HELP",
+      "EMAIL_BUTTON_TITLE": "📧 EMAIL DEVELOPER"
+    }
+  },
   "APP": {
     "TITLE": "Upscayl",
-    "INTRO": "Introducing Upscayl Cloud!",
-    "HEADER": {
-      "GITHUB_STAR_TT_INFO": "Star us on GitHub 😁",
-      "APP_INFO": "AI Image Upscaler"
+    "BATCH_MODE": {
+      "TITLE": "Batch Upscayl",
+      "DESCRIPTION": "This will let you Upscayl all files in a folder at once"
     },
-    "FOOTER": {
-      "NEWS_TITLE": "UPSCAYL NEWS",
-      "COPYRIGHT": "Copyright ©",
-      "BY": "By ",
-      "APP_TEAM": "The Upscayl Team"
+    "FILE_SELECTION": {
+      "TITLE": "Step 1",
+      "BATCH_MODE_TYPE": "Select Folder",
+      "SINGLE_MODE_TYPE": "Select Image"
     },
-    "SETTINGS": {
-      "TITLE": "SETTINGS",
-      "CHANGE_LANG": "Change Language"
+    "MODEL_SELECTION": {
+      "TITLE": "Step 2",
+      "DESCRIPTION": "Select Model"
     },
-    "INFOS": {
-      "IMAGE_PROCESSING": {
-        "START": "Processing the image...",
-        "SCALE_CONVERT": "Scaling and converting image...",
-        "WAIT": "Hold on...",
-        "SUCCESS": "Upscayl Successful!",
-        "BATCH": {
-          "SELECT": "Selected folder:",
-          "DONE": "All done!",
-          "OPEN_DONE_FOLDER": "Open Upscayled Folder"
-        }
-      },
-      "COMPARISION": {
-        "SLIDER_ORIGINAL": "Original",
-        "SLIDER_PROCESSED": "Upscayled"
-      },
-      "IMAGE_COMPRESSION": {
-        "TITLE": "Image Compression ({compression}%)",
-        "LOSSLESS_TIP": "PNG compression is lossless, so it might not reduce the file size significantly and higher compression values might affect the performance. JPG and WebP compression is lossy."
-      },
-      "CUSTOM_MODELS": {
-        "ADD": "ADD CUSTOM MODELS",
-        "SELECT_FOLDER": "Select Folder",
-        "INFO": "You can add your own models easily. For more details:",
-        "LINK_TEXT": "Custom Models Repository"
-      },
-      "CUSTOM_INPUT_RESOLUTION": {
-        "WIDTH": "CUSTOM OUTPUT WIDTH",
-        "RESTART": "REQUIRES RESTART",
-        "CUSTOM_WIDTH_TIP": "Use a custom width for the output images. The height will be adjusted automatically. Enabling this will override the scale setting."
-      },
-      "DONATE": {
-        "IF_LIKED": "If you like what we do :)",
-        "DONATE": "💎 DONATE"
-      },
-      "GPU_ID_INPUT": {
-        "ID": "GPU ID",
-        "READ_DOCS": "Please read the Upscayl Documentation for more information.",
-        "ENABLE_PERF_MODE": "Enable performance mode on Windows for better results."
-      },
-      "IMAGE_FORMAT": {
-        "SAVE_AS": "SAVE IMAGE AS",
-        "PNG": "PNG",
-        "JPG": "JPG",
-        "WEBP": "WEBP"
-      },
-      "IMAGE_SCALE": {
-        "TITLE": "Image Scale",
-        "TITLE_CAPS": "IMAGE SCALE",
-        "SCALES_TIMES": "({scale}X)",
-        "AI_UPSCALE_RESIZE_INFO": "Anything above 4X (except 16X Double Upscayl) only resizes the image and does not use AI upscaling."
-      },
-      "LOG_AREA": {
-        "ON_COPY": "COPIED ✅",
-        "COPY": "COPY LOGS 📋",
-        "NO_LOGS": "No logs to show"
-      },
-      "OVERWRITE_TOGGLE": {
-        "OW_PREV": "OVERWRITE PREVIOUS UPSCALE",
-        "OW_TIP": "If enabled, Upscayl will process the image again instead of loading it directly."
-      },
-      "RESET_SETTINGS": {
-        "TITLE": "RESET UPSCAYL",
-        "ON_RESET": "Upscayl has been reset. Please restart the app."
-      },
-      "SAVE_OUTPUT_FOLDER": {
-        "TITLE": "SAVE OUTPUT FOLDER",
-        "DESC": "If enabled, the output folder will be remembered between sessions."
-      },
-      "THEME": {
-        "TITLE": "UPSCAYL THEME"
-      },
-      "LANGUAGE": {
-        "TITLE": "UPSCAYL LANGUAGE"
-      },
-      "CUSTOM_TILE_SIZE": {
-        "TITLE": "CUSTOM TILE SIZE",
-        "DESC": "Use a custom tile size for segmenting the image. This can help process images faster by reducing the number of tiles generated."
-      },
-      "TURN_OFF_NOTIFICATIONS": {
-        "TITLE": "TURN OFF NOTIFICATIONS",
-        "DESC": "If enabled, Upscayl will not send any system notifications on success or failure."
-      },
-      "DIALOG_BOX": {
-        "CLOSE": "Close"
-      },
-      "LEFT_PANE_PROCESS": {
-        "BATCH": {
-          "TITLE": "Batch Upscayl",
-          "TT_INFO": "This will let you Upscayl all files in a folder at once"
-        },
-        "STEP_1": {
-          "TITLE": "Step 1",
-          "BATCH_YES": "Select Folder",
-          "BATCH_NO": "Select Image"
-        },
-        "STEP_2": {
-          "TITLE": "Step 2",
-          "SELECT_MODEL": "Select Model"
-        },
-        "DOUBLE_UPSCAYL": {
-          "TITLE": "Double Upscayl",
-          "TT_INFO": "Enable this option to run upscayl twice on an image. Note that this may cause a significant increase in processing time and possibly performance issues for scales greater than 4X."
-        },
-        "STEP_3": {
-          "TITLE": "Step 3",
-          "MACOS_RESTRICTION_ALERT": "Due to MacOS App Store security restrictions, Upscayl requires you to select an output folder everytime you start it.\n\nTo avoid this, you can permanently save a default output folder in the Upscayl 'Settings' tab.",
-          "NOT_SELECTED": "Not Selected",
-          "DEFAULT_IMG_PATH": "Defaults to Image's path",
-          "DEFAULT_FOLDER_PATH": "Defaults to  Folder's path",
-          "SET_OUTPUT_FOLDER": "Set Output Folder"
-        },
-        "STEP_4": {
-          "TITLE": "Step 4",
-          "UPSCAYL_FROM": "Upscayl from ",
-          "UPSCAYL_TO": " to ",
-          "FOLDER_ALERT": "Please select an output folder first",
-          "PROCESS_START": "Upscayl",
-          "PROCESS_IN_PROGRESS": "Upscayling⏳"
-        }
-      },
-      "IMAGE_OPTIONS": {
-        "RESET": "Reset Image",
-        "LENS_VIEW": "Lens View",
-        "SLIDER_VIEW": "Slider View",
-        "ZOOM_AMOUNT": "Zoom Amount",
-        "LENS_SIZE": "Lens Size"
-      },
-      "PROGRESS_BAR": {
-        "IN_PROGRESS": "Batch Upscayl In Progress:",
-        "PROGRESS_CATCHY": "Doing the Upscayl magic...",
-        "STOP": "STOP"
-      },
-      "RESET": "Reset",
-      "RIGHT_PANE_INFO": {
-        "SELECT_FOLDER": "Select a Folder to Upscayl",
-        "SELECT_IMAGE": "Select an Image to Upscayl",
-        "NOTE_SPECIFIC_FORMATS_IN_FOLDER": "Make sure that the folder doesn't contain anything except PNG, JPG, JPEG & WEBP images.",
-        "SELECT_IMAGES": "Select or drag and drop a PNG, JPG, JPEG or WEBP image.",
-        "APP_VERSION": "Upscayl v{version}"
+    "DOUBLE_UPSCAYL": {
+      "TITLE": "Double Upscayl",
+      "DESCRIPTION": "Enable this option to run upscayl twice on an image. Note that this may cause a significant increase in processing time and possibly performance issues for scales greater than 4X."
+    },
+    "OUTPUT_PATH_SELECTION": {
+      "TITLE": "Step 3",
+      "MAC_APP_STORE_ALERT": "Due to MacOS App Store security restrictions, Upscayl requires you to select an output folder everytime you start it.\n\nTo avoid this, you can permanently save a default output folder in the Upscayl 'Settings' tab.",
+      "NOT_SELECTED": "Not Selected",
+      "DEFAULT_IMG_PATH": "Defaults to Image's path",
+      "DEFAULT_FOLDER_PATH": "Defaults to  Folder's path",
+      "BUTTON_TITLE": "Set Output Folder"
+    },
+    "SCALE_SELECTION": {
+      "TITLE": "Step 4",
+      "FROM_TITLE": "Upscayl from ",
+      "TO_TITLE": " to ",
+      "NO_OUTPUT_FOLDER_ALERT": "Please select an output folder first",
+      "START_BUTTON_TITLE": "Upscayl",
+      "IN_PROGRESS_BUTTON_TITLE": "Upscayling⏳"
+    },
+    "IMAGE_OPTIONS": {
+      "RESET_BUTTON_TITLE": "Reset Image",
+      "LENS_VIEW_TITLE": "Lens View",
+      "SLIDER_VIEW_TITLE": "Slider View",
+      "ZOOM_AMOUNT_TITLE": "Zoom Amount",
+      "LENS_SIZE_TITLE": "Lens Size"
+    },
+    "PROGRESS_BAR": {
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Batch Upscayl In Progress:",
+      "IN_PROGRESS_TITLE": "Doing the Upscayl magic...",
+      "STOP_BUTTON_TITLE": "STOP"
+    },
+    "RESET_BUTTON_TITLE": "Reset",
+    "RIGHT_PANE_INFO": {
+      "SELECT_FOLDER": "Select a Folder to Upscayl",
+      "SELECT_IMAGE": "Select an Image to Upscayl",
+      "SELECT_FOLDER_DESCRIPTION": "Make sure that the folder doesn't contain anything except PNG, JPG, JPEG & WEBP images.",
+      "SELECT_IMAGES_DESCRIPTION": "Select or drag and drop a PNG, JPG, JPEG or WEBP image."
+    },
+    "PROGRESS": {
+      "PROCESSING_TITLE": "Processing the image...",
+      "SCALING_CONVERTING_TITLE": "Scaling and converting image...",
+      "WAIT_TITLE": "Hold on...",
+      "SUCCESS_TITLE": "Upscayl Successful!",
+      "BATCH": {
+        "SELECTED_FOLDER_TITLE": "Selected folder:",
+        "DONE_TITLE": "All done!",
+        "OPEN_UPSCAYLED_FOLDER_TITLE": "Open Upscayled Folder"
       }
     },
-    "ERRORS": {
-      "GPU_ERROR": {
-        "TITLE": "GPU Error",
-        "DESC": "Ran into an issue with the GPU. Please read the docs for troubleshooting! ({data})"
-      },
-      "COPY_ERROR": {
-        "TITLE": "Copy Error",
-        "DESC": ""
-      },
-      "OPEN_DOCS": "Open Docs",
-      "TROUBLESHOOT": "Troubleshoot",
-      "READ_WRITE_ERROR": {
-        "TITLE": "Read/Write Error",
-        "DESC": "Make sure that the path is correct and you have proper read/write permissions \n({data})"
-      },
-      "TILE_SIZE_ERROR": {
-        "TITLE": "Error",
-        "DESC": "The tile size is wrong. Please change the tile size in the settings or set to 0 ({data})"
-      },
-      "EXCEPTION_ERROR": {
-        "TITLE": "Exception Error",
-        "DESC": "Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try checking the logs to see if you get any information. You can post an issue on Upscayl's GitHub repository for more help."
-      },
-      "GENERIC_ERROR": {
-        "TITLE": "Error"
-      },
-      "INVALID_IMAGE_ERROR": {
-        "TITLE": "Invalid Image",
-        "DESC": "Please select an image with a valid extension like PNG, JPG, JPEG, or WEBP.",
-        "DRAG_DESC": "Please drag and drop an image"
-      },
-      "NO_IMAGE_ERROR": {
-        "TITLE": "No image selected",
-        "DESC": "Please select an image to upscale"
-      },
-      "IMAGE_SCALE_WARN": {
-        "PERF_ISSUE": "Anything above 5X may cause performance issues on some devices!",
-        "PERF_ISSUE_DEVICE": "This may cause performance issues on some devices!"
-      },
-      "ISSUE_CHECK": {
-        "TITLE": "Having issues?",
-        "GET_HELP": "🙏 GET HELP",
-        "EMAIL_DEV": "📧 EMAIL DEVELOPER"
-      }
+    "SLIDER": {
+      "ORIGINAL_TITLE": "Original",
+      "UPSCAYLED_TITLE": "Upscayled"
     },
-    "UPSCAYL_CLOUD": {
-      "COMING_SOON": "Coming soon!",
-      "CATCHY_PHRASE_1": "No more errors, hardware issues, quality compromises or long loading times!",
-      "CATCHY_PHRASE_2": "🌐 Upscayl anywhere, anytime, any device\n☁️ No Graphics Card or hardware required\n👩 Face Enhancement\n🦋 10+ models to choose from\n🏎 5x faster than Upscayl Desktop\n🎞 Video Upscaling\n💰 Commercial Usage\n😴 Upscayl while you sleep",
-      "ALREADY_REGISTERED": "Thank you {name}! It seems that your email has already been registered :D If that's not the case, please try again.",
-      "ADD_SUCCESS": "Thank you for joining the waitlist! We will notify you when Upscayl Cloud is ready for you.",
-      "INCORRECT_FIELDS": "Please fill in all the fields correctly.",
-      "JOIN_WAITLIST": "Join the waitlist",
-      "DONT_SHOW_AGAIN": "DON'T SHOW AGAIN"
+    "DIALOG_BOX": {
+      "CLOSE": "Close"
     }
+  },
+  "ERRORS": {
+    "GPU_ERROR": {
+      "TITLE": "GPU Error",
+      "DESCRIPTION": "Ran into an issue with the GPU. Please read the docs for troubleshooting! ({data})"
+    },
+    "COPY_ERROR": {
+      "TITLE": "Copy Error",
+      "DESCRIPTION": ""
+    },
+    "READ_WRITE_ERROR": {
+      "TITLE": "Read/Write Error",
+      "DESCRIPTION": "Make sure that the path is correct and you have proper read/write permissions \n({data})"
+    },
+    "TILE_SIZE_ERROR": {
+      "TITLE": "Error",
+      "DESCRIPTION": "The tile size is wrong. Please change the tile size in the settings or set to 0 ({data})"
+    },
+    "EXCEPTION_ERROR": {
+      "TITLE": "Exception Error",
+      "DESCRIPTION": "Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try checking the logs to see if you get any information. You can post an issue on Upscayl's GitHub repository for more help."
+    },
+    "GENERIC_ERROR": {
+      "TITLE": "Error"
+    },
+    "INVALID_IMAGE_ERROR": {
+      "TITLE": "Invalid Image",
+      "DESCRIPTION": "Please select an image with a valid extension like PNG, JPG, JPEG, or WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Please drag and drop an image"
+    },
+    "NO_IMAGE_ERROR": {
+      "TITLE": "No image selected",
+      "DESCRIPTION": "Please select an image to upscale"
+    },
+    "OPEN_DOCS_TITLE": "Open Docs",
+    "OPEN_DOCS_BUTTON_TITLE": "Troubleshoot"
+  },
+  "UPSCAYL_CLOUD": {
+    "COMING_SOON": "Coming soon!",
+    "CATCHY_PHRASE_1": "No more errors, hardware issues, quality compromises or long loading times!",
+    "CATCHY_PHRASE_2": "🌐 Upscayl anywhere, anytime, any device\n☁️ No Graphics Card or hardware required\n👩 Face Enhancement\n🦋 10+ models to choose from\n🏎 5x faster than Upscayl Desktop\n🎞 Video Upscaling\n💰 Commercial Usage\n😴 Upscayl while you sleep",
+    "ALREADY_REGISTERED_ALERT": "Thank you {name}! It seems that your email has already been registered :D If that's not the case, please try again.",
+    "ADD_SUCCESS": "Thank you for joining the waitlist! We will notify you when Upscayl Cloud is ready for you.",
+    "INCORRECT_FIELDS_ALERT": "Please fill in all the fields correctly.",
+    "JOIN_WAITLIST": "Join the waitlist",
+    "DONT_SHOW_AGAIN": "DON'T SHOW AGAIN"
   }
 }

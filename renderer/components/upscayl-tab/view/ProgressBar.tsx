@@ -47,7 +47,7 @@ function ProgressBar({
         <Logo className="spinner h-12 w-12" />
         <p className="rounded-full px-2 pb-2 font-bold">
           {batchMode &&
-            `${t("APP.INFOS.PROGRESS_BAR.IN_PROGRESS")} ${batchProgress}`}
+            `${t("APP.PROGRESS_BAR.BATCH_UPSCAYL_IN_PROGRESS_TITLE")} ${batchProgress}`}
         </p>
         <div className="flex flex-col items-center gap-1">
           {progress !== "Hold on..." ? (
@@ -61,11 +61,11 @@ function ProgressBar({
             <p className="text-sm font-bold">{progress}</p>
           )}
           <p className="animate-pulse rounded-full px-2 pb-3 text-xs font-medium text-neutral-content/50">
-            {t("APP.INFOS.PROGRESS_BAR.PROGRESS_CATCHY")}
+            {t("APP.PROGRESS_BAR.IN_PROGRESS_TITLE")}
           </p>
         </div>
         <button onClick={stopHandler} className="btn btn-outline">
-          {t("APP.INFOS.PROGRESS_BAR.STOP")}
+          {t("APP.PROGRESS_BAR.STOP_BUTTON_TITLE")}
         </button>
       </div>
     </div>

@@ -2,7 +2,6 @@
   "TITLE": "Upscayl",
   "INTRO": "Introducing Upscayl Cloud!",
   "HEADER": {
-    "TITLE": "Upscayl",
     "GITHUB_BUTTON_TITLE": "Star us on GitHub 😁",
     "DESCRIPTION": "AI Image Upscaler"
   },
@@ -47,6 +46,7 @@
     },
     "IMAGE_SCALE": {
       "TITLE": "Image Scale",
+      "IMAGE_SCALED_BY": "IMAGE SCALE ({scale}X)",
       "DESCRIPTION": "Anything above 4X (except 16X Double Upscayl) only resizes the image and does not use AI upscaling.",
       "WARNING": "Anything above 5X may cause performance issues on some devices!",
       "ADDITIONAL_WARNING": "This may cause performance issues on some devices!"

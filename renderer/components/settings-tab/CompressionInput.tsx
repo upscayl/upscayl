@@ -16,14 +16,14 @@ export function CompressionInput({
     <div className="flex flex-col gap-2">
       <div className="flex gap-1 text-sm font-medium uppercase">
         <p className="shrink-0">
-          {t("APP.INFOS.IMAGE_COMPRESSION.TITLE", {
+          {t("SETTINGS.IMAGE_COMPRESSION.TITLE", {
             compression: compression.toString(),
           })}
         </p>
       </div>
       {compression > 0 && (
         <p className="text-xs text-base-content/80">
-          {t("APP.INFOS.IMAGE_COMPRESSION.LOSSLESS_TIP")}
+          {t("SETTINGS.IMAGE_COMPRESSION.DESCRIPTION")}
         </p>
       )}
       <input

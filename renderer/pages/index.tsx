@@ -140,21 +140,21 @@ const Home = () => {
     const handleErrors = (data: string) => {
       if (data.includes("Invalid GPU")) {
         toast({
-          title: t("APP.ERRORS.GPU_ERROR.TITLE"),
-          description: t("APP.ERRORS.GPU_ERROR.DESC", { data }),
+          title: t("ERRORS.GPU_ERROR.TITLE"),
+          description: t("ERRORS.GPU_ERROR.DESCRIPTION", { data }),
           action: (
             <div className="flex flex-col gap-2">
               <ToastAction
-                altText={t("APP.ERRORS.COPY_ERROR.TITLE")}
+                altText={t("ERRORS.COPY_ERROR.TITLE")}
                 onClick={() => {
                   navigator.clipboard.writeText(data);
                 }}
               >
-                {t("APP.ERRORS.COPY_ERROR.TITLE")}
+                {t("ERRORS.COPY_ERROR.TITLE")}
               </ToastAction>
               <a href="https://docs.upscayl.org/" target="_blank">
-                <ToastAction altText={t("APP.ERRORS.OPEN_DOCS")}>
-                  {t("APP.ERRORS.TROUBLESHOOT")}
+                <ToastAction altText={t("ERRORS.OPEN_DOCS_TITLE")}>
+                  {t("ERRORS.OPEN_DOCS_BUTTON_TITLE")}
                 </ToastAction>
               </a>
             </div>
@@ -164,8 +164,8 @@ const Home = () => {
       } else if (data.includes("write") || data.includes("read")) {
         if (batchMode) return;
         toast({
-          title: t("APP.ERRORS.READ_WRITE_ERROR.TITLE"),
-          description: t("APP.ERRORS.READ_WRITE_ERROR.DESC", { data }),
+          title: t("ERRORS.READ_WRITE_ERROR.TITLE"),
+          description: t("ERRORS.READ_WRITE_ERROR.DESCRIPTION", { data }),
           action: (
             <div className="flex flex-col gap-2">
               <ToastAction
@@ -174,11 +174,11 @@ const Home = () => {
                   navigator.clipboard.writeText(data);
                 }}
               >
-                {t("APP.ERRORS.COPY_ERROR.TITLE")}
+                {t("ERRORS.COPY_ERROR.TITLE")}
               </ToastAction>
               <a href="https://docs.upscayl.org/" target="_blank">
-                <ToastAction altText={t("APP.ERRORS.OPEN_DOCS")}>
-                  {t("APP.ERRORS.TROUBLESHOOT")}
+                <ToastAction altText={t("ERRORS.OPEN_DOCS_TITLE")}>
+                  {t("ERRORS.OPEN_DOCS_BUTTON_TITLE")}
                 </ToastAction>
               </a>
             </div>
@@ -187,14 +187,14 @@ const Home = () => {
         resetImagePaths();
       } else if (data.includes("tile size")) {
         toast({
-          title: t("APP.ERRORS.TILE_SIZE_ERROR.TITLE"),
-          description: t("APP.ERRORS.TILE_SIZE_ERROR.DESC", { data }),
+          title: t("ERRORS.TILE_SIZE_ERROR.TITLE"),
+          description: t("ERRORS.TILE_SIZE_ERROR.DESCRIPTION", { data }),
         });
         resetImagePaths();
       } else if (data.includes("uncaughtException")) {
         toast({
-          title: t("APP.ERRORS.EXCEPTION_ERROR.TITLE"),
-          description: t("APP.ERRORS.EXCEPTION_ERROR.DESC"),
+          title: t("ERRORS.EXCEPTION_ERROR.TITLE"),
+          description: t("ERRORS.EXCEPTION_ERROR.DESCRIPTION"),
         });
         resetImagePaths();
       }
@@ -214,12 +214,12 @@ const Home = () => {
     });
     // SCALING AND CONVERTING
     window.electron.on(COMMAND.SCALING_AND_CONVERTING, (_, data: string) => {
-      setProgress(t("APP.INFOS.IMAGE_PROCESSING.START"));
+      setProgress(t("APP.PROGRESS.PROCESSING_TITLE"));
     });
     // UPSCAYL ERROR
     window.electron.on(COMMAND.UPSCAYL_ERROR, (_, data: string) => {
       toast({
-        title: t("APP.ERRORS.GENERIC_ERROR.TITLE"),
+        title: t("ERRORS.GENERIC_ERROR.TITLE"),
         description: data,
       });
       resetImagePaths();
@@ -229,9 +229,9 @@ const Home = () => {
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
       } else if (data.includes("converting")) {
-        setProgress(t("APP.INFOS.IMAGE_PROCESSING.SCALE_CONVERT"));
+        setProgress(t("APP.PROGRESS.SCALING_CONVERTING_TITLE"));
       } else if (data.includes("Successful")) {
-        setProgress(t("APP.INFOS.IMAGE_PROCESSING.SUCCESS"));
+        setProgress(t("APP.PROGRESS.SUCCESS_TITLE"));
       }
       handleErrors(data);
       logit(`🚧 UPSCAYL_PROGRESS: `, data);
@@ -239,7 +239,7 @@ const Home = () => {
     // FOLDER UPSCAYL PROGRESS
     window.electron.on(COMMAND.FOLDER_UPSCAYL_PROGRESS, (_, data: string) => {
       if (data.includes("Successful")) {
-        setProgress(t("APP.INFOS.IMAGE_PROCESSING.SUCCESS"));
+        setProgress(t("APP.PROGRESS.SUCCESS_TITLE"));
       }
       if (data.length > 0 && data.length < 10) {
         setProgress(data);
@@ -378,8 +378,8 @@ const Home = () => {
       logit("🔤 Extension: ", extension);
       if (!allowedFileTypes.includes(extension.toLowerCase())) {
         toast({
-          title: t("APP.ERRORS.INVALID_IMAGE_ERROR.TITLE"),
-          description: t("APP.ERRORS.INVALID_IMAGE_ERROR.DESC"),
+          title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+          description: t("ERRORS.INVALID_IMAGE_ERROR.DESCRIPTION"),
         });
         resetImagePaths();
       }
@@ -466,8 +466,8 @@ const Home = () => {
     ) {
       logit("👎 No valid files dropped");
       toast({
-        title: t("APP.ERRORS.INVALID_IMAGE_ERROR.TITLE"),
-        description: t("APP.ERRORS.INVALID_IMAGE_ERROR.DRAG_DESC"),
+        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+        description: t("ERRORS.INVALID_IMAGE_ERROR.ADDITIONAL_DESCRIPTION"),
       });
       return;
     }
@@ -481,8 +481,8 @@ const Home = () => {
     ) {
       logit("🚫 Invalid file dropped");
       toast({
-        title: t("APP.ERRORS.INVALID_IMAGE_ERROR.TITLE"),
-        description: t("APP.ERRORS.INVALID_IMAGE_ERROR.DRAG_DESC"),
+        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+        description: t("ERRORS.INVALID_IMAGE_ERROR.ADDITIONAL_DESCRIPTION"),
       });
     } else {
       logit("🖼 Setting image path: ", filePath);
@@ -510,8 +510,8 @@ const Home = () => {
       !allowedFileTypes.includes(extension.toLowerCase())
     ) {
       toast({
-        title: t("APP.ERRORS.INVALID_IMAGE_ERROR.TITLE"),
-        description: t("APP.ERRORS.INVALID_IMAGE_ERROR.DRAG_DESC"),
+        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+        description: t("ERRORS.INVALID_IMAGE_ERROR.ADDITIONAL_DESCRIPTION"),
       });
     } else {
       setImagePath(filePath);
@@ -528,7 +528,7 @@ const Home = () => {
     setUpscaledImagePath("");
     setUpscaledBatchFolderPath("");
     if (imagePath !== "" || batchFolderPath !== "") {
-      setProgress(t("APP.INFOS.IMAGE_PROCESSING.WAIT"));
+      setProgress(t("APP.PROGRESS.WAIT_TITLE"));
       // Double Upscayl
       if (doubleUpscayl) {
         window.electron.send<DoubleUpscaylPayload>(COMMAND.DOUBLE_UPSCAYL, {
@@ -582,8 +582,8 @@ const Home = () => {
       }
     } else {
       toast({
-        title: t("APP.ERRORS.NO_IMAGE_ERROR.TITLE"),
-        description: t("APP.ERRORS.NO_IMAGE_ERROR.DESC"),
+        title: t("ERRORS.NO_IMAGE_ERROR.TITLE"),
+        description: t("ERRORS.NO_IMAGE_ERROR.DESCRIPTION"),
       });
       logit("🚫 No valid image selected");
     }
@@ -607,7 +607,7 @@ const Home = () => {
       {!showSidebar && (
         <div className="fixed right-2 top-2 z-50 flex items-center justify-center gap-2 rounded-[7px] bg-base-300 px-2 py-1 font-medium text-base-content ">
           <Logo className="w-5" />
-          {t("APP.TITLE")}
+          {t("TITLE")}
         </div>
       )}
 
@@ -654,7 +654,7 @@ const Home = () => {
               setShowCloudModal(true);
             }}
           >
-            {t("APP.INTRO")}
+            {t("INTRO")}
           </button>
         )}
 
@@ -779,7 +779,7 @@ const Home = () => {
           batchFolderPath.length > 0 && (
             <p className="select-none text-base-content">
               <span className="font-bold">
-                {t("APP.INFOS.IMAGE_PROCESSING.BATCH.SELECT")}
+                {t("APP.PROGRESS.BATCH.SELECTED_FOLDER_TITLE")}
               </span>{" "}
               {batchFolderPath}
             </p>
@@ -788,13 +788,13 @@ const Home = () => {
         {batchMode && upscaledBatchFolderPath.length > 0 && (
           <div className="z-50 flex flex-col items-center">
             <p className="select-none py-4 font-bold text-base-content">
-              {t("APP.INFOS.IMAGE_PROCESSING.BATCH.DONE")}
+              {t("APP.PROGRESS.BATCH.DONE_TITLE")}
             </p>
             <button
               className="bg-gradient-blue btn btn-primary rounded-btn p-3 font-medium text-white/90 transition-colors"
               onClick={openFolderHandler}
             >
-              {t("APP.INFOS.IMAGE_PROCESSING.BATCH.OPEN_DONE_FOLDER")}
+              {t("APP.PROGRESS.BATCH.OPEN_UPSCAYLED_FOLDER_TITLE")}
             </button>
           </div>
         )}
@@ -860,13 +860,13 @@ const Home = () => {
                 itemOne={
                   <>
                     <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                      {t("APP.INFOS.COMPARISION.SLIDER_ORIGINAL")}
+                      {t("APP.SLIDER.ORIGINAL_TITLE")}
                     </p>
 
                     <img
                       /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
                       src={"file:///" + sanitizedImagePath}
-                      alt={t("APP.INFOS.COMPARISION.SLIDER_ORIGINAL")}
+                      alt={t("APP.SLIDER.ORIGINAL_TITLE")}
                       onMouseMove={handleMouseMove}
                       style={{
                         objectFit: "contain",
@@ -880,12 +880,12 @@ const Home = () => {
                 itemTwo={
                   <>
                     <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                      {t("APP.INFOS.COMPARISION.SLIDER_PROCESSED")}
+                      {t("APP.SLIDER.UPSCAYLED_TITLE")}
                     </p>
                     <img
                       /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
                       src={"file:///" + sanitizedUpscaledImagePath}
-                      alt="Upscayl"
+                      alt={t("APP.SLIDER.UPSCAYLED_TITLE")}
                       style={{
                         objectFit: "contain",
                         backgroundPosition: "0% 0%",

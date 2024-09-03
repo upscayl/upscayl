@@ -18,7 +18,7 @@ export function ImageFormatSelect({
     <div className="flex flex-col gap-2">
       <div className="flex flex-row gap-1">
         <p className="text-sm font-medium">
-          {t("APP.INFOS.IMAGE_FORMAT.SAVE_AS")}
+          {t("SETTINGS.IMAGE_FORMAT.TITLE")}
         </p>
         {/* <p className="badge-primary badge text-[10px] font-medium">
           EXPERIMENTAL
@@ -32,21 +32,21 @@ export function ImageFormatSelect({
             className={`btn ${saveImageAs === "png" && "btn-primary"}`}
             onClick={() => setExportType("png")}
           >
-            {t("APP.INFOS.IMAGE_FORMAT.PNG")}
+            {t("SETTINGS.IMAGE_FORMAT.PNG")}
           </button>
           {/* JPG */}
           <button
             className={`btn ${saveImageAs === "jpg" && "btn-primary"}`}
             onClick={() => setExportType("jpg")}
           >
-            {t("APP.INFOS.IMAGE_FORMAT.JPG")}
+            {t("SETTINGS.IMAGE_FORMAT.JPG")}
           </button>
           {/* WEBP */}
           <button
             className={`btn ${saveImageAs === "webp" && "btn-primary"}`}
             onClick={() => setExportType("webp")}
           >
-            {t("APP.INFOS.IMAGE_FORMAT.WEBP")}
+            {t("SETTINGS.IMAGE_FORMAT.WEBP")}
           </button>
         </div>
       </div>

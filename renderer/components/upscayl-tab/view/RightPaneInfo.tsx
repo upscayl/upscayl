@@ -9,21 +9,19 @@ function RightPaneInfo({ version, batchMode }) {
     <div className="flex flex-col items-center rounded-btn bg-base-200 p-4">
       <p className="pb-1 text-lg font-semibold">
         {batchMode
-          ? t("APP.INFOS.RIGHT_PANE_INFO.SELECT_FOLDER")
-          : t("APP.INFOS.RIGHT_PANE_INFO.SELECT_IMAGE")}
+          ? t("APP.RIGHT_PANE_INFO.SELECT_FOLDER")
+          : t("APP.RIGHT_PANE_INFO.SELECT_IMAGE")}
       </p>
       {batchMode ? (
         <p className="w-full pb-5 text-center text-base-content/80 md:w-96">
-          {t("APP.INFOS.RIGHT_PANE_INFO.NOTE_SPECIFIC_FORMATS_IN_FOLDER")}
+          {t("APP.RIGHT_PANE_INFO.SELECT_FOLDER_DESCRIPTION")}
         </p>
       ) : (
         <p className="w-full pb-5 text-center text-base-content/80 md:w-96">
-          {t("APP.INFOS.RIGHT_PANE_INFO.SELECT_IMAGES")}
+          {t("APP.RIGHT_PANE_INFO.SELECT_IMAGES_DESCRIPTION")}
         </p>
       )}
-      <p className="badge badge-primary text-sm">
-        {t("APP.INFOS.RIGHT_PANE_INFO.APP_VERSION", { version })}
-      </p>
+      <p className="badge badge-primary text-sm">Upscayl v{version}</p>
     </div>
   );
 }

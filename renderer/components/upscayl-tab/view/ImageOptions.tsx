@@ -54,12 +54,12 @@ const ImageOptions = ({
 
       <div className="flex flex-col justify-center gap-5 overflow-auto p-5">
         <button className="btn btn-primary" onClick={resetImagePaths}>
-          {t("APP.INFOS.IMAGE_OPTIONS.RESET")}
+          {t("APP.IMAGE_OPTIONS.RESET_BUTTON_TITLE")}
         </button>
 
         <div className="flex flex-row items-center gap-2">
           <p className="text-sm font-medium">
-            {t("APP.INFOS.IMAGE_OPTIONS.LENS_VIEW")}
+            {t("APP.IMAGE_OPTIONS.LENS_VIEW_TITLE")}
           </p>
           <input
             type="checkbox"
@@ -70,13 +70,13 @@ const ImageOptions = ({
             }}
           />
           <p className="text-sm font-medium">
-            {t("APP.INFOS.IMAGE_OPTIONS.SLIDER_VIEW")}
+            {t("APP.IMAGE_OPTIONS.SLIDER_VIEW_TITLE")}
           </p>
         </div>
 
         <div className="flex flex-col gap-2">
           <p className="text-sm font-medium">
-            {t("APP.INFOS.IMAGE_OPTIONS.ZOOM_AMOUNT")} ({zoomAmount}%)
+            {t("APP.IMAGE_OPTIONS.ZOOM_AMOUNT_TITLE")} ({zoomAmount}%)
           </p>
           <input
             type="range"
@@ -94,7 +94,7 @@ const ImageOptions = ({
 
         <div className="flex flex-col gap-2">
           <p className="text-sm font-medium">
-            {t("APP.INFOS.IMAGE_OPTIONS.LENS_SIZE")} ({lensSize / 10})
+            {t("APP.IMAGE_OPTIONS.LENS_SIZE_TITLE")} ({lensSize / 10})
           </p>
           <input
             type="range"

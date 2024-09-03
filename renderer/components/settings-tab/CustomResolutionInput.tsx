@@ -12,12 +12,12 @@ export function CustomResolutionInput() {
     <div>
       <div className="flex flex-col gap-1">
         <p className="text-sm font-medium">
-          {t("APP.INFOS.CUSTOM_INPUT_RESOLUTION.WIDTH")}
+          {t("SETTINGS.CUSTOM_INPUT_RESOLUTION.TITLE")}
         </p>
         <p className="text-xs text-base-content/80">
-          <b>{t("APP.INFOS.CUSTOM_INPUT_RESOLUTION.RESTART")}</b>
+          <b>{t("SETTINGS.CUSTOM_INPUT_RESOLUTION.RESTART")}</b>
           <br />
-          {t("APP.INFOS.CUSTOM_INPUT_RESOLUTION.CUSTOM_WIDTH_TIP")}
+          {t("SETTINGS.CUSTOM_INPUT_RESOLUTION.DESCRIPTION")}
         </p>
       </div>
       <div className="mt-2 flex items-center gap-2">

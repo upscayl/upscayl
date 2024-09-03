@@ -186,13 +186,13 @@ function SettingsTab({
       }}
     >
       <div className="flex flex-col gap-2 text-sm font-medium uppercase">
-        <p>{t("APP.ERRORS.ISSUE_CHECK.TITLE")}</p>
+        <p>{t("SETTINGS.SUPPORT.TITLE")}</p>
         <a
           className="btn btn-primary"
           href="https://docs.upscayl.org/"
           target="_blank"
         >
-          {t("APP.ERRORS.ISSUE_CHECK.GET_HELP")}
+          {t("SETTINGS.SUPPORT.DOCS_BUTTON_TITLE")}
         </a>
         {featureFlags.APP_STORE_BUILD && (
           <a
@@ -200,7 +200,7 @@ function SettingsTab({
             href={`mailto:upscayl@gmail.com?subject=Upscayl%20Issue%3A%20%3CIssue%20name%20here%3E&body=Device%20Name%3A%20%3CYOUR%20DEVICE%20MODEL%3E%0AOperating%20System%3A%20%3CYOUR%20OPERATING%20SYSTEM%20VERSION%3E%0AUpscayl%20Version%3A%20${upscaylVersion}%0A%0AHi%2C%20I'm%20having%20an%20issue%20with%20Upscayl.%20%3CDESCRIBE%20ISSUE%20HERE%3E`}
             target="_blank"
           >
-            {t("APP.ERRORS.ISSUE_CHECK.EMAIL_DEV")}
+            {t("SETTINGS.SUPPORT.EMAIL_BUTTON_TITLE")}
           </a>
         )}
         {!featureFlags.APP_STORE_BUILD && <DonateButton />}
@@ -261,7 +261,7 @@ function SettingsTab({
               setShow(true);
             }}
           >
-            {t("APP.INTRO")}
+            {t("INTRO")}
           </button>
 
           <UpscaylCloudModal

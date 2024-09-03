@@ -18,7 +18,7 @@ const Tabs = ({ selectedTab, setSelectedTab }: TabsProps) => {
           setSelectedTab(0);
         }}
       >
-        {t("APP.TITLE")}
+        {t("TITLE")}
       </a>
       <a
         className={`tab ${selectedTab === 1 && "tab-active"}`}
@@ -26,7 +26,7 @@ const Tabs = ({ selectedTab, setSelectedTab }: TabsProps) => {
           setSelectedTab(1);
         }}
       >
-        {t("APP.SETTINGS.TITLE")}
+        {t("SETTINGS.TITLE")}
       </a>
     </div>
   );

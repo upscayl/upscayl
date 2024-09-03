@@ -15,10 +15,10 @@ export function SaveOutputFolderToggle() {
   return (
     <div className="flex flex-col gap-2">
       <p className="text-sm font-medium">
-        {t("APP.INFOS.SAVE_OUTPUT_FOLDER.TITLE")}
+        {t("SETTINGS.SAVE_OUTPUT_FOLDER.TITLE")}
       </p>
       <p className="text-xs text-base-content/80">
-        {t("APP.INFOS.SAVE_OUTPUT_FOLDER.DESC")}
+        {t("SETTINGS.SAVE_OUTPUT_FOLDER.DESCRIPTION")}
       </p>
 
       <p className="font-mono text-sm">{outputPath}</p>
