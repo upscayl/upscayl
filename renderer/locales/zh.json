@@ -46,7 +46,6 @@
     },
     "IMAGE_SCALE": {
       "TITLE": "增强比例",
-      "IMAGE_SCALED_BY": "({scale}X)",
       "DESCRIPTION": "超过 4X（除 16X 双重升图外）只会调整图片大小，不会使用 AI 增强。",
       "WARNING": "超过 5X 可能会导致某些设备出现性能问题！",
       "ADDITIONAL_WARNING": "在某些设备上，这可能会导致性能问题！"
@@ -155,7 +154,7 @@
     },
     "SLIDER": {
       "ORIGINAL_TITLE": "一开始",
-      "阿普升图ED_TITLE": "增强后"
+      "UPSCAYLED_TITLE": "增强后"
     },
     "DIALOG_BOX": {
       "CLOSE": "关闭"
