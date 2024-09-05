@@ -5,7 +5,7 @@ const locales = {
   en: "English",
   ru: "Русский",
   ja: "日本語",
-  zh: "漢語",
+  zh: "简体中文",
   es: "Español",
   fr: "Français",
 };
