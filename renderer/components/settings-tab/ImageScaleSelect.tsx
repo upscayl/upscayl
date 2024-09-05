@@ -23,11 +23,7 @@ export function ImageScaleSelect({
           <>
             <p className="text-sm">
               {t("SETTINGS.IMAGE_SCALE.TITLE")}{" "}
-              <span className="text-xs">
-                {t("SETTINGS.IMAGE_SCALE.IMAGE_SCALED_BY", {
-                  scale,
-                })}
-              </span>
+              <span className="text-xs">({scale}X)</span>
             </p>
             {hideInfo && parseInt(scale) >= 6 && (
               <p
@@ -41,10 +37,7 @@ export function ImageScaleSelect({
           </>
         ) : (
           <p className="text-sm font-medium">
-            {t("SETTINGS.IMAGE_SCALE.TITLE")}{" "}
-            {t("SETTINGS.IMAGE_SCALE.IMAGE_SCALED_BY", {
-              scale,
-            })}{" "}
+            {t("SETTINGS.IMAGE_SCALE.TITLE")} ({scale}X){" "}
             {useCustomWidth && "DISABLED"}
           </p>
         )}

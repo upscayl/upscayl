@@ -3,7 +3,7 @@
   "INTRO": "¡Presentamos Upscayl Cloud!",
   "HEADER": {
     "GITHUB_BUTTON_TITLE": "Danos una estrella en GitHub 😁",
-    "DESCRIPTION": "Aumentador de imágenes con IA"
+    "DESCRIPTION": "Aumentador de imágenes con AI"
   },
   "FOOTER": {
     "NEWS_TITLE": "NOTICIAS DE UPSCAYL",
@@ -46,7 +46,6 @@
     },
     "IMAGE_SCALE": {
       "TITLE": "Escala de imagen",
-      "IMAGE_SCALED_BY": "ESCALA DE IMAGEN ({scale}X)",
       "DESCRIPTION": "Cualquier cosa por encima de 4X (excepto 16X Double Upscayl) solo redimensiona la imagen y no usa aumento con IA.",
       "WARNING": "¡Cualquier cosa por encima de 5X puede causar problemas de rendimiento en algunos dispositivos!",
       "ADDITIONAL_WARNING": "¡Esto puede causar problemas de rendimiento en algunos dispositivos!"

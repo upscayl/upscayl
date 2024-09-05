@@ -19,7 +19,7 @@ export default function Header({ version }: { version: string }) {
         <Logo className="inline-block h-14 w-14" />
         <div className="flex flex-col justify-center">
           <h1 className="text-3xl font-bold">
-            {t("TITLE")}
+            {t("TITLE")}{" "}
             <span className="text-xs">
               {version} {featureFlags.APP_STORE_BUILD && "Mac"}
             </span>

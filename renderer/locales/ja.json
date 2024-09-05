@@ -46,7 +46,6 @@
     },
     "IMAGE_SCALE": {
       "TITLE": "画像スケール",
-      "IMAGE_SCALED_BY": "画像スケール ({scale}X)",
       "DESCRIPTION": "4X以上のスケール（16X Double Upscaylを除く）は、画像をリサイズするだけで、AIアップスケーリングは行われません。",
       "WARNING": "5X以上は一部のデバイスでパフォーマンスに問題を引き起こす可能性があります！",
       "ADDITIONAL_WARNING": "これにより、一部のデバイスでパフォーマンスに問題が発生する可能性があります！"
