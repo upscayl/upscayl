@@ -1,161 +1,161 @@
 {
-  "TITLE": "Upscayl",
-  "INTRO": "介绍 Upscayl 云端！",
+  "TITLE": "阿普升图",
+  "INTRO": "阿普升图云隆重登场！",
   "HEADER": {
-    "GITHUB_BUTTON_TITLE": "在 GitHub 上给我们加星 😁",
-    "DESCRIPTION": "AI 图片放大工具"
+    "GITHUB_BUTTON_TITLE": "收藏我们的 GitHub 😁",
+    "DESCRIPTION": "AI 图像增强增强工具"
   },
   "FOOTER": {
-    "NEWS_TITLE": "UPSCAYL 新闻",
+    "NEWS_TITLE": "阿普升图新闻",
     "COPYRIGHT": "版权所有 ©",
-    "TITLE": "由 ",
-    "LINK_TITLE": "Upscayl 团队"
+    "TITLE": "开发者：",
+    "LINK_TITLE": "阿普升图团队"
   },
   "SETTINGS": {
     "TITLE": "设置",
     "CHANGE_LANGUAGE": { "TITLE": "更改语言" },
     "IMAGE_COMPRESSION": {
       "TITLE": "图片压缩",
-      "DESCRIPTION": "PNG 压缩是无损的，因此可能不会显著减少文件大小，而更高的压缩值可能会影响性能。JPG 和 WebP 压缩是有损的。"
+      "DESCRIPTION": "PNG 压缩是无损的，因此可能不会显著减少文件大小，而更高的压缩比值可能会影响性能。JPG 和 WebP 压缩是有损的。"
     },
     "CUSTOM_MODELS": {
       "TITLE": "添加自定义模型",
       "BUTTON_FOLDER": "选择文件夹",
-      "DESCRIPTION": "您可以轻松添加自己的模型。详情请见：",
-      "LINK_TITLE": "自定义模型库"
+      "DESCRIPTION": "你可以轻松添加自己的模型,详情请见",
+      "LINK_TITLE": "我们的官方自定义模型库"
     },
     "CUSTOM_INPUT_RESOLUTION": {
       "TITLE": "自定义输出宽度",
       "RESTART": "需要重启",
-      "DESCRIPTION": "使用自定义宽度生成输出图片，高度将自动调整。启用此选项将覆盖缩放设置。"
+      "DESCRIPTION": "生成的图片会使用自定义宽度，高度将自动调整。启用此选项将覆盖增强比例设置。"
     },
     "DONATE": {
-      "DESCRIPTION": "如果您喜欢我们做的事情 :)",
-      "BUTTON_TITLE": "💎 捐赠"
+      "DESCRIPTION": "如果你喜欢我们的工作 :)",
+      "BUTTON_TITLE": "💎捐赠支持"
     },
     "GPU_ID_INPUT": {
       "TITLE": "GPU ID",
-      "DESCRIPTION": "有关更多信息，请阅读 Upscayl 文档。",
+      "DESCRIPTION": "请阅读阿普升图文档 Wiki 来了解更多信息。",
       "ADDITIONAL_DESCRIPTION": "在 Windows 上启用性能模式以获得更好的效果。"
     },
     "IMAGE_FORMAT": {
-      "TITLE": "保存图片为",
+      "TITLE": "保存图像为",
       "PNG": "PNG",
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
     "IMAGE_SCALE": {
-      "TITLE": "图片缩放",
-      "IMAGE_SCALED_BY": "图片缩放 ({scale}X)",
-      "DESCRIPTION": "超过 4X（除 16X 双重 Upscayl 外）只会调整图片大小，不会使用 AI 放大。",
-      "WARNING": "超过 5X 可能会在某些设备上引发性能问题！",
-      "ADDITIONAL_WARNING": "这可能会导致某些设备上的性能问题！"
+      "TITLE": "增强比例",
+      "IMAGE_SCALED_BY": "({scale}X)",
+      "DESCRIPTION": "超过 4X（除 16X 双重升图外）只会调整图片大小，不会使用 AI 增强。",
+      "WARNING": "超过 5X 可能会导致某些设备出现性能问题！",
+      "ADDITIONAL_WARNING": "在某些设备上，这可能会导致性能问题！"
     },
     "LOG_AREA": {
       "ON_COPY": "已复制 ✅",
       "BUTTON_TITLE": "复制日志 📋",
-      "NO_LOGS": "无日志显示"
+      "NO_LOGS": "无日志可显示"
     },
     "OVERWRITE_TOGGLE": {
-      "TITLE": "覆盖以前的放大",
-      "DESCRIPTION": "如果启用，Upscayl 将重新处理图片，而不是直接加载。"
+      "TITLE": "覆盖之前的结果",
+      "DESCRIPTION": "启用后，阿普升图将重新处理图片，不直接加载之前的结果。"
     },
     "RESET_SETTINGS": {
-      "BUTTON_TITLE": "重置 UPSCAYL",
-      "ALERT": "Upscayl 已被重置。请重新启动应用程序。"
+      "BUTTON_TITLE": "重置阿普升图",
+      "ALERT": "阿普升图已被重置，请重新启动应用程序。"
     },
     "SAVE_OUTPUT_FOLDER": {
       "TITLE": "保存输出文件夹",
-      "DESCRIPTION": "如果启用，输出文件夹将在会话之间被记住。"
+      "DESCRIPTION": "启用后，输出文件夹将在会话之间被记住。"
     },
     "THEME": {
-      "TITLE": "UPSCAYL 主题"
+      "TITLE": "阿普升图主题"
     },
     "LANGUAGE": {
-      "TITLE": "UPSCAYL 语言"
+      "TITLE": "阿普升图语言"
     },
     "CUSTOM_TILE_SIZE": {
-      "TITLE": "自定义瓦片大小",
-      "DESCRIPTION": "使用自定义瓦片大小对图片进行分割。这样可以通过减少生成的瓦片数量来加快图片处理速度。"
+      "TITLE": "自定义图块大小",
+      "DESCRIPTION": "使用自定义图块大小来分割图片，减少需要处理的的图块数量，更快得处理图片。"
     },
     "TURN_OFF_NOTIFICATIONS": {
       "TITLE": "关闭通知",
-      "DESCRIPTION": "如果启用，Upscayl 将不会在成功或失败时发送任何系统通知。"
+      "DESCRIPTION": "启用后，阿普升图将不会发送任何有关图像处理的系统通知。"
     },
     "SUPPORT": {
-      "TITLE": "遇到问题？",
+      "TITLE": "有问题吗？",
       "DOCS_BUTTON_TITLE": "🙏 获取帮助",
-      "EMAIL_BUTTON_TITLE": "📧 邮件开发者"
+      "EMAIL_BUTTON_TITLE": "📧 联系开发者"
     }
   },
   "APP": {
-    "TITLE": "Upscayl",
+    "TITLE": "阿普升图",
     "BATCH_MODE": {
-      "TITLE": "批量 Upscayl",
-      "DESCRIPTION": "这将允许您一次性放大文件夹中的所有文件"
+      "TITLE": "批量升图",
+      "DESCRIPTION": "一次性增强文件夹中的所有文件"
     },
     "FILE_SELECTION": {
-      "TITLE": "步骤 1",
+      "TITLE": "第一步",
       "BATCH_MODE_TYPE": "选择文件夹",
       "SINGLE_MODE_TYPE": "选择图片"
     },
     "MODEL_SELECTION": {
-      "TITLE": "步骤 2",
+      "TITLE": "第二步",
       "DESCRIPTION": "选择模型"
     },
     "DOUBLE_UPSCAYL": {
-      "TITLE": "双重 Upscayl",
-      "DESCRIPTION": "启用此选项可对图片进行两次放大。请注意，这可能会显著增加处理时间，并且可能在超过 4X 的缩放比例时导致性能问题。"
+      "TITLE": "双重升图",
+      "DESCRIPTION": "启用后，阿普会对自己的输出再次升图。请注意，这可能会显著拖慢处理速度，导致性能问题，尤其当增强比例超过 4X 时。"
     },
     "OUTPUT_PATH_SELECTION": {
-      "TITLE": "步骤 3",
-      "MAC_APP_STORE_ALERT": "由于 MacOS 应用商店的安全限制，Upscayl 每次启动时都需要您选择一个输出文件夹。\n\n为避免此情况，您可以在 Upscayl 的“设置”选项卡中永久保存默认输出文件夹。",
+      "TITLE": "第三步",
+      "MAC_APP_STORE_ALERT": "由于 App Store 的安全限制，阿普升图每次启动时都需要你选择一个输出文件夹。\n\n为避免此情况，你可以在阿普升图的设置中选择保存输出文件夹。",
       "NOT_SELECTED": "未选择",
-      "DEFAULT_IMG_PATH": "默认图片路径",
-      "DEFAULT_FOLDER_PATH": "默认文件夹路径",
-      "BUTTON_TITLE": "设置输出文件夹"
+      "DEFAULT_IMG_PATH": "默认为图片路径",
+      "DEFAULT_FOLDER_PATH": "默认为文件夹路径",
+      "BUTTON_TITLE": "选择输出文件夹"
     },
     "SCALE_SELECTION": {
-      "TITLE": "步骤 4",
-      "FROM_TITLE": "从 Upscayl ",
-      "TO_TITLE": " 到 ",
+      "TITLE": "第四步",
+      "FROM_TITLE": "从 ",
+      "TO_TITLE": " 升图到 ",
       "NO_OUTPUT_FOLDER_ALERT": "请先选择一个输出文件夹",
-      "START_BUTTON_TITLE": "Upscayl",
-      "IN_PROGRESS_BUTTON_TITLE": "正在放大⏳"
+      "START_BUTTON_TITLE": "升图！",
+      "IN_PROGRESS_BUTTON_TITLE": "正在升图⏳"
     },
     "IMAGE_OPTIONS": {
       "RESET_BUTTON_TITLE": "重置图片",
       "LENS_VIEW_TITLE": "透镜视图",
       "SLIDER_VIEW_TITLE": "滑块视图",
-      "ZOOM_AMOUNT_TITLE": "缩放量",
-      "LENS_SIZE_TITLE": "透镜大小"
+      "ZOOM_AMOUNT_TITLE": "缩放比例",
+      "LENS_SIZE_TITLE": "透镜尺寸"
     },
     "PROGRESS_BAR": {
-      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量 Upscayl 进行中：",
-      "IN_PROGRESS_TITLE": "正在进行 Upscayl 魔法...",
-      "STOP_BUTTON_TITLE": "停止"
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量阿普升图中",
+      "IN_PROGRESS_TITLE": "稍等一下，升图魔法进行中",
+      "STOP_BUTTON_TITLE": "取消"
     },
     "RESET_BUTTON_TITLE": "重置",
     "RIGHT_PANE_INFO": {
-      "SELECT_FOLDER": "选择要 Upscayl 的文件夹",
-      "SELECT_IMAGE": "选择要 Upscayl 的图片",
-      "SELECT_FOLDER_DESCRIPTION": "确保文件夹中只包含 PNG、JPG、JPEG 和 WEBP 图片。",
+      "SELECT_FOLDER": "选择要增强的文件夹",
+      "SELECT_IMAGE": "选择要增强的图片",
+      "SELECT_FOLDER_DESCRIPTION": "文件夹中只支持 PNG、JPG、JPEG 和 WEBP 图片。",
       "SELECT_IMAGES_DESCRIPTION": "选择或拖放 PNG、JPG、JPEG 或 WEBP 图片。"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "正在处理图片...",
-      "SCALING_CONVERTING_TITLE": "正在缩放和转换图片...",
+      "SCALING_CONVERTING_TITLE": "正在缩放，转换，并压缩图片...",
       "WAIT_TITLE": "请稍等...",
-      "SUCCESS_TITLE": "Upscayl 成功！",
+      "SUCCESS_TITLE": "升图成功！",
       "BATCH": {
-        "SELECTED_FOLDER_TITLE": "选择的文件夹：",
+        "SELECTED_FOLDER_TITLE": "所选文件夹：",
         "DONE_TITLE": "全部完成！",
-        "OPEN_UPSCAYLED_FOLDER_TITLE": "打开已放大的文件夹"
+        "OPEN_UPSCAYLED_FOLDER_TITLE": "打开升图后的文件夹"
       }
     },
     "SLIDER": {
-      "ORIGINAL_TITLE": "原始",
-      "UPSCAYLED_TITLE": "已放大"
+      "ORIGINAL_TITLE": "一开始",
+      "阿普升图ED_TITLE": "增强后"
     },
     "DIALOG_BOX": {
       "CLOSE": "关闭"
@@ -164,46 +164,46 @@
   "ERRORS": {
     "GPU_ERROR": {
       "TITLE": "GPU 错误",
-      "DESCRIPTION": "遇到 GPU 问题。请阅读文档以进行故障排除！({data})"
+      "DESCRIPTION": "显卡出现问题，请阅读文档以排除系统故障！({data})"
     },
     "COPY_ERROR": {
-      "TITLE": "复制错误",
+      "TITLE": "复制错误信息",
       "DESCRIPTION": ""
     },
     "READ_WRITE_ERROR": {
-      "TITLE": "读/写错误",
-      "DESCRIPTION": "确保路径正确并且您拥有适当的读/写权限\n({data})"
+      "TITLE": "读写错误",
+      "DESCRIPTION": "确保目录正确，并确保你拥有适当的读写权限\n({data})"
     },
     "TILE_SIZE_ERROR": {
-      "TITLE": "错误",
-      "DESCRIPTION": "瓦片大小错误。请在设置中更改瓦片大小或设置为 0 ({data})"
+      "TITLE": "图块错误",
+      "DESCRIPTION": "图块大小异常，请在设置中改正或设置为 0 ({data})"
     },
     "EXCEPTION_ERROR": {
       "TITLE": "异常错误",
-      "DESCRIPTION": "Upscayl 遇到错误。可能是 Upscayl 二进制文件未能正确执行命令。请检查日志以查看是否有任何信息。您可以在 Upscayl 的 GitHub 仓库中发布问题以获取更多帮助。"
+      "DESCRIPTION": "阿普升图核心程序遇到未知错误。试试检查日志是否有任何信息。在 GitHub 代码库中填写缺陷报告以获取更多帮助"
     },
     "GENERIC_ERROR": {
       "TITLE": "错误"
     },
     "INVALID_IMAGE_ERROR": {
-      "TITLE": "无效图片",
-      "DESCRIPTION": "请选择一个有效扩展名为 PNG、JPG、JPEG 或 WEBP 的图片。",
+      "TITLE": "图片无效",
+      "DESCRIPTION": "请选择一个扩展名为 PNG、JPG、JPEG 或 WEBP 的有效图片",
       "ADDITIONAL_DESCRIPTION": "请拖放图片"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "未选择图片",
-      "DESCRIPTION": "请选择一张图片进行放大"
+      "DESCRIPTION": "升图可是需要图片的哦"
     },
     "OPEN_DOCS_TITLE": "打开文档",
-    "OPEN_DOCS_BUTTON_TITLE": "故障排除"
+    "OPEN_DOCS_BUTTON_TITLE": "排除故障"
   },
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "即将推出！",
-    "CATCHY_PHRASE_1": "告别错误、硬件问题、质量妥协或长时间加载！",
-    "CATCHY_PHRASE_2": "🌐 随时随地，任何设备都能 Upscayl\n☁️ 无需显卡或硬件\n👩 面部增强\n🦋 10+ 模型可供选择\n🏎 比 Upscayl 桌面版快 5 倍\n🎞 视频放大\n💰 商业用途\n😴 睡觉时 Upscayl",
-    "ALREADY_REGISTERED_ALERT": "感谢您 {name}！看起来您的邮箱已被注册 :D 如果不是这样，请再试一次。",
-    "ADD_SUCCESS": "感谢您加入候补名单！我们将会在 Upscayl 云端准备就绪时通知您。",
-    "INCORRECT_FIELDS_ALERT": "请正确填写所有字段。",
+    "CATCHY_PHRASE_1": "该与错误、硬件问题、质量妥协和漫长的等待告别喽！",
+    "CATCHY_PHRASE_2": "🌐 随时随地，任何设备都能阿普升图\n☁️ 无需显卡或硬件\n👩 面部增强\n🦋 10+ 模型可供选择\n🏎 比桌面版快 5 倍\n🎞 视频增强\n💰 商业用途\n😴 你睡你的，勤奋升图",
+    "ALREADY_REGISTERED_ALERT": "{name}，谢谢您！不过看起来您好像已经注册过了 b（￣▽￣）d 不对的话，再注册一遍试试。",
+    "ADD_SUCCESS": "感谢您加入候补名单！我们将会在阿普升图云准备就绪时通知你。",
+    "INCORRECT_FIELDS_ALERT": "请适当填写。",
     "JOIN_WAITLIST": "加入候补名单",
     "DONT_SHOW_AGAIN": "不再显示"
   }
