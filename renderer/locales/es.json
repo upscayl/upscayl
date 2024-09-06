@@ -100,7 +100,15 @@
     },
     "MODEL_SELECTION": {
       "TITLE": "Paso 2",
-      "DESCRIPTION": "Seleccionar modelo"
+      "DESCRIPTION": "Seleccionar modelo",
+      "MODELS": {
+        "x4plus": "Foto General (Real-ESRGAN)",
+        "x4fast": "Foto General (Fast Real-ESRGAN)",
+        "remacri": "Foto General (Remacri)",
+        "ultramix": "Foto General (Ultramix Balanced)",
+        "ultrasharp": "Foto General (Ultrasharp)",
+        "anime": "Arte Digital"
+      }
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Doble Upscayl",
