@@ -100,7 +100,15 @@
     },
     "MODEL_SELECTION": {
       "TITLE": "ステップ 2",
-      "DESCRIPTION": "モデルを選択"
+      "DESCRIPTION": "モデルを選択",
+      "MODELS": {
+        "x4plus": "一般写真 (Real-ESRGAN)",
+        "x4fast": "一般写真 (高速 Real-ESRGAN)",
+        "remacri": "一般写真 (Remacri)",
+        "ultramix": "一般写真 (Ultramix Balanced)",
+        "ultrasharp": "一般写真 (Ultrasharp)",
+        "anime": "デジタルアート"
+      }
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Double Upscayl",

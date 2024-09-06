@@ -100,7 +100,15 @@
     },
     "MODEL_SELECTION": {
       "TITLE": "第二步",
-      "DESCRIPTION": "选择模型"
+      "DESCRIPTION": "选择模型",
+      "MODELS": {
+        "x4plus": "一般照片 (Real-ESRGAN)",
+        "x4fast": "一般照片 (快速办 Real-ESRGAN)",
+        "remacri": "一般照片 (Remacri)",
+        "ultramix": "一般照片 (Ultramix Balanced)",
+        "ultrasharp": "一般照片 (Ultrasharp)",
+        "anime": "数字艺术"
+      }
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "双重升图",

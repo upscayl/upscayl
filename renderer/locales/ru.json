@@ -100,7 +100,15 @@
     },
     "MODEL_SELECTION": {
       "TITLE": "Шаг 2",
-      "DESCRIPTION": "Выберите модель"
+      "DESCRIPTION": "Выберите модель",
+      "MODELS": {
+        "x4plus": "Общая Фотография (Real-ESRGAN)",
+        "x4fast": "Общая Фотография (Быстрый Real-ESRGAN)",
+        "remacri": "Общая Фотография (Remacri)",
+        "ultramix": "Общая Фотография (Ultramix Balanced)",
+        "ultrasharp": "Общая Фотография (Ultrasharp)",
+        "anime": "Цифровое Искусство"
+      }
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Двойное увеличение",
