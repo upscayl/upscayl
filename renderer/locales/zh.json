@@ -137,6 +137,10 @@
       "ZOOM_AMOUNT_TITLE": "缩放比例",
       "LENS_SIZE_TITLE": "透镜尺寸"
     },
+    "PREVRENDER": {
+      "TITLE": "Previous renders",
+      "CLEAR": "Clear"
+    },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量阿普升图中",
       "IN_PROGRESS_TITLE": "稍等一下，升图魔法进行中",

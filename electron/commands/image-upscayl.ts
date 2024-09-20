@@ -60,14 +60,20 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   // Check if windows can write the new filename to the file system
   if (outFile.length >= 255) {
     logit("Filename too long for Windows.");
-    mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.");
+    mainWindow.webContents.send(
+      COMMAND.UPSCAYL_ERROR,
+      "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.",
+    );
   }
-  
+
   // UPSCALE
   if (fs.existsSync(outFile) && !overwrite) {
     // If already upscayled, just output that file
     logit("✅ Already upscayled at: ", outFile);
-    mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, outFile);
+    mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, {
+      fileName: fileNameWithExt,
+      data: outFile,
+    });
   } else {
     logit(
       "✅ Upscayl Variables: ",
@@ -137,7 +143,10 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         // Free up memory
         upscayl.kill();
         mainWindow.setProgressBar(-1);
-        mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, outFile);
+        mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, {
+          fileName: fileNameWithExt,
+          data: outFile,
+        });
         showNotification("Upscayl", "Image upscayled successfully!");
       }
     };

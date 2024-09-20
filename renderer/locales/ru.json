@@ -137,6 +137,10 @@
       "ZOOM_AMOUNT_TITLE": "Увеличение",
       "LENS_SIZE_TITLE": "Размер линзы"
     },
+    "PREVRENDER": {
+      "TITLE": "Previous renders",
+      "CLEAR": "Clear"
+    },   
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Пакетное увеличение в процессе:",
       "IN_PROGRESS_TITLE": "Магия увеличения в процессе...",

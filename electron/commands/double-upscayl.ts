@@ -121,7 +121,10 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       logit("💯 Done upscaling");
 
       mainWindow.setProgressBar(-1);
-      mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_DONE, outFile);
+      mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_DONE, {
+        fileName: fullfileName,
+        data: outFile,
+      });
       showNotification("Upscayled", "Image upscayled successfully!");
     }
   };

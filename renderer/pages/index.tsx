@@ -49,6 +49,8 @@ import Logo from "@/components/icons/Logo";
 import { sanitizePath } from "@common/sanitize-path";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { translationAtom } from "@/atoms/translations-atom";
+import getFilenameFromPath from "@/../common/get-file-name";
+import { parse } from "path";
 
 const Home = () => {
   const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
@@ -59,6 +61,8 @@ const Home = () => {
   const [os, setOs] = useState<"linux" | "mac" | "win" | undefined>(undefined);
   const [imagePath, setImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
+  const [upImgPathLog, setupImgPathLog] = useState<string[]>([]);
+  const [srcFilename, setSrcFilename] = useState("");
   const [model, setModel] = useState("realesrgan-x4plus");
   const [version, setVersion] = useState("");
   const [batchFolderPath, setBatchFolderPath] = useState("");
@@ -124,6 +128,49 @@ const Home = () => {
     const xZoom = ((e.pageX - left) / width) * 100;
     const yZoom = ((e.pageY - top) / height) * 100;
     setBackgroundPosition(`${xZoom}% ${yZoom}%`);
+  };
+
+  const handleUpImgPathLog = async (
+    srcFilename: string,
+    datafullPath: string,
+    typeEvent: string,
+  ) => {
+    if (!batchMode) {
+      const srcFile = parse(srcFilename).name;
+      let outFile = getFilenameFromPath(datafullPath);
+
+      // State for filename, passed to component "PreviousRenders"
+      setSrcFilename(srcFile);
+
+      let allRenders =
+        JSON.parse(localStorage.getItem(`prevRenders:${srcFile}`)) || [];
+
+      if (typeEvent === "upscale") {
+        const currModel = JSON.parse(localStorage.getItem("model")).label;
+        if (
+          allRenders.length === 0 ||
+          !allRenders.some((el) => el.srcFile === outFile)
+        ) {
+          // Append the new image
+          allRenders.push({ srcFile: outFile, modelUsed: currModel });
+        }
+      } else if (typeEvent === "delete") {
+        // Delete selected element
+        allRenders = allRenders.filter((el) => el.srcFile !== outFile);
+      }
+      setupImgPathLog(allRenders);
+
+      if (typeEvent === "upscale" || typeEvent === "delete") {
+        if (allRenders.length === 0) {
+          localStorage.removeItem(`prevRenders:${srcFile}`);
+        } else {
+          localStorage.setItem(
+            `prevRenders:${srcFile}`,
+            JSON.stringify(allRenders),
+          );
+        }
+      }
+    }
   };
 
   // SET CONFIG VARIABLES ON FIRST RUN
@@ -259,9 +306,11 @@ const Home = () => {
       logit(`🚧 DOUBLE_UPSCAYL_PROGRESS: `, data);
     });
     // UPSCAYL DONE
-    window.electron.on(COMMAND.UPSCAYL_DONE, (_, data: string) => {
+    window.electron.on(COMMAND.UPSCAYL_DONE, (_, { fileName, data }) => {
       setProgress("");
       setUpscaledImagePath(data);
+      // Previous renders history
+      handleUpImgPathLog(fileName, data, "upscale");
       logit("upscaledImagePath: ", data);
       logit(`💯 UPSCAYL_DONE: `, data);
     });
@@ -272,10 +321,12 @@ const Home = () => {
       logit(`💯 FOLDER_UPSCAYL_DONE: `, data);
     });
     // DOUBLE UPSCAYL DONE
-    window.electron.on(COMMAND.DOUBLE_UPSCAYL_DONE, (_, data: string) => {
+    window.electron.on(COMMAND.DOUBLE_UPSCAYL_DONE, (_, { fileName, data }) => {
       setProgress("");
       setTimeout(() => setUpscaledImagePath(data), 500);
       setDoubleUpscaylCounter(0);
+      // Previous renders history
+      handleUpImgPathLog(fileName, data, "upscale");
       logit(`💯 DOUBLE_UPSCAYL_DONE: `, data);
     });
     // CUSTOM FOLDER LISTENER
@@ -398,11 +449,14 @@ const Home = () => {
 
   const selectImageHandler = async () => {
     resetImagePaths();
+    // RAZ Previous renders history
+    setupImgPathLog([]);
     var path = await window.electron.invoke(COMMAND.SELECT_FILE);
     if (path === null) return;
     logit("🖼 Selected Image Path: ", path);
     setImagePath(path);
     var dirname = getDirectoryFromPath(path);
+    var filename = getFilenameFromPath(path);
     logit("📁 Selected Image Directory: ", dirname);
     if (!featureFlags.APP_STORE_BUILD) {
       if (!rememberOutputFolder) {
@@ -410,6 +464,8 @@ const Home = () => {
       }
     }
     validateImagePath(path);
+    // Load previous renders
+    handleUpImgPathLog(filename, path, "loadImg");
   };
 
   const selectFolderHandler = async () => {
@@ -802,6 +858,12 @@ const Home = () => {
           zoomAmount={zoomAmount}
           setZoomAmount={setZoomAmount}
           resetImagePaths={resetImagePaths}
+          upImgPath={upImgPathLog}
+          upscaylHandler={upscaylHandler}
+          srcFilename={srcFilename}
+          setUpscaledImagePath={setUpscaledImagePath}
+          outputPath={outputPath}
+          handleUpImgPathLog={handleUpImgPathLog}
         />
         {!batchMode &&
           viewType === "lens" &&
@@ -880,7 +942,8 @@ const Home = () => {
                 itemTwo={
                   <>
                     <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                      {t("APP.SLIDER.UPSCAYLED_TITLE")}
+                      {/* {t("APP.SLIDER.UPSCAYLED_TITLE")} */}
+                      {`${sanitizedUpscaledImagePath.replace(/^.*[\\/]/, "")}`}
                     </p>
                     <img
                       /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */

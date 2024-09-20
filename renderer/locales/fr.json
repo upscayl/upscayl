@@ -137,6 +137,10 @@
       "ZOOM_AMOUNT_TITLE": "Niveau de zoom",
       "LENS_SIZE_TITLE": "Taille de la lentille"
     },
+    "PREVRENDER": {
+      "TITLE": "Previous renders",
+      "CLEAR": "Clear"
+    },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Suréchantillonnage par lot en cours :",
       "IN_PROGRESS_TITLE": "Faire la magie du suréchantillonnage...",

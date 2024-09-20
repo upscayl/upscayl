@@ -137,6 +137,10 @@
       "ZOOM_AMOUNT_TITLE": "Cantidad de zoom",
       "LENS_SIZE_TITLE": "Tamaño de lente"
     },
+    "PREVRENDER": {
+      "TITLE": "Previous renders",
+      "CLEAR": "Clear"
+    },   
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Aumento por lotes en progreso:",
       "IN_PROGRESS_TITLE": "Haciendo la magia de Upscayl...",

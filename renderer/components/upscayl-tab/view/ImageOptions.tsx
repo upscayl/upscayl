@@ -4,17 +4,35 @@ import { cn } from "@/lib/utils";
 import { useAtom, useAtomValue } from "jotai";
 import { WrenchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import PreviousRenders from "./PreviousRenders";
 
 const ImageOptions = ({
   zoomAmount,
   setZoomAmount,
   resetImagePaths,
   hideZoomOptions,
+  upImgPath,
+  upscaylHandler,
+  srcFilename,
+  setUpscaledImagePath,
+  outputPath,
+  handleUpImgPathLog,
 }: {
   zoomAmount: string;
   setZoomAmount: (arg: any) => void;
   resetImagePaths: () => void;
   hideZoomOptions?: boolean;
+  upImgPath?: any[];
+  upscaylHandler?: () => Promise<void>;
+  srcFilename?: string;
+  setUpscaledImagePath?: (arg: any) => void;
+  outputPath?: string;
+  handleUpImgPathLog?: (
+    srcFilename: string,
+    datafullPath: string,
+    typeEvent: string,
+    isDoubleUpscale: boolean,
+  ) => Promise<void>;
 }) => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [viewType, setViewType] = useAtom(viewTypeAtom);
@@ -109,6 +127,16 @@ const ImageOptions = ({
           />
         </div>
       </div>
+      <div className="flex flex-col justify-center gap-2 overflow-auto p-5">
+        <PreviousRenders
+          lstPath={upImgPath}
+          upscaylHandler={upscaylHandler}
+          srcFilename={srcFilename}
+          setUpscaledImagePath={setUpscaledImagePath}
+          outputPath={outputPath}
+          handleUpImgPathLog={handleUpImgPathLog}
+        />
+      </div>      
     </div>
   );
 };

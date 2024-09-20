@@ -137,6 +137,10 @@
       "ZOOM_AMOUNT_TITLE": "ズーム量",
       "LENS_SIZE_TITLE": "レンズサイズ"
     },
+    "PREVRENDER": {
+      "TITLE": "Previous renders",
+      "CLEAR": "Clear"
+    },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "バッチUpscayl進行中：",
       "IN_PROGRESS_TITLE": "Upscaylの魔法をかけています...",
