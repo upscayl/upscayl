@@ -51,7 +51,7 @@ import getDirectoryFromPath from "@common/get-directory-from-path";
 import { translationAtom } from "@/atoms/translations-atom";
 
 const Home = () => {
-  const allowedFileTypes = ["png", "jpg", "jpeg", "webp"];
+  const allowedFileTypes = ["png", "jpg", "jpeg", "jfif", "webp"];
 
   const t = useAtomValue(translationAtom);
 

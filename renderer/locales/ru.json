@@ -194,7 +194,7 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Неверное изображение",
-      "DESCRIPTION": "Пожалуйста, выберите изображение с правильным расширением, таким как PNG, JPG, JPEG или WEBP.",
+      "DESCRIPTION": "Пожалуйста, выберите изображение с правильным расширением, таким как PNG, JPG, JPEG, JFIF или WEBP.",
       "ADDITIONAL_DESCRIPTION": "Пожалуйста, перетащите изображение"
     },
     "NO_IMAGE_ERROR": {
