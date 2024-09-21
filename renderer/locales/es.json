@@ -194,7 +194,7 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Imagen inválida",
-      "DESCRIPTION": "Por favor, selecciona una imagen con una extensión válida como PNG, JPG, JPEG o WEBP.",
+      "DESCRIPTION": "Por favor, selecciona una imagen con una extensión válida como PNG, JPG, JPEG, JFIF o WEBP.",
       "ADDITIONAL_DESCRIPTION": "Por favor, arrastra y suelta una imagen"
     },
     "NO_IMAGE_ERROR": {

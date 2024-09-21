@@ -21,10 +21,12 @@ const selectFile = async () => {
           "png",
           "jpg",
           "jpeg",
+          "jfif",
           "webp",
           "PNG",
           "JPG",
           "JPEG",
+          "JFIF",
           "WEBP",
         ],
       },
@@ -50,10 +52,12 @@ const selectFile = async () => {
         file.endsWith(".png") ||
         file.endsWith(".jpg") ||
         file.endsWith(".jpeg") ||
+        file.endsWith(".jfif") ||
         file.endsWith(".webp") ||
         file.endsWith(".JPG") ||
         file.endsWith(".PNG") ||
         file.endsWith(".JPEG") ||
+        file.endsWith(".JFIF") ||
         file.endsWith(".WEBP")
       ) {
         isValid = true;
