@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import COMMAND from "../../common/commands";
 import { ReactCompareSlider } from "react-compare-slider";
 import Header from "../components/Header";
@@ -79,6 +79,8 @@ const Home = () => {
   const [showCloudModal, setShowCloudModal] = useState(false);
   const [minSize, setMinSize] = useState(22);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const upscaledImageRef = useRef<HTMLImageElement>(null);
+  const [lensPosition, setLensPosition] = useState({ x: 0, y: 0 });
 
   // ATOMIC STATES
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
@@ -116,14 +118,16 @@ const Home = () => {
   );
 
   const handleMouseMoveCompare = (e: React.MouseEvent) => {
-    const { left, top, height, width } =
-      e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - left;
-    const y = e.clientY - top;
-    setCursorPosition({ x, y });
-    const xZoom = ((e.pageX - left) / width) * 100;
-    const yZoom = ((e.pageY - top) / height) * 100;
-    setBackgroundPosition(`${xZoom}% ${yZoom}%`);
+    if (upscaledImageRef.current) {
+      const { left, top, width, height } =
+        upscaledImageRef.current.getBoundingClientRect();
+      const x = e.clientX - left;
+      const y = e.clientY - top;
+      setLensPosition({
+        x: Math.max(0, Math.min(x - lensSize, width - lensSize * 2)),
+        y: Math.max(0, Math.min(y - lensSize / 2, height - lensSize)),
+      });
+    }
   };
 
   // SET CONFIG VARIABLES ON FIRST RUN
@@ -816,13 +820,14 @@ const Home = () => {
                 className="h-full w-full object-contain"
                 src={"file:///" + sanitizedUpscaledImagePath}
                 alt="Upscaled"
+                ref={upscaledImageRef}
               />
               {/* LENS */}
               <div
                 className="pointer-events-none absolute opacity-0 transition-opacity before:absolute before:left-1/2 before:h-full before:w-[2px] before:bg-white group-hover:opacity-100"
                 style={{
-                  left: cursorPosition.x - lensSize,
-                  top: cursorPosition.y - lensSize / 2,
+                  left: `${lensPosition.x}px`,
+                  top: `${lensPosition.y}px`,
                   width: lensSize * 2,
                   height: lensSize,
                   border: "2px solid white",
@@ -833,12 +838,13 @@ const Home = () => {
                   <div className="h-full w-full overflow-hidden">
                     <img
                       src={"file:///" + sanitizedImagePath}
-                      alt="Original Image"
+                      alt="Original"
+                      className="h-full w-full"
                       style={{
-                        objectFit: "cover",
-                        objectPosition: `${-cursorPosition.x + lensSize}px ${-cursorPosition.y + lensSize / 2}px`,
-                        width: `${zoomAmount}%`,
-                        height: `${zoomAmount}%`,
+                        objectFit: "contain",
+                        objectPosition: `${-lensPosition.x}px ${-lensPosition.y}px`,
+                        transform: `scale(${parseInt(zoomAmount) / 100})`,
+                        transformOrigin: "top left",
                       }}
                     />
                   </div>
@@ -846,11 +852,12 @@ const Home = () => {
                     <img
                       src={"file:///" + sanitizedUpscaledImagePath}
                       alt="Upscaled"
+                      className="h-full w-full"
                       style={{
-                        objectFit: "cover",
-                        objectPosition: `${-cursorPosition.x - lensSize}px ${-cursorPosition.y + lensSize / 2}px`,
-                        width: `${zoomAmount}%`,
-                        height: `${zoomAmount}%`,
+                        objectFit: "contain",
+                        objectPosition: `${-lensPosition.x}px ${-lensPosition.y}px`,
+                        transform: `scale(${parseInt(zoomAmount) / 100})`,
+                        transformOrigin: "top left",
                       }}
                     />
                   </div>
