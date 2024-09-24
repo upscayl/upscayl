@@ -13,9 +13,9 @@ import {
   customWidthAtom,
   useCustomWidthAtom,
 } from "../../../atoms/userSettingsAtom";
-import { featureFlags } from "@common/feature-flags";
+import { FEATURE_FLAGS } from "@common/feature-flags";
 import getModelScale from "@common/check-model-scale";
-import COMMAND from "@common/commands";
+import ELECTRON_COMMANDS from "@common/commands";
 import Select from "react-select";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
@@ -81,7 +81,7 @@ function LeftPaneImageSteps({
   const t = useAtomValue(translationAtom);
 
   const outputHandler = async () => {
-    var path = await window.electron.invoke(COMMAND.SELECT_FOLDER);
+    var path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FOLDER);
     if (path !== null) {
       logit("🗂 Setting Output Path: ", path);
       setOutputPath(path);
@@ -288,7 +288,7 @@ function LeftPaneImageSteps({
             <span className="leading-none">
               {t("APP.OUTPUT_PATH_SELECTION.TITLE")}
             </span>
-            {featureFlags.APP_STORE_BUILD && (
+            {FEATURE_FLAGS.APP_STORE_BUILD && (
               <button
                 className="badge badge-outline badge-sm cursor-pointer"
                 onClick={() =>
@@ -299,7 +299,7 @@ function LeftPaneImageSteps({
               </button>
             )}
           </div>
-          {!outputPath && featureFlags.APP_STORE_BUILD && (
+          {!outputPath && FEATURE_FLAGS.APP_STORE_BUILD && (
             <div className="text-xs">
               <span className="rounded-btn bg-base-200 px-2 font-medium uppercase text-base-content/50">
                 {t("APP.OUTPUT_PATH_SELECTION.NOT_SELECTED")}
@@ -307,7 +307,7 @@ function LeftPaneImageSteps({
             </div>
           )}
         </div>
-        {!batchMode && !featureFlags.APP_STORE_BUILD && (
+        {!batchMode && !FEATURE_FLAGS.APP_STORE_BUILD && (
           <p className="mb-2 text-sm">
             {!batchMode
               ? t("APP.OUTPUT_PATH_SELECTION.DEFAULT_IMG_PATH")

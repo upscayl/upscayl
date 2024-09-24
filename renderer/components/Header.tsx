@@ -1,4 +1,4 @@
-import { featureFlags } from "@common/feature-flags";
+import { FEATURE_FLAGS } from "@common/feature-flags";
 import React from "react";
 import Logo from "./icons/Logo";
 import { useAtomValue } from "jotai";
@@ -21,7 +21,7 @@ export default function Header({ version }: { version: string }) {
           <h1 className="text-3xl font-bold">
             {t("TITLE")}{" "}
             <span className="text-xs">
-              {version} {featureFlags.APP_STORE_BUILD && "Mac"}
+              {version} {FEATURE_FLAGS.APP_STORE_BUILD && "Mac"}
             </span>
           </h1>
           <p className="">{t("HEADER.DESCRIPTION")}</p>

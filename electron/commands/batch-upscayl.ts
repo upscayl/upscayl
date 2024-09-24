@@ -11,7 +11,7 @@ import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { getBatchArguments } from "../utils/get-arguments";
 import slash from "../utils/slash";
 import { modelsPath } from "../utils/get-resource-paths";
-import COMMAND from "../../common/commands";
+import ELECTRON_COMMANDS from "../../common/commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";
@@ -72,28 +72,28 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     if (!mainWindow) return;
     data = data.toString();
     mainWindow.webContents.send(
-      COMMAND.FOLDER_UPSCAYL_PROGRESS,
+      ELECTRON_COMMANDS.FOLDER_UPSCAYL_PROGRESS,
       data.toString(),
     );
     if ((data as string).includes("Error")) {
       logit("❌ ", data);
       encounteredError = true;
     } else if (data.includes("Resizing")) {
-      mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+      mainWindow.webContents.send(ELECTRON_COMMANDS.SCALING_AND_CONVERTING);
     }
   };
   const onError = (data: any) => {
     if (!mainWindow) return;
     mainWindow.setProgressBar(-1);
     mainWindow.webContents.send(
-      COMMAND.FOLDER_UPSCAYL_PROGRESS,
+      ELECTRON_COMMANDS.FOLDER_UPSCAYL_PROGRESS,
       data.toString(),
     );
     failed = true;
     upscayl.kill();
     mainWindow &&
       mainWindow.webContents.send(
-        COMMAND.UPSCAYL_ERROR,
+        ELECTRON_COMMANDS.UPSCAYL_ERROR,
         `Error upscaling images! ${data}`,
       );
     return;
@@ -104,7 +104,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       logit("💯 Done upscaling");
       upscayl.kill();
       mainWindow.webContents.send(
-        COMMAND.FOLDER_UPSCAYL_DONE,
+        ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
         outputFolderPath,
       );
       if (!encounteredError) {

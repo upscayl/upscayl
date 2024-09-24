@@ -14,7 +14,7 @@ import {
 } from "../utils/get-arguments";
 import { modelsPath } from "../utils/get-resource-paths";
 import logit from "../utils/logit";
-import COMMAND from "../../common/commands";
+import ELECTRON_COMMANDS from "../../common/commands";
 import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
@@ -87,12 +87,15 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     if (!mainWindow) return;
     data.toString();
     // SEND UPSCAYL PROGRESS TO RENDERER
-    mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.DOUBLE_UPSCAYL_PROGRESS,
+      data,
+    );
     // SET FAILED TO TRUE
     failed2 = true;
     mainWindow &&
       mainWindow.webContents.send(
-        COMMAND.UPSCAYL_ERROR,
+        ELECTRON_COMMANDS.UPSCAYL_ERROR,
         "Error upscaling image. Error: " + data,
       );
     showNotification("Upscayl Failure", "Failed to upscale image!");
@@ -105,13 +108,16 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     // CONVERT DATA TO STRING
     data = data.toString();
     // SEND UPSCAYL PROGRESS TO RENDERER
-    mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.DOUBLE_UPSCAYL_PROGRESS,
+      data,
+    );
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
     if (data.includes("Error")) {
       upscayl2.kill();
       failed2 = true;
     } else if (data.includes("Resizing")) {
-      mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+      mainWindow.webContents.send(ELECTRON_COMMANDS.SCALING_AND_CONVERTING);
     }
   };
 
@@ -121,7 +127,10 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       logit("💯 Done upscaling");
 
       mainWindow.setProgressBar(-1);
-      mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_DONE, outFile);
+      mainWindow.webContents.send(
+        ELECTRON_COMMANDS.DOUBLE_UPSCAYL_DONE,
+        outFile,
+      );
       showNotification("Upscayled", "Image upscayled successfully!");
     }
   };
@@ -132,12 +141,15 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     mainWindow.setProgressBar(-1);
     data.toString();
     // SEND UPSCAYL PROGRESS TO RENDERER
-    mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.DOUBLE_UPSCAYL_PROGRESS,
+      data,
+    );
     // SET FAILED TO TRUE
     failed = true;
     mainWindow &&
       mainWindow.webContents.send(
-        COMMAND.UPSCAYL_ERROR,
+        ELECTRON_COMMANDS.UPSCAYL_ERROR,
         "Error upscaling image. Error: " + data,
       );
     showNotification("Upscayl Failure", "Failed to upscale image!");
@@ -150,13 +162,16 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     // CONVERT DATA TO STRING
     data = data.toString();
     // SEND UPSCAYL PROGRESS TO RENDERER
-    mainWindow.webContents.send(COMMAND.DOUBLE_UPSCAYL_PROGRESS, data);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.DOUBLE_UPSCAYL_PROGRESS,
+      data,
+    );
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
     if (data.includes("Error") || data.includes("failed")) {
       upscayl.kill();
       failed = true;
     } else if (data.includes("Resizing")) {
-      mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+      mainWindow.webContents.send(ELECTRON_COMMANDS.SCALING_AND_CONVERTING);
     }
   };
 

@@ -1,4 +1,4 @@
-const COMMAND = {
+const ELECTRON_COMMANDS = {
   SELECT_FILE: "Select a File",
   SELECT_FOLDER: "Select a Folder",
   UPSCAYL: "Upscale the Image",
@@ -27,4 +27,4 @@ const COMMAND = {
   UPSCAYL_ERROR: "Upscaling Error",
 };
 
-export default COMMAND;
+export default ELECTRON_COMMANDS;

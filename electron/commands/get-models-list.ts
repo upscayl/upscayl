@@ -1,4 +1,4 @@
-import COMMAND from "../../common/commands";
+import ELECTRON_COMMANDS from "../../common/commands";
 import { getMainWindow } from "../main-window";
 import {
   savedCustomModelsPath,
@@ -17,7 +17,10 @@ const getModelsList = async (event, payload) => {
     logit("📁 Custom Models Folder Path: ", savedCustomModelsPath);
     const models = await getModels(payload);
 
-    mainWindow.webContents.send(COMMAND.CUSTOM_MODEL_FILES_LIST, models);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.CUSTOM_MODEL_FILES_LIST,
+      models,
+    );
   }
 };
 

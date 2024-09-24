@@ -16,7 +16,7 @@ import { CompressionInput } from "./CompressionInput";
 import OverwriteToggle from "./OverwriteToggle";
 import { UpscaylCloudModal } from "../UpscaylCloudModal";
 import { ResetSettings } from "./ResetSettings";
-import { featureFlags } from "@common/feature-flags";
+import { FEATURE_FLAGS } from "@common/feature-flags";
 import TurnOffNotificationsToggle from "./TurnOffNotificationsToggle";
 import { cn } from "@/lib/utils";
 import { CustomResolutionInput } from "./CustomResolutionInput";
@@ -194,7 +194,7 @@ function SettingsTab({
         >
           {t("SETTINGS.SUPPORT.DOCS_BUTTON_TITLE")}
         </a>
-        {featureFlags.APP_STORE_BUILD && (
+        {FEATURE_FLAGS.APP_STORE_BUILD && (
           <a
             className="btn btn-primary"
             href={`mailto:upscayl@gmail.com?subject=Upscayl%20Issue%3A%20%3CIssue%20name%20here%3E&body=Device%20Name%3A%20%3CYOUR%20DEVICE%20MODEL%3E%0AOperating%20System%3A%20%3CYOUR%20OPERATING%20SYSTEM%20VERSION%3E%0AUpscayl%20Version%3A%20${upscaylVersion}%0A%0AHi%2C%20I'm%20having%20an%20issue%20with%20Upscayl.%20%3CDESCRIBE%20ISSUE%20HERE%3E`}
@@ -203,7 +203,7 @@ function SettingsTab({
             {t("SETTINGS.SUPPORT.EMAIL_BUTTON_TITLE")}
           </a>
         )}
-        {!featureFlags.APP_STORE_BUILD && <DonateButton />}
+        {!FEATURE_FLAGS.APP_STORE_BUILD && <DonateButton />}
       </div>
 
       <LogArea
@@ -253,7 +253,7 @@ function SettingsTab({
       {/* RESET SETTINGS */}
       <ResetSettings />
 
-      {featureFlags.SHOW_UPSCAYL_CLOUD_INFO && (
+      {FEATURE_FLAGS.SHOW_UPSCAYL_CLOUD_INFO && (
         <>
           <button
             className="mx-5 mb-5 animate-pulse rounded-btn bg-success p-1 text-sm text-slate-50 shadow-lg shadow-success/40"

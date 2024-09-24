@@ -5,12 +5,12 @@ import {
 } from "../utils/config-variables";
 import logit from "../utils/logit";
 import settings from "electron-settings";
-import { featureFlags } from "../../common/feature-flags";
+import { FEATURE_FLAGS } from "../../common/feature-flags";
 
 const selectFolder = async (event, message) => {
   let closeAccess;
   const folderBookmarks = await settings.get("folder-bookmarks");
-  if (featureFlags.APP_STORE_BUILD && folderBookmarks) {
+  if (FEATURE_FLAGS.APP_STORE_BUILD && folderBookmarks) {
     logit("🚨 Folder Bookmarks: ", folderBookmarks);
     try {
       closeAccess = app.startAccessingSecurityScopedResource(
@@ -31,7 +31,7 @@ const selectFolder = async (event, message) => {
     securityScopedBookmarks: true,
   });
 
-  if (featureFlags.APP_STORE_BUILD && bookmarks && bookmarks.length > 0) {
+  if (FEATURE_FLAGS.APP_STORE_BUILD && bookmarks && bookmarks.length > 0) {
     console.log("🚨 Setting folder Bookmark: ", bookmarks);
     await settings.set("folder-bookmarks", bookmarks[0]);
   }

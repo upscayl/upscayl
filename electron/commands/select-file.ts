@@ -3,7 +3,7 @@ import { getMainWindow } from "../main-window";
 import { savedImagePath, setSavedImagePath } from "../utils/config-variables";
 import logit from "../utils/logit";
 import settings from "electron-settings";
-import { featureFlags } from "../../common/feature-flags";
+import { FEATURE_FLAGS } from "../../common/feature-flags";
 
 const selectFile = async () => {
   const mainWindow = getMainWindow();
@@ -33,7 +33,7 @@ const selectFile = async () => {
     ],
   });
 
-  if (featureFlags.APP_STORE_BUILD && bookmarks && bookmarks.length > 0) {
+  if (FEATURE_FLAGS.APP_STORE_BUILD && bookmarks && bookmarks.length > 0) {
     console.log("🚨 Setting Bookmark: ", bookmarks);
     settings.set("file-bookmarks", bookmarks[0]);
   }
