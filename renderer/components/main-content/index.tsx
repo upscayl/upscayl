@@ -1,24 +1,14 @@
 import useLog from "../hooks/useLog";
 import { useState, useCallback, useMemo, useRef } from "react";
 import ELECTRON_COMMANDS from "../../../common/commands";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { logAtom } from "../../atoms/logAtom";
-import { modelsListAtom } from "../../atoms/modelsListAtom";
+import { useAtomValue, useSetAtom } from "jotai";
 import {
   batchModeAtom,
   lensSizeAtom,
-  compressionAtom,
-  dontShowCloudModalAtom,
-  noImageProcessingAtom,
   savedOutputPathAtom,
   progressAtom,
-  scaleAtom,
   viewTypeAtom,
   rememberOutputFolderAtom,
-  customWidthAtom,
-  useCustomWidthAtom,
-  tileSizeAtom,
-  showSidebarAtom,
 } from "../../atoms/userSettingsAtom";
 import { useToast } from "@/components/ui/use-toast";
 import { sanitizePath } from "@common/sanitize-path";
@@ -45,10 +35,28 @@ const MainContent = ({
   batchFolderPath,
   doubleUpscaylCounter,
   setDimensions,
+}: {
+  imagePath: string;
+  resetImagePaths: () => void;
+  upscaledBatchFolderPath: string;
+  setImagePath: React.Dispatch<React.SetStateAction<string>>;
+  validateImagePath: (path: string) => void;
+  selectFolderHandler: () => void;
+  selectImageHandler: () => void;
+  upscaledImagePath: string;
+  batchFolderPath: string;
+  doubleUpscaylCounter: number;
+  setDimensions: React.Dispatch<
+    React.SetStateAction<{
+      width: number;
+      height: number;
+    }>
+  >;
 }) => {
   const t = useAtomValue(translationAtom);
   const { logit } = useLog();
   const { toast } = useToast();
+  const version = useUpscaylVersion();
 
   const upscaledImageRef = useRef<HTMLImageElement>(null);
 
@@ -63,7 +71,6 @@ const MainContent = ({
   const lensSize = useAtomValue(lensSizeAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
   const [zoomAmount, setZoomAmount] = useState("100");
-  const version = useUpscaylVersion();
 
   const sanitizedUpscaledImagePath = useMemo(
     () => sanitizePath(upscaledImagePath),

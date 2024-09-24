@@ -1,8 +1,5 @@
 import { useEffect } from "react";
-import { useAtomValue } from "jotai";
-import { translationAtom } from "@/atoms/translations-atom";
 import ELECTRON_COMMANDS from "@common/commands";
-import useLog from "./useLog";
 
 const useElectron = ({
   command,

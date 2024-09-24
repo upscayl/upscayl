@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import {
   batchModeAtom,
-  lensSizeAtom,
   compressionAtom,
   dontShowCloudModalAtom,
   noImageProcessingAtom,
@@ -11,8 +10,6 @@ import {
   overwriteAtom,
   progressAtom,
   scaleAtom,
-  viewTypeAtom,
-  rememberOutputFolderAtom,
   customWidthAtom,
   useCustomWidthAtom,
   tileSizeAtom,
@@ -37,11 +34,10 @@ import Header from "../Header";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { logAtom } from "@/atoms/logAtom";
-import { modelsListAtom } from "@/atoms/modelsListAtom";
 import ELECTRON_COMMANDS from "@common/commands";
+import useUpscaylVersion from "../hooks/use-upscayl-version";
 
 const Sidebar = ({
-  upscaledImagePath,
   setUpscaledImagePath,
   batchFolderPath,
   setUpscaledBatchFolderPath,
@@ -50,7 +46,6 @@ const Sidebar = ({
   selectImageHandler,
   selectFolderHandler,
 }: {
-  upscaledImagePath: string;
   setUpscaledImagePath: React.Dispatch<React.SetStateAction<string>>;
   batchFolderPath: string;
   setUpscaledBatchFolderPath: React.Dispatch<React.SetStateAction<string>>;
@@ -65,11 +60,12 @@ const Sidebar = ({
   const t = useAtomValue(translationAtom);
   const { logit } = useLog();
   const { toast } = useToast();
+  const version = useUpscaylVersion();
 
   // LOCAL STATES
+  // TODO: Add electron handler for os
   const [os, setOs] = useState<"linux" | "mac" | "win" | undefined>(undefined);
   const [model, setModel] = useState("realesrgan-x4plus");
-  const [version, setVersion] = useState("");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
   const overwrite = useAtomValue(overwriteAtom);
   const [gpuId, setGpuId] = useState("");
@@ -79,22 +75,16 @@ const Sidebar = ({
   const [showCloudModal, setShowCloudModal] = useState(false);
 
   // ATOMIC STATES
-  const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
+  const outputPath = useAtomValue(savedOutputPathAtom);
   const [compression, setCompression] = useAtom(compressionAtom);
-  const [progress, setProgress] = useAtom(progressAtom);
+  const setProgress = useSetAtom(progressAtom);
   const [batchMode, setBatchMode] = useAtom(batchModeAtom);
-  const [logData, setLogData] = useAtom(logAtom);
-  const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
+  const logData = useAtomValue(logAtom);
   const [scale] = useAtom(scaleAtom);
-  const [dontShowCloudModal, setDontShowCloudModal] = useAtom(
-    dontShowCloudModalAtom,
-  );
+  const setDontShowCloudModal = useSetAtom(dontShowCloudModalAtom);
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
   const [news, setNews] = useAtom(newsAtom);
   const [showNewsModal, setShowNewsModal] = useAtom(showNewsModalAtom);
-  const viewType = useAtomValue(viewTypeAtom);
-  const lensSize = useAtomValue(lensSizeAtom);
-  const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
   const customWidth = useAtomValue(customWidthAtom);
   const useCustomWidth = useAtomValue(useCustomWidthAtom);
   const tileSize = useAtomValue(tileSizeAtom);

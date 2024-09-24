@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import ELECTRON_COMMANDS from "../../common/commands";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 import {
   batchModeAtom,
@@ -21,32 +21,38 @@ import MainContent from "@/components/main-content";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import { VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
+import { initCustomModels } from "@/components/hooks/use-custom-models";
 
 const Home = () => {
   const t = useAtomValue(translationAtom);
   const { logit } = useLog();
   const { toast } = useToast();
 
-  // * SHARED HOOKS AND STATES
+  initCustomModels();
+
+  const [isLoading, setIsLoading] = useState(true);
+
   const [imagePath, setImagePath] = useState("");
-  const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
-  const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
+  const [upscaledImagePath, setUpscaledImagePath] = useState("");
   const [dimensions, setDimensions] = useState({
     width: null,
     height: null,
   });
-  const [progress, setProgress] = useAtom(progressAtom);
-  const [upscaledImagePath, setUpscaledImagePath] = useState("");
+  const setOutputPath = useSetAtom(savedOutputPathAtom);
+  const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
+
+  const batchMode = useAtomValue(batchModeAtom);
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+
+  const setProgress = useSetAtom(progressAtom);
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
+
   const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
+
   const [news, setNews] = useAtom(newsAtom);
   const [showNewsModal, setShowNewsModal] = useAtom(showNewsModalAtom);
-  const [batchMode, setBatchMode] = useAtom(batchModeAtom);
 
-  // * SHARED FUNCTIONS
   const selectImageHandler = async () => {
     resetImagePaths();
     var path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FILE);
@@ -62,22 +68,7 @@ const Home = () => {
     }
     validateImagePath(path);
   };
-  const validateImagePath = (path: string) => {
-    if (path.length > 0) {
-      logit("🖼 imagePath: ", path);
-      const extension = path.toLocaleLowerCase().split(".").pop();
-      logit("🔤 Extension: ", extension);
-      if (!VALID_IMAGE_FORMATS.includes(extension.toLowerCase())) {
-        toast({
-          title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
-          description: t("ERRORS.INVALID_IMAGE_ERROR.DESCRIPTION"),
-        });
-        resetImagePaths();
-      }
-    } else {
-      resetImagePaths();
-    }
-  };
+
   const selectFolderHandler = async () => {
     resetImagePaths();
     var path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FOLDER);
@@ -93,6 +84,23 @@ const Home = () => {
       if (!rememberOutputFolder) {
         setOutputPath("");
       }
+    }
+  };
+
+  const validateImagePath = (path: string) => {
+    if (path.length > 0) {
+      logit("🖼 imagePath: ", path);
+      const extension = path.toLocaleLowerCase().split(".").pop();
+      logit("🔤 Extension: ", extension);
+      if (!VALID_IMAGE_FORMATS.includes(extension.toLowerCase())) {
+        toast({
+          title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+          description: t("ERRORS.INVALID_IMAGE_ERROR.DESCRIPTION"),
+        });
+        resetImagePaths();
+      }
+    } else {
+      resetImagePaths();
     }
   };
 
@@ -271,17 +279,6 @@ const Home = () => {
     );
   }, []);
 
-  // FETCH CUSTOM MODELS FROM CUSTOM MODELS PATH
-  useEffect(() => {
-    const customModelsPath = JSON.parse(
-      localStorage.getItem("customModelsPath"),
-    );
-    if (customModelsPath !== null) {
-      window.electron.send(ELECTRON_COMMANDS.GET_MODELS_LIST, customModelsPath);
-      logit("🎯 GET_MODELS_LIST: ", customModelsPath);
-    }
-  }, []);
-
   // FETCH NEWS
   useEffect(() => {
     // TODO: ADD AN ABOUT TAB
@@ -342,10 +339,6 @@ const Home = () => {
     setUpscaledBatchFolderPath("");
   };
 
-  // UTILS
-
-  // HANDLERS
-
   if (isLoading) {
     return (
       <Logo className="absolute left-1/2 top-1/2 w-36 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
@@ -357,7 +350,6 @@ const Home = () => {
       <Sidebar
         imagePath={imagePath}
         dimensions={dimensions}
-        upscaledImagePath={upscaledImagePath}
         setUpscaledImagePath={setUpscaledImagePath}
         batchFolderPath={batchFolderPath}
         setUpscaledBatchFolderPath={setUpscaledBatchFolderPath}
