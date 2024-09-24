@@ -1,37 +1,20 @@
 "use client";
-import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useState, useEffect } from "react";
 import ELECTRON_COMMANDS from "../../common/commands";
 import { useAtom, useAtomValue } from "jotai";
-import { logAtom } from "../atoms/logAtom";
 import { modelsListAtom } from "../atoms/modelsListAtom";
 import {
   batchModeAtom,
-  lensSizeAtom,
-  compressionAtom,
-  dontShowCloudModalAtom,
-  noImageProcessingAtom,
   savedOutputPathAtom,
-  overwriteAtom,
   progressAtom,
-  scaleAtom,
-  viewTypeAtom,
   rememberOutputFolderAtom,
-  customWidthAtom,
-  useCustomWidthAtom,
-  tileSizeAtom,
 } from "../atoms/userSettingsAtom";
 import useLog from "../components/hooks/useLog";
-import {
-  BatchUpscaylPayload,
-  DoubleUpscaylPayload,
-  ImageUpscaylPayload,
-} from "@common/types/types";
 import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
 import matter from "gray-matter";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Logo from "@/components/icons/Logo";
-import { sanitizePath } from "@common/sanitize-path";
 import { translationAtom } from "@/atoms/translations-atom";
 import Sidebar from "@/components/sidebar";
 import MainContent from "@/components/main-content";
