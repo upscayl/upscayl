@@ -6,7 +6,7 @@ type CompressionInputProps = {
   handleCompressionChange: (arg: any) => void;
 };
 
-export function CompressionInput({
+export function InputCompression({
   compression,
   handleCompressionChange,
 }: CompressionInputProps) {

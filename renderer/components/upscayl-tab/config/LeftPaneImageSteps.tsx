@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { themeChange } from "theme-change";
 import { TModelsList, modelsListAtom } from "../../../atoms/modelsListAtom";
-import useLog from "../../hooks/useLog";
+import useLogger from "../../hooks/use-logger";
 import {
   noImageProcessingAtom,
   savedOutputPathAtom,
@@ -76,7 +76,7 @@ function LeftPaneImageSteps({
   const [targetWidth, setTargetWidth] = useState<number>(null);
   const [targetHeight, setTargetHeight] = useState<number>(null);
 
-  const { logit } = useLog();
+  const logit = useLogger();
   const { toast } = useToast();
   const t = useAtomValue(translationAtom);
 

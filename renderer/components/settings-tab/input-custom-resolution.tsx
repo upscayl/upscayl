@@ -3,7 +3,7 @@ import { useAtom, useAtomValue } from "jotai";
 import React from "react";
 import { translationAtom } from "@/atoms/translations-atom";
 
-export function CustomResolutionInput() {
+export function InputCustomResolution() {
   const [useCustomWidth, setUseCustomWidth] = useAtom(useCustomWidthAtom);
   const [customWidth, setCustomWidth] = useAtom(customWidthAtom);
   const t = useAtomValue(translationAtom);

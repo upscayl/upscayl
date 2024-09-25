@@ -2,7 +2,7 @@ import { translationAtom } from "@/atoms/translations-atom";
 import { useAtomValue } from "jotai";
 import React from "react";
 
-function RightPaneInfo({ version, batchMode }) {
+function InformationCard({ version, batchMode }) {
   const t = useAtomValue(translationAtom);
 
   return (
@@ -26,4 +26,4 @@ function RightPaneInfo({ version, batchMode }) {
   );
 }
 
-export default RightPaneInfo;
+export default InformationCard;

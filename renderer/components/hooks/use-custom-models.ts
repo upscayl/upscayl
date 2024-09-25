@@ -1,9 +1,9 @@
 import ELECTRON_COMMANDS from "@common/commands";
 import { useEffect } from "react";
-import useLog from "./useLog";
+import useLogger from "./use-logger";
 
 export const initCustomModels = () => {
-  const { logit } = useLog();
+  const logit = useLogger();
 
   useEffect(() => {
     const customModelsPath = JSON.parse(

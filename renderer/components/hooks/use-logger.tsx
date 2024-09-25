@@ -3,7 +3,7 @@ import log from "electron-log/renderer";
 import { useSetAtom } from "jotai";
 import React from "react";
 
-const useLog = () => {
+const useLogger = () => {
   const setLogData = useSetAtom(logAtom);
 
   const logit = (...args: any) => {
@@ -13,9 +13,7 @@ const useLog = () => {
     setLogData((prevLogData) => [...prevLogData, data]);
   };
 
-  return {
-    logit,
-  };
+  return logit;
 };
 
-export default useLog;
+export default useLogger;

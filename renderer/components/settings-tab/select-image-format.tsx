@@ -7,7 +7,7 @@ type ImageFormatSelectProps = {
   setExportType: (arg: string) => void;
 };
 
-export function ImageFormatSelect({
+export function SelectImageFormat({
   batchMode,
   saveImageAs,
   setExportType,

@@ -7,7 +7,7 @@ type GpuIdInputProps = {
   handleGpuIdChange: (arg: string) => void;
 };
 
-export function GpuIdInput({ gpuId, handleGpuIdChange }) {
+export function InputGpuId({ gpuId, handleGpuIdChange }) {
   const t = useAtomValue(translationAtom);
 
   return (

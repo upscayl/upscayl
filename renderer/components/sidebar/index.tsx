@@ -15,27 +15,26 @@ import {
   tileSizeAtom,
   showSidebarAtom,
 } from "../../atoms/userSettingsAtom";
-import useLog from "../../components/hooks/useLog";
+import useLogger from "../hooks/use-logger";
 import {
   BatchUpscaylPayload,
   DoubleUpscaylPayload,
   ImageUpscaylPayload,
 } from "@common/types/types";
-import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
 import { useToast } from "@/components/ui/use-toast";
-import Logo from "@/components/icons/Logo";
-import { translationAtom } from "@/atoms/translations-atom";
 import LeftPaneImageSteps from "../upscayl-tab/config/LeftPaneImageSteps";
 import SettingsTab from "../settings-tab";
 import Footer from "../Footer";
 import { NewsModal } from "../NewsModal";
 import Tabs from "../Tabs";
 import Header from "../Header";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ChevronLeftIcon } from "lucide-react";
 import { logAtom } from "@/atoms/logAtom";
 import ELECTRON_COMMANDS from "@common/commands";
 import useUpscaylVersion from "../hooks/use-upscayl-version";
+import useTranslation from "../hooks/use-translation";
+import UpscaylLogo from "./upscayl-logo";
+import SidebarToggleButton from "./sidebar-button";
 
 const Sidebar = ({
   setUpscaledImagePath,
@@ -57,14 +56,13 @@ const Sidebar = ({
   selectImageHandler: () => Promise<void>;
   selectFolderHandler: () => Promise<void>;
 }) => {
-  const t = useAtomValue(translationAtom);
-  const { logit } = useLog();
+  const t = useTranslation();
+  const logit = useLogger();
   const { toast } = useToast();
   const version = useUpscaylVersion();
 
   // LOCAL STATES
   // TODO: Add electron handler for os
-  const [os, setOs] = useState<"linux" | "mac" | "win" | undefined>(undefined);
   const [model, setModel] = useState("realesrgan-x4plus");
   const [doubleUpscayl, setDoubleUpscayl] = useState(false);
   const overwrite = useAtomValue(overwriteAtom);
@@ -83,8 +81,6 @@ const Sidebar = ({
   const [scale] = useAtom(scaleAtom);
   const setDontShowCloudModal = useSetAtom(dontShowCloudModalAtom);
   const noImageProcessing = useAtomValue(noImageProcessingAtom);
-  const [news, setNews] = useAtom(newsAtom);
-  const [showNewsModal, setShowNewsModal] = useAtom(showNewsModalAtom);
   const customWidth = useAtomValue(customWidthAtom);
   const useCustomWidth = useAtomValue(useCustomWidthAtom);
   const tileSize = useAtomValue(tileSizeAtom);
@@ -174,25 +170,13 @@ const Sidebar = ({
   return (
     <>
       {/* TOP LOGO WHEN SIDEBAR IS HIDDEN */}
-      {!showSidebar && (
-        <div className="fixed right-2 top-2 z-50 flex items-center justify-center gap-2 rounded-[7px] bg-base-300 px-2 py-1 font-medium text-base-content ">
-          <Logo className="w-5" />
-          {t("TITLE")}
-        </div>
-      )}
+      {!showSidebar && <UpscaylLogo />}
 
-      {/* SIDEBAR BUTTON */}
-      <button
-        className={cn(
-          "fixed left-0 top-1/2 z-[999] -translate-y-1/2 rounded-r-full bg-base-100 p-4 ",
-          showSidebar ? "hidden" : "",
-        )}
-        onClick={() => setShowSidebar((prev) => !prev)}
-      >
-        <ChevronRightIcon />
-      </button>
+      <SidebarToggleButton
+        showSidebar={showSidebar}
+        setShowSidebar={setShowSidebar}
+      />
 
-      {/* LEFT PANE */}
       <div
         className={`relative flex h-screen min-w-[350px] max-w-[350px] flex-col bg-base-100 ${showSidebar ? "" : "hidden"}`}
       >
@@ -203,22 +187,13 @@ const Sidebar = ({
           <ChevronLeftIcon />
         </button>
 
-        {/* MACOS TITLEBAR */}
         {window.electron.platform === "mac" && (
           <div className="mac-titlebar pt-8"></div>
         )}
-        {/* HEADER */}
+
         <Header version={version} />
 
-        {/* NEWS DIALOG */}
-        <NewsModal
-          show={showNewsModal}
-          setShow={(val: boolean) => {
-            setShowNewsModal(val);
-            setNews((prev) => ({ ...prev, seen: true }));
-          }}
-          news={news}
-        />
+        <NewsModal />
 
         <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
@@ -252,13 +227,11 @@ const Sidebar = ({
             saveImageAs={saveImageAs}
             setSaveImageAs={setSaveImageAs}
             logData={logData}
-            os={os}
             show={showCloudModal}
             setShow={setShowCloudModal}
             setDontShowCloudModal={setDontShowCloudModal}
           />
         )}
-        {/* )} */}
         <Footer />
       </div>
     </>

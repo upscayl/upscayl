@@ -1,5 +1,5 @@
-import useLog from "../hooks/useLog";
-import { useState, useCallback, useMemo, useRef } from "react";
+import useLogger from "../hooks/use-logger";
+import { useState, useMemo } from "react";
 import ELECTRON_COMMANDS from "../../../common/commands";
 import { useAtomValue, useSetAtom } from "jotai";
 import {
@@ -12,15 +12,18 @@ import {
 } from "../../atoms/userSettingsAtom";
 import { useToast } from "@/components/ui/use-toast";
 import { sanitizePath } from "@common/sanitize-path";
-import { translationAtom } from "@/atoms/translations-atom";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import { VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
-import ProgressBar from "../upscayl-tab/view/ProgressBar";
-import RightPaneInfo from "../upscayl-tab/view/RightPaneInfo";
-import ImageOptions from "../upscayl-tab/view/ImageOptions";
-import { ReactCompareSlider } from "react-compare-slider";
+import ProgressBar from "./progress-bar";
+import InformationCard from "../upscayl-tab/view/RightPaneInfo";
+import ImageViewSettings from "../upscayl-tab/view/ImageOptions";
 import useUpscaylVersion from "../hooks/use-upscayl-version";
+import MacTitlebarDragRegion from "./mac-titlebar-drag-region";
+import LensViewer from "./lens-view";
+import ImageViewer from "./image-viewer";
+import useTranslation from "../hooks/use-translation";
+import SliderView from "./slider-view";
 ("use client");
 
 const MainContent = ({
@@ -53,15 +56,10 @@ const MainContent = ({
     }>
   >;
 }) => {
-  const t = useAtomValue(translationAtom);
-  const { logit } = useLog();
+  const t = useTranslation();
+  const logit = useLogger();
   const { toast } = useToast();
   const version = useUpscaylVersion();
-
-  const upscaledImageRef = useRef<HTMLImageElement>(null);
-
-  const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
-  const [lensPosition, setLensPosition] = useState({ x: 0, y: 0 });
 
   const setOutputPath = useSetAtom(savedOutputPathAtom);
   const progress = useAtomValue(progressAtom);
@@ -76,6 +74,22 @@ const MainContent = ({
     () => sanitizePath(upscaledImagePath),
     [upscaledImagePath],
   );
+
+  const showInformationCard = useMemo(() => {
+    if (!batchMode) {
+      return imagePath.length === 0 && upscaledImagePath.length === 0;
+    } else {
+      return (
+        batchFolderPath.length === 0 && upscaledBatchFolderPath.length === 0
+      );
+    }
+  }, [
+    batchMode,
+    imagePath,
+    upscaledImagePath,
+    batchFolderPath,
+    upscaledBatchFolderPath,
+  ]);
 
   // DRAG AND DROP HANDLERS
   const handleDragEnter = (e) => {
@@ -92,7 +106,7 @@ const MainContent = ({
   };
 
   const openFolderHandler = (e) => {
-    const { logit } = useLog();
+    const logit = useLogger();
     logit("📂 OPEN_FOLDER: ", upscaledBatchFolderPath);
     window.electron.send(
       ELECTRON_COMMANDS.OPEN_FOLDER,
@@ -146,7 +160,7 @@ const MainContent = ({
     }
   };
 
-  const handlePaste = (e) => {
+  const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     resetImagePaths();
     e.preventDefault();
     const type = e.clipboardData.items[0].type;
@@ -171,93 +185,48 @@ const MainContent = ({
     }
   };
 
-  const handleMouseMove = useCallback((e: any) => {
-    const { left, top, width, height } = e.target.getBoundingClientRect();
-    const x = ((e.pageX - left) / width) * 100;
-    const y = ((e.pageY - top) / height) * 100;
-    setBackgroundPosition(`${x}% ${y}%`);
-  }, []);
-
-  const handleMouseMoveCompare = (e: React.MouseEvent) => {
-    if (upscaledImageRef.current) {
-      const { left, top, width, height } =
-        upscaledImageRef.current.getBoundingClientRect();
-      const x = e.clientX - left;
-      const y = e.clientY - top;
-      setLensPosition({
-        x: Math.max(0, Math.min(x - lensSize, width - lensSize * 2)),
-        y: Math.max(0, Math.min(y - lensSize / 2, height - lensSize)),
-      });
-    }
-  };
-
-  const stopHandler = () => {
-    window.electron.send(ELECTRON_COMMANDS.STOP);
-    logit("🛑 Stopping Upscayl");
-    resetImagePaths();
-  };
-
   return (
     <div
       className="relative flex h-screen w-full flex-col items-center justify-center"
-      onDrop={(e) => handleDrop(e)}
-      onDragOver={(e) => handleDragOver(e)}
-      onDragEnter={(e) => handleDragEnter(e)}
-      onDragLeave={(e) => handleDragLeave(e)}
-      onDoubleClick={() => {
-        if (batchMode) {
-          selectFolderHandler();
-        } else {
-          selectImageHandler();
-        }
-      }}
-      onPaste={(e) => handlePaste(e)}
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDoubleClick={batchMode ? selectFolderHandler : selectImageHandler}
+      onPaste={handlePaste}
     >
-      {window.electron.platform === "mac" && (
-        <div className="mac-titlebar absolute top-0 h-8 w-full"></div>
-      )}
+      <MacTitlebarDragRegion />
+
       {progress.length > 0 &&
-      upscaledImagePath.length === 0 &&
-      upscaledBatchFolderPath.length === 0 ? (
-        <ProgressBar
-          batchMode={batchMode}
-          progress={progress}
-          doubleUpscaylCounter={doubleUpscaylCounter}
-          stopHandler={stopHandler}
-        />
-      ) : null}
+        upscaledImagePath.length === 0 &&
+        upscaledBatchFolderPath.length === 0 && (
+          <ProgressBar
+            batchMode={batchMode}
+            progress={progress}
+            doubleUpscaylCounter={doubleUpscaylCounter}
+            resetImagePaths={resetImagePaths}
+          />
+        )}
+
       {/* DEFAULT PANE INFO */}
-      {((!batchMode &&
-        imagePath.length === 0 &&
-        upscaledImagePath.length === 0) ||
-        (batchMode &&
-          batchFolderPath.length === 0 &&
-          upscaledBatchFolderPath.length === 0)) && (
-        <RightPaneInfo version={version} batchMode={batchMode} />
+      {showInformationCard && (
+        <InformationCard version={version} batchMode={batchMode} />
       )}
+
+      <ImageViewSettings
+        zoomAmount={zoomAmount}
+        setZoomAmount={setZoomAmount}
+        resetImagePaths={resetImagePaths}
+        hideZoomOptions={
+          !batchMode && upscaledImagePath.length === 0 && imagePath.length > 0
+        }
+      />
+
       {/* SHOW SELECTED IMAGE */}
       {!batchMode && upscaledImagePath.length === 0 && imagePath.length > 0 && (
-        <>
-          <ImageOptions
-            zoomAmount={zoomAmount}
-            setZoomAmount={setZoomAmount}
-            resetImagePaths={resetImagePaths}
-            hideZoomOptions={true}
-          />
-          <img
-            src={"file:///" + sanitizePath(imagePath)}
-            onLoad={(e: any) => {
-              setDimensions({
-                width: e.target.naturalWidth,
-                height: e.target.naturalHeight,
-              });
-            }}
-            draggable="false"
-            alt=""
-            className="h-full w-full bg-gradient-to-br from-base-300 to-base-100 object-contain"
-          />
-        </>
+        <ImageViewer imagePath={imagePath} setDimensions={setDimensions} />
       )}
+
       {/* BATCH UPSCALE SHOW SELECTED FOLDER */}
       {batchMode &&
         upscaledBatchFolderPath.length === 0 &&
@@ -270,6 +239,7 @@ const MainContent = ({
           </p>
         )}
       {/* BATCH UPSCALE DONE INFO */}
+
       {batchMode && upscaledBatchFolderPath.length > 0 && (
         <div className="z-50 flex flex-col items-center">
           <p className="select-none py-4 font-bold text-base-content">
@@ -283,121 +253,26 @@ const MainContent = ({
           </button>
         </div>
       )}
-      <ImageOptions
-        zoomAmount={zoomAmount}
-        setZoomAmount={setZoomAmount}
-        resetImagePaths={resetImagePaths}
-      />
+
       {!batchMode && viewType === "lens" && upscaledImagePath && imagePath && (
-        <div
-          className="group relative h-full w-full overflow-hidden"
-          onMouseMove={handleMouseMoveCompare}
-        >
-          {/* UPSCALED IMAGE */}
-          <img
-            className="h-full w-full object-contain"
-            src={"file:///" + sanitizedUpscaledImagePath}
-            alt="Upscaled"
-            ref={upscaledImageRef}
-          />
-          {/* LENS */}
-          <div
-            className="pointer-events-none absolute opacity-0 transition-opacity before:absolute before:left-1/2 before:h-full before:w-[2px] before:bg-white group-hover:opacity-100"
-            style={{
-              left: `${lensPosition.x}px`,
-              top: `${lensPosition.y}px`,
-              width: lensSize * 2,
-              height: lensSize,
-              border: "2px solid white",
-              boxShadow: "0 0 0 9999px rgba(0, 0, 0, 0.5)",
-            }}
-          >
-            <div className="flex h-full w-full">
-              <div className="h-full w-full overflow-hidden">
-                <img
-                  src={"file:///" + sanitizedImagePath}
-                  alt="Original"
-                  className="h-full w-full"
-                  style={{
-                    objectFit: "contain",
-                    objectPosition: `${-lensPosition.x}px ${-lensPosition.y}px`,
-                    transform: `scale(${parseInt(zoomAmount) / 100})`,
-                    transformOrigin: "top left",
-                  }}
-                />
-              </div>
-              <div className="h-full w-full overflow-hidden">
-                <img
-                  src={"file:///" + sanitizedUpscaledImagePath}
-                  alt="Upscaled"
-                  className="h-full w-full"
-                  style={{
-                    objectFit: "contain",
-                    objectPosition: `${-lensPosition.x}px ${-lensPosition.y}px`,
-                    transform: `scale(${parseInt(zoomAmount) / 100})`,
-                    transformOrigin: "top left",
-                  }}
-                />
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 flex w-full items-center justify-around bg-black bg-opacity-50 p-1 px-2 text-center text-xs text-white backdrop-blur-sm">
-              <span>Original</span>
-              <span>Upscayl</span>
-            </div>
-          </div>
-        </div>
+        <LensViewer
+          zoomAmount={zoomAmount}
+          lensSize={lensSize}
+          sanitizedImagePath={sanitizedImagePath}
+          sanitizedUpscaledImagePath={sanitizedUpscaledImagePath}
+        />
       )}
+
       {/* COMPARISON SLIDER */}
       {!batchMode &&
         viewType === "slider" &&
         imagePath.length > 0 &&
         upscaledImagePath.length > 0 && (
-          <>
-            <ReactCompareSlider
-              itemOne={
-                <>
-                  <p className="absolute bottom-1 left-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                    {t("APP.SLIDER.ORIGINAL_TITLE")}
-                  </p>
-
-                  <img
-                    /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                    src={"file:///" + sanitizedImagePath}
-                    alt={t("APP.SLIDER.ORIGINAL_TITLE")}
-                    onMouseMove={handleMouseMove}
-                    style={{
-                      objectFit: "contain",
-                      backgroundPosition: "0% 0%",
-                      transformOrigin: backgroundPosition,
-                    }}
-                    className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}%]`}
-                  />
-                </>
-              }
-              itemTwo={
-                <>
-                  <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
-                    {t("APP.SLIDER.UPSCAYLED_TITLE")}
-                  </p>
-                  <img
-                    /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-                    src={"file:///" + sanitizedUpscaledImagePath}
-                    alt={t("APP.SLIDER.UPSCAYLED_TITLE")}
-                    style={{
-                      objectFit: "contain",
-                      backgroundPosition: "0% 0%",
-                      transformOrigin: backgroundPosition,
-                    }}
-                    onMouseMove={handleMouseMove}
-                    className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${
-                      zoomAmount || "100%"
-                    }%]`}
-                  />
-                </>
-              }
-              className="group h-screen"
-            />
-          </>
+          <SliderView
+            sanitizedImagePath={sanitizedImagePath}
+            sanitizedUpscaledImagePath={sanitizedUpscaledImagePath}
+            zoomAmount={zoomAmount}
+          />
         )}
     </div>
   );

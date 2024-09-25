@@ -5,7 +5,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { WrenchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const ImageOptions = ({
+const ImageViewSettings = ({
   zoomAmount,
   setZoomAmount,
   resetImagePaths,
@@ -113,4 +113,4 @@ const ImageOptions = ({
   );
 };
 
-export default ImageOptions;
+export default ImageViewSettings;

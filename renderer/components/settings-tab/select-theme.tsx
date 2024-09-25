@@ -1,7 +1,8 @@
 import { translationAtom } from "@/atoms/translations-atom";
 import { useAtomValue } from "jotai";
 import React from "react";
-export function ThemeSelect() {
+
+export function SelectTheme() {
   const availableThemes = [
     { label: "upscayl", value: "upscayl" },
     { label: "light", value: "light" },

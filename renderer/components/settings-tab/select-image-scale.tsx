@@ -8,7 +8,7 @@ type ImageScaleSelectProps = {
   hideInfo?: boolean;
 };
 
-export function ImageScaleSelect({
+export function SelectImageScale({
   scale,
   setScale,
   hideInfo,

@@ -1,26 +1,26 @@
-import { ThemeSelect } from "./ThemeSelect";
-import { SaveOutputFolderToggle } from "./SaveOutputFolderToggle";
-import { GpuIdInput } from "./GpuIdInput";
-import { CustomModelsFolderSelect } from "./CustomModelsFolderSelect";
-import { LogArea } from "./LogArea";
-import { ImageScaleSelect } from "./ImageScaleSelect";
-import { ImageFormatSelect } from "./ImageFormatSelect";
-import { DonateButton } from "./DonateButton";
+import { SelectTheme } from "./select-theme";
+import { SaveOutputFolderToggle } from "./save-output-folder-toggle";
+import { InputGpuId } from "./input-gpu-id";
+import { CustomModelsFolderSelect } from "./select-custom-models-folder";
+import { LogArea } from "./log-area";
+import { SelectImageScale } from "./select-image-scale";
+import { SelectImageFormat } from "./select-image-format";
+import { DonateButton } from "./donate-button";
 import React, { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 import { useAtom, useAtomValue } from "jotai";
 import { customModelsPathAtom, scaleAtom } from "../../atoms/userSettingsAtom";
 import { modelsListAtom } from "../../atoms/modelsListAtom";
-import useLog from "../hooks/useLog";
-import { CompressionInput } from "./CompressionInput";
-import OverwriteToggle from "./OverwriteToggle";
+import useLogger from "../hooks/use-logger";
+import { InputCompression } from "./input-compression";
+import OverwriteToggle from "./overwrite-toggle";
 import { UpscaylCloudModal } from "../UpscaylCloudModal";
-import { ResetSettings } from "./ResetSettings";
+import { ResetSettingsButton } from "./reset-settings-button";
 import { FEATURE_FLAGS } from "@common/feature-flags";
-import TurnOffNotificationsToggle from "./TurnOffNotificationsToggle";
+import TurnOffNotificationsToggle from "./turn-off-notifications-toggle";
 import { cn } from "@/lib/utils";
-import { CustomResolutionInput } from "./CustomResolutionInput";
-import { TileSizeInput } from "./TileSizeInput";
+import { InputCustomResolution } from "./input-custom-resolution";
+import { InputTileSize } from "./input-tile-size";
 import LanguageSwitcher from "./language-switcher";
 import { translationAtom } from "@/atoms/translations-atom";
 
@@ -34,7 +34,6 @@ interface IProps {
   gpuId: string;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
   logData: string[];
-  os: "linux" | "mac" | "win" | undefined;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   setDontShowCloudModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -50,19 +49,11 @@ function SettingsTab({
   saveImageAs,
   setSaveImageAs,
   logData,
-  os,
+
   show,
   setShow,
   setDontShowCloudModal,
 }: IProps) {
-  // STATES
-  const [currentModel, setCurrentModel] = useState<{
-    label: string;
-    value: string;
-  }>({
-    label: null,
-    value: null,
-  });
   const [isCopied, setIsCopied] = useState(false);
 
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
@@ -72,7 +63,7 @@ function SettingsTab({
   const [timeoutId, setTimeoutId] = useState(null);
   const t = useAtomValue(translationAtom);
 
-  const { logit } = useLog();
+  const logit = useLogger();
 
   useEffect(() => {
     themeChange(false);
@@ -90,7 +81,6 @@ function SettingsTab({
     }
 
     if (!localStorage.getItem("model")) {
-      setCurrentModel(modelOptions[0]);
       setModel(modelOptions[0].value);
       localStorage.setItem("model", JSON.stringify(modelOptions[0]));
       logit("🔀 Setting model to", modelOptions[0].value);
@@ -107,7 +97,6 @@ function SettingsTab({
         logit("🔀 Setting model to", modelOptions[0].value);
         currentlySavedModel = modelOptions[0];
       }
-      setCurrentModel(currentlySavedModel);
       setModel(currentlySavedModel.value);
       logit(
         "⚙️ Getting model from localStorage: ",
@@ -213,23 +202,23 @@ function SettingsTab({
       />
 
       {/* THEME SELECTOR */}
-      <ThemeSelect />
+      <SelectTheme />
 
       <LanguageSwitcher />
 
       {/* IMAGE FORMAT BUTTONS */}
-      <ImageFormatSelect
+      <SelectImageFormat
         batchMode={batchMode}
         saveImageAs={saveImageAs}
         setExportType={setExportType}
       />
 
       {/* IMAGE SCALE */}
-      <ImageScaleSelect scale={scale} setScale={setScale} />
+      <SelectImageScale scale={scale} setScale={setScale} />
 
-      <CustomResolutionInput />
+      <InputCustomResolution />
 
-      <CompressionInput
+      <InputCompression
         compression={compression}
         handleCompressionChange={handleCompressionChange}
       />
@@ -240,9 +229,9 @@ function SettingsTab({
       <TurnOffNotificationsToggle />
 
       {/* GPU ID INPUT */}
-      <GpuIdInput gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />
+      <InputGpuId gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />
 
-      <TileSizeInput />
+      <InputTileSize />
 
       {/* CUSTOM MODEL */}
       <CustomModelsFolderSelect
@@ -251,7 +240,7 @@ function SettingsTab({
       />
 
       {/* RESET SETTINGS */}
-      <ResetSettings />
+      <ResetSettingsButton />
 
       {FEATURE_FLAGS.SHOW_UPSCAYL_CLOUD_INFO && (
         <>

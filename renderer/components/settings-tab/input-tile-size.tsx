@@ -3,7 +3,7 @@ import { tileSizeAtom } from "@/atoms/userSettingsAtom";
 import { useAtom, useAtomValue } from "jotai";
 import React from "react";
 
-export function TileSizeInput() {
+export function InputTileSize() {
   const [tileSize, setTileSize] = useAtom(tileSizeAtom);
   const t = useAtomValue(translationAtom);
 

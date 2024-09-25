@@ -2,7 +2,7 @@ import { translationAtom } from "@/atoms/translations-atom";
 import { useAtomValue } from "jotai";
 import React from "react";
 
-export function ResetSettings() {
+export function ResetSettingsButton() {
   const t = useAtomValue(translationAtom);
   return (
     <div className="flex flex-col items-start gap-2">

@@ -9,12 +9,12 @@ import {
   progressAtom,
   rememberOutputFolderAtom,
 } from "../atoms/userSettingsAtom";
-import useLog from "../components/hooks/useLog";
+import useLogger from "../components/hooks/use-logger";
 import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
 import matter from "gray-matter";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import Logo from "@/components/icons/Logo";
+import UpscaylSVGLogo from "@/components/icons/Logo";
 import { translationAtom } from "@/atoms/translations-atom";
 import Sidebar from "@/components/sidebar";
 import MainContent from "@/components/main-content";
@@ -25,7 +25,7 @@ import { initCustomModels } from "@/components/hooks/use-custom-models";
 
 const Home = () => {
   const t = useAtomValue(translationAtom);
-  const { logit } = useLog();
+  const logit = useLogger();
   const { toast } = useToast();
 
   initCustomModels();
@@ -279,47 +279,6 @@ const Home = () => {
     );
   }, []);
 
-  // FETCH NEWS
-  useEffect(() => {
-    // TODO: ADD AN ABOUT TAB
-    if (window && window.navigator.onLine === false) return;
-    try {
-      fetch("https://raw.githubusercontent.com/upscayl/upscayl/main/news.md", {
-        cache: "no-cache",
-      })
-        .then((res) => {
-          return res.text();
-        })
-        .then((result) => {
-          const newsData = result;
-          if (!newsData) {
-            console.log("📰 Could not fetch news data");
-            return;
-          }
-          const markdownData = matter(newsData);
-          if (!markdownData) return;
-          if (markdownData && markdownData.data.dontShow) {
-            return;
-          }
-          if (
-            markdownData &&
-            news &&
-            markdownData?.data?.version === news?.data?.version
-          ) {
-            console.log("📰 News is up to date");
-            if (showNewsModal === false) {
-              setShowNewsModal(false);
-            }
-          } else if (markdownData) {
-            setNews(matter(newsData));
-            setShowNewsModal(true);
-          }
-        });
-    } catch (error) {
-      console.log("Could not fetch Upscayl News");
-    }
-  }, [news]);
-
   // LOADING STATE
   useEffect(() => {
     setIsLoading(false);
@@ -341,7 +300,7 @@ const Home = () => {
 
   if (isLoading) {
     return (
-      <Logo className="absolute left-1/2 top-1/2 w-36 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+      <UpscaylSVGLogo className="absolute left-1/2 top-1/2 w-36 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
     );
   }
 

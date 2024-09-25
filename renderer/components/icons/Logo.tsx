@@ -1,6 +1,6 @@
 import React from "react";
 
-const Logo = ({ ...rest }) => {
+const UpscaylSVGLogo = ({ ...rest }) => {
   return (
     <svg
       viewBox="0 0 256 256"
@@ -166,4 +166,4 @@ const Logo = ({ ...rest }) => {
   );
 };
 
-export default Logo;
+export default UpscaylSVGLogo;
