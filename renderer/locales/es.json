@@ -12,7 +12,7 @@
     "LINK_TITLE": "El equipo de Upscayl"
   },
   "SETTINGS": {
-    "TITLE": "AJUSTES",
+    "TITLE": "Ajustes",
     "CHANGE_LANGUAGE": { "TITLE": "Cambiar idioma" },
     "IMAGE_COMPRESSION": {
       "TITLE": "Compresión de imagen",
@@ -127,8 +127,8 @@
       "FROM_TITLE": "Aumentar desde ",
       "TO_TITLE": " a ",
       "NO_OUTPUT_FOLDER_ALERT": "Por favor, selecciona primero una carpeta de salida",
-      "START_BUTTON_TITLE": "Upscayl",
-      "IN_PROGRESS_BUTTON_TITLE": "Aumentando⏳"
+      "START_BUTTON_TITLE": "Upscayl 🚀",
+      "IN_PROGRESS_BUTTON_TITLE": "Aumentando ⏳"
     },
     "IMAGE_OPTIONS": {
       "RESET_BUTTON_TITLE": "Restablecer imagen",
