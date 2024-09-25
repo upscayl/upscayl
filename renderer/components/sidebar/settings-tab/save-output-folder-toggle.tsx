@@ -2,7 +2,7 @@ import { translationAtom } from "@/atoms/translations-atom";
 import {
   savedOutputPathAtom,
   rememberOutputFolderAtom,
-} from "@/atoms/userSettingsAtom";
+} from "@/atoms/user-settings-atom";
 import { useAtom, useAtomValue } from "jotai";
 
 export function SaveOutputFolderToggle() {

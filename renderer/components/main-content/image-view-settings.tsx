@@ -1,5 +1,5 @@
 import { translationAtom } from "@/atoms/translations-atom";
-import { lensSizeAtom, viewTypeAtom } from "@/atoms/userSettingsAtom";
+import { lensSizeAtom, viewTypeAtom } from "@/atoms/user-settings-atom";
 import { cn } from "@/lib/utils";
 import { useAtom, useAtomValue } from "jotai";
 import { WrenchIcon } from "lucide-react";
@@ -9,12 +9,10 @@ const ImageViewSettings = ({
   zoomAmount,
   setZoomAmount,
   resetImagePaths,
-  hideZoomOptions,
 }: {
   zoomAmount: string;
   setZoomAmount: (arg: any) => void;
   resetImagePaths: () => void;
-  hideZoomOptions?: boolean;
 }) => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [viewType, setViewType] = useAtom(viewTypeAtom);

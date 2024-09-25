@@ -1,4 +1,4 @@
-import UpscaylSVGLogo from "../icons/Logo";
+import UpscaylSVGLogo from "../icons/upscayl-logo-svg";
 import useTranslation from "../hooks/use-translation";
 
 const UpscaylLogo = () => {

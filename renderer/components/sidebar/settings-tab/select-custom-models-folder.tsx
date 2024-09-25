@@ -1,5 +1,5 @@
 import React from "react";
-import commands from "../../../common/commands";
+import commands from "@common/commands";
 import { useAtomValue } from "jotai";
 import { translationAtom } from "@/atoms/translations-atom";
 

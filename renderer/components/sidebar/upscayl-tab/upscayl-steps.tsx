@@ -1,26 +1,24 @@
 import { useAtom, useAtomValue } from "jotai";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { themeChange } from "theme-change";
-import { TModelsList, modelsListAtom } from "../../../atoms/modelsListAtom";
+import { TModelsList, modelsListAtom } from "../../../atoms/models-list-atom";
 import useLogger from "../../hooks/use-logger";
 import {
-  noImageProcessingAtom,
   savedOutputPathAtom,
   progressAtom,
   rememberOutputFolderAtom,
   scaleAtom,
   customWidthAtom,
   useCustomWidthAtom,
-} from "../../../atoms/userSettingsAtom";
+} from "../../../atoms/user-settings-atom";
 import { FEATURE_FLAGS } from "@common/feature-flags";
-import getModelScale from "@common/check-model-scale";
 import ELECTRON_COMMANDS from "@common/commands";
 import Select from "react-select";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { translationAtom } from "@/atoms/translations-atom";
-import { SelectImageScale } from "@/components/settings-tab/select-image-scale";
+import { SelectImageScale } from "../settings-tab/select-image-scale";
 
 interface IProps {
   selectImageHandler: () => Promise<void>;
@@ -42,7 +40,7 @@ interface IProps {
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function LeftPaneImageSteps({
+function UpscaylSteps({
   selectImageHandler,
   selectFolderHandler,
   handleModelChange,
@@ -65,16 +63,12 @@ function LeftPaneImageSteps({
 
   const modelOptions = useAtomValue(modelsListAtom);
   const [scale, setScale] = useAtom(scaleAtom);
-  const noImageProcessing = useAtomValue(noImageProcessingAtom);
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [progress, setProgress] = useAtom(progressAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
   const [open, setOpen] = React.useState(false);
-  const [customWidth, setCustomWidth] = useAtom(customWidthAtom);
-  const [useCustomWidth, setUseCustomWidth] = useAtom(useCustomWidthAtom);
-
-  const [targetWidth, setTargetWidth] = useState<number>(null);
-  const [targetHeight, setTargetHeight] = useState<number>(null);
+  const customWidth = useAtomValue(customWidthAtom);
+  const useCustomWidth = useAtomValue(useCustomWidthAtom);
 
   const logit = useLogger();
   const { toast } = useToast();
@@ -136,12 +130,7 @@ function LeftPaneImageSteps({
     logit("🔀 Setting model to", currentModel.value);
   }, [currentModel]);
 
-  useEffect(() => {
-    setTargetWidth(getUpscaleResolution().width);
-    setTargetHeight(getUpscaleResolution().height);
-  }, [dimensions.width, dimensions.height, doubleUpscayl, scale]);
-
-  const getUpscaleResolution = useCallback(() => {
+  const upscaylResolution = useMemo(() => {
     const newDimensions = {
       width: dimensions.width,
       height: dimensions.height,
@@ -335,7 +324,7 @@ function LeftPaneImageSteps({
             </span>
             {t("APP.SCALE_SELECTION.TO_TITLE")}
             <span className="font-bold">
-              {getUpscaleResolution().width}x{getUpscaleResolution().height}
+              {upscaylResolution.width}x{upscaylResolution.height}
             </span>
           </p>
         )}
@@ -366,4 +355,4 @@ function LeftPaneImageSteps({
   );
 }
 
-export default LeftPaneImageSteps;
+export default UpscaylSteps;

@@ -9,15 +9,15 @@ import {
   progressAtom,
   viewTypeAtom,
   rememberOutputFolderAtom,
-} from "../../atoms/userSettingsAtom";
+} from "../../atoms/user-settings-atom";
 import { useToast } from "@/components/ui/use-toast";
 import { sanitizePath } from "@common/sanitize-path";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import { VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import ProgressBar from "./progress-bar";
-import InformationCard from "../upscayl-tab/view/RightPaneInfo";
-import ImageViewSettings from "../upscayl-tab/view/ImageOptions";
+import InstructionsCard from "./instructions-card";
+import ImageViewSettings from "./image-view-settings";
 import useUpscaylVersion from "../hooks/use-upscayl-version";
 import MacTitlebarDragRegion from "./mac-titlebar-drag-region";
 import LensViewer from "./lens-view";
@@ -210,16 +210,13 @@ const MainContent = ({
 
       {/* DEFAULT PANE INFO */}
       {showInformationCard && (
-        <InformationCard version={version} batchMode={batchMode} />
+        <InstructionsCard version={version} batchMode={batchMode} />
       )}
 
       <ImageViewSettings
         zoomAmount={zoomAmount}
         setZoomAmount={setZoomAmount}
         resetImagePaths={resetImagePaths}
-        hideZoomOptions={
-          !batchMode && upscaledImagePath.length === 0 && imagePath.length > 0
-        }
       />
 
       {/* SHOW SELECTED IMAGE */}

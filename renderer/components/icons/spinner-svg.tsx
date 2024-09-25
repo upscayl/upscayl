@@ -1,7 +1,3 @@
-// React SVG Component
-
-import React from "react";
-
 function Spinner() {
   return (
     // By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL
@@ -10,7 +6,8 @@ function Spinner() {
       fill="currentColor"
       stroke="currentColor"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-16 w-16 rounded-full bg-base-300 p-2 text-base-content">
+      className="h-16 w-16 rounded-full bg-base-300 p-2 text-base-content"
+    >
       <g fill="none" fill-rule="evenodd">
         <g transform="translate(2 1)" stroke="currentColor" stroke-width="1.5">
           <circle
@@ -18,7 +15,8 @@ function Spinner() {
             cy="11.462"
             r="5"
             fill-opacity="1"
-            fill="currentColor">
+            fill="currentColor"
+          >
             <animate
               attributeName="fill-opacity"
               begin="0s"
@@ -33,7 +31,8 @@ function Spinner() {
             cy="27.063"
             r="5"
             fill-opacity="0"
-            fill="currentColor">
+            fill="currentColor"
+          >
             <animate
               attributeName="fill-opacity"
               begin="0s"
@@ -48,7 +47,8 @@ function Spinner() {
             cy="42.663"
             r="5"
             fill-opacity="0"
-            fill="currentColor">
+            fill="currentColor"
+          >
             <animate
               attributeName="fill-opacity"
               begin="0s"
@@ -63,7 +63,8 @@ function Spinner() {
             cy="49.125"
             r="5"
             fill-opacity="0"
-            fill="currentColor">
+            fill="currentColor"
+          >
             <animate
               attributeName="fill-opacity"
               begin="0s"
@@ -78,7 +79,8 @@ function Spinner() {
             cy="42.663"
             r="5"
             fill-opacity="0"
-            fill="currentColor">
+            fill="currentColor"
+          >
             <animate
               attributeName="fill-opacity"
               begin="0s"
@@ -93,7 +95,8 @@ function Spinner() {
             cy="27.063"
             r="5"
             fill-opacity="0"
-            fill="currentColor">
+            fill="currentColor"
+          >
             <animate
               attributeName="fill-opacity"
               begin="0s"
@@ -108,7 +111,8 @@ function Spinner() {
             cy="11.462"
             r="5"
             fill-opacity="0"
-            fill="currentColor">
+            fill="currentColor"
+          >
             <animate
               attributeName="fill-opacity"
               begin="0s"

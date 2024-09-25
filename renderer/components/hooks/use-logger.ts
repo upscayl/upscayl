@@ -1,4 +1,4 @@
-import { logAtom } from "../../atoms/logAtom";
+import { logAtom } from "../../atoms/log-atom";
 import log from "electron-log/renderer";
 import { useSetAtom } from "jotai";
 import React from "react";

@@ -1,5 +1,3 @@
-import React from "react";
-import ImageViewSettings from "../upscayl-tab/view/ImageOptions";
 import { sanitizePath } from "@common/sanitize-path";
 
 const ImageViewer = ({

@@ -1,5 +1,5 @@
 import { translationAtom } from "@/atoms/translations-atom";
-import { turnOffNotificationsAtom } from "@/atoms/userSettingsAtom";
+import { turnOffNotificationsAtom } from "@/atoms/user-settings-atom";
 import { useAtom, useAtomValue } from "jotai";
 
 const TurnOffNotificationsToggle = () => {

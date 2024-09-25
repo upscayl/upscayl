@@ -1,4 +1,7 @@
-import { customWidthAtom, useCustomWidthAtom } from "@/atoms/userSettingsAtom";
+import {
+  customWidthAtom,
+  useCustomWidthAtom,
+} from "@/atoms/user-settings-atom";
 import { useAtom, useAtomValue } from "jotai";
 import React from "react";
 import { translationAtom } from "@/atoms/translations-atom";

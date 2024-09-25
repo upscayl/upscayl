@@ -2,19 +2,18 @@
 import { useState, useEffect } from "react";
 import ELECTRON_COMMANDS from "../../common/commands";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { modelsListAtom } from "../atoms/modelsListAtom";
+import { modelsListAtom } from "../atoms/models-list-atom";
 import {
   batchModeAtom,
   savedOutputPathAtom,
   progressAtom,
   rememberOutputFolderAtom,
-} from "../atoms/userSettingsAtom";
+} from "../atoms/user-settings-atom";
 import useLogger from "../components/hooks/use-logger";
-import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
-import matter from "gray-matter";
+import { newsAtom, showNewsModalAtom } from "@/atoms/news-atom";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import UpscaylSVGLogo from "@/components/icons/Logo";
+import UpscaylSVGLogo from "@/components/icons/upscayl-logo-svg";
 import { translationAtom } from "@/atoms/translations-atom";
 import Sidebar from "@/components/sidebar";
 import MainContent from "@/components/main-content";

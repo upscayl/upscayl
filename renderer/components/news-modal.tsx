@@ -1,4 +1,4 @@
-import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
+import { newsAtom, showNewsModalAtom } from "@/atoms/news-atom";
 import { translationAtom } from "@/atoms/translations-atom";
 import matter, { GrayMatterFile } from "gray-matter";
 import { useAtom, useAtomValue } from "jotai";

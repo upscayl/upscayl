@@ -1,5 +1,5 @@
 import { translationAtom } from "@/atoms/translations-atom";
-import { overwriteAtom } from "@/atoms/userSettingsAtom";
+import { overwriteAtom } from "@/atoms/user-settings-atom";
 import { useAtom, useAtomValue } from "jotai";
 import React, { useEffect } from "react";
 

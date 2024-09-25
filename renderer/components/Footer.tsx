@@ -1,4 +1,4 @@
-import { newsAtom, showNewsModalAtom } from "@/atoms/newsAtom";
+import { newsAtom, showNewsModalAtom } from "@/atoms/news-atom";
 import { translationAtom } from "@/atoms/translations-atom";
 import { useAtomValue, useSetAtom } from "jotai";
 import React from "react";

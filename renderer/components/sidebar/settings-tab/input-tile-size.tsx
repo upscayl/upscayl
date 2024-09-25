@@ -1,5 +1,5 @@
 import { translationAtom } from "@/atoms/translations-atom";
-import { tileSizeAtom } from "@/atoms/userSettingsAtom";
+import { tileSizeAtom } from "@/atoms/user-settings-atom";
 import { useAtom, useAtomValue } from "jotai";
 import React from "react";
 

@@ -14,7 +14,7 @@ import {
   useCustomWidthAtom,
   tileSizeAtom,
   showSidebarAtom,
-} from "../../atoms/userSettingsAtom";
+} from "../../atoms/user-settings-atom";
 import useLogger from "../hooks/use-logger";
 import {
   BatchUpscaylPayload,
@@ -22,14 +22,14 @@ import {
   ImageUpscaylPayload,
 } from "@common/types/types";
 import { useToast } from "@/components/ui/use-toast";
-import LeftPaneImageSteps from "../upscayl-tab/config/LeftPaneImageSteps";
-import SettingsTab from "../settings-tab";
-import Footer from "../Footer";
-import { NewsModal } from "../NewsModal";
-import Tabs from "../Tabs";
-import Header from "../Header";
+import UpscaylSteps from "./upscayl-tab/upscayl-steps";
+import SettingsTab from "./settings-tab";
+import Footer from "../footer";
+import { NewsModal } from "../news-modal";
+import Tabs from "../tabs";
+import Header from "../header";
 import { ChevronLeftIcon } from "lucide-react";
-import { logAtom } from "@/atoms/logAtom";
+import { logAtom } from "@/atoms/log-atom";
 import ELECTRON_COMMANDS from "@common/commands";
 import useUpscaylVersion from "../hooks/use-upscayl-version";
 import useTranslation from "../hooks/use-translation";
@@ -198,7 +198,7 @@ const Sidebar = ({
         <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
         {selectedTab === 0 && (
-          <LeftPaneImageSteps
+          <UpscaylSteps
             selectImageHandler={selectImageHandler}
             selectFolderHandler={selectFolderHandler}
             handleModelChange={handleModelChange}

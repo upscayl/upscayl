@@ -1,5 +1,5 @@
 import { translationAtom } from "@/atoms/translations-atom";
-import { useCustomWidthAtom } from "@/atoms/userSettingsAtom";
+import { useCustomWidthAtom } from "@/atoms/user-settings-atom";
 import { useAtomValue } from "jotai";
 
 type ImageScaleSelectProps = {
