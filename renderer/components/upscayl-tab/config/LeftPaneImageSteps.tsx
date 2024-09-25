@@ -19,8 +19,8 @@ import ELECTRON_COMMANDS from "@common/commands";
 import Select from "react-select";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
-import { ImageScaleSelect } from "@/components/settings-tab/ImageScaleSelect";
 import { translationAtom } from "@/atoms/translations-atom";
+import { SelectImageScale } from "@/components/settings-tab/select-image-scale";
 
 interface IProps {
   selectImageHandler: () => Promise<void>;
@@ -278,7 +278,7 @@ function LeftPaneImageSteps({
           </div>
         )}
 
-        <ImageScaleSelect scale={scale} setScale={setScale} hideInfo />
+        <SelectImageScale scale={scale} setScale={setScale} hideInfo />
       </div>
 
       {/* STEP 3 */}
