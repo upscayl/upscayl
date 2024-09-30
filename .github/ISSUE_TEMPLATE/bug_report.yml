@@ -1,5 +1,5 @@
 name: Bug Report
-description: Bugs in the software itself
+description: Bugs in the app itself
 labels: [bug]
 body:
 - type: checkboxes
