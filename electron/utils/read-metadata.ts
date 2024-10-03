@@ -1,4 +1,4 @@
-import { ExifTool } from "exiftool-vendored";
+import { exiftool, ExifTool } from "exiftool-vendored";
 import logit from "../utils/logit";
 
 const readMetadata = async (path: string, exiftool: ExifTool) => {

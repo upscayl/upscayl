@@ -50,7 +50,18 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const fileName = parse(fileNameWithExt).name;
 
   // GET METADATA
-  const metadata = await readMetadata(imagePath, exiftool);
+  let metadata;
+  try {
+    metadata = await readMetadata(imagePath, exiftool);
+  } catch (error) {
+    logit("❌ Error reading metadata: ", error);
+    mainWindow.webContents.send(
+      COMMAND.UPSCAYL_ERROR,
+      "Failed to read metadata.",
+    );
+    exiftool.end();
+    return;
+  }
 
   const outFile =
     outputDir +
@@ -128,6 +139,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       mainWindow.webContents.send(COMMAND.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("Error")) {
         upscayl.kill();
+        exiftool.end();
         failed = true;
       } else if (data.includes("Resizing")) {
         mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
@@ -139,11 +151,20 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, data.toString());
       failed = true;
       upscayl.kill();
+      exiftool.end();
       return;
     };
     const onClose = async () => {
       if (!failed && !stopped) {
-        await writeMetadata(outFile, metadata, exiftool);
+        try {
+          await writeMetadata(outFile, metadata, exiftool);
+        } catch (error) {
+          logit("❌ Error writing metadata: ", error);
+          mainWindow.webContents.send(
+            COMMAND.UPSCAYL_ERROR,
+            "Failed to write metadata.",
+          );
+        }
         logit("💯 Done upscaling");
         // Free up memory
         upscayl.kill();
