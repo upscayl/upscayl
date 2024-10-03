@@ -25,6 +25,7 @@ const COMMAND = {
   OS: "Get OS",
   SCALING_AND_CONVERTING: "Adding some finishing touches",
   UPSCAYL_ERROR: "Upscaling Error",
+  GET_FILE_METADATA: "Get File Metadata",
 };
 
 export default COMMAND;
