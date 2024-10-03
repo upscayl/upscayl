@@ -20,6 +20,7 @@ import { DEFAULT_MODELS } from "../../common/models-list";
 import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
+import readMetadata from "@electron/utils/read-metadata";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -45,6 +46,8 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const fileNameWithExt = getFilenameFromPath(imagePath);
   const fileName = parse(fileNameWithExt).name;
 
+  const metadata = await readMetadata(imagePath);
+
   const outFile =
     outputDir +
     slash +
@@ -60,9 +63,12 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   // Check if windows can write the new filename to the file system
   if (outFile.length >= 255) {
     logit("Filename too long for Windows.");
-    mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.");
+    mainWindow.webContents.send(
+      COMMAND.UPSCAYL_ERROR,
+      "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.",
+    );
   }
-  
+
   // UPSCALE
   if (fs.existsSync(outFile) && !overwrite) {
     // If already upscayled, just output that file

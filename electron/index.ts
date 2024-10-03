@@ -17,7 +17,6 @@ import { execPath, modelsPath } from "./utils/get-resource-paths";
 import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
-import readMetadata from "./commands/read-metadata";
 import { featureFlags } from "../common/feature-flags";
 import settings from "electron-settings";
 
@@ -91,8 +90,6 @@ ipcMain.on(COMMAND.UPSCAYL, imageUpscayl);
 ipcMain.on(COMMAND.FOLDER_UPSCAYL, batchUpscayl);
 
 ipcMain.on(COMMAND.DOUBLE_UPSCAYL, doubleUpscayl);
-
-ipcMain.handle(COMMAND.GET_FILE_METADATA, readMetadata);
 
 if (!featureFlags.APP_STORE_BUILD) {
   autoUpdater.on("update-downloaded", autoUpdate);
