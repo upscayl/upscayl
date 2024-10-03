@@ -20,10 +20,13 @@ import { DEFAULT_MODELS } from "../../common/models-list";
 import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
-import readMetadata from "@electron/utils/read-metadata";
+import readMetadata from "../utils/read-metadata";
+import writeMetadata from "../utils/write-metadata";
+import { ExifTool } from "exiftool-vendored";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
+  const exiftool = new ExifTool();
 
   if (!mainWindow) {
     logit("No main window found");
@@ -46,7 +49,8 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const fileNameWithExt = getFilenameFromPath(imagePath);
   const fileName = parse(fileNameWithExt).name;
 
-  const metadata = await readMetadata(imagePath);
+  // GET METADATA
+  const metadata = await readMetadata(imagePath, exiftool);
 
   const outFile =
     outputDir +
@@ -139,9 +143,11 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     };
     const onClose = async () => {
       if (!failed && !stopped) {
+        await writeMetadata(outFile, metadata, exiftool);
         logit("💯 Done upscaling");
         // Free up memory
         upscayl.kill();
+        exiftool.end();
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, outFile);
         showNotification("Upscayl", "Image upscayled successfully!");
