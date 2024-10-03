@@ -1,4 +1,4 @@
-import logit from "@electron/utils/logit";
+import logit from "../utils/logit";
 const exiftool = require("exiftool-vendored").exiftool;
 
 const readMetadata = async (path: string) => {
