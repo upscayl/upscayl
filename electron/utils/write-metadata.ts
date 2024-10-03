@@ -9,12 +9,13 @@ const writeMetadata = async (
   logit("🖊️ Writing Metadata to path: ", outPath);
   const metadataCopy = { ...metadata };
 
-  if (metadataCopy.hasOwnProperty("FileName")) delete metadataCopy.FileName;
-  if (metadataCopy.hasOwnProperty("SourceFile")) {
-    metadataCopy.SourceFile = outPath;
-  }
+  const { FileName, SourceFile, ...rest } = metadataCopy;
+  const updatedMetadata = {
+    ...rest,
+    ...(SourceFile && { SourceFile: outPath }),
+  };
 
-  await exiftool.write(outPath, metadataCopy, {
+  await exiftool.write(outPath, updatedMetadata, {
     writeArgs: ["-overwrite_original"],
   });
 };
