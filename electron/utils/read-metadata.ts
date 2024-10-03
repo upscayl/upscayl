@@ -1,9 +1,9 @@
+import { ExifTool } from "exiftool-vendored";
 import logit from "../utils/logit";
-const exiftool = require("exiftool-vendored").exiftool;
 
-const readMetadata = async (path: string) => {
+const readMetadata = async (path: string, exiftool: ExifTool) => {
   logit("🔍 Reading Metadata: ", path);
-  return exiftool.read(path);
+  return await exiftool.read(path, { readArgs: ["-b"] });
 };
 
 export default readMetadata;
