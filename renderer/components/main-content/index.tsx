@@ -186,6 +186,7 @@ const MainContent = ({
           setOutputPath(dirname);
         }
       }
+      validateImagePath(filePath);
     }
   };
 
