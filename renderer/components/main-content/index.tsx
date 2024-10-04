@@ -1,3 +1,4 @@
+"use client";
 import useLogger from "../hooks/use-logger";
 import { useState, useMemo } from "react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
@@ -24,21 +25,8 @@ import LensViewer from "./lens-view";
 import ImageViewer from "./image-viewer";
 import useTranslation from "../hooks/use-translation";
 import SliderView from "./slider-view";
-("use client");
 
-const MainContent = ({
-  imagePath,
-  resetImagePaths,
-  upscaledBatchFolderPath,
-  setImagePath,
-  validateImagePath,
-  selectFolderHandler,
-  selectImageHandler,
-  upscaledImagePath,
-  batchFolderPath,
-  doubleUpscaylCounter,
-  setDimensions,
-}: {
+type MainContentProps = {
   imagePath: string;
   resetImagePaths: () => void;
   upscaledBatchFolderPath: string;
@@ -55,7 +43,21 @@ const MainContent = ({
       height: number;
     }>
   >;
-}) => {
+};
+
+const MainContent = ({
+  imagePath,
+  resetImagePaths,
+  upscaledBatchFolderPath,
+  setImagePath,
+  validateImagePath,
+  selectFolderHandler,
+  selectImageHandler,
+  upscaledImagePath,
+  batchFolderPath,
+  doubleUpscaylCounter,
+  setDimensions,
+}: MainContentProps) => {
   const t = useTranslation();
   const logit = useLogger();
   const { toast } = useToast();
