@@ -181,8 +181,10 @@ const MainContent = ({
       setImagePath(filePath);
       const dirname = getDirectoryFromPath(filePath);
       logit("🗂 Setting output path: ", dirname);
-      if (!rememberOutputFolder) {
-        setOutputPath(dirname);
+      if (!FEATURE_FLAGS.APP_STORE_BUILD) {
+        if (!rememberOutputFolder) {
+          setOutputPath(dirname);
+        }
       }
     }
   };
