@@ -267,12 +267,11 @@ const Home = () => {
           };
         });
         // Add newModelsList to modelOptions and remove duplicates
-        const combinedModelOptions = [...modelOptions, ...newModelOptions];
-        const uniqueModelOptions = combinedModelOptions.filter(
-          // Check if any model in the array appears more than once
-          (model, index, array) =>
-            array.findIndex((t) => t.value === model.value) === index,
-        );
+        const modelMap = new Map();
+        [...modelOptions, ...newModelOptions].forEach((model) => {
+          modelMap.set(model.value, model);
+        });
+        const uniqueModelOptions = Array.from(modelMap.values());
         setModelOptions(uniqueModelOptions);
       },
     );
