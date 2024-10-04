@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import UpscaylSVGLogo from "@/components/icons/upscayl-logo-svg";
 import { useAtomValue } from "jotai";
 import { translationAtom } from "@/atoms/translations-atom";
-import ELECTRON_COMMANDS from "@common/commands";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import useLogger from "../hooks/use-logger";
 
 function ProgressBar({

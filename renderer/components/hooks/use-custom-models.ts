@@ -1,4 +1,4 @@
-import ELECTRON_COMMANDS from "@common/commands";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { useEffect } from "react";
 import useLogger from "./use-logger";
 

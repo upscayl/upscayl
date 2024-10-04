@@ -13,7 +13,7 @@ import {
   useCustomWidthAtom,
 } from "../../../atoms/user-settings-atom";
 import { FEATURE_FLAGS } from "@common/feature-flags";
-import ELECTRON_COMMANDS from "@common/commands";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import Select from "react-select";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
@@ -75,7 +75,7 @@ function UpscaylSteps({
   const t = useAtomValue(translationAtom);
 
   const outputHandler = async () => {
-    var path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FOLDER);
+    const path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FOLDER);
     if (path !== null) {
       logit("🗂 Setting Output Path: ", path);
       setOutputPath(path);

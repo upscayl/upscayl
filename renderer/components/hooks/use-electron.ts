@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import ELECTRON_COMMANDS from "@common/commands";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 
 const useElectron = ({
   command,

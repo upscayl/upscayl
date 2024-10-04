@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import ELECTRON_COMMANDS from "../../common/commands";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { modelsListAtom } from "../atoms/models-list-atom";
 import {
@@ -54,11 +54,11 @@ const Home = () => {
 
   const selectImageHandler = async () => {
     resetImagePaths();
-    var path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FILE);
+    const path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FILE);
     if (path === null) return;
     logit("🖼 Selected Image Path: ", path);
     setImagePath(path);
-    var dirname = getDirectoryFromPath(path);
+    const dirname = getDirectoryFromPath(path);
     logit("📁 Selected Image Directory: ", dirname);
     if (!FEATURE_FLAGS.APP_STORE_BUILD) {
       if (!rememberOutputFolder) {
@@ -70,7 +70,7 @@ const Home = () => {
 
   const selectFolderHandler = async () => {
     resetImagePaths();
-    var path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FOLDER);
+    const path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FOLDER);
     if (path !== null) {
       logit("🖼 Selected Folder Path: ", path);
       setBatchFolderPath(path);

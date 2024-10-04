@@ -1,6 +1,6 @@
 import useLogger from "../hooks/use-logger";
 import { useState, useMemo } from "react";
-import ELECTRON_COMMANDS from "../../../common/commands";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { useAtomValue, useSetAtom } from "jotai";
 import {
   batchModeAtom,
@@ -149,7 +149,7 @@ const MainContent = ({
     } else {
       logit("🖼 Setting image path: ", filePath);
       setImagePath(filePath);
-      var dirname = getDirectoryFromPath(filePath);
+      const dirname = getDirectoryFromPath(filePath);
       logit("🗂 Setting output path: ", dirname);
       if (!FEATURE_FLAGS.APP_STORE_BUILD) {
         if (!rememberOutputFolder) {
@@ -177,7 +177,7 @@ const MainContent = ({
       });
     } else {
       setImagePath(filePath);
-      var dirname = getDirectoryFromPath(filePath);
+      const dirname = getDirectoryFromPath(filePath);
       logit("🗂 Setting output path: ", dirname);
       if (!rememberOutputFolder) {
         setOutputPath(dirname);
