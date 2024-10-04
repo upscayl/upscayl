@@ -10,10 +10,10 @@ const ImageViewer = ({
   return (
     <img
       src={"file:///" + sanitizePath(imagePath)}
-      onLoad={(e: any) => {
+      onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
         setDimensions({
-          width: e.target.naturalWidth,
-          height: e.target.naturalHeight,
+          width: e.currentTarget.naturalWidth,
+          height: e.currentTarget.naturalHeight,
         });
       }}
       draggable="false"
