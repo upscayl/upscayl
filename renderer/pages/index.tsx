@@ -89,9 +89,9 @@ const Home = () => {
   const validateImagePath = (path: string) => {
     if (path.length > 0) {
       logit("🖼 imagePath: ", path);
-      const extension = path.toLowerCase().split(".").pop();
+      const extension = path.split(".").pop().toLowerCase();
       logit("🔤 Extension: ", extension);
-      if (!VALID_IMAGE_FORMATS.includes(extension.toLowerCase())) {
+      if (!VALID_IMAGE_FORMATS.includes(extension)) {
         toast({
           title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
           description: t("ERRORS.INVALID_IMAGE_ERROR.DESCRIPTION"),
