@@ -1,6 +1,6 @@
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import React from "react";
-import UpscaylSVGLogo from "./icons/upscayl-logo-svg";
+import UpscaylSVGLogo from "@/components/icons/upscayl-logo-svg";
 import { useAtomValue } from "jotai";
 import { translationAtom } from "@/atoms/translations-atom";
 
