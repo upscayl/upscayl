@@ -1,5 +1,31 @@
 import React, { useRef, useState } from "react";
 
+const LensImage = ({
+  src,
+  alt,
+  lensPosition,
+  zoomAmount,
+}: {
+  src: string;
+  alt: string;
+  lensPosition: { x: number; y: number };
+  zoomAmount: number;
+}) => (
+  <div className="h-full w-full overflow-hidden">
+    <img
+      src={src}
+      alt={alt}
+      className="h-full w-full"
+      style={{
+        objectFit: "contain",
+        objectPosition: `${-lensPosition.x}px ${-lensPosition.y}px`,
+        transform: `scale(${zoomAmount / 100})`,
+        transformOrigin: "top left",
+      }}
+    />
+  </div>
+);
+
 const LensViewer = ({
   zoomAmount,
   lensSize,
@@ -53,32 +79,18 @@ const LensViewer = ({
         }}
       >
         <div className="flex h-full w-full">
-          <div className="h-full w-full overflow-hidden">
-            <img
-              src={"file:///" + sanitizedImagePath}
-              alt="Original"
-              className="h-full w-full"
-              style={{
-                objectFit: "contain",
-                objectPosition: `${-lensPosition.x}px ${-lensPosition.y}px`,
-                transform: `scale(${parseInt(zoomAmount) / 100})`,
-                transformOrigin: "top left",
-              }}
-            />
-          </div>
-          <div className="h-full w-full overflow-hidden">
-            <img
-              src={"file:///" + sanitizedUpscaledImagePath}
-              alt="Upscaled"
-              className="h-full w-full"
-              style={{
-                objectFit: "contain",
-                objectPosition: `${-lensPosition.x}px ${-lensPosition.y}px`,
-                transform: `scale(${parseInt(zoomAmount) / 100})`,
-                transformOrigin: "top left",
-              }}
-            />
-          </div>
+          <LensImage
+            src={"file:///" + sanitizedImagePath}
+            alt="Original"
+            lensPosition={lensPosition}
+            zoomAmount={parseInt(zoomAmount)}
+          />
+          <LensImage
+            src={"file:///" + sanitizedUpscaledImagePath}
+            alt="Upscaled"
+            lensPosition={lensPosition}
+            zoomAmount={parseInt(zoomAmount)}
+          />
         </div>
         <div className="absolute bottom-0 left-0 flex w-full items-center justify-around bg-black bg-opacity-50 p-1 px-2 text-center text-xs text-white backdrop-blur-sm">
           <span>Original</span>
