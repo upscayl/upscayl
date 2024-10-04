@@ -2,7 +2,7 @@ import prepareNext from "electron-next";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
 import { app, ipcMain, protocol } from "electron";
-import ELECTRON_COMMANDS from "../common/commands";
+import { ELECTRON_COMMANDS } from "../common/electron-commands";
 import logit from "./utils/logit";
 import openFolder from "./commands/open-folder";
 import stop from "./commands/stop";

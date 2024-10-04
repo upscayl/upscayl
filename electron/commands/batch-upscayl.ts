@@ -11,7 +11,7 @@ import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { getBatchArguments } from "../utils/get-arguments";
 import slash from "../utils/slash";
 import { modelsPath } from "../utils/get-resource-paths";
-import ELECTRON_COMMANDS from "../../common/commands";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
 import { DEFAULT_MODELS } from "../../common/models-list";

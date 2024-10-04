@@ -25,6 +25,6 @@ const ELECTRON_COMMANDS = {
   OS: "Get OS",
   SCALING_AND_CONVERTING: "Adding some finishing touches",
   UPSCAYL_ERROR: "Upscaling Error",
-};
+} as const;
 
-export default ELECTRON_COMMANDS;
+export { ELECTRON_COMMANDS };
