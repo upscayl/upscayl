@@ -2,7 +2,7 @@ import fs from "fs";
 import logit from "./logit";
 import { MessageBoxOptions, app, dialog } from "electron";
 import settings from "electron-settings";
-import { featureFlags } from "../../common/feature-flags";
+import { FEATURE_FLAGS } from "../../common/feature-flags";
 
 const getModels = async (folderPath: string | undefined) => {
   let models: string[] = [];
@@ -11,14 +11,14 @@ const getModels = async (folderPath: string | undefined) => {
   // SECURITY SCOPED BOOKMARKS
   let closeAccess;
   const customModelsBookmarks = await settings.get("custom-models-bookmarks");
-  if (featureFlags.APP_STORE_BUILD && customModelsBookmarks) {
+  if (FEATURE_FLAGS.APP_STORE_BUILD && customModelsBookmarks) {
     console.log(
       "🚀 => file: get-models.ts:18 => customModelsBookmarks:",
-      customModelsBookmarks
+      customModelsBookmarks,
     );
     try {
       closeAccess = app.startAccessingSecurityScopedResource(
-        customModelsBookmarks as string
+        customModelsBookmarks as string,
       );
     } catch (error) {
       logit("📁 Custom Models Bookmarks Error: ", error);

@@ -12,7 +12,7 @@
     "LINK_TITLE": "The Upscayl Team"
   },
   "SETTINGS": {
-    "TITLE": "SETTINGS",
+    "TITLE": "Settings",
     "CHANGE_LANGUAGE": { "TITLE": "Change Language" },
     "IMAGE_COMPRESSION": {
       "TITLE": "Image Compression",
@@ -127,8 +127,8 @@
       "FROM_TITLE": "Upscayl from ",
       "TO_TITLE": " to ",
       "NO_OUTPUT_FOLDER_ALERT": "Please select an output folder first",
-      "START_BUTTON_TITLE": "Upscayl",
-      "IN_PROGRESS_BUTTON_TITLE": "Upscayling⏳"
+      "START_BUTTON_TITLE": "Upscayl 🚀",
+      "IN_PROGRESS_BUTTON_TITLE": "Upscayling ⏳"
     },
     "IMAGE_OPTIONS": {
       "RESET_BUTTON_TITLE": "Reset Image",

@@ -1,6 +1,6 @@
 import fs from "fs";
 import { modelsPath } from "../utils/get-resource-paths";
-import COMMAND from "../../common/commands";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import {
   savedCustomModelsPath,
   setChildProcesses,
@@ -60,14 +60,17 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   // Check if windows can write the new filename to the file system
   if (outFile.length >= 255) {
     logit("Filename too long for Windows.");
-    mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.");
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.UPSCAYL_ERROR,
+      "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.",
+    );
   }
-  
+
   // UPSCALE
   if (fs.existsSync(outFile) && !overwrite) {
     // If already upscayled, just output that file
     logit("✅ Already upscayled at: ", outFile);
-    mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, outFile);
+    mainWindow.webContents.send(ELECTRON_COMMANDS.UPSCAYL_DONE, outFile);
   } else {
     logit(
       "✅ Upscayl Variables: ",
@@ -115,18 +118,24 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       logit(data.toString());
       mainWindow.setProgressBar(parseFloat(data.slice(0, data.length)) / 100);
       data = data.toString();
-      mainWindow.webContents.send(COMMAND.UPSCAYL_PROGRESS, data.toString());
+      mainWindow.webContents.send(
+        ELECTRON_COMMANDS.UPSCAYL_PROGRESS,
+        data.toString(),
+      );
       if (data.includes("Error")) {
         upscayl.kill();
         failed = true;
       } else if (data.includes("Resizing")) {
-        mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
+        mainWindow.webContents.send(ELECTRON_COMMANDS.SCALING_AND_CONVERTING);
       }
     };
     const onError = (data) => {
       if (!mainWindow) return;
       mainWindow.setProgressBar(-1);
-      mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, data.toString());
+      mainWindow.webContents.send(
+        ELECTRON_COMMANDS.UPSCAYL_ERROR,
+        data.toString(),
+      );
       failed = true;
       upscayl.kill();
       return;
@@ -137,7 +146,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         // Free up memory
         upscayl.kill();
         mainWindow.setProgressBar(-1);
-        mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, outFile);
+        mainWindow.webContents.send(ELECTRON_COMMANDS.UPSCAYL_DONE, outFile);
         showNotification("Upscayl", "Image upscayled successfully!");
       }
     };

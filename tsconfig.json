@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "paths": {
       "@electron/*": ["./electron/*"],
-      "@/*": ["./renderer/*"]
+      "@/*": ["./renderer/*"],
+      "@common/*": ["./common/*"]
     }
   },
   "include": ["./electron/**/*", "./common/**/*", "./renderer/**/*"],

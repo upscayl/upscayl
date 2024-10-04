@@ -12,7 +12,7 @@
     "LINK_TITLE": "L'équipe Upscayl"
   },
   "SETTINGS": {
-    "TITLE": "PARAMÈTRES",
+    "TITLE": "Paramètres",
     "CHANGE_LANGUAGE": { "TITLE": "Changer de langue" },
     "IMAGE_COMPRESSION": {
       "TITLE": "Compression d'image",
@@ -127,8 +127,8 @@
       "FROM_TITLE": "Suréchantillonner de ",
       "TO_TITLE": " à ",
       "NO_OUTPUT_FOLDER_ALERT": "Veuillez d'abord sélectionner un dossier de sortie",
-      "START_BUTTON_TITLE": "Suréchantillonner",
-      "IN_PROGRESS_BUTTON_TITLE": "Suréchantillonnage⏳"
+      "START_BUTTON_TITLE": "Suréchantillonner 🚀",
+      "IN_PROGRESS_BUTTON_TITLE": "Suréchantillonnage ⏳"
     },
     "IMAGE_OPTIONS": {
       "RESET_BUTTON_TITLE": "Réinitialiser l'image",
