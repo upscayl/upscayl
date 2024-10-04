@@ -89,7 +89,7 @@ const Home = () => {
   const validateImagePath = (path: string) => {
     if (path.length > 0) {
       logit("🖼 imagePath: ", path);
-      const extension = path.toLocaleLowerCase().split(".").pop();
+      const extension = path.toLowerCase().split(".").pop();
       logit("🔤 Extension: ", extension);
       if (!VALID_IMAGE_FORMATS.includes(extension.toLowerCase())) {
         toast({
