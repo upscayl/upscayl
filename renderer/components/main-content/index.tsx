@@ -165,9 +165,18 @@ const MainContent = ({
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     resetImagePaths();
     e.preventDefault();
-    const type = e.clipboardData.items[0].type;
-    const filePath = e.clipboardData.files[0].path;
-    const extension = e.clipboardData.files[0].name.split(".").at(-1);
+    const items = e.clipboardData.items;
+    const files = e.clipboardData.files;
+    if (items.length === 0 || files.length === 0) {
+      toast({
+        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+        description: t("ERRORS.INVALID_IMAGE_ERROR.ADDITIONAL_DESCRIPTION"),
+      });
+      return;
+    }
+    const type = items[0].type;
+    const filePath = files[0].path;
+    const extension = files[0].name.split(".").at(-1);
     logit("📋 Pasted file: ", JSON.stringify({ type, filePath, extension }));
     if (
       !type.includes("image") &&
