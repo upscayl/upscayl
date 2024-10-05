@@ -147,7 +147,8 @@
       "SELECT_FOLDER": "Upscaylするフォルダを選択",
       "SELECT_IMAGE": "Upscaylする画像を選択",
       "SELECT_FOLDER_DESCRIPTION": "フォルダにはPNG、JPG、JPEG、WEBPの画像以外のものが含まれていないことを確認してください。",
-      "SELECT_IMAGES_DESCRIPTION": "PNG、JPG、JPEG、またはWEBP画像を選択するか、ドラッグアンドドロップしてください。"
+      "SELECT_IMAGES_DESCRIPTION": "PNG、JPG、JPEG、またはWEBP画像を選択するか、ドラッグアンドドロップしてください。",
+      "PASTE_IMAGE_DESCRIPTION": "Ctrl + V または Cmd + V を押してクリップボードから画像を貼り付けます"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "画像を処理中...",

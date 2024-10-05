@@ -260,7 +260,7 @@ const MainContent = ({
     return () => {
       window.removeEventListener("paste", handlePasteEvent);
     };
-  }, []);
+  }, [t]);
 
   return (
     <div
