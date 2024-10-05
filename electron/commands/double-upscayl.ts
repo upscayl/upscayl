@@ -14,7 +14,7 @@ import {
 } from "../utils/get-arguments";
 import { modelsPath } from "../utils/get-resource-paths";
 import logit from "../utils/logit";
-import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";

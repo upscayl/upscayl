@@ -194,8 +194,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Invalid Image",
-      "DESCRIPTION": "Please select an image with a valid extension like PNG, JPG, JPEG, JFIF or WEBP.",
-      "ADDITIONAL_DESCRIPTION": "Please drag and drop an image"
+      "DESCRIPTION": "Please select/paste an image with a valid extension like PNG, JPG, JPEG, JFIF or WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Please drag and drop an image",
+      "CLIPBOARD_DESCRIPTION": "No Image file found in Clipboard to paste!"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "No image selected",

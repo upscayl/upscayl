@@ -194,8 +194,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "图片无效",
-      "DESCRIPTION": "请选择一个扩展名为 PNG、JPG、JPEG、JFIF 或 WEBP 的有效图片",
-      "ADDITIONAL_DESCRIPTION": "请拖放图片"
+      "DESCRIPTION": "请选择/粘貼一个扩展名为 PNG、JPG、JPEG、JFIF 或 WEBP 的有效图片",
+      "ADDITIONAL_DESCRIPTION": "請拖放一個圖像",
+      "CLIPBOARD_DESCRIPTION": "剪貼板中未找到可粘貼的圖像文件！"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "未选择图片",

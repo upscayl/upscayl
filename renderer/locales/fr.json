@@ -194,8 +194,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Image invalide",
-      "DESCRIPTION": "Veuillez sélectionner une image avec une extension valide comme PNG, JPG, JPEG, JFIF ou WEBP.",
-      "ADDITIONAL_DESCRIPTION": "Veuillez glisser-déposer une image"
+      "DESCRIPTION": "Veuillez sélectionner/coller une image avec une extension valide comme PNG, JPG, JPEG, JFIF ou WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Veuillez faire glisser et déposer une image",
+      "CLIPBOARD_DESCRIPTION": "Aucun fichier image trouvé dans le presse-papiers à coller !"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "Aucune image sélectionnée",

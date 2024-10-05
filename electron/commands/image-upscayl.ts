@@ -1,6 +1,6 @@
 import fs from "fs";
 import { modelsPath } from "../utils/get-resource-paths";
-import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import {
   savedCustomModelsPath,
   setChildProcesses,

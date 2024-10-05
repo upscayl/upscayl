@@ -194,8 +194,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Imagen inválida",
-      "DESCRIPTION": "Por favor, selecciona una imagen con una extensión válida como PNG, JPG, JPEG, JFIF o WEBP.",
-      "ADDITIONAL_DESCRIPTION": "Por favor, arrastra y suelta una imagen"
+      "DESCRIPTION": "Por favor, selecciona/pega una imagen con una extensión válida como PNG, JPG, JPEG, JFIF o WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Por favor, arrastra y suelta una imagen",
+      "CLIPBOARD_DESCRIPTION": "¡No se encontró ningún archivo de imagen en el portapapeles para pegar!"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "No se ha seleccionado imagen",

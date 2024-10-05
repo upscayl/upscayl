@@ -1,4 +1,4 @@
-import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { getMainWindow } from "../main-window";
 import {
   savedCustomModelsPath,
