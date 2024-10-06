@@ -1,8 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Tooltip } from "react-tooltip";
 import { themeChange } from "theme-change";
-import { TModelsList, modelsListAtom } from "../../../atoms/models-list-atom";
 import useLogger from "../../hooks/use-logger";
 import {
   savedOutputPathAtom,
@@ -14,16 +13,15 @@ import {
 } from "../../../atoms/user-settings-atom";
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
-import Select from "react-select";
-import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { translationAtom } from "@/atoms/translations-atom";
 import { SelectImageScale } from "../settings-tab/select-image-scale";
+import SelectModel from "./select-model";
+import { ImageFormat } from "@/lib/valid-formats";
 
 interface IProps {
   selectImageHandler: () => Promise<void>;
   selectFolderHandler: () => Promise<void>;
-  handleModelChange: (e: any) => void;
   upscaylHandler: () => Promise<void>;
   batchMode: boolean;
   setBatchMode: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,16 +32,13 @@ interface IProps {
     width: number | null;
     height: number | null;
   };
-  setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
-  model: string;
-  setModel: React.Dispatch<React.SetStateAction<string>>;
+  setSaveImageAs: React.Dispatch<React.SetStateAction<ImageFormat>>;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function UpscaylSteps({
   selectImageHandler,
   selectFolderHandler,
-  handleModelChange,
   upscaylHandler,
   batchMode,
   setBatchMode,
@@ -51,22 +46,11 @@ function UpscaylSteps({
   doubleUpscayl,
   setDoubleUpscayl,
   dimensions,
-  setSaveImageAs,
-  model,
-  setModel,
-  setGpuId,
 }: IProps) {
-  const [currentModel, setCurrentModel] = useState<TModelsList[0]>({
-    label: null,
-    value: null,
-  });
-
-  const modelOptions = useAtomValue(modelsListAtom);
   const [scale, setScale] = useAtom(scaleAtom);
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const [progress, setProgress] = useAtom(progressAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
-  const [open, setOpen] = React.useState(false);
   const customWidth = useAtomValue(customWidthAtom);
   const useCustomWidth = useAtomValue(useCustomWidthAtom);
 
@@ -86,49 +70,7 @@ function UpscaylSteps({
 
   useEffect(() => {
     themeChange(false);
-
-    if (!localStorage.getItem("saveImageAs")) {
-      logit("⚙️ Setting saveImageAs to png");
-      localStorage.setItem("saveImageAs", "png");
-    } else {
-      const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
-      logit(
-        "⚙️ Getting saveImageAs from localStorage: ",
-        currentlySavedImageFormat,
-      );
-      setSaveImageAs(currentlySavedImageFormat);
-    }
-
-    if (!localStorage.getItem("model")) {
-      setCurrentModel(modelOptions[0]);
-      setModel(modelOptions[0].value);
-      localStorage.setItem("model", JSON.stringify(modelOptions[0]));
-      logit("🔀 Setting model to", modelOptions[0].value);
-    } else {
-      const currentlySavedModel = JSON.parse(
-        localStorage.getItem("model"),
-      ) as (typeof modelOptions)[0];
-      setCurrentModel(currentlySavedModel);
-      setModel(currentlySavedModel.value);
-      logit(
-        "⚙️ Getting model from localStorage: ",
-        JSON.stringify(currentlySavedModel),
-      );
-    }
-
-    if (!localStorage.getItem("gpuId")) {
-      localStorage.setItem("gpuId", "");
-      logit("⚙️ Setting gpuId to empty string");
-    } else {
-      const currentlySavedGpuId = localStorage.getItem("gpuId");
-      setGpuId(currentlySavedGpuId);
-      logit("⚙️ Getting gpuId from localStorage: ", currentlySavedGpuId);
-    }
   }, []);
-
-  useEffect(() => {
-    logit("🔀 Setting model to", currentModel.value);
-  }, [currentModel]);
 
   const upscaylResolution = useMemo(() => {
     const newDimensions = {
@@ -214,25 +156,7 @@ function UpscaylSteps({
           <p className="step-heading">{t("APP.MODEL_SELECTION.TITLE")}</p>
           <p className="mb-2 text-sm">{t("APP.MODEL_SELECTION.DESCRIPTION")}</p>
 
-          <Select
-            onMenuOpen={() => setOpen(true)}
-            onMenuClose={() => setOpen(false)}
-            options={modelOptions}
-            components={{
-              IndicatorSeparator: () => null,
-              DropdownIndicator: () => null,
-            }}
-            onChange={(e) => {
-              handleModelChange(e);
-              setCurrentModel({ label: e.label, value: e.value });
-            }}
-            className={cn(
-              "react-select-container transition-all group-hover:w-full group-active:w-full focus:w-full",
-              open && "!w-full",
-            )}
-            classNamePrefix="react-select"
-            value={currentModel}
-          />
+          <SelectModel />
         </div>
 
         {!batchMode && (

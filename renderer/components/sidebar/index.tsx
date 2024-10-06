@@ -14,6 +14,10 @@ import {
   useCustomWidthAtom,
   tileSizeAtom,
   showSidebarAtom,
+  selectedModelIdAtom,
+  doubleUpscaylAtom,
+  gpuIdAtom,
+  saveImageAsAtom,
 } from "../../atoms/user-settings-atom";
 import useLogger from "../hooks/use-logger";
 import {
@@ -63,16 +67,16 @@ const Sidebar = ({
 
   // LOCAL STATES
   // TODO: Add electron handler for os
-  const [model, setModel] = useState("realesrgan-x4plus");
-  const [doubleUpscayl, setDoubleUpscayl] = useState(false);
-  const overwrite = useAtomValue(overwriteAtom);
-  const [gpuId, setGpuId] = useState("");
-  const [saveImageAs, setSaveImageAs] = useState("png");
+  const [selectedModelId, setSelectedModelId] = useAtom(selectedModelIdAtom);
+  const [doubleUpscayl, setDoubleUpscayl] = useAtom(doubleUpscaylAtom);
+  const [gpuId, setGpuId] = useAtom(gpuIdAtom);
+  const [saveImageAs, setSaveImageAs] = useAtom(saveImageAsAtom);
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [showCloudModal, setShowCloudModal] = useState(false);
 
   // ATOMIC STATES
+  const overwrite = useAtomValue(overwriteAtom);
   const outputPath = useAtomValue(savedOutputPathAtom);
   const [compression, setCompression] = useAtom(compressionAtom);
   const setProgress = useSetAtom(progressAtom);
@@ -87,7 +91,7 @@ const Sidebar = ({
   const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
 
   const handleModelChange = (e: any) => {
-    setModel(e.value);
+    setSelectedModelId(e.value);
     logit("🔀 Model changed: ", e.value);
     localStorage.setItem(
       "model",
@@ -108,7 +112,7 @@ const Sidebar = ({
           {
             imagePath,
             outputPath,
-            model,
+            model: selectedModelId,
             gpuId: gpuId.length === 0 ? null : gpuId,
             saveImageAs,
             scale,
@@ -128,7 +132,7 @@ const Sidebar = ({
           {
             batchFolderPath,
             outputPath,
-            model,
+            model: selectedModelId,
             gpuId: gpuId.length === 0 ? null : gpuId,
             saveImageAs,
             scale,
@@ -145,7 +149,7 @@ const Sidebar = ({
         window.electron.send<ImageUpscaylPayload>(ELECTRON_COMMANDS.UPSCAYL, {
           imagePath,
           outputPath,
-          model,
+          model: selectedModelId,
           gpuId: gpuId.length === 0 ? null : gpuId,
           saveImageAs,
           scale,
@@ -181,7 +185,7 @@ const Sidebar = ({
         className={`relative flex h-screen min-w-[350px] max-w-[350px] flex-col bg-base-100 ${showSidebar ? "" : "hidden"}`}
       >
         <button
-          className="absolute -right-0 top-1/2 z-[999] -translate-y-1/2 translate-x-1/2 rounded-full bg-base-100 p-4"
+          className="absolute -right-0 top-1/2 z-50 -translate-y-1/2 translate-x-1/2 rounded-full bg-base-100 p-4"
           onClick={() => setShowSidebar((prev) => !prev)}
         >
           <ChevronLeftIcon />
@@ -201,7 +205,6 @@ const Sidebar = ({
           <UpscaylSteps
             selectImageHandler={selectImageHandler}
             selectFolderHandler={selectFolderHandler}
-            handleModelChange={handleModelChange}
             upscaylHandler={upscaylHandler}
             batchMode={batchMode}
             setBatchMode={setBatchMode}
@@ -210,8 +213,6 @@ const Sidebar = ({
             setDoubleUpscayl={setDoubleUpscayl}
             dimensions={dimensions}
             setGpuId={setGpuId}
-            model={model}
-            setModel={setModel}
             setSaveImageAs={setSaveImageAs}
           />
         )}
@@ -219,7 +220,6 @@ const Sidebar = ({
         {selectedTab === 1 && (
           <SettingsTab
             batchMode={batchMode}
-            setModel={setModel}
             compression={compression}
             setCompression={setCompression}
             gpuId={gpuId}

@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 import { useAtom, useAtomValue } from "jotai";
 import { customModelsPathAtom, scaleAtom } from "@/atoms/user-settings-atom";
-import { modelsListAtom } from "@/atoms/models-list-atom";
+import { customModelIdsAtom } from "@/atoms/models-list-atom";
 import useLogger from "@/components/hooks/use-logger";
 import { InputCompression } from "./input-compression";
 import OverwriteToggle from "./overwrite-toggle";
@@ -23,12 +23,12 @@ import { InputCustomResolution } from "./input-custom-resolution";
 import { InputTileSize } from "./input-tile-size";
 import LanguageSwitcher from "./language-switcher";
 import { translationAtom } from "@/atoms/translations-atom";
+import { ImageFormat } from "@/lib/valid-formats";
 
 interface IProps {
   batchMode: boolean;
-  setModel: React.Dispatch<React.SetStateAction<string>>;
-  saveImageAs: string;
-  setSaveImageAs: React.Dispatch<React.SetStateAction<string>>;
+  saveImageAs: ImageFormat;
+  setSaveImageAs: React.Dispatch<React.SetStateAction<ImageFormat>>;
   compression: number;
   setCompression: React.Dispatch<React.SetStateAction<number>>;
   gpuId: string;
@@ -41,7 +41,6 @@ interface IProps {
 
 function SettingsTab({
   batchMode,
-  setModel,
   compression,
   setCompression,
   gpuId,
@@ -49,7 +48,6 @@ function SettingsTab({
   saveImageAs,
   setSaveImageAs,
   logData,
-
   show,
   setShow,
   setDontShowCloudModal,
@@ -57,65 +55,17 @@ function SettingsTab({
   const [isCopied, setIsCopied] = useState(false);
 
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
-  const modelOptions = useAtomValue(modelsListAtom);
   const [scale, setScale] = useAtom(scaleAtom);
   const [enableScrollbar, setEnableScrollbar] = useState(true);
   const [timeoutId, setTimeoutId] = useState(null);
   const t = useAtomValue(translationAtom);
 
-  const logit = useLogger();
-
   useEffect(() => {
     themeChange(false);
-
-    if (!localStorage.getItem("saveImageAs")) {
-      logit("⚙️ Setting saveImageAs to png");
-      localStorage.setItem("saveImageAs", "png");
-    } else {
-      const currentlySavedImageFormat = localStorage.getItem("saveImageAs");
-      logit(
-        "⚙️ Getting saveImageAs from localStorage: ",
-        currentlySavedImageFormat,
-      );
-      setSaveImageAs(currentlySavedImageFormat);
-    }
-
-    if (!localStorage.getItem("model")) {
-      setModel(modelOptions[0].value);
-      localStorage.setItem("model", JSON.stringify(modelOptions[0]));
-      logit("🔀 Setting model to", modelOptions[0].value);
-    } else {
-      let currentlySavedModel = JSON.parse(
-        localStorage.getItem("model"),
-      ) as (typeof modelOptions)[0];
-      if (
-        modelOptions.find(
-          (model) => model.value === currentlySavedModel.value,
-        ) === undefined
-      ) {
-        localStorage.setItem("model", JSON.stringify(modelOptions[0]));
-        logit("🔀 Setting model to", modelOptions[0].value);
-        currentlySavedModel = modelOptions[0];
-      }
-      setModel(currentlySavedModel.value);
-      logit(
-        "⚙️ Getting model from localStorage: ",
-        JSON.stringify(currentlySavedModel),
-      );
-    }
-
-    if (!localStorage.getItem("gpuId")) {
-      localStorage.setItem("gpuId", "");
-      logit("⚙️ Setting gpuId to empty string");
-    } else {
-      const currentlySavedGpuId = localStorage.getItem("gpuId");
-      setGpuId(currentlySavedGpuId);
-      logit("⚙️ Getting gpuId from localStorage: ", currentlySavedGpuId);
-    }
   }, []);
 
   // HANDLERS
-  const setExportType = (format: string) => {
+  const setExportType = (format: ImageFormat) => {
     setSaveImageAs(format);
     localStorage.setItem("saveImageAs", format);
   };

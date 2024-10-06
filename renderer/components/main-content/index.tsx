@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { sanitizePath } from "@common/sanitize-path";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
-import { VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
+import { ImageFormat, VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import ProgressBar from "./progress-bar";
 import InstructionsCard from "./instructions-card";
 import ImageViewSettings from "./image-view-settings";
@@ -172,7 +172,7 @@ const MainContent = ({
       const fileName = `${currentTime}-${fileObject.name}`;
       const file = {
         name: fileName,
-        extension: fileName.split(".").pop(),
+        extension: fileName.split(".").pop() as ImageFormat,
         size: fileObject.size,
         type: fileObject.type.split("/")[0],
         encodedBuffer: "",

@@ -14,7 +14,7 @@ import { modelsPath } from "../utils/get-resource-paths";
 import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
-import { DEFAULT_MODELS } from "../../common/models-list";
+import { DEFAULT_MODELS_ID_LIST } from "../../common/models-list";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -41,7 +41,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     fs.mkdirSync(outputFolderPath, { recursive: true });
   }
 
-  const isDefaultModel = DEFAULT_MODELS.includes(model);
+  const isDefaultModel = DEFAULT_MODELS_ID_LIST.includes(model);
 
   // UPSCALE
   const upscayl = spawnUpscayl(
