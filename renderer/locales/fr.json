@@ -147,7 +147,8 @@
       "SELECT_FOLDER": "Sélectionnez un dossier à suréchantillonner",
       "SELECT_IMAGE": "Sélectionnez une image à suréchantillonner",
       "SELECT_FOLDER_DESCRIPTION": "Assurez-vous que le dossier ne contient rien d'autre que des images PNG, JPG, JPEG et WEBP.",
-      "SELECT_IMAGES_DESCRIPTION": "Sélectionnez ou glissez-déposez une image PNG, JPG, JPEG ou WEBP."
+      "SELECT_IMAGES_DESCRIPTION": "Sélectionnez ou glissez-déposez une image PNG, JPG, JPEG ou WEBP.",
+      "PASTE_IMAGE_DESCRIPTION": "Appuyez sur Ctrl + V ou Cmd + V pour coller l'image depuis le presse-papiers"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "Traitement de l'image...",
@@ -194,8 +195,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Image invalide",
-      "DESCRIPTION": "Veuillez sélectionner une image avec une extension valide comme PNG, JPG, JPEG, JFIF ou WEBP.",
-      "ADDITIONAL_DESCRIPTION": "Veuillez glisser-déposer une image"
+      "DESCRIPTION": "Veuillez sélectionner/coller une image avec une extension valide comme PNG, JPG, JPEG, JFIF ou WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Veuillez faire glisser et déposer une image",
+      "CLIPBOARD_DESCRIPTION": "Aucun fichier image trouvé dans le presse-papiers à coller !"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "Aucune image sélectionnée",

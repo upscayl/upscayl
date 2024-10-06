@@ -147,7 +147,8 @@
       "SELECT_FOLDER": "Upscaylするフォルダを選択",
       "SELECT_IMAGE": "Upscaylする画像を選択",
       "SELECT_FOLDER_DESCRIPTION": "フォルダにはPNG、JPG、JPEG、WEBPの画像以外のものが含まれていないことを確認してください。",
-      "SELECT_IMAGES_DESCRIPTION": "PNG、JPG、JPEG、またはWEBP画像を選択するか、ドラッグアンドドロップしてください。"
+      "SELECT_IMAGES_DESCRIPTION": "PNG、JPG、JPEG、またはWEBP画像を選択するか、ドラッグアンドドロップしてください。",
+      "PASTE_IMAGE_DESCRIPTION": "Ctrl + V または Cmd + V を押してクリップボードから画像を貼り付けます"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "画像を処理中...",
@@ -194,8 +195,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "無効な画像",
-      "DESCRIPTION": "PNG、JPG、JPEG、JFIF、またはWEBPなどの有効な拡張子を持つ画像を選択してください。",
-      "ADDITIONAL_DESCRIPTION": "画像をドラッグアンドドロップしてください"
+      "DESCRIPTION": "PNG、JPG、JPEG、JFIF、または WEBP のような有効な拡張子の画像を選択/貼り付けてください。",
+      "ADDITIONAL_DESCRIPTION": "画像をドラッグアンドドロップしてください",
+      "CLIPBOARD_DESCRIPTION": "クリップボードに貼り付ける画像ファイルが見つかりません！"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "画像が選択されていません",

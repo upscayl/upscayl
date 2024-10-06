@@ -147,7 +147,8 @@
       "SELECT_FOLDER": "选择要增强的文件夹",
       "SELECT_IMAGE": "选择要增强的图片",
       "SELECT_FOLDER_DESCRIPTION": "文件夹中只支持 PNG、JPG、JPEG 和 WEBP 图片。",
-      "SELECT_IMAGES_DESCRIPTION": "选择或拖放 PNG、JPG、JPEG 或 WEBP 图片。"
+      "SELECT_IMAGES_DESCRIPTION": "选择或拖放 PNG、JPG、JPEG 或 WEBP 图片。",
+      "PASTE_IMAGE_DESCRIPTION": "按 Ctrl + V 或 Cmd + V 以從剪貼簿貼上圖像"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "正在处理图片...",
@@ -194,8 +195,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "图片无效",
-      "DESCRIPTION": "请选择一个扩展名为 PNG、JPG、JPEG、JFIF 或 WEBP 的有效图片",
-      "ADDITIONAL_DESCRIPTION": "请拖放图片"
+      "DESCRIPTION": "请选择/粘貼一个扩展名为 PNG、JPG、JPEG、JFIF 或 WEBP 的有效图片",
+      "ADDITIONAL_DESCRIPTION": "請拖放一個圖像",
+      "CLIPBOARD_DESCRIPTION": "剪貼板中未找到可粘貼的圖像文件！"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "未选择图片",

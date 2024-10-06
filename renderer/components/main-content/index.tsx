@@ -1,6 +1,6 @@
 "use client";
 import useLogger from "../hooks/use-logger";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { useAtomValue, useSetAtom } from "jotai";
 import {
@@ -165,39 +165,102 @@ const MainContent = ({
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     resetImagePaths();
     e.preventDefault();
-    const items = e.clipboardData.items;
-    const files = e.clipboardData.files;
-    if (items.length === 0 || files.length === 0) {
-      toast({
-        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
-        description: t("ERRORS.INVALID_IMAGE_ERROR.ADDITIONAL_DESCRIPTION"),
-      });
-      return;
-    }
-    const type = items[0].type;
-    const filePath = files[0].path;
-    const extension = files[0].name
-      .split(".")
-      .at(-1)
-      .toLowerCase() as ImageFormat;
-    logit("📋 Pasted file: ", JSON.stringify({ type, filePath, extension }));
-    if (!type.includes("image") && !VALID_IMAGE_FORMATS.includes(extension)) {
-      toast({
-        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
-        description: t("ERRORS.INVALID_IMAGE_ERROR.ADDITIONAL_DESCRIPTION"),
-      });
-    } else {
-      setImagePath(filePath);
-      const dirname = getDirectoryFromPath(filePath);
-      logit("🗂 Setting output path: ", dirname);
-      if (!FEATURE_FLAGS.APP_STORE_BUILD) {
-        if (!rememberOutputFolder) {
-          setOutputPath(dirname);
-        }
+    if (e.clipboardData.files.length) {
+      const fileObject = e.clipboardData.files[0];
+      const currentDate = new Date(Date.now());
+      const currentTime = `${currentDate.getHours()}-${currentDate.getMinutes()}-${currentDate.getSeconds()}`;
+      const fileName = `${currentTime}-${fileObject.name}`;
+      const file = {
+        name: fileName,
+        extension: fileName.split(".").pop() as ImageFormat,
+        size: fileObject.size,
+        type: fileObject.type.split("/")[0],
+        encodedBuffer: "",
+      };
+
+      logit(
+        "📋 Pasted file: ",
+        JSON.stringify({
+          type: file.type,
+          name: file.name,
+          extension: file.extension,
+        }),
+      );
+
+      if (
+        file.type === "image" &&
+        VALID_IMAGE_FORMATS.includes(file.extension)
+      ) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const result = event.target?.result;
+          if (typeof result === "string") {
+            file.encodedBuffer = Buffer.from(result, "utf-8").toString(
+              "base64",
+            );
+          } else if (result instanceof ArrayBuffer) {
+            file.encodedBuffer = Buffer.from(new Uint8Array(result)).toString(
+              "base64",
+            );
+          } else {
+            logit("🚫 Invalid file pasted");
+            toast({
+              title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+              description: t(
+                "ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION",
+              ),
+            });
+          }
+          window.electron.send(ELECTRON_COMMANDS.PASTE_IMAGE, file);
+        };
+        reader.readAsArrayBuffer(fileObject);
+      } else {
+        logit("🚫 Invalid file pasted");
+        toast({
+          title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+          description: t("ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION"),
+        });
       }
-      validateImagePath(filePath);
+    } else {
+      logit("🚫 Invalid file pasted");
+      toast({
+        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+        description: t("ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION"),
+      });
     }
   };
+
+  useEffect(() => {
+    const handlePasteEvent = (e) => handlePaste(e);
+    window.addEventListener("paste", handlePasteEvent);
+    window.electron.on(
+      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_SUCCESS,
+      (_: any, output: string[]) => {
+        let [imageFilePath, homeDirectory] = output;
+        setImagePath(imageFilePath);
+        var dirname = getDirectoryFromPath(homeDirectory, false);
+        logit("🗂 Setting output path: ", dirname);
+        if (!FEATURE_FLAGS.APP_STORE_BUILD) {
+          if (!rememberOutputFolder) {
+            setOutputPath(dirname);
+          }
+        }
+        validateImagePath(imageFilePath);
+      },
+    );
+    window.electron.on(
+      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
+      (_: any, error: string) => {
+        toast({
+          title: t("ERRORS.NO_IMAGE_ERROR.TITLE"),
+          description: error,
+        });
+      },
+    );
+    return () => {
+      window.removeEventListener("paste", handlePasteEvent);
+    };
+  }, [t]);
 
   return (
     <div
@@ -207,7 +270,6 @@ const MainContent = ({
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDoubleClick={batchMode ? selectFolderHandler : selectImageHandler}
-      onPaste={handlePaste}
     >
       <MacTitlebarDragRegion />
 

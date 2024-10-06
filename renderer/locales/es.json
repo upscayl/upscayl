@@ -147,7 +147,8 @@
       "SELECT_FOLDER": "Selecciona una carpeta para aumentar",
       "SELECT_IMAGE": "Selecciona una imagen para aumentar",
       "SELECT_FOLDER_DESCRIPTION": "Asegúrate de que la carpeta no contenga nada excepto imágenes PNG, JPG, JPEG y WEBP.",
-      "SELECT_IMAGES_DESCRIPTION": "Selecciona o arrastra y suelta una imagen PNG, JPG, JPEG o WEBP."
+      "SELECT_IMAGES_DESCRIPTION": "Selecciona o arrastra y suelta una imagen PNG, JPG, JPEG o WEBP.",
+      "PASTE_IMAGE_DESCRIPTION": "Presiona Ctrl + V o Cmd + V para pegar la imagen desde el portapapeles"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "Procesando la imagen...",
@@ -194,8 +195,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Imagen inválida",
-      "DESCRIPTION": "Por favor, selecciona una imagen con una extensión válida como PNG, JPG, JPEG, JFIF o WEBP.",
-      "ADDITIONAL_DESCRIPTION": "Por favor, arrastra y suelta una imagen"
+      "DESCRIPTION": "Por favor, selecciona/pega una imagen con una extensión válida como PNG, JPG, JPEG, JFIF o WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Por favor, arrastra y suelta una imagen",
+      "CLIPBOARD_DESCRIPTION": "¡No se encontró ningún archivo de imagen en el portapapeles para pegar!"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "No se ha seleccionado imagen",

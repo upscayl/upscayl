@@ -147,7 +147,8 @@
       "SELECT_FOLDER": "Select a Folder to Upscayl",
       "SELECT_IMAGE": "Select an Image to Upscayl",
       "SELECT_FOLDER_DESCRIPTION": "Make sure that the folder doesn't contain anything except PNG, JPG, JPEG & WEBP images.",
-      "SELECT_IMAGES_DESCRIPTION": "Select or drag and drop a PNG, JPG, JPEG or WEBP image."
+      "SELECT_IMAGES_DESCRIPTION": "Select or drag and drop a PNG, JPG, JPEG or WEBP image.",
+      "PASTE_IMAGE_DESCRIPTION": "Hit Ctrl + V or Cmd + V to Paste image from Clipboard"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "Processing the image...",
@@ -194,8 +195,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Invalid Image",
-      "DESCRIPTION": "Please select an image with a valid extension like PNG, JPG, JPEG, JFIF or WEBP.",
-      "ADDITIONAL_DESCRIPTION": "Please drag and drop an image"
+      "DESCRIPTION": "Please select/paste an image with a valid extension like PNG, JPG, JPEG, JFIF or WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Please drag and drop an image",
+      "CLIPBOARD_DESCRIPTION": "No Image file found in Clipboard to paste!"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "No image selected",

@@ -147,7 +147,8 @@
       "SELECT_FOLDER": "Выберите папку для увеличения",
       "SELECT_IMAGE": "Выберите изображение для увеличения",
       "SELECT_FOLDER_DESCRIPTION": "Убедитесь, что в папке нет ничего, кроме изображений PNG, JPG, JPEG и WEBP.",
-      "SELECT_IMAGES_DESCRIPTION": "Выберите или перетащите изображение в формате PNG, JPG, JPEG или WEBP."
+      "SELECT_IMAGES_DESCRIPTION": "Выберите или перетащите изображение в формате PNG, JPG, JPEG или WEBP.",
+      "PASTE_IMAGE_DESCRIPTION": "Нажмите Ctrl + V или Cmd + V, чтобы вставить изображение из буфера обмена"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "Обработка изображения...",
@@ -194,8 +195,9 @@
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Неверное изображение",
-      "DESCRIPTION": "Пожалуйста, выберите изображение с правильным расширением, таким как PNG, JPG, JPEG, JFIF или WEBP.",
-      "ADDITIONAL_DESCRIPTION": "Пожалуйста, перетащите изображение"
+      "DESCRIPTION": "Пожалуйста, выберите/вставьте изображение с допустимым расширением, таким как PNG, JPG, JPEG, JFIF или WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Пожалуйста, перетащите и отпустите изображение",
+      "CLIPBOARD_DESCRIPTION": "Файл изображения не найден в буфере обмена для вставки!"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "Изображение не выбрано",
