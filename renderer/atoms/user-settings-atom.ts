@@ -1,9 +1,22 @@
+import { ImageFormat } from "@/lib/valid-formats";
+import { ModelId } from "@common/models-list";
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
 export const customModelsPathAtom = atomWithStorage<string | null>(
   "customModelsPath",
   null,
+);
+
+export const selectedModelIdAtom = atomWithStorage<ModelId | string>(
+  "selectedModelId",
+  "realesrgan-x4plus",
+);
+export const doubleUpscaylAtom = atomWithStorage("selectedModelId", false);
+export const gpuIdAtom = atomWithStorage("gpuId", "");
+export const saveImageAsAtom = atomWithStorage<ImageFormat>(
+  "saveImageAs",
+  "png",
 );
 
 export const scaleAtom = atomWithStorage<string>("scale", "4");

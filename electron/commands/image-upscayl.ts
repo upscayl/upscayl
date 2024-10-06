@@ -1,6 +1,6 @@
 import fs from "fs";
 import { modelsPath } from "../utils/get-resource-paths";
-import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import {
   savedCustomModelsPath,
   setChildProcesses,
@@ -16,7 +16,7 @@ import { getMainWindow } from "../main-window";
 import { ImageUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
-import { DEFAULT_MODELS } from "../../common/models-list";
+import { DEFAULT_MODELS_ID_LIST } from "../../common/models-list";
 import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
@@ -55,7 +55,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     "." +
     saveImageAs;
 
-  const isDefaultModel = DEFAULT_MODELS.includes(model);
+  const isDefaultModel = DEFAULT_MODELS_ID_LIST.includes(model);
 
   // Check if windows can write the new filename to the file system
   if (outFile.length >= 255) {

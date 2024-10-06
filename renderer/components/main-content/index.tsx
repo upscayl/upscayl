@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { sanitizePath } from "@common/sanitize-path";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
-import { VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
+import { ImageFormat, VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import ProgressBar from "./progress-bar";
 import InstructionsCard from "./instructions-card";
 import ImageViewSettings from "./image-view-settings";
@@ -176,12 +176,12 @@ const MainContent = ({
     }
     const type = items[0].type;
     const filePath = files[0].path;
-    const extension = files[0].name.split(".").at(-1);
+    const extension = files[0].name
+      .split(".")
+      .at(-1)
+      .toLowerCase() as ImageFormat;
     logit("📋 Pasted file: ", JSON.stringify({ type, filePath, extension }));
-    if (
-      !type.includes("image") &&
-      !VALID_IMAGE_FORMATS.includes(extension.toLowerCase())
-    ) {
+    if (!type.includes("image") && !VALID_IMAGE_FORMATS.includes(extension)) {
       toast({
         title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
         description: t("ERRORS.INVALID_IMAGE_ERROR.ADDITIONAL_DESCRIPTION"),

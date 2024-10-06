@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { modelsListAtom } from "../atoms/models-list-atom";
+import { useAtomValue, useSetAtom } from "jotai";
+import { customModelIdsAtom } from "../atoms/models-list-atom";
 import {
   batchModeAtom,
   savedOutputPathAtom,
@@ -10,7 +10,6 @@ import {
   rememberOutputFolderAtom,
 } from "../atoms/user-settings-atom";
 import useLogger from "../components/hooks/use-logger";
-import { newsAtom, showNewsModalAtom } from "@/atoms/news-atom";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import UpscaylSVGLogo from "@/components/icons/upscayl-logo-svg";
@@ -19,7 +18,7 @@ import Sidebar from "@/components/sidebar";
 import MainContent from "@/components/main-content";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
-import { VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
+import { ImageFormat, VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import { initCustomModels } from "@/components/hooks/use-custom-models";
 
 const Home = () => {
@@ -30,7 +29,6 @@ const Home = () => {
   initCustomModels();
 
   const [isLoading, setIsLoading] = useState(true);
-
   const [imagePath, setImagePath] = useState("");
   const [upscaledImagePath, setUpscaledImagePath] = useState("");
   const [dimensions, setDimensions] = useState({
@@ -39,18 +37,12 @@ const Home = () => {
   });
   const setOutputPath = useSetAtom(savedOutputPathAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
-
   const batchMode = useAtomValue(batchModeAtom);
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
-
   const setProgress = useSetAtom(progressAtom);
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
-
-  const [modelOptions, setModelOptions] = useAtom(modelsListAtom);
-
-  const [news, setNews] = useAtom(newsAtom);
-  const [showNewsModal, setShowNewsModal] = useAtom(showNewsModalAtom);
+  const setModelIds = useSetAtom(customModelIdsAtom);
 
   const selectImageHandler = async () => {
     resetImagePaths();
@@ -89,7 +81,7 @@ const Home = () => {
   const validateImagePath = (path: string) => {
     if (path.length > 0) {
       logit("🖼 imagePath: ", path);
-      const extension = path.split(".").pop().toLowerCase();
+      const extension = path.split(".").pop().toLowerCase() as ImageFormat;
       logit("🔤 Extension: ", extension);
       if (!VALID_IMAGE_FORMATS.includes(extension)) {
         toast({
@@ -260,19 +252,8 @@ const Home = () => {
       ELECTRON_COMMANDS.CUSTOM_MODEL_FILES_LIST,
       (_, data: string[]) => {
         logit(`📜 CUSTOM_MODEL_FILES_LIST: `, data);
-        const newModelOptions = data.map((model) => {
-          return {
-            value: model,
-            label: model,
-          };
-        });
-        // Add newModelsList to modelOptions and remove duplicates
-        const modelMap = new Map();
-        [...modelOptions, ...newModelOptions].forEach((model) => {
-          modelMap.set(model.value, model);
-        });
-        const uniqueModelOptions = Array.from(modelMap.values());
-        setModelOptions(uniqueModelOptions);
+        console.log("🚀 => data:", data);
+        setModelIds(data);
       },
     );
   }, []);
