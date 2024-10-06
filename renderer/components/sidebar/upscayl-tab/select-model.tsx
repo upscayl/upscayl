@@ -51,17 +51,16 @@ export default function SelectModel() {
                 const modelId = modelData[0] as ModelId;
                 const model = modelData[1];
                 return (
-                  <Button
+                  <button
                     key={modelId}
-                    variant="outline"
-                    className="h-auto w-full flex-col items-start p-4"
+                    className="btn h-auto w-full flex-col items-start p-4"
                     onClick={() => handleModelSelect(modelId)}
                   >
                     <div className="mb-2 font-semibold">{model.name}</div>
                     <div className="relative h-52 w-full overflow-hidden rounded-md">
                       <div className="flex h-full w-full">
                         <img
-                          src={`/model-comparison/${model.name}/before.webp`}
+                          src={`/model-comparison/${model.id}/before.webp`}
                           alt={`${model.name} Before`}
                           className="h-full w-1/2 object-cover"
                         />
@@ -90,19 +89,21 @@ export default function SelectModel() {
                         <span className="sr-only">Zoom</span>
                       </Button>
                     </div>
-                  </Button>
+                  </button>
                 );
               })}
+              <p className="font-semibold text-base-content">
+                Imported Custom Models
+              </p>
               {customModelIds.map((customModel) => {
                 return (
-                  <Button
+                  <button
                     key={customModel}
-                    variant="outline"
-                    className="h-auto w-full flex-col items-start p-4"
+                    className="btn h-auto w-full flex-col items-start p-4"
                     onClick={() => handleModelSelect(customModel)}
                   >
                     {customModel}
-                  </Button>
+                  </button>
                 );
               })}
             </div>
@@ -141,15 +142,13 @@ export default function SelectModel() {
                 </div>
               </div>
             </div>
-            <Button
-              variant="secondary"
-              size="icon"
-              className="absolute right-4 top-4"
+            <button
+              className="btn btn-circle btn-secondary absolute right-4 top-4"
               onClick={() => setZoomedModel(null)}
             >
               <X className="h-4 w-4" />
               <span className="sr-only">Close</span>
-            </Button>
+            </button>
           </div>
         </DialogContent>
       </Dialog>
