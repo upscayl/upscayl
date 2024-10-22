@@ -23,7 +23,7 @@ or even `0,1,2`
 The logs appear in the Settings tab.   
 <img src="https://github.com/upscayl/upscayl/assets/25067102/ae8975b9-39d3-43a7-8ab5-435b42a67e6e" height="500px" />
 
-To copy a log, you can press the COPY button and to paste it in the GitHub issue template for bug reports.
+To copy a log, you can press the COPY button and paste it in the GitHub issue template for bug reports.
 
 ## Custom Models
 Since Upscayl v2.5, you can load your own NCNN models into Upscayl. To convert models from PyTorch, see [🖥️ Model Conversion Guide](../%F0%9F%96%A5%EF%B8%8F-Model-Conversion-%E2%80%90-Create-more-AI-models!). You could also load Upscayl's official [Custom Models Repository](https://github.com/upscayl/custom-models).
