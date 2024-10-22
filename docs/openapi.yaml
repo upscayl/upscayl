@@ -4,7 +4,7 @@ info:
   title: Upscayl Cloud API Documentation
   version: 1.0.0
 paths:
-  /getuploadurl:
+  /get-upload-url:
     post:
       operationId: getUploadUrl
       summary: Get upload URL
@@ -95,7 +95,7 @@ paths:
               schema:
                 type: string
               example: Internal Server Error
-  /getupscaylhistory:
+  /get-upscayl-history:
     post:
       operationId: getUpscaylHistory
       summary: Get Upscayl History
@@ -225,7 +225,7 @@ paths:
               schema:
                 type: string
               example: "Error getting data"
-  /gettaskstatus:
+  /get-task-status:
     post:
       operationId: getTaskStatus
       summary: Get Task Status
@@ -364,7 +364,7 @@ paths:
                   value: "Error getting data"
                 linkGenerationError:
                   value: "Error generating links for images"
-  /starttask:
+  /start-task:
     post:
       operationId: startTask
       summary: Start a new task
@@ -476,3 +476,92 @@ paths:
               schema:
                 type: string
               example: "Error contacting the server"
+  /complete-multipart-upload:
+    post:
+      operationId: completeMultipartUpload
+      summary: Complete a multipart upload
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    uploadId:
+                      type: string
+                      description: The upload ID
+                      example: "exampleUploadId"
+                    key:
+                      type: string
+                      description: The object key
+                      example: "exampleKey"
+                    parts:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          ETag:
+                            type: string
+                            description: The entity tag for the part
+                            example: "exampleETag"
+                          PartNumber:
+                            type: integer
+                            description: The part number
+                            example: 1
+              required:
+                - uploadId
+                - key
+                - parts
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: "success"
+                      # Uncomment and add these properties if needed
+                      # location:
+                      #   type: string
+                      #   example: "http://example.com/location"
+                      # bucket:
+                      #   type: string
+                      #   example: "exampleBucket"
+                      # key:
+                      #   type: string
+                      #   example: "exampleKey"
+                      # eTag:
+                      #   type: string
+                      #   example: "exampleETag"
+        "400":
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Bad Request: Missing required parameters"
+        "401":
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Unauthorized: Invalid API key"
+        "500":
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Internal Server Error: Error completing multipart upload"
