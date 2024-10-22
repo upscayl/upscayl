@@ -4,7 +4,7 @@ info:
   title: Upscayl Cloud API Documentation
   version: 1.0.0
 paths:
-  /upscayl-cloud/us-central1/getUploadUrl:
+  /getuploadurl:
     post:
       operationId: getUploadUrl
       summary: Get upload URL
@@ -95,7 +95,7 @@ paths:
               schema:
                 type: string
               example: Internal Server Error
-  /upscayl-cloud/us-central1/getUpscaylHistory:
+  /getupscaylhistory:
     post:
       operationId: getUpscaylHistory
       summary: Get Upscayl History
@@ -225,7 +225,7 @@ paths:
               schema:
                 type: string
               example: "Error getting data"
-  /upscayl-cloud/us-central1/getTaskStatus:
+  /gettaskstatus:
     post:
       operationId: getTaskStatus
       summary: Get Task Status
@@ -368,7 +368,7 @@ paths:
                   value: "Error getting data"
                 linkGenerationError:
                   value: "Error generating links for images"
-  /upscayl-cloud/us-central1/startTask:
+  /starttask:
     post:
       operationId: startTask
       summary: Start a new task
@@ -385,8 +385,38 @@ paths:
                 files:
                   type: array
                   items:
-                    type: string
-                    format: binary
+                    type: object
+                    properties:
+                      fileName:
+                        description: The file name or the URL of the file
+                        type: string
+                      fileType:
+                        description: The file type
+                        type: string
+                      fileSize:
+                        description: The file size in bytes
+                        type: integer
+                      originalFileName:
+                        description: The original file name
+                        type: string
+                      createdAt:
+                        description: The timestamp when the file was created
+                        type: number
+                        format: float
+                      expiresAt:
+                        description: The timestamp when the file expires
+                        type: number
+                        format: float
+                      path:
+                        description: The s3 path to the file
+                        type: string
+                  required:
+                    - fileName
+                    - fileType
+                    - fileSize
+                    - originalFileName
+                    - createdAt
+                    - expiresAt
                 enhanceFace:
                   type: boolean
                   description: Whether to enhance faces in the image
@@ -411,7 +441,7 @@ paths:
                 file:
                   type: string
                   format: binary
-                  description: A single file to upload
+                  description: A single file to upload, used when startTask is being used to upload the file, not needed if already uploaded s3 files or file links are passed in files array
       responses:
         "200":
           description: Successful operation
@@ -445,82 +475,6 @@ paths:
                   value: "Bad Request: Missing Files"
                 missingModelName:
                   value: "Bad Request: Missing Model Name"
-                missingScale:
-                  value: "Bad Request: Missing Scale"
-                missingImageOptions:
-                  value: "Bad Request: Missing Image Options"
-        "402":
-          description: Payment required
-          content:
-            text/plain:
-              schema:
-                type: string
-              example: "Insufficient credits"
-        "500":
-          description: Internal server error
-          content:
-            text/plain:
-              schema:
-                type: string
-              example: "Error contacting the server"
-  /upscayl-cloud/us-central1/resize-image:
-    post:
-      summary: Resize an image
-      description: Resizes an image based on the provided scale factor and uploads it back to S3.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    file:
-                      type: object
-                      properties:
-                        fileName:
-                          type: string
-                          description: The name of the file to be resized.
-                          example: 0f143eca-f21f-4309-bee5-2eb6a101cdd7.jpeg
-                        fileType:
-                          type: string
-                          description: The MIME type of the file.
-                          example: image/jpeg
-                      required:
-                        - fileName
-                        - fileType
-                    scale:
-                      type: number
-                      description: The scale factor to resize the image.
-                      example: 0.5
-                    userId:
-                      type: string
-                      description: The ID of the user.
-                      example: kB4EFDHo2bWAvVthqaU8vMufCMY2
-                  required:
-                    - file
-                    - scale
-      responses:
-        "200":
-          description: Image resized successfully
-          content:
-            text/plain:
-              schema:
-                type: string
-              example: "Image Resized Successfully"
-        "400":
-          description: Bad Request
-          content:
-            text/plain:
-              schema:
-                type: string
-              examples:
-                invalidFileType:
-                  value: "Bad Request: Invalid File Type"
-                missingUserId:
-                  value: "Bad Request: Missing User ID"
                 missingScale:
                   value: "Bad Request: Missing Scale"
                 missingImageOptions:
