@@ -46,6 +46,9 @@
     {
       "group": "Get Started",
       "pages": ["introduction"]
+    },{
+      "group": "API Reference",
+      "pages": ["get-task-status", "get-upload-url", "get-upscayl-history", "start-a-new-task", "resize-an-image"]
     }
   ],
   "footerSocials": {
