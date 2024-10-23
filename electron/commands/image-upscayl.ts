@@ -22,11 +22,10 @@ import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
 import readMetadata from "../utils/read-metadata";
 import writeMetadata from "../utils/write-metadata";
-import { ExifTool } from "exiftool-vendored";
+import { exiftool } from "../utils/exiftool-instance";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
-  const exiftool = new ExifTool();
 
   if (!mainWindow) {
     logit("No main window found");
@@ -59,7 +58,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       COMMAND.UPSCAYL_ERROR,
       "Failed to read metadata.",
     );
-    exiftool.end();
     return;
   }
 
@@ -139,7 +137,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       mainWindow.webContents.send(COMMAND.UPSCAYL_PROGRESS, data.toString());
       if (data.includes("Error")) {
         upscayl.kill();
-        exiftool.end();
         failed = true;
       } else if (data.includes("Resizing")) {
         mainWindow.webContents.send(COMMAND.SCALING_AND_CONVERTING);
@@ -151,7 +148,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       mainWindow.webContents.send(COMMAND.UPSCAYL_ERROR, data.toString());
       failed = true;
       upscayl.kill();
-      exiftool.end();
       return;
     };
     const onClose = async () => {
@@ -167,8 +163,8 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         }
         logit("💯 Done upscaling");
         // Free up memory
+        logit("Exiftool child end counts: ", exiftool.spawnedProcs);
         upscayl.kill();
-        exiftool.end();
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, outFile);
         showNotification("Upscayl", "Image upscayled successfully!");
