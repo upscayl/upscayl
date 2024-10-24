@@ -3,15 +3,20 @@ import logit from "../utils/logit";
 import fs from "fs";
 import path from "path";
 import { ELECTRON_COMMANDS } from "../../common/electron-commands";
+import { ImageFormat, imageFormats } from "../types/types";
 
 interface IClipboardFileParameters {
   name: string;
   path: string;
-  extension: string;
+  extension: ImageFormat;
   size: number;
   type: string;
   encodedBuffer: string;
 }
+
+const isImageFormatValid = (format: string): format is ImageFormat => {
+  return (imageFormats as readonly string[]).includes(format);
+};
 
 const createTempFileFromClipboard = async (
   inputFileParams: IClipboardFileParameters,
@@ -23,21 +28,31 @@ const createTempFileFromClipboard = async (
   return tempFilePath;
 };
 
-const pasteImage = async (event, file: IClipboardFileParameters) => {
+const pasteImage = async (
+  event: Electron.IpcMainEvent,
+  file: IClipboardFileParameters,
+) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
   if (!file || !file.name || !file.encodedBuffer) return;
-  try {
-    const imageFilePath = await createTempFileFromClipboard(file);
-    mainWindow.webContents.send(
-      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_SUCCESS,
-      imageFilePath,
-    );
-  } catch (error: any) {
-    logit(error.message);
+  if (isImageFormatValid(file.extension)) {
+    try {
+      const imageFilePath = await createTempFileFromClipboard(file);
+      mainWindow.webContents.send(
+        ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_SUCCESS,
+        imageFilePath,
+      );
+    } catch (error: any) {
+      logit(error.message);
+      mainWindow.webContents.send(
+        ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
+        error.message,
+      );
+    }
+  } else {
     mainWindow.webContents.send(
       ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
-      error.message,
+      "Unsupported Image Format",
     );
   }
 };
