@@ -2,7 +2,7 @@
 import useLogger from "../hooks/use-logger";
 import { useState, useMemo, useEffect } from "react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import {
   batchModeAtom,
   lensSizeAtom,
@@ -63,7 +63,7 @@ const MainContent = ({
   const { toast } = useToast();
   const version = useUpscaylVersion();
 
-  const setOutputPath = useSetAtom(savedOutputPathAtom);
+  const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
   const progress = useAtomValue(progressAtom);
   const batchMode = useAtomValue(batchModeAtom);
 
@@ -163,57 +163,66 @@ const MainContent = ({
   };
 
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
-    resetImagePaths();
     e.preventDefault();
-    if (e.clipboardData.files.length) {
-      const fileObject = e.clipboardData.files[0];
-      const currentDate = new Date(Date.now());
-      const currentTime = `${currentDate.getHours()}-${currentDate.getMinutes()}-${currentDate.getSeconds()}`;
-      const fileName = `${currentTime}-${fileObject.name}`;
-      const file = {
-        name: fileName,
-        extension: fileName.split(".").pop() as ImageFormat,
-        size: fileObject.size,
-        type: fileObject.type.split("/")[0],
-        encodedBuffer: "",
-      };
-
-      logit(
-        "📋 Pasted file: ",
-        JSON.stringify({
-          type: file.type,
-          name: file.name,
-          extension: file.extension,
-        }),
-      );
-
-      if (
-        file.type === "image" &&
-        VALID_IMAGE_FORMATS.includes(file.extension)
-      ) {
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-          const result = event.target?.result;
-          if (typeof result === "string") {
-            file.encodedBuffer = Buffer.from(result, "utf-8").toString(
-              "base64",
-            );
-          } else if (result instanceof ArrayBuffer) {
-            file.encodedBuffer = Buffer.from(new Uint8Array(result)).toString(
-              "base64",
-            );
-          } else {
-            logit("🚫 Invalid file pasted");
-            toast({
-              title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
-              description: t(
-                "ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION",
-              ),
-            });
-          }
-          window.electron.send(ELECTRON_COMMANDS.PASTE_IMAGE, file);
+    if (outputPath) {
+      resetImagePaths();
+      if (e.clipboardData.files.length) {
+        const fileObject = e.clipboardData.files[0];
+        const currentDate = new Date(Date.now());
+        const currentTime = `${currentDate.getHours()}-${currentDate.getMinutes()}-${currentDate.getSeconds()}`;
+        const fileName = `.temp-${currentTime}-${fileObject.name || "image"}`;
+        const file = {
+          name: fileName,
+          path: outputPath,
+          extension: fileName.split(".").pop() as ImageFormat,
+          size: fileObject.size,
+          type: fileObject.type.split("/")[0],
+          encodedBuffer: "",
         };
-        reader.readAsArrayBuffer(fileObject);
+
+        logit(
+          "📋 Pasted file: ",
+          JSON.stringify({
+            name: file.name,
+            path: file.path,
+            extension: file.extension,
+          }),
+        );
+
+        if (
+          file.type === "image" &&
+          VALID_IMAGE_FORMATS.includes(file.extension)
+        ) {
+          const reader = new FileReader();
+          reader.onload = async (event) => {
+            const result = event.target?.result;
+            if (typeof result === "string") {
+              file.encodedBuffer = Buffer.from(result, "utf-8").toString(
+                "base64",
+              );
+            } else if (result instanceof ArrayBuffer) {
+              file.encodedBuffer = Buffer.from(new Uint8Array(result)).toString(
+                "base64",
+              );
+            } else {
+              logit("🚫 Invalid file pasted");
+              toast({
+                title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+                description: t(
+                  "ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION",
+                ),
+              });
+            }
+            window.electron.send(ELECTRON_COMMANDS.PASTE_IMAGE, file);
+          };
+          reader.readAsArrayBuffer(fileObject);
+        } else {
+          logit("🚫 Invalid file pasted");
+          toast({
+            title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+            description: t("ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION"),
+          });
+        }
       } else {
         logit("🚫 Invalid file pasted");
         toast({
@@ -222,45 +231,39 @@ const MainContent = ({
         });
       }
     } else {
-      logit("🚫 Invalid file pasted");
       toast({
-        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
-        description: t("ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION"),
+        title: t("ERRORS.NO_OUTPUT_FOLDER_ERROR.TITLE"),
+        description: t("ERRORS.NO_OUTPUT_FOLDER_ERROR.DESCRIPTION"),
       });
     }
   };
 
   useEffect(() => {
+    // Events
     const handlePasteEvent = (e) => handlePaste(e);
+    const handlePasteImageSaveSuccess = (_: any, imageFilePath: string) => {
+      setImagePath(imageFilePath);
+      validateImagePath(imageFilePath);
+    };
+    const handlePasteImageSaveError = (_: any, error: string) => {
+      toast({
+        title: t("ERRORS.NO_IMAGE_ERROR.TITLE"),
+        description: error,
+      });
+    };
     window.addEventListener("paste", handlePasteEvent);
     window.electron.on(
       ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_SUCCESS,
-      (_: any, output: string[]) => {
-        let [imageFilePath, homeDirectory] = output;
-        setImagePath(imageFilePath);
-        var dirname = getDirectoryFromPath(homeDirectory, false);
-        logit("🗂 Setting output path: ", dirname);
-        if (!FEATURE_FLAGS.APP_STORE_BUILD) {
-          if (!rememberOutputFolder) {
-            setOutputPath(dirname);
-          }
-        }
-        validateImagePath(imageFilePath);
-      },
+      handlePasteImageSaveSuccess,
     );
     window.electron.on(
       ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
-      (_: any, error: string) => {
-        toast({
-          title: t("ERRORS.NO_IMAGE_ERROR.TITLE"),
-          description: error,
-        });
-      },
+      handlePasteImageSaveError,
     );
     return () => {
       window.removeEventListener("paste", handlePasteEvent);
     };
-  }, [t]);
+  }, [t, outputPath]);
 
   return (
     <div

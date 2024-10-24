@@ -193,6 +193,10 @@
     "GENERIC_ERROR": {
       "TITLE": "Erreur"
     },
+    "NO_OUTPUT_FOLDER_ERROR": {
+      "TITLE": "Définir le dossier de sortie",
+      "DESCRIPTION": "Veuillez d'abord sélectionner un dossier de sortie"
+    },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Image invalide",
       "DESCRIPTION": "Veuillez sélectionner/coller une image avec une extension valide comme PNG, JPG, JPEG, JFIF ou WEBP.",

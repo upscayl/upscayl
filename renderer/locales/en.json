@@ -193,6 +193,10 @@
     "GENERIC_ERROR": {
       "TITLE": "Error"
     },
+    "NO_OUTPUT_FOLDER_ERROR": {
+      "TITLE": "Set Output Folder",
+      "DESCRIPTION": "Please select an output folder first"
+    },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Invalid Image",
       "DESCRIPTION": "Please select/paste an image with a valid extension like PNG, JPG, JPEG, JFIF or WEBP.",

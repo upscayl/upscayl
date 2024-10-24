@@ -193,6 +193,10 @@
     "GENERIC_ERROR": {
       "TITLE": "错误"
     },
+    "NO_OUTPUT_FOLDER_ERROR": {
+      "TITLE": "选择输出文件夹",
+      "DESCRIPTION": "请先选择一个输出文件夹"
+    },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "图片无效",
       "DESCRIPTION": "请选择/粘貼一个扩展名为 PNG、JPG、JPEG、JFIF 或 WEBP 的有效图片",

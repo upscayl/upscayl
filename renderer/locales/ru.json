@@ -193,6 +193,10 @@
     "GENERIC_ERROR": {
       "TITLE": "Ошибка"
     },
+    "NO_OUTPUT_FOLDER_ERROR": {
+      "TITLE": "Установить папку вывода",
+      "DESCRIPTION": "Пожалуйста, сначала выберите папку вывода"
+    },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Неверное изображение",
       "DESCRIPTION": "Пожалуйста, выберите/вставьте изображение с допустимым расширением, таким как PNG, JPG, JPEG, JFIF или WEBP.",

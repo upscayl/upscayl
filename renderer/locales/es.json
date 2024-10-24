@@ -193,6 +193,10 @@
     "GENERIC_ERROR": {
       "TITLE": "Error"
     },
+    "NO_OUTPUT_FOLDER_ERROR": {
+      "TITLE": "Establecer carpeta de salida",
+      "DESCRIPTION": "Por favor, selecciona primero una carpeta de salida"
+    },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Imagen inválida",
       "DESCRIPTION": "Por favor, selecciona/pega una imagen con una extensión válida como PNG, JPG, JPEG, JFIF o WEBP.",
