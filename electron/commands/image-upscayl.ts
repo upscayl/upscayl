@@ -163,7 +163,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         }
         logit("💯 Done upscaling");
         // Free up memory
-        logit("Exiftool child end counts: ", exiftool.spawnedProcs);
         upscayl.kill();
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(COMMAND.UPSCAYL_DONE, outFile);
