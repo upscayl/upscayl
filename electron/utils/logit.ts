@@ -1,6 +1,6 @@
 import log from "electron-log";
-import COMMAND from "../../common/commands";
 import { getMainWindow } from "../main-window";
+import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 
 const logit = (...args: any) => {
   const mainWindow = getMainWindow();
@@ -9,7 +9,7 @@ const logit = (...args: any) => {
   if (process.env.NODE_ENV === "development") {
     return;
   }
-  mainWindow.webContents.send(COMMAND.LOG, args.join(" "));
+  mainWindow.webContents.send(ELECTRON_COMMANDS.LOG, args.join(" "));
 };
 
 export default logit;

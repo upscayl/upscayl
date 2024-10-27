@@ -1,7 +1,7 @@
 import { BrowserWindow, shell } from "electron";
 import { getPlatform } from "./utils/get-device-specs";
 import { join } from "path";
-import COMMAND from "../common/commands";
+import { ELECTRON_COMMANDS } from "../common/electron-commands";
 import { fetchLocalStorage } from "./utils/config-variables";
 import electronIsDev from "electron-is-dev";
 import { format } from "url";
@@ -49,7 +49,7 @@ const createMainWindow = () => {
 
   fetchLocalStorage();
 
-  mainWindow.webContents.send(COMMAND.OS, getPlatform());
+  mainWindow.webContents.send(ELECTRON_COMMANDS.OS, getPlatform());
 
   mainWindow.setMenuBarVisibility(false);
 };

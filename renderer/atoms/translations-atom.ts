@@ -11,11 +11,40 @@ import { atomWithStorage } from "jotai/utils";
 type Translations = typeof en;
 type Locales = "en" | "ru" | "ja" | "zh" | "es" | "fr";
 
+const translations: Record<Locales, Translations> = {
+  en,
+  ru,
+  ja,
+  zh,
+  es,
+  fr,
+};
+
+// Create a type for nested key paths
+type NestedKeyOf<Object> = Object extends object
+  ? {
+      [Key in keyof Object]: Key extends string | number
+        ? Key | `${Key}.${NestedKeyOf<Object[Key]>}`
+        : never;
+    }[keyof Object]
+  : never;
+
 // Utility function to access nested translation keys
-const getNestedTranslation = (obj: Translations, key: string): string => {
-  return (
-    key.split(".").reduce((acc, part) => acc && (acc as any)[part], obj) || key
-  );
+const getNestedTranslation = (
+  obj: Translations,
+  key: NestedKeyOf<Translations>,
+): string => {
+  // Split the key into an array of nested parts
+  const keyParts = key.split(".");
+
+  // Traverse the object using the key parts
+  const result = keyParts.reduce((currentObj, part) => {
+    // If currentObj is falsy or doesn't have the property, return undefined
+    return currentObj && currentObj[part];
+  }, obj);
+
+  // Return the found translation or the original key if not found
+  return result || key;
 };
 
 // Atom to store the current locale
@@ -24,16 +53,11 @@ export const localeAtom = atomWithStorage<Locales>("language", "en");
 // Atom to get the translation function based on the current locale
 export const translationAtom = atom((get) => {
   const locale = get(localeAtom);
-  const translations: Record<Locales, Translations> = {
-    en,
-    ru,
-    ja,
-    zh,
-    es,
-    fr,
-  };
 
-  return (key: string, params: Record<string, string> = {}): string => {
+  return (
+    key: NestedKeyOf<Translations>,
+    params: Record<string, string> = {},
+  ): string => {
     const template = getNestedTranslation(translations[locale], key);
 
     // Replace placeholders with parameters, e.g., {name} => John

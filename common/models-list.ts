@@ -1,13 +1,32 @@
-export const defaultModelsList = [
-  { label: "General Photo (Real-ESRGAN)", value: "realesrgan-x4plus" },
-  {
-    label: "General Photo (Fast Real-ESRGAN)",
-    value: "realesrgan-x4fast",
+export const MODELS = {
+  "realesrgan-x4plus": {
+    id: "realesrgan-x4plus",
+    name: "Upscayl Standard",
   },
-  { label: "General Photo (Remacri)", value: "remacri" },
-  { label: "General Photo (Ultramix Balanced)", value: "ultramix_balanced" },
-  { label: "General Photo (Ultrasharp)", value: "ultrasharp" },
-  { label: "Digital Art", value: "realesrgan-x4plus-anime" },
-];
+  "realesrgan-x4fast": {
+    id: "realesrgan-x4fast",
+    name: "Upscayl Lite",
+  },
+  remacri: {
+    id: "remacri",
+    name: "Remacri (Non-Commercial)",
+  },
+  ultramix_balanced: {
+    id: "ultramix_balanced",
+    name: "Ultramix (Non-Commercial)",
+  },
+  ultrasharp: {
+    id: "ultrasharp",
+    name: "Ultrasharp (Non-Commercial)",
+  },
+  "realesrgan-x4plus-anime": {
+    id: "realesrgan-x4plus-anime",
+    name: "Digital Art",
+  },
+};
 
-export const DEFAULT_MODELS = defaultModelsList.map((model) => model.value);
+export type ModelId = keyof typeof MODELS;
+
+export const DEFAULT_MODELS_ID_LIST = Object.keys(MODELS).map(
+  (modelId) => modelId,
+);

@@ -1,0 +1,567 @@
+---
+openapi: 3.0.0
+info:
+  title: Upscayl Cloud API Documentation
+  version: 1.0.0
+paths:
+  /get-upload-url:
+    post:
+      operationId: getUploadUrl
+      summary: Get upload URL
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originalFileName:
+                  type: string
+                  description: The original file name
+                  example: file.jpeg
+                fileType:
+                  type: string
+                  description: The file type
+                  example: image/jpeg
+                fileSize:
+                  type: number
+                  description: The file size in bytes
+                  example: 123456
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      uploadURL:
+                        type: string
+                        example: http://example.com/upload
+                      fileName:
+                        type: string
+                        example: example.jpg
+                      fileType:
+                        type: string
+                        example: image/jpeg
+                      fileSize:
+                        type: number
+                        example: 12345
+                      originalFileName:
+                        type: string
+                        example: original.jpg
+                      path:
+                        type: string
+                        example: /path/to/file
+                      createdAt:
+                        type: number
+                        example: 1633024800000
+                      expiresAt:
+                        type: number
+                        example: 1654560800000
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                InvalidFileType:
+                  value:
+                    error: InvalidFileType
+                    message: "Bad Request: Invalid File Type"
+                MissingUserID:
+                  value:
+                    error: MissingUserID
+                    message: "Bad Request: Missing User ID"
+                MissingOriginalFileName:
+                  value:
+                    error: MissingOriginalFileName
+                    message: "Bad Request: Missing Original File Name"
+        "500":
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Internal Server Error
+  /get-upscayl-history:
+    post:
+      operationId: getUpscaylHistory
+      summary: Get Upscayl History
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                timestampOffset:
+                  type: number
+                  description: The timestamp offset
+                  example: 1633024800000
+                batch:
+                  type: boolean
+                  description: The batch mode status
+                  example: true
+                failed:
+                  type: boolean
+                  description: The failed status
+                  example: false
+                limit:
+                  type: number
+                  description: The limit for the number of records to retrieve
+                  example: 10
+                processed:
+                  type: string
+                  description: The processed status
+                  example: processing
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        batchMode:
+                          type: boolean
+                        createdAt:
+                          type: number
+                        endedAt:
+                          type: number
+                        enhanceFace:
+                          type: boolean
+                        error:
+                          type: string
+                        files:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              fileName:
+                                type: string
+                              fileType:
+                                type: string
+                              path:
+                                type: string
+                              createdAt:
+                                type: number
+                              expiresAt:
+                                type: number
+                              originalFileName:
+                                type: string
+                              fileSize:
+                                type: number
+                              downloadLink:
+                                type: string
+                              thumbnailLink:
+                                type: string
+                              finalFileSize:
+                                type: number
+                              processedFileName:
+                                type: string
+                              dimensions:
+                                type: object
+                                properties:
+                                  width:
+                                    type: number
+                                  height:
+                                    type: number
+                        id:
+                          type: string
+                        model:
+                          type: string
+                        progress:
+                          type: string
+                        scale:
+                          type: string
+                        status:
+                          type: string
+                        userId:
+                          type: string
+                        saveImageAs:
+                          type: string
+                          enum: ["png", "jpg", "webp"]
+                        compression:
+                          type: number
+                        creditsDeducted:
+                          type: boolean
+        "400":
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Bad Request: Missing User ID"
+        "204":
+          description: No content
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "No data found"
+        "500":
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Error getting data"
+  /get-task-status:
+    post:
+      operationId: getTaskStatus
+      summary: Get Task Status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    taskId:
+                      type: string
+                      description: The task ID
+                      example: 30a89e69-c702-4247-9905-f0a53dfa45ab
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: object
+                    properties:
+                      batchMode:
+                        type: boolean
+                        description: Indicates if batch mode is enabled
+                      createdAt:
+                        type: number
+                        description: Timestamp when the task was created
+                      endedAt:
+                        type: number
+                        description: Timestamp when the task ended
+                      enhanceFace:
+                        type: boolean
+                        description: Indicates if face enhancement is enabled
+                      error:
+                        type: string
+                        description: Error message if any
+                      files:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fileName:
+                              type: string
+                            fileType:
+                              type: string
+                            path:
+                              type: string
+                            createdAt:
+                              type: number
+                            expiresAt:
+                              type: number
+                            originalFileName:
+                              type: string
+                            fileSize:
+                              type: number
+                            downloadLink:
+                              type: string
+                            thumbnailLink:
+                              type: string
+                            finalFileSize:
+                              type: number
+                            processedFileName:
+                              type: string
+                            dimensions:
+                              type: object
+                              properties:
+                                width:
+                                  type: number
+                                height:
+                                  type: number
+                      id:
+                        type: string
+                        description: The task ID
+                      model:
+                        type: string
+                        description: The model used for the task
+                      progress:
+                        type: string
+                        description: The progress of the task
+                      scale:
+                        type: string
+                        description: The scale of the task
+                      status:
+                        type: string
+                        description: The status of the task
+                      userId:
+                        type: string
+                        description: The user ID
+                      saveImageAs:
+                        type: string
+                        enum: ["png", "jpg", "webp"]
+                        description: The format to save the image as
+                      compression:
+                        type: number
+                        description: The compression level
+                      creditsDeducted:
+                        type: boolean
+                        description: Indicates if credits were deducted
+        "400":
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Bad Request: Missing User ID or Task ID"
+        "404":
+          description: Not found
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                noDocument:
+                  value: "No such document"
+                noFiles:
+                  value: "No files found"
+                noUser:
+                  value: "User not found"
+        "500":
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                genericError:
+                  value: "Error getting data"
+                linkGenerationError:
+                  value: "Error generating links for images"
+  /start-task:
+    post:
+      operationId: startTask
+      summary: Start a new task
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      fileName:
+                        description: The file name or the URL of the file
+                        type: string
+                      fileType:
+                        description: The file type
+                        type: string
+                      fileSize:
+                        description: The file size in bytes
+                        type: integer
+                      originalFileName:
+                        description: The original file name
+                        type: string
+                      createdAt:
+                        description: The timestamp when the file was created
+                        type: number
+                        format: float
+                      expiresAt:
+                        description: The timestamp when the file expires
+                        type: number
+                        format: float
+                  description: (Optional) The files to process. Optional if the file is not manually provided in the file property
+                file:
+                  type: string
+                  format: binary
+                  description: (Optional) A single file to upload, used when startTask is being used to upload the file, not needed if already uploaded s3 files or file links are passed in files array
+                enhanceFace:
+                  type: boolean
+                  description: Whether to enhance faces in the image
+                  example: false
+                model:
+                  type: string
+                  description: The model to use for the task
+                  example: digital-art
+                scale:
+                  type: string
+                  description: The scale factor for the task
+                  example: "4"
+                compression:
+                  type: number
+                  description: The compression level
+                  example: 0
+                saveImageAs:
+                  type: string
+                  enum: ["png", "jpg", "webp"]
+                  description: The format to save the image as
+                  example: jpg
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Task request sent successfully"
+                      taskId:
+                        type: string
+                        example: "30a89e69-c702-4247-9905-f0a53dfa45ab"
+        "400":
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                missingUserId:
+                  value: "Bad Request: Missing User ID"
+                missingFiles:
+                  value: "Bad Request: Missing Files"
+                missingModelName:
+                  value: "Bad Request: Missing Model Name"
+                missingScale:
+                  value: "Bad Request: Missing Scale"
+                missingImageOptions:
+                  value: "Bad Request: Missing Image Options"
+        "402":
+          description: Payment required
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Insufficient credits"
+        "500":
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Error contacting the server"
+  /complete-multipart-upload:
+    post:
+      operationId: completeMultipartUpload
+      summary: Complete a multipart upload
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    uploadId:
+                      type: string
+                      description: The upload ID
+                      example: "exampleUploadId"
+                    key:
+                      type: string
+                      description: The object key
+                      example: "exampleKey"
+                    parts:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          ETag:
+                            type: string
+                            description: The entity tag for the part
+                            example: "exampleETag"
+                          PartNumber:
+                            type: integer
+                            description: The part number
+                            example: 1
+              required:
+                - uploadId
+                - key
+                - parts
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: "success"
+                      # Uncomment and add these properties if needed
+                      # location:
+                      #   type: string
+                      #   example: "http://example.com/location"
+                      # bucket:
+                      #   type: string
+                      #   example: "exampleBucket"
+                      # key:
+                      #   type: string
+                      #   example: "exampleKey"
+                      # eTag:
+                      #   type: string
+                      #   example: "exampleETag"
+        "400":
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Bad Request: Missing required parameters"
+        "401":
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Unauthorized: Invalid API key"
+        "500":
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "Internal Server Error: Error completing multipart upload"

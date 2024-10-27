@@ -1,8 +1,0 @@
-[Desktop Entry]
-X-Desktop-File-Install-Version=0.26
-Exec=upscayl %U --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations
-Comment=Upscale Images with AI
-Name=Upscayl
-StartupNotify=false
-Categories=ImageProcessing;RasterGraphics;Graphics;
-Type=Application
