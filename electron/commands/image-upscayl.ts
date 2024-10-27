@@ -55,7 +55,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   } catch (error) {
     logit("❌ Error reading metadata: ", error);
     mainWindow.webContents.send(
-      COMMAND.UPSCAYL_ERROR,
+      ELECTRON_COMMANDS.UPSCAYL_ERROR,
       "Failed to read metadata.",
     );
     return;
@@ -163,9 +163,14 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         } catch (error) {
           logit("❌ Error writing metadata: ", error);
           mainWindow.webContents.send(
-            COMMAND.UPSCAYL_ERROR,
-            "Failed to write metadata.",
+            ELECTRON_COMMANDS.UPSCAYL_ERROR,
+            "Image upscaled successfully but metadata could not be preserved.",
           );
+          showNotification(
+            "Upscayl",
+            "Image upscaled with warnings - metadata not preserved",
+          );
+          return;
         }
         logit("💯 Done upscaling");
         // Free up memory
