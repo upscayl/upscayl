@@ -170,7 +170,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
             "Upscayl",
             "Image upscaled with warnings - metadata not preserved",
           );
-          return;
         }
         logit("💯 Done upscaling");
         // Free up memory
