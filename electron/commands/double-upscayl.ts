@@ -56,7 +56,6 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       ELECTRON_COMMANDS.UPSCAYL_ERROR,
       "Failed to read metadata.",
     );
-    return;
   }
 
   // COPY IMAGE TO TMP FOLDER
@@ -141,7 +140,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     if (!mainWindow) return;
     if (!failed2 && !stopped) {
       try {
-        await writeMetadata(outFile, metadata, exiftool);
+        if (metadata) await writeMetadata(outFile, metadata, exiftool);
       } catch (error) {
         logit("❌ Error writing metadata: ", error);
         mainWindow.webContents.send(

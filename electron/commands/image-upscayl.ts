@@ -58,7 +58,6 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
       ELECTRON_COMMANDS.UPSCAYL_ERROR,
       "Failed to read metadata.",
     );
-    return;
   }
 
   const outFile =
@@ -159,7 +158,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     const onClose = async () => {
       if (!failed && !stopped) {
         try {
-          await writeMetadata(outFile, metadata, exiftool);
+          if (metadata) await writeMetadata(outFile, metadata, exiftool);
         } catch (error) {
           logit("❌ Error writing metadata: ", error);
           mainWindow.webContents.send(
