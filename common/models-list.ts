@@ -1,26 +1,26 @@
 export const MODELS = {
-  "realesrgan-x4plus": {
-    id: "realesrgan-x4plus",
+  "upscayl-standard-4x": {
+    id: "upscayl-standard-4x",
     name: "Upscayl Standard",
   },
-  "realesrgan-x4fast": {
-    id: "realesrgan-x4fast",
+  "upscayl-lite-4x": {
+    id: "upscayl-lite-4x",
     name: "Upscayl Lite",
   },
   remacri: {
-    id: "remacri",
+    id: "remacri-4x",
     name: "Remacri (Non-Commercial)",
   },
   ultramix_balanced: {
-    id: "ultramix_balanced",
+    id: "ultramix-balanced-4x",
     name: "Ultramix (Non-Commercial)",
   },
   ultrasharp: {
-    id: "ultrasharp",
+    id: "ultrasharp-4x",
     name: "Ultrasharp (Non-Commercial)",
   },
-  "realesrgan-x4plus-anime": {
-    id: "realesrgan-x4plus-anime",
+  "digital-art-4x": {
+    id: "digital-art-4x",
     name: "Digital Art",
   },
 };

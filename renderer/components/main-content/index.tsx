@@ -167,6 +167,8 @@ const MainContent = ({
     e.preventDefault();
     const items = e.clipboardData.items;
     const files = e.clipboardData.files;
+    console.log("🚀 => files:", files);
+
     if (items.length === 0 || files.length === 0) {
       toast({
         title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),

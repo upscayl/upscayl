@@ -10,9 +10,9 @@ export const customModelsPathAtom = atomWithStorage<string | null>(
 
 export const selectedModelIdAtom = atomWithStorage<ModelId | string>(
   "selectedModelId",
-  "realesrgan-x4plus",
+  "upscayl-standard-4x",
 );
-export const doubleUpscaylAtom = atomWithStorage("selectedModelId", false);
+export const doubleUpscaylAtom = atomWithStorage("doubleUpscayl", false);
 export const gpuIdAtom = atomWithStorage("gpuId", "");
 export const saveImageAsAtom = atomWithStorage<ImageFormat>(
   "saveImageAs",

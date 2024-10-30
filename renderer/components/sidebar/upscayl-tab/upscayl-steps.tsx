@@ -176,7 +176,7 @@ function UpscaylSteps({
             <p
               className="cursor-pointer text-sm"
               onClick={(e) => {
-                setDoubleUpscayl(!doubleUpscayl);
+                setDoubleUpscayl((prev) => !prev);
               }}
             >
               {t("APP.DOUBLE_UPSCAYL.TITLE")}
