@@ -9,7 +9,7 @@
 GitHub is a powerful platform that fosters collaboration and open-source development. If you're new to GitHub and need assistance with Upscayl, follow these steps to effectively ask for help:
 
 ### 1. Search for Similar Issues
-Before posting a new issue, [search the repository's issue tracker](https://github.com/upscayl/upscayl/issues) to check if someone else has encountered a similar problem. Also [check the discussions tab](https://github.com/upscayl/upscayl/discussions) for any pre-existing discussions. This helps to avoid duplicate issues and ensures that you're not asking a question that has already been answered. You should also chech the [FAQ](https://github.com/upscayl/upscayl/tree/main#-faq).
+Before posting a new issue, [search the repository's issue tracker](https://github.com/upscayl/upscayl/issues) to check if someone else has encountered a similar problem. Also [check the discussions tab](https://github.com/upscayl/upscayl/discussions) for any pre-existing discussions. This helps to avoid duplicate issues and ensures that you're not asking a question that has already been answered. You should also check the [FAQ](https://github.com/upscayl/upscayl/tree/main#-faq).
 
 ### 2. Provide Logs and Context
 - To create a new issue, go to the [Issues tab](https://github.com/upscayl/upscayl/issues) and click **'New Issue'**.
