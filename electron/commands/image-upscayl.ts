@@ -115,32 +115,33 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     let failed = false;
 
     const onData = (data: string) => {
-      logit(data.toString());
+      logit("Upscayl process data:", data.toString());
       mainWindow.setProgressBar(parseFloat(data.slice(0, data.length)) / 100);
       data = data.toString();
       mainWindow.webContents.send(
         ELECTRON_COMMANDS.UPSCAYL_PROGRESS,
         data.toString(),
       );
-      if (data.includes("Error")) {
-        upscayl.kill();
+      if (data.toLowerCase().includes("error")) {
+        logit("Error detected in upscayl process:", data);
         failed = true;
+        mainWindow.webContents.send(ELECTRON_COMMANDS.UPSCAYL_ERROR, data);
       } else if (data.includes("Resizing")) {
         mainWindow.webContents.send(ELECTRON_COMMANDS.SCALING_AND_CONVERTING);
       }
     };
-    const onError = (data) => {
+    const onError = (error) => {
+      logit("Upscayl process error:", error.toString());
       if (!mainWindow) return;
       mainWindow.setProgressBar(-1);
       mainWindow.webContents.send(
         ELECTRON_COMMANDS.UPSCAYL_ERROR,
-        data.toString(),
+        error.toString(),
       );
       failed = true;
-      upscayl.kill();
-      return;
     };
-    const onClose = async () => {
+    const onClose = async (code) => {
+      logit(`Upscayl process closed with code ${code}`);
       if (!failed && !stopped) {
         logit("💯 Done upscaling");
         // Free up memory
@@ -148,6 +149,12 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         mainWindow.setProgressBar(-1);
         mainWindow.webContents.send(ELECTRON_COMMANDS.UPSCAYL_DONE, outFile);
         showNotification("Upscayl", "Image upscayled successfully!");
+      } else if (failed) {
+        logit("Upscaling failed");
+        mainWindow.webContents.send(
+          ELECTRON_COMMANDS.UPSCAYL_ERROR,
+          "Upscaling process failed. Please check the logs for more information.",
+        );
       }
     };
 
