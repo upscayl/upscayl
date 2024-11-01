@@ -163,6 +163,7 @@ const MainContent = ({
   };
 
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+    console.log("📋 Pasted: ", e);
     resetImagePaths();
     e.preventDefault();
     const items = e.clipboardData.items;
