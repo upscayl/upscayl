@@ -1,5 +1,5 @@
 name: Documentation Issue
-description: "Issues with the docs, release notes, website, etc"
+description: "Issues with the docs, release notes, website, etc. Do NOT use for bugs within Upscayl the program itself; instead, file a bug report."
 labels: documentation
 body:
 - type: checkboxes
