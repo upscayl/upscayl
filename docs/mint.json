@@ -46,9 +46,20 @@
     {
       "group": "Get Started",
       "pages": ["introduction"]
-    },{
+    },
+    {
+      "group": "Troubleshooting",
+      "pages": ["logs"]
+    },
+    {
       "group": "API Reference",
-      "pages": ["get-task-status", "get-upload-url", "complete-a-multipart-upload", "get-upscayl-history", "start-a-new-task"]
+      "pages": [
+        "get-task-status",
+        "get-upload-url",
+        "complete-a-multipart-upload",
+        "get-upscayl-history",
+        "start-a-new-task"
+      ]
     }
   ],
   "footerSocials": {
