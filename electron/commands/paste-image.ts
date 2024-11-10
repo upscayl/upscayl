@@ -3,7 +3,8 @@ import logit from "../utils/logit";
 import fs from "fs";
 import path from "path";
 import { ELECTRON_COMMANDS } from "../../common/electron-commands";
-import { ImageFormat, imageFormats } from "../types/types";
+import { ImageFormat } from "../types/types";
+import { imageFormats } from "../../common/image-formats";
 
 interface IClipboardFileParameters {
   name: string;
