@@ -49,7 +49,18 @@
     },
     {
       "group": "Troubleshooting",
-      "pages": ["logs"]
+      "pages": [
+        {
+          "group": "Introduction",
+          "pages": [
+            "troubleshooting/general-fixes",
+            "troubleshooting/linux",
+            "troubleshooting/mac",
+            "troubleshooting/windows"
+          ]
+        },
+        "troubleshooting/logs"
+      ]
     },
     {
       "group": "API Reference",
