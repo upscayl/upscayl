@@ -55,9 +55,6 @@ paths:
                       originalFileName:
                         type: string
                         example: original.jpg
-                      path:
-                        type: string
-                        example: /path/to/file
                       createdAt:
                         type: number
                         example: 1633024800000
@@ -143,10 +140,6 @@ paths:
                       properties:
                         batchMode:
                           type: boolean
-                        createdAt:
-                          type: number
-                        endedAt:
-                          type: number
                         enhanceFace:
                           type: boolean
                         error:
@@ -185,8 +178,6 @@ paths:
                                     type: number
                                   height:
                                     type: number
-                        id:
-                          type: string
                         model:
                           type: string
                         progress:
@@ -194,8 +185,6 @@ paths:
                         scale:
                           type: string
                         status:
-                          type: string
-                        userId:
                           type: string
                         saveImageAs:
                           type: string
@@ -259,12 +248,6 @@ paths:
                       batchMode:
                         type: boolean
                         description: Indicates if batch mode is enabled
-                      createdAt:
-                        type: number
-                        description: Timestamp when the task was created
-                      endedAt:
-                        type: number
-                        description: Timestamp when the task ended
                       enhanceFace:
                         type: boolean
                         description: Indicates if face enhancement is enabled
@@ -305,9 +288,6 @@ paths:
                                   type: number
                                 height:
                                   type: number
-                      id:
-                        type: string
-                        description: The task ID
                       model:
                         type: string
                         description: The model used for the task
@@ -320,9 +300,6 @@ paths:
                       status:
                         type: string
                         description: The status of the task
-                      userId:
-                        type: string
-                        description: The user ID
                       saveImageAs:
                         type: string
                         enum: ["png", "jpg", "webp"]
@@ -333,6 +310,9 @@ paths:
                       creditsDeducted:
                         type: boolean
                         description: Indicates if credits were deducted
+                      deductedCredits:
+                        type: number
+                        description: The number of credits deducted
         "400":
           description: Bad request
           content:
