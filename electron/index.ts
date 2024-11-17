@@ -19,6 +19,7 @@ import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
 import { FEATURE_FLAGS } from "../common/feature-flags";
 import settings from "electron-settings";
+import pasteImage from "./commands/paste-image";
 
 // INITIALIZATION
 log.initialize({ preload: true });
@@ -93,6 +94,8 @@ ipcMain.on(ELECTRON_COMMANDS.UPSCAYL, imageUpscayl);
 ipcMain.on(ELECTRON_COMMANDS.FOLDER_UPSCAYL, batchUpscayl);
 
 ipcMain.on(ELECTRON_COMMANDS.DOUBLE_UPSCAYL, doubleUpscayl);
+
+ipcMain.on(ELECTRON_COMMANDS.PASTE_IMAGE, pasteImage);
 
 if (!FEATURE_FLAGS.APP_STORE_BUILD) {
   autoUpdater.on("update-downloaded", autoUpdate);

@@ -19,6 +19,8 @@ function InstructionsCard({ version, batchMode }) {
       ) : (
         <p className="w-full pb-5 text-center text-base-content/80 md:w-96">
           {t("APP.RIGHT_PANE_INFO.SELECT_IMAGES_DESCRIPTION")}
+          <br />
+          {t("APP.RIGHT_PANE_INFO.PASTE_IMAGE_DESCRIPTION")}
         </p>
       )}
       <p className="badge badge-primary text-sm">Upscayl v{version}</p>
