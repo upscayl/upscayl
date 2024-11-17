@@ -18,11 +18,15 @@ import { customModelIdsAtom } from "@/atoms/models-list-atom";
 
 export default function SelectModel() {
   const [selectedModelId, setSelectedModelId] = useAtom(selectedModelIdAtom);
+  console.log("🚀 => selectedModelId:", selectedModelId);
+
   const customModelIds = useAtomValue(customModelIdsAtom);
   const [open, setOpen] = useState(false);
   const [zoomedModel, setZoomedModel] = useState<ModelId | null>(null);
 
   const handleModelSelect = (model: ModelId | string) => {
+    console.log("🚀 => model:", model);
+
     setSelectedModelId(model);
     setOpen(false);
   };

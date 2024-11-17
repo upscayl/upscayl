@@ -46,6 +46,31 @@
     {
       "group": "Get Started",
       "pages": ["introduction"]
+    },
+    {
+      "group": "Troubleshooting",
+      "pages": [
+        {
+          "group": "Introduction",
+          "pages": [
+            "troubleshooting/general-fixes",
+            "troubleshooting/linux",
+            "troubleshooting/mac",
+            "troubleshooting/windows"
+          ]
+        },
+        "troubleshooting/logs"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "get-task-status",
+        "get-upload-url",
+        "complete-a-multipart-upload",
+        "get-upscayl-history",
+        "start-a-new-task"
+      ]
     }
   ],
   "footerSocials": {

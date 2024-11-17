@@ -1,31 +1,5 @@
 import React, { useRef, useState } from "react";
 
-const LensImage = ({
-  src,
-  alt,
-  lensPosition,
-  zoomAmount,
-}: {
-  src: string;
-  alt: string;
-  lensPosition: { x: number; y: number };
-  zoomAmount: number;
-}) => (
-  <div className="h-full w-full overflow-hidden">
-    <img
-      src={src}
-      alt={alt}
-      className="h-full w-full"
-      style={{
-        objectFit: "contain",
-        objectPosition: `${-lensPosition.x}px ${-lensPosition.y}px`,
-        transform: `scale(${zoomAmount / 100})`,
-        transformOrigin: "top left",
-      }}
-    />
-  </div>
-);
-
 const LensViewer = ({
   zoomAmount,
   lensSize,
@@ -37,64 +11,75 @@ const LensViewer = ({
   sanitizedImagePath: string;
   sanitizedUpscaledImagePath: string;
 }) => {
-  const upscaledImageRef = useRef<HTMLImageElement>(null);
+  const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
+  const zoomLevel = 4; // Adjust zoom level as needed
 
-  const [lensPosition, setLensPosition] = useState({ x: 0, y: 0 });
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
 
-  const handleMouseMoveCompare = (e: React.MouseEvent) => {
-    if (upscaledImageRef.current) {
-      const { left, top, width, height } =
-        upscaledImageRef.current.getBoundingClientRect();
-      const x = e.clientX - left;
-      const y = e.clientY - top;
-      setLensPosition({
-        x: Math.max(0, Math.min(x - lensSize, width - lensSize * 2)),
-        y: Math.max(0, Math.min(y - lensSize / 2, height - lensSize)),
-      });
-    }
+    setHoverPosition({ x, y });
   };
 
+  const originalImage = "file:///" + sanitizedImagePath;
+  const upscaledImage = "file:///" + sanitizedUpscaledImagePath;
+
   return (
-    <div
-      className="group relative h-full w-full overflow-hidden"
-      onMouseMove={handleMouseMoveCompare}
-    >
-      {/* UPSCALED IMAGE */}
-      <img
-        className="h-full w-full object-contain"
-        src={"file:///" + sanitizedUpscaledImagePath}
-        alt="Upscaled"
-        ref={upscaledImageRef}
-      />
-      {/* LENS */}
+    <div className="group relative flex h-screen flex-col items-center">
+      {/* Main image container */}
       <div
-        className="pointer-events-none absolute opacity-0 transition-opacity before:absolute before:left-1/2 before:h-full before:w-[2px] before:bg-white group-hover:opacity-100"
+        className="relative h-full w-full cursor-crosshair bg-cover bg-no-repeat"
+        onMouseMove={handleMouseMove}
+      >
+        <img
+          src={originalImage}
+          alt="Original"
+          className="h-full w-full object-contain"
+        />
+        <div
+          className="pointer-events-none absolute hidden h-12 w-12 border-2 border-white group-hover:block"
+          style={{
+            left: `${hoverPosition.x}%`,
+            top: `${hoverPosition.y}%`,
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      </div>
+
+      {/* Enlarged views for original and upscaled images */}
+      <div
+        className="pointer-events-none absolute hidden gap-4 group-hover:flex "
         style={{
-          left: `${lensPosition.x}px`,
-          top: `${lensPosition.y}px`,
-          width: lensSize * 2,
-          height: lensSize,
-          border: "2px solid white",
-          boxShadow: "0 0 0 9999px rgba(0, 0, 0, 0.5)",
+          left: `${hoverPosition.x}%`,
+          top: `${hoverPosition.y}%`, // Position below the cursor
+          transform: "translate(-50%, 0)",
         }}
       >
-        <div className="flex h-full w-full">
-          <LensImage
-            src={"file:///" + sanitizedImagePath}
-            alt="Original"
-            lensPosition={lensPosition}
-            zoomAmount={parseInt(zoomAmount)}
-          />
-          <LensImage
-            src={"file:///" + sanitizedUpscaledImagePath}
-            alt="Upscaled"
-            lensPosition={lensPosition}
-            zoomAmount={parseInt(zoomAmount)}
-          />
+        <div
+          className="relative h-48 w-48 border border-gray-300 bg-cover bg-no-repeat"
+          style={{
+            backgroundImage: `url(${originalImage})`,
+            backgroundPosition: `${hoverPosition.x}% ${hoverPosition.y}%`,
+            backgroundSize: `${100 * zoomLevel}%`, // Increase zoom level to match the white box
+          }}
+        >
+          <span className="absolute bottom-1 left-1 rounded bg-black bg-opacity-60 px-2 py-1 text-sm text-white">
+            Original
+          </span>
         </div>
-        <div className="absolute bottom-0 left-0 flex w-full items-center justify-around bg-black bg-opacity-50 p-1 px-2 text-center text-xs text-white backdrop-blur-sm">
-          <span>Original</span>
-          <span>Upscayl</span>
+        <div
+          className="relative h-48 w-48 border border-gray-300 bg-cover bg-no-repeat"
+          style={{
+            backgroundImage: `url(${upscaledImage})`,
+            backgroundPosition: `${hoverPosition.x}% ${hoverPosition.y}%`,
+            backgroundSize: `${100 * zoomLevel}%`, // Increase zoom level to match the white box
+          }}
+        >
+          <span className="absolute bottom-1 left-1 rounded bg-black bg-opacity-60 px-2 py-1 text-sm text-white">
+            AI Upscaled
+          </span>
         </div>
       </div>
     </div>

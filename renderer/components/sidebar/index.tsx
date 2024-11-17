@@ -28,10 +28,10 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import UpscaylSteps from "./upscayl-tab/upscayl-steps";
 import SettingsTab from "./settings-tab";
-import Footer from "../Footer";
+import Footer from "../footer";
 import { NewsModal } from "../news-modal";
-import Tabs from "../Tabs";
-import Header from "../Header";
+import Tabs from "../tabs";
+import Header from "../header";
 import { ChevronLeftIcon } from "lucide-react";
 import { logAtom } from "@/atoms/log-atom";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
@@ -89,15 +89,6 @@ const Sidebar = ({
   const useCustomWidth = useAtomValue(useCustomWidthAtom);
   const tileSize = useAtomValue(tileSizeAtom);
   const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
-
-  const handleModelChange = (e: any) => {
-    setSelectedModelId(e.value);
-    logit("🔀 Model changed: ", e.value);
-    localStorage.setItem(
-      "model",
-      JSON.stringify({ label: e.label, value: e.value }),
-    );
-  };
 
   const upscaylHandler = async () => {
     logit("🔄 Resetting Upscaled Image Path");
