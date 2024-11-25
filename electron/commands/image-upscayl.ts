@@ -16,10 +16,10 @@ import { getMainWindow } from "../main-window";
 import { ImageUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
-import { DEFAULT_MODELS_ID_LIST } from "../../common/models-list";
 import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
+import { MODELS } from "../../common/models-list";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -55,7 +55,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     "." +
     saveImageAs;
 
-  const isDefaultModel = DEFAULT_MODELS_ID_LIST.includes(model);
+  const isDefaultModel = model in MODELS;
 
   // Check if windows can write the new filename to the file system
   if (outFile.length >= 255) {
@@ -97,7 +97,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         outFile,
         modelsPath: isDefaultModel
           ? modelsPath
-          : savedCustomModelsPath ?? modelsPath,
+          : (savedCustomModelsPath ?? modelsPath),
         model,
         scale,
         gpuId,
@@ -122,9 +122,10 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         ELECTRON_COMMANDS.UPSCAYL_PROGRESS,
         data.toString(),
       );
-      if (data.includes("Error")) {
+      if (data.includes("Error") || data.includes("failed")) {
         upscayl.kill();
         failed = true;
+        onError(data);
       } else if (data.includes("Resizing")) {
         mainWindow.webContents.send(ELECTRON_COMMANDS.SCALING_AND_CONVERTING);
       }

@@ -102,7 +102,7 @@
       "TITLE": "Шаг 2",
       "DESCRIPTION": "Выберите модель",
       "MODELS": {
-        "x4plus": "Общая Фотография (Real-ESRGAN)",
+        "upscayl-standard-4x": "Общая Фотография (Real-ESRGAN)",
         "x4fast": "Общая Фотография (Быстрый Real-ESRGAN)",
         "remacri": "Общая Фотография (Remacri)",
         "ultramix": "Общая Фотография (Ultramix Balanced)",

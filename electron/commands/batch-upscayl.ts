@@ -14,7 +14,7 @@ import { modelsPath } from "../utils/get-resource-paths";
 import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
-import { DEFAULT_MODELS_ID_LIST } from "../../common/models-list";
+import { MODELS } from "../../common/models-list";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -41,7 +41,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     fs.mkdirSync(outputFolderPath, { recursive: true });
   }
 
-  const isDefaultModel = DEFAULT_MODELS_ID_LIST.includes(model);
+  const isDefaultModel = model in MODELS;
 
   // UPSCALE
   const upscayl = spawnUpscayl(
@@ -50,7 +50,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       outputDir: outputFolderPath,
       modelsPath: isDefaultModel
         ? modelsPath
-        : savedCustomModelsPath ?? modelsPath,
+        : (savedCustomModelsPath ?? modelsPath),
       model,
       gpuId,
       saveImageAs,
@@ -75,9 +75,13 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       ELECTRON_COMMANDS.FOLDER_UPSCAYL_PROGRESS,
       data.toString(),
     );
-    if ((data as string).includes("Error")) {
+    if (
+      (data as string).includes("Error") ||
+      (data as string).includes("failed")
+    ) {
       logit("❌ ", data);
       encounteredError = true;
+      onError(data);
     } else if (data.includes("Resizing")) {
       mainWindow.webContents.send(ELECTRON_COMMANDS.SCALING_AND_CONVERTING);
     }

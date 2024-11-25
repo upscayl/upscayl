@@ -102,7 +102,7 @@
       "TITLE": "ステップ 2",
       "DESCRIPTION": "モデルを選択",
       "MODELS": {
-        "x4plus": "一般写真 (Real-ESRGAN)",
+        "upscayl-standard-4x": "一般写真 (Real-ESRGAN)",
         "x4fast": "一般写真 (高速 Real-ESRGAN)",
         "remacri": "一般写真 (Remacri)",
         "ultramix": "一般写真 (Ultramix Balanced)",

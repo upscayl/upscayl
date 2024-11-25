@@ -102,7 +102,7 @@
       "TITLE": "Étape 2",
       "DESCRIPTION": "Sélectionner un modèle",
       "MODELS": {
-        "x4plus": "Photo Générale (Real-ESRGAN)",
+        "upscayl-standard-4x": "Photo Générale (Real-ESRGAN)",
         "x4fast": "Photo Générale (Fast Real-ESRGAN)",
         "remacri": "Photo Générale (Remacri)",
         "ultramix": "Photo Générale (Ultramix Balanced)",

@@ -18,10 +18,10 @@ import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { DoubleUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
-import { DEFAULT_MODELS_ID_LIST } from "../../common/models-list";
 import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
+import { MODELS } from "../../common/models-list";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -41,7 +41,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const fullfileName = getFilenameFromPath(imagePath);
   const fileName = parse(fullfileName).name;
 
-  const isDefaultModel = DEFAULT_MODELS_ID_LIST.includes(model);
+  const isDefaultModel = model in MODELS;
 
   // COPY IMAGE TO TMP FOLDER
 
@@ -63,7 +63,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       outFile,
       modelsPath: isDefaultModel
         ? modelsPath
-        : savedCustomModelsPath ?? modelsPath,
+        : (savedCustomModelsPath ?? modelsPath),
       model,
       scale,
       customWidth,
@@ -113,9 +113,10 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       data,
     );
     // IF PROGRESS HAS ERROR, UPSCAYL FAILED
-    if (data.includes("Error")) {
+    if (data.includes("Error") || data.includes("failed")) {
       upscayl2.kill();
       failed2 = true;
+      onError2(data);
     } else if (data.includes("Resizing")) {
       mainWindow.webContents.send(ELECTRON_COMMANDS.SCALING_AND_CONVERTING);
     }
@@ -170,6 +171,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
     if (data.includes("Error") || data.includes("failed")) {
       upscayl.kill();
       failed = true;
+      onError(data);
     } else if (data.includes("Resizing")) {
       mainWindow.webContents.send(ELECTRON_COMMANDS.SCALING_AND_CONVERTING);
     }
@@ -184,7 +186,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           outFile,
           modelsPath: isDefaultModel
             ? modelsPath
-            : savedCustomModelsPath ?? modelsPath,
+            : (savedCustomModelsPath ?? modelsPath),
           model,
           gpuId,
           saveImageAs,

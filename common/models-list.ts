@@ -7,15 +7,15 @@ export const MODELS = {
     id: "upscayl-lite-4x",
     name: "Upscayl Lite",
   },
-  remacri: {
+  "remacri-4x": {
     id: "remacri-4x",
     name: "Remacri (Non-Commercial)",
   },
-  ultramix_balanced: {
+  "ultramix-balanced-4x": {
     id: "ultramix-balanced-4x",
     name: "Ultramix (Non-Commercial)",
   },
-  ultrasharp: {
+  "ultrasharp-4x": {
     id: "ultrasharp-4x",
     name: "Ultrasharp (Non-Commercial)",
   },
@@ -26,7 +26,3 @@ export const MODELS = {
 };
 
 export type ModelId = keyof typeof MODELS;
-
-export const DEFAULT_MODELS_ID_LIST = Object.keys(MODELS).map(
-  (modelId) => modelId,
-);
