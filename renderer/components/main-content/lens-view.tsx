@@ -11,12 +11,12 @@ const LensViewer = ({
   const originalImageRef = useRef<HTMLImageElement>(null);
 
   const [hoverPosition, setHoverPosition] = useState({
-    x: 0,
-    y: 0,
-    pixelX: 0,
-    pixelY: 0,
-    bgPosX: 0,
-    bgPosY: 0,
+    relativeMouseX: 0, // To show the lens horizontally within the image
+    mouseY: 0, // To show the lens vertically in the viewport
+    relativeMouseXPercent: 0,
+    relativeMouseYPercent: 0,
+    originalImageMouseX: 0,
+    originalImageMouseY: 0,
   });
   const zoomLevel = 4;
 
@@ -26,64 +26,67 @@ const LensViewer = ({
     const containerRect =
       originalImageContainerRef.current.getBoundingClientRect();
 
-    const imageAspectRatio =
+    // Image w-h is actually equal to container w-h, even in object-fit: contain
+    let viewportImageWidth = originalImageRef.current.width;
+    let viewportImageHeight = originalImageRef.current.height;
+    let imageTop = 0;
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const containerHeight = containerRect.height;
+    const containerLeft = containerRect.left; // Since sidebar pushes the container to the right
+    const containerTop = containerRect.top;
+
+    // Image is width-constrained
+    const originalImageAspectRatio =
       originalImageRef.current.naturalWidth /
       originalImageRef.current.naturalHeight;
-    const containerAspectRatio = containerRect.width / containerRect.height;
+    viewportImageHeight = viewportImageWidth / originalImageAspectRatio;
+    // Divide by 2 because image is centered
+    imageTop = (containerHeight - viewportImageHeight) / 2;
 
-    let imageWidth = containerRect.width;
-    let imageHeight = containerRect.height;
-    let imageLeft = 0;
-    let imageTop = 0;
-
-    if (containerAspectRatio > imageAspectRatio) {
-      // Image is height-constrained
-      imageWidth = imageHeight * imageAspectRatio;
-      imageLeft = (containerRect.width - imageWidth) / 2;
-    } else {
-      // Image is width-constrained
-      imageHeight = imageWidth / imageAspectRatio;
-      imageTop = (containerRect.height - imageHeight) / 2;
-    }
-
-    const offsetX = e.clientX - containerRect.left - imageLeft;
-    const offsetY = e.clientY - containerRect.top - imageTop;
+    // Find relative mouse position within the image
+    const relativeMouseX = mouseX - containerLeft;
+    const relativeMouseY = mouseY - imageTop;
 
     // Check if the mouse is within the actual image boundaries
     const isWithinImage =
-      offsetX >= 0 &&
-      offsetX <= imageWidth &&
-      offsetY >= 0 &&
-      offsetY <= imageHeight;
+      relativeMouseX >= 0 &&
+      relativeMouseX <= viewportImageWidth &&
+      relativeMouseY >= 0 &&
+      relativeMouseY <= viewportImageHeight;
 
     if (!isWithinImage) {
+      // Hide the lens if the mouse is outside the image
       setHoverPosition({
-        x: -1000,
-        y: -1000,
-        pixelX: -1000,
-        pixelY: -1000,
-        bgPosX: -1000,
-        bgPosY: -1000,
-      }); // Move lens off-screen
+        relativeMouseXPercent: -1000,
+        relativeMouseYPercent: -1000,
+        relativeMouseX: -1000,
+        mouseY: -1000,
+        originalImageMouseX: -1000,
+        originalImageMouseY: -1000,
+      });
       return;
     }
 
-    const x = (offsetX / imageWidth) * 100;
-    const y = (offsetY / imageHeight) * 100;
+    // Find image-relative mouse position as percentage
+    const relativeMouseXPercent = (relativeMouseX / viewportImageWidth) * 100;
+    const relativeMouseYPercent = (relativeMouseY / viewportImageHeight) * 100;
 
-    // Calculate background position for zoom view
+    // Find the pixel position within the image relative to the original image
     const bgPosX =
-      (offsetX / imageWidth) * originalImageRef.current.naturalWidth;
+      (relativeMouseX / viewportImageWidth) *
+      originalImageRef.current.naturalWidth;
     const bgPosY =
-      (offsetY / imageHeight) * originalImageRef.current.naturalHeight;
+      (relativeMouseY / viewportImageHeight) *
+      originalImageRef.current.naturalHeight;
 
     setHoverPosition({
-      x,
-      y,
-      pixelX: e.clientX - containerRect.left,
-      pixelY: e.clientY - containerRect.top,
-      bgPosX,
-      bgPosY,
+      relativeMouseXPercent,
+      relativeMouseYPercent,
+      relativeMouseX,
+      mouseY,
+      originalImageMouseX: bgPosX,
+      originalImageMouseY: bgPosY,
     });
   };
 
@@ -113,8 +116,8 @@ const LensViewer = ({
         <div
           className="pointer-events-none absolute hidden h-10 w-10 cursor-cell border border-primary bg-black/10 group-hover:block"
           style={{
-            left: `${hoverPosition.pixelX}px`,
-            top: `${hoverPosition.pixelY}px`,
+            left: `${hoverPosition.relativeMouseX}px`,
+            top: `${hoverPosition.mouseY}px`,
             transform: "translate(-50%, -50%)",
           }}
         />
@@ -124,8 +127,8 @@ const LensViewer = ({
       <div
         className="pointer-events-none absolute hidden group-hover:flex"
         style={{
-          left: `${hoverPosition.pixelX}px`,
-          top: `${hoverPosition.pixelY + 25}px`,
+          left: `${hoverPosition.relativeMouseX}px`,
+          top: `${hoverPosition.mouseY + 25}px`,
           transform: "translate(-50%, 0)",
         }}
       >
@@ -133,7 +136,7 @@ const LensViewer = ({
           className="relative h-48 w-48 border border-gray-300 bg-cover bg-no-repeat"
           style={{
             backgroundImage: `url(${originalImage})`,
-            backgroundPosition: `-${hoverPosition.bgPosX * zoomLevel - 96}px -${hoverPosition.bgPosY * zoomLevel - 96}px`,
+            backgroundPosition: `-${hoverPosition.originalImageMouseX * zoomLevel - 96}px -${hoverPosition.originalImageMouseY * zoomLevel - 96}px`,
             backgroundSize: `${originalImageRef.current?.naturalWidth * zoomLevel}px ${originalImageRef.current?.naturalHeight * zoomLevel}px`,
           }}
         >
@@ -145,7 +148,7 @@ const LensViewer = ({
           className="relative h-48 w-48 border border-gray-300 bg-cover bg-no-repeat"
           style={{
             backgroundImage: `url(${upscaledImage})`,
-            backgroundPosition: `-${hoverPosition.bgPosX * zoomLevel - 96}px -${hoverPosition.bgPosY * zoomLevel - 96}px`,
+            backgroundPosition: `-${hoverPosition.originalImageMouseX * zoomLevel - 96}px -${hoverPosition.originalImageMouseY * zoomLevel - 96}px`,
             backgroundSize: `${originalImageRef.current?.naturalWidth * zoomLevel}px ${originalImageRef.current?.naturalHeight * zoomLevel}px`,
           }}
         >
