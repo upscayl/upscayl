@@ -332,8 +332,6 @@ const MainContent = ({
 
       {!batchMode && viewType === "lens" && upscaledImagePath && imagePath && (
         <LensViewer
-          zoomAmount={zoomAmount}
-          lensSize={lensSize}
           sanitizedImagePath={sanitizedImagePath}
           sanitizedUpscaledImagePath={sanitizedUpscaledImagePath}
         />

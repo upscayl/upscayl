@@ -72,40 +72,44 @@ const ImageViewSettings = ({
           </p>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <p className="text-sm font-medium">
-            {t("APP.IMAGE_OPTIONS.ZOOM_AMOUNT_TITLE")} ({zoomAmount}%)
-          </p>
-          <input
-            type="range"
-            min="100"
-            max="1000"
-            step={10}
-            className="range range-md"
-            value={parseInt(zoomAmount)}
-            onChange={(e) => {
-              setZoomAmount(e.target.value);
-              localStorage.setItem("zoomAmount", e.target.value);
-            }}
-          />
-        </div>
+        {viewType !== "lens" && (
+          <>
+            <div className="flex flex-col gap-2">
+              <p className="text-sm font-medium">
+                {t("APP.IMAGE_OPTIONS.ZOOM_AMOUNT_TITLE")} ({zoomAmount}%)
+              </p>
+              <input
+                type="range"
+                min="100"
+                max="1000"
+                step={10}
+                className="range range-md"
+                value={parseInt(zoomAmount)}
+                onChange={(e) => {
+                  setZoomAmount(e.target.value);
+                  localStorage.setItem("zoomAmount", e.target.value);
+                }}
+              />
+            </div>
 
-        <div className="flex flex-col gap-2">
-          <p className="text-sm font-medium">
-            {t("APP.IMAGE_OPTIONS.LENS_SIZE_TITLE")} ({lensSize / 10})
-          </p>
-          <input
-            type="range"
-            min="20"
-            max="400"
-            step={10}
-            className="range range-md"
-            value={lensSize}
-            onChange={(e) => {
-              setLensSize(parseInt(e.target.value));
-            }}
-          />
-        </div>
+            <div className="flex flex-col gap-2">
+              <p className="text-sm font-medium">
+                {t("APP.IMAGE_OPTIONS.LENS_SIZE_TITLE")} ({lensSize / 10})
+              </p>
+              <input
+                type="range"
+                min="20"
+                max="400"
+                step={10}
+                className="range range-md"
+                value={lensSize}
+                onChange={(e) => {
+                  setLensSize(parseInt(e.target.value));
+                }}
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

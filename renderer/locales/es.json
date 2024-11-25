@@ -144,8 +144,8 @@
     },
     "RESET_BUTTON_TITLE": "Restablecer",
     "RIGHT_PANE_INFO": {
-      "SELECT_FOLDER": "Selecciona una carpeta para aumentar",
-      "SELECT_IMAGE": "Selecciona una imagen para aumentar",
+      "SELECT_FOLDER": "Selecciona una carpeta",
+      "SELECT_IMAGE": "Selecciona una imagen",
       "SELECT_FOLDER_DESCRIPTION": "Asegúrate de que la carpeta no contenga nada excepto imágenes PNG, JPG, JPEG y WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Selecciona o arrastra y suelta una imagen PNG, JPG, JPEG o WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Presiona Ctrl + V o Cmd + V para pegar la imagen desde el portapapeles"
