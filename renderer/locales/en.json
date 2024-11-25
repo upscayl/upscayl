@@ -100,7 +100,7 @@
     },
     "MODEL_SELECTION": {
       "TITLE": "Step 2",
-      "DESCRIPTION": "Select Model",
+      "DESCRIPTION": "Select AI Model",
       "MODELS": {
         "upscayl-standard-4x": "General Photo (Real-ESRGAN)",
         "x4fast": "General Photo (Fast Real-ESRGAN)",

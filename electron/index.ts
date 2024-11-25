@@ -44,7 +44,7 @@ app.on("ready", async () => {
   log.info(
     "🆙 Upscayl version:",
     app.getVersion(),
-    FEATURE_FLAGS.APP_STORE_BUILD && "MAC-APP-STORE",
+    FEATURE_FLAGS.APP_STORE_BUILD ? "MAC-APP-STORE" : "FOSS",
   );
   log.info("🚀 UPSCAYL EXEC PATH: ", execPath);
   log.info("🚀 MODELS PATH: ", modelsPath);

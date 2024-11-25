@@ -15,8 +15,10 @@ import { ModelId, MODELS } from "@common/models-list";
 import { useAtom, useAtomValue } from "jotai";
 import { selectedModelIdAtom } from "@/atoms/user-settings-atom";
 import { customModelIdsAtom } from "@/atoms/models-list-atom";
+import useTranslation from "@/components/hooks/use-translation";
 
 export default function SelectModel() {
+  const t = useTranslation();
   const [selectedModelId, setSelectedModelId] = useAtom(selectedModelIdAtom);
   console.log("🚀 => selectedModelId:", selectedModelId);
 
@@ -47,7 +49,7 @@ export default function SelectModel() {
         </DialogTrigger>
         <DialogContent className="z-50 sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>Select AI Model</DialogTitle>
+            <DialogTitle>{t("APP.MODEL_SELECTION.DESCRIPTION")}</DialogTitle>
           </DialogHeader>
           <ScrollArea className="max-h-[600px] pr-4">
             <div className="grid gap-4">
