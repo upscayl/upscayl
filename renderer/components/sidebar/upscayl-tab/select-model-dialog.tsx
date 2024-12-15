@@ -49,17 +49,20 @@ const SelectModelDialog = () => {
             <DialogTitle>{t("APP.MODEL_SELECTION.DESCRIPTION")}</DialogTitle>
           </DialogHeader>
           <ScrollArea className="max-h-[600px] pr-4">
-            <div className="grid gap-4">
+            <div className="flex flex-col gap-4">
               {Object.entries(MODELS).map((modelData) => {
                 const modelId = modelData[0] as ModelId;
                 const model = modelData[1];
                 return (
                   <button
                     key={modelId}
-                    className="btn h-auto w-full flex-col items-start p-4"
+                    className="btn !h-auto !w-full !flex-col !items-start !p-4"
                     onClick={() => handleModelSelect(modelId)}
                   >
-                    <div className="mb-2 font-semibold">{model.name}</div>
+                    <div className="font-semibold">{model.name}</div>
+                    <div className="mb-2 text-left font-normal leading-normal text-primary-foreground/50">
+                      {model.description}
+                    </div>
                     <div className="relative h-52 w-full overflow-hidden rounded-md">
                       <div className="flex h-full w-full">
                         <img
