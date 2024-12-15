@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +14,7 @@ import {
   enableContributionAtom,
 } from "@/atoms/user-settings-atom";
 import { useAtom } from "jotai";
+import useTranslation from "../hooks/use-translation";
 
 type OnboardingStep = {
   title: string;
@@ -29,60 +30,65 @@ type OnboardingStep = {
   }[];
 };
 
-const onboardingSteps: OnboardingStep[] = [
-  {
-    title: "Welcome to Upscayl 🎉",
-    description: "Let's get you started with a few quick steps.",
-    type: "info",
-  },
-  {
-    title: "Choose Your Preferences 🎨",
-    description: "Configure your initial settings.",
-    type: "settings",
-    configurationOptions: [
-      {
-        type: "switch",
-        label: "Enable automatic updates",
-        key: "autoUpdate",
-      },
-      {
-        type: "switch",
-        label: "Help Improve Upscayl",
-        description: "Send anonymous usage data to help improve Upscayl.",
-        key: "improveUpscayl",
-      },
-      {
-        type: "component",
-        label: "Theme",
-        component: <SelectTheme hideLabel={true} />,
-        key: "theme",
-      },
-    ],
-  },
-  {
-    title: "How do I use Upscayl? 🚀",
-    type: "info",
-    description: "Watch this short video to learn about the new features.",
-    configurationOptions: [
-      {
-        key: "video",
-        type: "video",
-        videoSrc: "https://www.youtube-nocookie.com/embed/3M77flVZlVY",
-      },
-    ],
-  },
-  {
-    title: "You're All Set! 🎉",
-    description: "You can now start upscaling your images.",
-    type: "info",
-  },
-];
-
 export function OnboardingDialog() {
+  const t = useTranslation();
+
   const [currentStep, setCurrentStep] = useState(0);
   const [settings, setSettings] = useState<Record<string, any>>({});
 
   const [open, setOpen] = useState(false);
+
+  const onboardingSteps: OnboardingStep[] = useMemo(
+    () => [
+      {
+        title: t("ONBOARDING_DIALOG.STEP_1.TITLE"),
+        description: t("ONBOARDING_DIALOG.STEP_1.DESCRIPTION"),
+        type: "info",
+      },
+      {
+        title: t("ONBOARDING_DIALOG.STEP_2.TITLE"),
+        description: t("ONBOARDING_DIALOG.STEP_2.DESCRIPTION"),
+        type: "settings",
+        configurationOptions: [
+          {
+            type: "switch",
+            label: t("SETTINGS.AUTO_UPDATE.TITLE"),
+            key: "autoUpdate",
+          },
+          {
+            type: "switch",
+            label: t("SETTINGS.ENABLE_CONTRIBUTION.TITLE"),
+            description: t("SETTINGS.ENABLE_CONTRIBUTION.DESCRIPTION"),
+            key: "improveUpscayl",
+          },
+          {
+            type: "component",
+            label: t("SETTINGS.THEME.TITLE"),
+            component: <SelectTheme hideLabel={true} />,
+            key: "theme",
+          },
+        ],
+      },
+      {
+        type: "info",
+        title: t("ONBOARDING_DIALOG.STEP_3.TITLE"),
+        description: t("ONBOARDING_DIALOG.STEP_3.DESCRIPTION"),
+        configurationOptions: [
+          {
+            key: "video",
+            type: "video",
+            videoSrc: "https://www.youtube-nocookie.com/embed/3M77flVZlVY",
+          },
+        ],
+      },
+      {
+        title: t("ONBOARDING_DIALOG.STEP_4.TITLE"),
+        description: t("ONBOARDING_DIALOG.STEP_4.DESCRIPTION"),
+        type: "info",
+      },
+    ],
+    [],
+  );
 
   const currentStepData = onboardingSteps[currentStep];
   const isLastStep = currentStep === onboardingSteps.length - 1;
@@ -146,7 +152,7 @@ export function OnboardingDialog() {
                 {option.label && (
                   <label
                     htmlFor={option.key}
-                    className="text-balance text-left  text-sm uppercase text-primary-content"
+                    className="text-nowrap text-left text-sm uppercase text-primary-content"
                   >
                     {option.label}
                   </label>
@@ -201,14 +207,16 @@ export function OnboardingDialog() {
 
         <DialogFooter className="gap-2 md:gap-0">
           <button onClick={handleNext} className="btn btn-secondary w-40">
-            {isLastStep ? "Get Started" : "Next"}
+            {isLastStep
+              ? t("ONBOARDING_DIALOG.GET_STARTED_BUTTON_TITLE")
+              : t("ONBOARDING_DIALOG.NEXT_BUTTON_TITLE")}
           </button>
           {!isFirstStep && (
             <button
               onClick={() => setCurrentStep((prev) => prev - 1)}
               className="btn btn-primary w-40"
             >
-              Back
+              {t("ONBOARDING_DIALOG.BACK_BUTTON_TITLE")}
             </button>
           )}
         </DialogFooter>

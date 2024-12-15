@@ -41,7 +41,9 @@ const SelectModelDialog = () => {
         <DialogTrigger asChild>
           <button className="btn btn-primary justify-start border-border">
             <SwatchBookIcon className="mr-2 h-5 w-5" />
-            {MODELS[selectedModelId]?.name || selectedModelId}
+            {t(
+              `APP.MODEL_SELECTION.MODELS.${MODELS[selectedModelId].id || selectedModelId}.NAME` as any,
+            ) || selectedModelId}
           </button>
         </DialogTrigger>
         <DialogContent className="z-50 sm:max-w-lg">
@@ -59,20 +61,22 @@ const SelectModelDialog = () => {
                     className="btn !h-auto !w-full !flex-col !items-start !rounded-sm !p-4"
                     onClick={() => handleModelSelect(modelId)}
                   >
-                    <div className="font-semibold">{model.name}</div>
+                    <div className="font-semibold">
+                      {t(`APP.MODEL_SELECTION.MODELS.${modelId}.NAME`)}
+                    </div>
                     <div className="mb-2 text-left font-normal leading-normal text-opacity-50">
-                      {model.description}
+                      {t(`APP.MODEL_SELECTION.MODELS.${modelId}.DESCRIPTION`)}
                     </div>
                     <div className="relative h-52 w-full overflow-hidden rounded-sm">
                       <div className="flex h-full w-full">
                         <img
                           src={`/model-comparison/${model.id}/before.webp`}
-                          alt={`${model.name} Before`}
+                          alt={`Model Before`}
                           className="h-full w-1/2 object-cover"
                         />
                         <img
                           src={`/model-comparison/${model.id}/after.webp`}
-                          alt={`${model.name} After`}
+                          alt={`Model After`}
                           className="h-full w-1/2 object-cover"
                         />
                       </div>
@@ -80,10 +84,10 @@ const SelectModelDialog = () => {
                         <div className="h-full w-px bg-white opacity-50"></div>
                       </div>
                       <div className="absolute bottom-2 left-2 rounded bg-black bg-opacity-50 px-1 text-xs text-white">
-                        Before
+                        {t("APP.MODEL_SELECTION.BEFORE")}
                       </div>
                       <div className="absolute bottom-2 right-2 rounded bg-black bg-opacity-50 px-1 text-xs text-white">
-                        After
+                        {t("APP.MODEL_SELECTION.AFTER")}
                       </div>
                       <Button
                         variant="secondary"
@@ -92,14 +96,16 @@ const SelectModelDialog = () => {
                         onClick={(e) => handleZoom(e, modelId)}
                       >
                         <Maximize2 className="h-4 w-4" />
-                        <span className="sr-only">Zoom</span>
+                        <span className="sr-only">
+                          {t("APP.MODEL_SELECTION.ZOOM")}
+                        </span>
                       </Button>
                     </div>
                   </button>
                 );
               })}
               <p className="font-semibold text-base-content">
-                Imported Custom Models
+                {t("APP.MODEL_SELECTION.IMPORTED_CUSTOM_MODELS")}
               </p>
               {customModelIds.map((customModel) => {
                 return (
@@ -130,7 +136,7 @@ const SelectModelDialog = () => {
               <div className="relative h-full w-1/2">
                 <img
                   src={`/model-comparison/${MODELS[zoomedModel]?.id}/before.webp`}
-                  alt={`${MODELS[zoomedModel]?.name} Before`}
+                  alt={`Zoomed in Image - Before`}
                   className="h-full w-full object-contain"
                 />
                 <div className="absolute bottom-4 left-4 rounded bg-black bg-opacity-50 px-2 py-1 text-sm text-white">
@@ -140,7 +146,7 @@ const SelectModelDialog = () => {
               <div className="relative h-full w-1/2">
                 <img
                   src={`/model-comparison/${MODELS[zoomedModel]?.id}/after.webp`}
-                  alt={`${MODELS[zoomedModel]?.name} After`}
+                  alt={`Zoomed in Image - After`}
                   className="h-full w-full object-contain"
                 />
                 <div className="absolute bottom-4 right-4 rounded bg-black bg-opacity-50 px-2 py-1 text-sm text-white">

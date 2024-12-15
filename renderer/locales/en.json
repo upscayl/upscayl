@@ -67,6 +67,14 @@
       "TITLE": "SAVE OUTPUT FOLDER",
       "DESCRIPTION": "If enabled, the output folder will be remembered between sessions."
     },
+    "AUTO_UPDATE": {
+      "TITLE": "AUTO UPDATE UPSCAYL",
+      "DESCRIPTION": "If enabled, the application will check for new updates and notify you."
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "HELP IMPROVE UPSCAYL",
+      "DESCRIPTION": "If enabled, Upscayl will collect anonymous usage data to improve the application interface and features."
+    },
     "THEME": {
       "TITLE": "UPSCAYL THEME"
     },
@@ -101,13 +109,35 @@
     "MODEL_SELECTION": {
       "TITLE": "Step 2",
       "DESCRIPTION": "Select AI Model",
+      "IMPORTED_CUSTOM_MODELS": "Imported Custom Models",
+      "BEFORE": "Before",
+      "AFTER": "After",
+      "ZOOM": "Zoom",
       "MODELS": {
-        "upscayl-standard-4x": "General Photo (Real-ESRGAN)",
-        "x4fast": "General Photo (Fast Real-ESRGAN)",
-        "remacri": "General Photo (Remacri)",
-        "ultramix": "General Photo (Ultramix Balanced)",
-        "ultrasharp": "General Photo (Ultrasharp)",
-        "anime": "Digital Art"
+        "upscayl-standard-4x": {
+          "NAME": "Upscayl Standard",
+          "DESCRIPTION": "Suitable for most images."
+        },
+        "upscayl-lite-4x": {
+          "NAME": "Upscayl Lite",
+          "DESCRIPTION": "Suitable for most images. High-speed upscaling with minimal quality loss."
+        },
+        "remacri-4x": {
+          "NAME": "Remacri (Non-Commercial)",
+          "DESCRIPTION": "For natural images. Added sharpness and detail. No commercial use."
+        },
+        "ultramix-balanced-4x": {
+          "NAME": "Ultramix (Non-Commercial)",
+          "DESCRIPTION": "For natural images with a balance of sharpness and detail."
+        },
+        "ultrasharp-4x": {
+          "NAME": "Ultrasharp (Non-Commercial)",
+          "DESCRIPTION": "For natural images with a focus on sharpness."
+        },
+        "digital-art-4x": {
+          "NAME": "Digital Art",
+          "DESCRIPTION": "For digital art and illustrations."
+        }
       }
     },
     "DOUBLE_UPSCAYL": {
@@ -219,5 +249,26 @@
     "INCORRECT_FIELDS_ALERT": "Please fill in all the fields correctly.",
     "JOIN_WAITLIST": "Join the waitlist",
     "DONT_SHOW_AGAIN": "DON'T SHOW AGAIN"
+  },
+  "ONBOARDING_DIALOG": {
+    "NEXT_BUTTON_TITLE": "Next",
+    "BACK_BUTTON_TITLE": "Back",
+    "GET_STARTED_BUTTON_TITLE": "Get Started",
+    "STEP_1": {
+      "TITLE": "Welcome to Upscayl 🎉",
+      "DESCRIPTION": "Let's get you started with a few quick steps."
+    },
+    "STEP_2": {
+      "TITLE": "Choose Your Preferences 🎨",
+      "DESCRIPTION": "Configure your initial settings."
+    },
+    "STEP_3": {
+      "TITLE": "How do I use Upscayl? 🚀",
+      "DESCRIPTION": "Watch this short video to learn about the new features."
+    },
+    "STEP_4": {
+      "TITLE": "You're All Set! 🎉",
+      "DESCRIPTION": "You're ready to start upscaling images with Upscayl!"
+    }
   }
 }

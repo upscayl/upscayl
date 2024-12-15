@@ -67,6 +67,14 @@
       "TITLE": "保存输出文件夹",
       "DESCRIPTION": "启用后，输出文件夹将在会话之间被记住。"
     },
+    "AUTO_UPDATE": {
+      "TITLE": "自动更新阿普升图",
+      "DESCRIPTION": "启用后，应用程序将检查新更新并通知你。"
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "帮助改进阿普升图",
+      "DESCRIPTION": "启用后，阿普升图将收集匿名使用数据以改进应用程序界面和功能。"
+    },
     "THEME": {
       "TITLE": "阿普升图主题"
     },
@@ -100,14 +108,36 @@
     },
     "MODEL_SELECTION": {
       "TITLE": "第二步",
-      "DESCRIPTION": "选择模型",
+      "DESCRIPTION": "选择 AI 模型",
+      "IMPORTED_CUSTOM_MODELS": "导入的自定义模型",
+      "BEFORE": "之前",
+      "AFTER": "之后",
+      "ZOOM": "缩放",
       "MODELS": {
-        "upscayl-standard-4x": "一般照片 (Real-ESRGAN)",
-        "x4fast": "一般照片 (快速办 Real-ESRGAN)",
-        "remacri": "一般照片 (Remacri)",
-        "ultramix": "一般照片 (Ultramix Balanced)",
-        "ultrasharp": "一般照片 (Ultrasharp)",
-        "anime": "数字艺术"
+        "upscayl-standard-4x": {
+          "NAME": "Upscayl 标准",
+          "DESCRIPTION": "适用于大多数图像。"
+        },
+        "upscayl-lite-4x": {
+          "NAME": "Upscayl 轻量版",
+          "DESCRIPTION": "适用于大多数图像。高速升图，质量损失最小。"
+        },
+        "remacri-4x": {
+          "NAME": "Remacri（非商业用途）",
+          "DESCRIPTION": "适用于自然图像。增加了锐度和细节。不用于商业用途。"
+        },
+        "ultramix-balanced-4x": {
+          "NAME": "Ultramix（非商业用途）",
+          "DESCRIPTION": "适用于自然图像，平衡了锐度和细节。"
+        },
+        "ultrasharp-4x": {
+          "NAME": "Ultrasharp（非商业用途）",
+          "DESCRIPTION": "适用于自然图像，注重锐度。"
+        },
+        "digital-art-4x": {
+          "NAME": "数字艺术",
+          "DESCRIPTION": "适用于数字艺术和插图。"
+        }
       }
     },
     "DOUBLE_UPSCAYL": {
@@ -219,5 +249,26 @@
     "INCORRECT_FIELDS_ALERT": "请适当填写。",
     "JOIN_WAITLIST": "加入候补名单",
     "DONT_SHOW_AGAIN": "不再显示"
+  },
+  "ONBOARDING_DIALOG": {
+    "NEXT_BUTTON_TITLE": "下一步",
+    "BACK_BUTTON_TITLE": "上一步",
+    "GET_STARTED_BUTTON_TITLE": "开始使用",
+    "STEP_1": {
+      "TITLE": "欢迎使用阿普升图 🎉",
+      "DESCRIPTION": "让我们通过几个快速步骤来开始吧。"
+    },
+    "STEP_2": {
+      "TITLE": "选择你的偏好 🎨",
+      "DESCRIPTION": "配置你的初始设置。"
+    },
+    "STEP_3": {
+      "TITLE": "如何使用阿普升图？ 🚀",
+      "DESCRIPTION": "观看这个简短的视频，了解新功能。"
+    },
+    "STEP_4": {
+      "TITLE": "一切准备就绪！ 🎉",
+      "DESCRIPTION": "你已经准备好使用阿普升图来增强图片了！"
+    }
   }
 }
