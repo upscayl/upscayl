@@ -311,7 +311,7 @@ const Home = () => {
         doubleUpscaylCounter={doubleUpscaylCounter}
         setDimensions={setDimensions}
       />
-      <OnboardingDialog open={false} onOpenChange={() => {}} />
+      <OnboardingDialog />
     </div>
   );
 };

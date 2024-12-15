@@ -1,8 +1,9 @@
 import { translationAtom } from "@/atoms/translations-atom";
 import { useAtomValue } from "jotai";
-import React from "react";
+import React, { useEffect } from "react";
+import { themeChange } from "theme-change";
 
-export function SelectTheme() {
+const SelectTheme = ({ hideLabel }: { hideLabel?: boolean }) => {
   const availableThemes = [
     { label: "upscayl", value: "upscayl" },
     { label: "light", value: "light" },
@@ -37,9 +38,15 @@ export function SelectTheme() {
   ];
   const t = useAtomValue(translationAtom);
 
+  useEffect(() => {
+    themeChange(false);
+  }, []);
+
   return (
-    <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">{t("SETTINGS.THEME.TITLE")}</p>
+    <div className="flex w-full flex-col gap-2">
+      {!hideLabel && (
+        <p className="text-sm font-medium">{t("SETTINGS.THEME.TITLE")}</p>
+      )}
       <select data-choose-theme className="select select-primary">
         {availableThemes.map((theme) => {
           return (
@@ -51,4 +58,6 @@ export function SelectTheme() {
       </select>
     </div>
   );
-}
+};
+
+export default SelectTheme;

@@ -56,14 +56,14 @@ const SelectModelDialog = () => {
                 return (
                   <button
                     key={modelId}
-                    className="btn !h-auto !w-full !flex-col !items-start !p-4"
+                    className="btn !h-auto !w-full !flex-col !items-start !rounded-sm !p-4"
                     onClick={() => handleModelSelect(modelId)}
                   >
                     <div className="font-semibold">{model.name}</div>
-                    <div className="mb-2 text-left font-normal leading-normal text-primary-foreground/50">
+                    <div className="mb-2 text-left font-normal leading-normal text-opacity-50">
                       {model.description}
                     </div>
-                    <div className="relative h-52 w-full overflow-hidden rounded-md">
+                    <div className="relative h-52 w-full overflow-hidden rounded-sm">
                       <div className="flex h-full w-full">
                         <img
                           src={`/model-comparison/${model.id}/before.webp`}

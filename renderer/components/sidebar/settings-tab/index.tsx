@@ -1,4 +1,4 @@
-import { SelectTheme } from "./select-theme";
+import SelectTheme from "./select-theme";
 import { SaveOutputFolderToggle } from "./save-output-folder-toggle";
 import { InputGpuId } from "./input-gpu-id";
 import { CustomModelsFolderSelect } from "./select-custom-models-folder";
@@ -59,10 +59,6 @@ function SettingsTab({
   const [enableScrollbar, setEnableScrollbar] = useState(true);
   const [timeoutId, setTimeoutId] = useState(null);
   const t = useAtomValue(translationAtom);
-
-  useEffect(() => {
-    themeChange(false);
-  }, []);
 
   // HANDLERS
   const setExportType = (format: ImageFormat) => {

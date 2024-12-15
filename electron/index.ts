@@ -37,10 +37,6 @@ app.on("ready", async () => {
 
   createMainWindow();
 
-  if (!electronIsDev) {
-    autoUpdater.checkForUpdates();
-  }
-
   log.info(
     "🆙 Upscayl version:",
     app.getVersion(),
