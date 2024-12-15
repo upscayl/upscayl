@@ -6,12 +6,9 @@ import { LogArea } from "./log-area";
 import { SelectImageScale } from "./select-image-scale";
 import { SelectImageFormat } from "./select-image-format";
 import { DonateButton } from "./donate-button";
-import React, { useEffect, useState } from "react";
-import { themeChange } from "theme-change";
+import React, { useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { customModelsPathAtom, scaleAtom } from "@/atoms/user-settings-atom";
-import { customModelIdsAtom } from "@/atoms/models-list-atom";
-import useLogger from "@/components/hooks/use-logger";
 import { InputCompression } from "./input-compression";
 import OverwriteToggle from "./overwrite-toggle";
 import { UpscaylCloudModal } from "@/components/upscayl-cloud-modal";
@@ -24,6 +21,8 @@ import { InputTileSize } from "./input-tile-size";
 import LanguageSwitcher from "./language-switcher";
 import { translationAtom } from "@/atoms/translations-atom";
 import { ImageFormat } from "@/lib/valid-formats";
+import EnableContributionToggle from "./enable-contributions-toggle";
+import AutoUpdateToggle from "./auto-update-toggle";
 
 interface IProps {
   batchMode: boolean;
@@ -173,6 +172,8 @@ function SettingsTab({
 
       <OverwriteToggle />
       <TurnOffNotificationsToggle />
+      <AutoUpdateToggle />
+      <EnableContributionToggle />
 
       {/* GPU ID INPUT */}
       <InputGpuId gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />

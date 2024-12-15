@@ -2,7 +2,7 @@ import { translationAtom } from "@/atoms/translations-atom";
 import { enableContributionAtom } from "@/atoms/user-settings-atom";
 import { useAtom, useAtomValue } from "jotai";
 
-const AutoUpdateToggle = () => {
+const EnableContributionToggle = () => {
   const [enableContribution, setEnableContribution] = useAtom(
     enableContributionAtom,
   );
@@ -28,4 +28,4 @@ const AutoUpdateToggle = () => {
   );
 };
 
-export default AutoUpdateToggle;
+export default EnableContributionToggle;
