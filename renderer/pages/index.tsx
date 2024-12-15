@@ -20,6 +20,7 @@ import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import { ImageFormat, VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import { initCustomModels } from "@/components/hooks/use-custom-models";
+import { OnboardingDialog } from "@/components/main-content/onboarding-dialog";
 
 const Home = () => {
   const t = useAtomValue(translationAtom);
@@ -310,6 +311,7 @@ const Home = () => {
         doubleUpscaylCounter={doubleUpscaylCounter}
         setDimensions={setDimensions}
       />
+      <OnboardingDialog open={false} onOpenChange={() => {}} />
     </div>
   );
 };

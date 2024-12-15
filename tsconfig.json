@@ -15,6 +15,12 @@
       "@common/*": ["./common/*"]
     }
   },
-  "include": ["./electron/**/*", "./common/**/*", "./renderer/**/*"],
+  "include": [
+    "./electron/**/*",
+    "./common/**/*",
+    "./renderer/**/*",
+    "scripts/generate-schema.js",
+    "scripts/validate-schema.js"
+  ],
   "exclude": ["node_modules", "public", "renderer"]
 }
