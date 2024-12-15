@@ -209,6 +209,7 @@
     "@types/node": "^18.15.12",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "ajv": "^6.12.6",
     "autoprefixer": "^10.4.16",
     "cross-env": "^7.0.3",
     "daisyui": "^4.10.2",
