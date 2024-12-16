@@ -93,6 +93,10 @@
       "TITLE": "¿Tienes problemas?",
       "DOCS_BUTTON_TITLE": "🙏 OBTENER AYUDA",
       "EMAIL_BUTTON_TITLE": "📧 CORREO AL DESARROLLADOR"
+    },
+    "TTA_MODE": {
+      "TITLE": "Modo TTA",
+      "DESCRIPTION": "Habilita la Aumentación en Tiempo de Prueba para obtener mejores resultados, como eliminar artefactos, ¡PERO esto aumentará el tiempo de procesamiento en 8x!"
     }
   },
   "APP": {

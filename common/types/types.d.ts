@@ -13,6 +13,7 @@ export type ImageUpscaylPayload = {
   customWidth: string;
   useCustomWidth: boolean;
   tileSize: number;
+  ttaMode: boolean;
 };
 
 export type DoubleUpscaylPayload = {
@@ -30,6 +31,7 @@ export type DoubleUpscaylPayload = {
   customWidth: string;
   useCustomWidth: boolean;
   tileSize: number;
+  ttaMode: boolean;
 };
 
 export type BatchUpscaylPayload = {
@@ -44,4 +46,5 @@ export type BatchUpscaylPayload = {
   customWidth: string;
   useCustomWidth: boolean;
   tileSize: number;
+  ttaMode: boolean;
 };

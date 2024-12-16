@@ -93,6 +93,10 @@
       "TITLE": "Having issues?",
       "DOCS_BUTTON_TITLE": "🙏 GET HELP",
       "EMAIL_BUTTON_TITLE": "📧 EMAIL DEVELOPER"
+    },
+    "TTA_MODE": {
+      "TITLE": "TTA Mode",
+      "DESCRIPTION": "Enable Test Time Augmentation for better results, such as removing artifacts BUT this will increase the processing time by 8x!"
     }
   },
   "APP": {

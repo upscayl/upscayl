@@ -58,6 +58,8 @@ export const turnOffNotificationsAtom = atomWithStorage(
   false,
 );
 
+export const ttaModeAtom = atomWithStorage("ttaMode", false);
+
 export const viewTypeAtom = atomWithStorage<"slider" | "lens">(
   "viewType",
   "slider",

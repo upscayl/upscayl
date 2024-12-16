@@ -93,6 +93,10 @@
       "TITLE": "有问题吗？",
       "DOCS_BUTTON_TITLE": "🙏 获取帮助",
       "EMAIL_BUTTON_TITLE": "📧 联系开发者"
+    },
+    "TTA_MODE": {
+      "TITLE": "TTA 模式",
+      "DESCRIPTION": "启用测试时间增强以获得更好的结果，例如去除伪影，但这会使处理时间增加 8 倍！"
     }
   },
   "APP": {

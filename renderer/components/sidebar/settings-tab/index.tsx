@@ -23,6 +23,7 @@ import { translationAtom } from "@/atoms/translations-atom";
 import { ImageFormat } from "@/lib/valid-formats";
 import EnableContributionToggle from "./enable-contributions-toggle";
 import AutoUpdateToggle from "./auto-update-toggle";
+import TTAModeToggle from "./tta-mode-toggle";
 
 interface IProps {
   batchMode: boolean;
@@ -185,6 +186,8 @@ function SettingsTab({
         customModelsPath={customModelsPath}
         setCustomModelsPath={setCustomModelsPath}
       />
+
+      <TTAModeToggle />
 
       {/* RESET SETTINGS */}
       <ResetSettingsButton />

@@ -19,6 +19,7 @@ import {
   gpuIdAtom,
   saveImageAsAtom,
   userStatsAtom,
+  ttaModeAtom,
 } from "../../atoms/user-settings-atom";
 import useLogger from "../hooks/use-logger";
 import {
@@ -91,6 +92,7 @@ const Sidebar = ({
   const tileSize = useAtomValue(tileSizeAtom);
   const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
   const setUserStats = useSetAtom(userStatsAtom);
+  const ttaMode = useAtomValue(ttaModeAtom);
 
   const upscaylHandler = async () => {
     logit("🔄 Resetting Upscaled Image Path");
@@ -114,6 +116,7 @@ const Sidebar = ({
             customWidth: customWidth > 0 ? customWidth.toString() : null,
             useCustomWidth,
             tileSize,
+            ttaMode,
           },
         );
         setUserStats((prev) => ({
@@ -141,6 +144,7 @@ const Sidebar = ({
             customWidth: customWidth > 0 ? customWidth.toString() : null,
             useCustomWidth,
             tileSize,
+            ttaMode,
           },
         );
         setUserStats((prev) => ({
@@ -165,6 +169,7 @@ const Sidebar = ({
           customWidth: customWidth > 0 ? customWidth.toString() : null,
           useCustomWidth,
           tileSize,
+          ttaMode,
         });
         setUserStats((prev) => ({
           ...prev,
