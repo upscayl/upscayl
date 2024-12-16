@@ -161,12 +161,19 @@
       "START_BUTTON_TITLE": "Upscayl 🚀",
       "IN_PROGRESS_BUTTON_TITLE": "Aumentando ⏳"
     },
-    "IMAGE_OPTIONS": {
+    "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "Restablecer imagen",
       "LENS_VIEW_TITLE": "Vista de lente",
       "SLIDER_VIEW_TITLE": "Vista de deslizador",
       "ZOOM_AMOUNT_TITLE": "Cantidad de zoom",
-      "LENS_SIZE_TITLE": "Tamaño de lente"
+      "LENS_SIZE_TITLE": "Tamaño de lente",
+      "TOTAL_UPSCAYLS": "Total de aumentos",
+      "TOTAL_BATCH_UPSCAYLS": "Total de aumentos por lotes",
+      "TOTAL_IMAGE_UPSCAYLS": "Total de imágenes aumentadas",
+      "TOTAL_DOUBLE_UPSCAYLS": "Total de dobles aumentos",
+      "AVERAGE_UPSCAYL_TIME": "Tiempo promedio de aumento",
+      "LAST_UPSCAYL_DURATION": "Duración del último aumento",
+      "LAST_USED_AT": "Último uso"
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Aumento por lotes en progreso:",
@@ -179,7 +186,7 @@
       "SELECT_IMAGE": "Selecciona una imagen",
       "SELECT_FOLDER_DESCRIPTION": "Asegúrate de que la carpeta no contenga nada excepto imágenes PNG, JPG, JPEG y WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Selecciona o arrastra y suelta una imagen PNG, JPG, JPEG o WEBP.",
-      "PASTE_IMAGE_DESCRIPTION": "Presiona Ctrl + V o Cmd + V para pegar la imagen desde el portapapeles"
+      "PASTE_IMAGE_DESCRIPTION": "Presiona Ctrl+V o ⌘+V para pegar la imagen desde el portapapeles"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "Procesando la imagen...",
@@ -255,6 +262,7 @@
     "NEXT_BUTTON_TITLE": "Siguiente",
     "BACK_BUTTON_TITLE": "Atrás",
     "GET_STARTED_BUTTON_TITLE": "Comenzar",
+    "SETTINGS_NOTE": "Siempre puedes cambiar estos ajustes más tarde.",
     "STEP_1": {
       "TITLE": "Bienvenido a Upscayl 🎉",
       "DESCRIPTION": "Vamos a empezar con unos pocos pasos rápidos."

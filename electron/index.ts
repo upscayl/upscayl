@@ -93,6 +93,21 @@ ipcMain.on(ELECTRON_COMMANDS.DOUBLE_UPSCAYL, doubleUpscayl);
 
 ipcMain.on(ELECTRON_COMMANDS.PASTE_IMAGE, pasteImage);
 
+ipcMain.handle("get-gpu-info", async () => {
+  try {
+    return await app.getGPUInfo("complete");
+  } catch (error) {
+    console.error("Failed to get GPU info:", error);
+    return null;
+  }
+});
+
+ipcMain.handle("get-app-version", () => {
+  return `${app.getVersion()} ${
+    FEATURE_FLAGS.APP_STORE_BUILD ? "MAC-APP-STORE" : "FOSS"
+  }`;
+});
+
 if (!FEATURE_FLAGS.APP_STORE_BUILD) {
   autoUpdater.on("update-downloaded", autoUpdate);
 }

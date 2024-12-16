@@ -160,12 +160,19 @@
       "START_BUTTON_TITLE": "Upscayl 🚀",
       "IN_PROGRESS_BUTTON_TITLE": "Upscayl中 ⏳"
     },
-    "IMAGE_OPTIONS": {
+    "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "画像をリセット",
       "LENS_VIEW_TITLE": "レンズビュー",
       "SLIDER_VIEW_TITLE": "スライダービュー",
       "ZOOM_AMOUNT_TITLE": "ズーム量",
-      "LENS_SIZE_TITLE": "レンズサイズ"
+      "LENS_SIZE_TITLE": "レンズサイズ",
+      "TOTAL_UPSCAYLS": "総アップスケール数",
+      "TOTAL_BATCH_UPSCAYLS": "総バッチアップスケール数",
+      "TOTAL_IMAGE_UPSCAYLS": "総画像アップスケール数",
+      "TOTAL_DOUBLE_UPSCAYLS": "総ダブルアップスケール数",
+      "AVERAGE_UPSCAYL_TIME": "平均アップスケール時間",
+      "LAST_UPSCAYL_DURATION": "最後のアップスケール時間",
+      "LAST_USED_AT": "最終使用日時"
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "バッチUpscayl進行中：",
@@ -178,7 +185,7 @@
       "SELECT_IMAGE": "Upscaylする画像を選択",
       "SELECT_FOLDER_DESCRIPTION": "フォルダにはPNG、JPG、JPEG、WEBPの画像以外のものが含まれていないことを確認してください。",
       "SELECT_IMAGES_DESCRIPTION": "PNG、JPG、JPEG、またはWEBP画像を選択するか、ドラッグアンドドロップしてください。",
-      "PASTE_IMAGE_DESCRIPTION": "Ctrl + V または Cmd + V を押してクリップボードから画像を貼り付けます"
+      "PASTE_IMAGE_DESCRIPTION": "Ctrl+V または ⌘+V を押してクリップボードから画像を貼り付けます"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "画像を処理中...",
@@ -254,6 +261,7 @@
     "NEXT_BUTTON_TITLE": "次へ",
     "BACK_BUTTON_TITLE": "戻る",
     "GET_STARTED_BUTTON_TITLE": "始める",
+    "SETTINGS_NOTE": "これらの設定は後でいつでも変更できます。",
     "STEP_1": {
       "TITLE": "Upscaylへようこそ 🎉",
       "DESCRIPTION": "いくつかの簡単なステップで始めましょう。"

@@ -18,6 +18,7 @@ import {
   doubleUpscaylAtom,
   gpuIdAtom,
   saveImageAsAtom,
+  userStatsAtom,
 } from "../../atoms/user-settings-atom";
 import useLogger from "../hooks/use-logger";
 import {
@@ -89,6 +90,7 @@ const Sidebar = ({
   const useCustomWidth = useAtomValue(useCustomWidthAtom);
   const tileSize = useAtomValue(tileSizeAtom);
   const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
+  const setUserStats = useSetAtom(userStatsAtom);
 
   const upscaylHandler = async () => {
     logit("🔄 Resetting Upscaled Image Path");
@@ -114,6 +116,13 @@ const Sidebar = ({
             tileSize,
           },
         );
+        setUserStats((prev) => ({
+          ...prev,
+          totalUpscayls: prev.totalUpscayls + 1,
+          lastUsedAt: new Date().getTime(),
+          doubleUpscayls: prev.doubleUpscayls + 1,
+          imageUpscayls: prev.imageUpscayls + 1,
+        }));
         logit("🏁 DOUBLE_UPSCAYL");
       } else if (batchMode) {
         // Batch Upscayl
@@ -134,6 +143,12 @@ const Sidebar = ({
             tileSize,
           },
         );
+        setUserStats((prev) => ({
+          ...prev,
+          totalUpscayls: prev.totalUpscayls + 1,
+          lastUsedAt: new Date().getTime(),
+          batchUpscayls: prev.doubleUpscayls + 1,
+        }));
         logit("🏁 FOLDER_UPSCAYL");
       } else {
         // Single Image Upscayl
@@ -151,6 +166,12 @@ const Sidebar = ({
           useCustomWidth,
           tileSize,
         });
+        setUserStats((prev) => ({
+          ...prev,
+          totalUpscayls: prev.totalUpscayls + 1,
+          lastUsedAt: new Date().getTime(),
+          imageUpscayls: prev.imageUpscayls + 1,
+        }));
         logit("🏁 UPSCAYL");
       }
     } else {

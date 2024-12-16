@@ -18,7 +18,7 @@ import { FEATURE_FLAGS } from "@common/feature-flags";
 import { ImageFormat, VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import ProgressBar from "./progress-bar";
 import InstructionsCard from "./instructions-card";
-import ImageViewSettings from "./image-view-settings";
+import MoreOptionsDrawer from "./more-options-drawer";
 import useUpscaylVersion from "../hooks/use-upscayl-version";
 import MacTitlebarDragRegion from "./mac-titlebar-drag-region";
 import LensViewer from "./lens-view";
@@ -292,7 +292,7 @@ const MainContent = ({
         <InstructionsCard version={version} batchMode={batchMode} />
       )}
 
-      <ImageViewSettings
+      <MoreOptionsDrawer
         zoomAmount={zoomAmount}
         setZoomAmount={setZoomAmount}
         resetImagePaths={resetImagePaths}

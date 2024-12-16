@@ -160,12 +160,19 @@
       "START_BUTTON_TITLE": "升图！🚀",
       "IN_PROGRESS_BUTTON_TITLE": "正在升图 ⏳"
     },
-    "IMAGE_OPTIONS": {
+    "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "重置图片",
       "LENS_VIEW_TITLE": "透镜视图",
       "SLIDER_VIEW_TITLE": "滑块视图",
       "ZOOM_AMOUNT_TITLE": "缩放比例",
-      "LENS_SIZE_TITLE": "透镜尺寸"
+      "LENS_SIZE_TITLE": "透镜尺寸",
+      "TOTAL_UPSCAYLS": "总升图次数",
+      "TOTAL_BATCH_UPSCAYLS": "总批量升图次数",
+      "TOTAL_IMAGE_UPSCAYLS": "总图片升图次数",
+      "TOTAL_DOUBLE_UPSCAYLS": "总双重升图次数",
+      "AVERAGE_UPSCAYL_TIME": "平均升图时间",
+      "LAST_UPSCAYL_DURATION": "上次升图时长",
+      "LAST_USED_AT": "上次使用时间"
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量阿普升图中",
@@ -178,7 +185,7 @@
       "SELECT_IMAGE": "选择要增强的图片",
       "SELECT_FOLDER_DESCRIPTION": "文件夹中只支持 PNG、JPG、JPEG 和 WEBP 图片。",
       "SELECT_IMAGES_DESCRIPTION": "选择或拖放 PNG、JPG、JPEG 或 WEBP 图片。",
-      "PASTE_IMAGE_DESCRIPTION": "按 Ctrl + V 或 Cmd + V 来粘贴图像"
+      "PASTE_IMAGE_DESCRIPTION": "按 Ctrl+V 或 ⌘+V 来粘贴图像"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "正在处理图片...",
@@ -254,6 +261,7 @@
     "NEXT_BUTTON_TITLE": "下一步",
     "BACK_BUTTON_TITLE": "上一步",
     "GET_STARTED_BUTTON_TITLE": "开始使用",
+    "SETTINGS_NOTE": "你可以随时更改这些设置。",
     "STEP_1": {
       "TITLE": "欢迎使用阿普升图 🎉",
       "DESCRIPTION": "让我们通过几个快速步骤来开始吧。"

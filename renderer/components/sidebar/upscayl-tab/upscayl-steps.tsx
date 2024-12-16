@@ -270,11 +270,6 @@ function UpscaylSteps({
             : t("APP.SCALE_SELECTION.START_BUTTON_TITLE")}
         </button>
       </div>
-
-      <Tooltip
-        className="z-[999] max-w-sm break-words !bg-secondary"
-        id="tooltip"
-      />
     </div>
   );
 }

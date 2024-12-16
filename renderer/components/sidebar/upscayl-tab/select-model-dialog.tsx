@@ -16,6 +16,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { selectedModelIdAtom } from "@/atoms/user-settings-atom";
 import { customModelIdsAtom } from "@/atoms/models-list-atom";
 import useTranslation from "@/components/hooks/use-translation";
+import posthog from "posthog-js";
 
 const SelectModelDialog = () => {
   const t = useTranslation();
@@ -28,6 +29,12 @@ const SelectModelDialog = () => {
   const handleModelSelect = (model: ModelId | string) => {
     setSelectedModelId(model);
     setOpen(false);
+
+    posthog.capture("model_selected", {
+      $ip: "0.0.0.0",
+      $geoip_disable: true,
+      model,
+    });
   };
 
   const handleZoom = (event: React.MouseEvent, model: ModelId) => {
@@ -61,12 +68,12 @@ const SelectModelDialog = () => {
                     className="btn !h-auto !w-full !flex-col !items-start !rounded-sm !p-4"
                     onClick={() => handleModelSelect(modelId)}
                   >
-                    <div className="font-semibold">
+                    <p className="font-semibold">
                       {t(`APP.MODEL_SELECTION.MODELS.${modelId}.NAME`)}
-                    </div>
-                    <div className="mb-2 text-left font-normal leading-normal text-opacity-50">
+                    </p>
+                    <p className="mb-2 text-left font-normal leading-normal text-base-content/70">
                       {t(`APP.MODEL_SELECTION.MODELS.${modelId}.DESCRIPTION`)}
-                    </div>
+                    </p>
                     <div className="relative h-52 w-full overflow-hidden rounded-sm">
                       <div className="flex h-full w-full">
                         <img

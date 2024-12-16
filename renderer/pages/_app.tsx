@@ -4,22 +4,10 @@ import { AppProps } from "next/app";
 import { Provider } from "jotai";
 import "react-tooltip/dist/react-tooltip.css";
 import { Toaster } from "@/components/ui/toaster";
-import posthog from "posthog-js";
-import { useEffect } from "react";
-import { PostHogProvider } from "posthog-js/react";
+import { Tooltip } from "react-tooltip";
+import PostHogProviderWrapper from "@/components/posthog-provider-wrapper";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  useEffect(() => {
-    posthog.init("phc_QMcmlmComdofjfaRPzoN4KV9ziV2KgOwAOVyu4J3dIc", {
-      api_host: "https://us.i.posthog.com",
-      person_profiles: "identified_only",
-      // Enable debug mode in development
-      loaded: (posthog) => {
-        if (process.env.NODE_ENV === "development") posthog.debug();
-      },
-    });
-  }, []);
-
   return (
     <>
       <Head>
@@ -27,10 +15,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <Provider>
-        <PostHogProvider client={posthog}>
+        <PostHogProviderWrapper>
           <Component {...pageProps} data-theme="upscayl" />
           <Toaster />
-        </PostHogProvider>
+          <Tooltip
+            className="z-[999] max-w-sm break-words !bg-secondary"
+            id="tooltip"
+          />
+        </PostHogProviderWrapper>
       </Provider>
     </>
   );

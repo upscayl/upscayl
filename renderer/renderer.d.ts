@@ -6,6 +6,18 @@ export interface IElectronAPI {
   send: <T>(command, func?: T) => IpcRenderer;
   invoke: (command, func?) => any;
   platform: "mac" | "win" | "linux";
+  getSystemInfo: () => Promise<{
+    platform: string | undefined;
+    release: string;
+    arch: string | undefined;
+    model: string;
+    cpuCount: number;
+    gpu: {
+      vendor: any;
+      model: any;
+    };
+  }>;
+  getAppVersion: () => Promise<string>;
 }
 
 declare global {

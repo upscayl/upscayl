@@ -160,12 +160,19 @@
       "START_BUTTON_TITLE": "Suréchantillonner 🚀",
       "IN_PROGRESS_BUTTON_TITLE": "Suréchantillonnage ⏳"
     },
-    "IMAGE_OPTIONS": {
+    "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "Réinitialiser l'image",
       "LENS_VIEW_TITLE": "Vue de la lentille",
       "SLIDER_VIEW_TITLE": "Vue du curseur",
       "ZOOM_AMOUNT_TITLE": "Niveau de zoom",
-      "LENS_SIZE_TITLE": "Taille de la lentille"
+      "LENS_SIZE_TITLE": "Taille de la lentille",
+      "TOTAL_UPSCAYLS": "Total des suréchantillonnages",
+      "TOTAL_BATCH_UPSCAYLS": "Total des suréchantillonnages par lot",
+      "TOTAL_IMAGE_UPSCAYLS": "Total des suréchantillonnages d'images",
+      "TOTAL_DOUBLE_UPSCAYLS": "Total des doubles suréchantillonnages",
+      "AVERAGE_UPSCAYL_TIME": "Temps moyen de suréchantillonnage",
+      "LAST_UPSCAYL_DURATION": "Durée du dernier suréchantillonnage",
+      "LAST_USED_AT": "Dernière utilisation"
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Suréchantillonnage par lot en cours :",
@@ -178,7 +185,7 @@
       "SELECT_IMAGE": "Sélectionnez une image à suréchantillonner",
       "SELECT_FOLDER_DESCRIPTION": "Assurez-vous que le dossier ne contient rien d'autre que des images PNG, JPG, JPEG et WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Sélectionnez ou glissez-déposez une image PNG, JPG, JPEG ou WEBP.",
-      "PASTE_IMAGE_DESCRIPTION": "Appuyez sur Ctrl + V ou Cmd + V pour coller l'image depuis le presse-papiers"
+      "PASTE_IMAGE_DESCRIPTION": "Appuyez sur Ctrl+V ou ⌘+V pour coller l'image depuis le presse-papiers"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "Traitement de l'image...",
@@ -254,6 +261,7 @@
     "NEXT_BUTTON_TITLE": "Suivant",
     "BACK_BUTTON_TITLE": "Retour",
     "GET_STARTED_BUTTON_TITLE": "Commencer",
+    "SETTINGS_NOTE": "Vous pouvez toujours modifier ces paramètres plus tard.",
     "STEP_1": {
       "TITLE": "Bienvenue sur Upscayl 🎉",
       "DESCRIPTION": "Commençons par quelques étapes rapides."

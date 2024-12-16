@@ -160,12 +160,19 @@
       "START_BUTTON_TITLE": "Upscayl 🚀",
       "IN_PROGRESS_BUTTON_TITLE": "Upscayling ⏳"
     },
-    "IMAGE_OPTIONS": {
+    "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "Reset Image",
       "LENS_VIEW_TITLE": "Lens View",
       "SLIDER_VIEW_TITLE": "Slider View",
       "ZOOM_AMOUNT_TITLE": "Zoom Amount",
-      "LENS_SIZE_TITLE": "Lens Size"
+      "LENS_SIZE_TITLE": "Lens Size",
+      "TOTAL_UPSCAYLS": "Total Upscayls",
+      "TOTAL_BATCH_UPSCAYLS": "Total Batch Upscayls",
+      "TOTAL_IMAGE_UPSCAYLS": "Total Image Upscayls",
+      "TOTAL_DOUBLE_UPSCAYLS": "Total Double Upscayls",
+      "AVERAGE_UPSCAYL_TIME": "Average Upscayl Time",
+      "LAST_UPSCAYL_DURATION": "Last Upscayl Duration",
+      "LAST_USED_AT": "Last Used At"
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Batch Upscayl In Progress:",
@@ -178,7 +185,7 @@
       "SELECT_IMAGE": "Select an Image",
       "SELECT_FOLDER_DESCRIPTION": "Make sure that the folder doesn't contain anything except PNG, JPG, JPEG & WEBP images.",
       "SELECT_IMAGES_DESCRIPTION": "Select or drag and drop a PNG, JPG, JPEG or WEBP image.",
-      "PASTE_IMAGE_DESCRIPTION": "Hit Ctrl + V or Cmd + V to Paste image from Clipboard"
+      "PASTE_IMAGE_DESCRIPTION": "Hit Ctrl+V or ⌘+V to Paste image from Clipboard"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "Processing the image...",
@@ -254,6 +261,7 @@
     "NEXT_BUTTON_TITLE": "Next",
     "BACK_BUTTON_TITLE": "Back",
     "GET_STARTED_BUTTON_TITLE": "Get Started",
+    "SETTINGS_NOTE": "You can always change these settings later.",
     "STEP_1": {
       "TITLE": "Welcome to Upscayl 🎉",
       "DESCRIPTION": "Let's get you started with a few quick steps."

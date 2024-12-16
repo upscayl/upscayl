@@ -77,7 +77,8 @@ export function OnboardingDialog() {
           {
             key: "video",
             type: "video",
-            videoSrc: "https://www.youtube-nocookie.com/embed/3M77flVZlVY",
+            videoSrc:
+              "https://www.youtube-nocookie.com/embed/3M77flVZlVY?autoplay=1",
           },
         ],
       },
@@ -140,14 +141,21 @@ export function OnboardingDialog() {
         {currentStepData.configurationOptions && (
           <div
             className={cn(
-              "flex h-full w-full flex-col rounded-sm bg-primary p-8 ",
+              "flex h-full w-full flex-col rounded-sm bg-primary p-8",
               currentStepData.type === "settings" && "h-auto w-auto gap-8",
+              currentStepData.configurationOptions[0].type === "video" && "p-0",
             )}
           >
             {currentStepData.configurationOptions.map((option) => (
               <div
                 key={option.key}
                 className="flex h-full w-full items-center justify-between gap-4"
+                data-tooltip-id="tooltip"
+                data-tooltip-content={
+                  option.key === "improveUpscayl"
+                    ? t("SETTINGS.ENABLE_CONTRIBUTION.DESCRIPTION")
+                    : null
+                }
               >
                 {option.label && (
                   <label
@@ -190,7 +198,7 @@ export function OnboardingDialog() {
                 )}
                 {option.type === "video" && (
                   <iframe
-                    className="h-full w-full"
+                    className="h-full w-full rounded-sm"
                     src={option.videoSrc}
                     title="YouTube video player"
                     frameBorder="0"
@@ -202,6 +210,11 @@ export function OnboardingDialog() {
                 {option.type === "component" && option.component}
               </div>
             ))}
+            {currentStepData.type === "settings" && (
+              <p className="text-sm text-base-content/70">
+                {t("ONBOARDING_DIALOG.SETTINGS_NOTE")}
+              </p>
+            )}
           </div>
         )}
 

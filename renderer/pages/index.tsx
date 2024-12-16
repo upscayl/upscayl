@@ -8,6 +8,7 @@ import {
   savedOutputPathAtom,
   progressAtom,
   rememberOutputFolderAtom,
+  userStatsAtom,
 } from "../atoms/user-settings-atom";
 import useLogger from "../components/hooks/use-logger";
 import { useToast } from "@/components/ui/use-toast";
@@ -44,6 +45,7 @@ const Home = () => {
   const setProgress = useSetAtom(progressAtom);
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const setModelIds = useSetAtom(customModelIdsAtom);
+  const setUserStats = useSetAtom(userStatsAtom);
 
   const selectImageHandler = async () => {
     resetImagePaths();
@@ -226,6 +228,14 @@ const Home = () => {
     window.electron.on(ELECTRON_COMMANDS.UPSCAYL_DONE, (_, data: string) => {
       setProgress("");
       setUpscaledImagePath(data);
+      setUserStats((prev) => ({
+        ...prev,
+        lastUpscaylDuration: new Date().getTime() - prev.lastUsedAt,
+        averageUpscaylTime:
+          (prev.averageUpscaylTime * prev.totalUpscayls +
+            (new Date().getTime() - prev.lastUsedAt)) /
+          (prev.totalUpscayls + 1),
+      }));
       logit("upscaledImagePath: ", data);
       logit(`💯 UPSCAYL_DONE: `, data);
     });
@@ -236,6 +246,14 @@ const Home = () => {
         setProgress("");
         setUpscaledBatchFolderPath(data);
         logit(`💯 FOLDER_UPSCAYL_DONE: `, data);
+        setUserStats((prev) => ({
+          ...prev,
+          lastUpscaylDuration: new Date().getTime() - prev.lastUsedAt,
+          averageUpscaylTime:
+            (prev.averageUpscaylTime * prev.totalUpscayls +
+              (new Date().getTime() - prev.lastUsedAt)) /
+            (prev.totalUpscayls + 1),
+        }));
       },
     );
     // DOUBLE UPSCAYL DONE
@@ -246,6 +264,14 @@ const Home = () => {
         setTimeout(() => setUpscaledImagePath(data), 500);
         setDoubleUpscaylCounter(0);
         logit(`💯 DOUBLE_UPSCAYL_DONE: `, data);
+        setUserStats((prev) => ({
+          ...prev,
+          lastUpscaylDuration: new Date().getTime() - prev.lastUsedAt,
+          averageUpscaylTime:
+            (prev.averageUpscaylTime * prev.totalUpscayls +
+              (new Date().getTime() - prev.lastUsedAt)) /
+            (prev.totalUpscayls + 1),
+        }));
       },
     );
     // CUSTOM FOLDER LISTENER
