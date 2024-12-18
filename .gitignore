@@ -53,3 +53,5 @@ main/utils/*.js
 .env
 *.provisionprofile
 flags.ts
+*.p12
+dockerfile
