@@ -2,6 +2,9 @@
 name: Deploy Release
 # this will help you specify where to run
 on:
+  push:
+    tags:
+      - "v*" # this will run the action when you push a tag that starts with v
   workflow_dispatch:
 # this is where the magic happens, each job happens in parallel btw
 jobs:
