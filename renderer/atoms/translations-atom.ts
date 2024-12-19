@@ -10,7 +10,7 @@ import { atomWithStorage } from "jotai/utils";
 
 // Define the shape of the translations
 type Translations = typeof en;
-type Locales = "en" | "ru" | "ja" | "zh" | "es" | "fr"| "pt-PT";
+type Locales = "en" | "ru" | "ja" | "zh" | "es" | "fr"| "pt_PT";
 
 const translations: Record<Locales, Translations> = {
   en,
