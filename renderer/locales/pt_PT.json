@@ -68,7 +68,7 @@
       "DESCRIPTION": "Se estiver ativado, a pasta de saída será memorizada entre as sessões."
     },
     "AUTO_UPDATE": {
-      "TITLE": "Atualizar automaticamente UPSCAYL",
+      "TITLE": "ATUALIZAR AUTOMATICAMENTE UPSCAYL",
       "DESCRIPTION": "Se estiver ativado, a aplicação verificará se existem novas atualizações e notificá-lo-á."
     },
     "ENABLE_CONTRIBUTION": {
@@ -169,7 +169,7 @@
       "LENS_VIEW_TITLE": "Vista com lente",
       "SLIDER_VIEW_TITLE": "Vista com corrediça",
       "ZOOM_AMOUNT_TITLE": "Nível de zoom",
-      "LENS_SIZE_TITLE": "Tamanho da lente"
+      "LENS_SIZE_TITLE": "Tamanho da lente",
       "TOTAL_UPSCAYLS": "Total de aprimoramentos",
       "TOTAL_BATCH_UPSCAYLS": "Total de aprimoramentos em lote",
       "TOTAL_IMAGE_UPSCAYLS": "Total de imagens aprimoradas",
@@ -217,7 +217,7 @@
     },
     "COPY_ERROR": {
       "TITLE": "Erro de cópia",
-      "DESCRIPTION": ""
+      "DESCRIPTION": "Erro ao copiar"
     },
     "READ_WRITE_ERROR": {
       "TITLE": "Erro de leitura/escrita",
@@ -236,7 +236,7 @@
     },
     "NO_OUTPUT_FOLDER_ERROR": {
       "TITLE": "Definir pasta de saída",
-      "DESCRIPTION": "Potr favor, selecione primeiro uma pasta de saída"
+      "DESCRIPTION": "Por favor, selecione primeiro uma pasta de saída"
     },
     "INVALID_IMAGE_ERROR": {
       "TITLE": "Imagem inválida",
