@@ -94,10 +94,6 @@
         ]
       },
       {
-        "from": "org.upscayl.Upscayl.desktop",
-        "to": "resources/org.upscayl.Upscayl.desktop"
-      },
-      {
         "from": "resources/icons/128x128.png",
         "to": "resources/128x128.png"
       },

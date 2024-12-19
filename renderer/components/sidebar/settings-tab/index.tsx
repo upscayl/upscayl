@@ -83,6 +83,25 @@ function SettingsTab({
     }, 2000);
   };
 
+  const sendToTermbin = async (logData: string[]) => {
+    try {
+      const response = await fetch("https://termbin.com:9999/", {
+        method: "POST",
+        body: logData.join("\n"),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const url = await response.text();
+      return url.trim();
+    } catch (error) {
+      console.error("Error sending to termbin:", error);
+      throw error;
+    }
+  };
+
   const upscaylVersion = navigator?.userAgent?.match(
     /Upscayl\/([\d\.]+\d+)/,
   )[1];
@@ -130,13 +149,17 @@ function SettingsTab({
           {t("SETTINGS.SUPPORT.DOCS_BUTTON_TITLE")}
         </a>
         {FEATURE_FLAGS.APP_STORE_BUILD && (
-          <a
+          <button
             className="btn btn-primary"
-            href={`mailto:upscayl@gmail.com?subject=Upscayl%20Issue%3A%20%3CIssue%20name%20here%3E&body=Device%20Name%3A%20%3CYOUR%20DEVICE%20MODEL%3E%0AOperating%20System%3A%20%3CYOUR%20OPERATING%20SYSTEM%20VERSION%3E%0AUpscayl%20Version%3A%20${upscaylVersion}%0A%0AHi%2C%20I'm%20having%20an%20issue%20with%20Upscayl.%20%3CDESCRIBE%20ISSUE%20HERE%3E`}
-            target="_blank"
+            onClick={async () => {
+              const systemInfo = await window.electron.getSystemInfo();
+              const appVersion = await window.electron.getAppVersion();
+              const mailToUrl = `mailto:support@upscayl.org?subject=Upscayl%20Issue%3A%20%3CWRITE%20HERE%3E&body=Hi%20Nayam!%0AI'm%20having%20an%20issue%20with%20Upscayl%20${appVersion}%0A%0A%3CPLEASE%20DESCRIBE%20ISSUE%20HERE%3E%0A%0A---%0ALOGS%3A%0A${logData.join("\n")}%0A%0ADEVICE%20DETAILS%3A%20${JSON.stringify(systemInfo)}`;
+              window.open(mailToUrl, "_blank");
+            }}
           >
             {t("SETTINGS.SUPPORT.EMAIL_BUTTON_TITLE")}
-          </a>
+          </button>
         )}
         {!FEATURE_FLAGS.APP_STORE_BUILD && <DonateButton />}
       </div>

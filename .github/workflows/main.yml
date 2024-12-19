@@ -2,6 +2,9 @@
 name: Deploy Release
 # this will help you specify where to run
 on:
+  push:
+    tags:
+      - "v*" # this will run the action when you push a tag that starts with v
   workflow_dispatch:
 # this is where the magic happens, each job happens in parallel btw
 jobs:
@@ -25,7 +28,7 @@ jobs:
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-linux-app
 
   macos:
-    runs-on: macos-11
+    runs-on: macos-13
     env:
       CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
       CSC_LINK: ${{ secrets.CSC_LINK }}
