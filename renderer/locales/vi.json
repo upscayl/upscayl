@@ -146,7 +146,7 @@
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Double Upscayl",
-      "DESCRIPTION": "Kích hoạt tùy chọn này để chạy upsayl hai lần trên một hình ảnh. Lưu ý rằng điều này có thể làm tăng đáng kể thời gian xử lý và có thể gây ra vấn đề hiệu suất cho các tỷ lệ lớn hơn 4X."
+      "DESCRIPTION": "Kích hoạt tùy chọn này để chạy Upscayl hai lần trên một hình ảnh. Lưu ý rằng điều này có thể làm tăng đáng kể thời gian xử lý và có thể gây ra vấn đề hiệu suất cho các tỷ lệ lớn hơn 4X."
     },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "Bước 3",
@@ -229,7 +229,7 @@
     },
     "EXCEPTION_ERROR": {
       "TITLE": "Lỗi Ngoại lệ",
-      "DESCRIPTION": "Upscayl gặp lỗi. Có thể, nhị phân upsayl không thực hiện các lệnh đúng cách. Hãy kiểm tra nhật ký để xem bạn có thông tin gì không. Bạn có thể đăng vấn đề trên kho lưu trữ GitHub của Upscayl để được giúp đỡ thêm."
+      "DESCRIPTION": "Upscayl gặp lỗi. Có thể, nhị phân Upscayl không thực hiện các lệnh đúng cách. Hãy kiểm tra nhật ký để xem bạn có thông tin gì không. Bạn có thể đăng vấn đề trên kho lưu trữ GitHub của Upscayl để được giúp đỡ thêm."
     },
     "GENERIC_ERROR": {
       "TITLE": "Lỗi"
