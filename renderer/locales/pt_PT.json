@@ -150,7 +150,7 @@
     },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "Passo 3",
-      "MAC_APP_STORE_ALERT": "Devido às restrições de segurança da loja de aplicações MacOS, o Upscayl exige que seleccione uma pasta de saída sempre que o iniciar. \n\nPara evitar isto, pode guardar permanentemente uma pasta de saída predefinida na aba "Configurações" do Upscayl.",
+      "MAC_APP_STORE_ALERT": "Devido às restrições de segurança da loja de aplicações MacOS, o Upscayl exige que selecione uma pasta de saída sempre que o iniciar. \n\nPara evitar isto, pode guardar permanentemente uma pasta de saída predefinida na aba "Configurações" do Upscayl.",
       "NOT_SELECTED": "Não selecionado",
       "DEFAULT_IMG_PATH": "Predefinido para local da imagem",
       "DEFAULT_FOLDER_PATH": "Predefinido para local da pasta",
