@@ -5,7 +5,7 @@ import ja from "../locales/ja.json";
 import zh from "../locales/zh.json";
 import es from "../locales/es.json";
 import fr from "../locales/fr.json";
-import pt_PT from "../locales/pt-PT.json";
+import pt_PT from "../locales/pt_PT.json";
 import { atomWithStorage } from "jotai/utils";
 
 // Define the shape of the translations
