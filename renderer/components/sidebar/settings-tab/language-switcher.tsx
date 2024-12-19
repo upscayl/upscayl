@@ -8,6 +8,7 @@ const locales = {
   zh: "简体中文",
   es: "Español",
   fr: "Français",
+  vi: "Tiếng Việt"
 };
 
 const LanguageSwitcher = () => {
