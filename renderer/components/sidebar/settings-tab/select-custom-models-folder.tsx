@@ -18,10 +18,10 @@ export function CustomModelsFolderSelect({
     <div className="flex flex-col items-start gap-2">
       <p className="text-sm font-medium">{t("SETTINGS.CUSTOM_MODELS.TITLE")}</p>
       <p className="text-xs text-base-content/80">
-        {t("SETTINGS.CUSTOM_MODELS.DESCRIPTION")}
+        {t("SETTINGS.CUSTOM_MODELS.DESCRIPTION")}{" "}
         <a
           href="https://github.com/upscayl/custom-models/blob/main/README.md"
-          className="link underline"
+          className="link uppercase underline"
           target="_blank"
         >
           {t("SETTINGS.CUSTOM_MODELS.LINK_TITLE")}
