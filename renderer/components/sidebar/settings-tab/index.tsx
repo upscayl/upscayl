@@ -24,6 +24,7 @@ import { ImageFormat } from "@/lib/valid-formats";
 import EnableContributionToggle from "./enable-contributions-toggle";
 import AutoUpdateToggle from "./auto-update-toggle";
 import TTAModeToggle from "./tta-mode-toggle";
+import SystemInfo from "./system-info";
 
 interface IProps {
   batchMode: boolean;
@@ -233,6 +234,8 @@ function SettingsTab({
           />
         </>
       )}
+
+      <SystemInfo />
     </div>
   );
 }

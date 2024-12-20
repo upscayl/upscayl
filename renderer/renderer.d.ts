@@ -12,10 +12,7 @@ export interface IElectronAPI {
     arch: string | undefined;
     model: string;
     cpuCount: number;
-    gpu: {
-      vendor: any;
-      model: any;
-    };
+    gpu: Record<string, any>;
   }>;
   getAppVersion: () => Promise<string>;
 }

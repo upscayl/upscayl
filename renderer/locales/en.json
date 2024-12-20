@@ -97,6 +97,9 @@
     "TTA_MODE": {
       "TITLE": "TTA Mode",
       "DESCRIPTION": "Enable Test Time Augmentation for better results, such as removing artifacts BUT this will increase the processing time by 8x!"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "System Info"
     }
   },
   "APP": {

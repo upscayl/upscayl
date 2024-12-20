@@ -7,7 +7,8 @@ import {
 import { cn } from "@/lib/utils";
 import { useAtom, useAtomValue } from "jotai";
 import { EllipsisIcon, WrenchIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import useSystemInfo from "../hooks/use-system-info";
 
 const formatDuration = (seconds: number): string => {
   if (seconds < 60) return `${seconds.toFixed(1)}s`;
@@ -35,6 +36,9 @@ const MoreOptionsDrawer = ({
   const [lensSize, setLensSize] = useAtom(lensSizeAtom);
   const t = useAtomValue(translationAtom);
   const userStats = useAtomValue(userStatsAtom);
+
+  const { systemInfo } = useSystemInfo();
+  console.log("🚀 => systemInfo:", systemInfo);
 
   useEffect(() => {
     if (!localStorage.getItem("zoomAmount")) {
@@ -134,7 +138,7 @@ const MoreOptionsDrawer = ({
 
         <div className="mt-5 flex min-h-0 flex-1 flex-col gap-2">
           <p className="text-sm font-semibold uppercase text-base-content">
-            User Stats
+            Stats
           </p>
 
           <div className="stats stats-vertical overflow-y-auto">
@@ -142,7 +146,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.TOTAL_UPSCAYLS")}
               </div>
-              <div className="stat-value text-2xl text-primary-content">
+              <div className="stat-value text-2xl text-base-content">
                 {userStats.totalUpscayls}
               </div>
             </div>
@@ -151,7 +155,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.TOTAL_BATCH_UPSCAYLS")}
               </div>
-              <div className="stat-value text-2xl text-primary-content">
+              <div className="stat-value text-2xl text-base-content">
                 {userStats.batchUpscayls}
               </div>
             </div>
@@ -160,7 +164,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.TOTAL_IMAGE_UPSCAYLS")}
               </div>
-              <div className="stat-value text-2xl text-primary-content">
+              <div className="stat-value text-2xl text-base-content">
                 {userStats.imageUpscayls}
               </div>
             </div>
@@ -169,7 +173,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.TOTAL_DOUBLE_UPSCAYLS")}
               </div>
-              <div className="stat-value text-2xl text-primary-content">
+              <div className="stat-value text-2xl text-base-content">
                 {userStats.doubleUpscayls}
               </div>
             </div>
@@ -178,7 +182,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.AVERAGE_UPSCAYL_TIME")}
               </div>
-              <div className="stat-value text-2xl text-primary-content">
+              <div className="stat-value text-2xl text-base-content">
                 {formatDuration(userStats.averageUpscaylTime / 1000)}
               </div>
             </div>
@@ -187,7 +191,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.LAST_UPSCAYL_DURATION")}
               </div>
-              <div className="stat-value text-2xl text-primary-content">
+              <div className="stat-value text-2xl text-base-content">
                 {formatDuration(userStats.lastUpscaylDuration / 1000)}
               </div>
             </div>
@@ -196,7 +200,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.LAST_USED_AT")}
               </div>
-              <div className="stat-value text-2xl text-primary-content">
+              <div className="stat-value text-2xl text-base-content">
                 {new Date(userStats.lastUsedAt).toLocaleString()}
               </div>
             </div>
