@@ -6,6 +6,8 @@ const SystemInfo = () => {
   const { systemInfo } = useSystemInfo();
   const t = useTranslation();
 
+  if (!systemInfo) return null;
+
   return (
     <div className="flex w-full flex-col gap-2">
       <p className="text-sm font-medium">{t("SETTINGS.SYSTEM_INFO.TITLE")}</p>
