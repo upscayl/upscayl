@@ -111,9 +111,11 @@ const SelectModelDialog = () => {
                   </button>
                 );
               })}
-              <p className="font-semibold text-base-content">
-                {t("APP.MODEL_SELECTION.IMPORTED_CUSTOM_MODELS")}
-              </p>
+              {customModelIds.length > 0 && (
+                <p className="font-semibold text-base-content">
+                  {t("APP.MODEL_SELECTION.IMPORTED_CUSTOM_MODELS")}
+                </p>
+              )}
               {customModelIds.map((customModel) => {
                 return (
                   <button
