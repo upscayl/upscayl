@@ -114,24 +114,6 @@ const MoreOptionsDrawer = ({
                   }}
                 />
               </div>
-
-              <div className="flex flex-col gap-2">
-                <p className="text-sm font-medium">
-                  {t("APP.MORE_OPTIONS_DRAWER.LENS_SIZE_TITLE")} (
-                  {lensSize / 10})
-                </p>
-                <input
-                  type="range"
-                  min="20"
-                  max="400"
-                  step={10}
-                  className="range range-md"
-                  value={lensSize}
-                  onChange={(e) => {
-                    setLensSize(parseInt(e.target.value));
-                  }}
-                />
-              </div>
             </>
           )}
         </div>
