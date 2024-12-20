@@ -1,4 +1,4 @@
-import { BrowserWindow, shell } from "electron";
+import { app, BrowserWindow, shell } from "electron";
 import { getPlatform } from "./utils/get-device-specs";
 import { join } from "path";
 import { ELECTRON_COMMANDS } from "../common/electron-commands";
@@ -11,6 +11,8 @@ let mainWindow: BrowserWindow | undefined;
 
 const createMainWindow = () => {
   console.log("📂 DIRNAME", __dirname);
+  console.log("🚃 App Path: ", app.getAppPath());
+
   mainWindow = new BrowserWindow({
     icon: join(__dirname, "build", "icon.png"),
     width: 1300,

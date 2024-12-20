@@ -13,6 +13,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Head>
         <title>Upscayl</title>
       </Head>
+      <base href="./" />
 
       <Provider>
         <PostHogProviderWrapper>

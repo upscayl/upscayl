@@ -1,10 +1,9 @@
-import { ipcRenderer, contextBridge, app } from "electron";
+import { ipcRenderer, contextBridge } from "electron";
 import {
   getAppVersion,
   getDeviceSpecs,
   getPlatform,
 } from "./utils/get-device-specs";
-import { FEATURE_FLAGS } from "@common/feature-flags";
 
 // 'ipcRenderer' will be available in index.js with the method 'window.electron'
 contextBridge.exposeInMainWorld("electron", {

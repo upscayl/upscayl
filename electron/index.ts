@@ -20,10 +20,10 @@ import autoUpdate from "./commands/auto-update";
 import { FEATURE_FLAGS } from "../common/feature-flags";
 import settings from "electron-settings";
 import pasteImage from "./commands/paste-image";
+import path from "path";
 
 // INITIALIZATION
 log.initialize({ preload: true });
-logit("🚃 App Path: ", app.getAppPath());
 
 app.on("ready", async () => {
   await prepareNext("./renderer");
@@ -33,6 +33,14 @@ app.on("ready", async () => {
       const pathname = decodeURI(request.url.replace("file:///", ""));
       callback(pathname);
     });
+    protocol.registerFileProtocol("public", (request, callback) => {
+      const filePath = decodeURI(request.url.replace("public:///", ""));
+      const asarPath = path.join(app.getAppPath(), "renderer", "out", filePath);
+      console.log("🚀 => asarPath:", asarPath);
+
+      callback(asarPath);
+    });
+    logit("🚃 App Path: ", app.getAppPath());
   });
 
   createMainWindow();

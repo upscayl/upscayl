@@ -77,12 +77,12 @@ const SelectModelDialog = () => {
                     <div className="relative h-52 w-full overflow-hidden rounded-sm">
                       <div className="flex h-full w-full">
                         <img
-                          src={`/model-comparison/${model.id}/before.webp`}
+                          src={`public:///model-comparison/${model.id}/before.webp`}
                           alt={`Model Before`}
                           className="h-full w-1/2 object-cover"
                         />
                         <img
-                          src={`/model-comparison/${model.id}/after.webp`}
+                          src={`public:///model-comparison/${model.id}/after.webp`}
                           alt={`Model After`}
                           className="h-full w-1/2 object-cover"
                         />
@@ -142,7 +142,7 @@ const SelectModelDialog = () => {
             <div className="flex h-full w-full">
               <div className="relative h-full w-1/2">
                 <img
-                  src={`/model-comparison/${MODELS[zoomedModel]?.id}/before.webp`}
+                  src={`public:///model-comparison/${MODELS[zoomedModel]?.id}/before.webp`}
                   alt={`Zoomed in Image - Before`}
                   className="h-full w-full object-contain"
                 />
@@ -152,7 +152,7 @@ const SelectModelDialog = () => {
               </div>
               <div className="relative h-full w-1/2">
                 <img
-                  src={`/model-comparison/${MODELS[zoomedModel]?.id}/after.webp`}
+                  src={`public:///model-comparison/${MODELS[zoomedModel]?.id}/after.webp`}
                   alt={`Zoomed in Image - After`}
                   className="h-full w-full object-contain"
                 />

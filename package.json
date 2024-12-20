@@ -48,11 +48,12 @@
     "dist:deb": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l deb",
     "dist:rpm": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l rpm",
     "dist:zip": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l zip",
-    "dist:mac-zip": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l zip",
+    "dist:mac-zip": "tsc && npm run build && electron-builder build -m --universal",
     "dist:dmg": "tsc && npm run build && electron-builder build -m dmg",
     "dist:msi": "tsc && npm run build && cross-env DEBUG=* electron-builder build -w nsis",
     "dist:pkg": "tsc && npm run build && cross-env DEBUG=* electron-builder build -m pkg",
     "dist:mac": "tsc && npm run build && electron-builder --mac --universal",
+    "dist:mac-dev": "tsc && npm run build && electron-builder --mac --arm64 -c mac-dev.json",
     "dist:mac-arm64": "tsc && npm run build && electron-builder --mac --arm64",
     "dist:mas": "npm run enable-store && tsc && npm run build && electron-builder --mac mas --universal -c mas.json && npm run disable-store",
     "dist:mas-dev": "npm run enable-store && tsc && npm run build && electron-builder --mac mas-dev --universal -c mas-dev.json && npm run disable-store",
@@ -134,6 +135,7 @@
       "entitlements": "resources/entitlements.mac.plist",
       "entitlementsInherit": "resources/entitlements.mac.plist",
       "provisioningProfile": "embedded.provisionprofile",
+      "type": null,
       "target": [
         {
           "target": "dmg",
