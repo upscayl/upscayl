@@ -15,6 +15,7 @@ export const getSingleImageArguments = ({
   customWidth,
   tileSize,
   compression,
+  ttaMode,
 }: {
   inputDir: string;
   fileNameWithExt: string;
@@ -27,6 +28,7 @@ export const getSingleImageArguments = ({
   customWidth: string;
   tileSize: number;
   compression: string;
+  ttaMode: boolean;
 }) => {
   const modelScale = getModelScale(model);
   let includeScale = modelScale !== scale && !customWidth;
@@ -61,6 +63,8 @@ export const getSingleImageArguments = ({
     // TILE SIZE
     tileSize ? `-t` : "",
     tileSize ? tileSize.toString() : "",
+    // TTA MODE
+    ttaMode ? "-x" : "",
   ];
 };
 
@@ -127,6 +131,7 @@ export const getDoubleUpscaleSecondPassArguments = ({
   customWidth,
   compression,
   tileSize,
+  ttaMode,
 }: {
   outFile: string;
   modelsPath: string;
@@ -137,6 +142,7 @@ export const getDoubleUpscaleSecondPassArguments = ({
   customWidth: string;
   compression: string;
   tileSize: number;
+  ttaMode: boolean;
 }) => {
   const modelScale = getModelScale(model);
   let includeScale = modelScale !== scale && !customWidth;
@@ -171,6 +177,8 @@ export const getDoubleUpscaleSecondPassArguments = ({
     // TILE SIZE
     tileSize ? `-t` : "",
     tileSize ? tileSize.toString() : "",
+    // TTA MODE
+    ttaMode ? "-x" : "",
   ];
 };
 
@@ -185,6 +193,7 @@ export const getBatchArguments = ({
   customWidth,
   compression,
   tileSize,
+  ttaMode,
 }: {
   inputDir: string;
   outputDir: string;
@@ -196,6 +205,7 @@ export const getBatchArguments = ({
   customWidth: string;
   compression: string;
   tileSize: number;
+  ttaMode: boolean;
 }) => {
   const modelScale = getModelScale(model);
   let includeScale = modelScale !== scale && !customWidth;
@@ -231,5 +241,7 @@ export const getBatchArguments = ({
     // TILE SIZE
     tileSize ? `-t` : "",
     tileSize ? tileSize.toString() : "",
+    // TTA MODE
+    ttaMode ? "-x" : "",
   ];
 };

@@ -67,6 +67,14 @@
       "TITLE": "ENREGISTRER LE DOSSIER DE SORTIE",
       "DESCRIPTION": "Si activé, le dossier de sortie sera mémorisé entre les sessions."
     },
+    "AUTO_UPDATE": {
+      "TITLE": "MISE À JOUR AUTOMATIQUE UPSCAYL",
+      "DESCRIPTION": "Si activé, l'application vérifiera les nouvelles mises à jour et vous en informera."
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "AIDER À AMÉLIORER UPSCAYL",
+      "DESCRIPTION": "Si activé, Upscayl collectera des données d'utilisation anonymes pour améliorer l'interface et les fonctionnalités de l'application."
+    },
     "THEME": {
       "TITLE": "THÈME UPSCAYL"
     },
@@ -85,6 +93,13 @@
       "TITLE": "Vous avez des problèmes ?",
       "DOCS_BUTTON_TITLE": "🙏 OBTENIR DE L'AIDE",
       "EMAIL_BUTTON_TITLE": "📧 EMAIL AU DÉVELOPPEUR"
+    },
+    "TTA_MODE": {
+      "TITLE": "Mode TTA",
+      "DESCRIPTION": "Activez l'augmentation du temps de test pour de meilleurs résultats, comme la suppression des artefacts, MAIS cela augmentera le temps de traitement par 8x !"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "Informations système"
     }
   },
   "APP": {
@@ -100,14 +115,36 @@
     },
     "MODEL_SELECTION": {
       "TITLE": "Étape 2",
-      "DESCRIPTION": "Sélectionner un modèle",
+      "DESCRIPTION": "Sélectionner le modèle AI",
+      "IMPORTED_CUSTOM_MODELS": "Modèles personnalisés importés",
+      "BEFORE": "Avant",
+      "AFTER": "Après",
+      "ZOOM": "Zoom",
       "MODELS": {
-        "upscayl-standard-4x": "Photo Générale (Real-ESRGAN)",
-        "x4fast": "Photo Générale (Fast Real-ESRGAN)",
-        "remacri": "Photo Générale (Remacri)",
-        "ultramix": "Photo Générale (Ultramix Balanced)",
-        "ultrasharp": "Photo Générale (Ultrasharp)",
-        "anime": "Art Numérique"
+        "upscayl-standard-4x": {
+          "NAME": "Upscayl Standard",
+          "DESCRIPTION": "Convient à la plupart des images."
+        },
+        "upscayl-lite-4x": {
+          "NAME": "Upscayl Lite",
+          "DESCRIPTION": "Convient à la plupart des images. Suréchantillonnage rapide avec une perte de qualité minimale."
+        },
+        "remacri-4x": {
+          "NAME": "Remacri (Non-Commercial)",
+          "DESCRIPTION": "Pour les images naturelles. Ajoute de la netteté et des détails. Pas d'utilisation commerciale."
+        },
+        "ultramix-balanced-4x": {
+          "NAME": "Ultramix (Non-Commercial)",
+          "DESCRIPTION": "Pour les images naturelles avec un équilibre de netteté et de détails."
+        },
+        "ultrasharp-4x": {
+          "NAME": "Ultrasharp (Non-Commercial)",
+          "DESCRIPTION": "Pour les images naturelles avec un accent sur la netteté."
+        },
+        "digital-art-4x": {
+          "NAME": "Art numérique",
+          "DESCRIPTION": "Pour l'art numérique et les illustrations."
+        }
       }
     },
     "DOUBLE_UPSCAYL": {
@@ -130,12 +167,18 @@
       "START_BUTTON_TITLE": "Suréchantillonner 🚀",
       "IN_PROGRESS_BUTTON_TITLE": "Suréchantillonnage ⏳"
     },
-    "IMAGE_OPTIONS": {
+    "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "Réinitialiser l'image",
       "LENS_VIEW_TITLE": "Vue de la lentille",
       "SLIDER_VIEW_TITLE": "Vue du curseur",
       "ZOOM_AMOUNT_TITLE": "Niveau de zoom",
-      "LENS_SIZE_TITLE": "Taille de la lentille"
+      "TOTAL_UPSCAYLS": "Total des suréchantillonnages",
+      "TOTAL_BATCH_UPSCAYLS": "Total des suréchantillonnages par lot",
+      "TOTAL_IMAGE_UPSCAYLS": "Total des suréchantillonnages d'images",
+      "TOTAL_DOUBLE_UPSCAYLS": "Total des doubles suréchantillonnages",
+      "AVERAGE_UPSCAYL_TIME": "Temps moyen de suréchantillonnage",
+      "LAST_UPSCAYL_DURATION": "Durée du dernier suréchantillonnage",
+      "LAST_USED_AT": "Dernière utilisation"
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Suréchantillonnage par lot en cours :",
@@ -148,7 +191,7 @@
       "SELECT_IMAGE": "Sélectionnez une image à suréchantillonner",
       "SELECT_FOLDER_DESCRIPTION": "Assurez-vous que le dossier ne contient rien d'autre que des images PNG, JPG, JPEG et WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Sélectionnez ou glissez-déposez une image PNG, JPG, JPEG ou WEBP.",
-      "PASTE_IMAGE_DESCRIPTION": "Appuyez sur Ctrl + V ou Cmd + V pour coller l'image depuis le presse-papiers"
+      "PASTE_IMAGE_DESCRIPTION": "Appuyez sur Ctrl+V ou ⌘+V pour coller l'image depuis le presse-papiers"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "Traitement de l'image...",
@@ -219,5 +262,27 @@
     "INCORRECT_FIELDS_ALERT": "Veuillez remplir correctement tous les champs.",
     "JOIN_WAITLIST": "Rejoindre la liste d'attente",
     "DONT_SHOW_AGAIN": "NE PLUS AFFICHER"
+  },
+  "ONBOARDING_DIALOG": {
+    "NEXT_BUTTON_TITLE": "Suivant",
+    "BACK_BUTTON_TITLE": "Retour",
+    "GET_STARTED_BUTTON_TITLE": "Commencer",
+    "SETTINGS_NOTE": "Vous pouvez toujours modifier ces paramètres plus tard.",
+    "STEP_1": {
+      "TITLE": "Bienvenue sur Upscayl 🎉",
+      "DESCRIPTION": "Commençons par quelques étapes rapides."
+    },
+    "STEP_2": {
+      "TITLE": "Choisissez vos préférences 🎨",
+      "DESCRIPTION": "Configurez vos paramètres initiaux."
+    },
+    "STEP_3": {
+      "TITLE": "Comment utiliser Upscayl ? 🚀",
+      "DESCRIPTION": "Regardez cette courte vidéo pour découvrir les nouvelles fonctionnalités."
+    },
+    "STEP_4": {
+      "TITLE": "Vous êtes prêt ! 🎉",
+      "DESCRIPTION": "Vous êtes prêt à commencer à suréchantillonner des images avec Upscayl !"
+    }
   }
 }

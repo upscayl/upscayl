@@ -67,6 +67,14 @@
       "TITLE": "SAVE OUTPUT FOLDER",
       "DESCRIPTION": "If enabled, the output folder will be remembered between sessions."
     },
+    "AUTO_UPDATE": {
+      "TITLE": "AUTO UPDATE UPSCAYL",
+      "DESCRIPTION": "If enabled, the application will check for new updates and notify you."
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "HELP IMPROVE UPSCAYL",
+      "DESCRIPTION": "If enabled, Upscayl will collect anonymous usage data to improve the application interface and features."
+    },
     "THEME": {
       "TITLE": "UPSCAYL THEME"
     },
@@ -85,6 +93,13 @@
       "TITLE": "Having issues?",
       "DOCS_BUTTON_TITLE": "🙏 GET HELP",
       "EMAIL_BUTTON_TITLE": "📧 EMAIL DEVELOPER"
+    },
+    "TTA_MODE": {
+      "TITLE": "TTA Mode",
+      "DESCRIPTION": "Enable Test Time Augmentation for better results, such as removing artifacts BUT this will increase the processing time by 8x!"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "System Info"
     }
   },
   "APP": {
@@ -101,13 +116,35 @@
     "MODEL_SELECTION": {
       "TITLE": "Step 2",
       "DESCRIPTION": "Select AI Model",
+      "IMPORTED_CUSTOM_MODELS": "Imported Custom Models",
+      "BEFORE": "Before",
+      "AFTER": "After",
+      "ZOOM": "Zoom",
       "MODELS": {
-        "upscayl-standard-4x": "General Photo (Real-ESRGAN)",
-        "x4fast": "General Photo (Fast Real-ESRGAN)",
-        "remacri": "General Photo (Remacri)",
-        "ultramix": "General Photo (Ultramix Balanced)",
-        "ultrasharp": "General Photo (Ultrasharp)",
-        "anime": "Digital Art"
+        "upscayl-standard-4x": {
+          "NAME": "Upscayl Standard",
+          "DESCRIPTION": "Suitable for most images."
+        },
+        "upscayl-lite-4x": {
+          "NAME": "Upscayl Lite",
+          "DESCRIPTION": "Suitable for most images. High-speed upscaling with minimal quality loss."
+        },
+        "remacri-4x": {
+          "NAME": "Remacri (Non-Commercial)",
+          "DESCRIPTION": "For natural images. Added sharpness and detail. No commercial use."
+        },
+        "ultramix-balanced-4x": {
+          "NAME": "Ultramix (Non-Commercial)",
+          "DESCRIPTION": "For natural images with a balance of sharpness and detail."
+        },
+        "ultrasharp-4x": {
+          "NAME": "Ultrasharp (Non-Commercial)",
+          "DESCRIPTION": "For natural images with a focus on sharpness."
+        },
+        "digital-art-4x": {
+          "NAME": "Digital Art",
+          "DESCRIPTION": "For digital art and illustrations."
+        }
       }
     },
     "DOUBLE_UPSCAYL": {
@@ -130,12 +167,18 @@
       "START_BUTTON_TITLE": "Upscayl 🚀",
       "IN_PROGRESS_BUTTON_TITLE": "Upscayling ⏳"
     },
-    "IMAGE_OPTIONS": {
+    "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "Reset Image",
       "LENS_VIEW_TITLE": "Lens View",
       "SLIDER_VIEW_TITLE": "Slider View",
       "ZOOM_AMOUNT_TITLE": "Zoom Amount",
-      "LENS_SIZE_TITLE": "Lens Size"
+      "TOTAL_UPSCAYLS": "Total Upscayls",
+      "TOTAL_BATCH_UPSCAYLS": "Total Batch Upscayls",
+      "TOTAL_IMAGE_UPSCAYLS": "Total Image Upscayls",
+      "TOTAL_DOUBLE_UPSCAYLS": "Total Double Upscayls",
+      "AVERAGE_UPSCAYL_TIME": "Average Upscayl Time",
+      "LAST_UPSCAYL_DURATION": "Last Upscayl Duration",
+      "LAST_USED_AT": "Last Used At"
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Batch Upscayl In Progress:",
@@ -148,7 +191,7 @@
       "SELECT_IMAGE": "Select an Image",
       "SELECT_FOLDER_DESCRIPTION": "Make sure that the folder doesn't contain anything except PNG, JPG, JPEG & WEBP images.",
       "SELECT_IMAGES_DESCRIPTION": "Select or drag and drop a PNG, JPG, JPEG or WEBP image.",
-      "PASTE_IMAGE_DESCRIPTION": "Hit Ctrl + V or Cmd + V to Paste image from Clipboard"
+      "PASTE_IMAGE_DESCRIPTION": "Hit Ctrl+V or ⌘+V to Paste image from Clipboard"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "Processing the image...",
@@ -219,5 +262,27 @@
     "INCORRECT_FIELDS_ALERT": "Please fill in all the fields correctly.",
     "JOIN_WAITLIST": "Join the waitlist",
     "DONT_SHOW_AGAIN": "DON'T SHOW AGAIN"
+  },
+  "ONBOARDING_DIALOG": {
+    "NEXT_BUTTON_TITLE": "Next",
+    "BACK_BUTTON_TITLE": "Back",
+    "GET_STARTED_BUTTON_TITLE": "Get Started",
+    "SETTINGS_NOTE": "You can always change these settings later.",
+    "STEP_1": {
+      "TITLE": "Welcome to Upscayl 🎉",
+      "DESCRIPTION": "Let's get you started with a few quick steps."
+    },
+    "STEP_2": {
+      "TITLE": "Choose Your Preferences 🎨",
+      "DESCRIPTION": "Configure your initial settings."
+    },
+    "STEP_3": {
+      "TITLE": "How do I use Upscayl? 🚀",
+      "DESCRIPTION": "Watch this short video to learn about the new features."
+    },
+    "STEP_4": {
+      "TITLE": "You're All Set! 🎉",
+      "DESCRIPTION": "You're ready to start upscaling images with Upscayl!"
+    }
   }
 }

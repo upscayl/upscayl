@@ -1,0 +1,32 @@
+{
+  "productName": "Upscayl",
+  "appId": "org.upscayl.Upscayl",
+  "buildVersion": "25.06.01",
+  "asar": true,
+  "asarUnpack": ["**/node_modules/sharp/**/*", "**/node_modules/@img/**/*"],
+  "extraFiles": [
+    {
+      "from": "resources/${os}/bin",
+      "to": "resources/bin",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "resources/models",
+      "to": "resources/models",
+      "filter": ["**/*"]
+    }
+  ],
+  "mac": {
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false,
+    "mergeASARs": false,
+    "minimumSystemVersion": "12.0.0",
+    "electronLanguages": ["en"],
+    "x64ArchFiles": "*",
+    "type": "distribution",
+    "icon": "build/icon.icns",
+    "category": "public.app-category.photography",
+    "identity": null,
+    "target": ["dir"]
+  }
+}

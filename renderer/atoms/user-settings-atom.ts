@@ -58,6 +58,8 @@ export const turnOffNotificationsAtom = atomWithStorage(
   false,
 );
 
+export const ttaModeAtom = atomWithStorage("ttaMode", false);
+
 export const viewTypeAtom = atomWithStorage<"slider" | "lens">(
   "viewType",
   "slider",
@@ -76,3 +78,20 @@ export const tileSizeAtom = atomWithStorage<number | null>("tileSize", null);
 
 // CLIENT SIDE ONLY
 export const showSidebarAtom = atomWithStorage("showSidebar", true);
+
+export const autoUpdateAtom = atomWithStorage("autoUpdate", true);
+
+export const enableContributionAtom = atomWithStorage(
+  "enableContribution",
+  true,
+);
+
+export const userStatsAtom = atomWithStorage("userStats", {
+  totalUpscayls: 0,
+  doubleUpscayls: 0,
+  batchUpscayls: 0,
+  imageUpscayls: 0,
+  averageUpscaylTime: 0,
+  lastUpscaylDuration: 0,
+  lastUsedAt: 0,
+});

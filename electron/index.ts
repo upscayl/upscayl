@@ -20,10 +20,10 @@ import autoUpdate from "./commands/auto-update";
 import { FEATURE_FLAGS } from "../common/feature-flags";
 import settings from "electron-settings";
 import pasteImage from "./commands/paste-image";
+import path from "path";
 
 // INITIALIZATION
 log.initialize({ preload: true });
-logit("🚃 App Path: ", app.getAppPath());
 
 app.on("ready", async () => {
   await prepareNext("./renderer");
@@ -33,13 +33,15 @@ app.on("ready", async () => {
       const pathname = decodeURI(request.url.replace("file:///", ""));
       callback(pathname);
     });
+    protocol.registerFileProtocol("public", (request, callback) => {
+      const filePath = decodeURI(request.url.replace("public:///", ""));
+      const asarPath = path.join(app.getAppPath(), "renderer", "out", filePath);
+      callback(asarPath);
+    });
+    logit("🚃 App Path: ", app.getAppPath());
   });
 
   createMainWindow();
-
-  if (!electronIsDev) {
-    autoUpdater.checkForUpdates();
-  }
 
   log.info(
     "🆙 Upscayl version:",
@@ -96,6 +98,21 @@ ipcMain.on(ELECTRON_COMMANDS.FOLDER_UPSCAYL, batchUpscayl);
 ipcMain.on(ELECTRON_COMMANDS.DOUBLE_UPSCAYL, doubleUpscayl);
 
 ipcMain.on(ELECTRON_COMMANDS.PASTE_IMAGE, pasteImage);
+
+ipcMain.handle("get-gpu-info", async () => {
+  try {
+    return await app.getGPUInfo("complete");
+  } catch (error) {
+    console.error("Failed to get GPU info:", error);
+    return null;
+  }
+});
+
+ipcMain.handle("get-app-version", () => {
+  return `${app.getVersion()} ${
+    FEATURE_FLAGS.APP_STORE_BUILD ? "MAC-APP-STORE" : "FOSS"
+  }`;
+});
 
 if (!FEATURE_FLAGS.APP_STORE_BUILD) {
   autoUpdater.on("update-downloaded", autoUpdate);

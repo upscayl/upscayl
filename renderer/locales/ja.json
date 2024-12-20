@@ -67,6 +67,14 @@
       "TITLE": "出力フォルダを保存",
       "DESCRIPTION": "有効にすると、セッション間で出力フォルダが記憶されます。"
     },
+    "AUTO_UPDATE": {
+      "TITLE": "自動更新",
+      "DESCRIPTION": "有効にすると、アプリケーションは新しい更新をチェックし、通知します。"
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "UPSCAYLの改善に協力",
+      "DESCRIPTION": "有効にすると、Upscaylは匿名の使用データを収集して、アプリケーションのインターフェースと機能を改善します。"
+    },
     "THEME": {
       "TITLE": "UPSCAYLテーマ"
     },
@@ -85,6 +93,13 @@
       "TITLE": "問題がありますか？",
       "DOCS_BUTTON_TITLE": "🙏 サポートを受ける",
       "EMAIL_BUTTON_TITLE": "📧 開発者にメール"
+    },
+    "TTA_MODE": {
+      "TITLE": "TTAモード",
+      "DESCRIPTION": "テストタイムオーグメンテーションを有効にして、アーティファクトの除去など、より良い結果を得ることができますが、処理時間が8倍に増加します！"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "システム情報"
     }
   },
   "APP": {
@@ -100,14 +115,36 @@
     },
     "MODEL_SELECTION": {
       "TITLE": "ステップ 2",
-      "DESCRIPTION": "モデルを選択",
+      "DESCRIPTION": "AIモデルを選択",
+      "IMPORTED_CUSTOM_MODELS": "インポートされたカスタムモデル",
+      "BEFORE": "前",
+      "AFTER": "後",
+      "ZOOM": "ズーム",
       "MODELS": {
-        "upscayl-standard-4x": "一般写真 (Real-ESRGAN)",
-        "x4fast": "一般写真 (高速 Real-ESRGAN)",
-        "remacri": "一般写真 (Remacri)",
-        "ultramix": "一般写真 (Ultramix Balanced)",
-        "ultrasharp": "一般写真 (Ultrasharp)",
-        "anime": "デジタルアート"
+        "upscayl-standard-4x": {
+          "NAME": "Upscaylスタンダード",
+          "DESCRIPTION": "ほとんどの画像に適しています。"
+        },
+        "upscayl-lite-4x": {
+          "NAME": "Upscaylライト",
+          "DESCRIPTION": "ほとんどの画像に適しています。最小限の品質損失で高速アップスケーリング。"
+        },
+        "remacri-4x": {
+          "NAME": "Remacri（非商用）",
+          "DESCRIPTION": "自然な画像に適しています。シャープネスとディテールが追加されます。商用利用不可。"
+        },
+        "ultramix-balanced-4x": {
+          "NAME": "Ultramix（非商用）",
+          "DESCRIPTION": "シャープネスとディテールのバランスが取れた自然な画像に適しています。"
+        },
+        "ultrasharp-4x": {
+          "NAME": "Ultrasharp（非商用）",
+          "DESCRIPTION": "シャープネスに重点を置いた自然な画像に適しています。"
+        },
+        "digital-art-4x": {
+          "NAME": "デジタルアート",
+          "DESCRIPTION": "デジタルアートやイラストに適しています。"
+        }
       }
     },
     "DOUBLE_UPSCAYL": {
@@ -130,12 +167,18 @@
       "START_BUTTON_TITLE": "Upscayl 🚀",
       "IN_PROGRESS_BUTTON_TITLE": "Upscayl中 ⏳"
     },
-    "IMAGE_OPTIONS": {
+    "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "画像をリセット",
       "LENS_VIEW_TITLE": "レンズビュー",
       "SLIDER_VIEW_TITLE": "スライダービュー",
       "ZOOM_AMOUNT_TITLE": "ズーム量",
-      "LENS_SIZE_TITLE": "レンズサイズ"
+      "TOTAL_UPSCAYLS": "総アップスケール数",
+      "TOTAL_BATCH_UPSCAYLS": "総バッチアップスケール数",
+      "TOTAL_IMAGE_UPSCAYLS": "総画像アップスケール数",
+      "TOTAL_DOUBLE_UPSCAYLS": "総ダブルアップスケール数",
+      "AVERAGE_UPSCAYL_TIME": "平均アップスケール時間",
+      "LAST_UPSCAYL_DURATION": "最後のアップスケール時間",
+      "LAST_USED_AT": "最終使用日時"
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "バッチUpscayl進行中：",
@@ -148,7 +191,7 @@
       "SELECT_IMAGE": "Upscaylする画像を選択",
       "SELECT_FOLDER_DESCRIPTION": "フォルダにはPNG、JPG、JPEG、WEBPの画像以外のものが含まれていないことを確認してください。",
       "SELECT_IMAGES_DESCRIPTION": "PNG、JPG、JPEG、またはWEBP画像を選択するか、ドラッグアンドドロップしてください。",
-      "PASTE_IMAGE_DESCRIPTION": "Ctrl + V または Cmd + V を押してクリップボードから画像を貼り付けます"
+      "PASTE_IMAGE_DESCRIPTION": "Ctrl+V または ⌘+V を押してクリップボードから画像を貼り付けます"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "画像を処理中...",
@@ -219,5 +262,27 @@
     "INCORRECT_FIELDS_ALERT": "すべてのフィールドに正しく入力してください。",
     "JOIN_WAITLIST": "待機リストに参加",
     "DONT_SHOW_AGAIN": "再表示しない"
+  },
+  "ONBOARDING_DIALOG": {
+    "NEXT_BUTTON_TITLE": "次へ",
+    "BACK_BUTTON_TITLE": "戻る",
+    "GET_STARTED_BUTTON_TITLE": "始める",
+    "SETTINGS_NOTE": "これらの設定は後でいつでも変更できます。",
+    "STEP_1": {
+      "TITLE": "Upscaylへようこそ 🎉",
+      "DESCRIPTION": "いくつかの簡単なステップで始めましょう。"
+    },
+    "STEP_2": {
+      "TITLE": "設定を選択 🎨",
+      "DESCRIPTION": "初期設定を構成します。"
+    },
+    "STEP_3": {
+      "TITLE": "Upscaylの使い方 🚀",
+      "DESCRIPTION": "新機能について学ぶための短いビデオをご覧ください。"
+    },
+    "STEP_4": {
+      "TITLE": "準備完了！ 🎉",
+      "DESCRIPTION": "Upscaylで画像のアップスケールを始める準備ができました！"
+    }
   }
 }

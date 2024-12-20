@@ -1,7 +1,6 @@
 import { logAtom } from "../../atoms/log-atom";
 import log from "electron-log/renderer";
 import { useSetAtom } from "jotai";
-import React from "react";
 
 const useLogger = () => {
   const setLogData = useSetAtom(logAtom);

@@ -1,4 +1,4 @@
-import { SelectTheme } from "./select-theme";
+import SelectTheme from "./select-theme";
 import { SaveOutputFolderToggle } from "./save-output-folder-toggle";
 import { InputGpuId } from "./input-gpu-id";
 import { CustomModelsFolderSelect } from "./select-custom-models-folder";
@@ -6,12 +6,9 @@ import { LogArea } from "./log-area";
 import { SelectImageScale } from "./select-image-scale";
 import { SelectImageFormat } from "./select-image-format";
 import { DonateButton } from "./donate-button";
-import React, { useEffect, useState } from "react";
-import { themeChange } from "theme-change";
+import React, { useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { customModelsPathAtom, scaleAtom } from "@/atoms/user-settings-atom";
-import { customModelIdsAtom } from "@/atoms/models-list-atom";
-import useLogger from "@/components/hooks/use-logger";
 import { InputCompression } from "./input-compression";
 import OverwriteToggle from "./overwrite-toggle";
 import { UpscaylCloudModal } from "@/components/upscayl-cloud-modal";
@@ -24,6 +21,10 @@ import { InputTileSize } from "./input-tile-size";
 import LanguageSwitcher from "./language-switcher";
 import { translationAtom } from "@/atoms/translations-atom";
 import { ImageFormat } from "@/lib/valid-formats";
+import EnableContributionToggle from "./enable-contributions-toggle";
+import AutoUpdateToggle from "./auto-update-toggle";
+import TTAModeToggle from "./tta-mode-toggle";
+import SystemInfo from "./system-info";
 
 interface IProps {
   batchMode: boolean;
@@ -60,10 +61,6 @@ function SettingsTab({
   const [timeoutId, setTimeoutId] = useState(null);
   const t = useAtomValue(translationAtom);
 
-  useEffect(() => {
-    themeChange(false);
-  }, []);
-
   // HANDLERS
   const setExportType = (format: ImageFormat) => {
     setSaveImageAs(format);
@@ -85,6 +82,25 @@ function SettingsTab({
     setTimeout(() => {
       setIsCopied(false);
     }, 2000);
+  };
+
+  const sendToTermbin = async (logData: string[]) => {
+    try {
+      const response = await fetch("https://termbin.com:9999/", {
+        method: "POST",
+        body: logData.join("\n"),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const url = await response.text();
+      return url.trim();
+    } catch (error) {
+      console.error("Error sending to termbin:", error);
+      throw error;
+    }
   };
 
   const upscaylVersion = navigator?.userAgent?.match(
@@ -134,13 +150,17 @@ function SettingsTab({
           {t("SETTINGS.SUPPORT.DOCS_BUTTON_TITLE")}
         </a>
         {FEATURE_FLAGS.APP_STORE_BUILD && (
-          <a
+          <button
             className="btn btn-primary"
-            href={`mailto:upscayl@gmail.com?subject=Upscayl%20Issue%3A%20%3CIssue%20name%20here%3E&body=Device%20Name%3A%20%3CYOUR%20DEVICE%20MODEL%3E%0AOperating%20System%3A%20%3CYOUR%20OPERATING%20SYSTEM%20VERSION%3E%0AUpscayl%20Version%3A%20${upscaylVersion}%0A%0AHi%2C%20I'm%20having%20an%20issue%20with%20Upscayl.%20%3CDESCRIBE%20ISSUE%20HERE%3E`}
-            target="_blank"
+            onClick={async () => {
+              const systemInfo = await window.electron.getSystemInfo();
+              const appVersion = await window.electron.getAppVersion();
+              const mailToUrl = `mailto:support@upscayl.org?subject=Upscayl%20Issue%3A%20%3CWRITE%20HERE%3E&body=Hi%20Nayam!%0AI'm%20having%20an%20issue%20with%20Upscayl%20${appVersion}%0A%0A%3CPLEASE%20DESCRIBE%20ISSUE%20HERE%3E%0A%0A---%0ALOGS%3A%0A${logData.join("\n")}%0A%0ADEVICE%20DETAILS%3A%20${JSON.stringify(systemInfo)}`;
+              window.open(mailToUrl, "_blank");
+            }}
           >
             {t("SETTINGS.SUPPORT.EMAIL_BUTTON_TITLE")}
-          </a>
+          </button>
         )}
         {!FEATURE_FLAGS.APP_STORE_BUILD && <DonateButton />}
       </div>
@@ -177,6 +197,8 @@ function SettingsTab({
 
       <OverwriteToggle />
       <TurnOffNotificationsToggle />
+      <AutoUpdateToggle />
+      <EnableContributionToggle />
 
       {/* GPU ID INPUT */}
       <InputGpuId gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />
@@ -188,6 +210,8 @@ function SettingsTab({
         customModelsPath={customModelsPath}
         setCustomModelsPath={setCustomModelsPath}
       />
+
+      <TTAModeToggle />
 
       {/* RESET SETTINGS */}
       <ResetSettingsButton />
@@ -210,6 +234,8 @@ function SettingsTab({
           />
         </>
       )}
+
+      <SystemInfo />
     </div>
   );
 }

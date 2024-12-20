@@ -1,7 +1,7 @@
 {
   "name": "upscayl",
   "private": true,
-  "version": "2.15.0",
+  "version": "2.15.1-pre-release",
   "productName": "Upscayl",
   "author": {
     "name": "Nayam Amarshe",
@@ -39,7 +39,7 @@
     "clean": "rimraf dist renderer/.next renderer/out",
     "start": "tsc && electron .",
     "dev": "tsc && electron .",
-    "build": "tsc && next build renderer",
+    "build": "tsc && npm run validate-schema && next build renderer",
     "tsc": "tsc",
     "pack-app": "tsc && npm run build && electron-builder --dir",
     "dist": "tsc && npm run build && cross-env DEBUG=* electron-builder",
@@ -48,11 +48,12 @@
     "dist:deb": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l deb",
     "dist:rpm": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l rpm",
     "dist:zip": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l zip",
-    "dist:mac-zip": "tsc && npm run build && cross-env DEBUG=* electron-builder build -l zip",
+    "dist:mac-zip": "tsc && npm run build && electron-builder build -m --universal",
     "dist:dmg": "tsc && npm run build && electron-builder build -m dmg",
     "dist:msi": "tsc && npm run build && cross-env DEBUG=* electron-builder build -w nsis",
     "dist:pkg": "tsc && npm run build && cross-env DEBUG=* electron-builder build -m pkg",
     "dist:mac": "tsc && npm run build && electron-builder --mac --universal",
+    "dist:mac-dev": "tsc && npm run build && electron-builder --mac --arm64 -c mac-dev.json",
     "dist:mac-arm64": "tsc && npm run build && electron-builder --mac --arm64",
     "dist:mas": "npm run enable-store && tsc && npm run build && electron-builder --mac mas --universal -c mas.json && npm run disable-store",
     "dist:mas-dev": "npm run enable-store && tsc && npm run build && electron-builder --mac mas-dev --universal -c mas-dev.json && npm run disable-store",
@@ -66,7 +67,8 @@
     "publish-mac-arm-app": "tsc && npm run build && electron-builder --mac --arm64 --publish always",
     "dist:appstore": "CSC_KEY_PASSWORD=$PASSWORD CSC_LINK=$(openssl base64 -in $CERTIFICATE_PATH) npm run dist:mac-mas",
     "enable-store": "sed -i '' -e 's/APP_STORE_BUILD: false,/APP_STORE_BUILD: true,/' common/feature-flags.ts",
-    "disable-store": "sed -i '' -e 's/APP_STORE_BUILD: true,/APP_STORE_BUILD: false,/' common/feature-flags.ts"
+    "disable-store": "sed -i '' -e 's/APP_STORE_BUILD: true,/APP_STORE_BUILD: false,/' common/feature-flags.ts",
+    "validate-schema": "node scripts/validate-schema.js"
   },
   "build": {
     "productName": "Upscayl",
@@ -91,10 +93,6 @@
         "filter": [
           "**/*"
         ]
-      },
-      {
-        "from": "org.upscayl.Upscayl.desktop",
-        "to": "resources/org.upscayl.Upscayl.desktop"
       },
       {
         "from": "resources/icons/128x128.png",
@@ -137,6 +135,7 @@
       "entitlements": "resources/entitlements.mac.plist",
       "entitlementsInherit": "resources/entitlements.mac.plist",
       "provisioningProfile": "embedded.provisionprofile",
+      "type": null,
       "target": [
         {
           "target": "dmg",
@@ -208,6 +207,7 @@
     "@types/node": "^18.15.12",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "ajv": "^6.12.6",
     "autoprefixer": "^10.4.16",
     "cross-env": "^7.0.3",
     "daisyui": "^4.10.2",
@@ -242,6 +242,7 @@
     "gray-matter": "^4.0.3",
     "jotai": "^2.2.2",
     "lucide-react": "^0.366.0",
+    "posthog-js": "^1.200.1",
     "react-compare-slider": "^3.0.1",
     "react-markdown": "^9.0.1",
     "react-resizable-panels": "^2.0.16",

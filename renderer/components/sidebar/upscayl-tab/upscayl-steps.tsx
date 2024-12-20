@@ -16,7 +16,7 @@ import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { useToast } from "@/components/ui/use-toast";
 import { translationAtom } from "@/atoms/translations-atom";
 import { SelectImageScale } from "../settings-tab/select-image-scale";
-import SelectModel from "./select-model";
+import SelectModelDialog from "./select-model-dialog";
 import { ImageFormat } from "@/lib/valid-formats";
 
 interface IProps {
@@ -156,7 +156,7 @@ function UpscaylSteps({
           <p className="step-heading">{t("APP.MODEL_SELECTION.TITLE")}</p>
           <p className="mb-2 text-sm">{t("APP.MODEL_SELECTION.DESCRIPTION")}</p>
 
-          <SelectModel />
+          <SelectModelDialog />
         </div>
 
         {!batchMode && (
@@ -270,11 +270,6 @@ function UpscaylSteps({
             : t("APP.SCALE_SELECTION.START_BUTTON_TITLE")}
         </button>
       </div>
-
-      <Tooltip
-        className="z-[999] max-w-sm break-words !bg-secondary"
-        id="tooltip"
-      />
     </div>
   );
 }

@@ -1,9 +1,10 @@
 "use strict";
 
-import { platform, arch } from "os";
+import { ipcRenderer } from "electron";
+import os from "os";
 
 export const getPlatform = () => {
-  switch (platform()) {
+  switch (os.platform()) {
     case "aix":
     case "freebsd":
     case "linux":
@@ -19,7 +20,7 @@ export const getPlatform = () => {
 };
 
 export const getArch = () => {
-  switch (arch()) {
+  switch (os.arch()) {
     case "x64":
       return "x64";
     case "x32":
@@ -29,4 +30,34 @@ export const getArch = () => {
     case "arm64":
       return "arm64";
   }
+};
+
+export const getAppVersion = async () => {
+  let appVersion = process.env.npm_package_version;
+  try {
+    appVersion = await ipcRenderer.invoke("get-app-version");
+  } catch (error) {
+    console.error("Failed to get app version:", error);
+  }
+
+  return appVersion;
+};
+
+export const getDeviceSpecs = async () => {
+  let gpuInfo;
+  try {
+    gpuInfo = await ipcRenderer.invoke("get-gpu-info");
+  } catch (error) {
+    console.error("Failed to get GPU info:", error);
+    gpuInfo = null;
+  }
+
+  return {
+    platform: getPlatform(),
+    release: os.release(),
+    arch: getArch(),
+    model: os.cpus()[0].model.trim(),
+    cpuCount: os.cpus().length,
+    ...(gpuInfo && { gpu: gpuInfo.gpuDevice[0] }),
+  };
 };

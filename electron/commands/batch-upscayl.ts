@@ -22,6 +22,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   const tileSize = payload.tileSize;
   const compression = payload.compression;
+  const ttaMode = payload.ttaMode;
   const scale = payload.scale;
   const useCustomWidth = payload.useCustomWidth;
   const customWidth = useCustomWidth ? payload.customWidth : "";
@@ -58,6 +59,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       customWidth,
       compression,
       tileSize,
+      ttaMode,
     }),
     logit,
   );

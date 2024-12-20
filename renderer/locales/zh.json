@@ -67,6 +67,14 @@
       "TITLE": "保存输出文件夹",
       "DESCRIPTION": "启用后，输出文件夹将在会话之间被记住。"
     },
+    "AUTO_UPDATE": {
+      "TITLE": "自动更新阿普升图",
+      "DESCRIPTION": "启用后，应用程序将检查新更新并通知你。"
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "帮助改进阿普升图",
+      "DESCRIPTION": "启用后，阿普升图将收集匿名使用数据以改进应用程序界面和功能。"
+    },
     "THEME": {
       "TITLE": "阿普升图主题"
     },
@@ -85,6 +93,13 @@
       "TITLE": "有问题吗？",
       "DOCS_BUTTON_TITLE": "🙏 获取帮助",
       "EMAIL_BUTTON_TITLE": "📧 联系开发者"
+    },
+    "TTA_MODE": {
+      "TITLE": "TTA 模式",
+      "DESCRIPTION": "启用测试时间增强以获得更好的结果，例如去除伪影，但这会使处理时间增加 8 倍！"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "系统信息"
     }
   },
   "APP": {
@@ -100,14 +115,36 @@
     },
     "MODEL_SELECTION": {
       "TITLE": "第二步",
-      "DESCRIPTION": "选择模型",
+      "DESCRIPTION": "选择 AI 模型",
+      "IMPORTED_CUSTOM_MODELS": "导入的自定义模型",
+      "BEFORE": "之前",
+      "AFTER": "之后",
+      "ZOOM": "缩放",
       "MODELS": {
-        "upscayl-standard-4x": "一般照片 (Real-ESRGAN)",
-        "x4fast": "一般照片 (快速办 Real-ESRGAN)",
-        "remacri": "一般照片 (Remacri)",
-        "ultramix": "一般照片 (Ultramix Balanced)",
-        "ultrasharp": "一般照片 (Ultrasharp)",
-        "anime": "数字艺术"
+        "upscayl-standard-4x": {
+          "NAME": "Upscayl 标准",
+          "DESCRIPTION": "适用于大多数图像。"
+        },
+        "upscayl-lite-4x": {
+          "NAME": "Upscayl 轻量版",
+          "DESCRIPTION": "适用于大多数图像。高速升图，质量损失最小。"
+        },
+        "remacri-4x": {
+          "NAME": "Remacri（非商业用途）",
+          "DESCRIPTION": "适用于自然图像。增加了锐度和细节。不用于商业用途。"
+        },
+        "ultramix-balanced-4x": {
+          "NAME": "Ultramix（非商业用途）",
+          "DESCRIPTION": "适用于自然图像，平衡了锐度和细节。"
+        },
+        "ultrasharp-4x": {
+          "NAME": "Ultrasharp（非商业用途）",
+          "DESCRIPTION": "适用于自然图像，注重锐度。"
+        },
+        "digital-art-4x": {
+          "NAME": "数字艺术",
+          "DESCRIPTION": "适用于数字艺术和插图。"
+        }
       }
     },
     "DOUBLE_UPSCAYL": {
@@ -130,12 +167,18 @@
       "START_BUTTON_TITLE": "升图！🚀",
       "IN_PROGRESS_BUTTON_TITLE": "正在升图 ⏳"
     },
-    "IMAGE_OPTIONS": {
+    "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "重置图片",
       "LENS_VIEW_TITLE": "透镜视图",
       "SLIDER_VIEW_TITLE": "滑块视图",
       "ZOOM_AMOUNT_TITLE": "缩放比例",
-      "LENS_SIZE_TITLE": "透镜尺寸"
+      "TOTAL_UPSCAYLS": "总升图次数",
+      "TOTAL_BATCH_UPSCAYLS": "总批量升图次数",
+      "TOTAL_IMAGE_UPSCAYLS": "总图片升图次数",
+      "TOTAL_DOUBLE_UPSCAYLS": "总双重升图次数",
+      "AVERAGE_UPSCAYL_TIME": "平均升图时间",
+      "LAST_UPSCAYL_DURATION": "上次升图时长",
+      "LAST_USED_AT": "上次使用时间"
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量阿普升图中",
@@ -148,7 +191,7 @@
       "SELECT_IMAGE": "选择要增强的图片",
       "SELECT_FOLDER_DESCRIPTION": "文件夹中只支持 PNG、JPG、JPEG 和 WEBP 图片。",
       "SELECT_IMAGES_DESCRIPTION": "选择或拖放 PNG、JPG、JPEG 或 WEBP 图片。",
-      "PASTE_IMAGE_DESCRIPTION": "按 Ctrl + V 或 Cmd + V 来粘贴图像"
+      "PASTE_IMAGE_DESCRIPTION": "按 Ctrl+V 或 ⌘+V 来粘贴图像"
     },
     "PROGRESS": {
       "PROCESSING_TITLE": "正在处理图片...",
@@ -219,5 +262,27 @@
     "INCORRECT_FIELDS_ALERT": "请适当填写。",
     "JOIN_WAITLIST": "加入候补名单",
     "DONT_SHOW_AGAIN": "不再显示"
+  },
+  "ONBOARDING_DIALOG": {
+    "NEXT_BUTTON_TITLE": "下一步",
+    "BACK_BUTTON_TITLE": "上一步",
+    "GET_STARTED_BUTTON_TITLE": "开始使用",
+    "SETTINGS_NOTE": "你可以随时更改这些设置。",
+    "STEP_1": {
+      "TITLE": "欢迎使用阿普升图 🎉",
+      "DESCRIPTION": "让我们通过几个快速步骤来开始吧。"
+    },
+    "STEP_2": {
+      "TITLE": "选择你的偏好 🎨",
+      "DESCRIPTION": "配置你的初始设置。"
+    },
+    "STEP_3": {
+      "TITLE": "如何使用阿普升图？ 🚀",
+      "DESCRIPTION": "观看这个简短的视频，了解新功能。"
+    },
+    "STEP_4": {
+      "TITLE": "一切准备就绪！ 🎉",
+      "DESCRIPTION": "你已经准备好使用阿普升图来增强图片了！"
+    }
   }
 }

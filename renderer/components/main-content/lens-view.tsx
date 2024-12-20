@@ -106,6 +106,7 @@ const LensViewer = ({
         className="relative h-full w-full cursor-crosshair"
         ref={originalImageContainerRef}
       >
+        ORIGINAL IMAGE
         <img
           src={originalImage}
           alt="Original"
@@ -113,12 +114,15 @@ const LensViewer = ({
           onMouseMove={handleMouseMove}
           ref={originalImageRef}
         />
+        {/* Lens */}
         <div
-          className="pointer-events-none absolute hidden h-10 w-10 cursor-cell border border-primary bg-black/10 group-hover:block"
+          className="pointer-events-none absolute hidden cursor-cell border border-primary bg-black/10 group-hover:block"
           style={{
             left: `${hoverPosition.relativeMouseX}px`,
             top: `${hoverPosition.mouseY}px`,
             transform: "translate(-50%, -50%)",
+            height: `48px`,
+            width: `48px`,
           }}
         />
       </div>
@@ -132,6 +136,7 @@ const LensViewer = ({
           transform: "translate(-50%, 0)",
         }}
       >
+        {/* ORIGINAL IMAGE */}
         <div
           className="relative h-48 w-48 border border-gray-300 bg-cover bg-no-repeat"
           style={{
@@ -144,6 +149,7 @@ const LensViewer = ({
             Original
           </span>
         </div>
+        {/* UPSCALED IMAGE */}
         <div
           className="relative h-48 w-48 border border-gray-300 bg-cover bg-no-repeat"
           style={{
