@@ -97,6 +97,9 @@
     "TTA_MODE": {
       "TITLE": "Mode TTA",
       "DESCRIPTION": "Activez l'augmentation du temps de test pour de meilleurs résultats, comme la suppression des artefacts, MAIS cela augmentera le temps de traitement par 8x !"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "Informations système"
     }
   },
   "APP": {
@@ -169,7 +172,6 @@
       "LENS_VIEW_TITLE": "Vue de la lentille",
       "SLIDER_VIEW_TITLE": "Vue du curseur",
       "ZOOM_AMOUNT_TITLE": "Niveau de zoom",
-      "LENS_SIZE_TITLE": "Taille de la lentille",
       "TOTAL_UPSCAYLS": "Total des suréchantillonnages",
       "TOTAL_BATCH_UPSCAYLS": "Total des suréchantillonnages par lot",
       "TOTAL_IMAGE_UPSCAYLS": "Total des suréchantillonnages d'images",

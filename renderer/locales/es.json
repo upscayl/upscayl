@@ -97,6 +97,9 @@
     "TTA_MODE": {
       "TITLE": "Modo TTA",
       "DESCRIPTION": "Habilita la Aumentación en Tiempo de Prueba para obtener mejores resultados, como eliminar artefactos, ¡PERO esto aumentará el tiempo de procesamiento en 8x!"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "Información del sistema"
     }
   },
   "APP": {
@@ -170,7 +173,6 @@
       "LENS_VIEW_TITLE": "Vista de lente",
       "SLIDER_VIEW_TITLE": "Vista de deslizador",
       "ZOOM_AMOUNT_TITLE": "Cantidad de zoom",
-      "LENS_SIZE_TITLE": "Tamaño de lente",
       "TOTAL_UPSCAYLS": "Total de aumentos",
       "TOTAL_BATCH_UPSCAYLS": "Total de aumentos por lotes",
       "TOTAL_IMAGE_UPSCAYLS": "Total de imágenes aumentadas",

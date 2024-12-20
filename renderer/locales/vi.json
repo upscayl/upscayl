@@ -97,6 +97,9 @@
     "TTA_MODE": {
       "TITLE": "Chế độ TTA",
       "DESCRIPTION": "Kích hoạt Tăng cường Thời gian Kiểm tra để có kết quả tốt hơn, chẳng hạn như loại bỏ các hiện tượng, NHƯNG điều này sẽ làm tăng thời gian xử lý lên gấp 8 lần!"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "Thông tin Hệ thống"
     }
   },
   "APP": {
@@ -169,7 +172,6 @@
       "LENS_VIEW_TITLE": "Chế độ Ống kính",
       "SLIDER_VIEW_TITLE": "Chế độ Trượt",
       "ZOOM_AMOUNT_TITLE": "Số lượng Phóng to",
-      "LENS_SIZE_TITLE": "Kích thước Ống kính",
       "TOTAL_UPSCAYLS": "Tổng số Upscayls",
       "TOTAL_BATCH_UPSCAYLS": "Tổng số Batch Upscayls",
       "TOTAL_IMAGE_UPSCAYLS": "Tổng số Upscayls Hình Ảnh",

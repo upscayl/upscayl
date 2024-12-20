@@ -97,6 +97,9 @@
     "TTA_MODE": {
       "TITLE": "TTA 模式",
       "DESCRIPTION": "启用测试时间增强以获得更好的结果，例如去除伪影，但这会使处理时间增加 8 倍！"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "系统信息"
     }
   },
   "APP": {
@@ -169,7 +172,6 @@
       "LENS_VIEW_TITLE": "透镜视图",
       "SLIDER_VIEW_TITLE": "滑块视图",
       "ZOOM_AMOUNT_TITLE": "缩放比例",
-      "LENS_SIZE_TITLE": "透镜尺寸",
       "TOTAL_UPSCAYLS": "总升图次数",
       "TOTAL_BATCH_UPSCAYLS": "总批量升图次数",
       "TOTAL_IMAGE_UPSCAYLS": "总图片升图次数",

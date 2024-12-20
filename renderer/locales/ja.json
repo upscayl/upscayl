@@ -97,6 +97,9 @@
     "TTA_MODE": {
       "TITLE": "TTAモード",
       "DESCRIPTION": "テストタイムオーグメンテーションを有効にして、アーティファクトの除去など、より良い結果を得ることができますが、処理時間が8倍に増加します！"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "システム情報"
     }
   },
   "APP": {
@@ -169,7 +172,6 @@
       "LENS_VIEW_TITLE": "レンズビュー",
       "SLIDER_VIEW_TITLE": "スライダービュー",
       "ZOOM_AMOUNT_TITLE": "ズーム量",
-      "LENS_SIZE_TITLE": "レンズサイズ",
       "TOTAL_UPSCAYLS": "総アップスケール数",
       "TOTAL_BATCH_UPSCAYLS": "総バッチアップスケール数",
       "TOTAL_IMAGE_UPSCAYLS": "総画像アップスケール数",
