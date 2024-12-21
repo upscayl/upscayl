@@ -6,9 +6,9 @@ const logit = (...args: any) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
   log.log(...args);
-  if (process.env.NODE_ENV === "development") {
-    return;
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   return;
+  // }
   mainWindow.webContents.send(ELECTRON_COMMANDS.LOG, args.join(" "));
 };
 

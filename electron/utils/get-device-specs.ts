@@ -52,7 +52,7 @@ export const getDeviceSpecs = async () => {
     gpuInfo = null;
   }
 
-  return {
+  const deviceSpecs = {
     platform: getPlatform(),
     release: os.release(),
     arch: getArch(),
@@ -60,4 +60,6 @@ export const getDeviceSpecs = async () => {
     cpuCount: os.cpus().length,
     ...(gpuInfo && { gpu: gpuInfo.gpuDevice[0] }),
   };
+
+  return deviceSpecs;
 };

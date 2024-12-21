@@ -48,9 +48,11 @@ const SelectModelDialog = () => {
         <DialogTrigger asChild>
           <button className="btn btn-primary justify-start border-border">
             <SwatchBookIcon className="mr-2 h-5 w-5" />
-            {t(
-              `APP.MODEL_SELECTION.MODELS.${MODELS[selectedModelId].id || selectedModelId}.NAME` as any,
-            ) || selectedModelId}
+            {selectedModelId in MODELS
+              ? t(
+                  `APP.MODEL_SELECTION.MODELS.${MODELS[selectedModelId]?.id}.NAME` as any,
+                )
+              : selectedModelId}
           </button>
         </DialogTrigger>
         <DialogContent className="z-50 sm:max-w-lg">

@@ -22,11 +22,13 @@ import { FEATURE_FLAGS } from "@common/feature-flags";
 import { ImageFormat, VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import { initCustomModels } from "@/components/hooks/use-custom-models";
 import { OnboardingDialog } from "@/components/main-content/onboarding-dialog";
+import useSystemInfo from "@/components/hooks/use-system-info";
 
 const Home = () => {
   const t = useAtomValue(translationAtom);
   const logit = useLogger();
   const { toast } = useToast();
+  const { systemInfo } = useSystemInfo();
 
   initCustomModels();
 
@@ -289,6 +291,11 @@ const Home = () => {
   useEffect(() => {
     setIsLoading(false);
   }, []);
+
+  // SYSTEM INFO
+  useEffect(() => {
+    if (systemInfo) logit("💻 System Info:", JSON.stringify(systemInfo));
+  }, [systemInfo]);
 
   // HANDLERS
   const resetImagePaths = () => {
