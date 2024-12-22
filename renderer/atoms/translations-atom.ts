@@ -6,11 +6,12 @@ import zh from "../locales/zh.json";
 import es from "../locales/es.json";
 import fr from "../locales/fr.json";
 import vi from "../locales/vi.json";
+import pt_PT from "../locales/pt_PT.json";
 import { atomWithStorage } from "jotai/utils";
 
 // Define the shape of the translations
 type Translations = typeof en;
-type Locales = "en" | "ru" | "ja" | "zh" | "es" | "fr" | "vi";
+type Locales = "en" | "ru" | "ja" | "zh" | "es" | "fr" | "vi" | "pt_PT";
 
 const translations: Record<Locales, Translations> = {
   en,
@@ -20,6 +21,7 @@ const translations: Record<Locales, Translations> = {
   es,
   fr,
   vi,
+  pt_PT,
 };
 
 // Create a type for nested key paths
