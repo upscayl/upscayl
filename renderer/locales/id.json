@@ -69,7 +69,7 @@
     },
     "AUTO_UPDATE": {
       "TITLE": "PEMBARUAN UPSCAYL OTOMATIS",
-      "DESCRIPTION": "Jika diaktifkan, aplikasi akan melakukan pengecekan untuk perbaruan dan memberi tahun Anda."
+      "DESCRIPTION": "Jika diaktifkan, aplikasi akan melakukan pengecekan untuk perbaruan dan memberi tahu Anda."
     },
     "ENABLE_CONTRIBUTION": {
       "TITLE": "BANTU MEMBUAT UPSCAYL LEBIH BAIK",
