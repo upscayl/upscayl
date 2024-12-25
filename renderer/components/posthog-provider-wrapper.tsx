@@ -27,15 +27,11 @@ const PostHogProviderWrapper = ({
         posthog.register({
           ...systemInfo,
           appVersion,
-          $ip: "0.0.0.0",
-          $geoip_disable: true,
         });
         // Capture initial session start
         posthog.capture("app_launched", {
           ...systemInfo,
           appVersion,
-          $ip: "0.0.0.0",
-          $geoip_disable: true,
         });
       },
     });
