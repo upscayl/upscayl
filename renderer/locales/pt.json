@@ -97,6 +97,9 @@
     "TTA_MODE": {
       "TITLE": "Modo ATT",
       "DESCRIPTION": "Ative o Aumento do tempo de teste para obter melhores resultados, como a remoção de artefactos. Note que isto aumentará o tempo de processamento em 8x!"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "Informações do Sistema"
     }
   },
   "APP": {
@@ -141,6 +144,10 @@
         "digital-art-4x": {
           "NAME": "Arte digital",
           "DESCRIPTION": "Para arte digital e ilustrações."
+        },
+        "high-fidelity-4x": {
+          "NAME": "Alta Fidelidade",
+          "DESCRIPTION": "Para todos os tipos de imagens com foco em detalhes realistas e texturas suaves."
         }
       }
     },

@@ -10,7 +10,7 @@ const locales = {
   fr: "Français",
   vi: "Tiếng Việt",
   id: "Bahasa Indonesia",
-  pt_PT: "Português (Portugal)"
+  pt: "Português (Portugal)",
 };
 
 const LanguageSwitcher = () => {
