@@ -57,7 +57,11 @@ const createMainWindow = () => {
     mainWindow.webContents
       .executeJavaScript('localStorage.getItem("autoUpdate");', true)
       .then((lastSaved: string | null) => {
-        if (lastSaved !== null && lastSaved === "true") {
+        if (
+          lastSaved === null ||
+          lastSaved === undefined ||
+          lastSaved === "true"
+        ) {
           autoUpdater.checkForUpdates();
         } else {
           console.log("🚀 Auto Update is disabled");
