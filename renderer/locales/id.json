@@ -87,12 +87,12 @@
     },
     "TURN_OFF_NOTIFICATIONS": {
       "TITLE": "MATIKAN NOTIFIKASI",
-      "DESCRIPTION": "Jika diaktifkan, Upscayl tidak akan mengirim pemberitahuan sistem apapun tentang keberhasilan atau kegagalan."
+      "DESCRIPTION": "Jika diaktifkan, Upscayl tidak akan mengirim pemberitahuan sistem apapun ketika berhasil ataupun gagal."
     },
     "SUPPORT": {
       "TITLE": "Mengalami masalah?",
       "DOCS_BUTTON_TITLE": "🙏 MINTA BANTUAN",
-      "EMAIL_BUTTON_TITLE": "📧 EMAIL DEVELOPER"
+      "EMAIL_BUTTON_TITLE": "📧 EMAIL PENGEMBANG"
     },
     "TTA_MODE": {
       "TITLE": "Mode TTA",
@@ -105,7 +105,7 @@
   "APP": {
     "TITLE": "Upscayl",
     "BATCH_MODE": {
-      "TITLE": "Batch Upscayl",
+      "TITLE": "Upscayl Massal",
       "DESCRIPTION": "Ini akan memungkinkan Anda untuk Upscayl semua file dalam folder sekaligus"
     },
     "FILE_SELECTION": {
@@ -131,7 +131,7 @@
         },
         "remacri-4x": {
           "NAME": "Remacri (Non-Komersial)",
-          "DESCRIPTION": "Untuk gambar alami. "
+          "DESCRIPTION": "Untuk gambar natural. "
         },
         "ultramix-balanced-4x": {
           "NAME": "Ultramix (Non-Komersial)",
@@ -173,7 +173,7 @@
       "SLIDER_VIEW_TITLE": "Tampilan Slider",
       "ZOOM_AMOUNT_TITLE": "Jumlah Pembesaran",
       "TOTAL_UPSCAYLS": "Total Upscayl",
-      "TOTAL_BATCH_UPSCAYLS": "Total Batch Upscayl",
+      "TOTAL_BATCH_UPSCAYLS": "Total Upscayl Massal",
       "TOTAL_IMAGE_UPSCAYLS": "Total Upscayl Gambar",
       "TOTAL_DOUBLE_UPSCAYLS": "Total Double Upscayl",
       "AVERAGE_UPSCAYL_TIME": "Waktu Rata-rata Upscayl",
@@ -181,9 +181,9 @@
       "LAST_USED_AT": "Terakhir Digunakan Pada"
     },
     "PROGRESS_BAR": {
-      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Batch Upscayl Sedang Berlangsung:",
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Upscayl Massal Sedang Berlangsung:",
       "IN_PROGRESS_TITLE": "Melakukan sihir Upscayl...",
-      "STOP_BUTTON_TITLE": "STOP"
+      "STOP_BUTTON_TITLE": "HENTIKAN"
     },
     "RESET_BUTTON_TITLE": "Reset",
     "RIGHT_PANE_INFO": {
@@ -214,27 +214,27 @@
   },
   "ERRORS": {
     "GPU_ERROR": {
-      "TITLE": "Kesalahan GPU",
+      "TITLE": "Galat GPU",
       "DESCRIPTION": "Mengalami masalah dengan GPU. Silakan baca dokumen untuk pemecahan masalah! ({data})"
     },
     "COPY_ERROR": {
-      "TITLE": "Kesalahan Salin",
+      "TITLE": "Galat Salin",
       "DESCRIPTION": ""
     },
     "READ_WRITE_ERROR": {
-      "TITLE": "Kesalahan Baca/Tulis",
+      "TITLE": "Galat Baca/Tulis",
       "DESCRIPTION": "Pastikan lokasi benar dan Anda memiliki izin baca/tulis yang tepat \n({data})"
     },
     "TILE_SIZE_ERROR": {
-      "TITLE": "Kesalahan",
+      "TITLE": "Galat",
       "DESCRIPTION": "Ukuran tile salah. Silakan ubah ukuran tile di pengaturan atau setel ke 0 ({data})"
     },
     "EXCEPTION_ERROR": {
-      "TITLE": "Kesalahan Sistem",
-      "DESCRIPTION": "Upscayl mengalami kesalahan. Mungkin, binari upscayl gagal mengeksekusi perintah dengan benar. Coba periksa log untuk melihat apakah Anda mendapatkan informasi. Anda dapat memposting masalah di repositori GitHub Upscayl untuk bantuan lebih lanjut."
+      "TITLE": "Galat Sistem",
+      "DESCRIPTION": "Upscayl mengalami galat. Mungkin, binari upscayl gagal mengeksekusi perintah dengan benar. Coba periksa log untuk melihat apakah Anda mendapatkan informasi. Anda dapat memposting masalah di repositori GitHub Upscayl untuk bantuan lebih lanjut."
     },
     "GENERIC_ERROR": {
-      "TITLE": "Kesalahan"
+      "TITLE": "Galat"
     },
     "NO_OUTPUT_FOLDER_ERROR": {
       "TITLE": "Setel Folder Output",
@@ -255,7 +255,7 @@
   },
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Segera hadir!",
-    "CATCHY_PHRASE_1": "Tidak ada lagi kesalahan, masalah perangkat keras, kompromi kualitas atau waktu pemuatan yang lama!",
+    "CATCHY_PHRASE_1": "Tidak ada lagi galat, masalah perangkat keras, kompromi kualitas atau waktu pemuatan yang lama!",
     "CATCHY_PHRASE_2": "🌐 Upscayl di mana saja, kapan saja, di perangkat apapun\n☁️ Tidak perlu Kartu Grafis atau perangkat keras\n👩 Peningkatan Wajah\n🦋 10+ model untuk dipilih\n🏎 5x lebih cepat daripada Upscayl Desktop\n🎞 Peningkatan Video\n💰 Penggunaan Komersial\n😴 Upscayl saat Anda tidur",
     "ALREADY_REGISTERED_ALERT": "Terima kasih {name}! Sepertinya email Anda sudah terdaftar :D Jika tidak, silakan coba lagi.",
     "ADD_SUCCESS": "Terima kasih telah bergabung dalam daftar tunggu! Kami akan memberi tahu Anda saat Upscayl Cloud siap untuk Anda.",
