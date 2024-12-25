@@ -56,7 +56,7 @@
       "NO_LOGS": "Sem historiais para exibir"
     },
     "OVERWRITE_TOGGLE": {
-      "TITLE": "SUBREPOR À IMAGEM ANTERIOR",
+      "TITLE": "SOBREPOR À IMAGEM ANTERIOR",
       "DESCRIPTION": "Se estiver ativado, o Upscayl processará a imagem novamente em vez de a carregar diretamente."
     },
     "RESET_SETTINGS": {
@@ -195,7 +195,7 @@
       "PROCESSING_TITLE": "A processar a imagem...",
       "SCALING_CONVERTING_TITLE": "A escalar e converter a imagem...",
       "WAIT_TITLE": "Aguarde...",
-      "SUCCESS_TITLE": "Aprimoramento com sucesso!",
+      "SUCCESS_TITLE": "Aprimorado com sucesso!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Selecionar pasta:",
         "DONE_TITLE": "Tudo concluído!",
