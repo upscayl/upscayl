@@ -9,6 +9,7 @@ const locales = {
   es: "Español",
   fr: "Français",
   vi: "Tiếng Việt",
+  id: "Bahasa Indonesia",
   pt_PT: "Português (Portugal)"
 };
 
