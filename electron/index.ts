@@ -35,7 +35,12 @@ app.on("ready", async () => {
     });
     protocol.registerFileProtocol("public", (request, callback) => {
       const filePath = decodeURI(request.url.replace("public:///", ""));
-      const asarPath = path.join(app.getAppPath(), "renderer", "out", filePath);
+      const asarPath = path.join(
+        app.getAppPath(),
+        "renderer",
+        process.env.NODE_ENV === "development" ? "public" : "out",
+        filePath,
+      );
       callback(asarPath);
     });
     logit("🚃 App Path: ", app.getAppPath());

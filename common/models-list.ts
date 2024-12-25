@@ -6,7 +6,7 @@ export const MODELS = {
     id: "upscayl-lite-4x",
   },
   "high-fidelity-4x": {
-    id: "hfa2k-4x",
+    id: "high-fidelity-4x",
   },
   "remacri-4x": {
     id: "remacri-4x",
