@@ -1,6 +1,6 @@
 <div align="center">
 
-  # v2.15-pre-release is out! 🥳 [Download v2.15-pre-release! ⬇️](https://github.com/upscayl/upscayl/releases/tag/v2.15.0-pre-release)
+  # v2.15 is out! 🥳 [Download Now ⬇️](https://github.com/upscayl/upscayl/releases/tag/v2.15.0)
 
 <a href="https://github.com/upscayl/upscayl/releases/latest">
   
