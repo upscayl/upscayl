@@ -122,7 +122,7 @@
       "ZOOM": "Perbesar",
       "MODELS": {
         "upscayl-standard-4x": {
-          "NAME": "Upscayl Standar",
+          "NAME": "Upscayl Standard",
           "DESCRIPTION": "Cocok untuk sebagian besar gambar."
         },
         "upscayl-lite-4x": {
@@ -131,7 +131,7 @@
         },
         "remacri-4x": {
           "NAME": "Remacri (Non-Komersial)",
-          "DESCRIPTION": "Untuk gambar natural. "
+          "DESCRIPTION": "Untuk gambar natural."
         },
         "ultramix-balanced-4x": {
           "NAME": "Ultramix (Non-Komersial)",
@@ -142,8 +142,12 @@
           "DESCRIPTION": "Untuk gambar natural dengan fokus pada ketajaman."
         },
         "digital-art-4x": {
-          "NAME": "Seni Digital",
+          "NAME": "Digital Art",
           "DESCRIPTION": "Untuk seni dan ilustrasi digital."
+        },
+        "high-fidelity-4x": {
+          "NAME": "High Fidelity",
+          "DESCRIPTION": "Untuk semua jenis gambar dengan fokus pada detail realistis dan tekstur halus."
         }
       }
     },
