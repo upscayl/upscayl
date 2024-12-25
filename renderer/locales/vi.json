@@ -144,6 +144,10 @@
         "digital-art-4x": {
           "NAME": "Nghệ thuật Kỹ thuật số",
           "DESCRIPTION": "Dành cho nghệ thuật kỹ thuật số và minh họa."
+        },
+        "high-fidelity-4x": {
+          "NAME": "Độ trung thực cao",
+          "DESCRIPTION": "Dành cho tất cả các loại hình ảnh với sự tập trung vào chi tiết thực tế và kết cấu mượt mà."
         }
       }
     },
