@@ -1,5 +1,5 @@
 import { localeAtom, translationAtom } from "@/atoms/translations-atom";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 const locales = {
   en: "English",
@@ -14,7 +14,7 @@ const locales = {
 };
 
 const LanguageSwitcher = ({ hideLabel = false }: { hideLabel?: boolean }) => {
-  const setLocale = useSetAtom(localeAtom);
+  const [locale, setLocale] = useAtom(localeAtom);
   const t = useAtomValue(translationAtom);
 
   return (
@@ -26,6 +26,7 @@ const LanguageSwitcher = ({ hideLabel = false }: { hideLabel?: boolean }) => {
         <select
           data-choose-theme
           className="select select-primary"
+          value={useAtomValue(localeAtom)}
           onChange={(e) => setLocale(e.target.value as keyof typeof locales)}
         >
           {Object.entries(locales)

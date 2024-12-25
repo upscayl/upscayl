@@ -13,9 +13,10 @@ import {
   autoUpdateAtom,
   enableContributionAtom,
 } from "@/atoms/user-settings-atom";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import useTranslation from "../hooks/use-translation";
 import LanguageSwitcher from "../sidebar/settings-tab/language-switcher";
+import { localeAtom } from "@/atoms/translations-atom";
 
 type OnboardingStep = {
   title: string;
@@ -36,6 +37,7 @@ export function OnboardingDialog() {
 
   const [currentStep, setCurrentStep] = useState(0);
   const [settings, setSettings] = useState<Record<string, any>>({});
+  const locale = useAtomValue(localeAtom);
 
   const [open, setOpen] = useState(false);
 
@@ -97,7 +99,7 @@ export function OnboardingDialog() {
         type: "info",
       },
     ],
-    [],
+    [locale],
   );
 
   const currentStepData = onboardingSteps[currentStep];
@@ -152,7 +154,8 @@ export function OnboardingDialog() {
             className={cn(
               "flex h-full w-full flex-col rounded-sm bg-primary p-8",
               "h-auto w-auto gap-8",
-              currentStepData.configurationOptions[0].type === "video" && "p-0",
+              currentStepData.configurationOptions[0].type === "video" &&
+                "h-full w-full gap-0 p-0",
             )}
           >
             {currentStepData.configurationOptions.map((option) => (
