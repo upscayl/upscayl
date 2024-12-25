@@ -219,11 +219,6 @@ export function OnboardingDialog() {
         )}
 
         <DialogFooter className="gap-2 md:gap-0">
-          <button onClick={handleNext} className="btn btn-secondary w-40">
-            {isLastStep
-              ? t("ONBOARDING_DIALOG.GET_STARTED_BUTTON_TITLE")
-              : t("ONBOARDING_DIALOG.NEXT_BUTTON_TITLE")}
-          </button>
           {!isFirstStep && (
             <button
               onClick={() => setCurrentStep((prev) => prev - 1)}
@@ -232,6 +227,11 @@ export function OnboardingDialog() {
               {t("ONBOARDING_DIALOG.BACK_BUTTON_TITLE")}
             </button>
           )}
+          <button onClick={handleNext} className="btn btn-secondary w-40">
+            {isLastStep
+              ? t("ONBOARDING_DIALOG.GET_STARTED_BUTTON_TITLE")
+              : t("ONBOARDING_DIALOG.NEXT_BUTTON_TITLE")}
+          </button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
