@@ -144,6 +144,10 @@
         "digital-art-4x": {
           "NAME": "数字艺术",
           "DESCRIPTION": "适用于数字艺术和插图。"
+        },
+        "high-fidelity-4x": {
+          "NAME": "高保真",
+          "DESCRIPTION": "适用于各种图像，注重真实细节和平滑纹理。"
         }
       }
     },
