@@ -15,6 +15,7 @@ import {
 } from "@/atoms/user-settings-atom";
 import { useAtom } from "jotai";
 import useTranslation from "../hooks/use-translation";
+import LanguageSwitcher from "../sidebar/settings-tab/language-switcher";
 
 type OnboardingStep = {
   title: string;
@@ -44,6 +45,14 @@ export function OnboardingDialog() {
         title: t("ONBOARDING_DIALOG.STEP_1.TITLE"),
         description: t("ONBOARDING_DIALOG.STEP_1.DESCRIPTION"),
         type: "info",
+        configurationOptions: [
+          {
+            type: "component",
+            label: t("SETTINGS.LANGUAGE.TITLE"),
+            component: <LanguageSwitcher hideLabel={true} />,
+            key: "theme",
+          },
+        ],
       },
       {
         title: t("ONBOARDING_DIALOG.STEP_2.TITLE"),
@@ -142,7 +151,7 @@ export function OnboardingDialog() {
           <div
             className={cn(
               "flex h-full w-full flex-col rounded-sm bg-primary p-8",
-              currentStepData.type === "settings" && "h-auto w-auto gap-8",
+              "h-auto w-auto gap-8",
               currentStepData.configurationOptions[0].type === "video" && "p-0",
             )}
           >
