@@ -144,6 +144,10 @@
         "digital-art-4x": {
           "NAME": "Digital Art",
           "DESCRIPTION": "For digital art and illustrations."
+        },
+        "high-fidelity-4x": {
+          "NAME": "High Fidelity",
+          "DESCRIPTION": "For all kinds of images with a focus on realistic details and smooth textures."
         }
       }
     },
