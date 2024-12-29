@@ -164,7 +164,7 @@
       "BUTTON_TITLE": "Imposta la cartella di output"
     },
     "SCALE_SELECTION": {
-      "TITLE": Fase 4",
+      "TITLE": "Fase 4",
       "FROM_TITLE": "Sovracampionamento di ",
       "TO_TITLE": " a ",
       "NO_OUTPUT_FOLDER_ALERT": "Seleziona prima una cartella di output",
@@ -173,7 +173,7 @@
     },
     "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "Reimposta immagine",
-      "LENS_VIEW_TITLE": "Vue de la lentille",
+      "LENS_VIEW_TITLE": "Vista dell'obiettivo",
       "SLIDER_VIEW_TITLE": "Vista cursore",
       "ZOOM_AMOUNT_TITLE": "Livello di zoom",
       "TOTAL_UPSCAYLS": "Sovracampionamento totale",
