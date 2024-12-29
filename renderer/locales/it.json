@@ -8,7 +8,7 @@
   "FOOTER": {
     "NEWS_TITLE": "NOTIZIE su UPSCAYL",
     "COPYRIGHT": "Copyright ©",
-    "TITLE": "di ",
+    "TITLE": "di",
     "LINK_TITLE": "Il team di Upscayl"
   },
   "SETTINGS": {
@@ -82,7 +82,7 @@
       "TITLE": "LINGUA DI UPSCAYL"
     },
     "CUSTOM_TILE_SIZE": {
-      "TITLE": "DIMENSIONE PERSONALIZZATO DEL RIQUADRO",
+      "TITLE": "DIMENSIONE PERSONALIZZATA DEL RIQUADRO",
       "DESCRIPTION": "Utilizza una dimensione di riquadro personalizzata per segmentare l'immagine. Ciò può aiutare a elaborare le immagini più velocemente riducendo il numero di riquadri generati."
     },
     "TURN_OFF_NOTIFICATIONS": {
@@ -157,7 +157,7 @@
     },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "Fase 3",
-      "MAC_APP_STORE_ALERT": "A causa delle restrizioni di sicurezza dell'App Store di MacOS, Upscayl richiede di selezionare una cartella di output ogni volta che lo avvii.\n\nPer evitare ciò, puoi salvare in modo permanente una cartella di output predefinita nella "scheda" Impostazioni Upscayl.",
+      "MAC_APP_STORE_ALERT": "A causa delle restrizioni di sicurezza dell'App Store di MacOS, Upscayl richiede di selezionare una cartella di output ogni volta che lo avvii.\n\nPer evitare ciò, puoi salvare in modo permanente una cartella di output predefinita nella \"scheda\" Impostazioni Upscayl.",
       "NOT_SELECTED": "Non selezionato",
       "DEFAULT_IMG_PATH": "Per impostazione predefinita è il percorso dell'immagine",
       "DEFAULT_FOLDER_PATH": "Per impostazione predefinita è il percorso della cartella",
@@ -223,7 +223,7 @@
     },
     "COPY_ERROR": {
       "TITLE": "Errore di copia",
-      "DESCRIPTION": ""
+      "DESCRIPTION": "Si è verificato un errore durante la copia del file. Verifica i permessi e lo spazio disponibile."
     },
     "READ_WRITE_ERROR": {
       "TITLE": "Errore di lettura/scrittura",
