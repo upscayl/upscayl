@@ -191,7 +191,7 @@
     },
     "RESET_BUTTON_TITLE": "Resettare",
     "RIGHT_PANE_INFO": {
-      "SELECT_FOLDER": "Seleziona una cartella da sottocampionare",
+      "SELECT_FOLDER": "Seleziona una cartella da sovracampionare",
       "SELECT_IMAGE": "Seleziona un'immagine da sovracampionare",
       "SELECT_FOLDER_DESCRIPTION": "Assicurati che la cartella non contenga altro che immagini PNG, JPG, JPEG e WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Seleziona o trascina e rilascia un'immagine PNG, JPG, JPEG o WEBP.",
