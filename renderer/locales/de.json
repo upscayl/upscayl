@@ -1,0 +1,153 @@
+{
+  "TITLE": "Upscayl",
+  "INTRO": "Willkommen bei Upscayl Cloud!",
+  "HEADER": {
+    "GITHUB_BUTTON_TITLE": "Gib uns einen Stern auf GitHub 😁",
+    "DESCRIPTION": "KI-Bildverbesserer"
+  },
+  "FOOTER": {
+    "NEWS_TITLE": "UPSCAYL-NEWS",
+    "COPYRIGHT": "Copyright ©",
+    "TITLE": "Von ",
+    "LINK_TITLE": "Das Upscayl-Team"
+  },
+  "SETTINGS": {
+    "TITLE": "Einstellungen",
+    "CHANGE_LANGUAGE": { "TITLE": "Sprache ändern" },
+    "IMAGE_COMPRESSION": {
+      "TITLE": "Bildkomprimierung",
+      "DESCRIPTION": "PNG-Komprimierung ist verlustfrei und reduziert die Dateigröße nicht stark. Höhere Werte können die Leistung beeinflussen. JPG- und WebP-Komprimierung sind verlustbehaftet."
+    },
+    "CUSTOM_MODELS": {
+      "TITLE": "BENUTZERDEFINIERTE MODELLE HINZUFÜGEN",
+      "BUTTON_FOLDER": "Ordner auswählen",
+      "DESCRIPTION": "Du kannst eigene Modelle hinzufügen. Mehr Infos hier:",
+      "LINK_TITLE": "Repository für benutzerdefinierte Modelle"
+    },
+    "CUSTOM_INPUT_RESOLUTION": {
+      "TITLE": "BENUTZERDEFINIERTE BREITE",
+      "RESTART": "NEUSTART ERFORDERLICH",
+      "DESCRIPTION": "Verwende eine benutzerdefinierte Breite für Ausgabe-Bilder. Die Höhe wird automatisch angepasst. Diese Einstellung überschreibt die Skalierungsoption."
+    },
+    "DONATE": {
+      "DESCRIPTION": "Wenn dir gefällt, was wir tun :)",
+      "BUTTON_TITLE": "💎 SPENDEN"
+    },
+    "GPU_ID_INPUT": {
+      "TITLE": "GPU-ID",
+      "DESCRIPTION": "Sieh in die Upscayl-Dokumentation für mehr Infos.",
+      "ADDITIONAL_DESCRIPTION": "Aktiviere den Leistungsmodus unter Windows für bessere Ergebnisse."
+    },
+    "IMAGE_FORMAT": {
+      "TITLE": "BILD SPEICHERN ALS",
+      "PNG": "PNG",
+      "JPG": "JPG",
+      "WEBP": "WEBP"
+    },
+    "IMAGE_SCALE": {
+      "TITLE": "Bildskalierung",
+      "DESCRIPTION": "Alles über 4X (außer 16X Double Upscayl) skaliert nur das Bild, ohne KI-Verbesserung.",
+      "WARNING": "Alles über 5X kann die Leistung beeinträchtigen!",
+      "ADDITIONAL_WARNING": "Das kann auf manchen Geräten zu Problemen führen!"
+    },
+    "LOG_AREA": {
+      "ON_COPY": "KOPIERT ✅",
+      "BUTTON_TITLE": "PROTOKOLLE KOPIEREN 📋",
+      "NO_LOGS": "Keine Protokolle zum Anzeigen"
+    },
+    "OVERWRITE_TOGGLE": {
+      "TITLE": "BEREITS SKALIERTE BILDER ÜBERSCHREIBEN",
+      "DESCRIPTION": "Wenn aktiviert, wird das Bild neu verarbeitet, anstatt es direkt zu laden."
+    },
+    "RESET_SETTINGS": {
+      "BUTTON_TITLE": "UPSCAYL ZURÜCKSETZEN",
+      "ALERT": "Upscayl wurde zurückgesetzt. Bitte starte die App neu."
+    },
+    "SAVE_OUTPUT_FOLDER": {
+      "TITLE": "AUSGABEVERZEICHNIS SPEICHERN",
+      "DESCRIPTION": "Das Ausgabeverzeichnis wird zwischen den Sitzungen gespeichert, wenn aktiviert."
+    },
+    "AUTO_UPDATE": {
+      "TITLE": "UPSCAYL AUTOMATISCH AKTUALISIEREN",
+      "DESCRIPTION": "Die App sucht automatisch nach Updates und benachrichtigt dich."
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "HILF BEI DER VERBESSERUNG VON UPSCAYL",
+      "DESCRIPTION": "Anonyme Nutzungsdaten helfen uns, die Benutzeroberfläche und Funktionen zu verbessern."
+    },
+    "THEME": {
+      "TITLE": "UPSCAYL-THEMA"
+    },
+    "LANGUAGE": {
+      "TITLE": "UPSCAYL-SPRACHE"
+    },
+    "CUSTOM_TILE_SIZE": {
+      "TITLE": "BENUTZERDEFINIERTE TILE-GRÖSSE",
+      "DESCRIPTION": "Verwende eine angepasste Tile-Größe, um Bilder schneller zu verarbeiten."
+    },
+    "TURN_OFF_NOTIFICATIONS": {
+      "TITLE": "BENACHRICHTIGUNGEN DEAKTIVIEREN",
+      "DESCRIPTION": "Upscayl sendet keine Systembenachrichtigungen, wenn aktiviert."
+    },
+    "SUPPORT": {
+      "TITLE": "Probleme?",
+      "DOCS_BUTTON_TITLE": "🙏 HILFE BEKOMMEN",
+      "EMAIL_BUTTON_TITLE": "📧 ENTWICKLER KONTAKTIEREN"
+    },
+    "TTA_MODE": {
+      "TITLE": "TTA-Modus",
+      "DESCRIPTION": "Aktiviere Test Time Augmentation für bessere Ergebnisse. Verlangsamt die Verarbeitung aber um das 8-fache!"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "Systeminfo"
+    }
+  },
+  "APP": {
+    "TITLE": "Upscayl",
+    "BATCH_MODE": {
+      "TITLE": "Batch Upscayl",
+      "DESCRIPTION": "Skaliere alle Dateien in einem Ordner auf einmal"
+    },
+    "FILE_SELECTION": {
+      "TITLE": "Schritt 1",
+      "BATCH_MODE_TYPE": "Ordner auswählen",
+      "SINGLE_MODE_TYPE": "Bild auswählen"
+    },
+    "MODEL_SELECTION": {
+      "TITLE": "Schritt 2",
+      "DESCRIPTION": "KI-Modell auswählen",
+      "IMPORTED_CUSTOM_MODELS": "Importierte benutzerdefinierte Modelle",
+      "BEFORE": "Vorher",
+      "AFTER": "Nachher",
+      "ZOOM": "Zoom"
+    },
+    "DOUBLE_UPSCAYL": {
+      "TITLE": "Double Upscayl",
+      "DESCRIPTION": "Skaliert ein Bild zweimal, aber verlängert die Verarbeitungszeit."
+    },
+    "OUTPUT_PATH_SELECTION": {
+      "TITLE": "Schritt 3",
+      "MAC_APP_STORE_ALERT": "Upscayl benötigt wegen Sicherheitsbeschränkungen einen Ordnerauswahl-Dialog bei jedem Start.",
+      "NOT_SELECTED": "Nicht ausgewählt",
+      "BUTTON_TITLE": "Ausgabeordner festlegen"
+    },
+    "SCALE_SELECTION": {
+      "TITLE": "Schritt 4",
+      "FROM_TITLE": "Upscayl von ",
+      "TO_TITLE": " zu ",
+      "START_BUTTON_TITLE": "Upscayl 🚀",
+      "IN_PROGRESS_BUTTON_TITLE": "Upscayl läuft ⏳"
+    },
+    "MORE_OPTIONS_DRAWER": {
+      "RESET_BUTTON_TITLE": "Bild zurücksetzen",
+      "LENS_VIEW_TITLE": "Linsenansicht",
+      "SLIDER_VIEW_TITLE": "Schieberegler",
+      "ZOOM_AMOUNT_TITLE": "Zoomstufe"
+    },
+    "PROGRESS_BAR": {
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Batch-Upscayl läuft:",
+      "IN_PROGRESS_TITLE": "Upscayl-Zauber läuft...",
+      "STOP_BUTTON_TITLE": "STOPP"
+    }
+  }
+}
