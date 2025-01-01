@@ -20,6 +20,28 @@ jobs:
           npm install
           npm run dist:win
 
+      # Get the latest release
+      - name: Get Latest Release
+        id: get_latest_release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const latestRelease = await github.rest.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            core.setOutput('release_id', latestRelease.data.id);
+
+      # - name: Upload Assets to Release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     release_id: ${{ steps.get_latest_release.outputs.release_id }}
+      #     file: |
+      #       dist/*.blockmap
+      #       dist/*.zip
+      #       dist/*.exe
+
       - name: Upload Windows Build
         uses: actions/upload-artifact@v3
         with:
@@ -28,3 +50,4 @@ jobs:
             dist/*.blockmap
             dist/*.zip
             dist/*.exe
+            dist/*.yml
