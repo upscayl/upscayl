@@ -2,6 +2,7 @@ import { localeAtom, translationAtom } from "@/atoms/translations-atom";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 const locales = {
+  ar: "العربية",
   en: "English",
   ru: "Русский",
   ja: "日本語",
