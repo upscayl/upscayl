@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import ar from "../locales/ar.json";
 import en from "../locales/en.json";
 import ru from "../locales/ru.json";
 import ja from "../locales/ja.json";
@@ -13,9 +14,10 @@ import { atomWithStorage } from "jotai/utils";
 
 // Define the shape of the translations
 type Translations = typeof en;
-type Locales = "en" | "ru" | "ja" | "zh" | "es" | "fr" | "de" | "vi" | "pt" | "id";
+type Locales = "ar" | "en" | "ru" | "ja" | "zh" | "es" | "fr" | "de" | "vi" | "pt" | "id";
 
 const translations: Record<Locales, Translations> = {
+  ar,
   en,
   ru,
   ja,
