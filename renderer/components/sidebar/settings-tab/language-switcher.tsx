@@ -8,9 +8,10 @@ const locales = {
   zh: "简体中文",
   es: "Español",
   fr: "Français",
+  de: "Deutsch",
   vi: "Tiếng Việt",
-  id: "Bahasa Indonesia",
   pt: "Português (Portugal)",
+  id: "Bahasa Indonesia",
 };
 
 const LanguageSwitcher = ({ hideLabel = false }: { hideLabel?: boolean }) => {

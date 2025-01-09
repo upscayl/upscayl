@@ -5,6 +5,7 @@ import ja from "../locales/ja.json";
 import zh from "../locales/zh.json";
 import es from "../locales/es.json";
 import fr from "../locales/fr.json";
+import de from "../locales/de.json";
 import vi from "../locales/vi.json";
 import id from "../locales/id.json";
 import pt from "../locales/pt.json";
@@ -12,7 +13,7 @@ import { atomWithStorage } from "jotai/utils";
 
 // Define the shape of the translations
 type Translations = typeof en;
-type Locales = "en" | "ru" | "ja" | "zh" | "es" | "fr" | "vi" | "pt" | "id";
+type Locales = "en" | "ru" | "ja" | "zh" | "es" | "fr" | "de" | "vi" | "pt" | "id";
 
 const translations: Record<Locales, Translations> = {
   en,
@@ -21,6 +22,7 @@ const translations: Record<Locales, Translations> = {
   zh,
   es,
   fr,
+  de,
   vi,
   id,
   pt,
