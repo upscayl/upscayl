@@ -201,7 +201,7 @@
       "PROCESSING_TITLE": "Traitement de l'image...",
       "SCALING_CONVERTING_TITLE": "Mise à l'échelle et conversion de l'image...",
       "WAIT_TITLE": "Patientez...",
-      "SUCCESS_TITLE": "Amélioration réussi !",
+      "SUCCESS_TITLE": "Amélioration réussie !",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Dossier sélectionné :",
         "DONE_TITLE": "Tout est terminé !",
@@ -260,7 +260,7 @@
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Bientôt disponible !",
     "CATCHY_PHRASE_1": "Plus d'erreurs, de problèmes matériels, de compromis sur la qualité ou de longs temps de chargement !",
-    "CATCHY_PHRASE_2": "🌐 Améliorer n'importe où, n'importe quand, sur n'importe quel appareil\n☁️ Pas de carte graphique ou de matériel requis\n👩 Amélioration du visage\n🦋 Plus de 10 modèles au choix\n🏎 5x plus rapide que Upscayl Desktop\n🎞 Suréchantillonnage vidéo\n💰 Utilisation commerciale\n😴 Suréchantillonnez pendant que vous dormez",
+    "CATCHY_PHRASE_2": "🌐 Amélioration possible partout, à tout moment, sur tout appareil\n☁️ Pas de carte graphique ou de matériel requis\n👩 Amélioration du visage\n🦋 Plus de 10 modèles au choix\n🏎 5x plus rapide que Upscayl Desktop\n🎞 Amélioration vidéo\n💰 Utilisation commerciale\n😴 Amélioration pendant votre sommeil",
     "ALREADY_REGISTERED_ALERT": "Merci {name} ! Il semble que votre email ait déjà été enregistré :D Si ce n'est pas le cas, veuillez réessayer.",
     "ADD_SUCCESS": "Merci de rejoindre la liste d'attente ! Nous vous informerons lorsque Upscayl Cloud sera prêt pour vous.",
     "INCORRECT_FIELDS_ALERT": "Veuillez remplir correctement tous les champs.",
