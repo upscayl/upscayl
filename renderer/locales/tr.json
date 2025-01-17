@@ -30,7 +30,7 @@
     },
     "DONATE": {
       "DESCRIPTION": "Yaptıklarımızı beğendiyseniz :)",
-      "BUTTON_TITLE": "💎 BAĞIŞ"
+      "BUTTON_TITLE": "💎 BAĞIŞ YAPIN"
     },
     "GPU_ID_INPUT": {
       "TITLE": "GPU ID",
@@ -95,7 +95,7 @@
     },
     "TTA_MODE": {
       "TITLE": "TTA Modu",
-      "DESCRIPTION": "Test Zamanı Artırmasını (TTA) etkinleştirerek, örneğin, çizikler gibi bozulmaları kaldırmak gibi daha iyi sonuçlar elde edebilirsiniz, LAKIN bu işlem süresini 8 kat uzatacaktır!"
+      "DESCRIPTION": "Test Zamanı Artırmasını (TTA) etkinleştirerek, örnek vermek gerekirse çizikler gibi bozulmaları kaldırarak daha iyi sonuçlar elde edebilirsiniz, LAKİN bu işlem süresini 8 kat uzatacaktır!"
     },
     "SYSTEM_INFO": {
       "TITLE": "Sistem Bilgisi"
@@ -126,7 +126,7 @@
         },
         "upscayl-lite-4x": {
           "NAME": "Upscayl Lite",
-          "DESCRIPTION": "Çoğu görsel için ideal. Minimal kalite kaybıyla yüksek hızda ölçeklendirme."
+          "DESCRIPTION": "Çoğu görsel için ideal. Minimal kalite kaybıyla, yüksek hızda ölçeklendirme."
         },
         "remacri-4x": {
           "NAME": "Remacri (Ticari Değildir)",
@@ -171,8 +171,8 @@
     },
     "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "Resmi Sıfırla",
-      "LENS_VIEW_TITLE": "Lens Görünümü",
-      "SLIDER_VIEW_TITLE": "Slider Görünümü",
+      "LENS_VIEW_TITLE": "Lensli Büyüteç",
+      "SLIDER_VIEW_TITLE": "Kaydırmalı Büyüteç",
       "ZOOM_AMOUNT_TITLE": "Yakınlaştırma Miktarı",
       "TOTAL_UPSCAYLS": "Toplam Upscayllar",
       "TOTAL_BATCH_UPSCAYLS": "Toplam Topyekün Upscaylları",
@@ -183,7 +183,7 @@
       "LAST_USED_AT": "En son şu tarihte kullanıldı"
     },
     "PROGRESS_BAR": {
-      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Topyekün Upscayl yapılıyor...",
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Topyekün Upscayl ediliyor...",
       "IN_PROGRESS_TITLE": "Upscayl sihrini konuşturuyor...",
       "STOP_BUTTON_TITLE": "DURDUR"
     },
