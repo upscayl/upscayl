@@ -2,8 +2,8 @@
   "TITLE": "Upscayl",
   "INTRO": "Upscayl Cloud ile tanışın!",
   "HEADER": {
-    "GITHUB_BUTTON_TITLE": "Bize GitHub'da yıldız verin! 😁",
-    "DESCRIPTION": "AI Görsel Geliştirici"
+    "GITHUB_BUTTON_TITLE": "Bize GitHub'da yıldız verin! 🌟",
+    "DESCRIPTION": "AI Görsel İyileştirici"
   },
   "FOOTER": {
     "NEWS_TITLE": "UPSCAYL HABERLERİ",
@@ -45,7 +45,7 @@
     },
     "IMAGE_SCALE": {
       "TITLE": "Görsel Ölçeği",
-      "DESCRIPTION": "4X'ten büyük herhangi bir ayar (16X Çifte Upscayl dışında) yalnızca görüntüyü yeniden boyutlandırır ve AI ile geliştirme yapmaz.",
+      "DESCRIPTION": "4X'ten büyük herhangi bir ayar (16X Çifte Upscayl dışında) yalnızca görüntüyü yeniden boyutlandırır ve AI ile iyileştirme yapmaz.",
       "WARNING": "5X üzerinde herhangi bir ayar bazı aygıtlarda performans sorunlarına neden olabilir!",
       "ADDITIONAL_WARNING": "Bu bazı cihazlarda performans sorunlarına neden olabilir!"
     },
@@ -250,7 +250,7 @@
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "Görsel seçilmedi",
-      "DESCRIPTION": "Lütfen geliştirecek bir görsel seçin."
+      "DESCRIPTION": "Lütfen iyileştirilecek bir görsel seçin."
     },
     "OPEN_DOCS_TITLE": "Dökümantasyonu açın",
     "OPEN_DOCS_BUTTON_TITLE": "Sorun giderme"
@@ -258,7 +258,7 @@
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Yakında sizlerle!",
     "CATCHY_PHRASE_1": "Artık hatalar, donanım uyuşmazlıkları, kalite tavizleri ya da uzun yükleme süreleri yok!",
-    "CATCHY_PHRASE_2": "🌐 Upscayl her yerde, her zaman , her cihazda\n☁️ Ekran kartına ya da donanıma gerek yok.\n👩 Yüz güzelleştirici\n🦋 Seçilebilecek 10 model ve fazlası\n🏎 Upscayl Desktop'tan 5 kat daha hızlı\n🎞 Video Geliştirici\n💰 Ticari Kullanım\n😴 Siz uyurken Upscayl",
+    "CATCHY_PHRASE_2": "🌐 Upscayl her yerde, her zaman , her cihazda\n☁️ Ekran kartına ya da donanıma gerek yok.\n👩 Yüz güzelleştirici\n🦋 Seçilebilecek 10 model ve fazlası\n🏎 Upscayl Desktop'tan 5 kat daha hızlı\n🎞 Video İyileştirici\n💰 Ticari Kullanım\n😴 Siz uyurken Upscayl",
     "ALREADY_REGISTERED_ALERT": "Teşekkürler {name}! Görünüşe göre e-postanı zaten kaydetmişiz :D Eğer bu bir hata ise, tekrar deneyin.",
     "ADD_SUCCESS": "Bekleme listesine katıldığın için teşekkürler! Upscayl Cloud senin için hazır olduğunda mutlaka ulaşacağız!",
     "INCORRECT_FIELDS_ALERT": "Lütfen tüm alanları tam doldurun.",
@@ -284,7 +284,7 @@
     },
     "STEP_4": {
       "TITLE": "Hazır ve nazırsınız! 🎉",
-      "DESCRIPTION": "Upscayl ile görsellerinizi geliştirmeye hazırsınız!"
+      "DESCRIPTION": "Upscayl ile görsellerinizi iyileştirmeye hazırsınız!"
     }
   }
 }
