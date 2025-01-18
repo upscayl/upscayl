@@ -158,8 +158,8 @@
       "TITLE": "3. Adım",
       "MAC_APP_STORE_ALERT": "MacOS App Store güvenlik kısıtlamaları nedeniyle, Upscayl her başlatıldığında bir çıktı klasörü seçmenizi isteyecektir.\n\nBunu engellemek için, Upscayl'ın 'Ayarlar' sekmesinde varsayılan bir çıktı klasörü kalıcı olarak kaydedebilirsiniz.",
       "NOT_SELECTED": "Seçilmemiş",
-      "DEFAULT_IMG_PATH": "Resmin varsayılan dizini",
-      "DEFAULT_FOLDER_PATH": "Klasörün varsayılan dizini",
+      "DEFAULT_IMG_PATH": "Çıktı resim, girdi resmin dizinine",
+      "DEFAULT_FOLDER_PATH": "Çıktı klasör, girdi klasörün dizine",
       "BUTTON_TITLE": "Çıktı klasörünü seç"
     },
     "SCALE_SELECTION": {
