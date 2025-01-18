@@ -4,6 +4,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 const locales = {
   ar: "العربية",
   en: "English",
+  tr: "Türkçe",
   ru: "Русский",
   ja: "日本語",
   zh: "简体中文",
