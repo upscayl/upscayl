@@ -45,7 +45,7 @@
       "WEBP": "WEBP"
     },
     "IMAGE_SCALE": {
-      "TITLE": "Redimensionnement de l'image",
+      "TITLE": "Dimensions de l'image",
       "DESCRIPTION": "Tout ce qui dépasse 4X (sauf 16X Double Upscayl) ne fait que redimensionner l'image et n'utilise pas l'améliorateur AI.",
       "WARNING": "Tout ce qui dépasse 5X peut causer des problèmes de performance sur certains appareils !",
       "ADDITIONAL_WARNING": "Cela peut causer des problèmes de performance sur certains appareils !"
