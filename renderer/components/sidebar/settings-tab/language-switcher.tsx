@@ -6,6 +6,7 @@ const locales = {
   en: "English",
   tr: "Türkçe",
   ru: "Русский",
+  uk: "Українська",
   ja: "日本語",
   zh: "简体中文",
   es: "Español",
