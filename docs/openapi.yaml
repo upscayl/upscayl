@@ -9,7 +9,7 @@ info:
     name: Upscayl Support
     url: mailto:support@upscayl.org
 servers:
-  - url: https://api.upscayl.com
+  - url: https://api.upscayl.org
     description: Upscayl Server
 
 security:
