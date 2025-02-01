@@ -252,7 +252,7 @@
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "未选择图片",
-      "DESCRIPTION": "不是，你还没选择图片呢QwQ"
+      "DESCRIPTION": "你还没选择图片呢QwQ"
     },
     "OPEN_DOCS_TITLE": "打开文档",
     "OPEN_DOCS_BUTTON_TITLE": "排除故障"
