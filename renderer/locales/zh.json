@@ -1,6 +1,6 @@
 {
   "TITLE": "Upscayl",
-  "INTRO": "云 Upscayl 隆重登场！",
+  "INTRO": "Upscayl Cloud隆重登场！",
   "HEADER": {
     "GITHUB_BUTTON_TITLE": "给我们的 GitHub 仓库标星 😁",
     "DESCRIPTION": "AI 图像增强工具"
@@ -60,7 +60,7 @@
       "DESCRIPTION": "启用后，Upscayl 将重新处理图片，不直接加载之前的结果。"
     },
     "RESET_SETTINGS": {
-      "BUTTON_TITLE": "重置 Upscayl",
+      "BUTTON_TITLE": "重置Upscayl",
       "ALERT": "Upscayl 已被重置，请重新启动应用程序。"
     },
     "SAVE_OUTPUT_FOLDER": {
@@ -68,12 +68,12 @@
       "DESCRIPTION": "启用后，输出文件夹将在会话之间被记住。"
     },
     "AUTO_UPDATE": {
-      "TITLE": "自动更新 Upscayl",
+      "TITLE": "自动更新Upscayl",
       "DESCRIPTION": "启用后，应用程序将检查更新并通知你。"
     },
     "ENABLE_CONTRIBUTION": {
-      "TITLE": "帮助改进 Upscayl",
-      "DESCRIPTION": "启用后，Upscayl 将收集匿名使用数据以改进应用程序界面和功能。"
+      "TITLE": "帮助改进Upscayl",
+      "DESCRIPTION": "启用后，Upscayl将收集匿名使用数据以改进应用程序界面和功能。"
     },
     "THEME": {
       "TITLE": "主题"
@@ -87,7 +87,7 @@
     },
     "TURN_OFF_NOTIFICATIONS": {
       "TITLE": "关闭通知",
-      "DESCRIPTION": "启用后，Upscayl 将不会发送任何有关图像处理的系统通知。"
+      "DESCRIPTION": "启用后，Upscayl将不会发送任何有关图像处理的系统通知。"
     },
     "SUPPORT": {
       "TITLE": "有问题吗？",
@@ -117,8 +117,8 @@
       "TITLE": "第二步",
       "DESCRIPTION": "选择 AI 模型",
       "IMPORTED_CUSTOM_MODELS": "导入的自定义模型",
-      "BEFORE": "超分前",
-      "AFTER": "超分后",
+      "BEFORE": "增强前",
+      "AFTER": "增强后",
       "ZOOM": "缩放",
       "MODELS": {
         "upscayl-standard-4x": {
@@ -152,8 +152,8 @@
       }
     },
     "DOUBLE_UPSCAYL": {
-      "TITLE": "双重超分",
-      "DESCRIPTION": "启用后，Upscayl会对自己的输出再次超分。请注意，这可能会显著拖慢处理速度，导致性能问题，尤其当增强比例超过 4X 时。"
+      "TITLE": "双重增强",
+      "DESCRIPTION": "启用后，Upscayl会对自己的输出再次增强。请注意，这可能会显著拖慢处理速度，导致性能问题，尤其当增强比例超过 4X 时。"
     },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "第三步",
@@ -166,33 +166,33 @@
     "SCALE_SELECTION": {
       "TITLE": "第四步",
       "FROM_TITLE": "从 ",
-      "TO_TITLE": " 超分到 ",
+      "TO_TITLE": " 增强到 ",
       "NO_OUTPUT_FOLDER_ALERT": "请先选择一个输出文件夹",
-      "START_BUTTON_TITLE": "超分！🚀",
-      "IN_PROGRESS_BUTTON_TITLE": "正在超分 ⏳"
+      "START_BUTTON_TITLE": "启动！🚀",
+      "IN_PROGRESS_BUTTON_TITLE": "正在增强分 ⏳"
     },
     "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "重置图片",
       "LENS_VIEW_TITLE": "透镜视图",
       "SLIDER_VIEW_TITLE": "滑块视图",
       "ZOOM_AMOUNT_TITLE": "缩放比例",
-      "TOTAL_UPSCAYLS": "总升图次数",
-      "TOTAL_BATCH_UPSCAYLS": "总批量超分次数",
-      "TOTAL_IMAGE_UPSCAYLS": "总图片超分次数",
-      "TOTAL_DOUBLE_UPSCAYLS": "总双重超分次数",
-      "AVERAGE_UPSCAYL_TIME": "平均超分时间",
-      "LAST_UPSCAYL_DURATION": "上次超分时长",
+      "TOTAL_UPSCAYLS": "总增强次数",
+      "TOTAL_BATCH_UPSCAYLS": "总批量增强次数",
+      "TOTAL_IMAGE_UPSCAYLS": "总图片增强次数",
+      "TOTAL_DOUBLE_UPSCAYLS": "总双重增强次数",
+      "AVERAGE_UPSCAYL_TIME": "平均增强耗时",
+      "LAST_UPSCAYL_DURATION": "上次增强耗时",
       "LAST_USED_AT": "上次使用日期"
     },
     "PROGRESS_BAR": {
-      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量超分中",
-      "IN_PROGRESS_TITLE": "稍等一下，超分魔法进行中",
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量增强中",
+      "IN_PROGRESS_TITLE": "稍等一下，增强魔法进行中",
       "STOP_BUTTON_TITLE": "取消"
     },
     "RESET_BUTTON_TITLE": "重置",
     "RIGHT_PANE_INFO": {
-      "SELECT_FOLDER": "选择超分图片所在的文件夹",
-      "SELECT_IMAGE": "选择要超分的图片",
+      "SELECT_FOLDER": "选择要增强的图片所在的文件夹",
+      "SELECT_IMAGE": "选择要增强的图片",
       "SELECT_FOLDER_DESCRIPTION": "文件夹中只支持 PNG、JPG、JPEG 和 WEBP 图片。",
       "SELECT_IMAGES_DESCRIPTION": "选择或拖放 PNG、JPG、JPEG 或 WEBP 图片。",
       "PASTE_IMAGE_DESCRIPTION": "按 Ctrl+V 或 ⌘+V 来粘贴图像"
@@ -201,11 +201,11 @@
       "PROCESSING_TITLE": "正在处理图片...",
       "SCALING_CONVERTING_TITLE": "正在缩放，转换，并压缩图片...",
       "WAIT_TITLE": "请稍等...",
-      "SUCCESS_TITLE": "超分成功！",
+      "SUCCESS_TITLE": "成功！",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "所选文件夹：",
         "DONE_TITLE": "全部完成！",
-        "OPEN_UPSCAYLED_FOLDER_TITLE": "打开超分后的文件夹"
+        "OPEN_UPSCAYLED_FOLDER_TITLE": "打开增强后的文件夹"
       }
     },
     "SLIDER": {
@@ -260,9 +260,9 @@
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "即将推出！",
     "CATCHY_PHRASE_1": "该与错误、硬件问题、质量妥协和漫长的等待告别喽！",
-    "CATCHY_PHRASE_2": "🌐 随时随地，任何设备都能阿普升图\n☁️ 无需显卡或硬件\n👩 面部增强\n🦋 10+ 模型可供选择\n🏎 比桌面版快 5 倍\n🎞 视频增强\n💰 商业用途\n😴 你睡你的觉，它超它的分",
+    "CATCHY_PHRASE_2": "🌐 随时随地，任何设备都能使用Upscayl\n☁️ 无需显卡或硬件\n👩 面部增强\n🦋 10+ 模型可供选择\n🏎 比桌面版快 5 倍\n🎞 视频增强\n💰 商业用途\n😴 你睡你的觉，它超它的分",
     "ALREADY_REGISTERED_ALERT": "{name}，谢谢您！不过看起来您好像已经注册过了 b（￣▽￣）d 不对的话，再注册一遍试试。",
-    "ADD_SUCCESS": "感谢您加入候补名单！我们将会在云Upscayl准备就绪时通知你。",
+    "ADD_SUCCESS": "感谢您加入候补名单！我们将会在Upscayl Cloud准备就绪时通知你。",
     "INCORRECT_FIELDS_ALERT": "请适当填写",
     "JOIN_WAITLIST": "加入候补名单",
     "DONT_SHOW_AGAIN": "不再显示"
