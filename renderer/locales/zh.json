@@ -153,7 +153,7 @@
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "双重增强",
-      "DESCRIPTION": "启用后，Upscayl会对自己的输出再次增强。请注意，这可能会显著拖慢处理速度，导致性能问题，尤其当增强比例超过 4X 时。"
+      "DESCRIPTION": "启用后，Upscayl会对自己的输出再次增强。请注意，这可能会显著拖慢处理速度，导致性能问题，当增强比例超过 4X 时, 该问题会更加明显。"
     },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "第三步",
@@ -169,7 +169,7 @@
       "TO_TITLE": " 增强到 ",
       "NO_OUTPUT_FOLDER_ALERT": "请先选择一个输出文件夹",
       "START_BUTTON_TITLE": "启动！🚀",
-      "IN_PROGRESS_BUTTON_TITLE": "正在增强分 ⏳"
+      "IN_PROGRESS_BUTTON_TITLE": "正在增强 ⏳"
     },
     "MORE_OPTIONS_DRAWER": {
       "RESET_BUTTON_TITLE": "重置图片",
@@ -252,7 +252,7 @@
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "未选择图片",
-      "DESCRIPTION": "你还没选择图片呢QwQ"
+      "DESCRIPTION": "你还没选择图片哦 QwQ"
     },
     "OPEN_DOCS_TITLE": "打开文档",
     "OPEN_DOCS_BUTTON_TITLE": "排除故障"
