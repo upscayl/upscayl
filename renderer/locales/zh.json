@@ -1,15 +1,15 @@
 {
   "TITLE": "Upscayl",
-  "INTRO": "Upscayl Cloud隆重登场！",
+  "INTRO": "Upscayl Cloud 隆重登场！",
   "HEADER": {
     "GITHUB_BUTTON_TITLE": "给我们的 GitHub 仓库标星 😁",
     "DESCRIPTION": "AI 图像增强工具"
   },
   "FOOTER": {
-    "NEWS_TITLE": "Upscayl新闻",
+    "NEWS_TITLE": "Upscayl 新闻",
     "COPYRIGHT": "版权所有 ©",
     "TITLE": "开发者：",
-    "LINK_TITLE": "Upscayl团队"
+    "LINK_TITLE": "Upscayl 团队"
   },
   "SETTINGS": {
     "TITLE": "设置",
@@ -60,7 +60,7 @@
       "DESCRIPTION": "启用后，Upscayl 将重新处理图片，不直接加载之前的结果。"
     },
     "RESET_SETTINGS": {
-      "BUTTON_TITLE": "重置Upscayl",
+      "BUTTON_TITLE": "重置 Upscayl",
       "ALERT": "Upscayl 已被重置，请重新启动应用程序。"
     },
     "SAVE_OUTPUT_FOLDER": {
@@ -73,7 +73,7 @@
     },
     "ENABLE_CONTRIBUTION": {
       "TITLE": "帮助改进Upscayl",
-      "DESCRIPTION": "启用后，Upscayl将收集匿名使用数据以改进应用程序界面和功能。"
+      "DESCRIPTION": "启用后，Upscayl 将收集匿名使用数据以改进应用程序界面和功能。"
     },
     "THEME": {
       "TITLE": "主题"
@@ -87,7 +87,7 @@
     },
     "TURN_OFF_NOTIFICATIONS": {
       "TITLE": "关闭通知",
-      "DESCRIPTION": "启用后，Upscayl将不会发送任何有关图像处理的系统通知。"
+      "DESCRIPTION": "启用后，Upscayl 将不会发送任何有关图像处理的系统通知。"
     },
     "SUPPORT": {
       "TITLE": "有问题吗？",
@@ -153,11 +153,11 @@
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "双重增强",
-      "DESCRIPTION": "启用后，Upscayl会对自己的输出再次增强。请注意，这可能会显著拖慢处理速度，导致性能问题，当增强比例超过 4X 时, 该问题会更加明显。"
+      "DESCRIPTION": "启用后，Upscayl 会对自己的输出再次增强。请注意，这可能会显著拖慢处理速度，导致性能问题，当增强比例超过 4X 时, 该问题会更加明显。"
     },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "第三步",
-      "MAC_APP_STORE_ALERT": "由于 App Store 的安全限制，Upscayl每次启动时都需要你选择一个输出文件夹。\n\n为避免此情况，你可以在Upscayl的设置中选择保存输出文件夹。",
+      "MAC_APP_STORE_ALERT": "由于 App Store 的安全限制，Upscayl每次启动时都需要你选择一个输出文件夹。\n\n为避免此情况，你可以在 Upscayl 的设置中选择保存输出文件夹。",
       "NOT_SELECTED": "未选择",
       "DEFAULT_IMG_PATH": "默认为图片路径",
       "DEFAULT_FOLDER_PATH": "默认为文件夹路径",
@@ -235,7 +235,7 @@
     },
     "EXCEPTION_ERROR": {
       "TITLE": "异常错误",
-      "DESCRIPTION": "Upscayl核心程序遇到未知错误。试试检查日志是否有任何信息。在 GitHub 仓库中提交 issue 以获取更多帮助"
+      "DESCRIPTION": "Upscayl 核心程序遇到未知错误。试试检查日志是否有任何信息。在 GitHub 仓库中提交 issue 以获取更多帮助"
     },
     "GENERIC_ERROR": {
       "TITLE": "错误"
@@ -260,9 +260,9 @@
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "即将推出！",
     "CATCHY_PHRASE_1": "该与错误、硬件问题、质量妥协和漫长的等待告别喽！",
-    "CATCHY_PHRASE_2": "🌐 随时随地，任何设备都能使用Upscayl\n☁️ 无需显卡或硬件\n👩 面部增强\n🦋 10+ 模型可供选择\n🏎 比桌面版快 5 倍\n🎞 视频增强\n💰 商业用途\n😴 你睡你的觉，它超它的分",
+    "CATCHY_PHRASE_2": "🌐 随时随地，任何设备都能使用 Upscayl\n☁️ 无需显卡或硬件\n👩 面部增强\n🦋 10+ 模型可供选择\n🏎 比桌面版快 5 倍\n🎞 视频增强\n💰 商业用途\n😴 你睡你的觉，它超它的分",
     "ALREADY_REGISTERED_ALERT": "{name}，谢谢您！不过看起来您好像已经注册过了 b（￣▽￣）d 不对的话，再注册一遍试试。",
-    "ADD_SUCCESS": "感谢您加入候补名单！我们将会在Upscayl Cloud准备就绪时通知你。",
+    "ADD_SUCCESS": "感谢您加入候补名单！我们将会在 Upscayl Cloud 准备就绪时通知你。",
     "INCORRECT_FIELDS_ALERT": "请适当填写",
     "JOIN_WAITLIST": "加入候补名单",
     "DONT_SHOW_AGAIN": "不再显示"
@@ -273,7 +273,7 @@
     "GET_STARTED_BUTTON_TITLE": "开始使用",
     "SETTINGS_NOTE": "你可以随时更改这些设置。",
     "STEP_1": {
-      "TITLE": "欢迎使用Upscayl 🎉",
+      "TITLE": "欢迎使用 Upscayl 🎉",
       "DESCRIPTION": "让我们通过几个快速步骤来开始吧。"
     },
     "STEP_2": {
@@ -281,12 +281,12 @@
       "DESCRIPTION": "配置你的初始设置。"
     },
     "STEP_3": {
-      "TITLE": "如何使用Upscayl？ 🚀",
+      "TITLE": "如何使用 Upscayl？ 🚀",
       "DESCRIPTION": "观看这个简短的视频，了解新功能。"
     },
     "STEP_4": {
       "TITLE": "一切准备就绪！ 🎉",
-      "DESCRIPTION": "你已经准备好使用Upscayl来增强图片了！"
+      "DESCRIPTION": "你已经准备好使用 Upscayl 来增强图片了！"
     }
   }
 }
