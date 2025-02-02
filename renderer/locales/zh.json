@@ -1,6 +1,6 @@
 {
   "TITLE": "Upscayl",
-  "INTRO": "云Upscayl隆重登场！",
+  "INTRO": "云 Upscayl 隆重登场！",
   "HEADER": {
     "GITHUB_BUTTON_TITLE": "给我们的 GitHub 仓库标星 😁",
     "DESCRIPTION": "AI 图像增强工具"
@@ -35,7 +35,7 @@
     },
     "GPU_ID_INPUT": {
       "TITLE": "GPU ID",
-      "DESCRIPTION": "请阅读Upscayl文档 Wiki 来了解更多信息。",
+      "DESCRIPTION": "请阅读 Upscayl 文档 Wiki 来了解更多信息。",
       "ADDITIONAL_DESCRIPTION": "在 Windows 上启用性能模式以获得更好的效果。"
     },
     "IMAGE_FORMAT": {
@@ -57,23 +57,23 @@
     },
     "OVERWRITE_TOGGLE": {
       "TITLE": "覆盖之前的结果",
-      "DESCRIPTION": "启用后，Upscayl将重新处理图片，不直接加载之前的结果。"
+      "DESCRIPTION": "启用后，Upscayl 将重新处理图片，不直接加载之前的结果。"
     },
     "RESET_SETTINGS": {
-      "BUTTON_TITLE": "重置Upscayl",
-      "ALERT": "Upscayl已被重置，请重新启动应用程序。"
+      "BUTTON_TITLE": "重置 Upscayl",
+      "ALERT": "Upscayl 已被重置，请重新启动应用程序。"
     },
     "SAVE_OUTPUT_FOLDER": {
       "TITLE": "保存输出文件夹",
       "DESCRIPTION": "启用后，输出文件夹将在会话之间被记住。"
     },
     "AUTO_UPDATE": {
-      "TITLE": "自动更新Upscayl",
-      "DESCRIPTION": "启用后，应用程序将检查新更新并通知你。"
+      "TITLE": "自动更新 Upscayl",
+      "DESCRIPTION": "启用后，应用程序将检查更新并通知你。"
     },
     "ENABLE_CONTRIBUTION": {
-      "TITLE": "帮助改进Upscayl",
-      "DESCRIPTION": "启用后，Upscayl将收集匿名使用数据以改进应用程序界面和功能。"
+      "TITLE": "帮助改进 Upscayl",
+      "DESCRIPTION": "启用后，Upscayl 将收集匿名使用数据以改进应用程序界面和功能。"
     },
     "THEME": {
       "TITLE": "U主题"
@@ -83,11 +83,11 @@
     },
     "CUSTOM_TILE_SIZE": {
       "TITLE": "自定义图块大小",
-      "DESCRIPTION": "使用自定义图块大小来分割图片，减少需要处理的的图块数量，更快得处理图片。"
+      "DESCRIPTION": "使用自定义图块大小来分割图片，可以减少需要处理的的图块数量，更快得处理图片。"
     },
     "TURN_OFF_NOTIFICATIONS": {
       "TITLE": "关闭通知",
-      "DESCRIPTION": "启用后，Upscayl将不会发送任何有关图像处理的系统通知。"
+      "DESCRIPTION": "启用后，Upscayl 将不会发送任何有关图像处理的系统通知。"
     },
     "SUPPORT": {
       "TITLE": "有问题吗？",
@@ -105,7 +105,7 @@
   "APP": {
     "TITLE": "Upscayl",
     "BATCH_MODE": {
-      "TITLE": "批量超分",
+      "TITLE": "批量",
       "DESCRIPTION": "一次性增强文件夹中的所有文件"
     },
     "FILE_SELECTION": {
@@ -235,7 +235,7 @@
     },
     "EXCEPTION_ERROR": {
       "TITLE": "异常错误",
-      "DESCRIPTION": "Upscayl核心程序遇到未知错误。试试检查日志是否有任何信息。在 GitHub 仓库中提交issue以获取更多帮助"
+      "DESCRIPTION": "Upscayl核心程序遇到未知错误。试试检查日志是否有任何信息。在 GitHub 仓库中提交 issue 以获取更多帮助"
     },
     "GENERIC_ERROR": {
       "TITLE": "错误"
@@ -263,7 +263,7 @@
     "CATCHY_PHRASE_2": "🌐 随时随地，任何设备都能阿普升图\n☁️ 无需显卡或硬件\n👩 面部增强\n🦋 10+ 模型可供选择\n🏎 比桌面版快 5 倍\n🎞 视频增强\n💰 商业用途\n😴 你睡你的觉，它超它的分",
     "ALREADY_REGISTERED_ALERT": "{name}，谢谢您！不过看起来您好像已经注册过了 b（￣▽￣）d 不对的话，再注册一遍试试。",
     "ADD_SUCCESS": "感谢您加入候补名单！我们将会在云Upscayl准备就绪时通知你。",
-    "INCORRECT_FIELDS_ALERT": "请适当填写。",
+    "INCORRECT_FIELDS_ALERT": "请适当填写",
     "JOIN_WAITLIST": "加入候补名单",
     "DONT_SHOW_AGAIN": "不再显示"
   },
