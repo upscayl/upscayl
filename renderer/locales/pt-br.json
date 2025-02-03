@@ -123,7 +123,7 @@
       "MODELS": {
         "upscayl-standard-4x": {
           "NAME": "Upscayl Padrão",
-          "DESCRIPTION": "Adequado à maiorida das imagens."
+          "DESCRIPTION": "Adequado à maioria das imagens."
         },
         "upscayl-lite-4x": {
           "NAME": "Upscayl Lite",
