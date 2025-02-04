@@ -83,7 +83,7 @@
     },
     "CUSTOM_TILE_SIZE": {
       "TITLE": "自定义图块大小",
-      "DESCRIPTION": "使用自定义图块大小来分割图片，可以减少需要处理的的图块数量，更快得处理图片。"
+      "DESCRIPTION": "使用自定义图块大小来分割图片，可以减少需要处理的的图块数量，更快地处理图片。"
     },
     "TURN_OFF_NOTIFICATIONS": {
       "TITLE": "关闭通知",
@@ -106,7 +106,7 @@
     "TITLE": "Upscayl",
     "BATCH_MODE": {
       "TITLE": "批量",
-      "DESCRIPTION": "一次性对文件夹中的所有文件进行升图"
+      "DESCRIPTION": "一次性对文件夹中的所有文件进行升图操作"
     },
     "FILE_SELECTION": {
       "TITLE": "第一步",
@@ -153,11 +153,11 @@
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "双重升图",
-      "DESCRIPTION": "启用后，Upscayl 会对自己的输出再次增强。请注意，这可能会显著拖慢处理速度，导致性能问题，当增强比例超过 4X 时, 该问题会更加明显。"
+      "DESCRIPTION": "启用后，Upscayl 会对自己的输出再次增强。请注意，这可能会显著拖慢处理速度，导致性能问题。当增强比例超过 4X 时, 该问题会更加明显。"
     },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "第三步",
-      "MAC_APP_STORE_ALERT": "由于 App Store 的安全限制，Upscayl每次启动时都需要你选择一个输出文件夹。\n\n为避免此情况，你可以在 Upscayl 的设置中选择保存输出文件夹。",
+      "MAC_APP_STORE_ALERT": "由于 App Store 的安全限制，Upscayl 每次启动时都需要你选择一个输出文件夹。\n\n为避免此情况，你可以在 Upscayl 的设置中选择保存输出文件夹。",
       "NOT_SELECTED": "未选择",
       "DEFAULT_IMG_PATH": "默认为图片路径",
       "DEFAULT_FOLDER_PATH": "默认为文件夹路径",
@@ -286,7 +286,7 @@
     },
     "STEP_4": {
       "TITLE": "一切准备就绪！ 🎉",
-      "DESCRIPTION": "你已经准备好使用 Upscayl 来增强图片了！"
+      "DESCRIPTION": "你已经准备好使用 Upscayl 来升级图片了！"
     }
   }
 }
