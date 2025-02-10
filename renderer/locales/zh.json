@@ -1,15 +1,15 @@
 {
-  "TITLE": "阿普升图",
-  "INTRO": "阿普升图云隆重登场！",
+  "TITLE": "Upscayl",
+  "INTRO": "Upscayl Cloud 隆重登场！",
   "HEADER": {
-    "GITHUB_BUTTON_TITLE": "收藏我们的 GitHub 😁",
+    "GITHUB_BUTTON_TITLE": "给我们的 GitHub 仓库标星 😁",
     "DESCRIPTION": "AI 图像增强工具"
   },
   "FOOTER": {
-    "NEWS_TITLE": "阿普升图新闻",
+    "NEWS_TITLE": "Upscayl 新闻",
     "COPYRIGHT": "版权所有 ©",
     "TITLE": "开发者：",
-    "LINK_TITLE": "阿普升图团队"
+    "LINK_TITLE": "Upscayl 团队"
   },
   "SETTINGS": {
     "TITLE": "设置",
@@ -35,7 +35,7 @@
     },
     "GPU_ID_INPUT": {
       "TITLE": "GPU ID",
-      "DESCRIPTION": "请阅读阿普升图文档 Wiki 来了解更多信息。",
+      "DESCRIPTION": "请阅读 Upscayl 文档 Wiki 来了解更多信息。",
       "ADDITIONAL_DESCRIPTION": "在 Windows 上启用性能模式以获得更好的效果。"
     },
     "IMAGE_FORMAT": {
@@ -57,37 +57,37 @@
     },
     "OVERWRITE_TOGGLE": {
       "TITLE": "覆盖之前的结果",
-      "DESCRIPTION": "启用后，阿普升图将重新处理图片，不直接加载之前的结果。"
+      "DESCRIPTION": "启用后，Upscayl 将重新处理图片，不直接加载之前的结果。"
     },
     "RESET_SETTINGS": {
-      "BUTTON_TITLE": "重置阿普升图",
-      "ALERT": "阿普升图已被重置，请重新启动应用程序。"
+      "BUTTON_TITLE": "重置 Upscayl",
+      "ALERT": "Upscayl 已被重置，请重新启动应用程序。"
     },
     "SAVE_OUTPUT_FOLDER": {
       "TITLE": "保存输出文件夹",
       "DESCRIPTION": "启用后，输出文件夹将在会话之间被记住。"
     },
     "AUTO_UPDATE": {
-      "TITLE": "自动更新阿普升图",
-      "DESCRIPTION": "启用后，应用程序将检查新更新并通知你。"
+      "TITLE": "自动更新Upscayl",
+      "DESCRIPTION": "启用后，应用程序将检查更新并通知你。"
     },
     "ENABLE_CONTRIBUTION": {
-      "TITLE": "帮助改进阿普升图",
-      "DESCRIPTION": "启用后，阿普升图将收集匿名使用数据以改进应用程序界面和功能。"
+      "TITLE": "帮助改进Upscayl",
+      "DESCRIPTION": "启用后，Upscayl 将收集匿名使用数据以改进应用程序界面和功能。"
     },
     "THEME": {
-      "TITLE": "阿普升图主题"
+      "TITLE": "主题"
     },
     "LANGUAGE": {
-      "TITLE": "阿普升图语言"
+      "TITLE": "语言"
     },
     "CUSTOM_TILE_SIZE": {
       "TITLE": "自定义图块大小",
-      "DESCRIPTION": "使用自定义图块大小来分割图片，减少需要处理的的图块数量，更快得处理图片。"
+      "DESCRIPTION": "使用自定义图块大小来分割图片，可以减少需要处理的的图块数量，更快地处理图片。"
     },
     "TURN_OFF_NOTIFICATIONS": {
       "TITLE": "关闭通知",
-      "DESCRIPTION": "启用后，阿普升图将不会发送任何有关图像处理的系统通知。"
+      "DESCRIPTION": "启用后，Upscayl 将不会发送任何有关图像处理的系统通知。"
     },
     "SUPPORT": {
       "TITLE": "有问题吗？",
@@ -103,10 +103,10 @@
     }
   },
   "APP": {
-    "TITLE": "阿普升图",
+    "TITLE": "Upscayl",
     "BATCH_MODE": {
-      "TITLE": "批量升图",
-      "DESCRIPTION": "一次性增强文件夹中的所有文件"
+      "TITLE": "批量",
+      "DESCRIPTION": "一次性对文件夹中的所有文件进行升图操作"
     },
     "FILE_SELECTION": {
       "TITLE": "第一步",
@@ -117,8 +117,8 @@
       "TITLE": "第二步",
       "DESCRIPTION": "选择 AI 模型",
       "IMPORTED_CUSTOM_MODELS": "导入的自定义模型",
-      "BEFORE": "之前",
-      "AFTER": "之后",
+      "BEFORE": "升图前",
+      "AFTER": "升图后",
       "ZOOM": "缩放",
       "MODELS": {
         "upscayl-standard-4x": {
@@ -153,11 +153,11 @@
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "双重升图",
-      "DESCRIPTION": "启用后，阿普会对自己的输出再次升图。请注意，这可能会显著拖慢处理速度，导致性能问题，尤其当增强比例超过 4X 时。"
+      "DESCRIPTION": "启用后，Upscayl 会对自己的输出再次增强。请注意，这可能会显著拖慢处理速度，导致性能问题。当增强比例超过 4X 时, 该问题会更加明显。"
     },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "第三步",
-      "MAC_APP_STORE_ALERT": "由于 App Store 的安全限制，阿普升图每次启动时都需要你选择一个输出文件夹。\n\n为避免此情况，你可以在阿普升图的设置中选择保存输出文件夹。",
+      "MAC_APP_STORE_ALERT": "由于 App Store 的安全限制，Upscayl 每次启动时都需要你选择一个输出文件夹。\n\n为避免此情况，你可以在 Upscayl 的设置中选择保存输出文件夹。",
       "NOT_SELECTED": "未选择",
       "DEFAULT_IMG_PATH": "默认为图片路径",
       "DEFAULT_FOLDER_PATH": "默认为文件夹路径",
@@ -166,9 +166,9 @@
     "SCALE_SELECTION": {
       "TITLE": "第四步",
       "FROM_TITLE": "从 ",
-      "TO_TITLE": " 升图到 ",
+      "TO_TITLE": " 保存到 ",
       "NO_OUTPUT_FOLDER_ALERT": "请先选择一个输出文件夹",
-      "START_BUTTON_TITLE": "升图！🚀",
+      "START_BUTTON_TITLE": "启动！🚀",
       "IN_PROGRESS_BUTTON_TITLE": "正在升图 ⏳"
     },
     "MORE_OPTIONS_DRAWER": {
@@ -176,23 +176,23 @@
       "LENS_VIEW_TITLE": "透镜视图",
       "SLIDER_VIEW_TITLE": "滑块视图",
       "ZOOM_AMOUNT_TITLE": "缩放比例",
-      "TOTAL_UPSCAYLS": "总升图次数",
+      "TOTAL_UPSCAYLS": "总增强次数",
       "TOTAL_BATCH_UPSCAYLS": "总批量升图次数",
       "TOTAL_IMAGE_UPSCAYLS": "总图片升图次数",
       "TOTAL_DOUBLE_UPSCAYLS": "总双重升图次数",
-      "AVERAGE_UPSCAYL_TIME": "平均升图时间",
-      "LAST_UPSCAYL_DURATION": "上次升图时长",
-      "LAST_USED_AT": "上次使用时间"
+      "AVERAGE_UPSCAYL_TIME": "平均升图耗时",
+      "LAST_UPSCAYL_DURATION": "上次升图耗时",
+      "LAST_USED_AT": "上次使用日期"
     },
     "PROGRESS_BAR": {
-      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量阿普升图中",
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量升图中",
       "IN_PROGRESS_TITLE": "稍等一下，升图魔法进行中",
       "STOP_BUTTON_TITLE": "取消"
     },
     "RESET_BUTTON_TITLE": "重置",
     "RIGHT_PANE_INFO": {
-      "SELECT_FOLDER": "选择要增强的文件夹",
-      "SELECT_IMAGE": "选择要增强的图片",
+      "SELECT_FOLDER": "选择要升级的图片所在的文件夹",
+      "SELECT_IMAGE": "选择要升级的图片",
       "SELECT_FOLDER_DESCRIPTION": "文件夹中只支持 PNG、JPG、JPEG 和 WEBP 图片。",
       "SELECT_IMAGES_DESCRIPTION": "选择或拖放 PNG、JPG、JPEG 或 WEBP 图片。",
       "PASTE_IMAGE_DESCRIPTION": "按 Ctrl+V 或 ⌘+V 来粘贴图像"
@@ -201,7 +201,7 @@
       "PROCESSING_TITLE": "正在处理图片...",
       "SCALING_CONVERTING_TITLE": "正在缩放，转换，并压缩图片...",
       "WAIT_TITLE": "请稍等...",
-      "SUCCESS_TITLE": "升图成功！",
+      "SUCCESS_TITLE": "成功！",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "所选文件夹：",
         "DONE_TITLE": "全部完成！",
@@ -210,7 +210,7 @@
     },
     "SLIDER": {
       "ORIGINAL_TITLE": "一开始",
-      "UPSCAYLED_TITLE": "增强后"
+      "UPSCAYLED_TITLE": "升图后"
     },
     "DIALOG_BOX": {
       "CLOSE": "关闭"
@@ -227,7 +227,7 @@
     },
     "READ_WRITE_ERROR": {
       "TITLE": "读写错误",
-      "DESCRIPTION": "确保目录正确，并确保你拥有适当的读写权限\n({data})"
+      "DESCRIPTION": "确保目录正确，并确保你拥有其读写权限\n({data})"
     },
     "TILE_SIZE_ERROR": {
       "TITLE": "图块错误",
@@ -235,7 +235,7 @@
     },
     "EXCEPTION_ERROR": {
       "TITLE": "异常错误",
-      "DESCRIPTION": "阿普升图核心程序遇到未知错误。试试检查日志是否有任何信息。在 GitHub 代码库中填写缺陷报告以获取更多帮助"
+      "DESCRIPTION": "Upscayl 核心程序遇到未知错误。试试检查日志是否有任何信息。在 GitHub 仓库中提交 issue 以获取更多帮助"
     },
     "GENERIC_ERROR": {
       "TITLE": "错误"
@@ -252,7 +252,7 @@
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "未选择图片",
-      "DESCRIPTION": "升图可是需要图片的哦"
+      "DESCRIPTION": "你还没选择图片哦 QwQ"
     },
     "OPEN_DOCS_TITLE": "打开文档",
     "OPEN_DOCS_BUTTON_TITLE": "排除故障"
@@ -260,10 +260,10 @@
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "即将推出！",
     "CATCHY_PHRASE_1": "该与错误、硬件问题、质量妥协和漫长的等待告别喽！",
-    "CATCHY_PHRASE_2": "🌐 随时随地，任何设备都能阿普升图\n☁️ 无需显卡或硬件\n👩 面部增强\n🦋 10+ 模型可供选择\n🏎 比桌面版快 5 倍\n🎞 视频增强\n💰 商业用途\n😴 你睡你的，勤奋升图",
+    "CATCHY_PHRASE_2": "🌐 随时随地，任何设备都能使用 Upscayl\n☁️ 无需显卡或硬件\n👩 面部增强\n🦋 10+ 模型可供选择\n🏎 比桌面版快 5 倍\n🎞 视频增强\n💰 商业用途\n😴 你睡你的觉，它升它的图",
     "ALREADY_REGISTERED_ALERT": "{name}，谢谢您！不过看起来您好像已经注册过了 b（￣▽￣）d 不对的话，再注册一遍试试。",
-    "ADD_SUCCESS": "感谢您加入候补名单！我们将会在阿普升图云准备就绪时通知你。",
-    "INCORRECT_FIELDS_ALERT": "请适当填写。",
+    "ADD_SUCCESS": "感谢您加入候补名单！我们将会在 Upscayl Cloud 准备就绪时通知你。",
+    "INCORRECT_FIELDS_ALERT": "请适当填写",
     "JOIN_WAITLIST": "加入候补名单",
     "DONT_SHOW_AGAIN": "不再显示"
   },
@@ -273,7 +273,7 @@
     "GET_STARTED_BUTTON_TITLE": "开始使用",
     "SETTINGS_NOTE": "你可以随时更改这些设置。",
     "STEP_1": {
-      "TITLE": "欢迎使用阿普升图 🎉",
+      "TITLE": "欢迎使用 Upscayl 🎉",
       "DESCRIPTION": "让我们通过几个快速步骤来开始吧。"
     },
     "STEP_2": {
@@ -281,12 +281,12 @@
       "DESCRIPTION": "配置你的初始设置。"
     },
     "STEP_3": {
-      "TITLE": "如何使用阿普升图？ 🚀",
+      "TITLE": "如何使用 Upscayl？ 🚀",
       "DESCRIPTION": "观看这个简短的视频，了解新功能。"
     },
     "STEP_4": {
       "TITLE": "一切准备就绪！ 🎉",
-      "DESCRIPTION": "你已经准备好使用阿普升图来增强图片了！"
+      "DESCRIPTION": "你已经准备好使用 Upscayl 来升级图片了！"
     }
   }
 }
