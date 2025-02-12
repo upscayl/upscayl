@@ -13,6 +13,7 @@ const locales = {
   de: "Deutsch",
   vi: "Tiếng Việt",
   pt: "Português (Portugal)",
+  ptBR: "Português (Brasil)",
   id: "Bahasa Indonesia",
 };
 
