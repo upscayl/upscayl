@@ -1,0 +1,53 @@
+name: Build for Windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3.5.0
+        with:
+          node-version: 18
+
+      - name: Install Modules and Build
+        run: |
+          npm install
+          npm run dist:win
+
+      # Get the latest release
+      - name: Get Latest Release
+        id: get_latest_release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const latestRelease = await github.rest.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            core.setOutput('release_id', latestRelease.data.id);
+
+      - name: Upload Assets to Release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: |
+            dist/*.blockmap
+            dist/*.zip
+            dist/*.exe
+            dist/*.yml
+
+      - name: Upload Windows Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-build
+          path: |
+            dist/*.blockmap
+            dist/*.zip
+            dist/*.exe
+            dist/*.yml

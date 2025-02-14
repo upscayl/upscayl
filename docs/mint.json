@@ -65,11 +65,11 @@
     {
       "group": "API Reference",
       "pages": [
-        "get-task-status",
+        "start-a-new-task",
         "get-upload-url",
         "complete-a-multipart-upload",
-        "get-upscayl-history",
-        "start-a-new-task"
+        "get-task-status",
+        "get-upscayl-history"
       ]
     }
   ],
