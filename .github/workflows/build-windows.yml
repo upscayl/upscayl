@@ -32,15 +32,15 @@ jobs:
             });
             core.setOutput('release_id', latestRelease.data.id);
 
-      # - name: Upload Assets to Release
-      #   uses: svenstaro/upload-release-action@v2
-      #   with:
-      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
-      #     release_id: ${{ steps.get_latest_release.outputs.release_id }}
-      #     file: |
-      #       dist/*.blockmap
-      #       dist/*.zip
-      #       dist/*.exe
+      - name: Upload Assets to Release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: |
+            dist/*.blockmap
+            dist/*.zip
+            dist/*.exe
+            dist/*.yml
 
       - name: Upload Windows Build
         uses: actions/upload-artifact@v3

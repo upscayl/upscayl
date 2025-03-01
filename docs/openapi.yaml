@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: "3.0.2"
 info:
   title: Upscayl Cloud API
   description: |
@@ -7,10 +7,10 @@ info:
   version: 1.0.0
   contact:
     name: Upscayl Support
-    url: https://upscayl.github.io
+    url: mailto:support@upscayl.org
 servers:
-  - url: https://api.upscayl.com/v1
-    description: Production server
+  - url: https://api.upscayl.org
+    description: Upscayl Server
 
 security:
   - ApiKeyAuth: []
@@ -21,7 +21,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
           example:
             error: BAD_REQUEST
             message: "Invalid request parameters provided"
@@ -31,7 +31,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
           example:
             error: NOT_FOUND
             message: "Requested resource could not be found"
@@ -40,7 +40,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
           example:
             error: UNAUTHORIZED
             message: "Invalid or missing API key"
@@ -50,7 +50,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
           example:
             error: RATE_LIMIT_EXCEEDED
             message: "Too many requests. Try again in 1 hour"
@@ -59,7 +59,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
           example:
             error: INTERNAL_SERVER_ERROR
             message: "An unexpected error occurred"
@@ -85,7 +85,7 @@ components:
               type: boolean
               description: Whether task is in batch mode
             enhanceFace:
-              type: boolean 
+              type: boolean
               description: Whether face enhancement is enabled
             error:
               type: string
@@ -93,10 +93,25 @@ components:
             files:
               type: array
               items:
-                $ref: '#/components/schemas/ProcessedFile'
+                $ref: "#/components/schemas/ProcessedFile"
             model:
               type: string
               description: AI model used for processing
+              enum:
+                [
+                  upscayl-standard-4x,
+                  upscayl-lite-4x,
+                  clear-boost-4x,
+                  crystal-plus-4x,
+                  digital-art-4x,
+                  digital-art-plus-4x,
+                  natural-max-4x,
+                  natural-plus-4x,
+                  nature-boost-4x,
+                  pure-boost-4x,
+                  quick-clear-4x,
+                  texture-boost-4x,
+                ]
             progress:
               type: string
               description: Processing progress percentage
@@ -109,10 +124,10 @@ components:
             saveImageAs:
               type: string
               enum: [png, jpg, webp]
-            compression:
-              type: number
-              minimum: 0
-              maximum: 100
+            # compression:
+            #   type: number
+            #   minimum: 0
+            #   maximum: 100
             creditsDeducted:
               type: boolean
             deductedCredits:
@@ -148,42 +163,57 @@ components:
           format: int64
           description: Expiration timestamp (Unix ms)
     ProcessingTask:
-        type: object
-        properties:
-          batchMode:
-            type: boolean
-            description: Whether task was processed in batch mode
-          enhanceFace:
-            type: boolean
-            description: Whether face enhancement was applied
-          error:
-            type: string
-            description: Error message if processing failed
-          files:
-            type: array
-            items:
-              $ref: '#/components/schemas/ProcessedFile'
-          model:
-            type: string
-            description: AI model used for processing
-          progress:
-            type: string
-            description: Processing progress percentage
-          scale:
-            type: string
-            description: Upscale factor applied
-          status:
-            type: string
-            enum: [pending, processing, completed, failed]
-          saveImageAs:
-            type: string
-            enum: [png, jpg, webp]
-          compression:
-            type: number
-            minimum: 0
-            maximum: 100
-          creditsDeducted:
-            type: boolean
+      type: object
+      properties:
+        batchMode:
+          type: boolean
+          description: Whether task was processed in batch mode
+        enhanceFace:
+          type: boolean
+          description: Whether face enhancement was applied
+        error:
+          type: string
+          description: Error message if processing failed
+        files:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProcessedFile"
+        model:
+          type: string
+          description: AI model used for processing
+          enum:
+            [
+              upscayl-standard-4x,
+              upscayl-lite-4x,
+              clear-boost-4x,
+              crystal-plus-4x,
+              digital-art-4x,
+              digital-art-plus-4x,
+              natural-max-4x,
+              natural-plus-4x,
+              nature-boost-4x,
+              pure-boost-4x,
+              quick-clear-4x,
+              texture-boost-4x,
+            ]
+        progress:
+          type: string
+          description: Processing progress percentage
+        scale:
+          type: string
+          description: Upscale factor applied
+        status:
+          type: string
+          enum: [pending, processing, completed, failed]
+        saveImageAs:
+          type: string
+          enum: [png, jpg, webp]
+        # compression:
+        #   type: number
+        #   minimum: 0
+        #   maximum: 100
+        creditsDeducted:
+          type: boolean
 
     ProcessedFile:
       type: object
@@ -237,7 +267,6 @@ tags:
     description: Image processing task operations
   - name: History
     description: Historical data operations
-
 
 paths:
   /get-upload-url:
@@ -344,7 +373,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
               examples:
                 InvalidFileType:
                   value:
@@ -359,11 +388,11 @@ paths:
                     error: MISSING_REQUIRED_FIELDS
                     message: "Required fields missing: originalFileName"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "429":
-          $ref: '#/components/responses/TooManyRequests'
+          $ref: "#/components/responses/TooManyRequests"
         "500":
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
   /get-upscayl-history:
     post:
       tags:
@@ -441,17 +470,17 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/ProcessingTask'
+                      $ref: "#/components/schemas/ProcessingTask"
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
         "429":
-          $ref: '#/components/responses/TooManyRequests'
+          $ref: "#/components/responses/TooManyRequests"
         "500":
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
   /get-task-status:
     post:
       tags:
@@ -478,7 +507,7 @@ paths:
                 taskId:
                   type: string
                   format: uuid
-                  description: Task ID returned by start-task endpoint. See [Start Image Upscaling Task](#operation/startTask).
+                  description: Task ID returned by start-task endpoint. See [Start Image Upscaling Task](/start-a-new-task).
                   example: 30a89e69-c702-4247-9905-f0a53dfa45ab
       responses:
         "200":
@@ -486,32 +515,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TaskStatus'
+                $ref: "#/components/schemas/TaskStatus"
               example:
                 status: success
                 data:
                   batchMode: false
                   enhanceFace: true
-                  model: digital-art
+                  model: digital-art-4x
                   progress: "75"
                   scale: "4"
                   status: processing
                   files: []
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
         "429":
-          $ref: '#/components/responses/TooManyRequests'
+          $ref: "#/components/responses/TooManyRequests"
         "500":
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
   /start-task:
     post:
       tags:
         - Tasks
-      summary: Start Image Upscaling Task
+      summary: Start Task
       description: |
         Initiates a new image upscaling task with specified parameters.
         Supports both direct file upload and processing of previously uploaded files.
@@ -531,7 +560,7 @@ paths:
                 files:
                   type: array
                   items:
-                    $ref: '#/components/schemas/UploadedFile'
+                    $ref: "#/components/schemas/UploadedFile"
                   description: Array of previously uploaded files to process
                 file:
                   type: string
@@ -544,19 +573,33 @@ paths:
                 model:
                   type: string
                   description: AI model for upscaling
-                  enum: [digital-art, photo-realistic, anime]
+                  enum:
+                    [
+                      upscayl-standard-4x,
+                      upscayl-lite-4x,
+                      clear-boost-4x,
+                      crystal-plus-4x,
+                      digital-art-4x,
+                      digital-art-plus-4x,
+                      natural-max-4x,
+                      natural-plus-4x,
+                      nature-boost-4x,
+                      pure-boost-4x,
+                      quick-clear-4x,
+                      texture-boost-4x,
+                    ]
                   example: digital-art
                 scale:
                   type: string
                   description: Upscaling factor
                   enum: ["2", "4", "8"]
                   example: "4"
-                compression:
-                  type: number
-                  description: Output image compression (0-100)
-                  minimum: 0
-                  maximum: 100
-                  default: 0
+                # TODO: compression:
+                #   type: number
+                #   description: Output image compression (0-100)
+                #   minimum: 0
+                #   maximum: 100
+                #   default: 0
                 saveImageAs:
                   type: string
                   enum: [png, jpg, webp]
@@ -590,22 +633,22 @@ paths:
                         type: string
                         example: Task request sent successfully
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: '#/components/responses/Unauthorized'  
+          $ref: "#/components/responses/Unauthorized"
         "402":
           description: Insufficient credits
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
               example:
                 error: INSUFFICIENT_CREDITS
                 message: Not enough credits to process request
         "429":
-          $ref: '#/components/responses/TooManyRequests'
+          $ref: "#/components/responses/TooManyRequests"
         "500":
-          $ref: '#/components/responses/InternalError'
+          $ref: "#/components/responses/InternalError"
   /complete-multipart-upload:
     post:
       tags:
@@ -641,7 +684,7 @@ paths:
                       description: S3 upload ID
                       example: "abc123def456"
                     key:
-                      type: string 
+                      type: string
                       description: S3 object key
                       example: "uploads/image.jpg"
                     parts:
@@ -690,18 +733,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
               example:
                 error: BAD_REQUEST
                 message: "Bad Request: Missing required parameters"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "500":
           description: S3 or internal error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
               example:
-                error: INTERNAL_SERVER_ERROR 
+                error: INTERNAL_SERVER_ERROR
                 message: "Error completing multipart upload"

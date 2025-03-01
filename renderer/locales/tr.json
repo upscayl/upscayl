@@ -8,6 +8,7 @@
   "FOOTER": {
     "NEWS_TITLE": "UPSCAYL HABERLERİ",
     "COPYRIGHT": "Telif Hakkı ©",
+    "TITLE": "Geliştiren: ",
     "LINK_TITLE": "The Upscayl Ekibi"
   },
   "SETTINGS": {
@@ -164,6 +165,7 @@
     },
     "SCALE_SELECTION": {
       "TITLE": "4. Adım",
+      "FROM_TITLE": "",
       "TO_TITLE": "'dan ->",
       "NO_OUTPUT_FOLDER_ALERT": "Lütfen önce bir çıktı klasörü seçin.",
       "START_BUTTON_TITLE": "Upscayl'la 🚀",
