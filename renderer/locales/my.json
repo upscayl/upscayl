@@ -1,0 +1,292 @@
+{
+  "TITLE": "Upscayl",
+  "INTRO": "Memperkenalkan Upscayl Cloud!",
+  "HEADER": {
+    "GITHUB_BUTTON_TITLE": "Bintangi kami di GitHub 😁",
+    "DESCRIPTION": "Pengubah Saiz Imej AI"
+  },
+  "FOOTER": {
+    "NEWS_TITLE": "BERITA UPSCAYL",
+    "COPYRIGHT": "Hak Cipta ©",
+    "TITLE": "Oleh ",
+    "LINK_TITLE": "Pasukan Upscayl"
+  },
+  "SETTINGS": {
+    "TITLE": "Tetapan",
+    "CHANGE_LANGUAGE": { "TITLE": "Tukar Bahasa" },
+    "IMAGE_COMPRESSION": {
+      "TITLE": "Pemampatan Imej",
+      "DESCRIPTION": "Pemampatan PNG tidak menghilangkan data, jadi ia mungkin tidak mengurangkan saiz fail dengan ketara dan nilai pemampatan yang lebih tinggi mungkin menjejaskan prestasi. Pemampatan JPG dan WebP menghilangkan sebahagian data."
+    },
+    "CUSTOM_MODELS": {
+      "TITLE": "TAMBAH MODEL KHAS",
+      "BUTTON_FOLDER": "Pilih Folder",
+      "DESCRIPTION": "Anda boleh menambah model anda sendiri dengan mudah. Untuk maklumat lanjut:",
+      "LINK_TITLE": "Repositori Model Khas"
+    },
+    "CUSTOM_INPUT_RESOLUTION": {
+      "TITLE": "LEBAR OUTPUT KHAS",
+      "RESTART": "MEMERLUKAN MULA SEMULA",
+      "DESCRIPTION": "Gunakan lebar khas untuk imej output. Ketinggian akan diselaraskan secara automatik. Mengaktifkan ini akan menggantikan tetapan skala."
+    },
+    "DONATE": {
+      "DESCRIPTION": "Jika anda suka apa yang kami lakukan :)",
+      "BUTTON_TITLE": "💎 DERMA"
+    },
+    "GPU_ID_INPUT": {
+      "TITLE": "ID GPU",
+      "DESCRIPTION": "Sila baca Dokumentasi Upscayl untuk maklumat lanjut.",
+      "ADDITIONAL_DESCRIPTION": "Aktifkan mod prestasi di Windows untuk hasil yang lebih baik."
+    },
+    "IMAGE_FORMAT": {
+      "TITLE": "SIMPAN IMEJ SEBAGAI",
+      "PNG": "PNG",
+      "JPG": "JPG",
+      "WEBP": "WEBP"
+    },
+    "IMAGE_SCALE": {
+      "TITLE": "Skala Imej",
+      "DESCRIPTION": "Apa-apa melebihi 4X (kecuali 16X Double Upscayl) hanya mengubah saiz imej dan tidak menggunakan peningkatan AI.",
+      "WARNING": "Apa-apa melebihi 5X mungkin menyebabkan masalah prestasi pada sesetengah peranti!",
+      "ADDITIONAL_WARNING": "Ini mungkin menyebabkan masalah prestasi pada sesetengah peranti!"
+    },
+    "LOG_AREA": {
+      "ON_COPY": "DISALIN ✅",
+      "BUTTON_TITLE": "SALIN LOG 📋",
+      "NO_LOGS": "Tiada log untuk ditunjukkan"
+    },
+    "OVERWRITE_TOGGLE": {
+      "TITLE": "TULIS GANTI PENINGKATAN SEBELUMNYA",
+      "DESCRIPTION": "Jika diaktifkan, Upscayl akan memproses imej sekali lagi dan bukannya memuatnya secara langsung."
+    },
+    "RESET_SETTINGS": {
+      "BUTTON_TITLE": "TETAPKAN SEMULA UPSCAYL",
+      "ALERT": "Upscayl telah ditetapkan semula. Sila mulakan semula aplikasi."
+    },
+    "SAVE_OUTPUT_FOLDER": {
+      "TITLE": "SIMPAN FOLDER OUTPUT",
+      "DESCRIPTION": "Jika diaktifkan, folder output akan diingati antara sesi."
+    },
+    "AUTO_UPDATE": {
+      "TITLE": "KEMAS KINI AUTO UPSCAYL",
+      "DESCRIPTION": "Jika diaktifkan, aplikasi akan memeriksa kemas kini baharu dan memberitahu anda."
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "BANTU TINGKATKAN UPSCAYL",
+      "DESCRIPTION": "Jika diaktifkan, Upscayl akan mengumpulkan data penggunaan tanpa nama untuk meningkatkan antara muka dan ciri-ciri aplikasi."
+    },
+    "THEME": {
+      "TITLE": "TEMA UPSCAYL"
+    },
+    "LANGUAGE": {
+      "TITLE": "BAHASA UPSCAYL"
+    },
+    "CUSTOM_TILE_SIZE": {
+      "TITLE": "SAIZ JUBIN KHAS",
+      "DESCRIPTION": "Gunakan saiz jubin khas untuk membahagikan imej. Ini boleh membantu memproses imej dengan lebih cepat dengan mengurangkan bilangan jubin yang dihasilkan."
+    },
+    "TURN_OFF_NOTIFICATIONS": {
+      "TITLE": "MATIKAN PEMBERITAHUAN",
+      "DESCRIPTION": "Jika diaktifkan, Upscayl tidak akan menghantar sebarang pemberitahuan sistem tentang kejayaan atau kegagalan."
+    },
+    "SUPPORT": {
+      "TITLE": "Menghadapi masalah?",
+      "DOCS_BUTTON_TITLE": "🙏 DAPATKAN BANTUAN",
+      "EMAIL_BUTTON_TITLE": "📧 EMEL PEMBANGUN"
+    },
+    "TTA_MODE": {
+      "TITLE": "Mod TTA",
+      "DESCRIPTION": "Aktifkan Augmentasi Masa Ujian untuk hasil yang lebih baik, seperti menghilangkan artifak TETAPI ini akan meningkatkan masa pemprosesan sebanyak 8 kali ganda!"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "Maklumat Sistem"
+    }
+  },
+  "APP": {
+    "TITLE": "Upscayl",
+    "BATCH_MODE": {
+      "TITLE": "Upscayl Kelompok",
+      "DESCRIPTION": "Ini akan membolehkan anda mengupscayl semua fail dalam folder sekaligus"
+    },
+    "FILE_SELECTION": {
+      "TITLE": "Langkah 1",
+      "BATCH_MODE_TYPE": "Pilih Folder",
+      "SINGLE_MODE_TYPE": "Pilih Imej"
+    },
+    "MODEL_SELECTION": {
+      "TITLE": "Langkah 2",
+      "DESCRIPTION": "Pilih Model AI",
+      "IMPORTED_CUSTOM_MODELS": "Model Khas yang Diimport",
+      "BEFORE": "Sebelum",
+      "AFTER": "Selepas",
+      "ZOOM": "Zum",
+      "MODELS": {
+        "upscayl-standard-4x": {
+          "NAME": "Upscayl Standard",
+          "DESCRIPTION": "Sesuai untuk kebanyakan imej."
+        },
+        "upscayl-lite-4x": {
+          "NAME": "Upscayl Lite",
+          "DESCRIPTION": "Sesuai untuk kebanyakan imej. Peningkatan saiz berkelajuan tinggi dengan kehilangan kualiti yang minimum."
+        },
+        "remacri-4x": {
+          "NAME": "Remacri (Bukan Komersial)",
+          "DESCRIPTION": "Untuk imej semula jadi. Ketajaman dan perincian ditambah. Tiada penggunaan komersial."
+        },
+        "ultramix-balanced-4x": {
+          "NAME": "Ultramix (Bukan Komersial)",
+          "DESCRIPTION": "Untuk imej semula jadi dengan keseimbangan ketajaman dan perincian."
+        },
+        "ultrasharp-4x": {
+          "NAME": "Ultrasharp (Bukan Komersial)",
+          "DESCRIPTION": "Untuk imej semula jadi dengan fokus pada ketajaman."
+        },
+        "digital-art-4x": {
+          "NAME": "Digital Art",
+          "DESCRIPTION": "Untuk seni digital dan ilustrasi."
+        },
+        "high-fidelity-4x": {
+          "NAME": "High Fidelity",
+          "DESCRIPTION": "Untuk semua jenis imej dengan fokus pada perincian realistik dan tekstur lancar."
+        }
+      }
+    },
+    "DOUBLE_UPSCAYL": {
+      "TITLE": "Double Upscayl",
+      "DESCRIPTION": "Aktifkan pilihan ini untuk menjalankan upscayl dua kali pada satu imej. Perhatikan bahawa ini mungkin menyebabkan peningkatan ketara dalam masa pemprosesan dan mungkin masalah prestasi untuk skala lebih besar daripada 4X."
+    },
+    "OUTPUT_PATH_SELECTION": {
+      "TITLE": "Langkah 3",
+      "MAC_APP_STORE_ALERT": "Disebabkan sekatan keselamatan MacOS App Store, Upscayl memerlukan anda memilih folder output setiap kali anda memulakan aplikasi.\n\nUntuk mengelakkan ini, anda boleh menyimpan folder output lalai secara kekal dalam tab 'Tetapan' Upscayl.",
+      "NOT_SELECTED": "Tidak Dipilih",
+      "DEFAULT_IMG_PATH": "Lalai ke laluan Imej",
+      "DEFAULT_FOLDER_PATH": "Lalai ke laluan Folder",
+      "BUTTON_TITLE": "Tetapkan Folder Output"
+    },
+    "SCALE_SELECTION": {
+      "TITLE": "Langkah 4",
+      "FROM_TITLE": "Upscayl dari ",
+      "TO_TITLE": " kepada ",
+      "NO_OUTPUT_FOLDER_ALERT": "Sila pilih folder output terlebih dahulu",
+      "START_BUTTON_TITLE": "Upscayl 🚀",
+      "IN_PROGRESS_BUTTON_TITLE": "Sedang Upscayl ⏳"
+    },
+    "MORE_OPTIONS_DRAWER": {
+      "RESET_BUTTON_TITLE": "Tetapkan Semula Imej",
+      "LENS_VIEW_TITLE": "Paparan Kanta",
+      "SLIDER_VIEW_TITLE": "Paparan Peluncur",
+      "ZOOM_AMOUNT_TITLE": "Jumlah Zum",
+      "TOTAL_UPSCAYLS": "Jumlah Upscayl",
+      "TOTAL_BATCH_UPSCAYLS": "Jumlah Upscayl Kelompok",
+      "TOTAL_IMAGE_UPSCAYLS": "Jumlah Upscayl Imej",
+      "TOTAL_DOUBLE_UPSCAYLS": "Jumlah Double Upscayl",
+      "AVERAGE_UPSCAYL_TIME": "Purata Masa Upscayl",
+      "LAST_UPSCAYL_DURATION": "Tempoh Upscayl Terakhir",
+      "LAST_USED_AT": "Terakhir Digunakan Pada"
+    },
+    "PROGRESS_BAR": {
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Upscayl Kelompok Sedang Berjalan:",
+      "IN_PROGRESS_TITLE": "Melakukan magik Upscayl...",
+      "STOP_BUTTON_TITLE": "HENTI"
+    },
+    "RESET_BUTTON_TITLE": "Tetapkan Semula",
+    "RIGHT_PANE_INFO": {
+      "SELECT_FOLDER": "Pilih Folder",
+      "SELECT_IMAGE": "Pilih Imej",
+      "SELECT_FOLDER_DESCRIPTION": "Pastikan folder tidak mengandungi apa-apa kecuali imej PNG, JPG, JPEG & WEBP.",
+      "SELECT_IMAGES_DESCRIPTION": "Pilih atau seret dan lepas imej PNG, JPG, JPEG atau WEBP.",
+      "PASTE_IMAGE_DESCRIPTION": "Tekan Ctrl+V atau ⌘+V untuk Tampal imej dari Papan Keratan"
+    },
+    "PROGRESS": {
+      "PROCESSING_TITLE": "Memproses imej...",
+      "SCALING_CONVERTING_TITLE": "Mengubah saiz dan menukar imej...",
+      "WAIT_TITLE": "Tunggu sebentar...",
+      "SUCCESS_TITLE": "Upscayl Berjaya!",
+      "BATCH": {
+        "SELECTED_FOLDER_TITLE": "Folder yang dipilih:",
+        "DONE_TITLE": "Semuanya selesai!",
+        "OPEN_UPSCAYLED_FOLDER_TITLE": "Buka Folder Upscayl"
+      }
+    },
+    "SLIDER": {
+      "ORIGINAL_TITLE": "Asal",
+      "UPSCAYLED_TITLE": "Upscayl"
+    },
+    "DIALOG_BOX": {
+      "CLOSE": "Tutup"
+    }
+  },
+  "ERRORS": {
+    "GPU_ERROR": {
+      "TITLE": "Ralat GPU",
+      "DESCRIPTION": "Menghadapi masalah dengan GPU. Sila baca dokumentasi untuk penyelesaian masalah! ({data})"
+    },
+    "COPY_ERROR": {
+      "TITLE": "Ralat Menyalin",
+      "DESCRIPTION": ""
+    },
+    "READ_WRITE_ERROR": {
+      "TITLE": "Ralat Baca/Tulis",
+      "DESCRIPTION": "Pastikan laluan adalah betul dan anda mempunyai kebenaran baca/tulis yang sesuai \n({data})"
+    },
+    "TILE_SIZE_ERROR": {
+      "TITLE": "Ralat",
+      "DESCRIPTION": "Saiz jubin adalah salah. Sila ubah saiz jubin dalam tetapan atau tetapkan kepada 0 ({data})"
+    },
+    "EXCEPTION_ERROR": {
+      "TITLE": "Ralat Pengecualian",
+      "DESCRIPTION": "Upscayl menghadapi ralat. Mungkin, binari upscayl gagal melaksanakan arahan dengan betul. Cuba semak log untuk melihat jika anda mendapat sebarang maklumat. Anda boleh menghantar isu di repositori GitHub Upscayl untuk mendapatkan bantuan lebih lanjut."
+    },
+    "GENERIC_ERROR": {
+      "TITLE": "Ralat"
+    },
+    "NO_OUTPUT_FOLDER_ERROR": {
+      "TITLE": "Tetapkan Folder Output",
+      "DESCRIPTION": "Sila pilih folder output terlebih dahulu"
+    },
+    "INVALID_IMAGE_ERROR": {
+      "TITLE": "Imej Tidak Sah",
+      "DESCRIPTION": "Sila pilih/tampal imej dengan sambungan yang sah seperti PNG, JPG, JPEG, JFIF atau WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Sila seret dan lepas imej",
+      "CLIPBOARD_DESCRIPTION": "Tiada fail Imej dijumpai dalam Papan Keratan untuk ditampal!"
+    },
+    "NO_IMAGE_ERROR": {
+      "TITLE": "Tiada imej dipilih",
+      "DESCRIPTION": "Sila pilih imej untuk diupscale"
+    },
+    "OPEN_DOCS_TITLE": "Buka Dokumen",
+    "OPEN_DOCS_BUTTON_TITLE": "Penyelesaian Masalah"
+  },
+  "UPSCAYL_CLOUD": {
+    "COMING_SOON": "Akan datang!",
+    "CATCHY_PHRASE_1": "Tiada lagi ralat, masalah perkakasan, kompromi kualiti atau masa pemuatan yang lama!",
+    "CATCHY_PHRASE_2": "🌐 Upscayl di mana-mana, bila-bila masa, apa-apa peranti\n☁️ Tiada Kad Grafik atau perkakasan diperlukan\n👩 Peningkatan Wajah\n🦋 10+ model untuk dipilih\n🏎 5x lebih pantas dari Upscayl Desktop\n🎞 Peningkatan Saiz Video\n💰 Penggunaan Komersial\n😴 Upscayl semasa anda tidur",
+    "ALREADY_REGISTERED_ALERT": "Terima kasih {name}! Nampaknya e-mel anda telah didaftarkan :D Jika itu bukan masalahnya, sila cuba lagi.",
+    "ADD_SUCCESS": "Terima kasih kerana menyertai senarai menunggu! Kami akan memberitahu anda apabila Upscayl Cloud sedia untuk anda.",
+    "INCORRECT_FIELDS_ALERT": "Sila isi semua bidang dengan betul.",
+    "JOIN_WAITLIST": "Sertai senarai menunggu",
+    "DONT_SHOW_AGAIN": "JANGAN TUNJUKKAN LAGI"
+  },
+  "ONBOARDING_DIALOG": {
+    "NEXT_BUTTON_TITLE": "Seterusnya",
+    "BACK_BUTTON_TITLE": "Kembali",
+    "GET_STARTED_BUTTON_TITLE": "Mulakan",
+    "SETTINGS_NOTE": "Anda boleh mengubah tetapan ini kemudian.",
+    "STEP_1": {
+      "TITLE": "Selamat datang ke Upscayl 🎉",
+      "DESCRIPTION": "Mari mulakan dengan beberapa langkah cepat."
+    },
+    "STEP_2": {
+      "TITLE": "Pilih Keutamaan Anda 🎨",
+      "DESCRIPTION": "Konfigurasikan tetapan awal anda."
+    },
+    "STEP_3": {
+      "TITLE": "Bagaimana saya menggunakan Upscayl? 🚀",
+      "DESCRIPTION": "Tonton video pendek ini untuk mengetahui tentang ciri-ciri baharu."
+    },
+    "STEP_4": {
+      "TITLE": "Anda Sudah Bersedia! 🎉",
+      "DESCRIPTION": "Anda sudah bersedia untuk mula meningkatkan saiz imej dengan Upscayl!"
+    }
+  }
+}
