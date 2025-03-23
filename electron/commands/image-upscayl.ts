@@ -20,6 +20,7 @@ import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
 import { MODELS } from "../../common/models-list";
+import { getPlatform } from "../utils/get-device-specs";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -59,7 +60,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const isDefaultModel = model in MODELS;
 
   // Check if windows can write the new filename to the file system
-  if (outFile.length >= 255) {
+  if (getPlatform() === "win" && outFile.length >= 255) {
     logit("Filename too long for Windows.");
     mainWindow.webContents.send(
       ELECTRON_COMMANDS.UPSCAYL_ERROR,
