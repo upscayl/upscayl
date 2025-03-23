@@ -59,7 +59,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const isDefaultModel = model in MODELS;
 
   // Check if windows can write the new filename to the file system
-  if (outFile.length >= 255) {
+  if (process.platform === 'win32' && outFile.length >= 255) {
     logit("Filename too long for Windows.");
     mainWindow.webContents.send(
       ELECTRON_COMMANDS.UPSCAYL_ERROR,
