@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "افتح التوثيقات",
     "OPEN_DOCS_BUTTON_TITLE": "استكشاف خطأ"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "تحذير"
+    }
+  },
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "قادم قريبا!",
     "CATCHY_PHRASE_1": "لا مزيد من خطأ, مشاكل هاردوير, ولا مزيد من الانتظار لوقت طويل",

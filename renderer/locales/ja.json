@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "ドキュメントを開く",
     "OPEN_DOCS_BUTTON_TITLE": "トラブルシューティング"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "警告"
+    }
+  },   
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "近日公開！",
     "CATCHY_PHRASE_1": "もうエラー、ハードウェアの問題、品質の妥協や長い読み込み時間はありません！",

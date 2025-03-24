@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "Ouvrir la documentation",
     "OPEN_DOCS_BUTTON_TITLE": "Dépanner"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Avertissement"
+    }
+  },  
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Bientôt disponible !",
     "CATCHY_PHRASE_1": "Plus d'erreurs, de problèmes matériels, de compromis sur la qualité ou de longs temps de chargement !",

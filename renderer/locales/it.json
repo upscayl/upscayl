@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "Apri la documentazione",
     "OPEN_DOCS_BUTTON_TITLE": "Risoluzione dei problemi"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Avviso"
+    }
+  },  
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Presto disponibile !",
     "CATCHY_PHRASE_1": "Niente più errori, problemi hardware, compromessi di qualità o lunghi tempi di caricamento !",

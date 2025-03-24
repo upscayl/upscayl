@@ -59,13 +59,20 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
 
   const isDefaultModel = model in MODELS;
 
-  // Check if windows can write the new filename to the file system
-  if (getPlatform() === "win" && outFile.length >= 255) {
-    logit("Filename too long for Windows.");
-    mainWindow.webContents.send(
-      ELECTRON_COMMANDS.UPSCAYL_ERROR,
-      "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.",
-    );
+  // Check if filename is too long
+  if (outFile.length >= 255) {
+    if (getPlatform() === "win") {
+      logit("Filename too long for Windows.");
+      mainWindow.webContents.send(
+        ELECTRON_COMMANDS.UPSCAYL_ERROR,
+        "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.",
+      );
+    } else {
+      mainWindow.webContents.send(
+        ELECTRON_COMMANDS.UPSCAYL_WARNING,
+        "Filename exceeds 255 characters. Your OS supports it, but might cause compatibility issues. Proceeding with upscaling.",
+      );
+    }
   }
 
   // UPSCALE

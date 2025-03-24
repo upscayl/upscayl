@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "Mở Tài liệu",
     "OPEN_DOCS_BUTTON_TITLE": "Khắc phục sự cố"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Cảnh báo"
+    }
+  },    
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Sẽ ra mắt sớm!",
     "CATCHY_PHRASE_1": "Không còn lỗi, vấn đề phần cứng, thỏa hiệp chất lượng hoặc thời gian tải lâu!",
