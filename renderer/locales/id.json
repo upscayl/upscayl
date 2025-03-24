@@ -103,6 +103,7 @@
     }
   },
   "APP": {
+
     "TITLE": "Upscayl",
     "BATCH_MODE": {
       "TITLE": "Upscayl Massal",
@@ -150,6 +151,10 @@
           "DESCRIPTION": "Untuk semua jenis gambar dengan fokus pada detail realistis dan tekstur halus."
         }
       }
+    },
+    "BATCH_DEPTH": {
+      "TITLE": "Kedalaman Batch",
+      "DESCRIPTION": "Berapa banyak folder yang ingin Anda proses secara mendalam."
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Double Upscayl",

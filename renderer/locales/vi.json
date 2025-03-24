@@ -151,6 +151,10 @@
         }
       }
     },
+    "BATCH_DEPTH": {
+      "TITLE": "Độ sâu lô",
+      "DESCRIPTION": "Bạn muốn xử lý bao nhiêu thư mục theo chiều sâu."
+    },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Double Upscayl",
       "DESCRIPTION": "Kích hoạt tùy chọn này để chạy Upscayl hai lần trên một hình ảnh. Lưu ý rằng điều này có thể làm tăng đáng kể thời gian xử lý và có thể gây ra vấn đề hiệu suất cho các tỷ lệ lớn hơn 4X."

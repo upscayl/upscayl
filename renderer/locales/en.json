@@ -155,6 +155,10 @@
       "TITLE": "Double Upscayl",
       "DESCRIPTION": "Enable this option to run upscayl twice on an image. Note that this may cause a significant increase in processing time and possibly performance issues for scales greater than 4X."
     },
+    "BATCH_DEPTH": {
+      "TITLE": "Batch Depth",
+      "DESCRIPTION": "How many folder you want to process in depth."
+    },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "Step 3",
       "MAC_APP_STORE_ALERT": "Due to MacOS App Store security restrictions, Upscayl requires you to select an output folder everytime you start it.\n\nTo avoid this, you can permanently save a default output folder in the Upscayl 'Settings' tab.",

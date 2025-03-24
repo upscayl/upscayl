@@ -151,6 +151,10 @@
         }
       }
     },
+    "BATCH_DEPTH": {
+      "TITLE": "バッチの深さ",
+      "DESCRIPTION": "どれだけのフォルダーを深く処理したいですか。"
+    },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Double Upscayl",
       "DESCRIPTION": "このオプションを有効にすると、画像に対して2回Upscaylを実行します。4X以上のスケールでは、処理時間が大幅に増加し、パフォーマンスに問題が発生する可能性があることに注意してください。"

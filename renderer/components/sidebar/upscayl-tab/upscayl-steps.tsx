@@ -34,6 +34,8 @@ interface IProps {
   };
   setSaveImageAs: React.Dispatch<React.SetStateAction<ImageFormat>>;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
+  depth: number,
+  setDepth: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function UpscaylSteps({
@@ -46,6 +48,8 @@ function UpscaylSteps({
   doubleUpscayl,
   setDoubleUpscayl,
   dimensions,
+  depth,
+  setDepth
 }: IProps) {
   const [scale, setScale] = useAtom(scaleAtom);
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
@@ -190,7 +194,14 @@ function UpscaylSteps({
             </button>
           </div>
         )}
-
+        {batchMode &&
+          <div className="flex gap-x-2 flex-row items-center">
+            <p className="cursor-pointer text-sm">
+              {t("APP.BATCH_DEPTH.TITLE")}
+            </p>
+            <input type="number" value={depth} onChange={(e) => setDepth(parseInt(e.target.value))} min={-1} className="input w-1/3" name="batch-depth" id="batch-depth" />
+          </div>
+        }
         <SelectImageScale scale={scale} setScale={setScale} hideInfo />
       </div>
 

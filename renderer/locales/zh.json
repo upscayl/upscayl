@@ -151,6 +151,10 @@
         }
       }
     },
+    "BATCH_DEPTH": {
+      "TITLE": "批处理深度",
+      "DESCRIPTION": "您想要深入处理多少个文件夹。"
+    },
     "DOUBLE_UPSCAYL": {
       "TITLE": "双重升图",
       "DESCRIPTION": "启用后，Upscayl 会对自己的输出再次增强。请注意，这可能会显著拖慢处理速度，导致性能问题。当增强比例超过 4X 时, 该问题会更加明显。"

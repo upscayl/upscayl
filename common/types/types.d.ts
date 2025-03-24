@@ -47,4 +47,5 @@ export type BatchUpscaylPayload = {
   useCustomWidth: boolean;
   tileSize: number;
   ttaMode: boolean;
+  depth: number
 };

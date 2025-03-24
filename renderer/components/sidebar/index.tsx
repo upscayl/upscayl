@@ -76,6 +76,7 @@ const Sidebar = ({
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [showCloudModal, setShowCloudModal] = useState(false);
+  const [depth, setDepth] = useState(0); // -1 is infinit depth
 
   // ATOMIC STATES
   const overwrite = useAtomValue(overwriteAtom);
@@ -133,6 +134,7 @@ const Sidebar = ({
         window.electron.send<BatchUpscaylPayload>(
           ELECTRON_COMMANDS.FOLDER_UPSCAYL,
           {
+            depth,
             batchFolderPath,
             outputPath,
             model: selectedModelId,
@@ -231,6 +233,8 @@ const Sidebar = ({
             dimensions={dimensions}
             setGpuId={setGpuId}
             setSaveImageAs={setSaveImageAs}
+            depth={depth}
+            setDepth={setDepth}
           />
         )}
 

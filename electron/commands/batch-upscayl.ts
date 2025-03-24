@@ -16,6 +16,7 @@ import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
 import { MODELS } from "../../common/models-list";
 import getDirectoriesAndSubDirectories from "../utils/get-rdirectories";
+import path from "path";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -33,18 +34,16 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   // GET THE IMAGE DIRECTORY
   let inputDir = decodeURIComponent(payload.batchFolderPath);
   // GET ALL GET ALL DIRECTORIES
-  const directories = getDirectoriesAndSubDirectories(inputDir);
+  const directories = getDirectoriesAndSubDirectories(inputDir, payload.depth);
 
-  const upScaleImagesOfDirectories = (inputDir) => {
+  const upScaleImagesOfDirectories = (inputDir: string) => {
     // GET THE OUTPUT DIRECTORY
-    // TODO return the output folder (this only for test purpose) // please if you find this consiter I've forgot the return actuale parameter
-
-    // let outputFolderPath = decodeURIComponent(payload.outputPath);
-    let outputFolderPath = decodeURIComponent(inputDir);
-    // don't forget to return the output folder 
-
+    let outputFolderPath = decodeURIComponent(payload.outputPath);
+    let differenceOfDirs = path.relative(payload.batchFolderPath, inputDir);
     const outputFolderName = `upscayl_${saveImageAs}_${model}_${useCustomWidth ? `${customWidth}px` : `${scale}x`
       }`;
+    if(differenceOfDirs.length > 0)
+      outputFolderPath = path.join(outputFolderPath, differenceOfDirs);
     outputFolderPath += slash + outputFolderName;
     // CREATE THE OUTPUT DIRECTORY
     if (!fs.existsSync(outputFolderPath)) {
@@ -52,7 +51,6 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     }
 
     const currentIndex = directories.indexOf(inputDir)
-
     const isDefaultModel = model in MODELS;
 
     // UPSCALE
