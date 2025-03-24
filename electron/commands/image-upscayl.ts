@@ -70,7 +70,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     } else {
       mainWindow.webContents.send(
         ELECTRON_COMMANDS.UPSCAYL_WARNING,
-        "Filename exceeds 255 characters. Your OS supports it, but might cause compatibility issues. Proceeding with upscaling.",
+        "The output filename exceeds 255 characters, which is over the max path length allowed by Windows, though your OS supports it. Please consider shortening the filename next time.",
       );
     }
   }
