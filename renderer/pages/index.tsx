@@ -80,6 +80,7 @@ const Home = () => {
           depth: depth
         }
       )
+      setUpscaledBatchFolderPaths(subdirectories);
       if (!rememberOutputFolder) {
         setOutputPath(path);
       }
@@ -313,6 +314,7 @@ const Home = () => {
       width: null,
       height: null,
     });
+    setUpscaledBatchFolderPaths([]);
     setProgress("");
     setImagePath("");
     setUpscaledImagePath("");
@@ -346,6 +348,7 @@ const Home = () => {
         imagePath={imagePath}
         resetImagePaths={resetImagePaths}
         upscaledBatchFolderPath={upscaledBatchFolderPath}
+        upscaleBatchFolderPaths={upscaleBatchFolders}
         setImagePath={setImagePath}
         validateImagePath={validateImagePath}
         selectFolderHandler={selectFolderHandler}
