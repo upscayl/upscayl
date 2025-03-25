@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import {
   batchModeAtom,
@@ -50,6 +50,8 @@ const Sidebar = ({
   imagePath,
   selectImageHandler,
   selectFolderHandler,
+  depth,
+  setDepth
 }: {
   setUpscaledImagePath: React.Dispatch<React.SetStateAction<string>>;
   batchFolderPath: string;
@@ -61,6 +63,8 @@ const Sidebar = ({
   imagePath: string;
   selectImageHandler: () => Promise<void>;
   selectFolderHandler: () => Promise<void>;
+  depth: number,
+  setDepth: React.Dispatch<React.SetStateAction<number>>
 }) => {
   const t = useTranslation();
   const logit = useLogger();
@@ -76,7 +80,6 @@ const Sidebar = ({
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [showCloudModal, setShowCloudModal] = useState(false);
-  const [depth, setDepth] = useState(0); // -1 is infinit depth
 
   // ATOMIC STATES
   const overwrite = useAtomValue(overwriteAtom);

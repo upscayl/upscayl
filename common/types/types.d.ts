@@ -49,3 +49,8 @@ export type BatchUpscaylPayload = {
   ttaMode: boolean;
   depth: number
 };
+
+export type NestedFolderPayload = {
+  folderName: string,
+  depth: number
+}

@@ -302,7 +302,7 @@ const MainContent = ({
       {!batchMode && upscaledImagePath.length === 0 && imagePath.length > 0 && (
         <ImageViewer imagePath={imagePath} setDimensions={setDimensions} />
       )}
-
+      {/* BATCH PART */}
       {/* BATCH UPSCALE SHOW SELECTED FOLDER */}
       {batchMode &&
         upscaledBatchFolderPath.length === 0 &&
@@ -329,6 +329,8 @@ const MainContent = ({
           </button>
         </div>
       )}
+
+      {/* END BATCH PART */}
 
       {!batchMode && viewType === "lens" && upscaledImagePath && imagePath && (
         <LensViewer

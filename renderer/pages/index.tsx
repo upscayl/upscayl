@@ -44,6 +44,8 @@ const Home = () => {
   const batchMode = useAtomValue(batchModeAtom);
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
+  const [upscaleBatchFolders, setUpscaledBatchFolderPaths] = useState<string[]>([]);
+  const [depth, setDepth] = useState(0);
   const setProgress = useSetAtom(progressAtom);
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const setModelIds = useSetAtom(customModelIdsAtom);
@@ -71,6 +73,13 @@ const Home = () => {
     if (path !== null) {
       logit("🖼 Selected Folder Path: ", path);
       setBatchFolderPath(path);
+      const subdirectories = await window.electron.invoke(
+        ELECTRON_COMMANDS.SELECT_NESTED_FOLDERS,
+        {
+          folderName: path,
+          depth: depth
+        }
+      )
       if (!rememberOutputFolder) {
         setOutputPath(path);
       }
@@ -330,6 +339,8 @@ const Home = () => {
         setUpscaledBatchFolderPath={setUpscaledBatchFolderPath}
         selectImageHandler={selectImageHandler}
         selectFolderHandler={selectFolderHandler}
+        depth={depth}
+        setDepth={setDepth}
       />
       <MainContent
         imagePath={imagePath}

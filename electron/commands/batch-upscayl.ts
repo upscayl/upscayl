@@ -15,8 +15,8 @@ import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
 import { MODELS } from "../../common/models-list";
-import getDirectoriesAndSubDirectories from "../utils/get-rdirectories";
 import path from "path";
+import getDirectoriesAndSubDirectories from "../utils/get-subdirectories"; 
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -34,7 +34,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   // GET THE IMAGE DIRECTORY
   let inputDir = decodeURIComponent(payload.batchFolderPath);
   // GET ALL GET ALL DIRECTORIES
-  const directories = getDirectoriesAndSubDirectories(inputDir, payload.depth);
+  const directories = await getDirectoriesAndSubDirectories(inputDir, payload.depth);
 
   const upScaleImagesOfDirectories = (inputDir: string) => {
     // GET THE OUTPUT DIRECTORY
