@@ -307,6 +307,21 @@ const Home = () => {
     if (systemInfo) logit("💻 System Info:", JSON.stringify(systemInfo));
   }, [systemInfo]);
 
+
+  // DEPTH CHANGE LISTENTER
+  useEffect(() => {
+    (async () => {
+      const subdirectories = await window.electron.invoke(
+        ELECTRON_COMMANDS.SELECT_NESTED_FOLDERS,
+        {
+          folderName: batchFolderPath,
+          depth: depth
+        }
+      )
+      setUpscaledBatchFolderPaths(subdirectories);
+    })()
+  }, [depth])
+
   // HANDLERS
   const resetImagePaths = () => {
     logit("🔄 Resetting image paths");

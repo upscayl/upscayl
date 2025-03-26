@@ -13,7 +13,7 @@ const getDirectoriesAndSubDirectories = async (folderPath: string, depth: number
     const imageRegex = /\.(png|jpg|jpeg|webp)$/i;
 
     const checkFileContainsImages = async (rootFolder: string, currentDepth: number = 0) => {
-        if (depth >= 0 && currentDepth >= depth) return;
+        if (depth >= 0 && currentDepth > depth) return;
 
         try {
             const files = await fs.readdir(rootFolder);

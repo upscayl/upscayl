@@ -152,8 +152,8 @@
       }
     },
     "BATCH_DEPTH": {
-      "TITLE": "Yığın Derinliği",
-      "DESCRIPTION": "Derinlemesine işlemek istediğiniz klasör sayısı."
+      "TITLE": "Глубина пакета",
+      "DESCRIPTION": "Количество папок, которые вы хотите обработать глубоко."
     },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Двойное увеличение",

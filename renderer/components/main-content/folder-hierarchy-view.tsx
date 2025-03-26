@@ -52,22 +52,19 @@ export function buildTree(paths: string[]): TreeNode {
 }
 
 export function drawTree(head: TreeNode) {
-    if(head.children.length === 0) {
-        return (
-            <li className='p-1'>
-                {head.name}
-            </li>
-        )
-    }
     return (
-            <details open>
-                <summary className='p-1'>{head.name}</summary>
-                <li>
+            <li className='py-1'>
+                <p>
+                    + {head.name}
+                </p>
+            {
+                head.children.length > 0 && (
                     <ul>
                         {head.children.map((child) => drawTree(child))}
                     </ul>
-                </li>
-        </details>
+                )
+            }
+        </li>
     );
 }
 
