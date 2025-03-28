@@ -21,6 +21,7 @@ import { FEATURE_FLAGS } from "../common/feature-flags";
 import settings from "electron-settings";
 import pasteImage from "./commands/paste-image";
 import path from "path";
+import getNestedFoldersWithRespectToDepth from "./commands/get-nested-folders";
 
 // INITIALIZATION
 log.initialize({ preload: true });
@@ -94,6 +95,10 @@ ipcMain.on(ELECTRON_COMMANDS.GET_MODELS_LIST, getModelsList);
 ipcMain.handle(
   ELECTRON_COMMANDS.SELECT_CUSTOM_MODEL_FOLDER,
   customModelsSelect,
+);
+ipcMain.handle(
+  ELECTRON_COMMANDS.SELECT_NESTED_FOLDERS,
+  getNestedFoldersWithRespectToDepth
 );
 
 ipcMain.on(ELECTRON_COMMANDS.UPSCAYL, imageUpscayl);

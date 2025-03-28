@@ -152,6 +152,10 @@
         }
       }
     },
+    "BATCH_DEPTH": {
+      "TITLE": "Profundidad del lote",
+      "DESCRIPTION": "Cuántas carpetas desea procesar en profundidad."
+    },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Doble Upscayl",
       "DESCRIPTION": "Habilita esta opción para realizar dos aumentos en una imagen. Ten en cuenta que esto puede causar un aumento significativo en el tiempo de procesamiento y posiblemente problemas de rendimiento para escalas superiores a 4X."

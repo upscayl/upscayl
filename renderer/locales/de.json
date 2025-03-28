@@ -151,6 +151,10 @@
         }
       }
     },
+    "BATCH_DEPTH": {
+      "TITLE": "Stapel-Tiefe",
+      "DESCRIPTION": "Wie viele Ordner Sie in der Tiefe verarbeiten möchten."
+    },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Doppel-Upscayl",
       "DESCRIPTION": "Aktiviere diese Option, um ein Bild zweimal zu upscaylen. Beachte, dass dies die Verarbeitungszeit deutlich erhöhen und möglicherweise Leistungsprobleme bei Skalierungen über 4X verursachen kann."

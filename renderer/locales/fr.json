@@ -151,6 +151,10 @@
         }
       }
     },
+    "BATCH_DEPTH": {
+      "TITLE": "Profondeur du lot",
+      "DESCRIPTION": "Combien de dossiers souhaitez-vous traiter en profondeur."
+    },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Double Upscayl",
       "DESCRIPTION": "Activez cette option pour exécuter le suréchantillonnage deux fois sur une image. Notez que cela peut entraîner une augmentation significative du temps de traitement et éventuellement des problèmes de performance pour des échelles supérieures à 4X."

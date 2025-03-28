@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import {
   batchModeAtom,
@@ -50,6 +50,8 @@ const Sidebar = ({
   imagePath,
   selectImageHandler,
   selectFolderHandler,
+  depth,
+  setDepth
 }: {
   setUpscaledImagePath: React.Dispatch<React.SetStateAction<string>>;
   batchFolderPath: string;
@@ -61,6 +63,8 @@ const Sidebar = ({
   imagePath: string;
   selectImageHandler: () => Promise<void>;
   selectFolderHandler: () => Promise<void>;
+  depth: number,
+  setDepth: React.Dispatch<React.SetStateAction<number>>
 }) => {
   const t = useTranslation();
   const logit = useLogger();
@@ -133,6 +137,7 @@ const Sidebar = ({
         window.electron.send<BatchUpscaylPayload>(
           ELECTRON_COMMANDS.FOLDER_UPSCAYL,
           {
+            depth,
             batchFolderPath,
             outputPath,
             model: selectedModelId,
@@ -231,6 +236,8 @@ const Sidebar = ({
             dimensions={dimensions}
             setGpuId={setGpuId}
             setSaveImageAs={setSaveImageAs}
+            depth={depth}
+            setDepth={setDepth}
           />
         )}
 

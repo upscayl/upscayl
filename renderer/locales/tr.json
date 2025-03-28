@@ -151,6 +151,10 @@
         }
       }
     },
+    "BATCH_DEPTH": {
+      "TITLE": "Yığın Derinliği",
+      "DESCRIPTION": "Derinlemesine işlemek istediğiniz klasör sayısı."
+    },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Çifte Upscayl",
       "DESCRIPTION": "Bu seçeneği etkinleştirerek, bir görüntü üzerinde Upscayl'ı iki kez çalıştırabilirsiniz. Lakin, bu işlem süresinde önemli bir uzamaya ve 4X'ten büyük ölçeklerde performans sorunlarına yol açabilir."

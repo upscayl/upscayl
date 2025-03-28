@@ -25,11 +25,13 @@ import LensViewer from "./lens-view";
 import ImageViewer from "./image-viewer";
 import useTranslation from "../hooks/use-translation";
 import SliderView from "./slider-view";
+import{ buildTree, drawTree } from "./folder-hierarchy-view";
 
 type MainContentProps = {
   imagePath: string;
   resetImagePaths: () => void;
   upscaledBatchFolderPath: string;
+  upscaleBatchFolderPaths: string[];
   setImagePath: React.Dispatch<React.SetStateAction<string>>;
   validateImagePath: (path: string) => void;
   selectFolderHandler: () => void;
@@ -49,6 +51,7 @@ const MainContent = ({
   imagePath,
   resetImagePaths,
   upscaledBatchFolderPath,
+  upscaleBatchFolderPaths,
   setImagePath,
   validateImagePath,
   selectFolderHandler,
@@ -302,7 +305,7 @@ const MainContent = ({
       {!batchMode && upscaledImagePath.length === 0 && imagePath.length > 0 && (
         <ImageViewer imagePath={imagePath} setDimensions={setDimensions} />
       )}
-
+      {/* BATCH PART */}
       {/* BATCH UPSCALE SHOW SELECTED FOLDER */}
       {batchMode &&
         upscaledBatchFolderPath.length === 0 &&
@@ -329,6 +332,18 @@ const MainContent = ({
           </button>
         </div>
       )}
+
+      {
+        batchMode && upscaleBatchFolderPaths.length > 0 &&  (
+          <ul className="menu">
+            {
+              drawTree(buildTree(upscaleBatchFolderPaths))
+            }
+          </ul>
+        )
+      }
+
+      {/* END BATCH PART */}
 
       {!batchMode && viewType === "lens" && upscaledImagePath && imagePath && (
         <LensViewer

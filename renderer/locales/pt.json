@@ -151,6 +151,10 @@
         }
       }
     },
+    "BATCH_DEPTH": {
+      "TITLE": "Profundidade do lote",
+      "DESCRIPTION": "Quantas pastas você deseja processar em profundidade."
+    },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Upscayl duplo",
       "DESCRIPTION": "Active esta opção para executar o Upscayl duas vezes numa imagem. Note que isto pode causar um aumento significativo no tempo de processamento e possivelmente problemas de desempenho para escalas superiores a 4X."

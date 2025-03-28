@@ -47,4 +47,10 @@ export type BatchUpscaylPayload = {
   useCustomWidth: boolean;
   tileSize: number;
   ttaMode: boolean;
+  depth: number
 };
+
+export type NestedFolderPayload = {
+  folderName: string,
+  depth: number
+}

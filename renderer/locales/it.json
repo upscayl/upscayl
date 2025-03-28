@@ -151,6 +151,10 @@
         }
       }
     },
+    "BATCH_DEPTH": {
+      "TITLE": "Profondità del lotto",
+      "DESCRIPTION": "Quante cartelle vuoi elaborare in profondità."
+    },
     "DOUBLE_UPSCAYL": {
       "TITLE": "Doppio Upscayl",
       "DESCRIPTION": "Abilita questa opzione per eseguire il supercampionamento due volte su un'immagine. Tieni presente che ciò potrebbe causare un aumento significativo del tempo di elaborazione e possibili problemi di prestazioni per scale superiori a 4X."
