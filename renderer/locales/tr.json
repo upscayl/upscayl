@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "Dökümantasyonu açın",
     "OPEN_DOCS_BUTTON_TITLE": "Sorun giderme"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Uyarı"
+    }
+  },    
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Yakında sizlerle!",
     "CATCHY_PHRASE_1": "Artık hatalar, donanım uyuşmazlıkları, kalite tavizleri ya da uzun yükleme süreleri yok!",

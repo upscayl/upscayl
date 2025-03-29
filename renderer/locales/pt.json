@@ -258,6 +258,11 @@
     "OPEN_DOCS_TITLE": "Abrir documentos",
     "OPEN_DOCS_BUTTON_TITLE": "Problemas"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Aviso"
+    }
+  },   
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Brevemente!",
     "CATCHY_PHRASE_1": "Acabaram-se os erros, os problemas de hardware, o sacrifício da qualidade ou os longos tempos de carregamento!",
