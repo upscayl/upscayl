@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "Відкрити документацію",
     "OPEN_DOCS_BUTTON_TITLE": "Вирішення проблем"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Попередження"
+    }
+  },    
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Скоро!",
     "CATCHY_PHRASE_1": "Більше жодних помилок, проблем з обладнанням, компромісів з якістю чи довгого очікування!",

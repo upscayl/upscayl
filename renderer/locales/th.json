@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "เปิดเอกสาร",
     "OPEN_DOCS_BUTTON_TITLE": "การแก้ไขปัญหา"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "คำเตือน"
+    }
+  },
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "เร็ว ๆ นี้!",
     "CATCHY_PHRASE_1": "ไม่มีข้อผิดพลาด ปัญหาเกี่ยวกับฮาร์ดแวร์ การบีบอัดคุณภาพ หรือเวลาโหลดที่ยาวนานอีกต่อไป!",

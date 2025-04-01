@@ -260,6 +260,11 @@
     "OPEN_DOCS_TITLE": "Obri documentació",
     "OPEN_DOCS_BUTTON_TITLE": "Soluciona problemes"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Avís"
+    }
+  },
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Pròximament!",
     "CATCHY_PHRASE_1": "No més errors, problemes de maquinari, compromisos de qualitat o llargs temps de càrrega!",
