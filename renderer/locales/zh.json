@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "打开文档",
     "OPEN_DOCS_BUTTON_TITLE": "排除故障"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "警告"
+    }
+  },    
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "即将推出！",
     "CATCHY_PHRASE_1": "该与错误、硬件问题、质量妥协和漫长的等待告别喽！",

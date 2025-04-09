@@ -20,6 +20,7 @@ import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
 import { MODELS } from "../../common/models-list";
+import { getPlatform } from "../utils/get-device-specs";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -58,13 +59,20 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
 
   const isDefaultModel = model in MODELS;
 
-  // Check if windows can write the new filename to the file system
+  // Check if filename is too long
   if (outFile.length >= 255) {
-    logit("Filename too long for Windows.");
-    mainWindow.webContents.send(
-      ELECTRON_COMMANDS.UPSCAYL_ERROR,
-      "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.",
-    );
+    if (getPlatform() === "win") {
+      logit("Filename too long for Windows.");
+      mainWindow.webContents.send(
+        ELECTRON_COMMANDS.UPSCAYL_ERROR,
+        "The filename exceeds the maximum path length allowed by Windows. Please shorten the filename or choose a different save location.",
+      );
+    } else {
+      mainWindow.webContents.send(
+        ELECTRON_COMMANDS.UPSCAYL_WARNING,
+        "The output filename exceeds 255 characters, which is over the max path length allowed by Windows, though your OS supports it. Please consider shortening the filename next time.",
+      );
+    }
   }
 
   // UPSCALE

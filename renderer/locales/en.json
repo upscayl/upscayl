@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "Open Docs",
     "OPEN_DOCS_BUTTON_TITLE": "Troubleshoot"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Warning"
+    }
+  },
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Coming soon!",
     "CATCHY_PHRASE_1": "No more errors, hardware issues, quality compromises or long loading times!",
