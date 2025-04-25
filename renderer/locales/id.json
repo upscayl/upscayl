@@ -257,6 +257,11 @@
     "OPEN_DOCS_TITLE": "Buka Dokumen",
     "OPEN_DOCS_BUTTON_TITLE": "Pemecahan Masalah"
   },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Peringatan"
+    }
+  },
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Segera hadir!",
     "CATCHY_PHRASE_1": "Tidak ada lagi galat, masalah perangkat keras, kompromi kualitas atau waktu pemuatan yang lama!",

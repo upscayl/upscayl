@@ -175,6 +175,13 @@ const Home = () => {
         setProgress(t("APP.PROGRESS.PROCESSING_TITLE"));
       },
     );
+    // UPSCAYL WARNING
+    window.electron.on(ELECTRON_COMMANDS.UPSCAYL_WARNING, (_, data: string) => {
+      toast({
+        title: t("WARNING.GENERIC_WARNING.TITLE"),
+        description: data,
+      });
+    });
     // UPSCAYL ERROR
     window.electron.on(ELECTRON_COMMANDS.UPSCAYL_ERROR, (_, data: string) => {
       toast({
