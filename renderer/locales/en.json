@@ -268,6 +268,10 @@
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Warning"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Metadata Warning",
+      "DESCRIPTION": "On some systems, metadata may not be visible in formats other than JPG. Use specific tools to view metadata if needed."
     }
   },
   "UPSCAYL_CLOUD": {
