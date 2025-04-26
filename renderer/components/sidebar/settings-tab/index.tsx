@@ -8,7 +8,7 @@ import { SelectImageFormat } from "./select-image-format";
 import { DonateButton } from "./donate-button";
 import React, { useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { customModelsPathAtom, scaleAtom } from "@/atoms/user-settings-atom";
+import { customModelsPathAtom, scaleAtom, copyMetadataAtom } from "@/atoms/user-settings-atom";
 import { InputCompression } from "./input-compression";
 import OverwriteToggle from "./overwrite-toggle";
 import { UpscaylCloudModal } from "@/components/upscayl-cloud-modal";
@@ -57,6 +57,7 @@ function SettingsTab({
 
   const [customModelsPath, setCustomModelsPath] = useAtom(customModelsPathAtom);
   const [scale, setScale] = useAtom(scaleAtom);
+  const [copyMetadata, setCopyMetadata] = useAtom(copyMetadataAtom);
   const [enableScrollbar, setEnableScrollbar] = useState(true);
   const [timeoutId, setTimeoutId] = useState(null);
   const t = useAtomValue(translationAtom);
@@ -212,6 +213,27 @@ function SettingsTab({
       />
 
       <TTAModeToggle />
+
+      {/* COPY METADATA TOGGLE */}
+      <div className="flex flex-col gap-2">
+        <p className="text-sm font-medium">
+          {t("SETTINGS.COPY_METADATA.TITLE")}
+        </p>
+        <p className="text-xs text-base-content/80">
+          {t("SETTINGS.COPY_METADATA.DESCRIPTION")}
+        </p>
+        <input
+          type="checkbox"
+          className="toggle"
+          checked={copyMetadata}
+          onChange={() => {
+            setCopyMetadata((old) => {
+              localStorage.setItem("copyMetadata", JSON.stringify(!old));
+              return !old;
+            });
+          }}
+        />
+      </div>
 
       {/* RESET SETTINGS */}
       <ResetSettingsButton />

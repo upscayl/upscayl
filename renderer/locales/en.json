@@ -100,6 +100,10 @@
     },
     "SYSTEM_INFO": {
       "TITLE": "System Info"
+    },
+    "COPY_METADATA": {
+      "TITLE": "COPY IMAGE METADATA",
+      "DESCRIPTION": "Keep original image metadata (EXIF) in the upscaled image."
     }
   },
   "APP": {
@@ -232,6 +236,10 @@
     "TILE_SIZE_ERROR": {
       "TITLE": "Error",
       "DESCRIPTION": "The tile size is wrong. Please change the tile size in the settings or set to 0 ({data})"
+    },
+    "METADATA_ERROR": {
+      "TITLE": "Metadata Copy Error",
+      "DESCRIPTION": "Could not copy metadata from the original image to the generated image. ({data})"
     },
     "EXCEPTION_ERROR": {
       "TITLE": "Exception Error",
