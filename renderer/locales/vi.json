@@ -45,8 +45,12 @@
       "WEBP": "WEBP"
     },
     "COPY_METADATA": {
-      "TITLE": "SAO CHÉP METADATA HÌNH ẢNH",
-      "DESCRIPTION": "Giữ lại metadata gốc của hình ảnh (EXIF) trong hình ảnh đã tăng cường."
+      "TITLE": "SAO CHÉP METADATA ẢNH",
+      "DESCRIPTION": "Giữ metadata gốc của ảnh (EXIF) trong ảnh đã được nâng cao.",
+      "SUGGEST_JPG_TITLE": "Đề Xuất Thay Đổi Định Dạng", 
+      "SUGGEST_JPG_DESCRIPTION": "Để có khả năng tương thích metadata tốt hơn trên các hệ thống khác nhau, chúng tôi khuyên bạn nên sử dụng định dạng JPG. Bạn có muốn thay đổi không?",
+      "CHANGE_TO_JPG": "Chuyển sang JPG",
+      "KEEP_CURRENT_FORMAT": "Giữ {format}"
     },
     "IMAGE_SCALE": {
       "TITLE": "Tỷ lệ Hình ảnh",

@@ -46,7 +46,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "GÖRSEL META VERİLERİNİ KOPYALA",
-      "DESCRIPTION": "İyileştirilmiş görselde orijinal görsel meta verilerini (EXIF) koru."
+      "DESCRIPTION": "İyileştirilmiş görselde orijinal görsel meta verilerini (EXIF) koru.",
+      "SUGGEST_JPG_TITLE": "Önerilen Format Değişikliği",
+      "SUGGEST_JPG_DESCRIPTION": "Farklı sistemler arasında daha iyi meta veri uyumluluğu için JPG formatını kullanmanızı öneriyoruz. Değiştirmek ister misiniz?",
+      "CHANGE_TO_JPG": "JPG'ye Değiştir",
+      "KEEP_CURRENT_FORMAT": "{format} Olarak Kalsın"
     },
     "IMAGE_SCALE": {
       "TITLE": "Görsel Ölçeği",

@@ -46,7 +46,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "SALIN METADATA GAMBAR",
-      "DESCRIPTION": "Pertahankan metadata gambar asli (EXIF) dalam gambar yang ditingkatkan."
+      "DESCRIPTION": "Pertahankan metadata gambar asli (EXIF) dalam gambar yang ditingkatkan.",
+      "SUGGEST_JPG_TITLE": "Rekomendasi Perubahan Format",
+      "SUGGEST_JPG_DESCRIPTION": "Untuk kompatibilitas metadata yang lebih baik di berbagai sistem, kami menyarankan menggunakan format JPG. Apakah Anda ingin mengubah?",
+      "CHANGE_TO_JPG": "Ubah ke JPG",
+      "KEEP_CURRENT_FORMAT": "Tetap {format}"
     },
     "IMAGE_SCALE": {
       "TITLE": "Skala Gambar",

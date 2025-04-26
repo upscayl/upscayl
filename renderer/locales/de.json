@@ -46,7 +46,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "BILD-METADATEN KOPIEREN",
-      "DESCRIPTION": "Original-Bildmetadaten (EXIF) im verbesserten Bild beibehalten."
+      "DESCRIPTION": "Original-Bildmetadaten (EXIF) im verbesserten Bild beibehalten.",
+      "SUGGEST_JPG_TITLE": "Empfohlene Formatänderung",
+      "SUGGEST_JPG_DESCRIPTION": "Für bessere Metadaten-Kompatibilität zwischen verschiedenen Systemen empfehlen wir das JPG-Format. Möchten Sie ändern?",
+      "CHANGE_TO_JPG": "Zu JPG ändern",
+      "KEEP_CURRENT_FORMAT": "{format} beibehalten"
     },
     "IMAGE_SCALE": {
       "TITLE": "Bildskala",

@@ -46,7 +46,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "复制图片元数据",
-      "DESCRIPTION": "在增强后的图片中保留原始图片元数据（EXIF）。"
+      "DESCRIPTION": "在增强后的图片中保留原始图片元数据（EXIF）。",
+      "SUGGEST_JPG_TITLE": "推荐格式更改",
+      "SUGGEST_JPG_DESCRIPTION": "为了在不同系统之间获得更好的元数据兼容性，我们建议使用JPG格式。您要更改吗？",
+      "CHANGE_TO_JPG": "更改为JPG",
+      "KEEP_CURRENT_FORMAT": "保持 {format}"
     },
     "IMAGE_SCALE": {
       "TITLE": "增强比例",

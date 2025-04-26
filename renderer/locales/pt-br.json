@@ -46,7 +46,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "COPIAR METADADOS DA IMAGEM",
-      "DESCRIPTION": "Manter os metadados originais da imagem (EXIF) na imagem aprimorada."
+      "DESCRIPTION": "Manter os metadados originais da imagem (EXIF) na imagem aprimorada.",
+      "SUGGEST_JPG_TITLE": "Alteração de Formato Recomendada",
+      "SUGGEST_JPG_DESCRIPTION": "Para melhor compatibilidade de metadados entre diferentes sistemas, recomendamos usar o formato JPG. Deseja alterar?",
+      "CHANGE_TO_JPG": "Mudar para JPG",
+      "KEEP_CURRENT_FORMAT": "Manter {format}"
     },
     "IMAGE_SCALE": {
       "TITLE": "Redimensionar Imagem",

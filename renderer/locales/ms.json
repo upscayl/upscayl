@@ -46,7 +46,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "SALIN METADATA IMEJ",
-      "DESCRIPTION": "Kekalkan metadata imej asal (EXIF) dalam imej yang telah dipertingkatkan."
+      "DESCRIPTION": "Kekalkan metadata imej asal (EXIF) dalam imej yang telah dipertingkatkan.",
+      "SUGGEST_JPG_TITLE": "Cadangan Perubahan Format",
+      "SUGGEST_JPG_DESCRIPTION": "Untuk keserasian metadata yang lebih baik antara sistem yang berbeza, kami mencadangkan menggunakan format JPG. Adakah anda ingin menukar?",
+      "CHANGE_TO_JPG": "Tukar kepada JPG",
+      "KEEP_CURRENT_FORMAT": "Kekalkan {format}"
     },
     "IMAGE_SCALE": {
       "TITLE": "Skala Imej",

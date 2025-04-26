@@ -46,7 +46,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "画像メタデータをコピー",
-      "DESCRIPTION": "アップスケールされた画像に元の画像メタデータ（EXIF）を保持します。"
+      "DESCRIPTION": "アップスケールされた画像に元の画像メタデータ（EXIF）を保持します。",
+      "SUGGEST_JPG_TITLE": "推奨フォーマット変更",
+      "SUGGEST_JPG_DESCRIPTION": "異なるシステム間でのメタデータの互換性を高めるため、JPG形式の使用をお勧めします。変更しますか？",
+      "CHANGE_TO_JPG": "JPGに変更",
+      "KEEP_CURRENT_FORMAT": "{format}を維持"
     },
     "IMAGE_SCALE": {
       "TITLE": "画像スケール",

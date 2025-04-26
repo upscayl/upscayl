@@ -48,7 +48,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "COPIA METADADES D'IMATGE",
-      "DESCRIPTION": "Mantín les metadades originals de la imatge (EXIF) en la imatge augmentada."
+      "DESCRIPTION": "Mantín les metadades originals de la imatge (EXIF) en la imatge augmentada.",
+      "SUGGEST_JPG_TITLE": "Canvi de Format Recomanat",
+      "SUGGEST_JPG_DESCRIPTION": "Per a una millor compatibilitat de metadades entre diferents sistemes, recomanem utilitzar el format JPG. Voleu canviar?",
+      "CHANGE_TO_JPG": "Canvia a JPG",
+      "KEEP_CURRENT_FORMAT": "Mantín {format}"
     },
     "IMAGE_SCALE": {
       "TITLE": "Escala d'imatge",

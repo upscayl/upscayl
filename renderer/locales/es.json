@@ -46,7 +46,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "COPIAR METADATOS DE IMAGEN",
-      "DESCRIPTION": "Mantener los metadatos originales de la imagen (EXIF) en la imagen aumentada."
+      "DESCRIPTION": "Mantener los metadatos originales de la imagen (EXIF) en la imagen aumentada.",
+      "SUGGEST_JPG_TITLE": "Cambio de Formato Recomendado",
+      "SUGGEST_JPG_DESCRIPTION": "Para una mejor compatibilidad de metadatos entre diferentes sistemas, recomendamos usar el formato JPG. ¿Desea cambiar?",
+      "CHANGE_TO_JPG": "Cambiar a JPG",
+      "KEEP_CURRENT_FORMAT": "Mantener {format}"
     },
     "IMAGE_SCALE": {
       "TITLE": "Escala de imagen",

@@ -46,8 +46,12 @@
     },
     "COPY_METADATA": {
       "TITLE": "COPIER LES MÉTADONNÉES DE L'IMAGE",
-      "DESCRIPTION": "Conserver les métadonnées originales de l'image (EXIF) dans l'image améliorée."
-    },    
+      "DESCRIPTION": "Conserver les métadonnées originales de l'image (EXIF) dans l'image améliorée.",
+      "SUGGEST_JPG_TITLE": "Changement de Format Recommandé",
+      "SUGGEST_JPG_DESCRIPTION": "Pour une meilleure compatibilité des métadonnées entre différents systèmes, nous recommandons d'utiliser le format JPG. Voulez-vous changer ?",
+      "CHANGE_TO_JPG": "Changer en JPG",
+      "KEEP_CURRENT_FORMAT": "Garder {format}"
+    },
     "IMAGE_SCALE": {
       "TITLE": "Dimensions de l'image",
       "DESCRIPTION": "Tout ce qui dépasse 4X (sauf 16X Double Upscayl) ne fait que redimensionner l'image et n'utilise pas l'améliorateur AI.",
