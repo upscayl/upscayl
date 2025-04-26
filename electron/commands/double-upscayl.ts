@@ -133,7 +133,9 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       if (payload.copyMetadata) {
         try {
           await copyMetadata(imagePath, outFile);
+          logit("✅ Metadata copied to: ", outFile);
         } catch (error) {
+          logit("❌ Error copying metadata: ", error);
           mainWindow.webContents.send(
             ELECTRON_COMMANDS.METADATA_ERROR,
             error,
