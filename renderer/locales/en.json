@@ -44,6 +44,10 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "COPY IMAGE METADATA",
+      "DESCRIPTION": "Keep original image metadata (EXIF) in the upscaled image."
+    },
     "IMAGE_SCALE": {
       "TITLE": "Image Scale",
       "DESCRIPTION": "Anything above 4X (except 16X Double Upscayl) only resizes the image and does not use AI upscaling.",
@@ -100,10 +104,6 @@
     },
     "SYSTEM_INFO": {
       "TITLE": "System Info"
-    },
-    "COPY_METADATA": {
-      "TITLE": "COPY IMAGE METADATA",
-      "DESCRIPTION": "Keep original image metadata (EXIF) in the upscaled image."
     }
   },
   "APP": {
@@ -237,10 +237,6 @@
       "TITLE": "Error",
       "DESCRIPTION": "The tile size is wrong. Please change the tile size in the settings or set to 0 ({data})"
     },
-    "METADATA_ERROR": {
-      "TITLE": "Metadata Copy Error",
-      "DESCRIPTION": "Could not copy metadata from the original image to the generated image. ({data})"
-    },
     "EXCEPTION_ERROR": {
       "TITLE": "Exception Error",
       "DESCRIPTION": "Upscayl encountered an error. Possibly, the upscayl binary failed to execute the commands properly. Try checking the logs to see if you get any information. You can post an issue on Upscayl's GitHub repository for more help."
@@ -261,6 +257,10 @@
     "NO_IMAGE_ERROR": {
       "TITLE": "No image selected",
       "DESCRIPTION": "Please select an image to upscale"
+    },
+    "METADATA_ERROR": {
+      "TITLE": "Metadata Copy Error",
+      "DESCRIPTION": "Could not copy metadata from the original image to the generated image. ({data})"
     },
     "OPEN_DOCS_TITLE": "Open Docs",
     "OPEN_DOCS_BUTTON_TITLE": "Troubleshoot"

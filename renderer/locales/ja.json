@@ -44,6 +44,10 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "画像メタデータをコピー",
+      "DESCRIPTION": "アップスケールされた画像に元の画像メタデータ（EXIF）を保持します。"
+    },
     "IMAGE_SCALE": {
       "TITLE": "画像スケール",
       "DESCRIPTION": "4X以上のスケール（16X Double Upscaylを除く）は、画像をリサイズするだけで、AIアップスケーリングは行われません。",
@@ -254,12 +258,20 @@
       "TITLE": "画像が選択されていません",
       "DESCRIPTION": "アップスケールする画像を選択してください"
     },
+    "METADATA_ERROR": {
+      "TITLE": "メタデータのコピーエラー",
+      "DESCRIPTION": "元画像のメタデータを生成された画像にコピーできませんでした。({data})"
+    },
     "OPEN_DOCS_TITLE": "ドキュメントを開く",
     "OPEN_DOCS_BUTTON_TITLE": "トラブルシューティング"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "警告"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "メタデータの警告",
+      "DESCRIPTION": "一部のシステムでは、JPG以外の形式ではメタデータが表示されない場合があります。必要に応じて専用のツールを使用してメタデータを表示してください。"
     }
   },   
   "UPSCAYL_CLOUD": {

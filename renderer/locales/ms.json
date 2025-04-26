@@ -44,6 +44,10 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "SALIN METADATA IMEJ",
+      "DESCRIPTION": "Kekalkan metadata imej asal (EXIF) dalam imej yang telah dipertingkatkan."
+    },
     "IMAGE_SCALE": {
       "TITLE": "Skala Imej",
       "DESCRIPTION": "Apa-apa melebihi 4X (kecuali 16X Double Upscayl) hanya mengubah saiz imej dan tidak menggunakan peningkatan AI.",
@@ -254,8 +258,21 @@
       "TITLE": "Tiada imej dipilih",
       "DESCRIPTION": "Sila pilih imej untuk diupscale"
     },
+    "METADATA_ERROR": {
+      "TITLE": "Ralat Salinan Metadata",
+      "DESCRIPTION": "Tidak dapat menyalin metadata dari imej asal ke imej yang dihasilkan. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Buka Dokumen",
     "OPEN_DOCS_BUTTON_TITLE": "Penyelesaian Masalah"
+  },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Amaran"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Amaran Metadata",
+      "DESCRIPTION": "Pada sesetengah sistem, metadata mungkin tidak kelihatan dalam format selain JPG. Gunakan alat khusus untuk melihat metadata jika perlu."
+    }
   },
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Akan datang!",

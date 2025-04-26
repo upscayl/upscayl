@@ -44,6 +44,10 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "COPIA METADATI IMMAGINE",
+      "DESCRIPTION": "Mantieni i metadati originali dell'immagine (EXIF) nell'immagine sovracampionata."
+    },
     "IMAGE_SCALE": {
       "TITLE": "Scala dell'immagine",
       "DESCRIPTION": "Qualsiasi valore superiore a 4X (eccetto 16X Double Upscayl) ridimensiona solo l'immagine e non utilizza l'upsampling AI.",
@@ -254,12 +258,20 @@
       "TITLE": "Nessuna immagine selezionata",
       "DESCRIPTION": "Seleziona un'immagine da sovracampionare"
     },
+    "METADATA_ERROR": {
+      "TITLE": "Errore di Copia Metadati",
+      "DESCRIPTION": "Impossibile copiare i metadati dall'immagine originale all'immagine generata. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Apri la documentazione",
     "OPEN_DOCS_BUTTON_TITLE": "Risoluzione dei problemi"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Avviso"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Avviso sui metadati",
+      "DESCRIPTION": "Su alcuni sistemi, i metadati potrebbero non essere visibili in formati diversi da JPG. Utilizza strumenti specifici per visualizzare i metadati se necessario."
     }
   },  
   "UPSCAYL_CLOUD": {

@@ -44,6 +44,10 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "GÖRSEL META VERİLERİNİ KOPYALA",
+      "DESCRIPTION": "İyileştirilmiş görselde orijinal görsel meta verilerini (EXIF) koru."
+    },
     "IMAGE_SCALE": {
       "TITLE": "Görsel Ölçeği",
       "DESCRIPTION": "4X'ten büyük herhangi bir ayar (16X Çifte Upscayl dışında) yalnızca görüntüyü yeniden boyutlandırır ve AI ile iyileştirme yapmaz.",
@@ -254,12 +258,20 @@
       "TITLE": "Görsel seçilmedi",
       "DESCRIPTION": "Lütfen iyileştirilecek bir görsel seçin."
     },
+    "METADATA_ERROR": {
+      "TITLE": "Meta Veri Kopyalama Hatası",
+      "DESCRIPTION": "Orijinal görüntüden oluşturulan görüntüye meta veriler kopyalanamadı. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Dökümantasyonu açın",
     "OPEN_DOCS_BUTTON_TITLE": "Sorun giderme"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Uyarı"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Meta Veri Uyarısı",
+      "DESCRIPTION": "Bazı sistemlerde, JPG dışındaki formatlarda meta veriler görüntülenemeyebilir. Gerekirse meta verileri görüntülemek için özel araçlar kullanın."
     }
   },    
   "UPSCAYL_CLOUD": {

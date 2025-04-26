@@ -44,6 +44,10 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "SALIN METADATA GAMBAR",
+      "DESCRIPTION": "Pertahankan metadata gambar asli (EXIF) dalam gambar yang ditingkatkan."
+    },
     "IMAGE_SCALE": {
       "TITLE": "Skala Gambar",
       "DESCRIPTION": "Apa pun di atas 4X (kecuali 16X Double Upscayl) hanya mengubah ukuran gambar dan tidak menggunakan peningkatan AI.",
@@ -254,12 +258,20 @@
       "TITLE": "Tidak ada gambar yang dipilih",
       "DESCRIPTION": "Silakan pilih gambar untuk ditingkatkan kualitasnya"
     },
+    "METADATA_ERROR": {
+      "TITLE": "Kesalahan Penyalinan Metadata",
+      "DESCRIPTION": "Tidak dapat menyalin metadata dari gambar asli ke gambar yang dihasilkan. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Buka Dokumen",
     "OPEN_DOCS_BUTTON_TITLE": "Pemecahan Masalah"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Peringatan"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Peringatan Metadata",
+      "DESCRIPTION": "Pada beberapa sistem, metadata mungkin tidak terlihat dalam format selain JPG. Gunakan alat khusus untuk melihat metadata jika diperlukan."
     }
   },
   "UPSCAYL_CLOUD": {

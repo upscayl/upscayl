@@ -183,6 +183,9 @@ function SettingsTab({
         saveImageAs={saveImageAs}
         setExportType={setExportType}
       />
+      
+      {/* COPY METADATA TOGGLE */}
+      <CopyMetadataToggle saveImageAs={saveImageAs} />
 
       {/* IMAGE SCALE */}
       <SelectImageScale scale={scale} setScale={setScale} />
@@ -213,9 +216,6 @@ function SettingsTab({
       />
 
       <TTAModeToggle />
-
-      {/* COPY METADATA TOGGLE */}
-      <CopyMetadataToggle saveImageAs={saveImageAs} />
 
       {/* RESET SETTINGS */}
       <ResetSettingsButton />
