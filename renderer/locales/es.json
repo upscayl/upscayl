@@ -44,6 +44,14 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "COPIAR METADATOS DE IMAGEN",
+      "DESCRIPTION": "Mantener los metadatos originales de la imagen (EXIF) en la imagen aumentada.",
+      "SUGGEST_JPG_TITLE": "Cambio de Formato Recomendado",
+      "SUGGEST_JPG_DESCRIPTION": "Para una mejor compatibilidad de metadatos entre diferentes sistemas, recomendamos usar el formato JPG. ¿Desea cambiar?",
+      "CHANGE_TO_JPG": "Cambiar a JPG",
+      "KEEP_CURRENT_FORMAT": "Mantener {format}"
+    },
     "IMAGE_SCALE": {
       "TITLE": "Escala de imagen",
       "DESCRIPTION": "Cualquier cosa por encima de 4X (excepto 16X Double Upscayl) solo redimensiona la imagen y no usa aumento con IA.",
@@ -255,12 +263,20 @@
       "TITLE": "No se ha seleccionado imagen",
       "DESCRIPTION": "Por favor, selecciona una imagen para aumentar"
     },
+    "METADATA_ERROR": {
+      "TITLE": "Error de Copia de Metadatos",
+      "DESCRIPTION": "No se pudieron copiar los metadatos de la imagen original a la imagen generada. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Abrir documentación",
     "OPEN_DOCS_BUTTON_TITLE": "Solucionar problemas"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Advertencia"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Advertencia de metadatos",
+      "DESCRIPTION": "En algunos sistemas, los metadatos pueden no ser visibles en formatos distintos a JPG. Usa herramientas específicas para ver los metadatos si es necesario."
     }
   },
   "UPSCAYL_CLOUD": {

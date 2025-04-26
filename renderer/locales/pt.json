@@ -44,6 +44,14 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "COPIAR METADADOS DA IMAGEM",
+      "DESCRIPTION": "Manter os metadados originais da imagem (EXIF) na imagem aprimorada.",
+      "SUGGEST_JPG_TITLE": "Alteração de Formato Recomendada",
+      "SUGGEST_JPG_DESCRIPTION": "Para melhor compatibilidade de metadados entre diferentes sistemas, recomendamos usar o formato JPG. Deseja alterar?",
+      "CHANGE_TO_JPG": "Mudar para JPG",
+      "KEEP_CURRENT_FORMAT": "Manter {format}"
+    },
     "IMAGE_SCALE": {
       "TITLE": "Escala da imagem",
       "DESCRIPTION": "Tudo o que seja acima de 4X (exceto 16X Upscayl duplo) apenas redimensiona a imagem e não utiliza aprimoramento de IA.",
@@ -255,14 +263,22 @@
       "TITLE": "Nenhuma imagem selecionada",
       "DESCRIPTION": "Por favor, selecione uma imagem a aprimorar"
     },
+    "METADATA_ERROR": {
+      "TITLE": "Erro de cópia de metadados",
+      "DESCRIPTION": "Não foi possível copiar os metadados da imagem original para a imagem gerada. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Abrir documentos",
     "OPEN_DOCS_BUTTON_TITLE": "Problemas"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Aviso"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Aviso de metadados",
+      "DESCRIPTION": "Em alguns sistemas, os metadados podem não ser visíveis em formatos diferentes de JPG. Use ferramentas específicas para visualizar metadados, se necessário."
     }
-  },   
+  },     
   "UPSCAYL_CLOUD": {
     "COMING_SOON": "Brevemente!",
     "CATCHY_PHRASE_1": "Acabaram-se os erros, os problemas de hardware, o sacrifício da qualidade ou os longos tempos de carregamento!",

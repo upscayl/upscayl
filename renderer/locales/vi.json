@@ -44,6 +44,14 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "SAO CHÉP METADATA ẢNH",
+      "DESCRIPTION": "Giữ metadata gốc của ảnh (EXIF) trong ảnh đã được nâng cao.",
+      "SUGGEST_JPG_TITLE": "Đề Xuất Thay Đổi Định Dạng", 
+      "SUGGEST_JPG_DESCRIPTION": "Để có khả năng tương thích metadata tốt hơn trên các hệ thống khác nhau, chúng tôi khuyên bạn nên sử dụng định dạng JPG. Bạn có muốn thay đổi không?",
+      "CHANGE_TO_JPG": "Chuyển sang JPG",
+      "KEEP_CURRENT_FORMAT": "Giữ {format}"
+    },
     "IMAGE_SCALE": {
       "TITLE": "Tỷ lệ Hình ảnh",
       "DESCRIPTION": "Bất kỳ tỷ lệ nào trên 4X (ngoại trừ 16X Double Upscayl) chỉ thay đổi kích thước hình ảnh mà không sử dụng tăng cường AI.",
@@ -254,12 +262,20 @@
       "TITLE": "Không có hình ảnh nào được chọn",
       "DESCRIPTION": "Vui lòng chọn một hình ảnh để tăng cường"
     },
+    "METADATA_ERROR": {
+      "TITLE": "Lỗi Sao Chép Metadata", 
+      "DESCRIPTION": "Không thể sao chép metadata từ ảnh gốc sang ảnh đã tạo. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Mở Tài liệu",
     "OPEN_DOCS_BUTTON_TITLE": "Khắc phục sự cố"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Cảnh báo"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Cảnh báo về Metadata",
+      "DESCRIPTION": "Trên một số hệ thống, metadata có thể không hiển thị trong các định dạng khác ngoài JPG. Sử dụng các công cụ chuyên dụng để xem metadata nếu cần."
     }
   },    
   "UPSCAYL_CLOUD": {

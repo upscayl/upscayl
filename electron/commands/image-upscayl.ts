@@ -21,6 +21,7 @@ import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
 import { MODELS } from "../../common/models-list";
 import { getPlatform } from "../utils/get-device-specs";
+import { copyMetadata } from "../utils/copy-metadata";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -157,6 +158,18 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         // Free up memory
         upscayl.kill();
         mainWindow.setProgressBar(-1);
+        if (payload.copyMetadata) {
+          try {
+            await copyMetadata(imagePath, outFile);
+            logit("✅ Metadata copied to: ", outFile);
+          } catch (error) {
+            logit("❌ Error copying metadata: ", error);
+            mainWindow.webContents.send(
+              ELECTRON_COMMANDS.METADATA_ERROR,
+              error,
+            );
+          }
+        }
         mainWindow.webContents.send(ELECTRON_COMMANDS.UPSCAYL_DONE, outFile);
         showNotification("Upscayl", "Image upscayled successfully!");
       }

@@ -44,6 +44,14 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "COPY IMAGE METADATA",
+      "DESCRIPTION": "Keep original image metadata (EXIF) in the upscaled image.",
+      "SUGGEST_JPG_TITLE": "Recommended Format Change",
+      "SUGGEST_JPG_DESCRIPTION": "For better metadata compatibility across different systems, we recommend using JPG format. Would you like to change?",
+      "CHANGE_TO_JPG": "Change to JPG",
+      "KEEP_CURRENT_FORMAT": "Keep {format}"
+    },
     "IMAGE_SCALE": {
       "TITLE": "Image Scale",
       "DESCRIPTION": "Anything above 4X (except 16X Double Upscayl) only resizes the image and does not use AI upscaling.",
@@ -254,12 +262,20 @@
       "TITLE": "No image selected",
       "DESCRIPTION": "Please select an image to upscale"
     },
+    "METADATA_ERROR": {
+      "TITLE": "Metadata Copy Error",
+      "DESCRIPTION": "Could not copy metadata from the original image to the generated image. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Open Docs",
     "OPEN_DOCS_BUTTON_TITLE": "Troubleshoot"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Warning"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Metadata Warning",
+      "DESCRIPTION": "On some systems, metadata may not be visible in formats other than JPG. Use specific tools to view metadata if needed."
     }
   },
   "UPSCAYL_CLOUD": {
