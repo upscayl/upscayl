@@ -46,7 +46,11 @@
     },
     "COPY_METADATA": {
       "TITLE": "COPY IMAGE METADATA",
-      "DESCRIPTION": "Keep original image metadata (EXIF) in the upscaled image."
+      "DESCRIPTION": "Keep original image metadata (EXIF) in the upscaled image.",
+      "SUGGEST_JPG_TITLE": "Recommended Format Change",
+      "SUGGEST_JPG_DESCRIPTION": "For better metadata compatibility across different systems, we recommend using JPG format. Would you like to change?",
+      "CHANGE_TO_JPG": "Change to JPG",
+      "KEEP_CURRENT_FORMAT": "Keep {format}"
     },
     "IMAGE_SCALE": {
       "TITLE": "Image Scale",

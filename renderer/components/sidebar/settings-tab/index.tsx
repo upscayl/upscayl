@@ -185,7 +185,7 @@ function SettingsTab({
       />
       
       {/* COPY METADATA TOGGLE */}
-      <CopyMetadataToggle saveImageAs={saveImageAs} />
+      <CopyMetadataToggle saveImageAs={saveImageAs} setExportType={setExportType} />
 
       {/* IMAGE SCALE */}
       <SelectImageScale scale={scale} setScale={setScale} />
