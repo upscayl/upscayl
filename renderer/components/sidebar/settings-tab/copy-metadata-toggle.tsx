@@ -18,21 +18,21 @@ const CopyMetadataToggle = ({ saveImageAs, setExportType }: CopyMetadataTogglePr
       setShowSuggestModal(true);
     } else {
       setCopyMetadata(!copyMetadata);
-      localStorage.setItem("copyMetadata", JSON.stringify(!copyMetadata));
+      localStorage.setItem("copyMetadata", (!copyMetadata).toString());
     }
   };
 
   const handleChangeToJpg = () => {
     setShowSuggestModal(false);
     setCopyMetadata(true);
-    localStorage.setItem("copyMetadata", "true");
+    localStorage.setItem("copyMetadata", true.toString());
     setExportType("jpg");
   };
 
   const handleKeepFormat = () => {
     setShowSuggestModal(false);
     setCopyMetadata(true);
-    localStorage.setItem("copyMetadata", "true");
+    localStorage.setItem("copyMetadata", true.toString());
   };
 
   return (
@@ -56,11 +56,28 @@ const CopyMetadataToggle = ({ saveImageAs, setExportType }: CopyMetadataTogglePr
       )}
       
       {showSuggestModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="w-96 rounded-lg bg-base-100 p-6 shadow-xl">
-            <h3 className="mb-2 text-lg font-semibold">
-              {t("SETTINGS.COPY_METADATA.SUGGEST_JPG_TITLE")}
-            </h3>
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          onClick={() => setShowSuggestModal(false)}
+          onKeyDown={(e) => e.key === "Escape" && setShowSuggestModal(false)}
+          tabIndex={0}
+        >
+          <div 
+            className="w-96 rounded-lg bg-base-100 p-6 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-semibold">
+                {t("SETTINGS.COPY_METADATA.SUGGEST_JPG_TITLE")}
+              </h3>
+              <button 
+                className="btn btn-sm btn-ghost" 
+                onClick={() => setShowSuggestModal(false)}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
             <p className="mb-4 text-sm text-base-content/80">
               {t("SETTINGS.COPY_METADATA.SUGGEST_JPG_DESCRIPTION")}
             </p>
