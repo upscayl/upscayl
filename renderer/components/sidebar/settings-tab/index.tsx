@@ -64,7 +64,6 @@ function SettingsTab({
   // HANDLERS
   const setExportType = (format: ImageFormat) => {
     setSaveImageAs(format);
-    localStorage.setItem("saveImageAs", format);
   };
 
   const handleCompressionChange = (e) => {
