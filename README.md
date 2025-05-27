@@ -2,7 +2,7 @@
    <br>
    <br>
    <a href="https://www.warp.dev/upscayl">
-      <img alt="Warp sponsorship" width="800" src="https://github.com/user-attachments/assets/935a899b-47fd-4449-8d24-f03476bac76c">
+      <img alt="Warp sponsorship" width="800" src="https://github.com/user-attachments/assets/7626b7c6-e673-45ee-ac9a-3392e643f54f">
    </a>
 
 ### [Warp, the intelligent terminal for developers](https://www.warp.dev/upscayl)
