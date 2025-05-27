@@ -1,3 +1,15 @@
+<div align="center" markdown="1">
+   <br>
+   <br>
+   <a href="https://www.warp.dev/upscayl">
+      <img alt="Warp sponsorship" width="800" src="https://github.com/user-attachments/assets/935a899b-47fd-4449-8d24-f03476bac76c">
+   </a>
+
+### [Warp, the intelligent terminal for developers](https://www.warp.dev/upscayl)
+#### [Use images as AI context in your terminal!](https://www.warp.dev/upscayl)<br>
+
+</div>
+<hr>
 <div align="center">
 
   # v2.15 is out! 🥳 [Download Now ⬇️](https://github.com/upscayl/upscayl/releases/latest)
