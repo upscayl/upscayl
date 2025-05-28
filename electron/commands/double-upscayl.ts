@@ -131,6 +131,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
 
       mainWindow.setProgressBar(-1);
       if (payload.copyMetadata) {
+        logit("🏷️ Copying metadata...");
         try {
           await copyMetadata(imagePath, outFile);
           logit("✅ Metadata copied to: ", outFile);

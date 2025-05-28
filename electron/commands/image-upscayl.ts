@@ -159,6 +159,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         upscayl.kill();
         mainWindow.setProgressBar(-1);
         if (payload.copyMetadata) {
+          logit("🏷️ Copying metadata...");
           try {
             await copyMetadata(imagePath, outFile);
             logit("✅ Metadata copied to: ", outFile);

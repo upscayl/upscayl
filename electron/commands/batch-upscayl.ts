@@ -111,6 +111,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       logit("💯 Done upscaling");
       upscayl.kill();
       if (payload.copyMetadata) {
+        logit("🏷️ Copying metadata...");
         try {
           const files = fs.readdirSync(outputFolderPath);
           for (const file of files) {
