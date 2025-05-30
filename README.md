@@ -1,18 +1,19 @@
-<div align="center" markdown="1">
-   <br>
-   <br>
-   <a href="https://www.warp.dev/upscayl">
-      <img alt="Warp sponsorship" width="800" src="https://github.com/user-attachments/assets/7626b7c6-e673-45ee-ac9a-3392e643f54f">
-   </a>
-
-### [Warp, the intelligent terminal for developers](https://www.warp.dev/upscayl)
-#### [Use images as AI context in your terminal!](https://www.warp.dev/upscayl)<br>
-
-</div>
-<hr>
 <div align="center">
 
   # v2.15 is out! 🥳 [Download Now ⬇️](https://github.com/upscayl/upscayl/releases/latest)
+
+<h3>Special thanks to our sponsors:</h3>
+<a href="https://www.warp.dev/upscayl">
+   <div>
+   <img alt="Warp sponsorship" width="500" src="https://github.com/user-attachments/assets/7626b7c6-e673-45ee-ac9a-3392e643f54f">
+   </div>
+   <b>Warp, the intelligent terminal for developers</b>
+   <div>
+      <sup>Use images as AI context in your terminal!</sup>
+   </div>
+</a>
+
+#
 
 <a href="https://github.com/upscayl/upscayl/releases/latest">
   
