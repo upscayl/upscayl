@@ -2,6 +2,19 @@
 
   # v2.15 is out! 🥳 [Download Now ⬇️](https://github.com/upscayl/upscayl/releases/latest)
 
+<h3>Special thanks to our sponsors:</h3>
+<a href="https://www.warp.dev/upscayl">
+   <div>
+   <img alt="Warp sponsorship" width="500" src="https://github.com/user-attachments/assets/7626b7c6-e673-45ee-ac9a-3392e643f54f">
+   </div>
+   <b>Warp, the intelligent terminal for developers</b>
+   <div>
+      <sup>Use images as AI context in your terminal!</sup>
+   </div>
+</a>
+
+#
+
 <a href="https://github.com/upscayl/upscayl/releases/latest">
   
   ![Frame 111](https://github.com/upscayl/upscayl/assets/25067102/d1b4af3c-aade-4bc9-97d0-cf88db679931)
