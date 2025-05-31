@@ -95,3 +95,8 @@ export const userStatsAtom = atomWithStorage("userStats", {
   lastUpscaylDuration: 0,
   lastUsedAt: 0,
 });
+
+export const copyMetadataAtom = atomWithStorage<boolean>(
+  "copyMetadata",
+  false,
+);

@@ -44,6 +44,14 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "BILD-METADATEN KOPIEREN",
+      "DESCRIPTION": "Original-Bildmetadaten (EXIF) im verbesserten Bild beibehalten.",
+      "SUGGEST_JPG_TITLE": "Empfohlene Formatänderung",
+      "SUGGEST_JPG_DESCRIPTION": "Für bessere Metadaten-Kompatibilität zwischen verschiedenen Systemen empfehlen wir das JPG-Format. Möchten Sie ändern?",
+      "CHANGE_TO_JPG": "Zu JPG ändern",
+      "KEEP_CURRENT_FORMAT": "{format} beibehalten"
+    },
     "IMAGE_SCALE": {
       "TITLE": "Bildskala",
       "DESCRIPTION": "Alles über 4X (außer 16X Double Upscayl) skaliert das Bild nur und verwendet kein KI-Upscaling.",
@@ -254,12 +262,20 @@
       "TITLE": "Kein Bild ausgewählt",
       "DESCRIPTION": "Bitte wähle ein Bild zum Upscaylen"
     },
+    "METADATA_ERROR": {
+      "TITLE": "Metadaten-Kopierfehler",
+      "DESCRIPTION": "Die Metadaten konnten nicht vom Originalbild in das generierte Bild kopiert werden. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Dokumentation öffnen",
     "OPEN_DOCS_BUTTON_TITLE": "Fehlerbehebung"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Warnung"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Metadaten-Warnung",
+      "DESCRIPTION": "Auf einigen Systemen sind die Metadaten in anderen Formaten als JPG möglicherweise nicht sichtbar. Verwende gegebenenfalls spezielle Tools zum Anzeigen der Metadaten."
     }
   },  
   "UPSCAYL_CLOUD": {

@@ -182,6 +182,13 @@ const Home = () => {
         description: data,
       });
     });
+    // METADATA ERROR
+    window.electron.on(ELECTRON_COMMANDS.METADATA_ERROR, (_, data: string) => {
+      toast({
+        title: t("ERRORS.METADATA_ERROR.TITLE"),
+        description: data,
+      });
+    });
     // UPSCAYL ERROR
     window.electron.on(ELECTRON_COMMANDS.UPSCAYL_ERROR, (_, data: string) => {
       toast({

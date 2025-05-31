@@ -44,6 +44,14 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "COPIER LES MÉTADONNÉES DE L'IMAGE",
+      "DESCRIPTION": "Conserver les métadonnées originales de l'image (EXIF) dans l'image améliorée.",
+      "SUGGEST_JPG_TITLE": "Changement de Format Recommandé",
+      "SUGGEST_JPG_DESCRIPTION": "Pour une meilleure compatibilité des métadonnées entre différents systèmes, nous recommandons d'utiliser le format JPG. Voulez-vous changer ?",
+      "CHANGE_TO_JPG": "Changer en JPG",
+      "KEEP_CURRENT_FORMAT": "Garder {format}"
+    },
     "IMAGE_SCALE": {
       "TITLE": "Dimensions de l'image",
       "DESCRIPTION": "Tout ce qui dépasse 4X (sauf 16X Double Upscayl) ne fait que redimensionner l'image et n'utilise pas l'améliorateur AI.",
@@ -254,12 +262,20 @@
       "TITLE": "Aucune image sélectionnée",
       "DESCRIPTION": "Veuillez sélectionner une image à suréchantillonner"
     },
+    "METADATA_ERROR": {
+      "TITLE": "Erreur de Copie des Métadonnées",
+      "DESCRIPTION": "Impossible de copier les métadonnées de l'image originale vers l'image générée. ({data})"
+    },
     "OPEN_DOCS_TITLE": "Ouvrir la documentation",
     "OPEN_DOCS_BUTTON_TITLE": "Dépanner"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "Avertissement"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Avertissement sur les métadonnées",
+      "DESCRIPTION": "Sur certains systèmes, les métadonnées peuvent ne pas être visibles dans les formats autres que JPG. Utilisez des outils spécifiques pour visualiser les métadonnées si nécessaire."
     }
   },  
   "UPSCAYL_CLOUD": {
