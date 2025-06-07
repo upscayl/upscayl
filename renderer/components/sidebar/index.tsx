@@ -20,6 +20,7 @@ import {
   saveImageAsAtom,
   userStatsAtom,
   ttaModeAtom,
+  copyMetadataAtom,
 } from "../../atoms/user-settings-atom";
 import useLogger from "../hooks/use-logger";
 import {
@@ -93,6 +94,7 @@ const Sidebar = ({
   const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
   const setUserStats = useSetAtom(userStatsAtom);
   const ttaMode = useAtomValue(ttaModeAtom);
+  const [copyMetadata] = useAtom(copyMetadataAtom);
 
   const upscaylHandler = async () => {
     logit("🔄 Resetting Upscaled Image Path");
@@ -117,6 +119,7 @@ const Sidebar = ({
             useCustomWidth,
             tileSize,
             ttaMode,
+            copyMetadata,
           },
         );
         setUserStats((prev) => ({
@@ -145,6 +148,7 @@ const Sidebar = ({
             useCustomWidth,
             tileSize,
             ttaMode,
+            copyMetadata,
           },
         );
         setUserStats((prev) => ({
@@ -170,6 +174,7 @@ const Sidebar = ({
           useCustomWidth,
           tileSize,
           ttaMode,
+          copyMetadata,
         });
         setUserStats((prev) => ({
           ...prev,

@@ -22,6 +22,7 @@ import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
 import { MODELS } from "../../common/models-list";
+import { copyMetadata } from "../utils/copy-metadata";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -129,6 +130,19 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       logit("💯 Done upscaling");
 
       mainWindow.setProgressBar(-1);
+      if (payload.copyMetadata) {
+        logit("🏷️ Copying metadata...");
+        try {
+          await copyMetadata(imagePath, outFile);
+          logit("✅ Metadata copied to: ", outFile);
+        } catch (error) {
+          logit("❌ Error copying metadata: ", error);
+          mainWindow.webContents.send(
+            ELECTRON_COMMANDS.METADATA_ERROR,
+            error,
+          );
+        }
+      }
       mainWindow.webContents.send(
         ELECTRON_COMMANDS.DOUBLE_UPSCAYL_DONE,
         outFile,

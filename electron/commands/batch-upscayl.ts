@@ -15,6 +15,7 @@ import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
 import { MODELS } from "../../common/models-list";
+import { copyMetadata } from "../utils/copy-metadata";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -104,11 +105,35 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       );
     return;
   };
-  const onClose = () => {
+  const onClose = async () => {
     if (!mainWindow) return;
     if (!failed && !stopped) {
       logit("💯 Done upscaling");
       upscayl.kill();
+      if (payload.copyMetadata) {
+        logit("🏷️ Copying metadata...");
+        try {
+          const files = fs.readdirSync(outputFolderPath);
+          for (const file of files) {
+            const outFile = outputFolderPath + slash + file;
+            const originalFile = inputDir + slash + file;
+            if (fs.existsSync(outFile) && fs.existsSync(originalFile)) {
+                try {
+                  await copyMetadata(inputDir, outFile);
+                  logit("✅ Metadata copied to: ", outFile);
+                } catch (error) {
+                  logit("❌ Error copying metadata: ", error);
+                  mainWindow.webContents.send(
+                    ELECTRON_COMMANDS.METADATA_ERROR,
+                    error,
+                  );
+                } 
+            }
+          }
+        } catch (err) {
+          logit("❌ Error in batch metadata copy: ", err);
+        }
+      }
       mainWindow.webContents.send(
         ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
         outputFolderPath,

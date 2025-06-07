@@ -26,6 +26,7 @@ const ELECTRON_COMMANDS = {
   SCALING_AND_CONVERTING: "Adding some finishing touches",
   UPSCAYL_WARNING: "Upscaling Warning",
   UPSCAYL_ERROR: "Upscaling Error",
+  METADATA_ERROR: "Metadata Error",
   PASTE_IMAGE: "Paste Image from clipboard",
   PASTE_IMAGE_SAVE_SUCCESS: "Clipboard Image saved successfully",
   PASTE_IMAGE_SAVE_ERROR: "Clipboard Image save failed",

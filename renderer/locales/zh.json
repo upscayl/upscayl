@@ -44,6 +44,14 @@
       "JPG": "JPG",
       "WEBP": "WEBP"
     },
+    "COPY_METADATA": {
+      "TITLE": "复制图片元数据",
+      "DESCRIPTION": "在增强后的图片中保留原始图片元数据（EXIF）。",
+      "SUGGEST_JPG_TITLE": "推荐格式更改",
+      "SUGGEST_JPG_DESCRIPTION": "为了在不同系统之间获得更好的元数据兼容性，我们建议使用JPG格式。您要更改吗？",
+      "CHANGE_TO_JPG": "更改为JPG",
+      "KEEP_CURRENT_FORMAT": "保持 {format}"
+    },
     "IMAGE_SCALE": {
       "TITLE": "增强比例",
       "DESCRIPTION": "超过 4X（除 16X 双重升图外）只会调整图片大小，不会使用 AI 增强。",
@@ -254,12 +262,20 @@
       "TITLE": "未选择图片",
       "DESCRIPTION": "你还没选择图片哦 QwQ"
     },
+    "METADATA_ERROR": {
+      "TITLE": "元数据复制错误",
+      "DESCRIPTION": "无法将原始图像的元数据复制到生成的图像中。({data})"
+    },
     "OPEN_DOCS_TITLE": "打开文档",
     "OPEN_DOCS_BUTTON_TITLE": "排除故障"
   },
   "WARNING": {
     "GENERIC_WARNING": {
       "TITLE": "警告"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "元数据警告",
+      "DESCRIPTION": "在某些系统上，JPG 以外的格式可能无法显示元数据。如有需要，请使用专门的工具查看元数据。"
     }
   },    
   "UPSCAYL_CLOUD": {

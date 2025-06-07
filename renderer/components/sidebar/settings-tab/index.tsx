@@ -25,6 +25,7 @@ import EnableContributionToggle from "./enable-contributions-toggle";
 import AutoUpdateToggle from "./auto-update-toggle";
 import TTAModeToggle from "./tta-mode-toggle";
 import SystemInfo from "./system-info";
+import CopyMetadataToggle from "./copy-metadata-toggle";
 
 interface IProps {
   batchMode: boolean;
@@ -182,6 +183,9 @@ function SettingsTab({
         saveImageAs={saveImageAs}
         setExportType={setExportType}
       />
+      
+      {/* COPY METADATA TOGGLE */}
+      <CopyMetadataToggle saveImageAs={saveImageAs} setExportType={setExportType} />
 
       {/* IMAGE SCALE */}
       <SelectImageScale scale={scale} setScale={setScale} />
