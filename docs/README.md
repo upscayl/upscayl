@@ -1,4 +1,8 @@
-# Introduction
-Welcome to Upscayl Documentation! 🎉
+# Upscayl Documentation Status and Resources 🎉
 
-Here, we’re trying to build documentation around Upscayl for everyone. The .md files under this directory are not regularly updated, and you should use https://github.com/upscayl/upscayl/wiki (or https://docs.upscayl.org) instead.
+Here, we're building comprehensive documentation for all Upscayl users.
+Please note: the Markdown (.md) files in this directory are archived and
+no longer maintained. For current documentation, use these official resources instead:
+
+- [Upscayl GitHub Wiki](https://github.com/upscayl/upscayl/wiki) - Community-maintained guides
+- [Official Upscayl Documentation](https://docs.upscayl.org) - Complete API references
