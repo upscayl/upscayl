@@ -1,0 +1,313 @@
+{
+  "TITLE": "Upscayl",
+  "INTRO": "Bemutatjuk az Upscayl Cloud-ot!",
+  "HEADER": {
+    "GITHUB_BUTTON_TITLE": "Csillagozz be GitHub-on 😁",
+    "DESCRIPTION": "AI Kép Felskálázó"
+  },
+  "FOOTER": {
+    "NEWS_TITLE": "UPSCAYL HÍREK",
+    "COPYRIGHT": "Copyright ©",
+    "TITLE": "Készítette ",
+    "LINK_TITLE": "Az Upscayl Csapat"
+  },
+  "SETTINGS": {
+    "TITLE": "Beállítások",
+    "CHANGE_LANGUAGE": { "TITLE": "Nyelvváltás" },
+    "IMAGE_COMPRESSION": {
+      "TITLE": "Kép tömörítés",
+      "DESCRIPTION": "A PNG tömörítés veszteségmentes, ezért nem csökkenti jelentősen a fájl méretét, és a magasabb tömörítési értékek ronthatják a teljesítményt. A JPG és a WebP tömörítés veszteséges."
+    },
+    "CUSTOM_MODELS": {
+      "TITLE": "SAJÁT MODEL HOZZÁADÁSA",
+      "BUTTON_FOLDER": "Mappa kiválasztása",
+      "DESCRIPTION": "Könnyedén hozzáadhatod a saját modelled. További információért:",
+      "LINK_TITLE": "Egyéni modellek tárhelye"
+    },
+    "CUSTOM_INPUT_RESOLUTION": {
+      "TITLE": "EGYÉNI KIMENETI SZÉLESSÉG",
+      "RESTART": "ÚJRAINDÍTÁS SZÜKSÉGES",
+      "DESCRIPTION": "Egyéni szélesség használata a kimeneti képekhez. A magasság automatikusan igazodik. Ennek engedélyezése felülírja a méretarány beállítást."
+    },
+    "DONATE": {
+      "DESCRIPTION": "Ha szereted amit csinálunk :)",
+      "BUTTON_TITLE": "💎 TÁMOGASS"
+    },
+    "GPU_ID_INPUT": {
+      "TITLE": "GPU AZONOSÍTÓ",
+      "DESCRIPTION": "További információkért olvasd el az Upscayl dokumentációját.",
+      "ADDITIONAL_DESCRIPTION": "A jobb eredmények érdekében engedélyezd a teljesítmény módot a Windows-on."
+    },
+    "IMAGE_FORMAT": {
+      "TITLE": "KÉP MENTÉSE MINT",
+      "PNG": "PNG",
+      "JPG": "JPG",
+      "WEBP": "WEBP"
+    },
+    "COPY_METADATA": {
+      "TITLE": "KÉPMETADATA MÁSOLÁSA",
+      "DESCRIPTION": "Az eredeti kép metaadatai (EXIF) megőrzése a felnagyított képen.",
+      "SUGGEST_JPG_TITLE": "Ajánlott Formátumváltás",
+      "SUGGEST_JPG_DESCRIPTION": "A metaadatok jobb kompatibilitása érdekében különböző rendszerek között ajánlott a JPG formátum használata. Szeretnéd átváltani?",
+      "CHANGE_TO_JPG": "Váltás JPG-re",
+      "KEEP_CURRENT_FORMAT": "Maradjon a(z) {format} formátum"
+    },
+    "IMAGE_SCALE": {
+      "TITLE": "Képméretezés",
+      "DESCRIPTION": "A 4X fölötti értékek (kivéve a 16X dupla Upscayl) csak átméretezik a képet, és nem használnak AI felnagyítást.",
+      "WARNING": "Az 5X fölötti értékek egyes eszközökön teljesítményproblémákat okozhatnak!",
+      "ADDITIONAL_WARNING": "Ez egyes eszközökön teljesítményproblémákat okozhat!"
+    },
+    "LOG_AREA": {
+      "ON_COPY": "MÁSOLVA ✅",
+      "BUTTON_TITLE": "NAPLÓK MÁSOLÁSA 📋",
+      "NO_LOGS": "Nincs megjeleníthető napló"
+    },
+    "OVERWRITE_TOGGLE": {
+      "TITLE": "ELŐZŐ FELNAGYÍTÁS FELÜLÍRÁSA",
+      "DESCRIPTION": "Ha be van kapcsolva, az Upscayl újra feldolgozza a képet ahelyett, hogy közvetlenül betöltené."
+    },
+    "RESET_SETTINGS": {
+      "BUTTON_TITLE": "UPSCAYL VISSZAÁLLÍTÁSA",
+      "ALERT": "Az Upscayl vissza lett állítva. Kérjük, indítsd újra az alkalmazást."
+    },
+    "SAVE_OUTPUT_FOLDER": {
+      "TITLE": "KIMENETI MAPPÁNAK MENTÉSE",
+      "DESCRIPTION": "Ha be van kapcsolva, a kimeneti mappa megjegyzésre kerül a munkamenetek között."
+    },
+    "AUTO_UPDATE": {
+      "TITLE": "UPSCAYL AUTOMATIKUS FRISSÍTÉSE",
+      "DESCRIPTION": "Ha be van kapcsolva, az alkalmazás ellenőrzi az új frissítéseket és értesít róla."
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "SEGÍTS FEJLESZTENI AZ UPSCAYL-T",
+      "DESCRIPTION": "Ha be van kapcsolva, az Upscayl névtelen használati adatokat gyűjt az alkalmazás felületének és funkcióinak javítása érdekében."
+    },
+    "THEME": {
+      "TITLE": "UPSCAYL TÉMA"
+    },
+    "LANGUAGE": {
+      "TITLE": "UPSCAYL NYELV"
+    },
+    "CUSTOM_TILE_SIZE": {
+      "TITLE": "EGYEDI CSEMPE MÉRET",
+      "DESCRIPTION": "Használj egyedi csempe méretet a kép szegmentálásához. Ez gyorsíthatja a képfeldolgozást azáltal, hogy csökkenti a létrehozott csempék számát."
+    },
+    "TURN_OFF_NOTIFICATIONS": {
+      "TITLE": "ÉRTESÍTÉSEK KIKAPCSOLÁSA",
+      "DESCRIPTION": "Ha be van kapcsolva, az Upscayl nem küld rendszerszintű értesítéseket siker vagy hiba esetén."
+    },
+    "SUPPORT": {
+      "TITLE": "Problémába ütköztél?",
+      "DOCS_BUTTON_TITLE": "🙏 SEGÍTSÉG KÉRÉSE",
+      "EMAIL_BUTTON_TITLE": "📧 E-MAIL A FEJLESZTŐNEK"
+    },
+    "TTA_MODE": {
+      "TITLE": "TTA mód",
+      "DESCRIPTION": "Kapcsold be a Tesztidőbeli Augmentációt a jobb eredményekért, például a hibák eltávolításához, DE ez 8x-osára növeli a feldolgozási időt!"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "Rendszerinformációk"
+    }
+  },
+  "APP": {
+    "TITLE": "Upscayl",
+    "BATCH_MODE": {
+      "TITLE": "Csoportos Upscayl",
+      "DESCRIPTION": "Lehetővé teszi, hogy egy mappa összes fájlját egyszerre felskálázd"
+    },
+    "FILE_SELECTION": {
+      "TITLE": "1. Lépés",
+      "BATCH_MODE_TYPE": "Mappa kiválasztása",
+      "SINGLE_MODE_TYPE": "Kép kiválasztása"
+    },
+    "MODEL_SELECTION": {
+      "TITLE": "2. Lépés",
+      "DESCRIPTION": "AI modell kiválasztása",
+      "IMPORTED_CUSTOM_MODELS": "Importált egyedi modellek",
+      "BEFORE": "Előtte",
+      "AFTER": "Utána",
+      "ZOOM": "Nagyítás",
+      "MODELS": {
+        "upscayl-standard-4x": {
+          "NAME": "Upscayl Standard",
+          "DESCRIPTION": "A legtöbb képhez alkalmas."
+        },
+        "upscayl-lite-4x": {
+          "NAME": "Upscayl Lite",
+          "DESCRIPTION": "A legtöbb képhez alkalmas. Nagysebességű felnagyítás minimális minőségvesztéssel."
+        },
+        "remacri-4x": {
+          "NAME": "Remacri (Nem Kereskedelmi)",
+          "DESCRIPTION": "Természetes képekhez. Élesítés és részletgazdagítás. Nem kereskedelmi használatra."
+        },
+        "ultramix-balanced-4x": {
+          "NAME": "Ultramix (Nem Kereskedelmi)",
+          "DESCRIPTION": "Természetes képekhez, egyensúlyban tartja az élességet és a részleteket."
+        },
+        "ultrasharp-4x": {
+          "NAME": "Ultrasharp (Nem Kereskedelmi)",
+          "DESCRIPTION": "Természetes képekhez, főként az élességre fókuszálva."
+        },
+        "digital-art-4x": {
+          "NAME": "Digital Art",
+          "DESCRIPTION": "Digitális művészethez és illusztrációkhoz."
+        },
+        "high-fidelity-4x": {
+          "NAME": "High Fidelity",
+          "DESCRIPTION": "Mindenféle képhez, a realisztikus részletek és sima textúrák kiemelésével."
+        }
+      }
+    },
+    "DOUBLE_UPSCAYL": {
+      "TITLE": "Dupla Upscayl",
+      "DESCRIPTION": "Kapcsold be ezt az opciót, hogy kétszer fusson le az Upscayl egy képen. Ez jelentősen megnövelheti a feldolgozási időt, és 4X fölötti nagyítás esetén teljesítményproblémákat okozhat."
+    },
+    "OUTPUT_PATH_SELECTION": {
+      "TITLE": "3. Lépés",
+      "MAC_APP_STORE_ALERT": "A MacOS App Store biztonsági korlátozásai miatt az Upscayl minden indításkor kéri a kimeneti mappa kiválasztását.\n\nEnnek elkerülése érdekében az Upscayl 'Beállítások' fülén tartósan beállítható egy alapértelmezett mentési mappa.",
+      "NOT_SELECTED": "Nincs kiválasztva",
+      "DEFAULT_IMG_PATH": "Alapértelmezés a kép helyére",
+      "DEFAULT_FOLDER_PATH": "Alapértelmezés a mappa helyére",
+      "BUTTON_TITLE": "Mentési hely beállítása"
+    },
+    "SCALE_SELECTION": {
+      "TITLE": "4. Lépés",
+      "FROM_TITLE": "Méretezés: ",
+      "TO_TITLE": " → ",
+      "NO_OUTPUT_FOLDER_ALERT": "Először válassz mentési mappát",
+      "START_BUTTON_TITLE": "Upscayl 🚀",
+      "IN_PROGRESS_BUTTON_TITLE": "Upscaylezés ⏳"
+    },
+    "MORE_OPTIONS_DRAWER": {
+      "RESET_BUTTON_TITLE": "Kép visszaállítása",
+      "LENS_VIEW_TITLE": "Lencse nézet",
+      "SLIDER_VIEW_TITLE": "Csúszka nézet",
+      "ZOOM_AMOUNT_TITLE": "Nagyítás mértéke",
+      "TOTAL_UPSCAYLS": "Összes Upscayl",
+      "TOTAL_BATCH_UPSCAYLS": "Összes csoportos Upscayl",
+      "TOTAL_IMAGE_UPSCAYLS": "Összes kép Upscayl",
+      "TOTAL_DOUBLE_UPSCAYLS": "Összes dupla Upscayl",
+      "AVERAGE_UPSCAYL_TIME": "Átlagos Upscayl időtartam",
+      "LAST_UPSCAYL_DURATION": "Utolsó Upscayl időtartama",
+      "LAST_USED_AT": "Utoljára használva"
+    },
+    "PROGRESS_BAR": {
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Csoportos Upscayl Folyamatban:",
+      "IN_PROGRESS_TITLE": "Az Upscayl varázslata folyamatban...",
+      "STOP_BUTTON_TITLE": "MEGÁLLÍTÁS"
+    },
+    "RESET_BUTTON_TITLE": "Visszaállítás",
+    "RIGHT_PANE_INFO": {
+      "SELECT_FOLDER": "Mappa kiválasztása",
+      "SELECT_IMAGE": "Kép kiválasztása",
+      "SELECT_FOLDER_DESCRIPTION": "Győződj meg róla, hogy a mappa csak PNG, JPG, JPEG és WEBP képeket tartalmaz.",
+      "SELECT_IMAGES_DESCRIPTION": "Válassz vagy húzz ide egy PNG, JPG, JPEG vagy WEBP formátumú képet.",
+      "PASTE_IMAGE_DESCRIPTION": "Nyomd meg a Ctrl+V vagy ⌘+V billentyűt a kép beillesztéséhez a vágólapról."
+    },
+    "PROGRESS": {
+      "PROCESSING_TITLE": "Kép feldolgozása...",
+      "SCALING_CONVERTING_TITLE": "Kép átméretezése és konvertálása...",
+      "WAIT_TITLE": "Egy pillanat...",
+      "SUCCESS_TITLE": "Sikeres Upscayl!",
+      "BATCH": {
+        "SELECTED_FOLDER_TITLE": "Választott mappa:",
+        "DONE_TITLE": "Kész!",
+        "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscayl mappa megnyitása"
+      }
+    },
+    "SLIDER": {
+      "ORIGINAL_TITLE": "Eredeti",
+      "UPSCAYLED_TITLE": "Felskálázott"
+    },
+    "DIALOG_BOX": {
+      "CLOSE": "Bezár"
+    }
+  },
+  "ERRORS": {
+    "GPU_ERROR": {
+      "TITLE": "GPU hiba",
+      "DESCRIPTION": "Probléma adódott a GPU-val. Kérlek, olvasd el a dokumentációt a hibaelhárításhoz! ({data})"
+    },
+    "COPY_ERROR": {
+      "TITLE": "Hiba másolása",
+      "DESCRIPTION": ""
+    },
+    "READ_WRITE_ERROR": {
+      "TITLE": "Olvasási/írási hiba",
+      "DESCRIPTION": "Ellenőrizd, hogy az útvonal helyes-e, és rendelkezel-e megfelelő olvasási/írási jogosultságokkal \n({data})"
+    },
+    "TILE_SIZE_ERROR": {
+      "TITLE": "Hiba",
+      "DESCRIPTION": "A csempeméret hibás. Kérlek, változtasd meg a csempeméretet a beállításokban, vagy állítsd 0-ra ({data})"
+    },
+    "EXCEPTION_ERROR": {
+      "TITLE": "Kivétel hiba",
+      "DESCRIPTION": "Az Upscayl hibába ütközött. Valószínűleg az upscayl bináris nem futott le megfelelően. Nézd meg a naplókat további információért. Segítségért feltehetsz egy hibajegyet az Upscayl GitHub oldalán."
+    },
+    "GENERIC_ERROR": {
+      "TITLE": "Hiba"
+    },
+    "NO_OUTPUT_FOLDER_ERROR": {
+      "TITLE": "Kimenete mappa beállítása",
+      "DESCRIPTION": "Kérlek, először válassz ki egy kimeneti mappát"
+    },
+    "INVALID_IMAGE_ERROR": {
+      "TITLE": "Érvénytelen kép",
+      "DESCRIPTION": "Kérlek, válassz vagy illessz be egy érvényes kiterjesztésű képet, például PNG, JPG, JPEG, JFIF vagy WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Kérlek, húzz be egy képet",
+      "CLIPBOARD_DESCRIPTION": "Nem található képfájl a vágólapon a beillesztéshez!"
+    },
+    "NO_IMAGE_ERROR": {
+      "TITLE": "Nincs kiválasztott kép",
+      "DESCRIPTION": "Kérlek, válassz ki egy képet a skálázáshoz"
+    },
+    "METADATA_ERROR": {
+      "TITLE": "Metaadat másolási hiba",
+      "DESCRIPTION": "Nem sikerült átmásolni a metaadatokat az eredeti képről a generált képre. ({data})"
+    },
+    "OPEN_DOCS_TITLE": "Dokumentáció megnyitása",
+    "OPEN_DOCS_BUTTON_TITLE": "Hibaelhárítás"
+  },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Figyelmeztetés"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Metaadat figyelmeztetés",
+      "DESCRIPTION": "Néhány rendszeren a metaadatok nem jelennek meg más formátumokban, csak JPG-ben. Szükség esetén speciális eszközöket használj a metaadatok megtekintéséhez."
+    }
+  },
+  "UPSCAYL_CLOUD": {
+    "COMING_SOON": "Hamarosan!",
+    "CATCHY_PHRASE_1": "Nincsenek többé hibák, hardverproblémák, minőségromlás vagy hosszú várakozási idők!",
+    "CATCHY_PHRASE_2": "🌐 Upscayl bárhol, bármikor, bármilyen eszközön\n☁️ Nem kell videókártya vagy hardver\n👩 Arc Kiemelés\n🦋 Több mint 10 modell közül választhatsz\n🏎 5x gyorsabb, mint az Upscayl asztali verziója\n🎞 Videó feljavítás\n💰 Kereskedelmi használat\n😴 Upscayl alvás közben",
+    "ALREADY_REGISTERED_ALERT": "Köszönjük, {name}! Úgy tűnik, az email címed már regisztrálva van :D Ha ez nem így van, kérjük, próbáld újra.",
+    "ADD_SUCCESS": "Köszönjük, hogy csatlakoztál a várólistához! Értesítünk, amint az Upscayl Cloud elérhető lesz számodra.",
+    "INCORRECT_FIELDS_ALERT": "Kérjük, tölts ki minden mezőt helyesen.",
+    "JOIN_WAITLIST": "Csatlakozás a várólistához",
+    "DONT_SHOW_AGAIN": "NE MUTASD TÖBBET"
+  },
+  "ONBOARDING_DIALOG": {
+    "NEXT_BUTTON_TITLE": "Tövább",
+    "BACK_BUTTON_TITLE": "Vissza",
+    "GET_STARTED_BUTTON_TITLE": "Kezdés",
+    "SETTINGS_NOTE": "Ezeket a beállításokat később bármikor megváltoztathatod.",
+    "STEP_1": {
+      "TITLE": "Üdvözlünk az Upscayl-ben 🎉",
+      "DESCRIPTION": "Kezdjük néhány gyors lépéssel."
+    },
+    "STEP_2": {
+      "TITLE": "Válaszd ki a preferenciáidat 🎨",
+      "DESCRIPTION": "Állítsd be az elsődleges beállításokat."
+    },
+    "STEP_3": {
+      "TITLE": "Hogyan használd az Upscayl-t? 🚀",
+      "DESCRIPTION": "Nézd meg ezt a rövid videót az új funkcióinkról."
+    },
+    "STEP_4": {
+      "TITLE": "Minden készen áll! 🎉",
+      "DESCRIPTION": "Készen állsz, hogy képeket javíts az Upscayl segítségével!"
+    }
+  }
+}
