@@ -19,7 +19,7 @@ import { atomWithStorage } from "jotai/utils";
 
 // Define the shape of the translations
 type Translations = typeof en;
-type Locales = "ar" | "en" | "tr" | "ru" | "uk" | "ja" | "zh" | "es" | "fr" | "de" | "vi" | "pt" | "ptBR" | "id" | "caVAL | hu";
+type Locales = "ar" | "en" | "tr" | "ru" | "uk" | "ja" | "zh" | "es" | "fr" | "de" | "vi" | "pt" | "ptBR" | "id" | "caVAL" | "hu";
 
 const translations: Record<Locales, Translations> = {
   ar,
