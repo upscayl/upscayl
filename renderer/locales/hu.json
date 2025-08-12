@@ -16,7 +16,7 @@
     "CHANGE_LANGUAGE": { "TITLE": "Nyelvváltás" },
     "IMAGE_COMPRESSION": {
       "TITLE": "Kép tömörítés",
-      "DESCRIPTION": "A PNG tömörítés veszteségmentes, ezért nem csökkenti jelentősen a fájl méretét, és a magasabb tömörítési értékek ronthatják a teljesítményt. A JPG és a WebP tömörítés veszteséges."
+      "DESCRIPTION": "A PNG-tömörítés veszteségmentes, ezért nem feltétlenül csökkenti jelentősen a fájl méretét, és a magasabb tömörítési értékek ronthatják a teljesítményt. A JPG és WebP tömörítés viszont veszteséges."
     },
     "CUSTOM_MODELS": {
       "TITLE": "SAJÁT MODEL HOZZÁADÁSA",
@@ -72,7 +72,7 @@
       "ALERT": "Az Upscayl vissza lett állítva. Kérjük, indítsd újra az alkalmazást."
     },
     "SAVE_OUTPUT_FOLDER": {
-      "TITLE": "KIMENETI MAPPÁNAK MENTÉSE",
+      "TITLE": "KIMENETI MAPPA MENTÉSE",
       "DESCRIPTION": "Ha be van kapcsolva, a kimeneti mappa megjegyzésre kerül a munkamenetek között."
     },
     "AUTO_UPDATE": {
@@ -104,7 +104,7 @@
     },
     "TTA_MODE": {
       "TITLE": "TTA mód",
-      "DESCRIPTION": "Kapcsold be a Tesztidőbeli Augmentációt a jobb eredményekért, például a hibák eltávolításához, DE ez 8x-osára növeli a feldolgozási időt!"
+      "DESCRIPTION": "Kapcsold be a TTA-t (Tesztidőbeli Augmentációt) a jobb eredményekért – például a képhibák eltüntetéséhez –, DE ez 8x-osára növeli a feldolgozási időt!"
     },
     "SYSTEM_INFO": {
       "TITLE": "Rendszerinformációk"
