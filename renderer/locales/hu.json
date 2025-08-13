@@ -2,7 +2,7 @@
   "TITLE": "Upscayl",
   "INTRO": "Bemutatjuk az Upscayl Cloud-ot!",
   "HEADER": {
-    "GITHUB_BUTTON_TITLE": "Csillagozz be GitHub-on 😁",
+    "GITHUB_BUTTON_TITLE": "Csillagozz be minket GitHubon 😁",
     "DESCRIPTION": "AI Kép Felskálázó"
   },
   "FOOTER": {
@@ -15,11 +15,11 @@
     "TITLE": "Beállítások",
     "CHANGE_LANGUAGE": { "TITLE": "Nyelvváltás" },
     "IMAGE_COMPRESSION": {
-      "TITLE": "Kép tömörítés",
+      "TITLE": "Képtömörítés",
       "DESCRIPTION": "A PNG-tömörítés veszteségmentes, ezért nem feltétlenül csökkenti jelentősen a fájl méretét, és a magasabb tömörítési értékek ronthatják a teljesítményt. A JPG és WebP tömörítés viszont veszteséges."
     },
     "CUSTOM_MODELS": {
-      "TITLE": "SAJÁT MODEL HOZZÁADÁSA",
+      "TITLE": "SAJÁT MODELL HOZZÁADÁSA",
       "BUTTON_FOLDER": "Mappa kiválasztása",
       "DESCRIPTION": "Könnyedén hozzáadhatod a saját modelled. További információért:",
       "LINK_TITLE": "Egyéni modellek tárhelye"
@@ -45,7 +45,7 @@
       "WEBP": "WEBP"
     },
     "COPY_METADATA": {
-      "TITLE": "KÉPMETADATA MÁSOLÁSA",
+      "TITLE": "KÉPMETAADATOK MÁSOLÁSA",
       "DESCRIPTION": "Az eredeti kép metaadatai (EXIF) megőrzése a felnagyított képen.",
       "SUGGEST_JPG_TITLE": "Ajánlott Formátumváltás",
       "SUGGEST_JPG_DESCRIPTION": "A metaadatok jobb kompatibilitása érdekében különböző rendszerek között ajánlott a JPG formátum használata. Szeretnéd átváltani?",
@@ -104,7 +104,7 @@
     },
     "TTA_MODE": {
       "TITLE": "TTA mód",
-      "DESCRIPTION": "Kapcsold be a TTA-t (Tesztidőbeli Augmentációt) a jobb eredményekért – például a képhibák eltüntetéséhez –, DE ez 8x-osára növeli a feldolgozási időt!"
+      "DESCRIPTION": "Kapcsold be a TTA-t (tesztidőbeli adatkibővítés) a jobb eredményekért – például a képhibák eltüntetéséhez –, DE ez 8x-osára növeli a feldolgozási időt!"
     },
     "SYSTEM_INFO": {
       "TITLE": "Rendszerinformációk"
@@ -249,7 +249,7 @@
       "TITLE": "Hiba"
     },
     "NO_OUTPUT_FOLDER_ERROR": {
-      "TITLE": "Kimenete mappa beállítása",
+      "TITLE": "Kimeneti mappa beállítása",
       "DESCRIPTION": "Kérlek, először válassz ki egy kimeneti mappát"
     },
     "INVALID_IMAGE_ERROR": {
@@ -289,7 +289,7 @@
     "DONT_SHOW_AGAIN": "NE MUTASD TÖBBET"
   },
   "ONBOARDING_DIALOG": {
-    "NEXT_BUTTON_TITLE": "Tövább",
+    "NEXT_BUTTON_TITLE": "Tovább",
     "BACK_BUTTON_TITLE": "Vissza",
     "GET_STARTED_BUTTON_TITLE": "Kezdés",
     "SETTINGS_NOTE": "Ezeket a beállításokat később bármikor megváltoztathatod.",
