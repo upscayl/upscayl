@@ -3,7 +3,7 @@
   # v2.15 is out! 🥳 [Download Now ⬇️](https://github.com/upscayl/upscayl/releases/latest)
 
 <h3>Special thanks to our sponsors:</h3>
-<a href="https://www.warp.dev/upscayl">
+<a href="https://www.warp.dev/upscayl" target="_blank">
    <div>
    <img alt="Warp sponsorship" width="500" src="https://github.com/user-attachments/assets/7626b7c6-e673-45ee-ac9a-3392e643f54f">
    </div>
