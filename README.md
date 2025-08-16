@@ -15,12 +15,12 @@
 
 #
 
-<a href="https://github.com/upscayl/upscayl/releases/latest">
+<a href="https://github.com/upscayl/upscayl/releases/latest" target="_blank">
   
   ![Frame 111](https://github.com/upscayl/upscayl/assets/25067102/d1b4af3c-aade-4bc9-97d0-cf88db679931)
 </a>
 
-<a href="https://upscayl.org/#download">
+<a href="https://upscayl.org/#download" target="_blank">
   <img src="https://img.shields.io/github/downloads/upscayl/upscayl/total.svg?style=for-the-badge&logo=data:image/png;base64,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&labelColor=ede9fe&color=8e6bf6" width="200px" style="border-radius:50%"/>
 </a>
 
@@ -31,11 +31,11 @@
   <img src="https://github.com/upscayl/upscayl/assets/25067102/6287fd40-2c91-4028-b1d6-3986e77d8211" width="200px" />
 </a>-->
 
-<a href="https://t.me/iamnayam">
+<a href="https://t.me/iamnayam">target="_blank"
   <img src="https://user-images.githubusercontent.com/25067102/209297095-a3db856f-b760-40bb-a68e-f3a3086e18c7.png" width="200px" />   
 </a>      
 
-<a href="https://x.com/upscayl">
+<a href="https://x.com/upscayl">target="_blank"
   <img src="https://github.com/upscayl/upscayl/assets/25067102/917dcf6f-452b-43e6-95cd-2c6b0a47913d" width="200px" />
 </a>
 
@@ -72,27 +72,28 @@ Enlarge images without losing quality. It's almost like magic! 🎩🪄
 
 ## 🐧 Linux
 
-  <a href="https://flathub.org/apps/org.upscayl.Upscayl">
+  <a href="https://flathub.org/apps/org.upscayl.Upscayl" target="_blank">
     <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" height="50px"/>
   </a>
 
-  <a href="https://appimage.github.io/Upscayl/">
+  <a href="https://appimage.github.io/Upscayl/" target="_blank">
     <img src="https://user-images.githubusercontent.com/25067102/191270389-9de37c0f-39a8-41f1-a659-8dd4e7b8ac28.png" height="50px"/>
   </a>
 
-  <a href="https://aur.archlinux.org/packages/upscayl-bin">
+  <a href="https://aur.archlinux.org/packages/upscayl-bin" target="_blank">
     <img src="https://user-images.githubusercontent.com/25067102/191269445-87050a77-c304-4284-9ea0-699721309c59.png" height="50px"/>
   </a>
 
-  <a href="https://snapcraft.io/upscayl/">
+  <a href="https://snapcraft.io/upscayl/" target="_blank">
     <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
   </a>
 
-  <a href="https://github.com/MrPenguin07/ebuilds">
+  <a href="https://github.com/MrPenguin07/ebuilds" target="_blank">
     <img src="https://github.com/upscayl/upscayl/assets/25067102/322aebc5-91aa-4fc6-ac3a-d5a054449554" height="50px"/>
   </a>
 
-Upscayl should be available on the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap version.
+Upscayl should be available on the software listings of most Linux operating systems. Your distro's Store app might also support the <a href="https://flatpak.org/setup"
+target="_blank">Flatpak</a> or Snap version.
 
 ### 💼 Portable Method
 
@@ -105,8 +106,8 @@ Upscayl should be available on the software listings of most Linux operating sys
 ## 🍎 macOS
 (MacOS 12 and later)
 
-<a href="https://apps.apple.com/us/app/upscayl/id6468265473?mt=12">
-  <img src="https://www.upscayl.org/appstore.svg" height="60px"/>
+<a href="https://apps.apple.com/us/app/upscayl/id6468265473?mt=12" target="_blank">
+  <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-mac-app-store.svg" height="60px"/>
 </a>
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest) or [our official website](https://upscayl.org/).
@@ -131,7 +132,7 @@ Upscayl should be available on the software listings of most Linux operating sys
 
 # 👨‍🏫 Documentation - Tutorials and Guides
 
-Check out our Documentation [here](https://docs.upscayl.org/).
+Check out our Documentation <a href="https://docs.upscayl.org/" target="_blank">here</a>.
 
 - [Try out even more new models!](https://github.com/upscayl/custom-models)
 - [Convert your own models](https://github.com/upscayl/upscayl/wiki/%F0%9F%96%A5%EF%B8%8F-Model-Conversion---Create-more-AI-models!)
@@ -140,7 +141,7 @@ Check out our Documentation [here](https://docs.upscayl.org/).
 
 # ⚖️ Results
 
-Check out Upscayl before/after comparisons [here](COMPARISONS.MD).
+Check out Upscayl before/after comparisons [here](COMPARISONS.MD) .
 
 # 🤫 Roadmap
 
@@ -151,7 +152,7 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 # 🛠 Development
 
-I recommend using Volta: https://volta.sh for installing Node.js.
+I recommend using Volta:  <a href="https://volta.sh" target="_blank">https://volta.sh</a> for installing Node.js.
 Download and install volta, then do: `volta install node`.
 
 ## 🏃 Running
@@ -207,19 +208,18 @@ npm run publish-app
 
 # 🎁 Donate
 
-<a href="https://www.buymeacoffee.com/fossisthefuture">
+<a href="https://www.buymeacoffee.com/fossisthefuture" target="_blank">
   <img src="https://user-images.githubusercontent.com/25067102/154570688-9e143f2b-fee3-4b05-a9d2-a7a3013b2b51.png" />
 <a/>
 
 # ❤ Credits
 
-- Real-ESRGAN for their wonderful research work.
-[Real-ESRGAN: Copyright (c) 2021, Xintao Wang](https://github.com/xinntao/Real-ESRGAN/)
+- Real-ESRGAN for their wonderful research work. <a href="https://github.com/xinntao/Real-ESRGAN/" target="_blank">Real-ESRGAN: Copyright (c) 2021, Xintao Wang</a>
 - @JanDeDinoMan, @xanderfrangos, @Fdawgs, @keturn for their code contributions
 - @aaronliu0130 for providing community support :)
-- Helaman for their [HFA2k model](https://openmodeldb.info/models/4x-HFA2k) (included as "High Fidelity")
-- Foolhardy for their [Remacri model](https://openmodeldb.info/models/4x-Remacri).
-- [Kim2091](https://upscale.wiki/wiki/User:Kim2091)	for their [Ultrasharp and Ultramix Balanced model](https://openmodeldb.info/models/4x-UltraSharp).
+- Helaman for their <a href="https://openmodeldb.info/models/4x-HFA2k" target="_blank">HFA2k model</a> (included as "High Fidelity")
+- Foolhardy for their <a href="https://openmodeldb.info/models/4x-Remacri" target="_blank">Remacri model</a>.
+- <a href="https://upscale.wiki/wiki/User:Kim2091" target="_blank">Kim2091</a> for their <a href="https://openmodeldb.info/models/4x-UltraSharp" target="_blank">Ultrasharp and Ultramix Balanced model</a>.
 - @NicKoehler for their amazing logo :)
 #
 
