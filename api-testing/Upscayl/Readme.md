@@ -6,6 +6,8 @@ Test the Upscayl Cloud API endpoints using Requestly for seamless AI image upsca
 
 [Requestly](https://requestly.com) is an API testing tool chosen for this collection because it's Git-friendly, requires no login, and offers local storage options. This makes it perfect for version-controlled API testing that developers can clone and use immediately.
 
+<img width="1440" height="900" alt="API Testing" src="https://github.com/user-attachments/assets/78e659ff-ed35-4185-aa3b-ade597002240" />
+
 ## API Endpoints Covered
 
 This collection includes 4 Upscayl Cloud API endpoints:
@@ -49,28 +51,3 @@ The collection is ready to use - no import needed! Test the endpoints directly:
 2. **Direct Upload**: Use "Start Upscaling Task" with file picker for immediate processing  
 3. **Monitor Progress**: Use "Get Task Status" to check processing status
 
-## Testing Methods Comparison
-
-### Requestly Collection
-
-| Advantages | Disadvantages |
-|------------|---------------|
-| Git-controlled, shareable with team | Requires API testing knowledge |
-| Individual endpoint testing | Minimal setup required |
-| Scriptable request chains | Need to configure API key |
-| Full Git integration | |
-| Super fast automated testing | |
-| Local configuration | |
-| Full development workflow integration | |
-
-### Upscayl Website
-
-| Advantages | Disadvantages |
-|------------|---------------|
-| Simple drag-drop interface | No team sharing possible |
-| No setup - browser ready | Visual interface only |
-| No configuration needed | Manual process |
-| | No version control |
-| | Manual upload process |
-| | Requires internet for all operations |
-| | Limited developer integration |
