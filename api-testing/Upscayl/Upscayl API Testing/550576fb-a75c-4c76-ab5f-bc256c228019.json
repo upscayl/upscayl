@@ -1,0 +1,124 @@
+{
+  "name": "Start Upscaling Task",
+  "request": {
+    "type": "http",
+    "url": "{{baseUrl}}/start-task",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "POST",
+    "queryParams": [],
+    "headers": [
+      {
+        "key": "Content-Type",
+        "value": "multipart/form-data",
+        "id": 0.5385339741202935,
+        "isEnabled": true
+      },
+      {
+        "key": "X-API-Key",
+        "value": "{{x-api-key}}",
+        "id": 0.029130453951579982,
+        "isEnabled": true
+      }
+    ],
+    "body": [
+      {
+        "key": "file",
+        "value": [],
+        "id": 0.6016115046426929,
+        "isEnabled": true,
+        "type": "file"
+      },
+      {
+        "id": 1756969449436,
+        "key": "urls",
+        "value": "",
+        "isEnabled": true,
+        "type": "text"
+      },
+      {
+        "id": 1756969469246,
+        "key": "model",
+        "value": "quick-clear-4x",
+        "isEnabled": true,
+        "type": "text"
+      },
+      {
+        "id": 1756969498145,
+        "key": "scale",
+        "value": "2",
+        "isEnabled": true,
+        "type": "text"
+      },
+      {
+        "id": 1756969506912,
+        "key": "saveImageAs",
+        "value": "png",
+        "isEnabled": true,
+        "type": "text"
+      },
+      {
+        "id": 1756969526962,
+        "key": "enhanceFace",
+        "value": "false",
+        "isEnabled": true,
+        "type": "text"
+      }
+    ],
+    "bodyContainer": {
+      "text": "",
+      "form": [],
+      "multipartForm": [
+        {
+          "key": "file",
+          "value": [],
+          "id": 0.6016115046426929,
+          "isEnabled": true,
+          "type": "file"
+        },
+        {
+          "id": 1756969449436,
+          "key": "urls",
+          "value": "",
+          "isEnabled": true,
+          "type": "text"
+        },
+        {
+          "id": 1756969469246,
+          "key": "model",
+          "value": "quick-clear-4x",
+          "isEnabled": true,
+          "type": "text"
+        },
+        {
+          "id": 1756969498145,
+          "key": "scale",
+          "value": "2",
+          "isEnabled": true,
+          "type": "text"
+        },
+        {
+          "id": 1756969506912,
+          "key": "saveImageAs",
+          "value": "png",
+          "isEnabled": true,
+          "type": "text"
+        },
+        {
+          "id": 1756969526962,
+          "key": "enhanceFace",
+          "value": "false",
+          "isEnabled": true,
+          "type": "text"
+        }
+      ]
+    },
+    "contentType": "multipart/form-data",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    }
+  }
+}

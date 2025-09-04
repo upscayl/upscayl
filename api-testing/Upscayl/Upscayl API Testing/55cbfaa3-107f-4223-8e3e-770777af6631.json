@@ -1,0 +1,38 @@
+{
+  "name": "Get Upload URL",
+  "request": {
+    "type": "http",
+    "url": "{{baseUrl}}/get-upload-url",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "POST",
+    "queryParams": [],
+    "headers": [
+      {
+        "key": "Content-Type",
+        "value": "application/json",
+        "id": 0.45961348606645847,
+        "isEnabled": true
+      },
+      {
+        "key": "X-API-Key",
+        "value": "{{x-api-key}}",
+        "id": 0.33373531727335637,
+        "isEnabled": true
+      }
+    ],
+    "body": "{\n  \"data\":\n  {\n    \"fileSize\":123456,\n    \"fileType\":\"image/png\",\n    \"originalFileName\":\"test.png\"\n  }\n}",
+    "bodyContainer": {
+      "text": "{\n  \"data\":\n  {\n    \"fileSize\":123456,\n    \"fileType\":\"image/png\",\n    \"originalFileName\":\"test.png\"\n  }\n}",
+      "form": [],
+      "multipartForm": []
+    },
+    "contentType": "application/json",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    }
+  }
+}
