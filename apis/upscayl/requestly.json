@@ -1,0 +1,7 @@
+{
+  "version": "0.0.2",
+  "excludes": [
+    "*.md",
+    "Readme.md"
+  ]
+}

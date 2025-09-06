@@ -1,0 +1,14 @@
+{
+  "baseUrl": {
+    "value": "https://api.upscayl.org",
+    "type": "string",
+    "id": 0,
+    "isSecret": false
+  },
+  "x-api-key": {
+    "value": "YOUR_API_KEY_HERE",
+    "type": "string",
+    "id": 1,
+    "isSecret": true
+  }
+}
