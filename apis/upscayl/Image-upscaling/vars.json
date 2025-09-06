@@ -9,6 +9,6 @@
     "value": "YOUR_API_KEY_HERE",
     "type": "string",
     "id": 1,
-    "isSecret": false
+    "isSecret": true
   }
 }
