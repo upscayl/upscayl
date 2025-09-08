@@ -1,0 +1,38 @@
+{
+  "name": "Get Task Status",
+  "request": {
+    "type": "http",
+    "url": "{{baseUrl}}/get-task-status",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "POST",
+    "queryParams": [],
+    "headers": [
+      {
+        "key": "Content-Type",
+        "value": "application/json",
+        "id": 0.9065972312402939,
+        "isEnabled": true
+      },
+      {
+        "key": "X-API-Key",
+        "value": "{{x-api-key}}",
+        "id": 0.007085334118682507,
+        "isEnabled": true
+      }
+    ],
+    "body": "{\n  \"data\":\n  {\n    \"taskId\":\"<String>\"\n  }\n}",
+    "bodyContainer": {
+      "text": "{\n  \"data\":\n  {\n    \"taskId\":\"<String>\"\n  }\n}",
+      "form": [],
+      "multipartForm": []
+    },
+    "contentType": "application/json",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    }
+  }
+}
