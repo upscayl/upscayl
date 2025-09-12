@@ -17,6 +17,7 @@ const locales = {
   ptBR: "Português (Brasil)",
   id: "Bahasa Indonesia",
   caVAL: "Català (Valencià)",
+  pl: "Polski",
 };
 
 const LanguageSwitcher = ({ hideLabel = false }: { hideLabel?: boolean }) => {
