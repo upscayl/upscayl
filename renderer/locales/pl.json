@@ -3,7 +3,7 @@
   "INTRO": "Przedstawiamy Chmurę Upscayl!",
   "HEADER": {
     "GITHUB_BUTTON_TITLE": "Daj nam gwiazdke na GitHub 😁",
-    "DESCRIPTION": "AI Image Upscaler"
+    "DESCRIPTION": "Skalowanie obrazów za pomocą AI"
   },
   "FOOTER": {
     "NEWS_TITLE": "WIADOMOŚCI UPSCAYL",
@@ -30,13 +30,13 @@
       "DESCRIPTION": "Użyj niestandardowej szerokości dla obrazów wyjściowych. Wysokość zostanie dostosowana automatycznie. Włączenie tej opcji spowoduje zastąpienie ustawienia skali."
     },
     "DONATE": {
-      "DESCRIPTION": "Jeżeli lubisz to co robimy :)",
+      "DESCRIPTION": "Jeżeli lubisz to, co robimy :)",
       "BUTTON_TITLE": "💎 WESPRZYJ"
     },
     "GPU_ID_INPUT": {
       "TITLE": "GPU ID",
-      "DESCRIPTION": "Przeczytaj Dokumentacje Upscayl Documentation dla więcej informacji.",
-      "ADDITIONAL_DESCRIPTION": "Włącz tryb wydajności w Windowsie dla lepszych wyników."
+      "DESCRIPTION": "Przeczytaj dokumentację Upscayl, aby uzyskać więcej informacji.",
+      "ADDITIONAL_DESCRIPTION": "Włącz tryb wydajności w systemie Windows, aby uzyskać lepsze wyniki."
     },
     "IMAGE_FORMAT": {
       "TITLE": "ZAPISZ OBRAZ JAKO",
@@ -48,9 +48,9 @@
       "TITLE": "SKOPIUJ METADANE OBRAZU",
       "DESCRIPTION": "Zachowaj oryginalne metadane obrazu (EXIF) na powiększonym obrazie.",
       "SUGGEST_JPG_TITLE": "Zalecana zmiana formatu",
-      "SUGGEST_JPG_DESCRIPTION": "For better metadata compatibility across different systems, we recommend using JPG format. Would you like to change?",
+      "SUGGEST_JPG_DESCRIPTION": "Dla lepszej zgodności metadanych w różnych systemach zalecamy użycie formatu JPG. Czy chcesz zmienić format?",
       "CHANGE_TO_JPG": "Zmień na JPG",
-      "KEEP_CURRENT_FORMAT": "Zatrzymaj {format}"
+      "KEEP_CURRENT_FORMAT": "Zachowaj {format}"
     },
     "IMAGE_SCALE": {
       "TITLE": "Skala obrazu",
@@ -69,7 +69,7 @@
     },
     "RESET_SETTINGS": {
       "BUTTON_TITLE": "ZRESETUJ UPSCAYL",
-      "ALERT": "Upscayl został zresetowany. Uruchom ponownie aplikacje."
+      "ALERT": "Upscayl został zresetowany. Uruchom ponownie aplikację."
     },
     "SAVE_OUTPUT_FOLDER": {
       "TITLE": "ZAPISZ WYJŚCIOWY FOLDER",
@@ -77,7 +77,7 @@
     },
     "AUTO_UPDATE": {
       "TITLE": "AUTOMATYCZNA AKTUALIZACJA UPSCAYL",
-      "DESCRIPTION": "Jeżeli włączone, aplikacja sprawdzi czy są nowe aktualizacja i cię powiadomi."
+      "DESCRIPTION": "Jeżeli włączone, aplikacja sprawdzi, czy są nowe aktualizacje i Cię powiadomi."
     },
     "ENABLE_CONTRIBUTION": {
       "TITLE": "POMÓŻ ULEPSZYĆ UPSCAYL",
@@ -91,20 +91,20 @@
     },
     "CUSTOM_TILE_SIZE": {
       "TITLE": "NIESTANDARDOWY ROZMIAR KAFELKI",
-      "DESCRIPTION": "Użyj niestandardowego rozmiaru kafelek do segmentacji obrazu. Może to pomóc w szybszym przetwarzaniu obrazów poprzez zmniejszenie liczby generowanych kafelków."
+      "DESCRIPTION": "Użyj niestandardowego rozmiaru kafelków do segmentacji obrazu. Może to przyspieszyć przetwarzanie obrazów poprzez zmniejszenie liczby generowanych kafelków."
     },
     "TURN_OFF_NOTIFICATIONS": {
       "TITLE": "WYŁĄCZ POWIADOMIENIA",
-      "DESCRIPTION": "Jeżeli włączone, Upscayl nie będzie wysyłać żadnych powiadomień systemowych o powodzeniu lub niepowodzeniu."
+      "DESCRIPTION": "Jeżeli włączone, Upscayl nie będzie wysyłał żadnych powiadomień systemowych o powodzeniu lub niepowodzeniu."
     },
     "SUPPORT": {
       "TITLE": "Masz problemy?",
       "DOCS_BUTTON_TITLE": "🙏 UZYSKAJ POMOC",
-      "EMAIL_BUTTON_TITLE": "📧 EMAIL DO DEWELOPERA"
+      "EMAIL_BUTTON_TITLE": "📧 E-mail do dewelopera"
     },
     "TTA_MODE": {
       "TITLE": "Tryb TTA",
-      "DESCRIPTION": "Włącz funkcję zwiększania czasu testu, aby uzyskać lepsze wyniki, takie jak usuwanie artefaktów, ALE zwiększy to czas przetwarzania 8x!"
+      "DESCRIPTION": "Włącz tryb Test-Time Augmentation (TTA), aby uzyskać lepsze wyniki (np. usuwanie artefaktów), ale zwiększy to czas przetwarzania nawet 8×!"
     },
     "SYSTEM_INFO": {
       "TITLE": "Informacje o Systemie"
@@ -165,10 +165,10 @@
     },
     "OUTPUT_PATH_SELECTION": {
       "TITLE": "Krok 3",
-      "MAC_APP_STORE_ALERT": "Ze względu na ograniczenia przez bezpieczeństwo sklepu App Store w systemie MacOS, Upscayl wymaga wybrania folderu wyjściowego przy każdym uruchomieniu.\n\nAby tego uniknąć, możesz trwale zapisać domyślny folder wyjściowy w zakładce 'Ustawienia' programu Upscayl.",
+      "MAC_APP_STORE_ALERT": "Ze względu na ograniczenia bezpieczeństwa sklepu App Store w systemie macOS, Upscayl wymaga wybrania folderu wyjściowego przy każdym uruchomieniu.\n\nAby tego uniknąć, możesz trwale zapisać domyślny folder wyjściowy w zakładce „Ustawienia” programu Upscayl.",
       "NOT_SELECTED": "Nie Wybrano",
       "DEFAULT_IMG_PATH": "Domyślna ścieżka obrazu",
-      "DEFAULT_FOLDER_PATH": "Domyślna ścieżka  Folderu",
+      "DEFAULT_FOLDER_PATH": "Domyślna ścieżka folderu",
       "BUTTON_TITLE": "Wybierz Folder Wyjściowy"
     },
     "SCALE_SELECTION": {
@@ -194,15 +194,15 @@
     },
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Plikowy Upscayl W Toku:",
-      "IN_PROGRESS_TITLE": "Robie magie Upscaylowania...",
+      "IN_PROGRESS_TITLE": "Robię magię Upscaylowania...",
       "STOP_BUTTON_TITLE": "ZATRZYMAJ"
     },
     "RESET_BUTTON_TITLE": "Reset",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Wybierz Folder",
       "SELECT_IMAGE": "Wybierz Obraz",
-      "SELECT_FOLDER_DESCRIPTION": "MUpewnij się, że folder nie zawiera niczego poza obrazami PNG, JPG, JPEG i WEBP.",
-      "SELECT_IMAGES_DESCRIPTION": "Wybierz lub przeciągnij i upuść obraz PNG, JPG, JPEG or WEBP.",
+      "SELECT_FOLDER_DESCRIPTION": "Upewnij się, że folder nie zawiera niczego poza obrazami PNG, JPG, JPEG i WEBP.",
+      "SELECT_IMAGES_DESCRIPTION": "Wybierz lub przeciągnij i upuść obraz PNG, JPG, JPEG lub WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Wciśnij Ctrl+V lub ⌘+V aby wkleić obraz ze Schowka"
     },
     "PROGRESS": {
@@ -231,7 +231,7 @@
     },
     "COPY_ERROR": {
       "TITLE": "Błąd Kopiowania",
-      "DESCRIPTION": ""
+      "DESCRIPTION": "Wystąpił błąd podczas kopiowania do schowka. Spróbuj ponownie."
     },
     "READ_WRITE_ERROR": {
       "TITLE": "Błąd odczytu/zapisu",
@@ -243,7 +243,7 @@
     },
     "EXCEPTION_ERROR": {
       "TITLE": "Błąd wyjątku",
-      "DESCRIPTION": "Upscayl napotkał błąd. Możliwe, że plik binarny Upscayl nie wykonał poprawnie poleceń. Sprawdź logi, aby upewnić się, czy znajdziesz jakieś informacje. Możesz zgłosić problem w repozytorium Upscayl na GitHubie, aby uzyskać więcej pomocy.."
+      "DESCRIPTION": "Upscayl napotkał błąd. Możliwe, że plik binarny Upscayl nie wykonał poprawnie poleceń. Sprawdź logi, aby znaleźć dodatkowe informacje. Możesz zgłosić problem w repozytorium Upscayl na GitHubie, aby uzyskać więcej pomocy."
     },
     "GENERIC_ERROR": {
       "TITLE": "Błąd"
@@ -253,10 +253,10 @@
       "DESCRIPTION": "Najpierw wybierz folder wyjściowy"
     },
     "INVALID_IMAGE_ERROR": {
-      "TITLE": "Nieprawdiłowy Obraz",
+      "TITLE": "Nieprawidłowy Obraz",
       "DESCRIPTION": "Proszę wybrać/wkleić obraz z prawidłowym rozszerzeniem, takim jak PNG, JPG, JPEG, JFIF lub WEBP.",
       "ADDITIONAL_DESCRIPTION": "Przeciągnij i upuść obraz",
-      "CLIPBOARD_DESCRIPTION": "No Image file found in Clipboard to paste!"
+      "CLIPBOARD_DESCRIPTION": "Nie znaleziono pliku obrazu w schowku do wklejenia!"
     },
     "NO_IMAGE_ERROR": {
       "TITLE": "Nie wybrano obrazu",
