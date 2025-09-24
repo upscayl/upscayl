@@ -18,6 +18,7 @@ const locales = {
   id: "Bahasa Indonesia",
   caVAL: "Català (Valencià)",
   hu: "Magyar",
+  pl: "Polski",
 };
 
 const LanguageSwitcher = ({ hideLabel = false }: { hideLabel?: boolean }) => {
