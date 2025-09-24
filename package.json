@@ -198,7 +198,9 @@
       "renderer/out"
     ],
     "publish": {
-      "provider": "github"
+      "provider": "github",
+      "owner": "upscayl",
+      "repo": "upscayl"
     }
   },
   "devDependencies": {
