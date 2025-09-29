@@ -1,0 +1,313 @@
+{
+  "TITLE": "Upscayl",
+  "INTRO": "Ons stel Upscayl Cloud bekend!",
+  "HEADER": {
+    "GITHUB_BUTTON_TITLE": "Gee ons 'n ster op GitHub 😁",
+    "DESCRIPTION": "KI-beeldvergroter"
+  },
+  "FOOTER": {
+    "NEWS_TITLE": "UPSCAYL NUUS",
+    "COPYRIGHT": "Kopiereg ©",
+    "TITLE": "Deur ",
+    "LINK_TITLE": "Die Upscayl-span"
+  },
+  "SETTINGS": {
+    "TITLE": "Instellings",
+    "CHANGE_LANGUAGE": { "TITLE": "Verander Taal" },
+    "IMAGE_COMPRESSION": {
+      "TITLE": "Beeldkompressie",
+      "DESCRIPTION": "PNG-kompressie is verliesloos, dus dit sal dalk nie die lêergrootte beduidend verminder nie en hoër kompressiewaardes kan die werkverrigting beïnvloed. JPG- en WebP-kompressie is verliesgewend."
+    },
+    "CUSTOM_MODELS": {
+      "TITLE": "VOEG PASMAATMODELLE BY",
+      "BUTTON_FOLDER": "Kies Vouer",
+      "DESCRIPTION": "Jy kan jou eie modelle maklik byvoeg. Vir meer besonderhede:",
+      "LINK_TITLE": "Bewaarplek vir Pasmaatmodelle"
+    },
+    "CUSTOM_INPUT_RESOLUTION": {
+      "TITLE": "PASMAAT UITSETBREEDTE",
+      "RESTART": "VEREIS HERBEGIN",
+      "DESCRIPTION": "Gebruik 'n pasgemaakte breedte vir die uitsetbeelde. Die hoogte sal outomaties aangepas word. Om dit te aktiveer sal die skaalinstelling oorheers."
+    },
+    "DONATE": {
+      "DESCRIPTION": "As jy van ons werk hou :)",
+      "BUTTON_TITLE": "💎 SKENK"
+    },
+    "GPU_ID_INPUT": {
+      "TITLE": "GPU-ID",
+      "DESCRIPTION": "Lees asseblief die Upscayl-dokumentasie vir meer inligting.",
+      "ADDITIONAL_DESCRIPTION": "Skakel werkverrigtingsmodus in op Windows vir beter resultate."
+    },
+    "IMAGE_FORMAT": {
+      "TITLE": "STOOR BEELD AS",
+      "PNG": "PNG",
+      "JPG": "JPG",
+      "WEBP": "WEBP"
+    },
+    "COPY_METADATA": {
+      "TITLE": "KOPIEER BEELD-METADATA",
+      "DESCRIPTION": "Hou oorspronklike beeldmetadata (EXIF) in die vergrote beeld.",
+      "SUGGEST_JPG_TITLE": "Aanbevole Formaatverandering",
+      "SUGGEST_JPG_DESCRIPTION": "Vir beter metadata-versoenbaarheid oor verskillende stelsels beveel ons aan dat jy JPG-formaat gebruik. Wil jy verander?",
+      "CHANGE_TO_JPG": "Verander na JPG",
+      "KEEP_CURRENT_FORMAT": "Hou {format}"
+    },
+    "IMAGE_SCALE": {
+      "TITLE": "Beeldskaal",
+      "DESCRIPTION": "Enigiets bo 4X (behalwe 16X Dubbele Upscayl) verander net die grootte van die beeld en gebruik nie KI-beeldvergroting nie.",
+      "WARNING": "Enigiets bo 5X kan werkverrigtingsprobleme op sommige toestelle veroorsaak!",
+      "ADDITIONAL_WARNING": "Dit kan werkverrigtingsprobleme op sommige toestelle veroorsaak!"
+    },
+    "LOG_AREA": {
+      "ON_COPY": "GEKOPIEER ✅",
+      "BUTTON_TITLE": "KOPIEER LOGBOEKE 📋",
+      "NO_LOGS": "Geen logboeke om te wys nie"
+    },
+    "OVERWRITE_TOGGLE": {
+      "TITLE": "OORSKRYF VORIGE VERGROTING",
+      "DESCRIPTION": "Indien geaktiveer sal Upscayl die beeld weer verwerk in plaas daarvan om dit direk te laai."
+    },
+    "RESET_SETTINGS": {
+      "BUTTON_TITLE": "HERSTEL UPSCAYL",
+      "ALERT": "Upscayl is herstel. Herbegin asseblief die toepassing."
+    },
+    "SAVE_OUTPUT_FOLDER": {
+      "TITLE": "STOOR UITVOERVOER",
+      "DESCRIPTION": "Indien geaktiveer sal die uitvoervouer tussen sessies onthou word."
+    },
+    "AUTO_UPDATE": {
+      "TITLE": "OUTOMATIESE UPSCAYL-OPDATERING",
+      "DESCRIPTION": "Indien geaktiveer sal die toepassing vir nuwe opdaterings kyk en jou in kennis stel."
+    },
+    "ENABLE_CONTRIBUTION": {
+      "TITLE": "HELP VERBETER UPSCAYL",
+      "DESCRIPTION": "Indien geaktiveer sal Upscayl anonieme gebruiksdata versamel om die koppelvlak en kenmerke te verbeter."
+    },
+    "THEME": {
+      "TITLE": "UPSCAYL-TEMA"
+    },
+    "LANGUAGE": {
+      "TITLE": "UPSCAYL-TAAL"
+    },
+    "CUSTOM_TILE_SIZE": {
+      "TITLE": "PASMAAT TEGELGROOTTE",
+      "DESCRIPTION": "Gebruik 'n pasgemaakte tegelgrootte om die beeld te segmenteer. Dit kan help om beelde vinniger te verwerk deur die aantal teëls te verminder."
+    },
+    "TURN_OFF_NOTIFICATIONS": {
+      "TITLE": "SKAKEL KENNISGEWINGS AF",
+      "DESCRIPTION": "Indien geaktiveer sal Upscayl geen stelselkennisgewings stuur by sukses of mislukking nie."
+    },
+    "SUPPORT": {
+      "TITLE": "Het jy probleme?",
+      "DOCS_BUTTON_TITLE": "🙏 KRY HULP",
+      "EMAIL_BUTTON_TITLE": "📧 E-POS ONTWIKKELAAR"
+    },
+    "TTA_MODE": {
+      "TITLE": "TTA-modus",
+      "DESCRIPTION": "Aktiveer Test Time Augmentation vir beter resultate, soos die verwydering van artefakte MAAR dit sal die verwerkingstyd met 8x verhoog!"
+    },
+    "SYSTEM_INFO": {
+      "TITLE": "Stelselinfo"
+    }
+  },
+  "APP": {
+    "TITLE": "Upscayl",
+    "BATCH_MODE": {
+      "TITLE": "Bondel-Upscayl",
+      "DESCRIPTION": "Dit laat jou alle lêers in 'n vouer gelyktydig Upscayl"
+    },
+    "FILE_SELECTION": {
+      "TITLE": "Stap 1",
+      "BATCH_MODE_TYPE": "Kies Vouer",
+      "SINGLE_MODE_TYPE": "Kies Beeld"
+    },
+    "MODEL_SELECTION": {
+      "TITLE": "Stap 2",
+      "DESCRIPTION": "Kies KI-model",
+      "IMPORTED_CUSTOM_MODELS": "Ingevoerde Pasmaatmodelle",
+      "BEFORE": "Voor",
+      "AFTER": "Na",
+      "ZOOM": "Zoem",
+      "MODELS": {
+        "upscayl-standard-4x": {
+          "NAME": "Upscayl Standaard",
+          "DESCRIPTION": "Geskik vir meeste beelde."
+        },
+        "upscayl-lite-4x": {
+          "NAME": "Upscayl Lite",
+          "DESCRIPTION": "Geskik vir meeste beelde. Hoëspoed-beeldvergroting met minimale kwaliteitsverlies."
+        },
+        "remacri-4x": {
+          "NAME": "Remacri (Nie-kommersieel)",
+          "DESCRIPTION": "Vir natuurlike beelde. Bykomende skerpte en detail. Geen kommersiële gebruik nie."
+        },
+        "ultramix-balanced-4x": {
+          "NAME": "Ultramix (Nie-kommersieel)",
+          "DESCRIPTION": "Vir natuurlike beelde met 'n balans van skerpte en detail."
+        },
+        "ultrasharp-4x": {
+          "NAME": "Ultrasharp (Nie-kommersieel)",
+          "DESCRIPTION": "Vir natuurlike beelde met fokus op skerpte."
+        },
+        "digital-art-4x": {
+          "NAME": "Digitale Kuns",
+          "DESCRIPTION": "Vir digitale kuns en illustrasies."
+        },
+        "high-fidelity-4x": {
+          "NAME": "Hoë Getrouheid",
+          "DESCRIPTION": "Vir allerhande beelde met fokus op realistiese detail en gladde teksture."
+        }
+      }
+    },
+    "DOUBLE_UPSCAYL": {
+      "TITLE": "Dubbele Upscayl",
+      "DESCRIPTION": "Aktiveer hierdie opsie om Upscayl twee keer op 'n beeld te laat loop. Let wel dit kan 'n aansienlike verhoging in verwerkingstyd veroorsaak en moontlik werkverrigtingskwessies vir skale groter as 4X."
+    },
+    "OUTPUT_PATH_SELECTION": {
+      "TITLE": "Stap 3",
+      "MAC_APP_STORE_ALERT": "Weens MacOS App Store-sekuriteitsbeperkings moet Upscayl elke keer as jy dit begin 'n uitvoervouer kies.\n\nOm dit te vermy kan jy 'n verstek uitvoervouer permanent stoor in die Upscayl 'Instellings'-oortjie.",
+      "NOT_SELECTED": "Nie gekies nie",
+      "DEFAULT_IMG_PATH": "Verstek na beeld se pad",
+      "DEFAULT_FOLDER_PATH": "Verstek na vouer se pad",
+      "BUTTON_TITLE": "Stel Uitvoervouer"
+    },
+    "SCALE_SELECTION": {
+      "TITLE": "Stap 4",
+      "FROM_TITLE": "Upscayl van ",
+      "TO_TITLE": " tot ",
+      "NO_OUTPUT_FOLDER_ALERT": "Kies eers 'n uitvoervouer",
+      "START_BUTTON_TITLE": "Upscayl 🚀",
+      "IN_PROGRESS_BUTTON_TITLE": "Upscayl tans ⏳"
+    },
+    "MORE_OPTIONS_DRAWER": {
+      "RESET_BUTTON_TITLE": "Herstel Beeld",
+      "LENS_VIEW_TITLE": "Lens-aansig",
+      "SLIDER_VIEW_TITLE": "Skuifbalk-aansig",
+      "ZOOM_AMOUNT_TITLE": "Zoem-vlak",
+      "TOTAL_UPSCAYLS": "Totale Upscayls",
+      "TOTAL_BATCH_UPSCAYLS": "Totale Bondel-Upscayls",
+      "TOTAL_IMAGE_UPSCAYLS": "Totale Beeld-Upscayls",
+      "TOTAL_DOUBLE_UPSCAYLS": "Totale Dubbele Upscayls",
+      "AVERAGE_UPSCAYL_TIME": "Gemiddelde Upscayl-tyd",
+      "LAST_UPSCAYL_DURATION": "Laaste Upscayl-duur",
+      "LAST_USED_AT": "Laas gebruik op"
+    },
+    "PROGRESS_BAR": {
+      "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Bondel-Upscayl Aan die Gang:",
+      "IN_PROGRESS_TITLE": "Besig met die Upscayl-towery...",
+      "STOP_BUTTON_TITLE": "STOP"
+    },
+    "RESET_BUTTON_TITLE": "Herstel",
+    "RIGHT_PANE_INFO": {
+      "SELECT_FOLDER": "Kies 'n Vouer",
+      "SELECT_IMAGE": "Kies 'n Beeld",
+      "SELECT_FOLDER_DESCRIPTION": "Maak seker die vouer bevat niks behalwe PNG-, JPG-, JPEG- & WEBP-beelde nie.",
+      "SELECT_IMAGES_DESCRIPTION": "Kies of sleep en los 'n PNG-, JPG-, JPEG- of WEBP-beeld.",
+      "PASTE_IMAGE_DESCRIPTION": "Druk Ctrl+V of ⌘+V om beeld vanaf knipbord te plak"
+    },
+    "PROGRESS": {
+      "PROCESSING_TITLE": "Verwerk die beeld...",
+      "SCALING_CONVERTING_TITLE": "Skaleer en omskep beeld...",
+      "WAIT_TITLE": "Hou vas...",
+      "SUCCESS_TITLE": "Upscayl Suksesvol!",
+      "BATCH": {
+        "SELECTED_FOLDER_TITLE": "Gekose vouer:",
+        "DONE_TITLE": "Alles klaar!",
+        "OPEN_UPSCAYLED_FOLDER_TITLE": "Open Upscayl-vouer"
+      }
+    },
+    "SLIDER": {
+      "ORIGINAL_TITLE": "Oorspronklik",
+      "UPSCAYLED_TITLE": "Vergroot"
+    },
+    "DIALOG_BOX": {
+      "CLOSE": "Maak toe"
+    }
+  },
+  "ERRORS": {
+    "GPU_ERROR": {
+      "TITLE": "GPU-fout",
+      "DESCRIPTION": "'n Probleem het met die GPU ontstaan. Lees asseblief die dokumentasie vir foutoplossing! ({data})"
+    },
+    "COPY_ERROR": {
+      "TITLE": "Kopieerfout",
+      "DESCRIPTION": ""
+    },
+    "READ_WRITE_ERROR": {
+      "TITLE": "Lees/Skryf-fout",
+      "DESCRIPTION": "Maak seker die pad is korrek en jy het toepaslike lees/skryf-regte \n({data})"
+    },
+    "TILE_SIZE_ERROR": {
+      "TITLE": "Fout",
+      "DESCRIPTION": "Die tegelgrootte is verkeerd. Verander dit in die instellings of stel op 0 ({data})"
+    },
+    "EXCEPTION_ERROR": {
+      "TITLE": "Uitsonderingsfout",
+      "DESCRIPTION": "Upscayl het 'n fout teëgekom. Moontlik het die Upscayl-binêre nie die opdragte korrek uitgevoer nie. Kyk die logboeke vir enige inligting. Jy kan 'n kwessie op Upscayl se GitHub-bewaarplek plaas vir meer hulp."
+    },
+    "GENERIC_ERROR": {
+      "TITLE": "Fout"
+    },
+    "NO_OUTPUT_FOLDER_ERROR": {
+      "TITLE": "Stel Uitvoervouer",
+      "DESCRIPTION": "Kies eers 'n uitvoervouer"
+    },
+    "INVALID_IMAGE_ERROR": {
+      "TITLE": "Ongeldige Beeld",
+      "DESCRIPTION": "Kies/plak asseblief 'n beeld met 'n geldige uitbreiding soos PNG, JPG, JPEG, JFIF of WEBP.",
+      "ADDITIONAL_DESCRIPTION": "Sleep en los asseblief 'n beeld",
+      "CLIPBOARD_DESCRIPTION": "Geen beeldlêer in knipbord gevind om te plak nie!"
+    },
+    "NO_IMAGE_ERROR": {
+      "TITLE": "Geen beeld gekies nie",
+      "DESCRIPTION": "Kies asseblief 'n beeld om te vergroot"
+    },
+    "METADATA_ERROR": {
+      "TITLE": "Metadata Kopieerfout",
+      "DESCRIPTION": "Kon nie metadata vanaf die oorspronklike beeld na die gegenereerde beeld kopieer nie. ({data})"
+    },
+    "OPEN_DOCS_TITLE": "Open Dokumente",
+    "OPEN_DOCS_BUTTON_TITLE": "Foutopsporing"
+  },
+  "WARNING": {
+    "GENERIC_WARNING": {
+      "TITLE": "Waarskuwing"
+    },
+    "METADATA_FORMAT": {
+      "TITLE": "Metadata-waarskuwing",
+      "DESCRIPTION": "Op sommige stelsels mag metadata nie sigbaar wees in ander formate as JPG nie. Gebruik spesifieke nutsprogramme om metadata te sien indien nodig."
+    }
+  },
+  "UPSCAYL_CLOUD": {
+    "COMING_SOON": "Kom binnekort!",
+    "CATCHY_PHRASE_1": "Geen meer foute, hardeware-probleme, kwaliteitskompromieë of lang laaitye nie!",
+    "CATCHY_PHRASE_2": "🌐 Upscayl enige plek, enige tyd, enige toestel\n☁️ Geen grafiese kaart of hardeware benodig nie\n👩 Gesigsverbetering\n🦋 10+ modelle om van te kies\n🏎 5x vinniger as Upscayl Werkskerm\n🎞 Video-beeldvergroting\n💰 Kommersiële Gebruik\n😴 Upscayl terwyl jy slaap",
+    "ALREADY_REGISTERED_ALERT": "Dankie {name}! Dit lyk of jou e-pos reeds geregistreer is :D As dit nie so is nie, probeer weer.",
+    "ADD_SUCCESS": "Dankie dat jy by die waglys aangesluit het! Ons sal jou laat weet wanneer Upscayl Cloud gereed is vir jou.",
+    "INCORRECT_FIELDS_ALERT": "Vul asseblief al die velde korrek in.",
+    "JOIN_WAITLIST": "Sluit aan by die waglys",
+    "DONT_SHOW_AGAIN": "MOENIE WEER WYS NIE"
+  },
+  "ONBOARDING_DIALOG": {
+    "NEXT_BUTTON_TITLE": "Volgende",
+    "BACK_BUTTON_TITLE": "Terug",
+    "GET_STARTED_BUTTON_TITLE": "Begin Nou",
+    "SETTINGS_NOTE": "Jy kan hierdie instellings later altyd verander.",
+    "STEP_1": {
+      "TITLE": "Welkom by Upscayl 🎉",
+      "DESCRIPTION": "Kom ons kry jou aan die gang met 'n paar vinnige stappe."
+    },
+    "STEP_2": {
+      "TITLE": "Kies Jou Voorkeure 🎨",
+      "DESCRIPTION": "Stel jou aanvanklike instellings op."
+    },
+    "STEP_3": {
+      "TITLE": "Hoe gebruik ek Upscayl? 🚀",
+      "DESCRIPTION": "Kyk hierdie kort video om van die nuwe kenmerke te leer."
+    },
+    "STEP_4": {
+      "TITLE": "Alles Gereed! 🎉",
+      "DESCRIPTION": "Jy is gereed om beelde met Upscayl te begin vergroot!"
+    }
+  }
+}
