@@ -13,7 +13,7 @@
    </div>
 </a>
 
-<a href="https://app.requestly.io/api-client/?utm_source=github&utm_medium=partnered&utm_campaign=rq_upscayl_github">
+<a href="https://requestly.com/upscayl">
    <div>
    <img alt="Requestly sponsorship" width="500" src="https://github.com/user-attachments/assets/24670320-997d-4d62-9bca-955c59fe883d">
    </div>
