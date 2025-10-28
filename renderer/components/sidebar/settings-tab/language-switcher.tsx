@@ -19,6 +19,7 @@ const locales = {
   caVAL: "Català (Valencià)",
   hu: "Magyar",
   pl: "Polski",
+  af: "Afrikaans",
 };
 
 const LanguageSwitcher = ({ hideLabel = false }: { hideLabel?: boolean }) => {
