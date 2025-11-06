@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 import { IpcRenderer } from "electron";
 
 export interface IElectronAPI {

@@ -25,13 +25,13 @@ const createMainWindow = () => {
       nodeIntegration: true,
       nodeIntegrationInWorker: true,
       webSecurity: false,
-      preload: join(__dirname, "preload.js"),
+      preload: join(__dirname, "preload/index.js"),
     },
     titleBarStyle: getPlatform() === "mac" ? "hiddenInset" : "default",
   });
 
   const url = electronIsDev
-    ? "http://localhost:8000"
+    ? process.env["ELECTRON_RENDERER_URL"]!
     : format({
         pathname: join(__dirname, "../../renderer/out/index.html"),
         protocol: "file:",
