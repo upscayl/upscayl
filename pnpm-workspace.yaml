@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+  - core-js
+  - electron
+  - esbuild
+  - protobufjs
