@@ -1,16 +1,14 @@
-"use client";
 import { useState, useEffect } from "react";
-import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { useAtomValue, useSetAtom } from "jotai";
-import { customModelIdsAtom } from "../atoms/models-list-atom";
+import { customModelIdsAtom } from "@/atoms/models-list-atom";
 import {
   batchModeAtom,
   savedOutputPathAtom,
   progressAtom,
   rememberOutputFolderAtom,
   userStatsAtom,
-} from "../atoms/user-settings-atom";
-import useLogger from "../components/hooks/use-logger";
+} from "@/atoms/user-settings-atom";
+import useLogger from "@/components/hooks/use-logger";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import UpscaylSVGLogo from "@/components/icons/upscayl-logo-svg";
@@ -23,8 +21,9 @@ import { ImageFormat, VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import { initCustomModels } from "@/components/hooks/use-custom-models";
 import { OnboardingDialog } from "@/components/main-content/onboarding-dialog";
 import useSystemInfo from "@/components/hooks/use-system-info";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 
-const Home = () => {
+const App = () => {
   const t = useAtomValue(translationAtom);
   const logit = useLogger();
   const { toast } = useToast();
@@ -363,4 +362,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default App;

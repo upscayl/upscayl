@@ -1,4 +1,3 @@
-import prepareNext from "electron-next";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
 import { app, ipcMain, protocol } from "electron";
@@ -12,7 +11,6 @@ import getModelsList from "./commands/get-models-list";
 import customModelsSelect from "./commands/custom-models-select";
 import imageUpscayl from "./commands/image-upscayl";
 import { createMainWindow } from "./main-window";
-import electronIsDev from "electron-is-dev";
 import { execPath, modelsPath } from "./utils/get-resource-paths";
 import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
@@ -26,8 +24,6 @@ import path from "path";
 log.initialize({ preload: true });
 
 app.on("ready", async () => {
-  await prepareNext("./renderer");
-
   app.whenReady().then(() => {
     protocol.registerFileProtocol("file", (request, callback) => {
       const pathname = decodeURI(request.url.replace("file:///", ""));
@@ -56,7 +52,8 @@ app.on("ready", async () => {
   log.info("🚀 UPSCAYL EXEC PATH: ", execPath);
   log.info("🚀 MODELS PATH: ", modelsPath);
 
-  let closeAccess;
+  let closeAccess: Function;
+
   const folderBookmarks = await settings.get("folder-bookmarks");
   if (FEATURE_FLAGS.APP_STORE_BUILD && folderBookmarks) {
     logit("🚨 Folder Bookmarks: ", folderBookmarks);

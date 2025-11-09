@@ -1,4 +1,3 @@
-"use client";
 import useLogger from "../hooks/use-logger";
 import { useState, useMemo, useEffect } from "react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
