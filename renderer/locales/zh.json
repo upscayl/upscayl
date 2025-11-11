@@ -169,7 +169,8 @@
       "NOT_SELECTED": "未选择",
       "DEFAULT_IMG_PATH": "默认为图片路径",
       "DEFAULT_FOLDER_PATH": "默认为文件夹路径",
-      "BUTTON_TITLE": "选择输出文件夹"
+      "BUTTON_TITLE": "选择输出文件夹",
+      "NEW_FOLDER_BUTTON_TITLE": "新建文件夹"
     },
     "SCALE_SELECTION": {
       "TITLE": "第四步",

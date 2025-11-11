@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Não selecionado",
       "DEFAULT_IMG_PATH": "Predefinido para local da imagem",
       "DEFAULT_FOLDER_PATH": "Predefinido para local da pasta",
-      "BUTTON_TITLE": "Definir pasta de saída"
+      "BUTTON_TITLE": "Definir pasta de saída",
+      "NEW_FOLDER_BUTTON_TITLE": "Nova pasta"
     },
     "SCALE_SELECTION": {
       "TITLE": "Passo 4",

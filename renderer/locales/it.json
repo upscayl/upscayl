@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Non selezionato",
       "DEFAULT_IMG_PATH": "Per impostazione predefinita è il percorso dell'immagine",
       "DEFAULT_FOLDER_PATH": "Per impostazione predefinita è il percorso della cartella",
-      "BUTTON_TITLE": "Imposta la cartella di output"
+      "BUTTON_TITLE": "Imposta la cartella di output",
+      "NEW_FOLDER_BUTTON_TITLE": "Nuova cartella"
     },
     "SCALE_SELECTION": {
       "TITLE": "Fase 4",

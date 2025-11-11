@@ -170,7 +170,8 @@
       "NOT_SELECTED": "No seleccionado",
       "DEFAULT_IMG_PATH": "Ruta predeterminada de la imagen",
       "DEFAULT_FOLDER_PATH": "Ruta predeterminada de la carpeta",
-      "BUTTON_TITLE": "Establecer carpeta de salida"
+      "BUTTON_TITLE": "Establecer carpeta de salida",
+      "NEW_FOLDER_BUTTON_TITLE": "Nueva carpeta"
     },
     "SCALE_SELECTION": {
       "TITLE": "Paso 4",

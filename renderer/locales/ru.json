@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Не выбрано",
       "DEFAULT_IMG_PATH": "Стандартный путь изображения",
       "DEFAULT_FOLDER_PATH": "Стандартный путь папки",
-      "BUTTON_TITLE": "Задать папку вывода"
+      "BUTTON_TITLE": "Задать папку вывода",
+      "NEW_FOLDER_BUTTON_TITLE": "Новая папка"
     },
     "SCALE_SELECTION": {
       "TITLE": "Шаг 4",

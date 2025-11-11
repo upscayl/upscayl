@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Seçilmemiş",
       "DEFAULT_IMG_PATH": "Çıktı resim, girdi resmin dizinine",
       "DEFAULT_FOLDER_PATH": "Çıktı klasör, girdi klasörün dizine",
-      "BUTTON_TITLE": "Çıktı klasörünü seç"
+      "BUTTON_TITLE": "Çıktı klasörünü seç",
+      "NEW_FOLDER_BUTTON_TITLE": "Yeni klasör"
     },
     "SCALE_SELECTION": {
       "TITLE": "4. Adım",

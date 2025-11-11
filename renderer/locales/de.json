@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Nicht ausgewählt",
       "DEFAULT_IMG_PATH": "Standard ist der Pfad des Bildes",
       "DEFAULT_FOLDER_PATH": "Standard ist der Ordnerpfad",
-      "BUTTON_TITLE": "Ausgabeordner festlegen"
+      "BUTTON_TITLE": "Ausgabeordner festlegen",
+      "NEW_FOLDER_BUTTON_TITLE": "Neuer Ordner"
     },
     "SCALE_SELECTION": {
       "TITLE": "Schritt 4",

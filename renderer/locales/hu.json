@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Nincs kiválasztva",
       "DEFAULT_IMG_PATH": "Alapértelmezés a kép helyére",
       "DEFAULT_FOLDER_PATH": "Alapértelmezés a mappa helyére",
-      "BUTTON_TITLE": "Mentési hely beállítása"
+      "BUTTON_TITLE": "Mentési hely beállítása",
+      "NEW_FOLDER_BUTTON_TITLE": "Új mappa"
     },
     "SCALE_SELECTION": {
       "TITLE": "4. Lépés",

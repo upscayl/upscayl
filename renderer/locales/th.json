@@ -169,7 +169,8 @@
       "NOT_SELECTED": "ไม่ถูกเลือก",
       "DEFAULT_IMG_PATH": "ใช้ตามที่ตั้งรูปตามค่าพื้นฐาน",
       "DEFAULT_FOLDER_PATH": "ใช้ตามที่ตั้งโฟลเดอร์ตามค่าพื้นฐาน",
-      "BUTTON_TITLE": "กำหนดโฟลเดอร์ปลายทาง"
+      "BUTTON_TITLE": "กำหนดโฟลเดอร์ปลายทาง",
+      "NEW_FOLDER_BUTTON_TITLE": "โฟลเดอร์ใหม่"
     },
     "SCALE_SELECTION": {
       "TITLE": "ขั้นตอนที่ 4",

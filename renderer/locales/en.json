@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Not Selected",
       "DEFAULT_IMG_PATH": "Defaults to Image's path",
       "DEFAULT_FOLDER_PATH": "Defaults to  Folder's path",
-      "BUTTON_TITLE": "Set Output Folder"
+      "BUTTON_TITLE": "Set Output Folder",
+      "NEW_FOLDER_BUTTON_TITLE": "New Folder"
     },
     "SCALE_SELECTION": {
       "TITLE": "Step 4",
