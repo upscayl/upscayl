@@ -31,7 +31,6 @@ const createFolder = async (event, message) => {
     buttonLabel: "Create Folder",
     title: "Create New Output Folder",
     defaultPath: path.join(defaultPath, "Upscayled Images"),
-    properties: ["createDirectory", "showOverwriteConfirmation"],
     securityScopedBookmarks: true,
   });
 
