@@ -27,7 +27,7 @@ const createFolder = async (event, message) => {
     }
   }
 
-  const { canceled, filePath } = await dialog.showSaveDialog({
+  const { canceled, filePath, bookmark } = await dialog.showSaveDialog({
     buttonLabel: "Create Folder",
     title: "Create New Output Folder",
     defaultPath: path.join(defaultPath, "Upscayled Images"),
@@ -47,6 +47,17 @@ const createFolder = async (event, message) => {
       try {
         fs.mkdirSync(filePath, { recursive: true });
         logit("📁 Created New Folder Path: ", filePath);
+        
+        // Save bookmark for App Store builds
+        if (FEATURE_FLAGS.APP_STORE_BUILD && bookmark) {
+          try {
+            await settings.set("folder-bookmarks", bookmark);
+            logit("📁 Bookmark saved for App Store access: ", bookmark);
+          } catch (settingsError) {
+            logit("❌ Error saving bookmark to settings: ", settingsError);
+          }
+        }
+        
         return filePath;
       } catch (error) {
         logit("❌ Error Creating Folder: ", error);
@@ -54,6 +65,17 @@ const createFolder = async (event, message) => {
       }
     } else {
       logit("📁 Selected Folder Path (already exists): ", filePath);
+      
+      // Save bookmark for App Store builds
+      if (FEATURE_FLAGS.APP_STORE_BUILD && bookmark) {
+        try {
+          await settings.set("folder-bookmarks", bookmark);
+          logit("📁 Bookmark saved for App Store access: ", bookmark);
+        } catch (settingsError) {
+          logit("❌ Error saving bookmark to settings: ", settingsError);
+        }
+      }
+      
       return filePath;
     }
   }
