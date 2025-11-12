@@ -50,18 +50,6 @@ const createFolder = async (event, message) => {
         
         // Persist the folder path for future default
         await settings.set("batchUpscaylFolderPath", filePath);
-        
-        // Save bookmark for App Store builds
-        if (FEATURE_FLAGS.APP_STORE_BUILD && bookmark) {
-          try {
-            await settings.set("folder-bookmarks", bookmark);
-            logit("📁 Bookmark saved for App Store access: ", bookmark);
-          } catch (settingsError) {
-            logit("❌ Error saving bookmark to settings: ", settingsError);
-          }
-        }
-        
-        return filePath;
       } catch (error) {
         logit("❌ Error Creating Folder: ", error);
         return null;
@@ -71,19 +59,19 @@ const createFolder = async (event, message) => {
       
       // Persist the folder path for future default
       await settings.set("batchUpscaylFolderPath", filePath);
-      
-      // Save bookmark for App Store builds
-      if (FEATURE_FLAGS.APP_STORE_BUILD && bookmark) {
-        try {
-          await settings.set("folder-bookmarks", bookmark);
-          logit("📁 Bookmark saved for App Store access: ", bookmark);
-        } catch (settingsError) {
-          logit("❌ Error saving bookmark to settings: ", settingsError);
-        }
-      }
-      
-      return filePath;
     }
+    
+    // Save bookmark for App Store builds (common for both branches)
+    if (FEATURE_FLAGS.APP_STORE_BUILD && bookmark) {
+      try {
+        await settings.set("folder-bookmarks", bookmark);
+        logit("📁 Bookmark saved for App Store access: ", bookmark);
+      } catch (settingsError) {
+        logit("❌ Error saving bookmark to settings: ", settingsError);
+      }
+    }
+    
+    return filePath;
   }
 };
 
