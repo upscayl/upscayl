@@ -48,6 +48,9 @@ const createFolder = async (event, message) => {
         fs.mkdirSync(filePath, { recursive: true });
         logit("📁 Created New Folder Path: ", filePath);
         
+        // Persist the folder path for future default
+        await settings.set("batchUpscaylFolderPath", filePath);
+        
         // Save bookmark for App Store builds
         if (FEATURE_FLAGS.APP_STORE_BUILD && bookmark) {
           try {
@@ -65,6 +68,9 @@ const createFolder = async (event, message) => {
       }
     } else {
       logit("📁 Selected Folder Path (already exists): ", filePath);
+      
+      // Persist the folder path for future default
+      await settings.set("batchUpscaylFolderPath", filePath);
       
       // Save bookmark for App Store builds
       if (FEATURE_FLAGS.APP_STORE_BUILD && bookmark) {
