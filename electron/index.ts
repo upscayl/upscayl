@@ -11,6 +11,7 @@ import selectFile from "./commands/select-file";
 import getModelsList from "./commands/get-models-list";
 import customModelsSelect from "./commands/custom-models-select";
 import imageUpscayl from "./commands/image-upscayl";
+import createFolder from "./commands/create-folder";
 import { createMainWindow } from "./main-window";
 import electronIsDev from "electron-is-dev";
 import { execPath, modelsPath } from "./utils/get-resource-paths";
@@ -86,6 +87,8 @@ ipcMain.on(ELECTRON_COMMANDS.STOP, stop);
 ipcMain.on(ELECTRON_COMMANDS.OPEN_FOLDER, openFolder);
 
 ipcMain.handle(ELECTRON_COMMANDS.SELECT_FOLDER, selectFolder);
+
+ipcMain.handle(ELECTRON_COMMANDS.CREATE_FOLDER, createFolder);
 
 ipcMain.handle(ELECTRON_COMMANDS.SELECT_FILE, selectFile);
 

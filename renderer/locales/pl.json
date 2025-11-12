@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Nie Wybrano",
       "DEFAULT_IMG_PATH": "Domyślna ścieżka obrazu",
       "DEFAULT_FOLDER_PATH": "Domyślna ścieżka folderu",
-      "BUTTON_TITLE": "Wybierz Folder Wyjściowy"
+      "BUTTON_TITLE": "Wybierz Folder Wyjściowy",
+      "NEW_FOLDER_BUTTON_TITLE": "Nowy folder"
     },
     "SCALE_SELECTION": {
       "TITLE": "Krok 4",

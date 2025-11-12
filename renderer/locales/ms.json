@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Tidak Dipilih",
       "DEFAULT_IMG_PATH": "Lalai ke laluan Imej",
       "DEFAULT_FOLDER_PATH": "Lalai ke laluan Folder",
-      "BUTTON_TITLE": "Tetapkan Folder Output"
+      "BUTTON_TITLE": "Tetapkan Folder Output",
+      "NEW_FOLDER_BUTTON_TITLE": "Folder Baru"
     },
     "SCALE_SELECTION": {
       "TITLE": "Langkah 4",

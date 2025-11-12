@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Chưa chọn",
       "DEFAULT_IMG_PATH": "Mặc định là Đường dẫn của Hình ảnh",
       "DEFAULT_FOLDER_PATH": "Mặc định là Đường dẫn của Thư mục",
-      "BUTTON_TITLE": "Đặt Thư mục Đầu Ra"
+      "BUTTON_TITLE": "Đặt Thư mục Đầu Ra",
+      "NEW_FOLDER_BUTTON_TITLE": "Thư mục mới"
     },
     "SCALE_SELECTION": {
       "TITLE": "Bước 4",

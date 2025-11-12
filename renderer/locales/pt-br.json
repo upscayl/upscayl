@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Não Selecionado",
       "DEFAULT_IMG_PATH": "Caminho da Imagem como Padrão",
       "DEFAULT_FOLDER_PATH": "Caminho da Pasta como Padrão",
-      "BUTTON_TITLE": "Definir Pasta de Saída"
+      "BUTTON_TITLE": "Definir Pasta de Saída",
+      "NEW_FOLDER_BUTTON_TITLE": "Nova Pasta"
     },
     "SCALE_SELECTION": {
       "TITLE": "Passo 4",

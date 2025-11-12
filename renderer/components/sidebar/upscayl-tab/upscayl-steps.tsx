@@ -227,14 +227,28 @@ function UpscaylSteps({
               : t("APP.OUTPUT_PATH_SELECTION.DEFAULT_FOLDER_PATH")}
           </p>
         )}
-        <button
-          className="btn btn-primary"
-          data-tooltip-content={outputPath}
-          data-tooltip-id="tooltip"
-          onClick={outputHandler}
-        >
-          {t("APP.OUTPUT_PATH_SELECTION.BUTTON_TITLE")}
-        </button>
+        <div className="flex gap-2">
+          <button
+            className="btn btn-primary"
+            data-tooltip-content={outputPath}
+            data-tooltip-id="tooltip"
+            onClick={outputHandler}
+          >
+            {t("APP.OUTPUT_PATH_SELECTION.BUTTON_TITLE")}
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={async () => {
+              const path = await window.electron.invoke(ELECTRON_COMMANDS.CREATE_FOLDER);
+              if (path !== null) {
+                logit("📁 Created New Output Folder: ", path);
+                setOutputPath(path);
+              }
+            }}
+          >
+            {t("APP.OUTPUT_PATH_SELECTION.NEW_FOLDER_BUTTON_TITLE")}
+          </button>
+        </div>
       </div>
 
       {/* STEP 4 */}

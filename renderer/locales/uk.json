@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Не обрано",
       "DEFAULT_IMG_PATH": "За замовчуванням - шлях до зображення",
       "DEFAULT_FOLDER_PATH": "За замовчуванням - шлях до теки",
-      "BUTTON_TITLE": "Обрати теку виводу"
+      "BUTTON_TITLE": "Обрати теку виводу",
+      "NEW_FOLDER_BUTTON_TITLE": "Нова тека"
     },
     "SCALE_SELECTION": {
       "TITLE": "Крок 4",

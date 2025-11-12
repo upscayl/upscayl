@@ -41,6 +41,7 @@ const selectFolder = async (event, message) => {
     return null;
   } else {
     setSavedBatchUpscaylFolderPath(folderPaths[0]);
+    await settings.set("batchUpscaylFolderPath", folderPaths[0]);
     logit("📁 Selected Folder Path: ", savedBatchUpscaylFolderPath);
     return folderPaths[0];
   }

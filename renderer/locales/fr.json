@@ -169,7 +169,8 @@
       "NOT_SELECTED": "Non sélectionné",
       "DEFAULT_IMG_PATH": "Par défaut au chemin de l'image",
       "DEFAULT_FOLDER_PATH": "Par défaut au chemin du dossier",
-      "BUTTON_TITLE": "Définir le dossier de sortie"
+      "BUTTON_TITLE": "Définir le dossier de sortie",
+      "NEW_FOLDER_BUTTON_TITLE": "Nouveau dossier"
     },
     "SCALE_SELECTION": {
       "TITLE": "Étape 4",

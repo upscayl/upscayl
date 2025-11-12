@@ -172,7 +172,8 @@
       "NOT_SELECTED": "No seleccionat",
       "DEFAULT_IMG_PATH": "Ruta predeterminada de la imatge",
       "DEFAULT_FOLDER_PATH": "Ruta predeterminada de la carpeta",
-      "BUTTON_TITLE": "Establir carpeta d'eixida"
+      "BUTTON_TITLE": "Establir carpeta d'eixida",
+      "NEW_FOLDER_BUTTON_TITLE": "Carpeta nova"
     },
     "SCALE_SELECTION": {
       "TITLE": "Pas 4",

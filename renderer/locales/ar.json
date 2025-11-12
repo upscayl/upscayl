@@ -169,7 +169,8 @@
       "NOT_SELECTED": "غير محدد",
       "DEFAULT_IMG_PATH": "حفظ في مكان الصورة المحددة",
       "DEFAULT_FOLDER_PATH": "حفظ في نفس مكان المجلد",
-      "BUTTON_TITLE": "ضع موقع الاخراج"
+      "BUTTON_TITLE": "ضع موقع الاخراج",
+      "NEW_FOLDER_BUTTON_TITLE": "مجلد جديد"
     },
     "SCALE_SELECTION": {
       "TITLE": "خطوة رابعة",

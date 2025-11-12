@@ -169,7 +169,8 @@
       "NOT_SELECTED": "未選択",
       "DEFAULT_IMG_PATH": "画像のパスがデフォルトになります",
       "DEFAULT_FOLDER_PATH": "フォルダのパスがデフォルトになります",
-      "BUTTON_TITLE": "出力フォルダを設定"
+      "BUTTON_TITLE": "出力フォルダを設定",
+      "NEW_FOLDER_BUTTON_TITLE": "新しいフォルダ"
     },
     "SCALE_SELECTION": {
       "TITLE": "ステップ 4",
