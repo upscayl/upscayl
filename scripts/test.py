@@ -155,7 +155,7 @@ def prepare_AI_model(AI_model, device):
     elif 'dml' in device:
         backend = torch.device('dml')
 
-    model_path = (r"C:\Users\ghosh\OneDrive\Documents\progams\QualityScaler\BSRGAN.pth")
+    model_path = (r"C:\Users\ghosh\OneDrive\Documents\programs\QualityScaler\BSRGAN.pth")
 
     model = RRDBNet(in_nc=3, out_nc=3, nf=64, nb=23, gc=32, sf=4)
     model.load_state_dict(torch.load(model_path), strict=True)
