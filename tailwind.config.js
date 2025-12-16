@@ -1,4 +1,4 @@
-const daisyuiColorObj = require("daisyui/src/theming/themes");
+// const daisyuiColorObj = require("daisyui/src/theming/themes");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -41,39 +41,39 @@ module.exports = {
         128: "28rem",
       },
       colors: {
-        border: daisyuiColorObj["primary"],
-        input: daisyuiColorObj["base-content"],
-        ring: daisyuiColorObj["base-content"],
-        background: daisyuiColorObj["base-100"],
-        foreground: daisyuiColorObj["base-content"],
-        primary: {
-          DEFAULT: daisyuiColorObj["primary"],
-          foreground: daisyuiColorObj["primary-content"],
-        },
-        secondary: {
-          DEFAULT: daisyuiColorObj["secondary"],
-          foreground: daisyuiColorObj["secondary-content"],
-        },
-        destructive: {
-          DEFAULT: daisyuiColorObj["error"],
-          foreground: daisyuiColorObj["error-content"],
-        },
-        muted: {
-          DEFAULT: daisyuiColorObj["base-300"],
-          foreground: daisyuiColorObj["base-content"],
-        },
-        accent: {
-          DEFAULT: daisyuiColorObj["accent"],
-          foreground: daisyuiColorObj["accent-content"],
-        },
-        popover: {
-          DEFAULT: daisyuiColorObj["base-100"],
-          foreground: daisyuiColorObj["base-content"],
-        },
-        card: {
-          DEFAULT: daisyuiColorObj["base-100"],
-          foreground: daisyuiColorObj["base-content"],
-        },
+        // border: daisyuiColorObj["primary"],
+        // input: daisyuiColorObj["base-content"],
+        // ring: daisyuiColorObj["base-content"],
+        // background: daisyuiColorObj["base-100"],
+        // foreground: daisyuiColorObj["base-content"],
+        // primary: {
+        //   DEFAULT: daisyuiColorObj["primary"],
+        //   foreground: daisyuiColorObj["primary-content"],
+        // },
+        // secondary: {
+        //   DEFAULT: daisyuiColorObj["secondary"],
+        //   foreground: daisyuiColorObj["secondary-content"],
+        // },
+        // destructive: {
+        //   DEFAULT: daisyuiColorObj["error"],
+        //   foreground: daisyuiColorObj["error-content"],
+        // },
+        // muted: {
+        //   DEFAULT: daisyuiColorObj["base-300"],
+        //   foreground: daisyuiColorObj["base-content"],
+        // },
+        // accent: {
+        //   DEFAULT: daisyuiColorObj["accent"],
+        //   foreground: daisyuiColorObj["accent-content"],
+        // },
+        // popover: {
+        //   DEFAULT: daisyuiColorObj["base-100"],
+        //   foreground: daisyuiColorObj["base-content"],
+        // },
+        // card: {
+        //   DEFAULT: daisyuiColorObj["base-100"],
+        //   foreground: daisyuiColorObj["base-content"],
+        // },
       },
       borderRadius: {
         lg: "var(--rounded-btn)",
