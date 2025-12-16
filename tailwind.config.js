@@ -1,4 +1,4 @@
-const daisyuiColorObj = require("daisyui/src/theming/index");
+const daisyuiColorObj = require("daisyui/src/theming/themes");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
