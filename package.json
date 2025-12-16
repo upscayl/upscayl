@@ -212,7 +212,7 @@
     "ajv": "^6.12.6",
     "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
-    "daisyui": "^4.12.23",
+    "daisyui": "^5.5.14",
     "electron": "^39.2.7",
     "electron-builder": "^26.0.12",
     "electron-vite": "^5.0.0",
