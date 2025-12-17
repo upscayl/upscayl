@@ -206,7 +206,7 @@ const Sidebar = ({
         className={`relative flex h-screen min-w-[350px] max-w-[350px] flex-col bg-base-100 ${showSidebar ? "" : "hidden"}`}
       >
         <button
-          className="absolute -right-0 top-1/2 z-50 -translate-y-1/2 translate-x-1/2 rounded-full bg-base-100 p-4"
+          className="absolute right-0 top-1/2 z-50 -translate-y-1/2 translate-x-1/2 rounded-full bg-base-100 p-4"
           onClick={() => setShowSidebar((prev) => !prev)}
         >
           <ChevronLeftIcon />

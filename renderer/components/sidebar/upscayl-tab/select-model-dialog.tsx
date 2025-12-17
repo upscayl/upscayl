@@ -65,7 +65,7 @@ const SelectModelDialog = () => {
                 return (
                   <button
                     key={modelId}
-                    className="btn !h-auto !w-full !flex-col !items-start !rounded-sm !p-4"
+                    className="btn h-auto! w-full! flex-col! items-start! rounded-sm! p-4!"
                     onClick={() => handleModelSelect(modelId)}
                   >
                     <p className="font-semibold">

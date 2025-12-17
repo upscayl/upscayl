@@ -40,7 +40,7 @@ const SliderView = ({
               backgroundPosition: "0% 0%",
               transformOrigin: backgroundPosition,
             }}
-            className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}%]`}
+            className={`h-full w-full bg-linear-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}%]`}
           />
         </>
       }
@@ -59,7 +59,7 @@ const SliderView = ({
               transformOrigin: backgroundPosition,
             }}
             onMouseMove={handleMouseMove}
-            className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${
+            className={`h-full w-full bg-linear-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${
               zoomAmount || "100%"
             }%]`}
           />

@@ -1,3 +1,9 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+@config "../../tailwind.config.js";
+
 @font-face {
   font-family: "Poppins";
   src: url("../fonts/poppins/Poppins-Regular.ttf");
@@ -35,154 +41,66 @@
   font-style: normal;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(222.2 84% 4.9%);
 
-@layer base {
-  * {
-    @apply select-none border-border;
-    font-family: "Poppins", sans-serif;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222.2 84% 4.9%);
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222.2 84% 4.9%);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+  --primary: hsl(222.2 47.4% 11.2%);
+  --primary-foreground: hsl(210 40% 98%);
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+  --secondary: hsl(210 40% 96.1%);
+  --secondary-foreground: hsl(222.2 47.4% 11.2%);
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: hsl(210 40% 96.1%);
+  --muted-foreground: hsl(215.4 16.3% 46.9%);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: hsl(210 40% 96.1%);
+  --accent-foreground: hsl(222.2 47.4% 11.2%);
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(210 40% 98%);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+  --border: hsl(214.3 31.8% 91.4%);
+  --input: hsl(214.3 31.8% 91.4%);
+  --ring: hsl(222.2 84% 4.9%);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
-  .hide-scrollbar::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  .hide-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-transparent;
-  }
-
-  ::-webkit-scrollbar {
-    @apply w-3;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply rounded-full bg-base-300/30;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-base-content/20;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply rounded-full bg-base-content/50;
-  }
+  --radius: hsl(0.5rem);
 }
 
-@layer utilities {
-  .animate {
-    @apply transition-all duration-300 ease-in-out;
-  }
-  .step-heading {
-    @apply mb-2 font-semibold;
-  }
+.dark {
+  --background: hsl(222.2 84% 4.9%);
+  --foreground: hsl(210 40% 98%);
 
-  .react-select-container {
-    @apply w-40;
-  }
-  .full-width {
-    @apply w-full;
-  }
-  .react-select-container .react-select__control {
-    @apply h-12 cursor-pointer rounded-btn !border-0 !border-none !border-transparent bg-primary shadow-none;
-  }
+  --card: hsl(222.2 84% 4.9%);
+  --card-foreground: hsl(210 40% 98%);
 
-  .react-select-container .react-select__control--menu-is-open {
-    @apply bg-primary text-primary-content;
-  }
+  --popover: hsl(222.2 84% 4.9%);
+  --popover-foreground: hsl(210 40% 98%);
 
-  .react-select-container .react-select__single-value {
-    @apply text-sm font-semibold uppercase text-primary-content;
-  }
+  --primary: hsl(210 40% 98%);
+  --primary-foreground: hsl(222.2 47.4% 11.2%);
 
-  .react-select-container .react-select__input-container {
-    @apply text-sm font-semibold uppercase text-primary-content;
-  }
+  --secondary: hsl(217.2 32.6% 17.5%);
+  --secondary-foreground: hsl(210 40% 98%);
 
-  .react-select-container .react-select__menu {
-    @apply rounded-lg bg-primary p-1 text-sm font-semibold uppercase;
-  }
+  --muted: hsl(217.2 32.6% 17.5%);
+  --muted-foreground: hsl(215 20.2% 65.1%);
 
-  .react-select-container .react-select__option {
-    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-primary-content hover:bg-primary-content/20 hover:text-primary-content;
-  }
+  --accent: hsl(217.2 32.6% 17.5%);
+  --accent-foreground: hsl(210 40% 98%);
 
-  .react-select-container .react-select__option--is-selected {
-    @apply bg-accent text-accent-content;
-  }
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(210 40% 98%);
 
-  .outline-title {
-    text-shadow:
-      0px 0px 10px rgba(255, 255, 255, 0.5),
-      0px 0px 10px rgba(255, 255, 255, 1);
-  }
-  .outline-title-none {
-    text-shadow: none;
-  }
+  --border: hsl(217.2 32.6% 17.5%);
+  --input: hsl(217.2 32.6% 17.5%);
+  --ring: hsl(212.7 26.8% 83.9%);
 }
 
 .zoom-100 {
@@ -203,34 +121,6 @@
 
 .animate-step-in {
   animation: animate-step-in 0.6s cubic-bezier(0.07, 0.43, 0.02, 1);
-}
-
-[data-theme="upscayl"] .btn {
-  @apply h-10 !min-h-min px-3 py-2 font-medium normal-case;
-}
-
-[data-theme="upscayl"] input[type="range"] {
-  @apply rounded-full;
-}
-
-[data-theme="upscayl"] .react-select-container .react-select__control {
-  @apply h-10 cursor-pointer rounded-btn !border-0 !border-none !border-transparent bg-primary shadow-none;
-}
-
-[data-theme="upscayl"] .react-select-container .react-select__single-value {
-  @apply font-medium normal-case text-primary-content;
-}
-
-[data-theme="upscayl"] .react-select-container .react-select__input-container {
-  @apply text-xs font-medium normal-case text-primary-content;
-}
-
-[data-theme="upscayl"] .react-select-container .react-select__menu {
-  @apply rounded-lg bg-primary p-1 font-medium normal-case;
-}
-
-.__rcs-handle-button {
-  @apply border-white;
 }
 
 .mac-titlebar {
@@ -304,3 +194,118 @@
     -webkit-transform: perspective(120px) rotateX(-360deg) rotateY(-359.9deg);
   }
 }
+/* 
+@layer base {
+  * {
+    @apply border-border select-none;
+    font-family: "Poppins", sans-serif;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-base-300/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-base-content/20 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-base-content/50 rounded-full;
+  }
+}
+
+@layer utilities {
+  .animate {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  .step-heading {
+    @apply mb-2 font-semibold;
+  }
+  .react-select-container {
+    @apply w-40;
+  }
+  .full-width {
+    @apply w-full;
+  }
+  .react-select-container .react-select__control {
+    @apply rounded-btn bg-primary h-12 cursor-pointer !border-0 !border-none !border-transparent shadow-none;
+  }
+
+  .react-select-container .react-select__control--menu-is-open {
+    @apply bg-primary text-primary-content;
+  }
+
+  .react-select-container .react-select__single-value {
+    @apply text-primary-content text-sm font-semibold uppercase;
+  }
+
+  .react-select-container .react-select__input-container {
+    @apply text-primary-content text-sm font-semibold uppercase;
+  }
+
+  .react-select-container .react-select__menu {
+    @apply bg-primary rounded-lg p-1 text-sm font-semibold uppercase;
+  }
+
+  .react-select-container .react-select__option {
+    @apply bg-primary text-primary-content hover:bg-primary-content/20 hover:text-primary-content my-1 cursor-pointer rounded-md break-all;
+  }
+
+  .react-select-container .react-select__option--is-selected {
+    @apply bg-accent text-accent-content;
+  }
+
+  .outline-title {
+    text-shadow:
+      0px 0px 10px rgba(255, 255, 255, 0.5),
+      0px 0px 10px rgba(255, 255, 255, 1);
+  }
+  .outline-title-none {
+    text-shadow: none;
+  }
+
+  [data-theme="upscayl"] .btn {
+    @apply h-10 !min-h-min px-3 py-2 font-medium normal-case;
+  }
+
+  [data-theme="upscayl"] input[type="range"] {
+    @apply rounded-full;
+  }
+
+  [data-theme="upscayl"] .react-select-container .react-select__control {
+    @apply rounded-btn bg-primary h-10 cursor-pointer !border-0 !border-none !border-transparent shadow-none;
+  }
+
+  [data-theme="upscayl"] .react-select-container .react-select__single-value {
+    @apply text-primary-content font-medium normal-case;
+  }
+
+  [data-theme="upscayl"]
+    .react-select-container
+    .react-select__input-container {
+    @apply text-primary-content text-xs font-medium normal-case;
+  }
+
+  [data-theme="upscayl"] .react-select-container .react-select__menu {
+    @apply bg-primary rounded-lg p-1 font-medium normal-case;
+  }
+
+  .__rcs-handle-button {
+    @apply border-white;
+  }
+} */

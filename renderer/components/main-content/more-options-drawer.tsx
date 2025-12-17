@@ -53,12 +53,12 @@ const MoreOptionsDrawer = ({
       onDoubleClick={(e) => {
         e.stopPropagation();
       }}
-      className={`fixed right-0 top-0 z-50 h-screen w-[28rem] bg-base-100 text-base-content shadow-xl shadow-base-300 transition-all duration-500 ${
+      className={`fixed right-0 top-0 z-50 h-screen w-md bg-base-100 text-base-content shadow-xl shadow-base-300 transition-all duration-500 ${
         openSidebar ? "right-0" : "-right-full translate-x-full"
       }`}
     >
       <div
-        className={`group absolute right-[100%] top-1/2 z-50 flex cursor-pointer items-center gap-2 rounded-btn rounded-r-none bg-base-100 p-4 transition-all duration-500`}
+        className={`group absolute right-full top-1/2 z-50 flex cursor-pointer items-center gap-2 rounded-btn rounded-r-none bg-base-100 p-4 transition-all duration-500`}
         onClick={() => {
           setOpenSidebar(!openSidebar);
         }}

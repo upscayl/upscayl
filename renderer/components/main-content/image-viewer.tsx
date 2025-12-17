@@ -18,7 +18,7 @@ const ImageViewer = ({
       }}
       draggable="false"
       alt=""
-      className="h-full w-full bg-gradient-to-br from-base-300 to-base-100 object-contain"
+      className="h-full w-full bg-linear-to-br from-base-300 to-base-100 object-contain"
     />
   );
 };
