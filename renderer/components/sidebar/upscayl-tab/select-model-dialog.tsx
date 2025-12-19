@@ -44,7 +44,7 @@ const SelectModelDialog = () => {
     <div className="flex flex-col gap-4">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <button className="btn btn-primary justify-start border-border">
+          <button className="btn btn-primary border-border justify-start">
             <SwatchBookIcon className="mr-2 h-5 w-5" />
             {selectedModelId in MODELS
               ? t(
@@ -57,7 +57,7 @@ const SelectModelDialog = () => {
           <DialogHeader>
             <DialogTitle>{t("APP.MODEL_SELECTION.DESCRIPTION")}</DialogTitle>
           </DialogHeader>
-          <ScrollArea className="max-h-[600px] pr-4">
+          <ScrollArea className="max-h-150 pr-4">
             <div className="flex flex-col gap-4">
               {Object.entries(MODELS).map((modelData) => {
                 const modelId = modelData[0] as ModelId;
@@ -71,7 +71,7 @@ const SelectModelDialog = () => {
                     <p className="font-semibold">
                       {t(`APP.MODEL_SELECTION.MODELS.${modelId}.NAME`)}
                     </p>
-                    <p className="mb-2 text-left font-normal leading-normal text-base-content/70">
+                    <p className="text-base-content/70 mb-2 text-left leading-normal font-normal">
                       {t(`APP.MODEL_SELECTION.MODELS.${modelId}.DESCRIPTION`)}
                     </p>
                     <div className="relative h-52 w-full overflow-hidden rounded-sm">
@@ -90,16 +90,16 @@ const SelectModelDialog = () => {
                       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                         <div className="h-full w-px bg-white opacity-50"></div>
                       </div>
-                      <div className="absolute bottom-2 left-2 rounded bg-black bg-opacity-50 px-1 text-xs text-white">
+                      <div className="bg-opacity-50 absolute bottom-2 left-2 rounded bg-black px-1 text-xs text-white">
                         {t("APP.MODEL_SELECTION.BEFORE")}
                       </div>
-                      <div className="absolute bottom-2 right-2 rounded bg-black bg-opacity-50 px-1 text-xs text-white">
+                      <div className="bg-opacity-50 absolute right-2 bottom-2 rounded bg-black px-1 text-xs text-white">
                         {t("APP.MODEL_SELECTION.AFTER")}
                       </div>
                       <Button
                         variant="secondary"
                         size="icon"
-                        className="absolute right-2 top-2"
+                        className="absolute top-2 right-2"
                         onClick={(e) => handleZoom(e, modelId)}
                       >
                         <Maximize2 className="h-4 w-4" />
@@ -112,7 +112,7 @@ const SelectModelDialog = () => {
                 );
               })}
               {customModelIds.length > 0 && (
-                <p className="font-semibold text-base-content">
+                <p className="text-base-content font-semibold">
                   {t("APP.MODEL_SELECTION.IMPORTED_CUSTOM_MODELS")}
                 </p>
               )}
@@ -148,7 +148,7 @@ const SelectModelDialog = () => {
                   alt={`Zoomed in Image - Before`}
                   className="h-full w-full object-contain"
                 />
-                <div className="absolute bottom-4 left-4 rounded bg-black bg-opacity-50 px-2 py-1 text-sm text-white">
+                <div className="bg-opacity-50 absolute bottom-4 left-4 rounded bg-black px-2 py-1 text-sm text-white">
                   Before
                 </div>
               </div>
@@ -158,13 +158,13 @@ const SelectModelDialog = () => {
                   alt={`Zoomed in Image - After`}
                   className="h-full w-full object-contain"
                 />
-                <div className="absolute bottom-4 right-4 rounded bg-black bg-opacity-50 px-2 py-1 text-sm text-white">
+                <div className="bg-opacity-50 absolute right-4 bottom-4 rounded bg-black px-2 py-1 text-sm text-white">
                   After
                 </div>
               </div>
             </div>
             <button
-              className="btn btn-circle btn-secondary absolute right-4 top-4"
+              className="btn btn-circle btn-secondary absolute top-4 right-4"
               onClick={() => setZoomedModel(null)}
             >
               <X className="h-4 w-4" />

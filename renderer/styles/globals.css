@@ -2,8 +2,9 @@
 @plugin "daisyui";
 @plugin "tailwindcss-animate";
 @plugin "@tailwindcss/typography";
-@config "../../tailwind.config.js";
+@plugin "tailwind-scrollbar";
 
+/* Fonts */
 @font-face {
   font-family: "Poppins";
   src: url("../fonts/poppins/Poppins-Regular.ttf");
@@ -41,68 +42,165 @@
   font-style: normal;
 }
 
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Spacing */
+  --spacing-128: 28rem;
+
+  /* Animations */
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-marquee2: marquee2 25s linear infinite;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes marquee2 {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  /* Border Radius - Linked to DaisyUI variable */
+  --radius-lg: var(--rounded-btn);
+  --radius-md: calc(var(--rounded-btn) - 2px);
+  --radius-sm: calc(var(--rounded-btn) - 4px);
+
+  /* Shadcn Color Mapping to DaisyUI Variables */
+  --color-border: var(--color-primary);
+  --color-input: var(--color-base-content);
+  --color-ring: var(--color-base-content);
+  --color-background: var(--color-base-100);
+  --color-foreground: var(--color-base-content);
+
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-content);
+
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-content);
+
+  --color-destructive: var(--color-error);
+  --color-destructive-foreground: var(--color-error-content);
+
+  --color-muted: var(--color-base-300);
+  --color-muted-foreground: var(--color-base-content);
+
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-content);
+
+  --color-popover: var(--color-base-100);
+  --color-popover-foreground: var(--color-base-content);
+
+  --color-card: var(--color-base-100);
+  --color-card-foreground: var(--color-base-content);
+}
+
+/* Container Utility Override */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+/* 1. Global Mappings: Connect Shadcn to whatever the CURRENT DaisyUI theme is */
 :root {
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(222.2 84% 4.9%);
+  /* Map Shadcn Variables to the generic DaisyUI variables */
+  /* This allows Shadcn to adapt to ANY DaisyUI theme automatically */
+  --background: var(--color-base-100);
+  --foreground: var(--color-base-content);
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-primary-content);
+  --secondary: var(--color-secondary);
+  --secondary-foreground: var(--color-secondary-content);
+  --destructive: var(--color-error);
+  --destructive-foreground: var(--color-error-content);
+  --muted: var(--color-base-300);
+  --muted-foreground: var(--color-base-content);
+  --accent: var(--color-accent);
+  --accent-foreground: var(--color-accent-content);
+  --popover: var(--color-base-100);
+  --popover-foreground: var(--color-base-content);
+  --card: var(--color-base-100);
+  --card-foreground: var(--color-base-content);
+  --border: var(--color-primary);
+  --input: var(--color-base-content);
+  --ring: var(--color-base-content);
+  --radius: var(--rounded-btn);
 
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(222.2 84% 4.9%);
-
-  --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(222.2 84% 4.9%);
-
-  --primary: hsl(222.2 47.4% 11.2%);
-  --primary-foreground: hsl(210 40% 98%);
-
-  --secondary: hsl(210 40% 96.1%);
-  --secondary-foreground: hsl(222.2 47.4% 11.2%);
-
-  --muted: hsl(210 40% 96.1%);
-  --muted-foreground: hsl(215.4 16.3% 46.9%);
-
-  --accent: hsl(210 40% 96.1%);
-  --accent-foreground: hsl(222.2 47.4% 11.2%);
-
-  --destructive: hsl(0 84.2% 60.2%);
-  --destructive-foreground: hsl(210 40% 98%);
-
-  --border: hsl(214.3 31.8% 91.4%);
-  --input: hsl(214.3 31.8% 91.4%);
-  --ring: hsl(222.2 84% 4.9%);
-
-  --radius: hsl(0.5rem);
+  /* Default fallback for radius if a theme doesn't define it */
+  --rounded-btn: 0.5rem;
 }
 
-.dark {
-  --background: hsl(222.2 84% 4.9%);
-  --foreground: hsl(210 40% 98%);
+/* 2. Specific Definition for "Upscayl" Theme */
+[data-theme="upscayl"] {
+  color-scheme: dark;
 
-  --card: hsl(222.2 84% 4.9%);
-  --card-foreground: hsl(210 40% 98%);
+  /* Colors */
+  --color-primary: #334155;
+  --color-primary-content: #ffffff;
 
-  --popover: hsl(222.2 84% 4.9%);
-  --popover-foreground: hsl(210 40% 98%);
+  --color-secondary: #4f46e5;
+  --color-secondary-content: #ffffff;
 
-  --primary: hsl(210 40% 98%);
-  --primary-foreground: hsl(222.2 47.4% 11.2%);
+  --color-accent: #6d28d9;
+  --color-accent-content: #ffffff;
 
-  --secondary: hsl(217.2 32.6% 17.5%);
-  --secondary-foreground: hsl(210 40% 98%);
+  --color-neutral: #475569;
+  --color-neutral-content: #ffffff;
 
-  --muted: hsl(217.2 32.6% 17.5%);
-  --muted-foreground: hsl(215 20.2% 65.1%);
+  --color-base-100: #1e293b;
+  --color-base-200: #0f172a;
+  --color-base-300: #020617;
+  --color-base-content: #ffffff;
 
-  --accent: hsl(217.2 32.6% 17.5%);
-  --accent-foreground: hsl(210 40% 98%);
+  --color-error: #ef4444;
+  --color-error-content: #ffffff;
 
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: hsl(210 40% 98%);
-
-  --border: hsl(217.2 32.6% 17.5%);
-  --input: hsl(217.2 32.6% 17.5%);
-  --ring: hsl(212.7 26.8% 83.9%);
+  /* Settings */
+  --rounded-btn: 2rem;
+  --rounded-badge: 2rem;
+  --animation-btn: 0.5s;
+  --animation-input: 0.5s;
+  --btn-text-case: uppercase;
+  --btn-focus-scale: 0.95;
+  --border-btn: 1px;
+  --tab-border: 1px;
+  --tab-radius: 0.5rem;
 }
 
+/* Upscayl Custom Theme Fonts */
+@theme {
+  --font-sans: "Poppins", sans-serif;
+}
+
+/* Utilities */
 .zoom-100 {
   transform: scale(1);
 }
@@ -129,7 +227,8 @@
 
 .checkerboard {
   background-color: rgba(255, 255, 255);
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       45deg,
       #000 25%,
       transparent 25%,
@@ -150,7 +249,6 @@
 }
 
 .spinner {
-  -webkit-animation: sk-rotateplane 2.2s infinite ease-in-out;
   animation: sk-rotateplane 2.2s infinite ease-in-out;
 }
 
@@ -168,106 +266,68 @@
   }
 }
 
-@-webkit-keyframes sk-rotateplane {
-  0% {
-    -webkit-transform: perspective(120px);
-  }
-  50% {
-    -webkit-transform: perspective(120px) rotateY(360deg);
-  }
-  100% {
-    -webkit-transform: perspective(120px) rotateY(360deg) rotateX(360deg);
-  }
-}
-
 @keyframes sk-rotateplane {
   0% {
     transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
   }
   50% {
     transform: perspective(120px) rotateX(-360.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-360.1deg) rotateY(0deg);
   }
   100% {
     transform: perspective(120px) rotateX(-360deg) rotateY(-179.9deg);
-    -webkit-transform: perspective(120px) rotateX(-360deg) rotateY(-359.9deg);
-  }
-}
-/* 
-@layer base {
-  * {
-    @apply border-border select-none;
-    font-family: "Poppins", sans-serif;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-
-  .hide-scrollbar::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  .hide-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-transparent;
-  }
-
-  ::-webkit-scrollbar {
-    @apply w-2;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-base-300/30 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-base-content/20 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-base-content/50 rounded-full;
   }
 }
 
+/* Legacy Utility Overrides */
 @layer utilities {
-  .animate {
-    @apply transition-all duration-300 ease-in-out;
-  }
-  .step-heading {
-    @apply mb-2 font-semibold;
-  }
   .react-select-container {
-    @apply w-40;
+    width: 10rem;
   }
   .full-width {
-    @apply w-full;
-  }
-  .react-select-container .react-select__control {
-    @apply rounded-btn bg-primary h-12 cursor-pointer !border-0 !border-none !border-transparent shadow-none;
+    width: 100%;
   }
 
-  .react-select-container .react-select__control--menu-is-open {
-    @apply bg-primary text-primary-content;
+  .react-select-container .react-select__control {
+    border-radius: var(--rounded-btn);
+    background-color: var(--color-primary);
+    height: 3rem;
+    cursor: pointer;
+    border: none !important;
+    box-shadow: none;
+  }
+
+  [data-theme="upscayl"] .react-select-container .react-select__control {
+    height: 2.5rem;
   }
 
   .react-select-container .react-select__single-value {
-    @apply text-primary-content text-sm font-semibold uppercase;
-  }
-
-  .react-select-container .react-select__input-container {
-    @apply text-primary-content text-sm font-semibold uppercase;
+    color: var(--color-primary-content);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
   }
 
   .react-select-container .react-select__menu {
-    @apply bg-primary rounded-lg p-1 text-sm font-semibold uppercase;
+    background-color: var(--color-primary);
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
   }
 
   .react-select-container .react-select__option {
-    @apply bg-primary text-primary-content hover:bg-primary-content/20 hover:text-primary-content my-1 cursor-pointer rounded-md break-all;
+    background-color: var(--color-primary);
+    color: var(--color-primary-content);
+    margin-block: 0.25rem;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    word-break: break-all;
   }
 
   .react-select-container .react-select__option--is-selected {
-    @apply bg-accent text-accent-content;
+    background-color: var(--color-accent);
+    color: var(--color-accent-content);
   }
 
   .outline-title {
@@ -280,7 +340,7 @@
   }
 
   [data-theme="upscayl"] .btn {
-    @apply h-10 !min-h-min px-3 py-2 font-medium normal-case;
+    @apply h-10 min-h-min! px-3 py-2 font-medium normal-case;
   }
 
   [data-theme="upscayl"] input[type="range"] {
@@ -288,7 +348,8 @@
   }
 
   [data-theme="upscayl"] .react-select-container .react-select__control {
-    @apply rounded-btn bg-primary h-10 cursor-pointer !border-0 !border-none !border-transparent shadow-none;
+    @apply bg-primary h-10 cursor-pointer border-0! border-none! border-transparent! shadow-none;
+    border-radius: var(--rounded-btn);
   }
 
   [data-theme="upscayl"] .react-select-container .react-select__single-value {
@@ -304,8 +365,4 @@
   [data-theme="upscayl"] .react-select-container .react-select__menu {
     @apply bg-primary rounded-lg p-1 font-medium normal-case;
   }
-
-  .__rcs-handle-button {
-    @apply border-white;
-  }
-} */
+}
