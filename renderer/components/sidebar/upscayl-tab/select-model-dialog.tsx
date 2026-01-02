@@ -57,7 +57,7 @@ const SelectModelDialog = () => {
           <DialogHeader>
             <DialogTitle>{t("APP.MODEL_SELECTION.DESCRIPTION")}</DialogTitle>
           </DialogHeader>
-          <ScrollArea className="max-h-150 pr-4">
+          <ScrollArea className="max-h-[150] pr-4">
             <div className="flex flex-col gap-4">
               {Object.entries(MODELS).map((modelData) => {
                 const modelId = modelData[0] as ModelId;

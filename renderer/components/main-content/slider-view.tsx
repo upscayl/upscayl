@@ -35,33 +35,37 @@ const SliderView = ({
             src={"file:///" + sanitizedImagePath}
             alt={t("APP.SLIDER.ORIGINAL_TITLE")}
             onMouseMove={handleMouseMove}
-            style={{
-              objectFit: "contain",
-              backgroundPosition: "0% 0%",
-              transformOrigin: backgroundPosition,
-            }}
-            className={`h-full w-full bg-linear-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}%]`}
+            style={
+              {
+                objectFit: "contain",
+                backgroundPosition: "0% 0%",
+                transformOrigin: backgroundPosition,
+                "--zoom-amount": zoomAmount,
+              } as React.CSSProperties
+            }
+            className="from-base-300 to-base-100 h-full w-full bg-gradient-to-br transition-transform group-hover:scale-[var(--zoom-amount)]"
           />
         </>
       }
       itemTwo={
         <>
-          <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+          <p className="absolute right-1 bottom-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
             {t("APP.SLIDER.UPSCAYLED_TITLE")}
           </p>
           <img
             /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
             src={"file:///" + sanitizedUpscaledImagePath}
             alt={t("APP.SLIDER.UPSCAYLED_TITLE")}
-            style={{
-              objectFit: "contain",
-              backgroundPosition: "0% 0%",
-              transformOrigin: backgroundPosition,
-            }}
+            style={
+              {
+                objectFit: "contain",
+                backgroundPosition: "0% 0%",
+                transformOrigin: backgroundPosition,
+                "--zoom-amount": zoomAmount,
+              } as React.CSSProperties
+            }
             onMouseMove={handleMouseMove}
-            className={`h-full w-full bg-linear-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${
-              zoomAmount || "100%"
-            }%]`}
+            className="from-base-300 to-base-100 h-full w-full bg-gradient-to-br transition-transform group-hover:scale-[var(--zoom-amount)]"
           />
         </>
       }

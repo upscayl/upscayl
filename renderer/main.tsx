@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")!).render(
           <App />
           <Toaster />
           <Tooltip
-            className="bg-secondary! z-999 max-w-sm wrap-break-word"
+            className="bg-secondary! z-[999] max-w-sm wrap-break-word"
             id="tooltip"
           />
         </PostHogProviderWrapper>
