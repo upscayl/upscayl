@@ -11,7 +11,7 @@ const Tabs = ({ selectedTab, setSelectedTab }: TabsProps) => {
   const t = useAtomValue(translationAtom);
 
   return (
-    <div className="tabs-boxed tabs mx-auto mb-2">
+    <div className="tabs tabs-box mx-auto mb-2">
       <a
         className={`tab ${selectedTab === 0 && "tab-active"}`}
         onClick={() => {

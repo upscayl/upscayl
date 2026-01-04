@@ -85,9 +85,9 @@
 //         },
 //       },
 //       borderRadius: {
-//         lg: daisyuiColorObj["--rounded-btn"],
-//         md: Number(daisyuiColorObj["--rounded-btn"]) - 2 + "px",
-//         sm: Number(daisyuiColorObj["--rounded-btn"]) - 4 + "px",
+//         lg: daisyuiColorObj["--rounded-field"],
+//         md: Number(daisyuiColorObj["--rounded-field"]) - 2 + "px",
+//         sm: Number(daisyuiColorObj["--rounded-field"]) - 4 + "px",
 //       },
 //     },
 //   },
@@ -104,7 +104,7 @@
 //           "base-100": "#1e293b",
 //           "base-200": "#0f172a",
 //           "base-300": "#020617",
-//           "--rounded-btn": "2rem", // border radius rounded-btn utility class, used in buttons and similar element
+//           "--rounded-field": "2rem", // border radius rounded-field utility class, used in buttons and similar element
 //           "--rounded-badge": "2rem", // border radius rounded-badge utility class, used in badges and similar
 //           "--animation-btn": "0.5s", // duration of animation when you click on button
 //           "--animation-input": "0.5s", // duration of animation for inputs like checkbox, toggle, radio, etc

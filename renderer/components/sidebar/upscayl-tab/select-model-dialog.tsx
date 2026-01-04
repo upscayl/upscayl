@@ -44,7 +44,7 @@ const SelectModelDialog = () => {
     <div className="flex flex-col gap-4">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <button className="btn btn-primary border-border justify-start">
+          <button className="btn btn-primary justify-start">
             <SwatchBookIcon className="mr-2 h-5 w-5" />
             {selectedModelId in MODELS
               ? t(
@@ -53,7 +53,7 @@ const SelectModelDialog = () => {
               : selectedModelId}
           </button>
         </DialogTrigger>
-        <DialogContent className="z-50 sm:max-w-lg">
+        <DialogContent className="z-50 max-h-screen sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>{t("APP.MODEL_SELECTION.DESCRIPTION")}</DialogTitle>
           </DialogHeader>
@@ -136,10 +136,7 @@ const SelectModelDialog = () => {
         open={!!zoomedModel}
         onOpenChange={(open) => !open && setZoomedModel(null)}
       >
-        <DialogContent
-          className="h-screen w-screen max-w-full p-0"
-          hideCloseButton
-        >
+        <DialogContent className="h-screen w-screen max-w-full p-0">
           <div className="relative flex h-full w-full items-center justify-center bg-black">
             <div className="flex h-full w-full">
               <div className="relative h-full w-1/2">

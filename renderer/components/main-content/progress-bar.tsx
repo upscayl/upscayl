@@ -49,8 +49,8 @@ function ProgressBar({
   // }, [progress]);
 
   return (
-    <div className="absolute z-50 flex h-full w-full flex-col items-center justify-center bg-base-300/50 backdrop-blur-lg">
-      <div className="flex flex-col items-center gap-2 rounded-btn bg-base-100/50 p-4 backdrop-blur-lg">
+    <div className="bg-base-300/50 absolute z-50 flex h-full w-full flex-col items-center justify-center backdrop-blur-lg">
+      <div className="rounded-field bg-base-100/50 flex flex-col items-center gap-2 p-4 backdrop-blur-lg">
         <UpscaylSVGLogo className="spinner h-12 w-12" />
 
         <p className="rounded-full px-2 pb-2 font-bold">
@@ -70,7 +70,7 @@ function ProgressBar({
             <p className="text-sm font-bold">{progress}</p>
           )}
 
-          <p className="animate-pulse rounded-full px-2 pb-3 text-xs font-medium text-neutral-content/50">
+          <p className="text-neutral-content/50 animate-pulse rounded-full px-2 pb-3 text-xs font-medium">
             {t("APP.PROGRESS_BAR.IN_PROGRESS_TITLE")}
           </p>
         </div>

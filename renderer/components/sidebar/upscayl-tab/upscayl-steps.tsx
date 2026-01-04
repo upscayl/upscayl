@@ -116,7 +116,7 @@ function UpscaylSteps({
       <div className="flex flex-row items-center gap-2">
         <input
           type="checkbox"
-          className="toggle"
+          className="toggle toggle-primary-content"
           defaultChecked={batchMode}
           onClick={() => {
             if (!rememberOutputFolder) {
@@ -127,7 +127,7 @@ function UpscaylSteps({
           }}
         ></input>
         <p
-          className="mr-1 inline-block cursor-help text-sm"
+          className="text-sm"
           data-tooltip-id="tooltip"
           data-tooltip-content={t("APP.BATCH_MODE.DESCRIPTION")}
         >
@@ -214,7 +214,7 @@ function UpscaylSteps({
           </div>
           {!outputPath && FEATURE_FLAGS.APP_STORE_BUILD && (
             <div className="text-xs">
-              <span className="rounded-btn bg-base-200 text-base-content/50 px-2 font-medium uppercase">
+              <span className="rounded-field bg-base-200 text-base-content/50 px-2 font-medium uppercase">
                 {t("APP.OUTPUT_PATH_SELECTION.NOT_SELECTED")}
               </span>
             </div>

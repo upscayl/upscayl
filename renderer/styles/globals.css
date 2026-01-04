@@ -1,11 +1,55 @@
 @import "tailwindcss";
 /* 
 ---break--- */
-@custom-variant dark (&:is(.dark *));
-@plugin "daisyui";
-@plugin "tailwindcss-animate";
+@plugin "daisyui" {
+  themes:
+    dark, light, cupcake, bumblebee, emerald, corporate, synthwave, retro,
+    cyberpunk, valentine, halloween, garden, forest, aqua, lofi, pastel,
+    fantasy, wireframe, black, luxury, dracula, cmyk, autumn, business, acid,
+    lemonade, night, coffee, winter, dim, nord, sunset, caramellatte, abyss,
+    silk;
+}
+
+@plugin "daisyui/theme" {
+  name: "upscayl";
+  default: true;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(27.95% 0.0368 260);
+  --color-base-200: oklch(20.77% 0.0398 265.8);
+  --color-base-300: oklch(12.88% 0.0406 264.7);
+  --color-base-content: oklch(100% 0 0);
+  --color-primary: oklch(37.17% 0.0392 257.3);
+  --color-primary-content: oklch(100% 0 0);
+  --color-secondary: oklch(51.06% 0.2301 277);
+  --color-secondary-content: oklch(100% 0 0);
+  --color-accent: oklch(49.07% 0.2412 292.6);
+  --color-accent-content: oklch(100% 0 0);
+  --color-neutral: oklch(44.55% 0.0374 257.3);
+  --color-neutral-content: oklch(100% 0 0);
+  --color-info: oklch(87.1% 0.079 241.68);
+  --color-info-content: oklch(40% 0.079 241.68);
+  --color-success: oklch(83.9% 0.201 136.87);
+  --color-success-content: oklch(30% 0.201 136.87);
+  --color-warning: oklch(83.9% 0.165 80);
+  --color-warning-content: oklch(40% 0.165 80);
+  --color-error: oklch(75.1% 0.199 22.37);
+  --color-error-content: oklch(20% 0.199 22.37);
+  --radius-selector: 2rem;
+  --radius-field: 2rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
 @plugin "@tailwindcss/typography";
 @plugin "tailwind-scrollbar";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 /* Fonts */
 @font-face {
@@ -88,212 +132,53 @@
       height: 0;
     }
   }
-
-  /* Border Radius - Linked to DaisyUI variable */
-  --radius-lg: var(--rounded-btn);
-  --radius-md: calc(var(--rounded-btn) - 2px);
-  --radius-sm: calc(var(--rounded-btn) - 4px);
-
-  /* Shadcn Color Mapping to DaisyUI Variables */
-  --color-border: var(--color-primary);
-  --color-input: var(--color-base-content);
-  --color-ring: var(--color-base-content);
-  --color-background: var(--color-base-100);
-  --color-foreground: var(--color-base-content);
-
-  --color-primary: var(--color-primary);
-  --color-primary-foreground: var(--color-primary-content);
-
-  --color-secondary: var(--color-secondary);
-  --color-secondary-foreground: var(--color-secondary-content);
-
-  --color-destructive: var(--color-error);
-  --color-destructive-foreground: var(--color-error-content);
-
-  --color-muted: var(--color-base-300);
-  --color-muted-foreground: var(--color-base-content);
-
-  --color-accent: var(--color-accent);
-  --color-accent-foreground: var(--color-accent-content);
-
-  --color-popover: var(--color-base-100);
-  --color-popover-foreground: var(--color-base-content);
-
-  --color-card: var(--color-base-100);
-  --color-card-foreground: var(--color-base-content);
-}
-
-/* Container Utility Override */
-@utility container {
-  margin-inline: auto;
-  padding-inline: 2rem;
-  @media (width >= 1400px) {
-    max-width: 1400px;
-  }
 }
 
 /* 1. Global Mappings: Connect Shadcn to whatever the CURRENT DaisyUI theme is */
 :root {
   /* Map Shadcn Variables to the generic DaisyUI variables */
   /* This allows Shadcn to adapt to ANY DaisyUI theme automatically */
-  --background: var(--color-base-100);
-  --foreground: var(--color-base-content);
-  --primary: var(--color-primary);
-  --primary-foreground: var(--color-primary-content);
-  --secondary: var(--color-secondary);
-  --secondary-foreground: var(--color-secondary-content);
-  --destructive: var(--color-error);
-  --destructive-foreground: var(--color-error-content);
-  --muted: var(--color-base-300);
-  --muted-foreground: var(--color-base-content);
-  --accent: var(--color-accent);
-  --accent-foreground: var(--color-accent-content);
-  --popover: var(--color-base-100);
-  --popover-foreground: var(--color-base-content);
-  --card: var(--color-base-100);
-  --card-foreground: var(--color-base-content);
-  --border: var(--color-primary);
-  --input: var(--color-base-content);
-  --ring: var(--color-base-content);
-  --radius: var(--rounded-btn);
-
-  /* Default fallback for radius if a theme doesn't define it */
-  --rounded-btn: 0.5rem;
-}
-
-/* 2. Specific Definition for "Upscayl" Theme */
-[data-theme="upscayl"] {
-  color-scheme: dark;
-
-  /* Colors */
-  --color-primary: #334155;
-  --color-primary-content: #ffffff;
-
-  --color-secondary: #4f46e5;
-  --color-secondary-content: #ffffff;
-
-  --color-accent: #6d28d9;
-  --color-accent-content: #ffffff;
-
-  --color-neutral: #475569;
-  --color-neutral-content: #ffffff;
-
-  --color-base-100: #1e293b;
-  --color-base-200: #0f172a;
-  --color-base-300: #020617;
-  --color-base-content: #ffffff;
-
-  --color-error: #ef4444;
-  --color-error-content: #ffffff;
-
-  /* Settings */
-  --rounded-btn: 2rem;
-  --rounded-badge: 2rem;
-  --animation-btn: 0.5s;
-  --animation-input: 0.5s;
-  --btn-text-case: uppercase;
-  --btn-focus-scale: 0.95;
-  --border-btn: 1px;
-  --tab-border: 1px;
-  --tab-radius: 0.5rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: hsl(210 40% 98%);
-
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-
-  --radius: 0.625rem;
-
-  --chart-1: oklch(0.646 0.222 41.116);
-
-  --chart-2: oklch(0.6 0.118 184.704);
-
-  --chart-3: oklch(0.398 0.07 227.392);
-
-  --chart-4: oklch(0.828 0.189 84.429);
-
-  --chart-5: oklch(0.769 0.188 70.08);
-
-  --sidebar: oklch(0.984 0.003 247.858);
-
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-
-  --sidebar-border: oklch(0.929 0.013 255.508);
-
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --background: oklch(var(--color-base-100));
+  --foreground: oklch(var(--color-base-content));
+  --card: oklch(var(--color-base-100));
+  --card-foreground: oklch(var(--color-base-content));
+  --popover: oklch(var(--color-base-100));
+  --popover-foreground: oklch(var(--color-base-content));
+  --primary: oklch(var(--color-primary));
+  --primary-foreground: oklch(var(--color-primary-content));
+  --secondary: oklch(var(--color-secondary));
+  --secondary-foreground: oklch(var(--color-secondary-content));
+  --muted: oklch(var(--color-base-300));
+  --muted-foreground: oklch(var(--color-base-content));
+  --accent: oklch(var(--color-accent));
+  --accent-foreground: oklch(var(--color-accent-content));
+  --destructive: oklch(var(--color-error));
+  --destructive-foreground: oklch(var(--color-error-content));
+  --input: oklch(var(--color-base-content));
+  --ring: oklch(var(--color-base-content));
+  --radius: var(--rounded-field);
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: hsl(210 40% 98%);
-
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: oklch(var(--color-base-100));
+  --foreground: oklch(var(--color-base-content));
+  --card: oklch(var(--color-base-200));
+  --card-foreground: oklch(var(--color-base-content));
+  --popover: oklch(var(--color-base-200));
+  --popover-foreground: oklch(var(--color-base-content));
+  --primary: oklch(var(--color-primary));
+  --primary-foreground: oklch(var(--color-primary-content));
+  --secondary: oklch(var(--color-secondary));
+  --secondary-foreground: oklch(var(--color-secondary-content));
+  --muted: oklch(var(--color-base-300));
+  --muted-foreground: oklch(var(--color-base-content));
+  --accent: oklch(var(--color-accent));
+  --accent-foreground: oklch(var(--color-accent-content));
+  --destructive: oklch(var(--color-error));
+  --destructive-foreground: oklch(var(--color-error-content));
+  --input: oklch(var(--color-base-content));
+  --ring: oklch(var(--color-base-content));
+  --radius: var(--rounded-field);
 }
 
 /* Upscayl Custom Theme Fonts */
@@ -324,29 +209,6 @@
 
 .mac-titlebar {
   -webkit-app-region: drag;
-}
-
-.checkerboard {
-  background-color: rgba(255, 255, 255);
-  background-image:
-    linear-gradient(
-      45deg,
-      #000 25%,
-      transparent 25%,
-      transparent 75%,
-      #000 75%,
-      #000
-    ),
-    linear-gradient(
-      -45deg,
-      #000 25%,
-      transparent 25%,
-      transparent 75%,
-      #000 75%,
-      #000
-    );
-  background-size: 40px 40px;
-  background-repeat: repeat;
 }
 
 .spinner {
@@ -389,7 +251,7 @@
   }
 
   .react-select-container .react-select__control {
-    border-radius: var(--rounded-btn);
+    border-radius: var(--rounded-field);
     background-color: var(--color-primary);
     height: 3rem;
     cursor: pointer;
@@ -450,7 +312,7 @@
 
   [data-theme="upscayl"] .react-select-container .react-select__control {
     @apply bg-primary h-10 cursor-pointer border-0! border-none! border-transparent! shadow-none;
-    border-radius: var(--rounded-btn);
+    border-radius: var(--rounded-field);
   }
 
   [data-theme="upscayl"] .react-select-container .react-select__single-value {
@@ -469,56 +331,5 @@
 
   .__rcs-handle-button {
     @apply border-white;
-  }
-}
-
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-/* 
----break--- */
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
