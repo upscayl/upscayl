@@ -103,9 +103,9 @@ function SettingsTab({
     }
   };
 
-  const upscaylVersion = navigator?.userAgent?.match(
-    /Upscayl\/([\d\.]+\d+)/,
-  )[1];
+  // const upscaylVersion = navigator?.userAgent?.match(
+  //   /Upscayl\/([\d\.]+\d+)/,
+  // )[1];
 
   function disableScrolling() {
     if (timeoutId !== null) {
@@ -130,7 +130,7 @@ function SettingsTab({
   return (
     <div
       className={cn(
-        "animate-step-in animate z-50 flex h-screen flex-col gap-7 overflow-y-auto overflow-x-hidden p-5",
+        "animate-step-in animate z-50 flex h-screen flex-col gap-7 overflow-x-hidden overflow-y-auto p-5",
         enableScrollbar ? "" : "hide-scrollbar",
       )}
       onScroll={() => {
@@ -182,9 +182,12 @@ function SettingsTab({
         saveImageAs={saveImageAs}
         setExportType={setExportType}
       />
-      
+
       {/* COPY METADATA TOGGLE */}
-      <CopyMetadataToggle saveImageAs={saveImageAs} setExportType={setExportType} />
+      <CopyMetadataToggle
+        saveImageAs={saveImageAs}
+        setExportType={setExportType}
+      />
 
       {/* IMAGE SCALE */}
       <SelectImageScale scale={scale} setScale={setScale} />
@@ -222,7 +225,7 @@ function SettingsTab({
       {FEATURE_FLAGS.SHOW_UPSCAYL_CLOUD_INFO && (
         <>
           <button
-            className="mx-5 mb-5 animate-pulse rounded-btn bg-success p-1 text-sm text-slate-50 shadow-lg shadow-success/40"
+            className="rounded-btn bg-success shadow-success/40 mx-5 mb-5 animate-pulse p-1 text-sm text-slate-50 shadow-lg"
             onClick={() => {
               setShow(true);
             }}
