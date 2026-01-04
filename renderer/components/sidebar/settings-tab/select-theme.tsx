@@ -35,6 +35,12 @@ const SelectTheme = ({ hideLabel }: { hideLabel?: boolean }) => {
     { label: "night", value: "night" },
     { label: "coffee", value: "coffee" },
     { label: "winter", value: "winter" },
+    { label: "dim", value: "dim" },
+    { label: "nord", value: "nord" },
+    { label: "sunset", value: "sunset" },
+    { label: "caramellatte", value: "caramellatte" },
+    { label: "abyss", value: "abyss" },
+    { label: "silk", value: "silk" },
   ];
   const t = useAtomValue(translationAtom);
 

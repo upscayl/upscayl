@@ -225,7 +225,7 @@ function SettingsTab({
       {FEATURE_FLAGS.SHOW_UPSCAYL_CLOUD_INFO && (
         <>
           <button
-            className="rounded-btn bg-success shadow-success/40 mx-5 mb-5 animate-pulse p-1 text-sm text-slate-50 shadow-lg"
+            className="rounded-field bg-success shadow-success/40 mx-5 mb-5 animate-pulse p-1 text-sm text-slate-50 shadow-lg"
             onClick={() => {
               setShow(true);
             }}

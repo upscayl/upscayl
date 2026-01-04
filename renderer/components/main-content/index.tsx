@@ -306,7 +306,7 @@ const MainContent = ({
       {batchMode &&
         upscaledBatchFolderPath.length === 0 &&
         batchFolderPath.length > 0 && (
-          <p className="select-none text-base-content">
+          <p className="text-base-content select-none">
             <span className="font-bold">
               {t("APP.PROGRESS.BATCH.SELECTED_FOLDER_TITLE")}
             </span>{" "}
@@ -317,11 +317,11 @@ const MainContent = ({
 
       {batchMode && upscaledBatchFolderPath.length > 0 && (
         <div className="z-50 flex flex-col items-center">
-          <p className="select-none py-4 font-bold text-base-content">
+          <p className="text-base-content py-4 font-bold select-none">
             {t("APP.PROGRESS.BATCH.DONE_TITLE")}
           </p>
           <button
-            className="bg-gradient-blue btn btn-primary rounded-btn p-3 font-medium text-white/90 transition-colors"
+            className="bg-gradient-blue btn btn-primary rounded-field p-3 font-medium text-white/90 transition-colors"
             onClick={openFolderHandler}
           >
             {t("APP.PROGRESS.BATCH.OPEN_UPSCAYLED_FOLDER_TITLE")}

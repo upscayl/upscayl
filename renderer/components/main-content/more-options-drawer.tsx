@@ -53,19 +53,19 @@ const MoreOptionsDrawer = ({
       onDoubleClick={(e) => {
         e.stopPropagation();
       }}
-      className={`fixed right-0 top-0 z-50 h-screen w-md bg-base-100 text-base-content shadow-xl shadow-base-300 transition-all duration-500 ${
+      className={`bg-base-100 text-base-content shadow-base-300 fixed top-0 right-0 z-50 h-screen w-md shadow-xl transition-all duration-500 ${
         openSidebar ? "right-0" : "-right-full translate-x-full"
       }`}
     >
       <div
-        className={`group absolute right-full top-1/2 z-50 flex cursor-pointer items-center gap-2 rounded-btn rounded-r-none bg-base-100 p-4 transition-all duration-500`}
+        className={`group rounded-field bg-base-100 absolute top-1/2 right-full z-50 flex cursor-pointer items-center gap-2 rounded-r-none p-4 transition-all duration-500`}
         onClick={() => {
           setOpenSidebar(!openSidebar);
         }}
       >
         <EllipsisIcon
           className={cn(
-            "animate text-xl text-base-content",
+            "animate text-base-content text-xl",
             openSidebar ? "rotate-90" : "rotate-0",
           )}
         />
@@ -119,7 +119,7 @@ const MoreOptionsDrawer = ({
         </div>
 
         <div className="mt-5 flex min-h-0 flex-1 flex-col gap-2">
-          <p className="text-sm font-semibold uppercase text-base-content">
+          <p className="text-base-content text-sm font-semibold uppercase">
             Stats
           </p>
 
@@ -128,7 +128,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.TOTAL_UPSCAYLS")}
               </div>
-              <div className="stat-value text-2xl text-base-content">
+              <div className="stat-value text-base-content text-2xl">
                 {userStats.totalUpscayls}
               </div>
             </div>
@@ -137,7 +137,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.TOTAL_BATCH_UPSCAYLS")}
               </div>
-              <div className="stat-value text-2xl text-base-content">
+              <div className="stat-value text-base-content text-2xl">
                 {userStats.batchUpscayls}
               </div>
             </div>
@@ -146,7 +146,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.TOTAL_IMAGE_UPSCAYLS")}
               </div>
-              <div className="stat-value text-2xl text-base-content">
+              <div className="stat-value text-base-content text-2xl">
                 {userStats.imageUpscayls}
               </div>
             </div>
@@ -155,7 +155,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.TOTAL_DOUBLE_UPSCAYLS")}
               </div>
-              <div className="stat-value text-2xl text-base-content">
+              <div className="stat-value text-base-content text-2xl">
                 {userStats.doubleUpscayls}
               </div>
             </div>
@@ -164,7 +164,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.AVERAGE_UPSCAYL_TIME")}
               </div>
-              <div className="stat-value text-2xl text-base-content">
+              <div className="stat-value text-base-content text-2xl">
                 {formatDuration(userStats.averageUpscaylTime / 1000)}
               </div>
             </div>
@@ -173,7 +173,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.LAST_UPSCAYL_DURATION")}
               </div>
-              <div className="stat-value text-2xl text-base-content">
+              <div className="stat-value text-base-content text-2xl">
                 {formatDuration(userStats.lastUpscaylDuration / 1000)}
               </div>
             </div>
@@ -182,7 +182,7 @@ const MoreOptionsDrawer = ({
               <div className="stat-title">
                 {t("APP.MORE_OPTIONS_DRAWER.LAST_USED_AT")}
               </div>
-              <div className="stat-value text-2xl text-base-content">
+              <div className="stat-value text-base-content text-2xl">
                 {new Date(userStats.lastUsedAt).toLocaleString()}
               </div>
             </div>

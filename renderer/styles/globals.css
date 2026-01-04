@@ -1,12 +1,57 @@
 @import "tailwindcss";
 /* 
 ---break--- */
-@custom-variant dark (&:is(.dark *));
-@plugin "daisyui";
-@plugin "tailwindcss-animate";
-@plugin "@tailwindcss/typography";
-@config "../../tailwind.config.js";
+@plugin "daisyui" {
+  themes:
+    dark, light, cupcake, bumblebee, emerald, corporate, synthwave, retro,
+    cyberpunk, valentine, halloween, garden, forest, aqua, lofi, pastel,
+    fantasy, wireframe, black, luxury, dracula, cmyk, autumn, business, acid,
+    lemonade, night, coffee, winter, dim, nord, sunset, caramellatte, abyss,
+    silk;
+}
 
+@plugin "daisyui/theme" {
+  name: "upscayl";
+  default: true;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(27.95% 0.0368 260);
+  --color-base-200: oklch(20.77% 0.0398 265.8);
+  --color-base-300: oklch(12.88% 0.0406 264.7);
+  --color-base-content: oklch(100% 0 0);
+  --color-primary: oklch(37.17% 0.0392 257.3);
+  --color-primary-content: oklch(100% 0 0);
+  --color-secondary: oklch(51.06% 0.2301 277);
+  --color-secondary-content: oklch(100% 0 0);
+  --color-accent: oklch(49.07% 0.2412 292.6);
+  --color-accent-content: oklch(100% 0 0);
+  --color-neutral: oklch(44.55% 0.0374 257.3);
+  --color-neutral-content: oklch(100% 0 0);
+  --color-info: oklch(87.1% 0.079 241.68);
+  --color-info-content: oklch(40% 0.079 241.68);
+  --color-success: oklch(83.9% 0.201 136.87);
+  --color-success-content: oklch(30% 0.201 136.87);
+  --color-warning: oklch(83.9% 0.165 80);
+  --color-warning-content: oklch(40% 0.165 80);
+  --color-error: oklch(75.1% 0.199 22.37);
+  --color-error-content: oklch(20% 0.199 22.37);
+  --radius-selector: 2rem;
+  --radius-field: 2rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin "@tailwindcss/typography";
+@plugin "tailwind-scrollbar";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Fonts */
 @font-face {
   font-family: "Poppins";
   src: url("../fonts/poppins/Poppins-Regular.ttf");
@@ -44,107 +89,104 @@
   font-style: normal;
 }
 
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Spacing */
+  --spacing-128: 28rem;
+
+  /* Animations */
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-marquee2: marquee2 25s linear infinite;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes marquee2 {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/* 1. Global Mappings: Connect Shadcn to whatever the CURRENT DaisyUI theme is */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: hsl(210 40% 98%);
-
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-
-  --radius: 0.625rem;
-
-  --chart-1: oklch(0.646 0.222 41.116);
-
-  --chart-2: oklch(0.6 0.118 184.704);
-
-  --chart-3: oklch(0.398 0.07 227.392);
-
-  --chart-4: oklch(0.828 0.189 84.429);
-
-  --chart-5: oklch(0.769 0.188 70.08);
-
-  --sidebar: oklch(0.984 0.003 247.858);
-
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-
-  --sidebar-border: oklch(0.929 0.013 255.508);
-
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  /* Map Shadcn Variables to the generic DaisyUI variables */
+  /* This allows Shadcn to adapt to ANY DaisyUI theme automatically */
+  --background: oklch(var(--color-base-100));
+  --foreground: oklch(var(--color-base-content));
+  --card: oklch(var(--color-base-100));
+  --card-foreground: oklch(var(--color-base-content));
+  --popover: oklch(var(--color-base-100));
+  --popover-foreground: oklch(var(--color-base-content));
+  --primary: oklch(var(--color-primary));
+  --primary-foreground: oklch(var(--color-primary-content));
+  --secondary: oklch(var(--color-secondary));
+  --secondary-foreground: oklch(var(--color-secondary-content));
+  --muted: oklch(var(--color-base-300));
+  --muted-foreground: oklch(var(--color-base-content));
+  --accent: oklch(var(--color-accent));
+  --accent-foreground: oklch(var(--color-accent-content));
+  --destructive: oklch(var(--color-error));
+  --destructive-foreground: oklch(var(--color-error-content));
+  --input: oklch(var(--color-base-content));
+  --ring: oklch(var(--color-base-content));
+  --radius: var(--rounded-field);
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: hsl(210 40% 98%);
-
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: oklch(var(--color-base-100));
+  --foreground: oklch(var(--color-base-content));
+  --card: oklch(var(--color-base-200));
+  --card-foreground: oklch(var(--color-base-content));
+  --popover: oklch(var(--color-base-200));
+  --popover-foreground: oklch(var(--color-base-content));
+  --primary: oklch(var(--color-primary));
+  --primary-foreground: oklch(var(--color-primary-content));
+  --secondary: oklch(var(--color-secondary));
+  --secondary-foreground: oklch(var(--color-secondary-content));
+  --muted: oklch(var(--color-base-300));
+  --muted-foreground: oklch(var(--color-base-content));
+  --accent: oklch(var(--color-accent));
+  --accent-foreground: oklch(var(--color-accent-content));
+  --destructive: oklch(var(--color-error));
+  --destructive-foreground: oklch(var(--color-error-content));
+  --input: oklch(var(--color-base-content));
+  --ring: oklch(var(--color-base-content));
+  --radius: var(--rounded-field);
 }
 
+/* Upscayl Custom Theme Fonts */
+@theme {
+  --font-sans: "Poppins", sans-serif;
+}
+
+/* Utilities */
 .zoom-100 {
   transform: scale(1);
 }
@@ -169,30 +211,7 @@
   -webkit-app-region: drag;
 }
 
-.checkerboard {
-  background-color: rgba(255, 255, 255);
-  background-image: linear-gradient(
-      45deg,
-      #000 25%,
-      transparent 25%,
-      transparent 75%,
-      #000 75%,
-      #000
-    ),
-    linear-gradient(
-      -45deg,
-      #000 25%,
-      transparent 25%,
-      transparent 75%,
-      #000 75%,
-      #000
-    );
-  background-size: 40px 40px;
-  background-repeat: repeat;
-}
-
 .spinner {
-  -webkit-animation: sk-rotateplane 2.2s infinite ease-in-out;
   animation: sk-rotateplane 2.2s infinite ease-in-out;
 }
 
@@ -210,106 +229,68 @@
   }
 }
 
-@-webkit-keyframes sk-rotateplane {
-  0% {
-    -webkit-transform: perspective(120px);
-  }
-  50% {
-    -webkit-transform: perspective(120px) rotateY(360deg);
-  }
-  100% {
-    -webkit-transform: perspective(120px) rotateY(360deg) rotateX(360deg);
-  }
-}
-
 @keyframes sk-rotateplane {
   0% {
     transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
   }
   50% {
     transform: perspective(120px) rotateX(-360.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-360.1deg) rotateY(0deg);
   }
   100% {
     transform: perspective(120px) rotateX(-360deg) rotateY(-179.9deg);
-    -webkit-transform: perspective(120px) rotateX(-360deg) rotateY(-359.9deg);
-  }
-}
-/* 
-@layer base {
-  * {
-    @apply border-border select-none;
-    font-family: "Poppins", sans-serif;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-
-  .hide-scrollbar::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  .hide-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-transparent;
-  }
-
-  ::-webkit-scrollbar {
-    @apply w-2;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-base-300/30 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-base-content/20 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-base-content/50 rounded-full;
   }
 }
 
+/* Legacy Utility Overrides */
 @layer utilities {
-  .animate {
-    @apply transition-all duration-300 ease-in-out;
-  }
-  .step-heading {
-    @apply mb-2 font-semibold;
-  }
   .react-select-container {
-    @apply w-40;
+    width: 10rem;
   }
   .full-width {
-    @apply w-full;
-  }
-  .react-select-container .react-select__control {
-    @apply rounded-btn bg-primary h-12 cursor-pointer !border-0 !border-none !border-transparent shadow-none;
+    width: 100%;
   }
 
-  .react-select-container .react-select__control--menu-is-open {
-    @apply bg-primary text-primary-content;
+  .react-select-container .react-select__control {
+    border-radius: var(--rounded-field);
+    background-color: var(--color-primary);
+    height: 3rem;
+    cursor: pointer;
+    border: none !important;
+    box-shadow: none;
+  }
+
+  [data-theme="upscayl"] .react-select-container .react-select__control {
+    height: 2.5rem;
   }
 
   .react-select-container .react-select__single-value {
-    @apply text-primary-content text-sm font-semibold uppercase;
-  }
-
-  .react-select-container .react-select__input-container {
-    @apply text-primary-content text-sm font-semibold uppercase;
+    color: var(--color-primary-content);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
   }
 
   .react-select-container .react-select__menu {
-    @apply bg-primary rounded-lg p-1 text-sm font-semibold uppercase;
+    background-color: var(--color-primary);
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
   }
 
   .react-select-container .react-select__option {
-    @apply bg-primary text-primary-content hover:bg-primary-content/20 hover:text-primary-content my-1 cursor-pointer rounded-md break-all;
+    background-color: var(--color-primary);
+    color: var(--color-primary-content);
+    margin-block: 0.25rem;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    word-break: break-all;
   }
 
   .react-select-container .react-select__option--is-selected {
-    @apply bg-accent text-accent-content;
+    background-color: var(--color-accent);
+    color: var(--color-accent-content);
   }
 
   .outline-title {
@@ -322,7 +303,7 @@
   }
 
   [data-theme="upscayl"] .btn {
-    @apply h-10 !min-h-min px-3 py-2 font-medium normal-case;
+    @apply h-10 min-h-min! px-3 py-2 font-medium normal-case;
   }
 
   [data-theme="upscayl"] input[type="range"] {
@@ -330,7 +311,8 @@
   }
 
   [data-theme="upscayl"] .react-select-container .react-select__control {
-    @apply rounded-btn bg-primary h-10 cursor-pointer !border-0 !border-none !border-transparent shadow-none;
+    @apply bg-primary h-10 cursor-pointer border-0! border-none! border-transparent! shadow-none;
+    border-radius: var(--rounded-field);
   }
 
   [data-theme="upscayl"] .react-select-container .react-select__single-value {
@@ -349,57 +331,5 @@
 
   .__rcs-handle-button {
     @apply border-white;
-  }
-} */
-/* 
----break--- */
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-/* 
----break--- */
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

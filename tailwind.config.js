@@ -1,155 +1,152 @@
 // import daisyuiColorObj from "daisyui/src/theming/themes";
 
-export default {
-  darkMode: ["class"],
-  content: [
-    "./renderer/**/*.{js,ts,jsx,tsx}",
-    "./renderer/components/**/*.{js,ts,jsx,tsx}",
-  ],
-  safelist: [
-    ...[...Array(101).keys()].flatMap((index) => [
-      `group-hover:scale-[${index * 10}%]`,
-      `group-hover:scale-[${index * 10}%]`,
-    ]),
-  ],
-  prefix: "",
-  theme: {
-    extend: {
-      animation: {
-        marquee: "marquee 25s linear infinite",
-        marquee2: "marquee2 25s linear infinite",
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
-      keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-100%)" },
-        },
-        marquee2: {
-          "0%": { transform: "translateX(100%)" },
-          "100%": { transform: "translateX(0%)" },
-        },
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      container: {
-        center: true,
-        padding: "2rem",
-        screens: {
-          "2xl": "1400px",
-        },
-      },
-      spacing: {
-        128: "28rem",
-      },
-      // colors: {
-      //   border: daisyuiColorObj["primary"],
-      //   input: daisyuiColorObj["base-content"],
-      //   ring: daisyuiColorObj["base-content"],
-      //   background: daisyuiColorObj["base-100"],
-      //   foreground: daisyuiColorObj["base-content"],
-      //   primary: {
-      //     DEFAULT: daisyuiColorObj["primary"],
-      //     foreground: daisyuiColorObj["primary-content"],
-      //   },
-      //   secondary: {
-      //     DEFAULT: daisyuiColorObj["secondary"],
-      //     foreground: daisyuiColorObj["secondary-content"],
-      //   },
-      //   destructive: {
-      //     DEFAULT: daisyuiColorObj["error"],
-      //     foreground: daisyuiColorObj["error-content"],
-      //   },
-      //   muted: {
-      //     DEFAULT: daisyuiColorObj["base-300"],
-      //     foreground: daisyuiColorObj["base-content"],
-      //   },
-      //   accent: {
-      //     DEFAULT: daisyuiColorObj["accent"],
-      //     foreground: daisyuiColorObj["accent-content"],
-      //   },
-      //   popover: {
-      //     DEFAULT: daisyuiColorObj["base-100"],
-      //     foreground: daisyuiColorObj["base-content"],
-      //   },
-      //   card: {
-      //     DEFAULT: daisyuiColorObj["base-100"],
-      //     foreground: daisyuiColorObj["base-content"],
-      //   },
-      // },
-      // borderRadius: {
-      //   lg: daisyuiColorObj["--rounded-btn"],
-      //   md: Number(daisyuiColorObj["--rounded-btn"]) - 2 + "px",
-      //   sm: Number(daisyuiColorObj["--rounded-btn"]) - 4 + "px",
-      // },
-    },
-  },
-  plugins: [
-    //require("daisyui"),
-    // require("tailwind-scrollbar"),
-  ],
-  // daisyui: {
-  //   darkTheme: "upscayl",
-  //   themes: [
-  //     {
-  //       upscayl: {
-  //         primary: "#334155",
-  //         secondary: "#4f46e5",
-  //         accent: "#6d28d9",
-  //         neutral: "#475569",
-  //         "base-100": "#1e293b",
-  //         "base-200": "#0f172a",
-  //         "base-300": "#020617",
-  //         "--rounded-btn": "2rem", // border radius rounded-btn utility class, used in buttons and similar element
-  //         "--rounded-badge": "2rem", // border radius rounded-badge utility class, used in badges and similar
-  //         "--animation-btn": "0.5s", // duration of animation when you click on button
-  //         "--animation-input": "0.5s", // duration of animation for inputs like checkbox, toggle, radio, etc
-  //         "--btn-text-case": "uppercase", // set default text transform for buttons
-  //         "--btn-focus-scale": "0.95", // scale transform of button when you focus on it
-  //         "--border-btn": "1px", // border width of buttons
-  //         "--tab-border": "1px", // border width of tabs
-  //         "--tab-radius": "0.5rem", // border radius of tabs
-  //       },
-  //     },
-  //     "light",
-  //     "dark",
-  //     "cupcake",
-  //     "bumblebee",
-  //     "emerald",
-  //     "corporate",
-  //     "synthwave",
-  //     "retro",
-  //     "cyberpunk",
-  //     "valentine",
-  //     "halloween",
-  //     "garden",
-  //     "forest",
-  //     "aqua",
-  //     "lofi",
-  //     "pastel",
-  //     "fantasy",
-  //     "wireframe",
-  //     "black",
-  //     "luxury",
-  //     "dracula",
-  //     "cmyk",
-  //     "autumn",
-  //     "business",
-  //     "acid",
-  //     "lemonade",
-  //     "night",
-  //     "coffee",
-  //     "winter",
-  //   ],
-  // },
-};
+// export default {
+//   darkMode: ["class"],
+//   content: [
+//     "./renderer/**/*.{js,ts,jsx,tsx}",
+//     "./renderer/components/**/*.{js,ts,jsx,tsx}",
+//   ],
+//   safelist: [
+//     ...[...Array(101).keys()].flatMap((index) => [
+//       `group-hover:scale-[${index * 10}%]`,
+//       `group-hover:scale-[${index * 10}%]`,
+//     ]),
+//   ],
+//   prefix: "",
+//   theme: {
+//     extend: {
+//       animation: {
+//         marquee: "marquee 25s linear infinite",
+//         marquee2: "marquee2 25s linear infinite",
+//         "accordion-down": "accordion-down 0.2s ease-out",
+//         "accordion-up": "accordion-up 0.2s ease-out",
+//       },
+//       keyframes: {
+//         marquee: {
+//           "0%": { transform: "translateX(0%)" },
+//           "100%": { transform: "translateX(-100%)" },
+//         },
+//         marquee2: {
+//           "0%": { transform: "translateX(100%)" },
+//           "100%": { transform: "translateX(0%)" },
+//         },
+//         "accordion-down": {
+//           from: { height: "0" },
+//           to: { height: "var(--radix-accordion-content-height)" },
+//         },
+//         "accordion-up": {
+//           from: { height: "var(--radix-accordion-content-height)" },
+//           to: { height: "0" },
+//         },
+//       },
+//       container: {
+//         center: true,
+//         padding: "2rem",
+//         screens: {
+//           "2xl": "1400px",
+//         },
+//       },
+//       spacing: {
+//         128: "28rem",
+//       },
+//       colors: {
+//         border: daisyuiColorObj["primary"],
+//         input: daisyuiColorObj["base-content"],
+//         ring: daisyuiColorObj["base-content"],
+//         background: daisyuiColorObj["base-100"],
+//         foreground: daisyuiColorObj["base-content"],
+//         primary: {
+//           DEFAULT: daisyuiColorObj["primary"],
+//           foreground: daisyuiColorObj["primary-content"],
+//         },
+//         secondary: {
+//           DEFAULT: daisyuiColorObj["secondary"],
+//           foreground: daisyuiColorObj["secondary-content"],
+//         },
+//         destructive: {
+//           DEFAULT: daisyuiColorObj["error"],
+//           foreground: daisyuiColorObj["error-content"],
+//         },
+//         muted: {
+//           DEFAULT: daisyuiColorObj["base-300"],
+//           foreground: daisyuiColorObj["base-content"],
+//         },
+//         accent: {
+//           DEFAULT: daisyuiColorObj["accent"],
+//           foreground: daisyuiColorObj["accent-content"],
+//         },
+//         popover: {
+//           DEFAULT: daisyuiColorObj["base-100"],
+//           foreground: daisyuiColorObj["base-content"],
+//         },
+//         card: {
+//           DEFAULT: daisyuiColorObj["base-100"],
+//           foreground: daisyuiColorObj["base-content"],
+//         },
+//       },
+//       borderRadius: {
+//         lg: daisyuiColorObj["--rounded-field"],
+//         md: Number(daisyuiColorObj["--rounded-field"]) - 2 + "px",
+//         sm: Number(daisyuiColorObj["--rounded-field"]) - 4 + "px",
+//       },
+//     },
+//   },
+//   plugins: [require("daisyui"), require("tailwind-scrollbar")],
+//   daisyui: {
+//     darkTheme: "upscayl",
+//     themes: [
+//       {
+//         upscayl: {
+//           primary: "#334155",
+//           secondary: "#4f46e5",
+//           accent: "#6d28d9",
+//           neutral: "#475569",
+//           "base-100": "#1e293b",
+//           "base-200": "#0f172a",
+//           "base-300": "#020617",
+//           "--rounded-field": "2rem", // border radius rounded-field utility class, used in buttons and similar element
+//           "--rounded-badge": "2rem", // border radius rounded-badge utility class, used in badges and similar
+//           "--animation-btn": "0.5s", // duration of animation when you click on button
+//           "--animation-input": "0.5s", // duration of animation for inputs like checkbox, toggle, radio, etc
+//           "--btn-text-case": "uppercase", // set default text transform for buttons
+//           "--btn-focus-scale": "0.95", // scale transform of button when you focus on it
+//           "--border-btn": "1px", // border width of buttons
+//           "--tab-border": "1px", // border width of tabs
+//           "--tab-radius": "0.5rem", // border radius of tabs
+//         },
+//       },
+//       "light",
+//       "dark",
+//       "cupcake",
+//       "bumblebee",
+//       "emerald",
+//       "corporate",
+//       "synthwave",
+//       "retro",
+//       "cyberpunk",
+//       "valentine",
+//       "halloween",
+//       "garden",
+//       "forest",
+//       "aqua",
+//       "lofi",
+//       "pastel",
+//       "fantasy",
+//       "wireframe",
+//       "black",
+//       "luxury",
+//       "dracula",
+//       "cmyk",
+//       "autumn",
+//       "business",
+//       "acid",
+//       "lemonade",
+//       "night",
+//       "coffee",
+//       "winter",
+//     ],
+//   },
+// };
 
 // @layer base {
 //   :root {
