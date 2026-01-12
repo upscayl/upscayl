@@ -52,13 +52,58 @@ export const getDeviceSpecs = async () => {
     gpuInfo = null;
   }
 
+  // Vulkan GPU selection happens in upscayl-bin; we use getGPUInfo() as a
+  // lightweight fallback for System Info, which can be less accurate.
+  const selectPrimaryGpuDevice = (info: any) => {
+    const devices = info?.gpuDevice;
+    if (!Array.isArray(devices) || devices.length === 0) return null;
+    const active = devices.find((device) => device?.active);
+    return active ?? devices[0];
+  };
+
+  const extractDeviceStringFromRenderer = (renderer: string) => {
+    if (!renderer) return "";
+    const match = renderer.match(
+      /\(([^,]+),\s*([^()]+?)\s*\(0x[0-9A-Fa-f]+\)/,
+    );
+    if (match?.[2]) return match[2].trim();
+    const fallback = renderer.match(/\(([^,]+),\s*(.+?)\s*\)/);
+    if (fallback?.[2]) return fallback[2].trim();
+    return renderer.trim();
+  };
+
+  const buildGpuInfo = (info: any) => {
+    if (!info) return null;
+    const aux = info?.auxAttributes ?? {};
+    const baseDevice = selectPrimaryGpuDevice(info);
+    if (!baseDevice && Object.keys(aux).length === 0) return null;
+
+    const glRenderer = aux?.glRenderer;
+    const parsedDeviceString = extractDeviceStringFromRenderer(glRenderer);
+    const hasBadDeviceString =
+      !baseDevice?.deviceString ||
+      /SwiftShader/i.test(baseDevice.deviceString) ||
+      /ANGLE/i.test(baseDevice.deviceString);
+    const shouldOverride =
+      parsedDeviceString &&
+      hasBadDeviceString &&
+      !/SwiftShader/i.test(parsedDeviceString);
+
+    return {
+      ...(baseDevice ?? {}),
+      ...(shouldOverride && { deviceString: parsedDeviceString }),
+    };
+  };
+
+  const selectedGpu = buildGpuInfo(gpuInfo);
+
   const deviceSpecs = {
     platform: getPlatform(),
     release: os.release(),
     arch: getArch(),
     model: os.cpus()[0].model.trim(),
     cpuCount: os.cpus().length,
-    ...(gpuInfo && { gpu: gpuInfo.gpuDevice[0] }),
+    ...(selectedGpu && { gpu: selectedGpu }),
   };
 
   return deviceSpecs;
