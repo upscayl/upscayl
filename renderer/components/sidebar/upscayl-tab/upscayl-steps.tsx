@@ -28,6 +28,8 @@ interface IProps {
   imagePath: string;
   doubleUpscayl: boolean;
   setDoubleUpscayl: React.Dispatch<React.SetStateAction<boolean>>;
+  recursiveBatch: boolean;
+  setRecursiveBatch: React.Dispatch<React.SetStateAction<boolean>>;
   dimensions: {
     width: number | null;
     height: number | null;
@@ -41,6 +43,8 @@ function UpscaylSteps({
   selectFolderHandler,
   upscaylHandler,
   batchMode,
+  recursiveBatch,
+  setRecursiveBatch,
   setBatchMode,
   imagePath,
   doubleUpscayl,
@@ -134,6 +138,38 @@ function UpscaylSteps({
           {t("APP.BATCH_MODE.TITLE")}
         </p>
       </div>
+
+      {batchMode && (
+        <div className="flex items-center gap-1">
+          <input
+            type="checkbox"
+            className="checkbox"
+            checked={recursiveBatch}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setRecursiveBatch(true);
+              } else {
+                setRecursiveBatch(false);
+              }
+            }}
+          />
+          <p
+            className="cursor-pointer text-sm"
+            onClick={(e) => {
+              setRecursiveBatch((prev) => !prev);
+            }}
+          >
+            {t("APP.RECURSIVE_BATCH.TITLE")}
+          </p>
+          <button
+            className="badge badge-neutral badge-sm cursor-help"
+            data-tooltip-id="tooltip"
+            data-tooltip-content={t("APP.RECURSIVE_BATCH.DESCRIPTION")}
+          >
+            ?
+          </button>
+        </div>
+      )}
 
       {/* STEP 1 */}
       <div className="animate-step-in">

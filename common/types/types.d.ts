@@ -50,4 +50,5 @@ export type BatchUpscaylPayload = {
   tileSize: number;
   ttaMode: boolean;
   copyMetadata: boolean;
+  recursiveBatch: boolean
 };

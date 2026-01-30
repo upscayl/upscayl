@@ -222,6 +222,10 @@
     },
     "DIALOG_BOX": {
       "CLOSE": "ปิด"
+    },
+    "RECURSIVE_BATCH": {
+      "TITLE": "Recursive",
+      "DESCRIPTION": "This will upscale all images in all subfolders, recursively"
     }
   },
   "ERRORS": {

@@ -16,6 +16,7 @@ import {
   showSidebarAtom,
   selectedModelIdAtom,
   doubleUpscaylAtom,
+  recursiveBatchAtom,
   gpuIdAtom,
   saveImageAsAtom,
   userStatsAtom,
@@ -72,6 +73,7 @@ const Sidebar = ({
   // TODO: Add electron handler for os
   const [selectedModelId, setSelectedModelId] = useAtom(selectedModelIdAtom);
   const [doubleUpscayl, setDoubleUpscayl] = useAtom(doubleUpscaylAtom);
+  const [recursiveBatch, setRecursiveBatch] = useAtom(recursiveBatchAtom);
   const [gpuId, setGpuId] = useAtom(gpuIdAtom);
   const [saveImageAs, setSaveImageAs] = useAtom(saveImageAsAtom);
 
@@ -149,6 +151,7 @@ const Sidebar = ({
             tileSize,
             ttaMode,
             copyMetadata,
+            recursiveBatch
           },
         );
         setUserStats((prev) => ({
@@ -233,6 +236,8 @@ const Sidebar = ({
             imagePath={imagePath}
             doubleUpscayl={doubleUpscayl}
             setDoubleUpscayl={setDoubleUpscayl}
+            recursiveBatch={recursiveBatch}
+            setRecursiveBatch={setRecursiveBatch}
             dimensions={dimensions}
             setGpuId={setGpuId}
             setSaveImageAs={setSaveImageAs}

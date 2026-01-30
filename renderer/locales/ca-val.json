@@ -225,6 +225,10 @@
     },
     "DIALOG_BOX": {
       "CLOSE": "Tanca"
+    },
+    "RECURSIVE_BATCH": {
+      "TITLE": "Recursive",
+      "DESCRIPTION": "This will upscale all images in all subfolders, recursively"
     }
   },
   "ERRORS": {

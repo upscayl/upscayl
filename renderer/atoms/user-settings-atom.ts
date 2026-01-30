@@ -13,6 +13,7 @@ export const selectedModelIdAtom = atomWithStorage<ModelId | string>(
   "upscayl-standard-4x",
 );
 export const doubleUpscaylAtom = atomWithStorage("doubleUpscayl", false);
+export const recursiveBatchAtom = atomWithStorage("recursiveBatch", false);
 export const gpuIdAtom = atomWithStorage("gpuId", "");
 export const saveImageAsAtom = atomWithStorage<ImageFormat>(
   "saveImageAs",
