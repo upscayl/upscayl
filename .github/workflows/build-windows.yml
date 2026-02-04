@@ -9,9 +9,9 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v3.5.0
+      - uses: actions/setup-node@v6
         with:
           node-version: 18
 
@@ -23,7 +23,7 @@ jobs:
       # Get the latest release
       - name: Get Latest Release
         id: get_latest_release
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const latestRelease = await github.rest.repos.getLatestRelease({
@@ -43,7 +43,7 @@ jobs:
             dist/*.yml
 
       - name: Upload Windows Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v6
         with:
           name: windows-build
           path: |
