@@ -11,6 +11,13 @@ const ELECTRON_COMMANDS = {
   FOLDER_UPSCAYL_DONE: "Folder upscaling successful",
   FOLDER_UPSCAYL_PROGRESS:
     "Send Folder Upscaling Progress from Main to Renderer",
+  BATCH_PROGRESS:
+    "Send structured batch progress (current, total, ETA, size estimate)",
+  BATCH_PAUSE: "Pause batch upscale",
+  BATCH_RESUME: "Resume batch upscale",
+  BATCH_PAUSED: "Batch was paused",
+  BATCH_RESUMED: "Batch was resumed",
+  BATCH_STOPPED: "Batch was stopped by user",
   OPEN_FOLDER: "Open Folder",
   UPSCAYL_VIDEO: "Upscale the Video",
   UPSCAYL_VIDEO_DONE: "Video Upscaling Done",

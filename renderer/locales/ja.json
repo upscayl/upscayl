@@ -195,12 +195,20 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "バッチUpscayl進行中：",
       "IN_PROGRESS_TITLE": "Upscaylの魔法をかけています...",
-      "STOP_BUTTON_TITLE": "停止"
+      "STOP_BUTTON_TITLE": "停止",
+      "PAUSE_BUTTON_TITLE": "PAUSE",
+      "RESUME_BUTTON_TITLE": "RESUME",
+      "REMAINING_IMAGES": "{remaining} of {total} images remaining",
+      "FOLDER_PROGRESS": "Folder {current} of {total}",
+      "ESTIMATED_TIME_REMAINING": "Estimated time remaining: {time}",
+      "ESTIMATED_TOTAL_TIME": "Estimated total time (all {total} images): {time}",
+      "ESTIMATED_STORAGE": "Estimated total storage (all {total} images): {size}"
     },
     "RESET_BUTTON_TITLE": "リセット",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Upscaylするフォルダを選択",
       "SELECT_IMAGE": "Upscaylする画像を選択",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
       "SELECT_FOLDER_DESCRIPTION": "フォルダにはPNG、JPG、JPEG、WEBPの画像以外のものが含まれていないことを確認してください。",
       "SELECT_IMAGES_DESCRIPTION": "PNG、JPG、JPEG、またはWEBP画像を選択するか、ドラッグアンドドロップしてください。",
       "PASTE_IMAGE_DESCRIPTION": "Ctrl+V または ⌘+V を押してクリップボードから画像を貼り付けます"
@@ -212,6 +220,7 @@
       "SUCCESS_TITLE": "Upscaylが成功しました！",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "選択されたフォルダ：",
+        "SELECTED_FOLDERS_TITLE": "Selected folders:",
         "DONE_TITLE": "すべて完了しました！",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscaylされたフォルダを開く"
       }

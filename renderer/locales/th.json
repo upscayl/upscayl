@@ -195,12 +195,20 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "กำลังขยายรูปแบบกลุ่ม:",
       "IN_PROGRESS_TITLE": "Upscayl กำลังร่ายเวทมนตร์...",
-      "STOP_BUTTON_TITLE": "หยุด"
+      "STOP_BUTTON_TITLE": "หยุด",
+      "PAUSE_BUTTON_TITLE": "PAUSE",
+      "RESUME_BUTTON_TITLE": "RESUME",
+      "REMAINING_IMAGES": "{remaining} of {total} images remaining",
+      "FOLDER_PROGRESS": "Folder {current} of {total}",
+      "ESTIMATED_TIME_REMAINING": "Estimated time remaining: {time}",
+      "ESTIMATED_TOTAL_TIME": "Estimated total time (all {total} images): {time}",
+      "ESTIMATED_STORAGE": "Estimated total storage (all {total} images): {size}"
     },
     "RESET_BUTTON_TITLE": "คืนค่า",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "เลือกโฟลเดอร์",
       "SELECT_IMAGE": "เลือกรูป",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
       "SELECT_FOLDER_DESCRIPTION": "ตรวจสอบให้แน่ใจว่าในโฟลเดอร์ไม่มีสิ่งอื่นนอกจากรูป PNG, JPG, JPEG & WEBP",
       "SELECT_IMAGES_DESCRIPTION": "เลือกหรือลากรูป PNG, JPG, JPEG หรือ WEBP",
       "PASTE_IMAGE_DESCRIPTION": "กด Ctrl+V หรือ ⌘+V เพื่อวางรูปจากคลิปบอร์ด"
@@ -212,6 +220,7 @@
       "SUCCESS_TITLE": "ขยายเสร็จสิ้น!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "โฟลเดอร์ที่เลือก:",
+        "SELECTED_FOLDERS_TITLE": "Selected folders:",
         "DONE_TITLE": "เสร็จสิ้นทั้งหมดแล้ว!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "เปิดโฟลเดอร์ที่ถูกขยาย"
       }

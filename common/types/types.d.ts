@@ -37,7 +37,8 @@ export type DoubleUpscaylPayload = {
 };
 
 export type BatchUpscaylPayload = {
-  batchFolderPath: string;
+  /** One or more folder paths to process in queue order. */
+  batchFolderPaths: string[];
   outputPath: string;
   model: string;
   gpuId: string;

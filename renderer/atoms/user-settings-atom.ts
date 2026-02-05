@@ -34,6 +34,19 @@ export const savedOutputPathAtom = atomWithStorage<string | null>(
 
 export const progressAtom = atom<string>("");
 
+export type BatchProgressDetails = {
+  current: number;
+  total: number;
+  estimatedTimeRemainingMs: number;
+  estimatedTotalTimeMs: number;
+  estimatedTotalSizeBytes: number;
+  phase: "calibrating" | "upscaling";
+  /** 1-based folder index when processing multiple folders. */
+  folderIndex?: number;
+  /** Total number of folders in queue. */
+  folderTotal?: number;
+};
+
 export const rememberOutputFolderAtom = atomWithStorage<boolean>(
   "rememberOutputFolder",
   false,

@@ -195,12 +195,20 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Upscayl Kelompok Sedang Berjalan:",
       "IN_PROGRESS_TITLE": "Melakukan magik Upscayl...",
-      "STOP_BUTTON_TITLE": "HENTI"
+      "STOP_BUTTON_TITLE": "HENTI",
+      "PAUSE_BUTTON_TITLE": "PAUSE",
+      "RESUME_BUTTON_TITLE": "RESUME",
+      "REMAINING_IMAGES": "{remaining} of {total} images remaining",
+      "FOLDER_PROGRESS": "Folder {current} of {total}",
+      "ESTIMATED_TIME_REMAINING": "Estimated time remaining: {time}",
+      "ESTIMATED_TOTAL_TIME": "Estimated total time (all {total} images): {time}",
+      "ESTIMATED_STORAGE": "Estimated total storage (all {total} images): {size}"
     },
     "RESET_BUTTON_TITLE": "Tetapkan Semula",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Pilih Folder",
       "SELECT_IMAGE": "Pilih Imej",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
       "SELECT_FOLDER_DESCRIPTION": "Pastikan folder tidak mengandungi apa-apa kecuali imej PNG, JPG, JPEG & WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Pilih atau seret dan lepas imej PNG, JPG, JPEG atau WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Tekan Ctrl+V atau ⌘+V untuk Tampal imej dari Papan Keratan"
@@ -212,6 +220,7 @@
       "SUCCESS_TITLE": "Upscayl Berjaya!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Folder yang dipilih:",
+        "SELECTED_FOLDERS_TITLE": "Selected folders:",
         "DONE_TITLE": "Semuanya selesai!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Buka Folder Upscayl"
       }

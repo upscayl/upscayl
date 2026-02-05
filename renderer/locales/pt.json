@@ -196,12 +196,20 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Upscayl em lote em execução:",
       "IN_PROGRESS_TITLE": "A aplicar a magia de Upscayl...",
-      "STOP_BUTTON_TITLE": "PARAR"
+      "STOP_BUTTON_TITLE": "PARAR",
+      "PAUSE_BUTTON_TITLE": "PAUSE",
+      "RESUME_BUTTON_TITLE": "RESUME",
+      "REMAINING_IMAGES": "{remaining} of {total} images remaining",
+      "FOLDER_PROGRESS": "Folder {current} of {total}",
+      "ESTIMATED_TIME_REMAINING": "Estimated time remaining: {time}",
+      "ESTIMATED_TOTAL_TIME": "Estimated total time (all {total} images): {time}",
+      "ESTIMATED_STORAGE": "Estimated total storage (all {total} images): {size}"
     },
     "RESET_BUTTON_TITLE": "Repor",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Selecionar pasta",
       "SELECT_IMAGE": "Selecionar imagem",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
       "SELECT_FOLDER_DESCRIPTION": "Certifique-se de que a pasta não contém nada, exceto imagens PNG, JPG, JPEG ou WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "selecione ou arraste e solte uma imagem PNG, JPG, JPEG ou WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Prima Ctrl+V ou ⌘+V para colar a imagem a partir da área de transferência"
@@ -213,6 +221,7 @@
       "SUCCESS_TITLE": "Aprimorado com sucesso!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Selecionar pasta:",
+        "SELECTED_FOLDERS_TITLE": "Selected folders:",
         "DONE_TITLE": "Tudo concluído!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Abrir pasta do Upscayl"
       }

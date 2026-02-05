@@ -195,13 +195,21 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Batch Upscayl In Progress:",
       "IN_PROGRESS_TITLE": "Doing the Upscayl magic...",
-      "STOP_BUTTON_TITLE": "STOP"
+      "STOP_BUTTON_TITLE": "STOP",
+      "PAUSE_BUTTON_TITLE": "PAUSE",
+      "RESUME_BUTTON_TITLE": "RESUME",
+      "REMAINING_IMAGES": "{remaining} of {total} images remaining",
+      "FOLDER_PROGRESS": "Folder {current} of {total}",
+      "ESTIMATED_TIME_REMAINING": "Estimated time remaining: {time}",
+      "ESTIMATED_TOTAL_TIME": "Estimated total time (all {total} images): {time}",
+      "ESTIMATED_STORAGE": "Estimated total storage (all {total} images): {size}"
     },
     "RESET_BUTTON_TITLE": "Reset",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Select a Folder",
       "SELECT_IMAGE": "Select an Image",
       "SELECT_FOLDER_DESCRIPTION": "Make sure that the folder doesn't contain anything except PNG, JPG, JPEG & WEBP images.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
       "SELECT_IMAGES_DESCRIPTION": "Select or drag and drop a PNG, JPG, JPEG or WEBP image.",
       "PASTE_IMAGE_DESCRIPTION": "Hit Ctrl+V or ⌘+V to Paste image from Clipboard"
     },
@@ -212,6 +220,7 @@
       "SUCCESS_TITLE": "Upscayl Successful!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Selected folder:",
+        "SELECTED_FOLDERS_TITLE": "Selected folders:",
         "DONE_TITLE": "All done!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Open Upscayled Folder"
       }

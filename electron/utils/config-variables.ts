@@ -42,6 +42,16 @@ export function setSavedCustomModelsPath(value: string | undefined): void {
 export let stopped = false;
 
 /**
+ * The paused variable to pause the batch upscayl process.
+ */
+export let batchPaused = false;
+
+/**
+ * Resolve function to unblock the batch loop when resuming.
+ */
+export let batchPauseResolve: (() => void) | null = null;
+
+/**
  * The child processes array to store the spawned upscayl processes.
  */
 export let childProcesses: {
@@ -62,6 +72,19 @@ export function setTurnOffNotifications(value: boolean): void {
 export function setStopped(value: boolean): void {
   stopped = value;
   logit("🛑 Updating Stopped: ", stopped);
+}
+
+export function setBatchPaused(value: boolean): void {
+  batchPaused = value;
+  logit("⏸️ Updating Batch Paused: ", batchPaused);
+  if (!value && batchPauseResolve) {
+    batchPauseResolve();
+    batchPauseResolve = null;
+  }
+}
+
+export function setBatchPauseResolve(resolve: (() => void) | null): void {
+  batchPauseResolve = resolve;
 }
 
 export function setChildProcesses(value: {
