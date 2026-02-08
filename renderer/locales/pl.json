@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Wybierz Folder",
       "SELECT_IMAGE": "Wybierz Obraz",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Wszystkie podfoldery zostaną uwzględnione.",
       "SELECT_FOLDER_DESCRIPTION": "Upewnij się, że folder nie zawiera niczego poza obrazami PNG, JPG, JPEG i WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Wybierz lub przeciągnij i upuść obraz PNG, JPG, JPEG lub WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Wciśnij Ctrl+V lub ⌘+V aby wkleić obraz ze Schowka"

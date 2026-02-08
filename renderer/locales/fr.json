@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Sélectionnez un dossier à améliorer",
       "SELECT_IMAGE": "Sélectionnez une image à améliorer",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Tous les sous-dossiers seront inclus.",
       "SELECT_FOLDER_DESCRIPTION": "Assurez-vous que le dossier ne contient rien d'autre que des images PNG, JPG, JPEG et WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Sélectionnez ou glissez-déposez une image PNG, JPG, JPEG ou WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Appuyez sur Ctrl+V ou ⌘+V pour coller l'image depuis le presse-papiers"

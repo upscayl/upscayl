@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Выберите папку для увеличения",
       "SELECT_IMAGE": "Выберите изображение для увеличения",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Все подпапки будут включены.",
       "SELECT_FOLDER_DESCRIPTION": "Убедитесь, что в папке нет ничего, кроме изображений PNG, JPG, JPEG и WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Выберите или перетащите изображение в формате PNG, JPG, JPEG или WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Нажмите Ctrl+V или ⌘+V, чтобы вставить изображение из буфера обмена"

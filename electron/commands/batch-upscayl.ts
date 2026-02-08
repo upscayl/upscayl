@@ -337,19 +337,20 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     return;
   }
 
-  mainWindow.setProgressBar(-1);
-  mainWindow.webContents.send(
-    ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
-    outputBase,
-  );
-
   if (!anyImagesProcessed) {
-    mainWindow.webContents.send(
+    if (mainWindow) mainWindow.setProgressBar(-1);
+    mainWindow?.webContents.send(
       ELECTRON_COMMANDS.UPSCAYL_ERROR,
       "No image files found in any of the selected folders (including subfolders). Supported: png, jpg, jpeg, jfif, webp.",
     );
     return;
   }
+
+  mainWindow.setProgressBar(-1);
+  mainWindow.webContents.send(
+    ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
+    outputBase,
+  );
 
   if (!encounteredError) {
     showNotification("Upscayled", "Images upscayled successfully!");

@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "选择要升级的图片所在的文件夹",
       "SELECT_IMAGE": "选择要升级的图片",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "所有子文件夹都将被包含。",
       "SELECT_FOLDER_DESCRIPTION": "文件夹中只支持 PNG、JPG、JPEG 和 WEBP 图片。",
       "SELECT_IMAGES_DESCRIPTION": "选择或拖放 PNG、JPG、JPEG 或 WEBP 图片。",
       "PASTE_IMAGE_DESCRIPTION": "按 Ctrl+V 或 ⌘+V 来粘贴图像"

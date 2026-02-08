@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "เลือกโฟลเดอร์",
       "SELECT_IMAGE": "เลือกรูป",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "โฟลเดอร์ย่อยทั้งหมดจะถูกรวม",
       "SELECT_FOLDER_DESCRIPTION": "ตรวจสอบให้แน่ใจว่าในโฟลเดอร์ไม่มีสิ่งอื่นนอกจากรูป PNG, JPG, JPEG & WEBP",
       "SELECT_IMAGES_DESCRIPTION": "เลือกหรือลากรูป PNG, JPG, JPEG หรือ WEBP",
       "PASTE_IMAGE_DESCRIPTION": "กด Ctrl+V หรือ ⌘+V เพื่อวางรูปจากคลิปบอร์ด"

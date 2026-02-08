@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Seleziona una cartella da sovracampionare",
       "SELECT_IMAGE": "Seleziona un'immagine da sovracampionare",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Tutte le sottocartelle saranno incluse.",
       "SELECT_FOLDER_DESCRIPTION": "Assicurati che la cartella non contenga altro che immagini PNG, JPG, JPEG e WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Seleziona o trascina e rilascia un'immagine PNG, JPG, JPEG o WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Premi Ctrl+V o ⌘+V per incollare l'immagine dagli appunti"

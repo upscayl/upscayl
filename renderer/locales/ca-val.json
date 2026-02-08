@@ -214,7 +214,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Seleccioneu una carpeta",
       "SELECT_IMAGE": "Seleccioneu una imatge",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "S'inclouran totes les subcarpetes.",
       "SELECT_FOLDER_DESCRIPTION": "Assegureu-vos que la carpeta no continga res excepte imatges PNG, JPG, JPEG i WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Seleccioneu o arrossegueu i solteu una imatge PNG, JPG, JPEG o WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Pressioneu Ctrl+V o ⌘+V per a apegar la imatge des del porta-retalls"

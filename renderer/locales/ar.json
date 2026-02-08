@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "اختر مجلد",
       "SELECT_IMAGE": "اختر صورة",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "سيتم تضمين جميع المجلدات الفرعية.",
       "SELECT_FOLDER_DESCRIPTION": "تأكد ان المجلد لا يحوي اي شيء ما عدى PNG, JPG, JPEG & WEBP images.",
       "SELECT_IMAGES_DESCRIPTION": "اختر صورة او قم بسحب و الاسقاط",
       "PASTE_IMAGE_DESCRIPTION": "اضغط Ctrl+V او ⌘+V للصق الصورة من المحفظة"

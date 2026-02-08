@@ -59,12 +59,13 @@ function UpscaylSteps({
   const t = useAtomValue(translationAtom);
 
   const outputHandler = async () => {
-    const path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FOLDER);
+    const result = (await window.electron.invoke(
+      ELECTRON_COMMANDS.SELECT_FOLDER,
+    )) as string[] | null;
+    const path = result?.[0] ?? null;
+    setOutputPath(path);
     if (path !== null) {
       logit("🗂 Setting Output Path: ", path);
-      setOutputPath(path);
-    } else {
-      setOutputPath(null);
     }
   };
 

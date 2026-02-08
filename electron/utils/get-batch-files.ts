@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { getPlatform } from "./get-device-specs";
+import logit from "./logit";
 
 const BATCH_IMAGE_EXTENSIONS = [
   "png",
@@ -22,7 +23,14 @@ export function getBatchImagePaths(dirPath: string): string[] {
 
   function walk(currentDir: string, relativePrefix: string) {
     if (!fs.existsSync(currentDir)) return;
-    const entries = fs.readdirSync(currentDir, { withFileTypes: true });
+    let entries: fs.Dirent[];
+    try {
+      entries = fs.readdirSync(currentDir, { withFileTypes: true });
+    } catch (err) {
+      const code = err && typeof (err as NodeJS.ErrnoException).code === "string" ? (err as NodeJS.ErrnoException).code : "";
+      logit("⚠️ Skipping inaccessible directory:", currentDir, code ? `(${code})` : "");
+      return;
+    }
     for (const entry of entries) {
       const fullPath = path.join(currentDir, entry.name);
       const relativePath = relativePrefix

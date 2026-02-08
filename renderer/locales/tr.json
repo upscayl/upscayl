@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Klasör Seçin",
       "SELECT_IMAGE": "Görsel Seçin",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Tüm alt klasörler dahil edilecektir.",
       "SELECT_FOLDER_DESCRIPTION": "Lütfen klasörün PNG, JPG, JPEG ve WEBP uzantılı görseller haricinde birşey içermediğinden emin olun.",
       "SELECT_IMAGES_DESCRIPTION": "Lütfen PNG, JPG, JPEG yahut WEBP uzantılı bir görsel seçin ya da sürükleyip buraya bırakın.",
       "PASTE_IMAGE_DESCRIPTION": "Ctrl+V yahut ⌘+V tuşlarına basarak bir görsel yapıştırın."

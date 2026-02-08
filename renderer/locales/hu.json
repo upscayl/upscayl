@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Mappa kiválasztása",
       "SELECT_IMAGE": "Kép kiválasztása",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Minden almappa bekerül.",
       "SELECT_FOLDER_DESCRIPTION": "Győződj meg róla, hogy a mappa csak PNG, JPG, JPEG és WEBP képeket tartalmaz.",
       "SELECT_IMAGES_DESCRIPTION": "Válassz vagy húzz ide egy PNG, JPG, JPEG vagy WEBP formátumú képet.",
       "PASTE_IMAGE_DESCRIPTION": "Nyomd meg a Ctrl+V vagy ⌘+V billentyűt a kép beillesztéséhez a vágólapról."

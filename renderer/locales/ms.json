@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Pilih Folder",
       "SELECT_IMAGE": "Pilih Imej",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Semua subfolder akan disertakan.",
       "SELECT_FOLDER_DESCRIPTION": "Pastikan folder tidak mengandungi apa-apa kecuali imej PNG, JPG, JPEG & WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Pilih atau seret dan lepas imej PNG, JPG, JPEG atau WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Tekan Ctrl+V atau ⌘+V untuk Tampal imej dari Papan Keratan"

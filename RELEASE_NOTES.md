@@ -77,6 +77,19 @@ This release adds major improvements to the batch upscaling workflow: recursive 
 - **Before:** Clicking **Stop** in the Batch Progress dialog did not always close the dialog; sometimes the app behaved as if the batch had finished successfully.
 - **Now:** When the user stops the batch (including when stopping between folders or between images), the main process sends **BATCH_STOPPED** and the dialog closes correctly. Completion logic and **FOLDER_UPSCAYL_DONE** are only used when the batch actually finishes without being stopped.
 
+### Batch completion when no images found
+
+- **Before:** When no image files were found in any selected folder, the main process could send **FOLDER_UPSCAYL_DONE** and then **UPSCAYL_ERROR**, so the renderer saw a success state followed by an error.
+- **Now:** The main process checks `anyImagesProcessed` first. If no images were processed, it sends only **UPSCAYL_ERROR** (and clears the progress bar), then returns. **FOLDER_UPSCAYL_DONE** is sent only when at least one image was actually processed, so the renderer receives a consistent success state.
+
+### Inaccessible subdirectories
+
+- When scanning folders recursively, **readdirSync** is wrapped in try/catch. If a subdirectory cannot be read (e.g. **EACCES**, **ENOENT**), that directory is skipped and the error is logged; the rest of the batch and sibling folders are unaffected.
+
+### Output folder from folder picker
+
+- **SELECT_FOLDER** returns `string[]` (multi-select). The output-folder flow (e.g. in upscayl-steps) now coerces the result to a single path (`result?.[0] ?? null`) before calling **setOutputPath**, so **savedOutputPathAtom** always receives `string | null` as expected.
+
 ---
 
 ## Technical summary
@@ -89,7 +102,9 @@ This release adds major improvements to the batch upscaling workflow: recursive 
 | **Electron – pause/resume** | `batchPaused` and `batchPauseResolve` in config; IPC handlers and commands for **BATCH_PAUSE** / **BATCH_RESUME**. |
 | **Renderer – state** | Single `batchFolderPath` replaced by `batchFolderPaths: string[]` where needed. |
 | **Renderer – UI** | Batch Progress shows current folder, sub-folder (if any), current filename, folder progress, total/remaining time, total storage; Pause/Resume and Stop buttons; wider overlay with bold labels. |
-| **Locales** | New/updated keys for batch progress, folder list, and multi-folder labels in all locale files. |
+| **Renderer – output path** | When using SELECT_FOLDER for the output folder, the first selected path is used (`result?.[0] ?? null`) so savedOutputPathAtom gets string or null. |
+| **Electron – get-batch-files** | `readdirSync` in the recursive walk is wrapped in try/catch; inaccessible directories (e.g. EACCES/ENOENT) are skipped and logged. |
+| **Locales** | New/updated keys for batch progress, folder list, multi-folder labels, and SELECT_FOLDER_SUBFOLDERS_HINT in all locale files; PROGRESS_BAR and hint fully translated. |
 
 ---
 

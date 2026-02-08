@@ -211,7 +211,7 @@
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Selecione uma Pasta",
       "SELECT_IMAGE": "Selecione uma Imagem",
-      "SELECT_FOLDER_SUBFOLDERS_HINT": "All subfolders will be included.",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Todas as subpastas serão incluídas.",
       "SELECT_FOLDER_DESCRIPTION": "Garanta que a pasta não contenha nada além de imagens PNG, JPG, JPEG & WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Selecione ou arraste e solte uma imagem PNG, JPG, JPEG ou WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Tecle Ctrl+V ou ⌘+V para colar uma imagem da Área de Transferência"
