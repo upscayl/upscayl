@@ -233,7 +233,7 @@ const Home = () => {
     // BATCH PROGRESS (structured)
     window.electron.on(
       ELECTRON_COMMANDS.BATCH_PROGRESS,
-      (_, data: { current: number; total: number; estimatedTimeRemainingMs: number; estimatedTotalTimeMs: number; estimatedTotalSizeBytes: number; phase: "calibrating" | "upscaling"; folderIndex?: number; folderTotal?: number }) => {
+      (_, data: BatchProgressDetails) => {
         setBatchProgressDetails(data);
       },
     );

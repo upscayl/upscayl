@@ -70,39 +70,60 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     : (savedCustomModelsPath ?? modelsPath);
 
   const folderTotal = folderList.length;
+
+  // Total image count across ALL folders (for correct time/size estimates)
+  let totalImagesAllFolders = 0;
+  for (let fi = 0; fi < folderTotal; fi++) {
+    const dir = decodeURIComponent(folderList[fi]);
+    totalImagesAllFolders += getBatchImagePaths(dir).length;
+  }
+
   setStopped(false);
   setBatchPaused(false);
   let encounteredError = false;
+  /** Sum of elapsed ms for all actually processed images (used for average). */
+  let totalElapsedMs = 0;
+  /** Number of images we actually ran upscayl on (not skipped). */
+  let processedCount = 0;
+  /** Average time per image in ms (totalElapsedMs / processedCount). */
   let timePerImageMs = 0;
   let sizePerImageBytes = 0;
   let totalOutputSizeBytes = 0;
   let anyImagesProcessed = false;
+  let completedImagesGlobal = 0;
 
   const sendBatchProgress = (
-    current: number,
-    total: number,
+    completedGlobal: number,
     phase: "calibrating" | "upscaling",
     folderIndex: number,
+    currentFolderName?: string,
+    currentFileRelativePath?: string,
   ) => {
     if (!mainWindow) return;
-    const remaining = total - current;
+    // All counts and estimates are over ALL images from ALL folders (totalImagesAllFolders)
+    const remaining = totalImagesAllFolders - completedGlobal;
     const estimatedTimeRemainingMs =
       timePerImageMs > 0 ? remaining * timePerImageMs : 0;
     const estimatedTotalTimeMs =
-      timePerImageMs > 0 ? total * timePerImageMs : 0;
+      timePerImageMs > 0 ? totalImagesAllFolders * timePerImageMs : 0;
     const estimatedRemainingSizeBytes =
       sizePerImageBytes > 0 ? remaining * sizePerImageBytes : 0;
+    // Total storage = average size × total images in all folders (not just current folder)
     const estimatedTotalSizeBytes =
-      totalOutputSizeBytes + estimatedRemainingSizeBytes;
+      sizePerImageBytes > 0
+        ? Math.round(totalImagesAllFolders * sizePerImageBytes)
+        : totalOutputSizeBytes;
     mainWindow.webContents.send(ELECTRON_COMMANDS.BATCH_PROGRESS, {
-      current,
-      total,
+      current: completedGlobal,
+      total: totalImagesAllFolders,
       estimatedTimeRemainingMs,
       estimatedTotalTimeMs,
       estimatedTotalSizeBytes,
       phase,
       folderIndex: folderTotal > 1 ? folderIndex + 1 : undefined,
       folderTotal: folderTotal > 1 ? folderTotal : undefined,
+      currentFolderName,
+      currentFileRelativePath,
     });
   };
 
@@ -121,10 +142,10 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     }
 
     const inputDir = decodeURIComponent(folderList[folderIndex]);
-    const effectiveOutputBase =
-      folderTotal > 1
-        ? path.join(outputBase, path.basename(inputDir))
-        : outputBase;
+    const effectiveOutputBase = path.join(
+      outputBase,
+      path.basename(inputDir),
+    );
 
     const relativePaths = getBatchImagePaths(inputDir);
     const total = relativePaths.length;
@@ -136,9 +157,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
     anyImagesProcessed = true;
     let failed = false;
-    let completedCount = 0;
+    let completedInFolder = 0;
 
-    sendBatchProgress(0, total, "upscaling", folderIndex);
+    sendBatchProgress(completedImagesGlobal, "upscaling", folderIndex);
 
     for (let i = 0; i < total; i++) {
       if (stopped) {
@@ -156,6 +177,13 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
       const relativePath = relativePaths[i];
       const inputPath = path.join(inputDir, relativePath);
+      sendBatchProgress(
+        completedImagesGlobal,
+        "upscaling",
+        folderIndex,
+        path.basename(inputDir),
+        relativePath,
+      );
       const outFile = buildOutputPath(
         effectiveOutputBase,
         relativePath,
@@ -166,17 +194,21 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         customWidth,
       );
 
-      if (fs.existsSync(outFile)) {
+      if (fs.existsSync(outFile) && !payload.overwrite) {
         try {
           const stat = fs.statSync(outFile);
           totalOutputSizeBytes += stat.size;
-          if (timePerImageMs === 0 && sizePerImageBytes === 0) {
+          if (sizePerImageBytes === 0) {
             sizePerImageBytes = stat.size;
-            timePerImageMs = 30000;
+          } else {
+            sizePerImageBytes = Math.round(
+              totalOutputSizeBytes / (completedImagesGlobal + 1),
+            );
           }
         } catch (_) {}
-        completedCount++;
-        sendBatchProgress(completedCount, total, "upscaling", folderIndex);
+        completedInFolder++;
+        completedImagesGlobal++;
+        sendBatchProgress(completedImagesGlobal, "upscaling", folderIndex);
         mainWindow.webContents.send(
           ELECTRON_COMMANDS.FOLDER_UPSCAYL_PROGRESS,
           "Successful\n",
@@ -262,31 +294,26 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         return;
       }
 
-      completedCount++;
+      completedInFolder++;
+      completedImagesGlobal++;
       const elapsedMs = Date.now() - startTime;
-      if (timePerImageMs === 0) {
-        timePerImageMs = elapsedMs;
-      } else {
-        timePerImageMs = Math.round(
-          (timePerImageMs * (completedCount - 1) + elapsedMs) / completedCount,
-        );
-      }
+      // Average time per image = sum of all elapsed times / number of processed images
+      totalElapsedMs += elapsedMs;
+      processedCount++;
+      timePerImageMs = Math.round(totalElapsedMs / processedCount);
       if (fs.existsSync(outFile)) {
         try {
           const stat = fs.statSync(outFile);
           totalOutputSizeBytes += stat.size;
-          if (sizePerImageBytes === 0) {
-            sizePerImageBytes = stat.size;
-          } else {
-            sizePerImageBytes = Math.round(
-              (sizePerImageBytes * (completedCount - 1) + stat.size) /
-                completedCount,
-            );
-          }
         } catch (_) {}
       }
+      // Average size = total output so far / all completed images (processed + skipped)
+      sizePerImageBytes =
+        completedImagesGlobal > 0
+          ? Math.round(totalOutputSizeBytes / completedImagesGlobal)
+          : sizePerImageBytes || 0;
 
-      sendBatchProgress(completedCount, total, "upscaling", folderIndex);
+      sendBatchProgress(completedImagesGlobal, "upscaling", folderIndex);
 
       if (payload.copyMetadata) {
         try {

@@ -65,7 +65,7 @@
     },
     "OVERWRITE_TOGGLE": {
       "TITLE": "VORHERIGEN UPSCALE ÜBERSCHREIBEN",
-      "DESCRIPTION": "Wenn diese Option aktiviert ist, verarbeitet Upscayl das Bild erneut, anstatt es direkt zu laden."
+      "DESCRIPTION": "Wenn aktiviert, werden vorhandene Ausgabedateien überschrieben. Einzelbild: erneut verarbeiten statt vorhandene Datei zu laden. Batch: bestehende hochskalierte Bilder erneut verarbeiten und überschreiben."
     },
     "RESET_SETTINGS": {
       "BUTTON_TITLE": "UPSCAYL ZURÜCKSETZEN",
@@ -202,7 +202,10 @@
       "FOLDER_PROGRESS": "Ordner {current} von {total}",
       "ESTIMATED_TIME_REMAINING": "Geschätzte verbleibende Zeit: {time}",
       "ESTIMATED_TOTAL_TIME": "Geschätzte Gesamtzeit (alle {total} Bilder): {time}",
-      "ESTIMATED_STORAGE": "Geschätzter Speicherbedarf (alle {total} Bilder): {size}"
+      "ESTIMATED_STORAGE": "Geschätzter Speicherbedarf (alle {total} Bilder): {size}",
+      "CURRENT_FOLDER": "Aktueller Ordner:",
+      "SUB_FOLDER": "Unterordner:",
+      "CURRENT_FILE": "Aktuelle Datei:"
     },
     "RESET_BUTTON_TITLE": "Zurücksetzen",
     "RIGHT_PANE_INFO": {

@@ -149,6 +149,7 @@ const Sidebar = ({
             tileSize,
             ttaMode,
             copyMetadata,
+            overwrite,
           },
         );
         setUserStats((prev) => ({

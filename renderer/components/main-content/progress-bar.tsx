@@ -92,7 +92,7 @@ function ProgressBar({
 
   return (
     <div className="absolute z-50 flex h-full w-full flex-col items-center justify-center bg-base-300/50 backdrop-blur-lg">
-      <div className="flex flex-col items-center gap-2 rounded-btn bg-base-100/50 p-4 backdrop-blur-lg">
+      <div className="flex min-w-[420px] max-w-[90vw] flex-col items-center gap-2 rounded-btn bg-base-100/50 p-5 backdrop-blur-lg">
         <UpscaylSVGLogo className="spinner h-12 w-12" />
 
         <p className="rounded-full px-2 pb-2 font-bold">
@@ -121,6 +121,55 @@ function ProgressBar({
                   .replace("{total}", String(batchDetails.folderTotal))}
               </p>
             )}
+          {batchMode &&
+            (batchDetails?.currentFolderName != null ||
+              batchDetails?.currentFileRelativePath != null) && (() => {
+              const relPath = batchDetails?.currentFileRelativePath ?? "";
+              const pathParts = relPath.split(/[/\\]/);
+              const fileNameOnly = pathParts.length > 0 ? pathParts[pathParts.length - 1] : relPath;
+              const subFolder =
+                pathParts.length > 1 ? pathParts.slice(0, -1).join("/") : null;
+              const row = (label: string, value: string, title?: string) => (
+                <div
+                  key={label}
+                  className="flex w-full max-w-[380px] items-baseline gap-2 text-sm"
+                >
+                  <span className="shrink-0 font-bold text-base-content">
+                    {label}
+                  </span>
+                  <span
+                    className="min-w-0 truncate text-base-content/90"
+                    title={title ?? value}
+                  >
+                    {value}
+                  </span>
+                </div>
+              );
+              return (
+                <div className="w-full rounded-lg bg-base-200/60 px-3 py-2">
+                  <div className="flex flex-col gap-1.5">
+                    {batchDetails?.currentFolderName != null &&
+                      row(
+                        t("APP.PROGRESS_BAR.CURRENT_FOLDER"),
+                        batchDetails.currentFolderName,
+                        batchDetails.currentFolderName,
+                      )}
+                    {subFolder != null &&
+                      row(
+                        t("APP.PROGRESS_BAR.SUB_FOLDER"),
+                        subFolder,
+                        subFolder,
+                      )}
+                    {batchDetails?.currentFileRelativePath != null &&
+                      row(
+                        t("APP.PROGRESS_BAR.CURRENT_FILE"),
+                        fileNameOnly,
+                        batchDetails.currentFileRelativePath,
+                      )}
+                  </div>
+                </div>
+              );
+            })()}
           {batchMode && displayTotal > 0 && (
             <p className="text-xs text-base-content/80">
               {t("APP.PROGRESS_BAR.REMAINING_IMAGES")

@@ -51,4 +51,6 @@ export type BatchUpscaylPayload = {
   tileSize: number;
   ttaMode: boolean;
   copyMetadata: boolean;
+  /** If true, overwrite existing output files; otherwise skip them. */
+  overwrite: boolean;
 };

@@ -45,6 +45,10 @@ export type BatchProgressDetails = {
   folderIndex?: number;
   /** Total number of folders in queue. */
   folderTotal?: number;
+  /** Name of the folder currently being processed (basename). */
+  currentFolderName?: string;
+  /** Relative path of the file currently being processed (e.g. "sub/img.jpg"). */
+  currentFileRelativePath?: string;
 };
 
 export const rememberOutputFolderAtom = atomWithStorage<boolean>(
