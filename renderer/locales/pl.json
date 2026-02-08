@@ -201,8 +201,8 @@
       "REMAINING_IMAGES": "{remaining} z {total} obrazów pozostało",
       "FOLDER_PROGRESS": "Folder {current} z {total}",
       "ESTIMATED_TIME_REMAINING": "Szacowany pozostały czas: {time}",
-      "ESTIMATED_TOTAL_TIME": "Szacowany łączny czas (wszystkie {total} obrazy): {time}",
-      "ESTIMATED_STORAGE": "Szacowana łączna pojemność (wszystkie {total} obrazy): {size}",
+      "ESTIMATED_TOTAL_TIME": "Szacowany łączny czas (wszystkie {total} obrazów): {time}",
+      "ESTIMATED_STORAGE": "Szacowane łączne miejsce na dysku (wszystkie {total} obrazów): {size}",
       "CURRENT_FOLDER": "Bieżący folder:",
       "SUB_FOLDER": "Podfolder:",
       "CURRENT_FILE": "Bieżący plik:"

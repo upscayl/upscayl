@@ -195,7 +195,7 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "التحجيم المزدوج قيد العمل:",
       "IN_PROGRESS_TITLE": "القيام ببعض السحر المحجم...",
-      "STOP_BUTTON_TITLE": "أيقاف",
+      "STOP_BUTTON_TITLE": "إيقاف",
       "PAUSE_BUTTON_TITLE": "إيقاف مؤقت",
       "RESUME_BUTTON_TITLE": "استئناف",
       "REMAINING_IMAGES": "{remaining} من {total} صور متبقية",

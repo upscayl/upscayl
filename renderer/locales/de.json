@@ -223,7 +223,7 @@
       "SUCCESS_TITLE": "Upscayl erfolgreich!",
       "BATCH": {
         "SELECTED_FOLDERS_TITLE": "Ausgewählte Ordner:",
-      "SELECTED_FOLDER_TITLE": "Ausgewählter Ordner:",
+        "SELECTED_FOLDER_TITLE": "Ausgewählter Ordner:",
         "DONE_TITLE": "Alles erledigt!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscayl-Ordner öffnen"
       }
