@@ -223,7 +223,7 @@
       "SUCCESS_TITLE": "成功！",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "所选文件夹：",
-        "SELECTED_FOLDERS_TITLE": "Selected folders:",
+        "SELECTED_FOLDERS_TITLE": "已选文件夹：",
         "DONE_TITLE": "全部完成！",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "打开升图后的文件夹"
       }

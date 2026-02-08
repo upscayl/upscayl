@@ -197,7 +197,7 @@
       "IN_PROGRESS_TITLE": "Upscayl arbeitet...",
       "STOP_BUTTON_TITLE": "STOPP",
       "PAUSE_BUTTON_TITLE": "PAUSE",
-      "RESUME_BUTTON_TITLE": "FORTSEZEN",
+      "RESUME_BUTTON_TITLE": "FORTSETZEN",
       "REMAINING_IMAGES": "{remaining} von {total} Bildern verbleibend",
       "FOLDER_PROGRESS": "Ordner {current} von {total}",
       "ESTIMATED_TIME_REMAINING": "Geschätzte verbleibende Zeit: {time}",

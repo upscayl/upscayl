@@ -243,6 +243,11 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       );
       childProcesses.push(upscayl);
 
+      const removeFromChildProcesses = () => {
+        const idx = childProcesses.indexOf(upscayl);
+        if (idx !== -1) childProcesses.splice(idx, 1);
+      };
+
       const startTime = Date.now();
       const processClosed = new Promise<boolean>((resolve) => {
         const onData = (data: Buffer | string) => {
@@ -275,6 +280,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           resolve(false);
         };
         const onClose = () => {
+          removeFromChildProcesses();
           resolve(!failed);
         };
         upscayl.process.stderr.on("data", onData);
@@ -347,6 +353,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   }
 
   mainWindow.setProgressBar(-1);
+  childProcesses.length = 0;
   mainWindow.webContents.send(
     ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
     outputBase,

@@ -223,7 +223,7 @@
       "SUCCESS_TITLE": "Обробку успішно завершено!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Обрана тека:",
-        "SELECTED_FOLDERS_TITLE": "Selected folders:",
+        "SELECTED_FOLDERS_TITLE": "Обрані теки:",
         "DONE_TITLE": "Все готово!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Відкрити теку з результатами"
       }
