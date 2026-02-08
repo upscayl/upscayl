@@ -110,7 +110,7 @@ New or updated translation keys (examples in English):
 - `APP.RIGHT_PANE_INFO.SELECT_FOLDER_SUBFOLDERS_HINT` – “All subfolders will be included.”
 - `APP.PROGRESS.BATCH.SELECTED_FOLDERS_TITLE` – “Selected folders:”
 
-Equivalent keys are present (or can be added) for all supported languages.
+All PROGRESS_BAR keys above are fully translated in every supported locale (ar, ca-val, de, es, fr, hu, id, it, ja, ms, pl, pt-br, pt, ru, th, tr, uk, vi, zh). Placeholders `{remaining}`, `{total}`, `{time}`, `{size}`, and `{current}` are preserved in all languages for correct display in the progress bar and folder/file labels.
 
 ---
 
