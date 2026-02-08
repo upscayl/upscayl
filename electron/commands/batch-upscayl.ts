@@ -80,6 +80,8 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
 
   setStopped(false);
   setBatchPaused(false);
+  /** Processes started by this batch only; used to clean up without affecting other operations. */
+  const batchChildProcesses: typeof childProcesses = [];
   let encounteredError = false;
   /** Sum of elapsed ms for all actually processed images (used for average). */
   let totalElapsedMs = 0;
@@ -242,6 +244,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         logit,
       );
       childProcesses.push(upscayl);
+      batchChildProcesses.push(upscayl);
 
       const removeFromChildProcesses = () => {
         const idx = childProcesses.indexOf(upscayl);
@@ -353,7 +356,10 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   }
 
   mainWindow.setProgressBar(-1);
-  childProcesses.length = 0;
+  for (const p of batchChildProcesses) {
+    const idx = childProcesses.indexOf(p);
+    if (idx !== -1) childProcesses.splice(idx, 1);
+  }
   mainWindow.webContents.send(
     ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
     outputBase,
