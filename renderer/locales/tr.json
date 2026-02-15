@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Topyekün Upscayl ediliyor...",
       "IN_PROGRESS_TITLE": "Upscayl sihrini konuşturuyor...",
-      "STOP_BUTTON_TITLE": "DURDUR"
+      "STOP_BUTTON_TITLE": "DURDUR",
+      "PAUSE_BUTTON_TITLE": "DURAKLAT",
+      "RESUME_BUTTON_TITLE": "DEVAM",
+      "REMAINING_IMAGES": "{total} görselden {remaining} kaldı",
+      "FOLDER_PROGRESS": "Klasör {current} / {total}",
+      "ESTIMATED_TIME_REMAINING": "Tahmini kalan süre: {time}",
+      "ESTIMATED_TOTAL_TIME": "Tahmini toplam süre (tüm {total} görsel): {time}",
+      "ESTIMATED_STORAGE": "Tahmini toplam depolama (tüm {total} görsel): {size}",
+      "CURRENT_FOLDER": "Mevcut klasör:",
+      "SUB_FOLDER": "Alt klasör:",
+      "CURRENT_FILE": "Mevcut dosya:"
     },
     "RESET_BUTTON_TITLE": "Sıfırla",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Klasör Seçin",
       "SELECT_IMAGE": "Görsel Seçin",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Tüm alt klasörler dahil edilecektir.",
       "SELECT_FOLDER_DESCRIPTION": "Lütfen klasörün PNG, JPG, JPEG ve WEBP uzantılı görseller haricinde birşey içermediğinden emin olun.",
       "SELECT_IMAGES_DESCRIPTION": "Lütfen PNG, JPG, JPEG yahut WEBP uzantılı bir görsel seçin ya da sürükleyip buraya bırakın.",
       "PASTE_IMAGE_DESCRIPTION": "Ctrl+V yahut ⌘+V tuşlarına basarak bir görsel yapıştırın."
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Upscayl Başarılı!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Seçili klasör:",
+        "SELECTED_FOLDERS_TITLE": "Seçili klasörler:",
         "DONE_TITLE": "Hepsi tamamlandı!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscayllenmiş klasörü açın"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Toplu işlem istatistikleri",
+        "START_TIME": "Toplu işlem başlangıcı",
+        "END_TIME": "Toplu işlem sonu",
+        "TOTAL_TIME": "Toplam işlem süresi",
+        "TOTAL_IMAGES": "Oluşturulan toplam görsel sayısı",
+        "AVG_TIME_PER_IMAGE": "Görsel başına ortalama süre",
+        "AVG_SIZE_PER_IMAGE": "Görsel başına ortalama boyut",
+        "TOTAL_SIZE": "Tüm görsellerin toplam boyutu"
       }
     },
     "SLIDER": {

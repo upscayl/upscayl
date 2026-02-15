@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "バッチUpscayl進行中：",
       "IN_PROGRESS_TITLE": "Upscaylの魔法をかけています...",
-      "STOP_BUTTON_TITLE": "停止"
+      "STOP_BUTTON_TITLE": "停止",
+      "PAUSE_BUTTON_TITLE": "一時停止",
+      "RESUME_BUTTON_TITLE": "再開",
+      "REMAINING_IMAGES": "残り {remaining} / {total} 枚",
+      "FOLDER_PROGRESS": "フォルダ {current} / {total}",
+      "ESTIMATED_TIME_REMAINING": "残り時間の目安: {time}",
+      "ESTIMATED_TOTAL_TIME": "合計の目安時間（{total} 枚）: {time}",
+      "ESTIMATED_STORAGE": "合計容量の目安（{total} 枚）: {size}",
+      "CURRENT_FOLDER": "現在のフォルダ:",
+      "SUB_FOLDER": "サブフォルダ:",
+      "CURRENT_FILE": "現在のファイル:"
     },
     "RESET_BUTTON_TITLE": "リセット",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Upscaylするフォルダを選択",
       "SELECT_IMAGE": "Upscaylする画像を選択",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "すべてのサブフォルダが含まれます。",
       "SELECT_FOLDER_DESCRIPTION": "フォルダにはPNG、JPG、JPEG、WEBPの画像以外のものが含まれていないことを確認してください。",
       "SELECT_IMAGES_DESCRIPTION": "PNG、JPG、JPEG、またはWEBP画像を選択するか、ドラッグアンドドロップしてください。",
       "PASTE_IMAGE_DESCRIPTION": "Ctrl+V または ⌘+V を押してクリップボードから画像を貼り付けます"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Upscaylが成功しました！",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "選択されたフォルダ：",
+        "SELECTED_FOLDERS_TITLE": "選択されたフォルダ：",
         "DONE_TITLE": "すべて完了しました！",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscaylされたフォルダを開く"
+      },
+      "BATCH_STATS": {
+        "TITLE": "バッチ統計",
+        "START_TIME": "バッチ開始",
+        "END_TIME": "バッチ終了",
+        "TOTAL_TIME": "合計処理時間",
+        "TOTAL_IMAGES": "作成画像の総数",
+        "AVG_TIME_PER_IMAGE": "1画像あたりの平均時間",
+        "AVG_SIZE_PER_IMAGE": "1画像あたりの平均サイズ",
+        "TOTAL_SIZE": "全画像の合計サイズ"
       }
     },
     "SLIDER": {

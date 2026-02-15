@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Amélioration par lot en cours :",
       "IN_PROGRESS_TITLE": "Faire la magie de l'IA...",
-      "STOP_BUTTON_TITLE": "ARRÊTER"
+      "STOP_BUTTON_TITLE": "ARRÊTER",
+      "PAUSE_BUTTON_TITLE": "PAUSE",
+      "RESUME_BUTTON_TITLE": "REPRENDRE",
+      "REMAINING_IMAGES": "{remaining} sur {total} images restantes",
+      "FOLDER_PROGRESS": "Dossier {current} sur {total}",
+      "ESTIMATED_TIME_REMAINING": "Temps restant estimé : {time}",
+      "ESTIMATED_TOTAL_TIME": "Temps total estimé (les {total} images) : {time}",
+      "ESTIMATED_STORAGE": "Espace total estimé (les {total} images) : {size}",
+      "CURRENT_FOLDER": "Dossier actuel :",
+      "SUB_FOLDER": "Sous-dossier :",
+      "CURRENT_FILE": "Fichier actuel :"
     },
     "RESET_BUTTON_TITLE": "Réinitialiser",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Sélectionnez un dossier à améliorer",
       "SELECT_IMAGE": "Sélectionnez une image à améliorer",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Tous les sous-dossiers seront inclus.",
       "SELECT_FOLDER_DESCRIPTION": "Assurez-vous que le dossier ne contient rien d'autre que des images PNG, JPG, JPEG et WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Sélectionnez ou glissez-déposez une image PNG, JPG, JPEG ou WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Appuyez sur Ctrl+V ou ⌘+V pour coller l'image depuis le presse-papiers"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Amélioration réussie !",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Dossier sélectionné :",
+        "SELECTED_FOLDERS_TITLE": "Dossiers sélectionnés :",
         "DONE_TITLE": "Tout est terminé !",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Ouvrir le dossier amélioré"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Statistiques du lot",
+        "START_TIME": "Début du traitement par lot",
+        "END_TIME": "Fin du traitement par lot",
+        "TOTAL_TIME": "Durée totale du traitement",
+        "TOTAL_IMAGES": "Nombre total d'images créées",
+        "AVG_TIME_PER_IMAGE": "Temps moyen par image",
+        "AVG_SIZE_PER_IMAGE": "Taille moyenne par image",
+        "TOTAL_SIZE": "Taille totale de toutes les images"
       }
     },
     "SLIDER": {

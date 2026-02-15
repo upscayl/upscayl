@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Upscayl Massal Sedang Berlangsung:",
       "IN_PROGRESS_TITLE": "Melakukan sihir Upscayl...",
-      "STOP_BUTTON_TITLE": "HENTIKAN"
+      "STOP_BUTTON_TITLE": "HENTIKAN",
+      "PAUSE_BUTTON_TITLE": "JEDA",
+      "RESUME_BUTTON_TITLE": "LANJUTKAN",
+      "REMAINING_IMAGES": "{remaining} dari {total} gambar tersisa",
+      "FOLDER_PROGRESS": "Folder {current} dari {total}",
+      "ESTIMATED_TIME_REMAINING": "Perkiraan waktu tersisa: {time}",
+      "ESTIMATED_TOTAL_TIME": "Perkiraan waktu total (semua {total} gambar): {time}",
+      "ESTIMATED_STORAGE": "Perkiraan penyimpanan total (semua {total} gambar): {size}",
+      "CURRENT_FOLDER": "Folder saat ini:",
+      "SUB_FOLDER": "Subfolder:",
+      "CURRENT_FILE": "File saat ini:"
     },
     "RESET_BUTTON_TITLE": "Reset",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Pilih Folder",
       "SELECT_IMAGE": "Pilih Gambar",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Semua subfolder akan disertakan.",
       "SELECT_FOLDER_DESCRIPTION": "Pastikan folder tidak berisi apapun kecuali gambar PNG, JPG, JPEG & WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Pilih atau seret dan lepas gambar PNG, JPG, JPEG atau WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Tekan Ctrl+V atau ⌘+V untuk Menempel gambar dari Clipboard"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Upscayl Berhasil!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Folder yang dipilih:",
+        "SELECTED_FOLDERS_TITLE": "Folder yang dipilih:",
         "DONE_TITLE": "Semua selesai!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Buka Folder Upscayl"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Statistik batch",
+        "START_TIME": "Mulai pemrosesan batch",
+        "END_TIME": "Selesai pemrosesan batch",
+        "TOTAL_TIME": "Total waktu pemrosesan",
+        "TOTAL_IMAGES": "Total gambar yang dibuat",
+        "AVG_TIME_PER_IMAGE": "Rata-rata waktu per gambar",
+        "AVG_SIZE_PER_IMAGE": "Rata-rata ukuran per gambar",
+        "TOTAL_SIZE": "Total ukuran semua gambar"
       }
     },
     "SLIDER": {

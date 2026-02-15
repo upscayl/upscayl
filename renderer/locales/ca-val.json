@@ -198,12 +198,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Augment per lots en progrés:",
       "IN_PROGRESS_TITLE": "S'està fent la màgia d'Upscayl...",
-      "STOP_BUTTON_TITLE": "DETÍN"
+      "STOP_BUTTON_TITLE": "DETÍN",
+      "PAUSE_BUTTON_TITLE": "PAUSA",
+      "RESUME_BUTTON_TITLE": "REPREN",
+      "REMAINING_IMAGES": "{remaining} de {total} imatges restants",
+      "FOLDER_PROGRESS": "Carpeta {current} de {total}",
+      "ESTIMATED_TIME_REMAINING": "Temps restant estimat: {time}",
+      "ESTIMATED_TOTAL_TIME": "Temps total estimat (les {total} imatges): {time}",
+      "ESTIMATED_STORAGE": "Emmagatzematge total estimat (les {total} imatges): {size}",
+      "CURRENT_FOLDER": "Carpeta actual:",
+      "SUB_FOLDER": "Subcarpeta:",
+      "CURRENT_FILE": "Fitxer actual:"
     },
     "RESET_BUTTON_TITLE": "Restablix",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Seleccioneu una carpeta",
       "SELECT_IMAGE": "Seleccioneu una imatge",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "S'inclouran totes les subcarpetes.",
       "SELECT_FOLDER_DESCRIPTION": "Assegureu-vos que la carpeta no continga res excepte imatges PNG, JPG, JPEG i WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Seleccioneu o arrossegueu i solteu una imatge PNG, JPG, JPEG o WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Pressioneu Ctrl+V o ⌘+V per a apegar la imatge des del porta-retalls"
@@ -215,8 +226,19 @@
       "SUCCESS_TITLE": "S'ha augmentat correctament!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Carpeta seleccionada:",
+        "SELECTED_FOLDERS_TITLE": "Carpetes seleccionades:",
         "DONE_TITLE": "Tot llest!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Obri carpeta amb imatges augmentades"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Estadístiques del lot",
+        "START_TIME": "Inici del processament per lots",
+        "END_TIME": "Fi del processament per lots",
+        "TOTAL_TIME": "Temps total de processament",
+        "TOTAL_IMAGES": "Total d'imatges creades",
+        "AVG_TIME_PER_IMAGE": "Temps mitjà per imatge",
+        "AVG_SIZE_PER_IMAGE": "Mida mitjana per imatge",
+        "TOTAL_SIZE": "Mida total de totes les imatges"
       }
     },
     "SLIDER": {

@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Csoportos Upscayl Folyamatban:",
       "IN_PROGRESS_TITLE": "Az Upscayl varázslata folyamatban...",
-      "STOP_BUTTON_TITLE": "MEGÁLLÍTÁS"
+      "STOP_BUTTON_TITLE": "MEGÁLLÍTÁS",
+      "PAUSE_BUTTON_TITLE": "SZÜNET",
+      "RESUME_BUTTON_TITLE": "FOLYTATÁS",
+      "REMAINING_IMAGES": "{remaining} a {total} képből hátra",
+      "FOLDER_PROGRESS": "Mappa {current} / {total}",
+      "ESTIMATED_TIME_REMAINING": "Becsült hátralevő idő: {time}",
+      "ESTIMATED_TOTAL_TIME": "Becsült teljes idő (mind a {total} kép): {time}",
+      "ESTIMATED_STORAGE": "Becsült teljes tárhely (mind a {total} kép): {size}",
+      "CURRENT_FOLDER": "Aktuális mappa:",
+      "SUB_FOLDER": "Almappa:",
+      "CURRENT_FILE": "Aktuális fájl:"
     },
     "RESET_BUTTON_TITLE": "Visszaállítás",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Mappa kiválasztása",
       "SELECT_IMAGE": "Kép kiválasztása",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Minden almappa bekerül.",
       "SELECT_FOLDER_DESCRIPTION": "Győződj meg róla, hogy a mappa csak PNG, JPG, JPEG és WEBP képeket tartalmaz.",
       "SELECT_IMAGES_DESCRIPTION": "Válassz vagy húzz ide egy PNG, JPG, JPEG vagy WEBP formátumú képet.",
       "PASTE_IMAGE_DESCRIPTION": "Nyomd meg a Ctrl+V vagy ⌘+V billentyűt a kép beillesztéséhez a vágólapról."
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Sikeres Upscayl!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Választott mappa:",
+        "SELECTED_FOLDERS_TITLE": "Kiválasztott mappák:",
         "DONE_TITLE": "Kész!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscayl mappa megnyitása"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Köteg statisztika",
+        "START_TIME": "Köteg feldolgozás kezdete",
+        "END_TIME": "Köteg feldolgozás vége",
+        "TOTAL_TIME": "Teljes feldolgozási idő",
+        "TOTAL_IMAGES": "Létrehozott képek száma",
+        "AVG_TIME_PER_IMAGE": "Átlagos idő képként",
+        "AVG_SIZE_PER_IMAGE": "Átlagos méret képként",
+        "TOTAL_SIZE": "Összes kép teljes mérete"
       }
     },
     "SLIDER": {

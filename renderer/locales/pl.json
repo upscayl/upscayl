@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Plikowy Upscayl W Toku:",
       "IN_PROGRESS_TITLE": "Robię magię Upscaylowania...",
-      "STOP_BUTTON_TITLE": "ZATRZYMAJ"
+      "STOP_BUTTON_TITLE": "ZATRZYMAJ",
+      "PAUSE_BUTTON_TITLE": "PAUZA",
+      "RESUME_BUTTON_TITLE": "WZNÓW",
+      "REMAINING_IMAGES": "{remaining} z {total} obrazów pozostało",
+      "FOLDER_PROGRESS": "Folder {current} z {total}",
+      "ESTIMATED_TIME_REMAINING": "Szacowany pozostały czas: {time}",
+      "ESTIMATED_TOTAL_TIME": "Szacowany łączny czas (wszystkie {total} obrazów): {time}",
+      "ESTIMATED_STORAGE": "Szacowane łączne miejsce na dysku (wszystkie {total} obrazów): {size}",
+      "CURRENT_FOLDER": "Bieżący folder:",
+      "SUB_FOLDER": "Podfolder:",
+      "CURRENT_FILE": "Bieżący plik:"
     },
     "RESET_BUTTON_TITLE": "Reset",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Wybierz Folder",
       "SELECT_IMAGE": "Wybierz Obraz",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Wszystkie podfoldery zostaną uwzględnione.",
       "SELECT_FOLDER_DESCRIPTION": "Upewnij się, że folder nie zawiera niczego poza obrazami PNG, JPG, JPEG i WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Wybierz lub przeciągnij i upuść obraz PNG, JPG, JPEG lub WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Wciśnij Ctrl+V lub ⌘+V aby wkleić obraz ze Schowka"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Pomyślnie Zupscaylowano!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Wybierz folder:",
+        "SELECTED_FOLDERS_TITLE": "Wybrane foldery:",
         "DONE_TITLE": "Gotowe!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Otwórz Zupscaylowany Folder"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Statystyki wsadowe",
+        "START_TIME": "Początek przetwarzania wsadowego",
+        "END_TIME": "Koniec przetwarzania wsadowego",
+        "TOTAL_TIME": "Całkowity czas przetwarzania",
+        "TOTAL_IMAGES": "Łączna liczba utworzonych obrazów",
+        "AVG_TIME_PER_IMAGE": "Średni czas na obraz",
+        "AVG_SIZE_PER_IMAGE": "Średni rozmiar na obraz",
+        "TOTAL_SIZE": "Łączny rozmiar wszystkich obrazów"
       }
     },
     "SLIDER": {

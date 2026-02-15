@@ -65,7 +65,7 @@
     },
     "OVERWRITE_TOGGLE": {
       "TITLE": "VORHERIGEN UPSCALE ÜBERSCHREIBEN",
-      "DESCRIPTION": "Wenn diese Option aktiviert ist, verarbeitet Upscayl das Bild erneut, anstatt es direkt zu laden."
+      "DESCRIPTION": "Wenn aktiviert, werden vorhandene Ausgabedateien überschrieben. Einzelbild: erneut verarbeiten statt vorhandene Datei zu laden. Batch: bestehende hochskalierte Bilder erneut verarbeiten und überschreiben."
     },
     "RESET_SETTINGS": {
       "BUTTON_TITLE": "UPSCAYL ZURÜCKSETZEN",
@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Batch-Upscayl in Arbeit:",
       "IN_PROGRESS_TITLE": "Upscayl arbeitet...",
-      "STOP_BUTTON_TITLE": "STOPP"
+      "STOP_BUTTON_TITLE": "STOPP",
+      "PAUSE_BUTTON_TITLE": "PAUSE",
+      "RESUME_BUTTON_TITLE": "FORTSETZEN",
+      "REMAINING_IMAGES": "{remaining} von {total} Bildern verbleibend",
+      "FOLDER_PROGRESS": "Ordner {current} von {total}",
+      "ESTIMATED_TIME_REMAINING": "Geschätzte verbleibende Zeit: {time}",
+      "ESTIMATED_TOTAL_TIME": "Geschätzte Gesamtzeit (alle {total} Bilder): {time}",
+      "ESTIMATED_STORAGE": "Geschätzter Speicherbedarf (alle {total} Bilder): {size}",
+      "CURRENT_FOLDER": "Aktueller Ordner:",
+      "SUB_FOLDER": "Unterordner:",
+      "CURRENT_FILE": "Aktuelle Datei:"
     },
     "RESET_BUTTON_TITLE": "Zurücksetzen",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Ordner auswählen",
       "SELECT_IMAGE": "Bild auswählen",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Alle Unterordner werden einbezogen.",
       "SELECT_FOLDER_DESCRIPTION": "Stelle sicher, dass der Ordner nur PNG-, JPG-, JPEG- und WEBP-Bilder enthält.",
       "SELECT_IMAGES_DESCRIPTION": "Wähle oder ziehe und platziere ein PNG-, JPG-, JPEG- oder WEBP-Bild.",
       "PASTE_IMAGE_DESCRIPTION": "Drücke Strg+V oder ⌘+V, um ein Bild aus der Zwischenablage einzufügen"
@@ -211,9 +222,20 @@
       "WAIT_TITLE": "Einen Moment...",
       "SUCCESS_TITLE": "Upscayl erfolgreich!",
       "BATCH": {
+        "SELECTED_FOLDERS_TITLE": "Ausgewählte Ordner:",
         "SELECTED_FOLDER_TITLE": "Ausgewählter Ordner:",
         "DONE_TITLE": "Alles erledigt!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscayl-Ordner öffnen"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Batch-Statistik",
+        "START_TIME": "Start des Batch-Vorgangs",
+        "END_TIME": "Ende des Batch-Vorgangs",
+        "TOTAL_TIME": "Benötigte gesamte Batch-Verarbeitungszeit",
+        "TOTAL_IMAGES": "Gesamtzahl aller erstellten Bilder",
+        "AVG_TIME_PER_IMAGE": "Durchschnittlich benötigte Zeit pro Bild",
+        "AVG_SIZE_PER_IMAGE": "Durchschnittlich benötigte Größe pro erstelltes Bild",
+        "TOTAL_SIZE": "Gesamtgröße aller erstellten Bilder"
       }
     },
     "SLIDER": {

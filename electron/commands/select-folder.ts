@@ -26,7 +26,7 @@ const selectFolder = async (event, message) => {
     filePaths: folderPaths,
     bookmarks,
   } = await dialog.showOpenDialog({
-    properties: ["openDirectory"],
+    properties: ["openDirectory", "multiSelections"],
     defaultPath: savedBatchUpscaylFolderPath,
     securityScopedBookmarks: true,
   });
@@ -36,13 +36,13 @@ const selectFolder = async (event, message) => {
     await settings.set("folder-bookmarks", bookmarks[0]);
   }
 
-  if (canceled) {
+  if (canceled || folderPaths.length === 0) {
     logit("🚫 Select Folder Operation Cancelled");
     return null;
   } else {
     setSavedBatchUpscaylFolderPath(folderPaths[0]);
-    logit("📁 Selected Folder Path: ", savedBatchUpscaylFolderPath);
-    return folderPaths[0];
+    logit("📁 Selected Folder Path(s): ", folderPaths);
+    return folderPaths;
   }
 };
 

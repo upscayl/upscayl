@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "التحجيم المزدوج قيد العمل:",
       "IN_PROGRESS_TITLE": "القيام ببعض السحر المحجم...",
-      "STOP_BUTTON_TITLE": "أيقاف"
+      "STOP_BUTTON_TITLE": "إيقاف",
+      "PAUSE_BUTTON_TITLE": "إيقاف مؤقت",
+      "RESUME_BUTTON_TITLE": "استئناف",
+      "REMAINING_IMAGES": "{remaining} من {total} صور متبقية",
+      "FOLDER_PROGRESS": "المجلد {current} من {total}",
+      "ESTIMATED_TIME_REMAINING": "الوقت المتبقي المقدر: {time}",
+      "ESTIMATED_TOTAL_TIME": "الوقت الإجمالي المقدر (جميع {total} الصور): {time}",
+      "ESTIMATED_STORAGE": "التخزين الإجمالي المقدر (جميع {total} الصور): {size}",
+      "CURRENT_FOLDER": "المجلد الحالي:",
+      "SUB_FOLDER": "المجلد الفرعي:",
+      "CURRENT_FILE": "الملف الحالي:"
     },
     "RESET_BUTTON_TITLE": "اعادة ضبط",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "اختر مجلد",
       "SELECT_IMAGE": "اختر صورة",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "سيتم تضمين جميع المجلدات الفرعية.",
       "SELECT_FOLDER_DESCRIPTION": "تأكد ان المجلد لا يحوي اي شيء ما عدى PNG, JPG, JPEG & WEBP images.",
       "SELECT_IMAGES_DESCRIPTION": "اختر صورة او قم بسحب و الاسقاط",
       "PASTE_IMAGE_DESCRIPTION": "اضغط Ctrl+V او ⌘+V للصق الصورة من المحفظة"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "تم العملية!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "اختر مجلد:",
+        "SELECTED_FOLDERS_TITLE": "المجلدات المحددة:",
         "DONE_TITLE": "تم!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "افتح مجلد ابسكيل"
+      },
+      "BATCH_STATS": {
+        "TITLE": "إحصائيات الدفعة",
+        "START_TIME": "بداية المعالجة",
+        "END_TIME": "نهاية المعالجة",
+        "TOTAL_TIME": "إجمالي وقت المعالجة",
+        "TOTAL_IMAGES": "إجمالي الصور المنشأة",
+        "AVG_TIME_PER_IMAGE": "متوسط الوقت لكل صورة",
+        "AVG_SIZE_PER_IMAGE": "متوسط الحجم لكل صورة",
+        "TOTAL_SIZE": "إجمالي حجم جميع الصور"
       }
     },
     "SLIDER": {

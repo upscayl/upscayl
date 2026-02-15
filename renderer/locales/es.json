@@ -196,12 +196,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Aumento por lotes en progreso:",
       "IN_PROGRESS_TITLE": "Haciendo la magia de Upscayl...",
-      "STOP_BUTTON_TITLE": "DETENER"
+      "STOP_BUTTON_TITLE": "DETENER",
+      "PAUSE_BUTTON_TITLE": "PAUSA",
+      "RESUME_BUTTON_TITLE": "REANUDAR",
+      "REMAINING_IMAGES": "{remaining} de {total} imágenes restantes",
+      "FOLDER_PROGRESS": "Carpeta {current} de {total}",
+      "ESTIMATED_TIME_REMAINING": "Tiempo restante estimado: {time}",
+      "ESTIMATED_TOTAL_TIME": "Tiempo total estimado (las {total} imágenes): {time}",
+      "ESTIMATED_STORAGE": "Almacenamiento total estimado (las {total} imágenes): {size}",
+      "CURRENT_FOLDER": "Carpeta actual:",
+      "SUB_FOLDER": "Subcarpeta:",
+      "CURRENT_FILE": "Archivo actual:"
     },
     "RESET_BUTTON_TITLE": "Restablecer",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Selecciona una carpeta",
       "SELECT_IMAGE": "Selecciona una imagen",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Se incluirán todas las subcarpetas.",
       "SELECT_FOLDER_DESCRIPTION": "Asegúrate de que la carpeta no contenga nada excepto imágenes PNG, JPG, JPEG y WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Selecciona o arrastra y suelta una imagen PNG, JPG, JPEG o WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Presiona Ctrl+V o ⌘+V para pegar la imagen desde el portapapeles"
@@ -213,8 +224,19 @@
       "SUCCESS_TITLE": "¡Aumento exitoso!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Carpeta seleccionada:",
+        "SELECTED_FOLDERS_TITLE": "Carpetas seleccionadas:",
         "DONE_TITLE": "¡Todo listo!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Abrir carpeta con imágenes aumentadas"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Estadísticas del lote",
+        "START_TIME": "Inicio del proceso por lotes",
+        "END_TIME": "Fin del proceso por lotes",
+        "TOTAL_TIME": "Tiempo total de procesamiento",
+        "TOTAL_IMAGES": "Total de imágenes creadas",
+        "AVG_TIME_PER_IMAGE": "Tiempo medio por imagen",
+        "AVG_SIZE_PER_IMAGE": "Tamaño medio por imagen",
+        "TOTAL_SIZE": "Tamaño total de todas las imágenes"
       }
     },
     "SLIDER": {

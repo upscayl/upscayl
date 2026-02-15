@@ -10,6 +10,8 @@ import {
   rememberOutputFolderAtom,
   userStatsAtom,
 } from "../atoms/user-settings-atom";
+import type { BatchProgressDetails } from "../atoms/user-settings-atom";
+import type { BatchStats } from "@common/types/types";
 import useLogger from "../components/hooks/use-logger";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -42,9 +44,13 @@ const Home = () => {
   const setOutputPath = useSetAtom(savedOutputPathAtom);
   const rememberOutputFolder = useAtomValue(rememberOutputFolderAtom);
   const batchMode = useAtomValue(batchModeAtom);
-  const [batchFolderPath, setBatchFolderPath] = useState("");
+  const [batchFolderPaths, setBatchFolderPaths] = useState<string[]>([]);
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
   const setProgress = useSetAtom(progressAtom);
+  const [batchProgressDetails, setBatchProgressDetails] =
+    useState<BatchProgressDetails | null>(null);
+  const [batchPaused, setBatchPaused] = useState(false);
+  const [batchStats, setBatchStats] = useState<BatchStats | null>(null);
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const setModelIds = useSetAtom(customModelIdsAtom);
   const setUserStats = useSetAtom(userStatsAtom);
@@ -67,16 +73,16 @@ const Home = () => {
 
   const selectFolderHandler = async () => {
     resetImagePaths();
-    const path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FOLDER);
-    if (path !== null) {
-      logit("🖼 Selected Folder Path: ", path);
-      setBatchFolderPath(path);
-      if (!rememberOutputFolder) {
-        setOutputPath(path);
+    const paths = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FOLDER) as string[] | null;
+    if (paths !== null && paths.length > 0) {
+      logit("🖼 Selected Folder Path(s): ", paths);
+      setBatchFolderPaths(paths);
+      if (!rememberOutputFolder && paths[0]) {
+        setOutputPath(paths[0]);
       }
     } else {
       logit("🚫 Folder selection cancelled");
-      setBatchFolderPath("");
+      setBatchFolderPaths([]);
       if (!rememberOutputFolder) {
         setOutputPath("");
       }
@@ -226,6 +232,24 @@ const Home = () => {
         logit(`🚧 FOLDER_UPSCAYL_PROGRESS: `, data);
       },
     );
+    // BATCH PROGRESS (structured)
+    window.electron.on(
+      ELECTRON_COMMANDS.BATCH_PROGRESS,
+      (_, data: BatchProgressDetails) => {
+        setBatchProgressDetails(data);
+      },
+    );
+    window.electron.on(ELECTRON_COMMANDS.BATCH_PAUSED, () => {
+      setBatchPaused(true);
+    });
+    window.electron.on(ELECTRON_COMMANDS.BATCH_RESUMED, () => {
+      setBatchPaused(false);
+    });
+    window.electron.on(ELECTRON_COMMANDS.BATCH_STOPPED, () => {
+      setProgress("");
+      setBatchProgressDetails(null);
+      setBatchPaused(false);
+    });
     // DOUBLE UPSCAYL PROGRESS
     window.electron.on(
       ELECTRON_COMMANDS.DOUBLE_UPSCAYL_PROGRESS,
@@ -258,10 +282,17 @@ const Home = () => {
     // FOLDER UPSCAYL DONE
     window.electron.on(
       ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
-      (_, data: string) => {
+      (_, data: string | { outputPath: string; stats: BatchStats }) => {
+        const outputPath =
+          typeof data === "string" ? data : data?.outputPath ?? "";
+        const stats =
+          typeof data === "object" && data?.stats ? data.stats : null;
         setProgress("");
-        setUpscaledBatchFolderPath(data);
-        logit(`💯 FOLDER_UPSCAYL_DONE: `, data);
+        setBatchProgressDetails(null);
+        setBatchPaused(false);
+        setUpscaledBatchFolderPath(outputPath);
+        setBatchStats(stats);
+        logit(`💯 FOLDER_UPSCAYL_DONE: `, outputPath);
         setUserStats((prev) => ({
           ...prev,
           lastUpscaylDuration: new Date().getTime() - prev.lastUsedAt,
@@ -321,8 +352,9 @@ const Home = () => {
     setProgress("");
     setImagePath("");
     setUpscaledImagePath("");
-    setBatchFolderPath("");
+    setBatchFolderPaths([]);
     setUpscaledBatchFolderPath("");
+    setBatchStats(null);
   };
 
   if (isLoading) {
@@ -340,7 +372,7 @@ const Home = () => {
         imagePath={imagePath}
         dimensions={dimensions}
         setUpscaledImagePath={setUpscaledImagePath}
-        batchFolderPath={batchFolderPath}
+        batchFolderPaths={batchFolderPaths}
         setUpscaledBatchFolderPath={setUpscaledBatchFolderPath}
         selectImageHandler={selectImageHandler}
         selectFolderHandler={selectFolderHandler}
@@ -353,10 +385,14 @@ const Home = () => {
         validateImagePath={validateImagePath}
         selectFolderHandler={selectFolderHandler}
         selectImageHandler={selectImageHandler}
-        batchFolderPath={batchFolderPath}
+        batchFolderPaths={batchFolderPaths}
         upscaledImagePath={upscaledImagePath}
         doubleUpscaylCounter={doubleUpscaylCounter}
         setDimensions={setDimensions}
+        batchProgressDetails={batchProgressDetails}
+        batchPaused={batchPaused}
+        batchStats={batchStats}
+        onCloseBatchStats={() => setBatchStats(null)}
       />
       <OnboardingDialog />
     </div>

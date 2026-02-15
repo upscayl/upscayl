@@ -45,7 +45,7 @@ import SidebarToggleButton from "./sidebar-button";
 
 const Sidebar = ({
   setUpscaledImagePath,
-  batchFolderPath,
+  batchFolderPaths,
   setUpscaledBatchFolderPath,
   dimensions,
   imagePath,
@@ -53,7 +53,7 @@ const Sidebar = ({
   selectFolderHandler,
 }: {
   setUpscaledImagePath: React.Dispatch<React.SetStateAction<string>>;
-  batchFolderPath: string;
+  batchFolderPaths: string[];
   setUpscaledBatchFolderPath: React.Dispatch<React.SetStateAction<string>>;
   dimensions: {
     width: number | null;
@@ -100,7 +100,7 @@ const Sidebar = ({
     logit("🔄 Resetting Upscaled Image Path");
     setUpscaledImagePath("");
     setUpscaledBatchFolderPath("");
-    if (imagePath !== "" || batchFolderPath !== "") {
+    if (imagePath !== "" || batchFolderPaths.length > 0) {
       setProgress(t("APP.PROGRESS.WAIT_TITLE"));
       // Double Upscayl
       if (doubleUpscayl) {
@@ -136,7 +136,7 @@ const Sidebar = ({
         window.electron.send<BatchUpscaylPayload>(
           ELECTRON_COMMANDS.FOLDER_UPSCAYL,
           {
-            batchFolderPath,
+            batchFolderPaths,
             outputPath,
             model: selectedModelId,
             gpuId: gpuId.length === 0 ? null : gpuId,
@@ -149,6 +149,7 @@ const Sidebar = ({
             tileSize,
             ttaMode,
             copyMetadata,
+            overwrite,
           },
         );
         setUserStats((prev) => ({

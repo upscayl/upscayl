@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Batch Upscayl Đang Tiến Hành:",
       "IN_PROGRESS_TITLE": "Đang thực hiện phép màu Upscayl...",
-      "STOP_BUTTON_TITLE": "DỪNG"
+      "STOP_BUTTON_TITLE": "DỪNG",
+      "PAUSE_BUTTON_TITLE": "TẠM DỪNG",
+      "RESUME_BUTTON_TITLE": "TIẾP TỤC",
+      "REMAINING_IMAGES": "Còn {remaining} trong {total} ảnh",
+      "FOLDER_PROGRESS": "Thư mục {current} / {total}",
+      "ESTIMATED_TIME_REMAINING": "Thời gian còn lại ước tính: {time}",
+      "ESTIMATED_TOTAL_TIME": "Tổng thời gian ước tính (tất cả {total} ảnh): {time}",
+      "ESTIMATED_STORAGE": "Dung lượng ước tính (tất cả {total} ảnh): {size}",
+      "CURRENT_FOLDER": "Thư mục hiện tại:",
+      "SUB_FOLDER": "Thư mục con:",
+      "CURRENT_FILE": "Tệp hiện tại:"
     },
     "RESET_BUTTON_TITLE": "Đặt Lại",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Chọn một Thư mục",
       "SELECT_IMAGE": "Chọn một Hình ảnh",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Tất cả các thư mục con sẽ được bao gồm.",
       "SELECT_FOLDER_DESCRIPTION": "Đảm bảo rằng thư mục không chứa gì ngoài các hình ảnh PNG, JPG, JPEG & WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Chọn hoặc kéo và thả một hình ảnh PNG, JPG, JPEG hoặc WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Nhấn Ctrl+V hoặc ⌘+V để Dán hình ảnh từ Clipboard"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Upscayl Thành Công!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Thư mục đã chọn:",
+        "SELECTED_FOLDERS_TITLE": "Các thư mục đã chọn:",
         "DONE_TITLE": "Tất cả đã xong!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Mở Thư mục Upscayled"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Thống kê batch",
+        "START_TIME": "Bắt đầu xử lý batch",
+        "END_TIME": "Kết thúc xử lý batch",
+        "TOTAL_TIME": "Tổng thời gian xử lý",
+        "TOTAL_IMAGES": "Tổng số ảnh đã tạo",
+        "AVG_TIME_PER_IMAGE": "Thời gian trung bình mỗi ảnh",
+        "AVG_SIZE_PER_IMAGE": "Kích thước trung bình mỗi ảnh",
+        "TOTAL_SIZE": "Tổng kích thước tất cả ảnh"
       }
     },
     "SLIDER": {

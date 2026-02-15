@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Upscayl Kelompok Sedang Berjalan:",
       "IN_PROGRESS_TITLE": "Melakukan magik Upscayl...",
-      "STOP_BUTTON_TITLE": "HENTI"
+      "STOP_BUTTON_TITLE": "HENTI",
+      "PAUSE_BUTTON_TITLE": "JEDA",
+      "RESUME_BUTTON_TITLE": "SAMBUNG",
+      "REMAINING_IMAGES": "{remaining} daripada {total} imej berbaki",
+      "FOLDER_PROGRESS": "Folder {current} daripada {total}",
+      "ESTIMATED_TIME_REMAINING": "Anggaran masa berbaki: {time}",
+      "ESTIMATED_TOTAL_TIME": "Anggaran masa keseluruhan (semua {total} imej): {time}",
+      "ESTIMATED_STORAGE": "Anggaran storan keseluruhan (semua {total} imej): {size}",
+      "CURRENT_FOLDER": "Folder semasa:",
+      "SUB_FOLDER": "Subfolder:",
+      "CURRENT_FILE": "Fail semasa:"
     },
     "RESET_BUTTON_TITLE": "Tetapkan Semula",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Pilih Folder",
       "SELECT_IMAGE": "Pilih Imej",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Semua subfolder akan disertakan.",
       "SELECT_FOLDER_DESCRIPTION": "Pastikan folder tidak mengandungi apa-apa kecuali imej PNG, JPG, JPEG & WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Pilih atau seret dan lepas imej PNG, JPG, JPEG atau WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Tekan Ctrl+V atau ⌘+V untuk Tampal imej dari Papan Keratan"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Upscayl Berjaya!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Folder yang dipilih:",
+        "SELECTED_FOLDERS_TITLE": "Folder-folder yang dipilih:",
         "DONE_TITLE": "Semuanya selesai!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Buka Folder Upscayl"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Statistik kelompok",
+        "START_TIME": "Mula pemprosesan kelompok",
+        "END_TIME": "Tamat pemprosesan kelompok",
+        "TOTAL_TIME": "Jumlah masa pemprosesan",
+        "TOTAL_IMAGES": "Jumlah imej dicipta",
+        "AVG_TIME_PER_IMAGE": "Purata masa per imej",
+        "AVG_SIZE_PER_IMAGE": "Purata saiz per imej",
+        "TOTAL_SIZE": "Jumlah saiz semua imej"
       }
     },
     "SLIDER": {

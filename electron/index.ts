@@ -15,6 +15,8 @@ import { createMainWindow } from "./main-window";
 import electronIsDev from "electron-is-dev";
 import { execPath, modelsPath } from "./utils/get-resource-paths";
 import batchUpscayl from "./commands/batch-upscayl";
+import batchPause from "./commands/batch-pause";
+import batchResume from "./commands/batch-resume";
 import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
 import { FEATURE_FLAGS } from "../common/feature-flags";
@@ -99,6 +101,9 @@ ipcMain.handle(
 ipcMain.on(ELECTRON_COMMANDS.UPSCAYL, imageUpscayl);
 
 ipcMain.on(ELECTRON_COMMANDS.FOLDER_UPSCAYL, batchUpscayl);
+
+ipcMain.on(ELECTRON_COMMANDS.BATCH_PAUSE, batchPause);
+ipcMain.on(ELECTRON_COMMANDS.BATCH_RESUME, batchResume);
 
 ipcMain.on(ELECTRON_COMMANDS.DOUBLE_UPSCAYL, doubleUpscayl);
 

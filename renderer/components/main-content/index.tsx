@@ -11,12 +11,15 @@ import {
   viewTypeAtom,
   rememberOutputFolderAtom,
 } from "../../atoms/user-settings-atom";
+import type { BatchProgressDetails } from "../../atoms/user-settings-atom";
+import type { BatchStats } from "@common/types/types";
 import { useToast } from "@/components/ui/use-toast";
 import { sanitizePath } from "@common/sanitize-path";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import { ImageFormat, VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import ProgressBar from "./progress-bar";
+import BatchStatsModal from "./batch-stats-modal";
 import InstructionsCard from "./instructions-card";
 import MoreOptionsDrawer from "./more-options-drawer";
 import useUpscaylVersion from "../hooks/use-upscayl-version";
@@ -35,7 +38,7 @@ type MainContentProps = {
   selectFolderHandler: () => void;
   selectImageHandler: () => void;
   upscaledImagePath: string;
-  batchFolderPath: string;
+  batchFolderPaths: string[];
   doubleUpscaylCounter: number;
   setDimensions: React.Dispatch<
     React.SetStateAction<{
@@ -43,6 +46,10 @@ type MainContentProps = {
       height: number;
     }>
   >;
+  batchProgressDetails: BatchProgressDetails | null;
+  batchPaused: boolean;
+  batchStats: BatchStats | null;
+  onCloseBatchStats: () => void;
 };
 
 const MainContent = ({
@@ -54,9 +61,13 @@ const MainContent = ({
   selectFolderHandler,
   selectImageHandler,
   upscaledImagePath,
-  batchFolderPath,
+  batchFolderPaths,
   doubleUpscaylCounter,
   setDimensions,
+  batchProgressDetails,
+  batchPaused,
+  batchStats,
+  onCloseBatchStats,
 }: MainContentProps) => {
   const t = useTranslation();
   const logit = useLogger();
@@ -82,14 +93,14 @@ const MainContent = ({
       return imagePath.length === 0 && upscaledImagePath.length === 0;
     } else {
       return (
-        batchFolderPath.length === 0 && upscaledBatchFolderPath.length === 0
+        batchFolderPaths.length === 0 && upscaledBatchFolderPath.length === 0
       );
     }
   }, [
     batchMode,
     imagePath,
     upscaledImagePath,
-    batchFolderPath,
+    batchFolderPaths,
     upscaledBatchFolderPath,
   ]);
 
@@ -284,6 +295,8 @@ const MainContent = ({
             progress={progress}
             doubleUpscaylCounter={doubleUpscaylCounter}
             resetImagePaths={resetImagePaths}
+            batchProgressDetails={batchProgressDetails}
+            batchPaused={batchPaused}
           />
         )}
 
@@ -303,16 +316,28 @@ const MainContent = ({
         <ImageViewer imagePath={imagePath} setDimensions={setDimensions} />
       )}
 
-      {/* BATCH UPSCALE SHOW SELECTED FOLDER */}
+      {/* BATCH UPSCALE SHOW SELECTED FOLDERS */}
       {batchMode &&
         upscaledBatchFolderPath.length === 0 &&
-        batchFolderPath.length > 0 && (
-          <p className="select-none text-base-content">
-            <span className="font-bold">
-              {t("APP.PROGRESS.BATCH.SELECTED_FOLDER_TITLE")}
-            </span>{" "}
-            {batchFolderPath}
-          </p>
+        batchFolderPaths.length > 0 && (
+          <div className="select-none text-base-content">
+            <p className="font-bold">
+              {batchFolderPaths.length === 1
+                ? t("APP.PROGRESS.BATCH.SELECTED_FOLDER_TITLE")
+                : t("APP.PROGRESS.BATCH.SELECTED_FOLDERS_TITLE")}{" "}
+              {batchFolderPaths.length === 1 ? "" : `(${batchFolderPaths.length})`}
+            </p>
+            <ul className="mt-2 max-h-48 list-inside list-disc overflow-y-auto text-sm">
+              {batchFolderPaths.map((p, idx) => (
+                <li key={idx} className="truncate" title={p}>
+                  {p}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-1 text-xs text-base-content/70">
+              {t("APP.RIGHT_PANE_INFO.SELECT_FOLDER_SUBFOLDERS_HINT")}
+            </p>
+          </div>
         )}
       {/* BATCH UPSCALE DONE INFO */}
 
@@ -328,6 +353,10 @@ const MainContent = ({
             {t("APP.PROGRESS.BATCH.OPEN_UPSCAYLED_FOLDER_TITLE")}
           </button>
         </div>
+      )}
+
+      {batchStats && (
+        <BatchStatsModal stats={batchStats} onClose={onCloseBatchStats} />
       )}
 
       {!batchMode && viewType === "lens" && upscaledImagePath && imagePath && (

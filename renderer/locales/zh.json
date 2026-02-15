@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "批量升图中",
       "IN_PROGRESS_TITLE": "稍等一下，升图魔法进行中",
-      "STOP_BUTTON_TITLE": "取消"
+      "STOP_BUTTON_TITLE": "取消",
+      "PAUSE_BUTTON_TITLE": "暂停",
+      "RESUME_BUTTON_TITLE": "继续",
+      "REMAINING_IMAGES": "剩余 {remaining} / {total} 张图片",
+      "FOLDER_PROGRESS": "文件夹 {current} / {total}",
+      "ESTIMATED_TIME_REMAINING": "预计剩余时间：{time}",
+      "ESTIMATED_TOTAL_TIME": "预计总时间（共 {total} 张）：{time}",
+      "ESTIMATED_STORAGE": "预计总占用（共 {total} 张）：{size}",
+      "CURRENT_FOLDER": "当前文件夹：",
+      "SUB_FOLDER": "子文件夹：",
+      "CURRENT_FILE": "当前文件："
     },
     "RESET_BUTTON_TITLE": "重置",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "选择要升级的图片所在的文件夹",
       "SELECT_IMAGE": "选择要升级的图片",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "所有子文件夹都将被包含。",
       "SELECT_FOLDER_DESCRIPTION": "文件夹中只支持 PNG、JPG、JPEG 和 WEBP 图片。",
       "SELECT_IMAGES_DESCRIPTION": "选择或拖放 PNG、JPG、JPEG 或 WEBP 图片。",
       "PASTE_IMAGE_DESCRIPTION": "按 Ctrl+V 或 ⌘+V 来粘贴图像"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "成功！",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "所选文件夹：",
+        "SELECTED_FOLDERS_TITLE": "已选文件夹：",
         "DONE_TITLE": "全部完成！",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "打开升图后的文件夹"
+      },
+      "BATCH_STATS": {
+        "TITLE": "批处理统计",
+        "START_TIME": "批处理开始",
+        "END_TIME": "批处理结束",
+        "TOTAL_TIME": "总处理时间",
+        "TOTAL_IMAGES": "创建的图片总数",
+        "AVG_TIME_PER_IMAGE": "每张图片平均耗时",
+        "AVG_SIZE_PER_IMAGE": "每张图片平均大小",
+        "TOTAL_SIZE": "所有图片总大小"
       }
     },
     "SLIDER": {

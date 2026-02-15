@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Sovracampionamento batch in corso :",
       "IN_PROGRESS_TITLE": "Fare la magia del sovracampionamento...",
-      "STOP_BUTTON_TITLE": "FERMARE"
+      "STOP_BUTTON_TITLE": "FERMARE",
+      "PAUSE_BUTTON_TITLE": "PAUSA",
+      "RESUME_BUTTON_TITLE": "RIPRENDI",
+      "REMAINING_IMAGES": "{remaining} di {total} immagini rimanenti",
+      "FOLDER_PROGRESS": "Cartella {current} di {total}",
+      "ESTIMATED_TIME_REMAINING": "Tempo stimato rimanente: {time}",
+      "ESTIMATED_TOTAL_TIME": "Tempo totale stimato (tutte le {total} immagini): {time}",
+      "ESTIMATED_STORAGE": "Spazio totale stimato (tutte le {total} immagini): {size}",
+      "CURRENT_FOLDER": "Cartella corrente:",
+      "SUB_FOLDER": "Sottocartella:",
+      "CURRENT_FILE": "File corrente:"
     },
     "RESET_BUTTON_TITLE": "Resettare",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Seleziona una cartella da sovracampionare",
       "SELECT_IMAGE": "Seleziona un'immagine da sovracampionare",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Tutte le sottocartelle saranno incluse.",
       "SELECT_FOLDER_DESCRIPTION": "Assicurati che la cartella non contenga altro che immagini PNG, JPG, JPEG e WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Seleziona o trascina e rilascia un'immagine PNG, JPG, JPEG o WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Premi Ctrl+V o ⌘+V per incollare l'immagine dagli appunti"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Sovracampionamento riuscito !",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Cartella selezionata :",
+        "SELECTED_FOLDERS_TITLE": "Cartelle selezionate :",
         "DONE_TITLE": "È terminato !",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Apri la cartella sovracampionata"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Statistiche batch",
+        "START_TIME": "Inizio elaborazione batch",
+        "END_TIME": "Fine elaborazione batch",
+        "TOTAL_TIME": "Tempo totale di elaborazione",
+        "TOTAL_IMAGES": "Totale immagini create",
+        "AVG_TIME_PER_IMAGE": "Tempo medio per immagine",
+        "AVG_SIZE_PER_IMAGE": "Dimensione media per immagine",
+        "TOTAL_SIZE": "Dimensione totale di tutte le immagini"
       }
     },
     "SLIDER": {

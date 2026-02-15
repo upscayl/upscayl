@@ -196,12 +196,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Upscayl em lote em execução:",
       "IN_PROGRESS_TITLE": "A aplicar a magia de Upscayl...",
-      "STOP_BUTTON_TITLE": "PARAR"
+      "STOP_BUTTON_TITLE": "PARAR",
+      "PAUSE_BUTTON_TITLE": "PAUSAR",
+      "RESUME_BUTTON_TITLE": "RETOMAR",
+      "REMAINING_IMAGES": "{remaining} de {total} imagens restantes",
+      "FOLDER_PROGRESS": "Pasta {current} de {total}",
+      "ESTIMATED_TIME_REMAINING": "Tempo restante estimado: {time}",
+      "ESTIMATED_TOTAL_TIME": "Tempo total estimado (as {total} imagens): {time}",
+      "ESTIMATED_STORAGE": "Armazenamento total estimado (as {total} imagens): {size}",
+      "CURRENT_FOLDER": "Pasta atual:",
+      "SUB_FOLDER": "Subpasta:",
+      "CURRENT_FILE": "Ficheiro atual:"
     },
     "RESET_BUTTON_TITLE": "Repor",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Selecionar pasta",
       "SELECT_IMAGE": "Selecionar imagem",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Todas as subpastas serão incluídas.",
       "SELECT_FOLDER_DESCRIPTION": "Certifique-se de que a pasta não contém nada, exceto imagens PNG, JPG, JPEG ou WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "selecione ou arraste e solte uma imagem PNG, JPG, JPEG ou WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Prima Ctrl+V ou ⌘+V para colar a imagem a partir da área de transferência"
@@ -213,8 +224,19 @@
       "SUCCESS_TITLE": "Aprimorado com sucesso!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Selecionar pasta:",
+        "SELECTED_FOLDERS_TITLE": "Pastas selecionadas:",
         "DONE_TITLE": "Tudo concluído!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Abrir pasta do Upscayl"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Estatísticas do lote",
+        "START_TIME": "Início do processamento em lote",
+        "END_TIME": "Fim do processamento em lote",
+        "TOTAL_TIME": "Tempo total de processamento",
+        "TOTAL_IMAGES": "Total de imagens criadas",
+        "AVG_TIME_PER_IMAGE": "Tempo médio por imagem",
+        "AVG_SIZE_PER_IMAGE": "Tamanho médio por imagem",
+        "TOTAL_SIZE": "Tamanho total de todas as imagens"
       }
     },
     "SLIDER": {

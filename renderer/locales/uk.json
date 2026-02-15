@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Виконується пакетна обробка:",
       "IN_PROGRESS_TITLE": "Виконуємо магію Upscayl...",
-      "STOP_BUTTON_TITLE": "СТОП"
+      "STOP_BUTTON_TITLE": "СТОП",
+      "PAUSE_BUTTON_TITLE": "ПАУЗА",
+      "RESUME_BUTTON_TITLE": "ПРОДОВЖИТИ",
+      "REMAINING_IMAGES": "Залишилось {remaining} з {total} зображень",
+      "FOLDER_PROGRESS": "Тека {current} з {total}",
+      "ESTIMATED_TIME_REMAINING": "Орієнтовний час, що залишився: {time}",
+      "ESTIMATED_TOTAL_TIME": "Орієнтовний загальний час (усі {total} зображень): {time}",
+      "ESTIMATED_STORAGE": "Орієнтовний загальний об'єм (усі {total} зображень): {size}",
+      "CURRENT_FOLDER": "Поточна тека:",
+      "SUB_FOLDER": "Підтеку:",
+      "CURRENT_FILE": "Поточний файл:"
     },
     "RESET_BUTTON_TITLE": "Скинути",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Оберіть теку",
       "SELECT_IMAGE": "Оберіть зображення",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Усі підтеки будуть включені.",
       "SELECT_FOLDER_DESCRIPTION": "Переконайтеся, що тека містить лише зображення PNG, JPG, JPEG та WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Оберіть або перетягніть зображення PNG, JPG, JPEG чи WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Натисніть Ctrl+V або ⌘+V для вставки зображення з буфера обміну"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Обробку успішно завершено!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Обрана тека:",
+        "SELECTED_FOLDERS_TITLE": "Обрані теки:",
         "DONE_TITLE": "Все готово!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Відкрити теку з результатами"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Статистика пакетної обробки",
+        "START_TIME": "Початок пакетної обробки",
+        "END_TIME": "Кінець пакетної обробки",
+        "TOTAL_TIME": "Загальний час обробки",
+        "TOTAL_IMAGES": "Загальна кількість створених зображень",
+        "AVG_TIME_PER_IMAGE": "Середній час на зображення",
+        "AVG_SIZE_PER_IMAGE": "Середній розмір на зображення",
+        "TOTAL_SIZE": "Загальний розмір усіх зображень"
       }
     },
     "SLIDER": {

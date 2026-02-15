@@ -12,6 +12,7 @@ out/
 /coverage
 
 # next.js
+.next/
 /renderer/.next/
 /renderer/out/
 

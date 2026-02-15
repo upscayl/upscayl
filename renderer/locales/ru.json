@@ -195,12 +195,23 @@
     "PROGRESS_BAR": {
       "BATCH_UPSCAYL_IN_PROGRESS_TITLE": "Пакетное увеличение в процессе:",
       "IN_PROGRESS_TITLE": "Магия увеличения в процессе...",
-      "STOP_BUTTON_TITLE": "СТОП"
+      "STOP_BUTTON_TITLE": "СТОП",
+      "PAUSE_BUTTON_TITLE": "ПАУЗА",
+      "RESUME_BUTTON_TITLE": "ПРОДОЛЖИТЬ",
+      "REMAINING_IMAGES": "Осталось {remaining} из {total} изображений",
+      "FOLDER_PROGRESS": "Папка {current} из {total}",
+      "ESTIMATED_TIME_REMAINING": "Оставшееся время: {time}",
+      "ESTIMATED_TOTAL_TIME": "Общее время (все {total} изображений): {time}",
+      "ESTIMATED_STORAGE": "Общий объём (все {total} изображений): {size}",
+      "CURRENT_FOLDER": "Текущая папка:",
+      "SUB_FOLDER": "Подпапка:",
+      "CURRENT_FILE": "Текущий файл:"
     },
     "RESET_BUTTON_TITLE": "Сбросить",
     "RIGHT_PANE_INFO": {
       "SELECT_FOLDER": "Выберите папку для увеличения",
       "SELECT_IMAGE": "Выберите изображение для увеличения",
+      "SELECT_FOLDER_SUBFOLDERS_HINT": "Все подпапки будут включены.",
       "SELECT_FOLDER_DESCRIPTION": "Убедитесь, что в папке нет ничего, кроме изображений PNG, JPG, JPEG и WEBP.",
       "SELECT_IMAGES_DESCRIPTION": "Выберите или перетащите изображение в формате PNG, JPG, JPEG или WEBP.",
       "PASTE_IMAGE_DESCRIPTION": "Нажмите Ctrl+V или ⌘+V, чтобы вставить изображение из буфера обмена"
@@ -212,8 +223,19 @@
       "SUCCESS_TITLE": "Увеличение успешно!",
       "BATCH": {
         "SELECTED_FOLDER_TITLE": "Выбранная папка:",
+        "SELECTED_FOLDERS_TITLE": "Выбранные папки:",
         "DONE_TITLE": "Всё готово!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Открыть папку с увеличенными изображениями"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Статистика пакетной обработки",
+        "START_TIME": "Начало пакетной обработки",
+        "END_TIME": "Конец пакетной обработки",
+        "TOTAL_TIME": "Общее время обработки",
+        "TOTAL_IMAGES": "Всего создано изображений",
+        "AVG_TIME_PER_IMAGE": "Среднее время на изображение",
+        "AVG_SIZE_PER_IMAGE": "Средний размер на изображение",
+        "TOTAL_SIZE": "Общий размер всех изображений"
       }
     },
     "SLIDER": {
