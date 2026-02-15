@@ -2,7 +2,7 @@
 
 ## Overview
 
-This release adds major improvements to the batch upscaling workflow: recursive folder handling, multi-folder queues, time and storage estimates, pause/resume, overwrite option, and a corrected stop behaviour. The Batch Progress dialog now shows the current folder, sub-folder (if any), and filename being processed, with a clearer layout and wider overlay.
+This release adds major improvements to the batch upscaling workflow: recursive folder handling, multi-folder queues, time and storage estimates, pause/resume, overwrite option, a corrected stop behaviour, and a **batch statistics modal** at the end of each run. The Batch Progress dialog now shows the current folder, sub-folder (if any), and filename being processed, with a clearer layout and wider overlay.
 
 ---
 
@@ -68,6 +68,21 @@ This release adds major improvements to the batch upscaling workflow: recursive 
 - The Batch Progress overlay is **wider** (minimum width 420px, max 90% of viewport) so that folder and file names fit better.
 - Slightly increased padding for a clearer layout.
 
+### 9. Batch statistics at completion
+
+- When a batch run **finishes successfully**, a **statistics modal** is shown automatically.
+- The modal displays:
+  - **Batch start** – date and time when the batch began.
+  - **Batch end** – date and time when the batch completed.
+  - **Total batch processing time** – total duration (e.g. “2 h 15 min”).
+  - **Total images created** – number of output images.
+  - **Average time per image** – mean processing time per image.
+  - **Average size per image** – mean output file size (MB/GB).
+  - **Total size of all images** – combined size of all output files (MB/GB).
+- Dates/times use the user’s locale; durations and file sizes are formatted in a readable way (e.g. hours, minutes, seconds; MB/GB).
+- The user can close the modal with the “Close” button or by clicking the backdrop; the “All done!” message and “Open Upscayled Folder” button remain available.
+- Statistics are sent from the main process with **FOLDER_UPSCAYL_DONE** (payload includes `outputPath` and `stats`); the renderer shows the modal when `stats` is present. All supported locales include translations for the batch statistics labels (`APP.PROGRESS.BATCH_STATS.*`).
+
 ---
 
 ## Bug fixes
@@ -101,10 +116,12 @@ This release adds major improvements to the batch upscaling workflow: recursive 
 | **Electron – progress** | `BATCH_PROGRESS` includes `folderIndex`, `folderTotal`, `currentFolderName`, `currentFileRelativePath`, `estimatedTotalTimeMs`, and existing ETA/size fields. |
 | **Electron – pause/resume** | `batchPaused` and `batchPauseResolve` in config; IPC handlers and commands for **BATCH_PAUSE** / **BATCH_RESUME**. |
 | **Renderer – state** | Single `batchFolderPath` replaced by `batchFolderPaths: string[]` where needed. |
-| **Renderer – UI** | Batch Progress shows current folder, sub-folder (if any), current filename, folder progress, total/remaining time, total storage; Pause/Resume and Stop buttons; wider overlay with bold labels. |
+| **Renderer – UI** | Batch Progress shows current folder, sub-folder (if any), current filename, folder progress, total/remaining time, total storage; Pause/Resume and Stop buttons; wider overlay with bold labels. After completion, BatchStatsModal shows batch statistics (start/end time, total time, image count, avg time/size, total size). |
 | **Renderer – output path** | When using SELECT_FOLDER for the output folder, the first selected path is used (`result?.[0] ?? null`) so savedOutputPathAtom gets string or null. |
 | **Electron – get-batch-files** | `readdirSync` in the recursive walk is wrapped in try/catch; inaccessible directories (e.g. EACCES/ENOENT) are skipped and logged. |
-| **Locales** | New/updated keys for batch progress, folder list, multi-folder labels, and SELECT_FOLDER_SUBFOLDERS_HINT in all locale files; PROGRESS_BAR and hint fully translated. |
+| **Electron – batch completion** | On successful batch finish, main process sends **FOLDER_UPSCAYL_DONE** with `{ outputPath, stats: BatchStats }`. BatchStats includes startTime/endTime (ms since epoch), totalTimeMs, totalImages, avgTimePerImageMs, avgSizeBytes, totalSizeBytes. |
+| **Common types** | New **BatchStats** type for batch run statistics; used in IPC payload and renderer modal. |
+| **Locales** | New/updated keys for batch progress, folder list, multi-folder labels, SELECT_FOLDER_SUBFOLDERS_HINT, and **APP.PROGRESS.BATCH_STATS** (title and all stat labels) in all locale files; PROGRESS_BAR and hint fully translated. |
 
 ---
 
@@ -124,8 +141,17 @@ New or updated translation keys (examples in English):
 - `APP.PROGRESS_BAR.CURRENT_FILE` – “Current file:”
 - `APP.RIGHT_PANE_INFO.SELECT_FOLDER_SUBFOLDERS_HINT` – “All subfolders will be included.”
 - `APP.PROGRESS.BATCH.SELECTED_FOLDERS_TITLE` – “Selected folders:”
+- **Batch statistics modal** (`APP.PROGRESS.BATCH_STATS`):
+  - `TITLE` – “Batch statistics”
+  - `START_TIME` – “Batch start”
+  - `END_TIME` – “Batch end”
+  - `TOTAL_TIME` – “Total batch processing time”
+  - `TOTAL_IMAGES` – “Total images created”
+  - `AVG_TIME_PER_IMAGE` – “Average time per image”
+  - `AVG_SIZE_PER_IMAGE` – “Average size per image”
+  - `TOTAL_SIZE` – “Total size of all images”
 
-All PROGRESS_BAR keys and `APP.RIGHT_PANE_INFO.SELECT_FOLDER_SUBFOLDERS_HINT` are fully translated in every supported locale (ar, ca-val, de, es, fr, hu, id, it, ja, ms, pl, pt-br, pt, ru, th, tr, uk, vi, zh). `APP.PROGRESS.BATCH.SELECTED_FOLDERS_TITLE` is present in all locale files and translated in multiple locales (e.g. de, pt, vi). Placeholders `{remaining}`, `{total}`, `{time}`, `{size}`, and `{current}` are preserved in all languages for correct display in the progress bar and folder/file labels.
+All PROGRESS_BAR keys, `APP.RIGHT_PANE_INFO.SELECT_FOLDER_SUBFOLDERS_HINT`, and `APP.PROGRESS.BATCH_STATS.*` are fully translated in every supported locale (ar, ca-val, de, es, fr, hu, id, it, ja, ms, pl, pt-br, pt, ru, th, tr, uk, vi, zh). `APP.PROGRESS.BATCH.SELECTED_FOLDERS_TITLE` is present in all locale files and translated in multiple locales (e.g. de, pt, vi). Placeholders `{remaining}`, `{total}`, `{time}`, `{size}`, and `{current}` are preserved in all languages for correct display in the progress bar and folder/file labels.
 
 ---
 
