@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "Cartelle selezionate :",
         "DONE_TITLE": "È terminato !",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Apri la cartella sovracampionata"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Statistiche batch",
+        "START_TIME": "Inizio elaborazione batch",
+        "END_TIME": "Fine elaborazione batch",
+        "TOTAL_TIME": "Tempo totale di elaborazione",
+        "TOTAL_IMAGES": "Totale immagini create",
+        "AVG_TIME_PER_IMAGE": "Tempo medio per immagine",
+        "AVG_SIZE_PER_IMAGE": "Dimensione media per immagine",
+        "TOTAL_SIZE": "Dimensione totale di tutte le immagini"
       }
     },
     "SLIDER": {

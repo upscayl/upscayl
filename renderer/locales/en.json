@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "Selected folders:",
         "DONE_TITLE": "All done!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Open Upscayled Folder"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Batch statistics",
+        "START_TIME": "Batch start",
+        "END_TIME": "Batch end",
+        "TOTAL_TIME": "Total batch processing time",
+        "TOTAL_IMAGES": "Total images created",
+        "AVG_TIME_PER_IMAGE": "Average time per image",
+        "AVG_SIZE_PER_IMAGE": "Average size per image",
+        "TOTAL_SIZE": "Total size of all images"
       }
     },
     "SLIDER": {

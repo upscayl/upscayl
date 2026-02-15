@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "Dossiers sélectionnés :",
         "DONE_TITLE": "Tout est terminé !",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Ouvrir le dossier amélioré"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Statistiques du lot",
+        "START_TIME": "Début du traitement par lot",
+        "END_TIME": "Fin du traitement par lot",
+        "TOTAL_TIME": "Durée totale du traitement",
+        "TOTAL_IMAGES": "Nombre total d'images créées",
+        "AVG_TIME_PER_IMAGE": "Temps moyen par image",
+        "AVG_SIZE_PER_IMAGE": "Taille moyenne par image",
+        "TOTAL_SIZE": "Taille totale de toutes les images"
       }
     },
     "SLIDER": {

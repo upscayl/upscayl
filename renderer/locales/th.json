@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "โฟลเดอร์ที่เลือก:",
         "DONE_TITLE": "เสร็จสิ้นทั้งหมดแล้ว!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "เปิดโฟลเดอร์ที่ถูกขยาย"
+      },
+      "BATCH_STATS": {
+        "TITLE": "สถิติการประมวลผลแบบแบตช์",
+        "START_TIME": "เริ่มการประมวลผล",
+        "END_TIME": "สิ้นสุดการประมวลผล",
+        "TOTAL_TIME": "เวลารวมทั้งหมด",
+        "TOTAL_IMAGES": "จำนวนภาพที่สร้างทั้งหมด",
+        "AVG_TIME_PER_IMAGE": "เวลาเฉลี่ยต่อภาพ",
+        "AVG_SIZE_PER_IMAGE": "ขนาดเฉลี่ยต่อภาพ",
+        "TOTAL_SIZE": "ขนาดรวมของภาพทั้งหมด"
       }
     },
     "SLIDER": {

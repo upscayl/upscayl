@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "已选文件夹：",
         "DONE_TITLE": "全部完成！",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "打开升图后的文件夹"
+      },
+      "BATCH_STATS": {
+        "TITLE": "批处理统计",
+        "START_TIME": "批处理开始",
+        "END_TIME": "批处理结束",
+        "TOTAL_TIME": "总处理时间",
+        "TOTAL_IMAGES": "创建的图片总数",
+        "AVG_TIME_PER_IMAGE": "每张图片平均耗时",
+        "AVG_SIZE_PER_IMAGE": "每张图片平均大小",
+        "TOTAL_SIZE": "所有图片总大小"
       }
     },
     "SLIDER": {

@@ -12,12 +12,14 @@ import {
   rememberOutputFolderAtom,
 } from "../../atoms/user-settings-atom";
 import type { BatchProgressDetails } from "../../atoms/user-settings-atom";
+import type { BatchStats } from "@common/types/types";
 import { useToast } from "@/components/ui/use-toast";
 import { sanitizePath } from "@common/sanitize-path";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import { ImageFormat, VALID_IMAGE_FORMATS } from "@/lib/valid-formats";
 import ProgressBar from "./progress-bar";
+import BatchStatsModal from "./batch-stats-modal";
 import InstructionsCard from "./instructions-card";
 import MoreOptionsDrawer from "./more-options-drawer";
 import useUpscaylVersion from "../hooks/use-upscayl-version";
@@ -46,6 +48,8 @@ type MainContentProps = {
   >;
   batchProgressDetails: BatchProgressDetails | null;
   batchPaused: boolean;
+  batchStats: BatchStats | null;
+  onCloseBatchStats: () => void;
 };
 
 const MainContent = ({
@@ -62,6 +66,8 @@ const MainContent = ({
   setDimensions,
   batchProgressDetails,
   batchPaused,
+  batchStats,
+  onCloseBatchStats,
 }: MainContentProps) => {
   const t = useTranslation();
   const logit = useLogger();
@@ -347,6 +353,10 @@ const MainContent = ({
             {t("APP.PROGRESS.BATCH.OPEN_UPSCAYLED_FOLDER_TITLE")}
           </button>
         </div>
+      )}
+
+      {batchStats && (
+        <BatchStatsModal stats={batchStats} onClose={onCloseBatchStats} />
       )}
 
       {!batchMode && viewType === "lens" && upscaledImagePath && imagePath && (

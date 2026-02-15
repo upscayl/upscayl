@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "Wybrane foldery:",
         "DONE_TITLE": "Gotowe!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Otwórz Zupscaylowany Folder"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Statystyki wsadowe",
+        "START_TIME": "Początek przetwarzania wsadowego",
+        "END_TIME": "Koniec przetwarzania wsadowego",
+        "TOTAL_TIME": "Całkowity czas przetwarzania",
+        "TOTAL_IMAGES": "Łączna liczba utworzonych obrazów",
+        "AVG_TIME_PER_IMAGE": "Średni czas na obraz",
+        "AVG_SIZE_PER_IMAGE": "Średni rozmiar na obraz",
+        "TOTAL_SIZE": "Łączny rozmiar wszystkich obrazów"
       }
     },
     "SLIDER": {

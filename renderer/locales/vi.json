@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "Các thư mục đã chọn:",
         "DONE_TITLE": "Tất cả đã xong!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Mở Thư mục Upscayled"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Thống kê batch",
+        "START_TIME": "Bắt đầu xử lý batch",
+        "END_TIME": "Kết thúc xử lý batch",
+        "TOTAL_TIME": "Tổng thời gian xử lý",
+        "TOTAL_IMAGES": "Tổng số ảnh đã tạo",
+        "AVG_TIME_PER_IMAGE": "Thời gian trung bình mỗi ảnh",
+        "AVG_SIZE_PER_IMAGE": "Kích thước trung bình mỗi ảnh",
+        "TOTAL_SIZE": "Tổng kích thước tất cả ảnh"
       }
     },
     "SLIDER": {

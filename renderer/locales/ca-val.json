@@ -229,6 +229,16 @@
         "SELECTED_FOLDERS_TITLE": "Carpetes seleccionades:",
         "DONE_TITLE": "Tot llest!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Obri carpeta amb imatges augmentades"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Estadístiques del lot",
+        "START_TIME": "Inici del processament per lots",
+        "END_TIME": "Fi del processament per lots",
+        "TOTAL_TIME": "Temps total de processament",
+        "TOTAL_IMAGES": "Total d'imatges creades",
+        "AVG_TIME_PER_IMAGE": "Temps mitjà per imatge",
+        "AVG_SIZE_PER_IMAGE": "Mida mitjana per imatge",
+        "TOTAL_SIZE": "Mida total de totes les imatges"
       }
     },
     "SLIDER": {

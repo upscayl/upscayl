@@ -54,3 +54,21 @@ export type BatchUpscaylPayload = {
   /** If true, overwrite existing output files; otherwise skip them. */
   overwrite: boolean;
 };
+
+/** Statistics sent when a batch upscale run completes successfully. */
+export type BatchStats = {
+  /** Batch start time in milliseconds since epoch (suitable for `new Date(ms)`). */
+  startTime: number;
+  /** Batch end time (ms). */
+  endTime: number;
+  /** Total processing time in ms. */
+  totalTimeMs: number;
+  /** Total number of images created. */
+  totalImages: number;
+  /** Average time per image in ms. */
+  avgTimePerImageMs: number;
+  /** Average size per output image in bytes. */
+  avgSizeBytes: number;
+  /** Total size of all output images in bytes. */
+  totalSizeBytes: number;
+};

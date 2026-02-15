@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "Seçili klasörler:",
         "DONE_TITLE": "Hepsi tamamlandı!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscayllenmiş klasörü açın"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Toplu işlem istatistikleri",
+        "START_TIME": "Toplu işlem başlangıcı",
+        "END_TIME": "Toplu işlem sonu",
+        "TOTAL_TIME": "Toplam işlem süresi",
+        "TOTAL_IMAGES": "Oluşturulan toplam görsel sayısı",
+        "AVG_TIME_PER_IMAGE": "Görsel başına ortalama süre",
+        "AVG_SIZE_PER_IMAGE": "Görsel başına ortalama boyut",
+        "TOTAL_SIZE": "Tüm görsellerin toplam boyutu"
       }
     },
     "SLIDER": {

@@ -226,6 +226,16 @@
         "SELECTED_FOLDER_TITLE": "Ausgewählter Ordner:",
         "DONE_TITLE": "Alles erledigt!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscayl-Ordner öffnen"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Batch-Statistik",
+        "START_TIME": "Start des Batch-Vorgangs",
+        "END_TIME": "Ende des Batch-Vorgangs",
+        "TOTAL_TIME": "Benötigte gesamte Batch-Verarbeitungszeit",
+        "TOTAL_IMAGES": "Gesamtzahl aller erstellten Bilder",
+        "AVG_TIME_PER_IMAGE": "Durchschnittlich benötigte Zeit pro Bild",
+        "AVG_SIZE_PER_IMAGE": "Durchschnittlich benötigte Größe pro erstelltes Bild",
+        "TOTAL_SIZE": "Gesamtgröße aller erstellten Bilder"
       }
     },
     "SLIDER": {

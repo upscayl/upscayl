@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "Kiválasztott mappák:",
         "DONE_TITLE": "Kész!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Upscayl mappa megnyitása"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Köteg statisztika",
+        "START_TIME": "Köteg feldolgozás kezdete",
+        "END_TIME": "Köteg feldolgozás vége",
+        "TOTAL_TIME": "Teljes feldolgozási idő",
+        "TOTAL_IMAGES": "Létrehozott képek száma",
+        "AVG_TIME_PER_IMAGE": "Átlagos idő képként",
+        "AVG_SIZE_PER_IMAGE": "Átlagos méret képként",
+        "TOTAL_SIZE": "Összes kép teljes mérete"
       }
     },
     "SLIDER": {

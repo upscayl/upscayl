@@ -227,6 +227,16 @@
         "SELECTED_FOLDERS_TITLE": "Carpetas seleccionadas:",
         "DONE_TITLE": "¡Todo listo!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Abrir carpeta con imágenes aumentadas"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Estadísticas del lote",
+        "START_TIME": "Inicio del proceso por lotes",
+        "END_TIME": "Fin del proceso por lotes",
+        "TOTAL_TIME": "Tiempo total de procesamiento",
+        "TOTAL_IMAGES": "Total de imágenes creadas",
+        "AVG_TIME_PER_IMAGE": "Tiempo medio por imagen",
+        "AVG_SIZE_PER_IMAGE": "Tamaño medio por imagen",
+        "TOTAL_SIZE": "Tamaño total de todas las imágenes"
       }
     },
     "SLIDER": {

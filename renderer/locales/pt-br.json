@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "Pastas selecionadas:",
         "DONE_TITLE": "Tudo pronto!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Abrir Pasta Upscaylizada"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Estatísticas do lote",
+        "START_TIME": "Início do processamento em lote",
+        "END_TIME": "Fim do processamento em lote",
+        "TOTAL_TIME": "Tempo total de processamento",
+        "TOTAL_IMAGES": "Total de imagens criadas",
+        "AVG_TIME_PER_IMAGE": "Tempo médio por imagem",
+        "AVG_SIZE_PER_IMAGE": "Tamanho médio por imagem",
+        "TOTAL_SIZE": "Tamanho total de todas as imagens"
       }
     },
     "SLIDER": {

@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "المجلدات المحددة:",
         "DONE_TITLE": "تم!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "افتح مجلد ابسكيل"
+      },
+      "BATCH_STATS": {
+        "TITLE": "إحصائيات الدفعة",
+        "START_TIME": "بداية المعالجة",
+        "END_TIME": "نهاية المعالجة",
+        "TOTAL_TIME": "إجمالي وقت المعالجة",
+        "TOTAL_IMAGES": "إجمالي الصور المنشأة",
+        "AVG_TIME_PER_IMAGE": "متوسط الوقت لكل صورة",
+        "AVG_SIZE_PER_IMAGE": "متوسط الحجم لكل صورة",
+        "TOTAL_SIZE": "إجمالي حجم جميع الصور"
       }
     },
     "SLIDER": {

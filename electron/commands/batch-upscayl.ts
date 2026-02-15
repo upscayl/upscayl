@@ -15,7 +15,7 @@ import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { getSingleImageArguments } from "../utils/get-arguments";
 import { modelsPath } from "../utils/get-resource-paths";
 import { ELECTRON_COMMANDS } from "../../common/electron-commands";
-import { BatchUpscaylPayload } from "../../common/types/types";
+import { BatchUpscaylPayload, BatchStats } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
 import { MODELS } from "../../common/models-list";
 import { copyMetadata } from "../utils/copy-metadata";
@@ -93,6 +93,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   let totalOutputSizeBytes = 0;
   let anyImagesProcessed = false;
   let completedImagesGlobal = 0;
+  const batchStartTime = Date.now();
 
   const sendBatchProgress = (
     completedGlobal: number,
@@ -360,10 +361,20 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     const idx = childProcesses.indexOf(p);
     if (idx !== -1) childProcesses.splice(idx, 1);
   }
-  mainWindow.webContents.send(
-    ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
-    outputBase,
-  );
+  const batchEndTime = Date.now();
+  const stats: BatchStats = {
+    startTime: batchStartTime,
+    endTime: batchEndTime,
+    totalTimeMs: batchEndTime - batchStartTime,
+    totalImages: completedImagesGlobal,
+    avgTimePerImageMs: processedCount > 0 ? timePerImageMs : 0,
+    avgSizeBytes: completedImagesGlobal > 0 ? sizePerImageBytes : 0,
+    totalSizeBytes: totalOutputSizeBytes,
+  };
+  mainWindow.webContents.send(ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE, {
+    outputPath: outputBase,
+    stats,
+  });
 
   if (!encounteredError) {
     showNotification("Upscayled", "Images upscayled successfully!");

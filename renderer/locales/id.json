@@ -226,6 +226,16 @@
         "SELECTED_FOLDERS_TITLE": "Folder yang dipilih:",
         "DONE_TITLE": "Semua selesai!",
         "OPEN_UPSCAYLED_FOLDER_TITLE": "Buka Folder Upscayl"
+      },
+      "BATCH_STATS": {
+        "TITLE": "Statistik batch",
+        "START_TIME": "Mulai pemrosesan batch",
+        "END_TIME": "Selesai pemrosesan batch",
+        "TOTAL_TIME": "Total waktu pemrosesan",
+        "TOTAL_IMAGES": "Total gambar yang dibuat",
+        "AVG_TIME_PER_IMAGE": "Rata-rata waktu per gambar",
+        "AVG_SIZE_PER_IMAGE": "Rata-rata ukuran per gambar",
+        "TOTAL_SIZE": "Total ukuran semua gambar"
       }
     },
     "SLIDER": {

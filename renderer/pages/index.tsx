@@ -11,6 +11,7 @@ import {
   userStatsAtom,
 } from "../atoms/user-settings-atom";
 import type { BatchProgressDetails } from "../atoms/user-settings-atom";
+import type { BatchStats } from "@common/types/types";
 import useLogger from "../components/hooks/use-logger";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -49,6 +50,7 @@ const Home = () => {
   const [batchProgressDetails, setBatchProgressDetails] =
     useState<BatchProgressDetails | null>(null);
   const [batchPaused, setBatchPaused] = useState(false);
+  const [batchStats, setBatchStats] = useState<BatchStats | null>(null);
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const setModelIds = useSetAtom(customModelIdsAtom);
   const setUserStats = useSetAtom(userStatsAtom);
@@ -280,12 +282,17 @@ const Home = () => {
     // FOLDER UPSCAYL DONE
     window.electron.on(
       ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
-      (_, data: string) => {
+      (_, data: string | { outputPath: string; stats: BatchStats }) => {
+        const outputPath =
+          typeof data === "string" ? data : data?.outputPath ?? "";
+        const stats =
+          typeof data === "object" && data?.stats ? data.stats : null;
         setProgress("");
         setBatchProgressDetails(null);
         setBatchPaused(false);
-        setUpscaledBatchFolderPath(data);
-        logit(`💯 FOLDER_UPSCAYL_DONE: `, data);
+        setUpscaledBatchFolderPath(outputPath);
+        setBatchStats(stats);
+        logit(`💯 FOLDER_UPSCAYL_DONE: `, outputPath);
         setUserStats((prev) => ({
           ...prev,
           lastUpscaylDuration: new Date().getTime() - prev.lastUsedAt,
@@ -347,6 +354,7 @@ const Home = () => {
     setUpscaledImagePath("");
     setBatchFolderPaths([]);
     setUpscaledBatchFolderPath("");
+    setBatchStats(null);
   };
 
   if (isLoading) {
@@ -383,6 +391,8 @@ const Home = () => {
         setDimensions={setDimensions}
         batchProgressDetails={batchProgressDetails}
         batchPaused={batchPaused}
+        batchStats={batchStats}
+        onCloseBatchStats={() => setBatchStats(null)}
       />
       <OnboardingDialog />
     </div>
