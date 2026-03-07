@@ -100,6 +100,20 @@
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
   @keyframes marquee {
     0% {
       transform: translateX(0%);
@@ -138,46 +152,46 @@
 :root {
   /* Map Shadcn Variables to the generic DaisyUI variables */
   /* This allows Shadcn to adapt to ANY DaisyUI theme automatically */
-  --background: oklch(var(--color-base-100));
-  --foreground: oklch(var(--color-base-content));
-  --card: oklch(var(--color-base-100));
-  --card-foreground: oklch(var(--color-base-content));
-  --popover: oklch(var(--color-base-100));
-  --popover-foreground: oklch(var(--color-base-content));
-  --primary: oklch(var(--color-primary));
-  --primary-foreground: oklch(var(--color-primary-content));
-  --secondary: oklch(var(--color-secondary));
-  --secondary-foreground: oklch(var(--color-secondary-content));
-  --muted: oklch(var(--color-base-300));
-  --muted-foreground: oklch(var(--color-base-content));
-  --accent: oklch(var(--color-accent));
-  --accent-foreground: oklch(var(--color-accent-content));
-  --destructive: oklch(var(--color-error));
-  --destructive-foreground: oklch(var(--color-error-content));
-  --input: oklch(var(--color-base-content));
-  --ring: oklch(var(--color-base-content));
+  --background: var(--color-base-100);
+  --foreground: var(--color-base-content);
+  --card: var(--color-base-100);
+  --card-foreground: var(--color-base-content);
+  --popover: var(--color-base-100);
+  --popover-foreground: var(--color-base-content);
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-primary-content);
+  --secondary: var(--color-secondary);
+  --secondary-foreground: var(--color-secondary-content);
+  --muted: var(--color-base-300);
+  --muted-foreground: var(--color-base-content);
+  --accent: var(--color-accent);
+  --accent-foreground: var(--color-accent-content);
+  --destructive: var(--color-error);
+  --destructive-foreground: var(--color-error-content);
+  --input: var(--color-base-content);
+  --ring: var(--color-base-content);
   --radius: var(--rounded-field);
 }
 
 .dark {
-  --background: oklch(var(--color-base-100));
-  --foreground: oklch(var(--color-base-content));
-  --card: oklch(var(--color-base-200));
-  --card-foreground: oklch(var(--color-base-content));
-  --popover: oklch(var(--color-base-200));
-  --popover-foreground: oklch(var(--color-base-content));
-  --primary: oklch(var(--color-primary));
-  --primary-foreground: oklch(var(--color-primary-content));
-  --secondary: oklch(var(--color-secondary));
-  --secondary-foreground: oklch(var(--color-secondary-content));
-  --muted: oklch(var(--color-base-300));
-  --muted-foreground: oklch(var(--color-base-content));
-  --accent: oklch(var(--color-accent));
-  --accent-foreground: oklch(var(--color-accent-content));
-  --destructive: oklch(var(--color-error));
-  --destructive-foreground: oklch(var(--color-error-content));
-  --input: oklch(var(--color-base-content));
-  --ring: oklch(var(--color-base-content));
+  --background: var(--color-base-100);
+  --foreground: var(--color-base-content);
+  --card: var(--color-base-200);
+  --card-foreground: var(--color-base-content);
+  --popover: var(--color-base-200);
+  --popover-foreground: var(--color-base-content);
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-primary-content);
+  --secondary: var(--color-secondary);
+  --secondary-foreground: var(--color-secondary-content);
+  --muted: var(--color-base-300);
+  --muted-foreground: var(--color-base-content);
+  --accent: var(--color-accent);
+  --accent-foreground: var(--color-accent-content);
+  --destructive: var(--color-error);
+  --destructive-foreground: var(--color-error-content);
+  --input: var(--color-base-content);
+  --ring: var(--color-base-content);
   --radius: var(--rounded-field);
 }
 
