@@ -1,4 +1,11 @@
 import { translationAtom } from "@/atoms/translations-atom";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useAtomValue } from "jotai";
 import React, { useEffect } from "react";
 import { themeChange } from "theme-change";
@@ -53,15 +60,22 @@ const SelectTheme = ({ hideLabel }: { hideLabel?: boolean }) => {
       {!hideLabel && (
         <p className="text-sm font-medium">{t("SETTINGS.THEME.TITLE")}</p>
       )}
-      <select data-choose-theme className="select select-primary">
-        {availableThemes.map((theme) => {
-          return (
-            <option value={theme.value} key={theme.value}>
+      <Select
+        onValueChange={(value) =>
+          document.documentElement.setAttribute("data-theme", value)
+        }
+      >
+        <SelectTrigger className="bg-base-100 dark:bg-base-100 w-full border-none">
+          <SelectValue placeholder="Select theme" />
+        </SelectTrigger>
+        <SelectContent className="p-1">
+          {availableThemes.map((theme) => (
+            <SelectItem value={theme.value} key={theme.value}>
               {theme.label.toLocaleUpperCase()}
-            </option>
-          );
-        })}
-      </select>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };

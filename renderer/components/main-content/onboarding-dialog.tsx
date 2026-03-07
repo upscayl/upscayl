@@ -139,12 +139,12 @@ export function OnboardingDialog() {
         setOpen(e);
       }}
     >
-      <DialogContent className="flex h-[80%] w-full sm:max-w-[80%] flex-col items-center justify-center bg-base-100">
+      <DialogContent className="bg-base-100 flex h-[80%] w-full flex-col items-center justify-center sm:max-w-[80%]">
         <DialogHeader>
           <DialogTitle className="text-center text-4xl">
             {currentStepData.title}
           </DialogTitle>
-          <DialogDescription className="text-center text-lg text-base-content/70">
+          <DialogDescription className="text-base-content/70 text-center text-lg">
             {currentStepData.description}
           </DialogDescription>
         </DialogHeader>
@@ -152,7 +152,7 @@ export function OnboardingDialog() {
         {currentStepData.configurationOptions && (
           <div
             className={cn(
-              "flex h-full w-full flex-col rounded-sm bg-primary p-8",
+              "bg-primary flex h-full w-full flex-col rounded-2xl p-8",
               "h-auto w-auto gap-8",
               currentStepData.configurationOptions[0].type === "video" &&
                 "h-full w-full gap-0 p-0",
@@ -172,7 +172,7 @@ export function OnboardingDialog() {
                 {option.label && (
                   <label
                     htmlFor={option.key}
-                    className="text-nowrap text-left text-sm uppercase text-primary-content"
+                    className="text-primary-content text-left text-sm text-nowrap uppercase"
                   >
                     {option.label}
                   </label>
@@ -223,14 +223,14 @@ export function OnboardingDialog() {
               </div>
             ))}
             {currentStepData.type === "settings" && (
-              <p className="text-sm text-base-content/70">
+              <p className="text-base-content/70 text-sm">
                 {t("ONBOARDING_DIALOG.SETTINGS_NOTE")}
               </p>
             )}
           </div>
         )}
 
-        <DialogFooter className="gap-2 md:gap-0">
+        <DialogFooter className="gap-2 space-x-2 border-none bg-inherit md:gap-0">
           {!isFirstStep && (
             <button
               onClick={() => setCurrentStep((prev) => prev - 1)}

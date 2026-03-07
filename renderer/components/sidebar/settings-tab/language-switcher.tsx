@@ -1,4 +1,12 @@
 import { localeAtom, translationAtom } from "@/atoms/translations-atom";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+} from "@/components/ui/select";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 const locales = {
@@ -26,28 +34,32 @@ const LanguageSwitcher = ({ hideLabel = false }: { hideLabel?: boolean }) => {
   const t = useAtomValue(translationAtom);
 
   return (
-    <div>
-      <div className="flex flex-col gap-2">
-        {!hideLabel && (
-          <p className="text-sm font-medium">{t("SETTINGS.LANGUAGE.TITLE")}</p>
-        )}
-        <select
-          className="select min-w-28 select-primary"
-          value={locale}
-          onChange={(e) => setLocale(e.target.value as keyof typeof locales)}
-        >
-          {Object.entries(locales)
-            .sort(([, a], [, b]) => a.localeCompare(b))
-            .map((entry) => {
-              const [locale, label] = entry;
-              return (
-                <option value={locale} key={locale}>
-                  {label.toLocaleUpperCase()}
-                </option>
-              );
-            })}
-        </select>
-      </div>
+    <div className="flex flex-col gap-2">
+      {!hideLabel && (
+        <p className="text-sm font-medium">{t("SETTINGS.LANGUAGE.TITLE")}</p>
+      )}
+      <Select
+        value={locale}
+        onValueChange={(value) => setLocale(value as keyof typeof locales)}
+      >
+        <SelectTrigger className="bg-base-100 dark:bg-base-100 min-w-28 border-none">
+          <SelectValue placeholder="Theme" />
+        </SelectTrigger>
+        <SelectContent className="bg-background">
+          <SelectGroup>
+            {Object.entries(locales)
+              .sort(([, a], [, b]) => a.localeCompare(b))
+              .map((entry) => {
+                const [locale, label] = entry;
+                return (
+                  <SelectItem value={locale} key={locale}>
+                    {label.toLocaleUpperCase()}
+                  </SelectItem>
+                );
+              })}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
     </div>
   );
 };
