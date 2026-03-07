@@ -27,7 +27,6 @@ import {
   DoubleUpscaylPayload,
   ImageUpscaylPayload,
 } from "@common/types/types";
-import { useToast } from "@/components/ui/use-toast";
 import UpscaylSteps from "./upscayl-tab/upscayl-steps";
 import SettingsTab from "./settings-tab";
 import Footer from "../footer";
@@ -41,6 +40,7 @@ import useUpscaylVersion from "../hooks/use-upscayl-version";
 import useTranslation from "../hooks/use-translation";
 import UpscaylLogo from "./upscayl-logo";
 import SidebarToggleButton from "./sidebar-button";
+import { toast } from "sonner";
 
 const Sidebar = ({
   setUpscaledImagePath,
@@ -64,7 +64,6 @@ const Sidebar = ({
 }) => {
   const t = useTranslation();
   const logit = useLogger();
-  const { toast } = useToast();
   const version = useUpscaylVersion();
 
   // LOCAL STATES
@@ -184,8 +183,7 @@ const Sidebar = ({
         logit("🏁 UPSCAYL");
       }
     } else {
-      toast({
-        title: t("ERRORS.NO_IMAGE_ERROR.TITLE"),
+      toast(t("ERRORS.NO_IMAGE_ERROR.TITLE"), {
         description: t("ERRORS.NO_IMAGE_ERROR.DESCRIPTION"),
       });
       logit("🚫 No valid image selected");
@@ -203,10 +201,10 @@ const Sidebar = ({
       />
 
       <div
-        className={`relative flex h-screen min-w-[350px] max-w-[350px] flex-col bg-base-100 ${showSidebar ? "" : "hidden"}`}
+        className={`bg-base-100 relative flex h-screen max-w-[350px] min-w-[350px] flex-col ${showSidebar ? "" : "hidden"}`}
       >
         <button
-          className="absolute right-0 top-1/2 z-50 -translate-y-1/2 translate-x-1/2 rounded-full bg-base-100 p-4"
+          className="bg-base-100 absolute top-1/2 right-0 z-50 translate-x-1/2 -translate-y-1/2 rounded-full p-4"
           onClick={() => setShowSidebar((prev) => !prev)}
         >
           <ChevronLeftIcon />

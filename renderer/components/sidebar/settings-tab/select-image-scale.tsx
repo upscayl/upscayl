@@ -57,7 +57,7 @@ export function SelectImageScale({
         </p>
       )}
       {!hideInfo && parseInt(scale) >= 6 && (
-        <p className="text-xs text-base-content/80 text-red-500">
+        <p className="text-xs text-base-content/80">
           {t("SETTINGS.IMAGE_SCALE.ADDITIONAL_WARNING")}
         </p>
       )}

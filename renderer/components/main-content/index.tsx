@@ -10,7 +10,6 @@ import {
   viewTypeAtom,
   rememberOutputFolderAtom,
 } from "../../atoms/user-settings-atom";
-import { useToast } from "@/components/ui/use-toast";
 import { sanitizePath } from "@common/sanitize-path";
 import getDirectoryFromPath from "@common/get-directory-from-path";
 import { FEATURE_FLAGS } from "@common/feature-flags";
@@ -24,6 +23,7 @@ import LensViewer from "./lens-view";
 import ImageViewer from "./image-viewer";
 import useTranslation from "../hooks/use-translation";
 import SliderView from "./slider-view";
+import { toast } from "sonner";
 
 type MainContentProps = {
   imagePath: string;
@@ -59,7 +59,6 @@ const MainContent = ({
 }: MainContentProps) => {
   const t = useTranslation();
   const logit = useLogger();
-  const { toast } = useToast();
   const version = useUpscaylVersion();
 
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
@@ -128,8 +127,7 @@ const MainContent = ({
       e.dataTransfer.files.length === 0
     ) {
       logit("👎 No valid files dropped");
-      toast({
-        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+      toast(t("ERRORS.INVALID_IMAGE_ERROR.TITLE"), {
         description: t("ERRORS.INVALID_IMAGE_ERROR.ADDITIONAL_DESCRIPTION"),
       });
       return;
@@ -143,8 +141,7 @@ const MainContent = ({
       !VALID_IMAGE_FORMATS.includes(extension.toLowerCase())
     ) {
       logit("🚫 Invalid file dropped");
-      toast({
-        title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+      toast(t("ERRORS.INVALID_IMAGE_ERROR.TITLE"), {
         description: t("ERRORS.INVALID_IMAGE_ERROR.ADDITIONAL_DESCRIPTION"),
       });
     } else {
@@ -205,8 +202,7 @@ const MainContent = ({
               );
             } else {
               logit("🚫 Invalid file pasted");
-              toast({
-                title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+              toast(t("ERRORS.INVALID_IMAGE_ERROR.TITLE"), {
                 description: t(
                   "ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION",
                 ),
@@ -217,21 +213,18 @@ const MainContent = ({
           reader.readAsArrayBuffer(fileObject);
         } else {
           logit("🚫 Invalid file pasted");
-          toast({
-            title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+          toast(t("ERRORS.INVALID_IMAGE_ERROR.TITLE"), {
             description: t("ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION"),
           });
         }
       } else {
         logit("🚫 Invalid file pasted");
-        toast({
-          title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+        toast(t("ERRORS.INVALID_IMAGE_ERROR.TITLE"), {
           description: t("ERRORS.INVALID_IMAGE_ERROR.CLIPBOARD_DESCRIPTION"),
         });
       }
     } else {
-      toast({
-        title: t("ERRORS.NO_OUTPUT_FOLDER_ERROR.TITLE"),
+      toast(t("ERRORS.NO_OUTPUT_FOLDER_ERROR.TITLE"), {
         description: t("ERRORS.NO_OUTPUT_FOLDER_ERROR.DESCRIPTION"),
       });
     }
@@ -245,8 +238,7 @@ const MainContent = ({
       validateImagePath(imageFilePath);
     };
     const handlePasteImageSaveError = (_: any, error: string) => {
-      toast({
-        title: t("ERRORS.NO_IMAGE_ERROR.TITLE"),
+      toast(t("ERRORS.NO_IMAGE_ERROR.TITLE"), {
         description: error,
       });
     };

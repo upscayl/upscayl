@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import { Tooltip } from "react-tooltip";
 import App from "./App";
 import PostHogProviderWrapper from "./components/posthog-provider-wrapper";
-import { Toaster } from "./components/ui/toaster";
+import { Toaster } from "sonner";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./components/error-fallback";
 

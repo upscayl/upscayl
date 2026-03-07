@@ -53,11 +53,11 @@ const SelectModelDialog = () => {
               : selectedModelId}
           </button>
         </DialogTrigger>
-        <DialogContent className="z-50 max-h-screen sm:max-w-lg">
+        <DialogContent className="z-50 max-h-[90%] sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>{t("APP.MODEL_SELECTION.DESCRIPTION")}</DialogTitle>
           </DialogHeader>
-          <ScrollArea className="max-h-[150] pr-4">
+          <ScrollArea className="max-h-160 pr-4">
             <div className="flex flex-col gap-4">
               {Object.entries(MODELS).map((modelData) => {
                 const modelId = modelData[0] as ModelId;
@@ -136,7 +136,7 @@ const SelectModelDialog = () => {
         open={!!zoomedModel}
         onOpenChange={(open) => !open && setZoomedModel(null)}
       >
-        <DialogContent className="h-screen w-screen max-w-full p-0">
+        <DialogContent className="h-screen w-screen sm:max-w-full p-0 border-none">
           <div className="relative flex h-full w-full items-center justify-center bg-black">
             <div className="flex h-full w-full">
               <div className="relative h-full w-1/2">
@@ -160,13 +160,6 @@ const SelectModelDialog = () => {
                 </div>
               </div>
             </div>
-            <button
-              className="btn btn-circle btn-secondary absolute top-4 right-4"
-              onClick={() => setZoomedModel(null)}
-            >
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </button>
           </div>
         </DialogContent>
       </Dialog>

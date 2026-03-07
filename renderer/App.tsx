@@ -9,8 +9,6 @@ import {
   userStatsAtom,
 } from "@/atoms/user-settings-atom";
 import useLogger from "@/components/hooks/use-logger";
-import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
 import UpscaylSVGLogo from "@/components/icons/upscayl-logo-svg";
 import { translationAtom } from "@/atoms/translations-atom";
 import Sidebar from "@/components/sidebar";
@@ -22,11 +20,11 @@ import { initCustomModels } from "@/components/hooks/use-custom-models";
 import { OnboardingDialog } from "@/components/main-content/onboarding-dialog";
 import useSystemInfo from "@/components/hooks/use-system-info";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import { toast } from "sonner";
 
 const App = () => {
   const t = useAtomValue(translationAtom);
   const logit = useLogger();
-  const { toast } = useToast();
   const { systemInfo } = useSystemInfo();
 
   initCustomModels();
@@ -88,8 +86,7 @@ const App = () => {
       const extension = path.split(".").pop().toLowerCase() as ImageFormat;
       logit("🔤 Extension: ", extension);
       if (!VALID_IMAGE_FORMATS.includes(extension)) {
-        toast({
-          title: t("ERRORS.INVALID_IMAGE_ERROR.TITLE"),
+        toast(t("ERRORS.INVALID_IMAGE_ERROR.TITLE"), {
           description: t("ERRORS.INVALID_IMAGE_ERROR.DESCRIPTION"),
         });
         resetImagePaths();
@@ -103,61 +100,39 @@ const App = () => {
   useEffect(() => {
     const handleErrors = (data: string) => {
       if (data.includes("Invalid GPU")) {
-        toast({
-          title: t("ERRORS.GPU_ERROR.TITLE"),
+        toast(t("ERRORS.GPU_ERROR.TITLE"), {
           description: t("ERRORS.GPU_ERROR.DESCRIPTION", { data }),
-          action: (
-            <div className="flex flex-col gap-2">
-              <ToastAction
-                altText={t("ERRORS.COPY_ERROR.TITLE")}
-                onClick={() => {
-                  navigator.clipboard.writeText(data);
-                }}
-              >
-                {t("ERRORS.COPY_ERROR.TITLE")}
-              </ToastAction>
-              <a href="https://docs.upscayl.org/" target="_blank">
-                <ToastAction altText={t("ERRORS.OPEN_DOCS_TITLE")}>
-                  {t("ERRORS.OPEN_DOCS_BUTTON_TITLE")}
-                </ToastAction>
-              </a>
-            </div>
-          ),
-        });
+          action: {
+            label: t("ERRORS.COPY_ERROR.TITLE"),
+            onClick: ()=> navigator.clipboard.writeText(data)
+          },
+          cancel: {
+            label: t("ERRORS.OPEN_DOCS_BUTTON_TITLE"),
+            onClick: ()=> window.open("https://docs.upscayl.org/", "_blank")
+          }
+        })
         resetImagePaths();
       } else if (data.includes("write") || data.includes("read")) {
         if (batchMode) return;
-        toast({
-          title: t("ERRORS.READ_WRITE_ERROR.TITLE"),
+      toast(t("ERRORS.READ_WRITE_ERROR.TITLE"), {
           description: t("ERRORS.READ_WRITE_ERROR.DESCRIPTION", { data }),
-          action: (
-            <div className="flex flex-col gap-2">
-              <ToastAction
-                altText="Copy Error"
-                onClick={() => {
-                  navigator.clipboard.writeText(data);
-                }}
-              >
-                {t("ERRORS.COPY_ERROR.TITLE")}
-              </ToastAction>
-              <a href="https://docs.upscayl.org/" target="_blank">
-                <ToastAction altText={t("ERRORS.OPEN_DOCS_TITLE")}>
-                  {t("ERRORS.OPEN_DOCS_BUTTON_TITLE")}
-                </ToastAction>
-              </a>
-            </div>
-          ),
-        });
+          action: {
+            label: t("ERRORS.COPY_ERROR.TITLE"),
+            onClick: ()=> navigator.clipboard.writeText(data)
+          },
+          cancel: {
+            label: t("ERRORS.OPEN_DOCS_BUTTON_TITLE"),
+            onClick: ()=> window.open("https://docs.upscayl.org/", "_blank")
+          }
+        })
         resetImagePaths();
       } else if (data.includes("tile size")) {
-        toast({
-          title: t("ERRORS.TILE_SIZE_ERROR.TITLE"),
+        toast(t("ERRORS.TILE_SIZE_ERROR.TITLE"), {
           description: t("ERRORS.TILE_SIZE_ERROR.DESCRIPTION", { data }),
         });
         resetImagePaths();
       } else if (data.includes("uncaughtException")) {
-        toast({
-          title: t("ERRORS.EXCEPTION_ERROR.TITLE"),
+        toast(t("ERRORS.EXCEPTION_ERROR.TITLE"), {
           description: t("ERRORS.EXCEPTION_ERROR.DESCRIPTION"),
         });
         resetImagePaths();
@@ -176,22 +151,19 @@ const App = () => {
     );
     // UPSCAYL WARNING
     window.electron.on(ELECTRON_COMMANDS.UPSCAYL_WARNING, (_, data: string) => {
-      toast({
-        title: t("WARNING.GENERIC_WARNING.TITLE"),
+      toast(t("WARNING.GENERIC_WARNING.TITLE"), {
         description: data,
       });
     });
     // METADATA ERROR
     window.electron.on(ELECTRON_COMMANDS.METADATA_ERROR, (_, data: string) => {
-      toast({
-        title: t("ERRORS.METADATA_ERROR.TITLE"),
+      toast(t("ERRORS.METADATA_ERROR.TITLE"), {
         description: data,
       });
     });
     // UPSCAYL ERROR
     window.electron.on(ELECTRON_COMMANDS.UPSCAYL_ERROR, (_, data: string) => {
-      toast({
-        title: t("ERRORS.GENERIC_ERROR.TITLE"),
+      toast(t("ERRORS.GENERIC_ERROR.TITLE"), {
         description: data,
       });
       resetImagePaths();
@@ -326,13 +298,13 @@ const App = () => {
 
   if (isLoading) {
     return (
-      <UpscaylSVGLogo className="absolute left-1/2 top-1/2 w-36 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+      <UpscaylSVGLogo className="absolute top-1/2 left-1/2 w-36 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
     );
   }
 
   return (
     <div
-      className="flex h-screen w-screen flex-row overflow-hidden bg-base-300"
+      className="bg-base-300 flex h-screen w-screen flex-row overflow-hidden"
       onPaste={(e) => console.log(e)}
     >
       <Sidebar

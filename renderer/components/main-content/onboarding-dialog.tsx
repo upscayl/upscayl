@@ -139,7 +139,7 @@ export function OnboardingDialog() {
         setOpen(e);
       }}
     >
-      <DialogContent className="flex h-[80%] w-full max-w-[80%] flex-col items-center justify-center">
+      <DialogContent className="flex h-[80%] w-full sm:max-w-[80%] flex-col items-center justify-center bg-base-100">
         <DialogHeader>
           <DialogTitle className="text-center text-4xl">
             {currentStepData.title}

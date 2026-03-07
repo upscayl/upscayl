@@ -32,7 +32,7 @@ const LanguageSwitcher = ({ hideLabel = false }: { hideLabel?: boolean }) => {
           <p className="text-sm font-medium">{t("SETTINGS.LANGUAGE.TITLE")}</p>
         )}
         <select
-          className="select select-primary"
+          className="select min-w-28 select-primary"
           value={locale}
           onChange={(e) => setLocale(e.target.value as keyof typeof locales)}
         >
