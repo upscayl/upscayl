@@ -116,7 +116,7 @@ Upscayl should be available on the software listings of most Linux operating sys
 (MacOS 12 and later)
 
 <a href="https://apps.apple.com/us/app/upscayl/id6468265473?mt=12">
-  <img src="https://www.upscayl.org/appstore.svg" height="60px"/>
+  Link
 </a>
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest) or [our official website](https://upscayl.org/).
