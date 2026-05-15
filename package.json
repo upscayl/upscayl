@@ -226,14 +226,7 @@
     "vite": "^7.3.3"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.1.15",
-    "@radix-ui/react-popover": "^1.1.15",
-    "@radix-ui/react-scroll-area": "^1.2.10",
-    "@radix-ui/react-slot": "^1.2.4",
-    "@radix-ui/react-toast": "^1.2.15",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cmdk": "^1.1.1",
     "dotenv": "^17.4.2",
     "electron-log": "^5.4.4",
     "electron-settings": "^4.0.4",
@@ -251,8 +244,6 @@
     "react-tooltip": "^6.0.3",
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^3.6.0",
-    "tailwind-scrollbar": "^4.0.2",
-    "tailwindcss-animate": "^1.0.7",
     "theme-change": "^2.5.0"
   },
   "volta": {

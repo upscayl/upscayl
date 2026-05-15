@@ -7,13 +7,13 @@ import PostHogProviderWrapper from "@/components/posthog-provider-wrapper";
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div data-theme="upscayl">
+    <div>
       <Provider>
         <PostHogProviderWrapper>
           {children}
           <Toaster />
           <Tooltip
-            className="z-[999] max-w-sm break-words !bg-secondary"
+            className="!bg-secondary z-[999] max-w-sm break-words"
             id="tooltip"
           />
         </PostHogProviderWrapper>

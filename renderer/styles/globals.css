@@ -1,5 +1,111 @@
 @import "tailwindcss";
-@config "../../tailwind.config.js";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+  themes:
+    light --default,
+    dark --prefersdark,
+    cupcake,
+    bumblebee,
+    emerald,
+    corporate,
+    synthwave,
+    retro,
+    cyberpunk,
+    valentine,
+    halloween,
+    garden,
+    forest,
+    aqua,
+    lofi,
+    pastel,
+    fantasy,
+    wireframe,
+    black,
+    luxury,
+    dracula,
+    cmyk,
+    autumn,
+    business,
+    acid,
+    lemonade,
+    night,
+    coffee,
+    winter;
+}
+@plugin "daisyui/theme" {
+  name: "upscayl";
+  default: true;
+  prefersdark: false;
+  color-scheme: dark;
+
+  --color-base-100: #1e293b;
+  --color-base-200: #0f172a;
+  --color-base-300: #020617;
+  --color-base-content: #f8fafc;
+  --color-primary: #334155;
+  --color-primary-content: #ffffff;
+  --color-secondary: #4f46e5;
+  --color-secondary-content: #ffffff;
+  --color-accent: #6d28d9;
+  --color-accent-content: #ffffff;
+  --color-neutral: #475569;
+  --color-neutral-content: #f8fafc;
+  --color-info: #38bdf8;
+  --color-info-content: #082f49;
+  --color-success: #22c55e;
+  --color-success-content: #052e16;
+  --color-warning: #f59e0b;
+  --color-warning-content: #451a03;
+  --color-error: #ef4444;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 2rem;
+  --radius-field: 2rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme inline {
+  --color-border: color-mix(
+    in oklab,
+    var(--color-base-content) 15%,
+    transparent
+  );
+  --color-input: color-mix(
+    in oklab,
+    var(--color-base-content) 20%,
+    transparent
+  );
+  --color-ring: var(--color-primary);
+  --color-background: var(--color-base-100);
+  --color-foreground: var(--color-base-content);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-content);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-content);
+  --color-destructive: var(--color-error);
+  --color-destructive-foreground: var(--color-error-content);
+  --color-muted: var(--color-base-200);
+  --color-muted-foreground: color-mix(
+    in oklab,
+    var(--color-base-content) 70%,
+    transparent
+  );
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-content);
+  --color-popover: var(--color-base-100);
+  --color-popover-foreground: var(--color-base-content);
+  --color-card: var(--color-base-100);
+  --color-card-foreground: var(--color-base-content);
+  --radius-sm: calc(var(--radius-box) - 4px);
+  --radius-md: calc(var(--radius-box) - 2px);
+  --radius-lg: var(--radius-box);
+  --spacing-128: 28rem;
+}
 
 @font-face {
   font-family: "Poppins";
@@ -40,72 +146,11 @@
 
 @layer base {
   * {
-    @apply select-none border-border;
+    @apply border-border select-none;
     font-family: "Poppins", sans-serif;
   }
   body {
     @apply bg-background text-foreground;
-  }
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
   }
   .hide-scrollbar::-webkit-scrollbar-track {
     @apply bg-transparent;
@@ -120,15 +165,15 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply rounded-full bg-base-300/30;
+    @apply bg-base-300/30 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-base-content/20;
+    @apply bg-base-content/20 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply rounded-full bg-base-content/50;
+    @apply bg-base-content/50 rounded-full;
   }
 }
 
@@ -147,8 +192,8 @@
     @apply w-full;
   }
   .react-select-container .react-select__control {
-    @apply h-12 cursor-pointer !border-0 !border-none !border-transparent bg-primary shadow-none;
-    border-radius: var(--rounded-btn);
+    @apply bg-primary h-12 cursor-pointer !border-0 !border-none !border-transparent shadow-none;
+    border-radius: var(--radius-field);
   }
 
   .react-select-container .react-select__control--menu-is-open {
@@ -156,19 +201,19 @@
   }
 
   .react-select-container .react-select__single-value {
-    @apply text-sm font-semibold uppercase text-primary-content;
+    @apply text-primary-content text-sm font-semibold uppercase;
   }
 
   .react-select-container .react-select__input-container {
-    @apply text-sm font-semibold uppercase text-primary-content;
+    @apply text-primary-content text-sm font-semibold uppercase;
   }
 
   .react-select-container .react-select__menu {
-    @apply rounded-lg bg-primary p-1 text-sm font-semibold uppercase;
+    @apply bg-primary rounded-lg p-1 text-sm font-semibold uppercase;
   }
 
   .react-select-container .react-select__option {
-    @apply my-1 cursor-pointer break-all rounded-md bg-primary text-primary-content hover:bg-primary-content/20 hover:text-primary-content;
+    @apply bg-primary text-primary-content hover:bg-primary-content/20 hover:text-primary-content my-1 cursor-pointer rounded-md break-all;
   }
 
   .react-select-container .react-select__option--is-selected {
@@ -182,6 +227,14 @@
   }
   .outline-title-none {
     text-shadow: none;
+  }
+
+  .rounded-btn {
+    border-radius: var(--radius-field);
+  }
+
+  .compare-slider-group:hover .slider-zoom {
+    transform: scale(var(--zoom-scale, 1));
   }
 }
 
@@ -214,20 +267,20 @@
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__control {
-  @apply h-10 cursor-pointer !border-0 !border-none !border-transparent bg-primary shadow-none;
-  border-radius: var(--rounded-btn);
+  @apply bg-primary h-10 cursor-pointer !border-0 !border-none !border-transparent shadow-none;
+  border-radius: var(--radius-field);
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__single-value {
-  @apply font-medium normal-case text-primary-content;
+  @apply text-primary-content font-medium normal-case;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__input-container {
-  @apply text-xs font-medium normal-case text-primary-content;
+  @apply text-primary-content text-xs font-medium normal-case;
 }
 
 [data-theme="upscayl"] .react-select-container .react-select__menu {
-  @apply rounded-lg bg-primary p-1 font-medium normal-case;
+  @apply bg-primary rounded-lg p-1 font-medium normal-case;
 }
 
 .__rcs-handle-button {
@@ -240,7 +293,8 @@
 
 .checkerboard {
   background-color: rgba(255, 255, 255);
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       45deg,
       #000 25%,
       transparent 25%,

@@ -1,15 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Maximize2, SwatchBookIcon, X } from "lucide-react";
 import { ModelId, MODELS } from "@common/models-list";
 import { useAtom, useAtomValue } from "jotai";
@@ -44,137 +35,153 @@ const SelectModelDialog = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <button className="btn btn-primary justify-start border-border">
-            <SwatchBookIcon className="mr-2 h-5 w-5" />
-            {selectedModelId in MODELS
-              ? t(
-                  `APP.MODEL_SELECTION.MODELS.${MODELS[selectedModelId]?.id}.NAME` as any,
-                )
-              : selectedModelId}
-          </button>
-        </DialogTrigger>
-        <DialogContent className="z-50 sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle>{t("APP.MODEL_SELECTION.DESCRIPTION")}</DialogTitle>
-          </DialogHeader>
-          <ScrollArea className="max-h-[600px] pr-4">
-            <div className="flex flex-col gap-4">
-              {Object.entries(MODELS).map((modelData) => {
-                const modelId = modelData[0] as ModelId;
-                const model = modelData[1];
-                return (
-                  <button
-                    key={modelId}
-                    className="btn !h-auto !w-full !flex-col !items-start !rounded-sm !p-4"
-                    onClick={() => handleModelSelect(modelId)}
-                  >
-                    <p className="font-semibold">
-                      {t(`APP.MODEL_SELECTION.MODELS.${modelId}.NAME`)}
-                    </p>
-                    <p className="mb-2 text-left font-normal leading-normal text-base-content/70">
-                      {t(`APP.MODEL_SELECTION.MODELS.${modelId}.DESCRIPTION`)}
-                    </p>
-                    <div className="relative h-52 w-full overflow-hidden rounded-sm">
-                      <div className="flex h-full w-full">
-                        <img
-                          src={`public:///model-comparison/${model.id}/before.webp`}
-                          alt={`Model Before`}
-                          className="h-full w-1/2 object-cover"
-                        />
-                        <img
-                          src={`public:///model-comparison/${model.id}/after.webp`}
-                          alt={`Model After`}
-                          className="h-full w-1/2 object-cover"
-                        />
-                      </div>
-                      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-px bg-white opacity-50"></div>
-                      </div>
-                      <div className="absolute bottom-2 left-2 rounded bg-black bg-opacity-50 px-1 text-xs text-white">
-                        {t("APP.MODEL_SELECTION.BEFORE")}
-                      </div>
-                      <div className="absolute bottom-2 right-2 rounded bg-black bg-opacity-50 px-1 text-xs text-white">
-                        {t("APP.MODEL_SELECTION.AFTER")}
-                      </div>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        className="absolute right-2 top-2"
-                        onClick={(e) => handleZoom(e, modelId)}
-                      >
-                        <Maximize2 className="h-4 w-4" />
-                        <span className="sr-only">
-                          {t("APP.MODEL_SELECTION.ZOOM")}
-                        </span>
-                      </Button>
-                    </div>
-                  </button>
-                );
-              })}
-              {customModelIds.length > 0 && (
-                <p className="font-semibold text-base-content">
-                  {t("APP.MODEL_SELECTION.IMPORTED_CUSTOM_MODELS")}
-                </p>
-              )}
-              {customModelIds.map((customModel) => {
-                return (
-                  <button
-                    key={customModel}
-                    className="btn h-auto w-full flex-col items-start p-4"
-                    onClick={() => handleModelSelect(customModel)}
-                  >
-                    {customModel}
-                  </button>
-                );
-              })}
-            </div>
-          </ScrollArea>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog
-        open={!!zoomedModel}
-        onOpenChange={(open) => !open && setZoomedModel(null)}
+      <button
+        className="btn btn-primary border-border justify-start"
+        onClick={() => setOpen(true)}
       >
-        <DialogContent
-          className="h-screen w-screen max-w-full p-0"
-          hideCloseButton
-        >
-          <div className="relative flex h-full w-full items-center justify-center bg-black">
-            <div className="flex h-full w-full">
-              <div className="relative h-full w-1/2">
-                <img
-                  src={`public:///model-comparison/${MODELS[zoomedModel]?.id}/before.webp`}
-                  alt={`Zoomed in Image - Before`}
-                  className="h-full w-full object-contain"
-                />
-                <div className="absolute bottom-4 left-4 rounded bg-black bg-opacity-50 px-2 py-1 text-sm text-white">
-                  Before
-                </div>
-              </div>
-              <div className="relative h-full w-1/2">
-                <img
-                  src={`public:///model-comparison/${MODELS[zoomedModel]?.id}/after.webp`}
-                  alt={`Zoomed in Image - After`}
-                  className="h-full w-full object-contain"
-                />
-                <div className="absolute bottom-4 right-4 rounded bg-black bg-opacity-50 px-2 py-1 text-sm text-white">
-                  After
-                </div>
+        <SwatchBookIcon className="mr-2 h-5 w-5" />
+        {selectedModelId in MODELS
+          ? t(
+              `APP.MODEL_SELECTION.MODELS.${MODELS[selectedModelId]?.id}.NAME` as any,
+            )
+          : selectedModelId}
+      </button>
+
+      {open && (
+        <div className="modal modal-open z-50">
+          <div className="modal-box max-w-lg">
+            <div className="mb-4 flex items-start justify-between gap-4">
+              <h3 className="text-lg font-semibold">
+                {t("APP.MODEL_SELECTION.DESCRIPTION")}
+              </h3>
+              <button
+                className="btn btn-circle btn-ghost btn-sm"
+                onClick={() => setOpen(false)}
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close</span>
+              </button>
+            </div>
+            <div className="max-h-[600px] overflow-y-auto pr-4">
+              <div className="flex flex-col gap-4">
+                {Object.entries(MODELS).map((modelData) => {
+                  const modelId = modelData[0] as ModelId;
+                  const model = modelData[1];
+                  return (
+                    <button
+                      key={modelId}
+                      className="btn rounded-box border-base-content/10 bg-base-100 h-auto w-full flex-col items-start p-4 text-left shadow-sm"
+                      onClick={() => handleModelSelect(modelId)}
+                    >
+                      <p className="font-semibold">
+                        {t(`APP.MODEL_SELECTION.MODELS.${modelId}.NAME`)}
+                      </p>
+                      <p className="text-base-content/70 mb-2 text-left leading-normal font-normal">
+                        {t(`APP.MODEL_SELECTION.MODELS.${modelId}.DESCRIPTION`)}
+                      </p>
+                      <div className="rounded-box relative h-52 w-full overflow-hidden">
+                        <div className="flex h-full w-full">
+                          <img
+                            src={`public:///model-comparison/${model.id}/before.webp`}
+                            alt={`Model Before`}
+                            className="h-full w-1/2 object-cover"
+                          />
+                          <img
+                            src={`public:///model-comparison/${model.id}/after.webp`}
+                            alt={`Model After`}
+                            className="h-full w-1/2 object-cover"
+                          />
+                        </div>
+                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-px bg-white opacity-50"></div>
+                        </div>
+                        <div className="bg-opacity-50 absolute bottom-2 left-2 rounded bg-black px-1 text-xs text-white">
+                          {t("APP.MODEL_SELECTION.BEFORE")}
+                        </div>
+                        <div className="bg-opacity-50 absolute right-2 bottom-2 rounded bg-black px-1 text-xs text-white">
+                          {t("APP.MODEL_SELECTION.AFTER")}
+                        </div>
+                        <button
+                          className="btn btn-circle btn-secondary btn-sm absolute top-2 right-2"
+                          onClick={(e) => handleZoom(e, modelId)}
+                        >
+                          <Maximize2 className="h-4 w-4" />
+                          <span className="sr-only">
+                            {t("APP.MODEL_SELECTION.ZOOM")}
+                          </span>
+                        </button>
+                      </div>
+                    </button>
+                  );
+                })}
+                {customModelIds.length > 0 && (
+                  <p className="text-base-content font-semibold">
+                    {t("APP.MODEL_SELECTION.IMPORTED_CUSTOM_MODELS")}
+                  </p>
+                )}
+                {customModelIds.map((customModel) => {
+                  return (
+                    <button
+                      key={customModel}
+                      className="btn rounded-box bg-base-100 h-auto w-full items-start p-4 text-left shadow-sm"
+                      onClick={() => handleModelSelect(customModel)}
+                    >
+                      {customModel}
+                    </button>
+                  );
+                })}
               </div>
             </div>
-            <button
-              className="btn btn-circle btn-secondary absolute right-4 top-4"
-              onClick={() => setZoomedModel(null)}
-            >
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </button>
           </div>
-        </DialogContent>
-      </Dialog>
+          <button className="modal-backdrop" onClick={() => setOpen(false)}>
+            Close
+          </button>
+        </div>
+      )}
+
+      {!!zoomedModel && (
+        <div className="modal modal-open z-[60]">
+          <div className="modal-box h-screen max-w-full rounded-none bg-black p-0">
+            <div className="relative flex h-full w-full items-center justify-center bg-black">
+              <div className="flex h-full w-full">
+                <div className="relative h-full w-1/2">
+                  <img
+                    src={`public:///model-comparison/${MODELS[zoomedModel]?.id}/before.webp`}
+                    alt={`Zoomed in Image - Before`}
+                    className="h-full w-full object-contain"
+                  />
+                  <div className="bg-opacity-50 absolute bottom-4 left-4 rounded bg-black px-2 py-1 text-sm text-white">
+                    Before
+                  </div>
+                </div>
+                <div className="relative h-full w-1/2">
+                  <img
+                    src={`public:///model-comparison/${MODELS[zoomedModel]?.id}/after.webp`}
+                    alt={`Zoomed in Image - After`}
+                    className="h-full w-full object-contain"
+                  />
+                  <div className="bg-opacity-50 absolute right-4 bottom-4 rounded bg-black px-2 py-1 text-sm text-white">
+                    After
+                  </div>
+                </div>
+              </div>
+              <button
+                className="btn btn-circle btn-secondary absolute top-4 right-4"
+                onClick={() => setZoomedModel(null)}
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close</span>
+              </button>
+            </div>
+          </div>
+          <button
+            className="modal-backdrop"
+            onClick={() => setZoomedModel(null)}
+          >
+            Close
+          </button>
+        </div>
+      )}
     </div>
   );
 };

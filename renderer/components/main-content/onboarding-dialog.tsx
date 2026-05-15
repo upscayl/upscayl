@@ -1,12 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
 import { cn } from "@/lib/utils";
 import SelectTheme from "@/components/sidebar/settings-tab/select-theme";
 import {
@@ -17,6 +9,7 @@ import { useAtom, useAtomValue } from "jotai";
 import useTranslation from "../hooks/use-translation";
 import LanguageSwitcher from "../sidebar/settings-tab/language-switcher";
 import { localeAtom } from "@/atoms/translations-atom";
+import { XIcon } from "lucide-react";
 
 type OnboardingStep = {
   title: string;
@@ -133,119 +126,125 @@ export function OnboardingDialog() {
   };
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(e) => {
-        setOpen(e);
-      }}
-    >
-      <DialogContent className="flex h-[80%] w-full max-w-[80%] flex-col items-center justify-center">
-        <DialogHeader>
-          <DialogTitle className="text-center text-4xl">
-            {currentStepData.title}
-          </DialogTitle>
-          <DialogDescription className="text-center text-lg text-base-content/70">
-            {currentStepData.description}
-          </DialogDescription>
-        </DialogHeader>
-
-        {currentStepData.configurationOptions && (
-          <div
-            className={cn(
-              "flex h-full w-full flex-col rounded-sm bg-primary p-8",
-              "h-auto w-auto gap-8",
-              currentStepData.configurationOptions[0].type === "video" &&
-                "h-full w-full gap-0 p-0",
-            )}
+    open && (
+      <div className="modal modal-open z-50">
+        <div className="modal-box flex h-[80%] w-full max-w-[80%] flex-col items-center justify-center">
+          <button
+            className="btn btn-circle btn-ghost btn-sm absolute top-4 right-4"
+            onClick={() => setOpen(false)}
           >
-            {currentStepData.configurationOptions.map((option) => (
-              <div
-                key={option.key}
-                className="flex h-full w-full items-center justify-between gap-4"
-                data-tooltip-id="tooltip"
-                data-tooltip-content={
-                  option.key === "improveUpscayl"
-                    ? t("SETTINGS.ENABLE_CONTRIBUTION.DESCRIPTION")
-                    : null
-                }
-              >
-                {option.label && (
-                  <label
-                    htmlFor={option.key}
-                    className="text-nowrap text-left text-sm uppercase text-primary-content"
-                  >
-                    {option.label}
-                  </label>
-                )}
-                {option.type === "switch" && (
-                  <input
-                    type="checkbox"
-                    className="toggle"
-                    id={option.key}
-                    checked={
-                      option.key === "autoUpdate"
-                        ? autoUpdate
-                        : option.key === "improveUpscayl"
-                          ? enableContribution
-                          : false
-                    }
-                    onChange={(e) => {
-                      if (option.key === "autoUpdate") {
-                        setAutoUpdate(e.target.checked);
-                      } else if (option.key === "improveUpscayl") {
-                        setEnableContribution(e.target.checked);
-                      }
-                    }}
-                  />
-                )}
-                {option.type === "input" && (
-                  <input
-                    className="input input-bordered"
-                    id={option.key}
-                    value={settings[option.key] || ""}
-                    onChange={(e) =>
-                      handleSettingChange(option.key, e.target.value)
-                    }
-                  />
-                )}
-                {option.type === "video" && (
-                  <iframe
-                    className="h-full w-full rounded-sm"
-                    src={option.videoSrc}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  />
-                )}
-                {option.type === "component" && option.component}
-              </div>
-            ))}
-            {currentStepData.type === "settings" && (
-              <p className="text-sm text-base-content/70">
-                {t("ONBOARDING_DIALOG.SETTINGS_NOTE")}
-              </p>
-            )}
-          </div>
-        )}
-
-        <DialogFooter className="gap-2 md:gap-0">
-          {!isFirstStep && (
-            <button
-              onClick={() => setCurrentStep((prev) => prev - 1)}
-              className="btn btn-primary w-40"
-            >
-              {t("ONBOARDING_DIALOG.BACK_BUTTON_TITLE")}
-            </button>
-          )}
-          <button onClick={handleNext} className="btn btn-secondary w-40">
-            {isLastStep
-              ? t("ONBOARDING_DIALOG.GET_STARTED_BUTTON_TITLE")
-              : t("ONBOARDING_DIALOG.NEXT_BUTTON_TITLE")}
+            <XIcon className="h-4 w-4" />
+            <span className="sr-only">Close</span>
           </button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+
+          <div className="mb-6 flex flex-col items-center gap-2 text-center">
+            <h2 className="text-4xl font-semibold">{currentStepData.title}</h2>
+            <p className="text-base-content/70 text-lg">
+              {currentStepData.description}
+            </p>
+          </div>
+
+          {currentStepData.configurationOptions && (
+            <div
+              className={cn(
+                "bg-primary flex h-full w-full flex-col rounded-sm p-8",
+                "h-auto w-auto gap-8",
+                currentStepData.configurationOptions[0].type === "video" &&
+                  "h-full w-full gap-0 p-0",
+              )}
+            >
+              {currentStepData.configurationOptions.map((option) => (
+                <div
+                  key={option.key}
+                  className="flex h-full w-full items-center justify-between gap-4"
+                  data-tooltip-id="tooltip"
+                  data-tooltip-content={
+                    option.key === "improveUpscayl"
+                      ? t("SETTINGS.ENABLE_CONTRIBUTION.DESCRIPTION")
+                      : null
+                  }
+                >
+                  {option.label && (
+                    <label
+                      htmlFor={option.key}
+                      className="text-primary-content text-left text-sm text-nowrap uppercase"
+                    >
+                      {option.label}
+                    </label>
+                  )}
+                  {option.type === "switch" && (
+                    <input
+                      type="checkbox"
+                      className="toggle"
+                      id={option.key}
+                      checked={
+                        option.key === "autoUpdate"
+                          ? autoUpdate
+                          : option.key === "improveUpscayl"
+                            ? enableContribution
+                            : false
+                      }
+                      onChange={(e) => {
+                        if (option.key === "autoUpdate") {
+                          setAutoUpdate(e.target.checked);
+                        } else if (option.key === "improveUpscayl") {
+                          setEnableContribution(e.target.checked);
+                        }
+                      }}
+                    />
+                  )}
+                  {option.type === "input" && (
+                    <input
+                      className="input input-bordered"
+                      id={option.key}
+                      value={settings[option.key] || ""}
+                      onChange={(e) =>
+                        handleSettingChange(option.key, e.target.value)
+                      }
+                    />
+                  )}
+                  {option.type === "video" && (
+                    <iframe
+                      className="h-full w-full rounded-sm"
+                      src={option.videoSrc}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  )}
+                  {option.type === "component" && option.component}
+                </div>
+              ))}
+              {currentStepData.type === "settings" && (
+                <p className="text-base-content/70 text-sm">
+                  {t("ONBOARDING_DIALOG.SETTINGS_NOTE")}
+                </p>
+              )}
+            </div>
+          )}
+
+          <div className="modal-action w-full justify-end gap-2 md:gap-0">
+            {!isFirstStep && (
+              <button
+                onClick={() => setCurrentStep((prev) => prev - 1)}
+                className="btn btn-primary w-40"
+              >
+                {t("ONBOARDING_DIALOG.BACK_BUTTON_TITLE")}
+              </button>
+            )}
+            <button onClick={handleNext} className="btn btn-secondary w-40">
+              {isLastStep
+                ? t("ONBOARDING_DIALOG.GET_STARTED_BUTTON_TITLE")
+                : t("ONBOARDING_DIALOG.NEXT_BUTTON_TITLE")}
+            </button>
+          </div>
+        </div>
+        <button className="modal-backdrop" onClick={() => setOpen(false)}>
+          Close
+        </button>
+      </div>
+    )
   );
 }

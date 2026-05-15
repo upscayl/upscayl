@@ -39,14 +39,15 @@ const SliderView = ({
               objectFit: "contain",
               backgroundPosition: "0% 0%",
               transformOrigin: backgroundPosition,
+              ["--zoom-scale" as string]: `${(Number(zoomAmount) || 100) / 100}`,
             }}
-            className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${zoomAmount}%]`}
+            className="slider-zoom from-base-300 to-base-100 h-full w-full bg-gradient-to-br transition-transform"
           />
         </>
       }
       itemTwo={
         <>
-          <p className="absolute bottom-1 right-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
+          <p className="absolute right-1 bottom-1 rounded-md bg-black p-1 text-sm font-medium text-white opacity-30">
             {t("APP.SLIDER.UPSCAYLED_TITLE")}
           </p>
           <img
@@ -57,15 +58,14 @@ const SliderView = ({
               objectFit: "contain",
               backgroundPosition: "0% 0%",
               transformOrigin: backgroundPosition,
+              ["--zoom-scale" as string]: `${(Number(zoomAmount) || 100) / 100}`,
             }}
             onMouseMove={handleMouseMove}
-            className={`h-full w-full bg-gradient-to-br from-base-300 to-base-100 transition-transform group-hover:scale-[${
-              zoomAmount || "100%"
-            }%]`}
+            className="slider-zoom from-base-300 to-base-100 h-full w-full bg-gradient-to-br transition-transform"
           />
         </>
       }
-      className="group h-screen"
+      className="compare-slider-group h-screen"
     />
   );
 };
