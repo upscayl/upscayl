@@ -1,4 +1,18 @@
-const daisyuiColorObj = require("daisyui/src/theming/index");
+const upscaylTheme = {
+  primary: "#334155",
+  secondary: "#4f46e5",
+  accent: "#6d28d9",
+  neutral: "#475569",
+  "base-100": "#1e293b",
+  "base-200": "#0f172a",
+  "base-300": "#020617",
+  "primary-content": "#ffffff",
+  "secondary-content": "#ffffff",
+  "accent-content": "#ffffff",
+  "base-content": "#f8fafc",
+  error: "#ef4444",
+  "error-content": "#ffffff",
+};
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -40,38 +54,38 @@ module.exports = {
         128: "28rem",
       },
       colors: {
-        border: daisyuiColorObj["primary"],
-        input: daisyuiColorObj["base-content"],
-        ring: daisyuiColorObj["base-content"],
-        background: daisyuiColorObj["base-100"],
-        foreground: daisyuiColorObj["base-content"],
+        border: upscaylTheme["primary"],
+        input: upscaylTheme["base-content"],
+        ring: upscaylTheme["base-content"],
+        background: upscaylTheme["base-100"],
+        foreground: upscaylTheme["base-content"],
         primary: {
-          DEFAULT: daisyuiColorObj["primary"],
-          foreground: daisyuiColorObj["primary-content"],
+          DEFAULT: upscaylTheme["primary"],
+          foreground: upscaylTheme["primary-content"],
         },
         secondary: {
-          DEFAULT: daisyuiColorObj["secondary"],
-          foreground: daisyuiColorObj["secondary-content"],
+          DEFAULT: upscaylTheme["secondary"],
+          foreground: upscaylTheme["secondary-content"],
         },
         destructive: {
-          DEFAULT: daisyuiColorObj["error"],
-          foreground: daisyuiColorObj["error-content"],
+          DEFAULT: upscaylTheme["error"],
+          foreground: upscaylTheme["error-content"],
         },
         muted: {
-          DEFAULT: daisyuiColorObj["base-300"],
-          foreground: daisyuiColorObj["base-content"],
+          DEFAULT: upscaylTheme["base-300"],
+          foreground: upscaylTheme["base-content"],
         },
         accent: {
-          DEFAULT: daisyuiColorObj["accent"],
-          foreground: daisyuiColorObj["accent-content"],
+          DEFAULT: upscaylTheme["accent"],
+          foreground: upscaylTheme["accent-content"],
         },
         popover: {
-          DEFAULT: daisyuiColorObj["base-100"],
-          foreground: daisyuiColorObj["base-content"],
+          DEFAULT: upscaylTheme["base-100"],
+          foreground: upscaylTheme["base-content"],
         },
         card: {
-          DEFAULT: daisyuiColorObj["base-100"],
-          foreground: daisyuiColorObj["base-content"],
+          DEFAULT: upscaylTheme["base-100"],
+          foreground: upscaylTheme["base-content"],
         },
       },
       borderRadius: {
@@ -96,7 +110,7 @@ module.exports = {
     },
   },
   plugins: [
-    require("daisyui"),
+    require("daisyui").default,
     require("tailwindcss-animate"),
     require("tailwind-scrollbar"),
     require("@tailwindcss/typography"),
@@ -106,13 +120,7 @@ module.exports = {
     themes: [
       {
         upscayl: {
-          primary: "#334155",
-          secondary: "#4f46e5",
-          accent: "#6d28d9",
-          neutral: "#475569",
-          "base-100": "#1e293b",
-          "base-200": "#0f172a",
-          "base-300": "#020617",
+          ...upscaylTheme,
           "--rounded-btn": "2rem", // border radius rounded-btn utility class, used in buttons and similar element
           "--rounded-badge": "2rem", // border radius rounded-badge utility class, used in badges and similar
           "--animation-btn": "0.5s", // duration of animation when you click on button
