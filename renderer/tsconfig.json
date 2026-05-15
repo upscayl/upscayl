@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -15,10 +19,18 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./*"],
-      "@common/*": ["../common/*"],
-      "@components/*": ["./components/*"],
-      "@lib/utils": ["./lib/utils/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@common/*": [
+        "../common/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@lib/utils": [
+        "./lib/utils/*"
+      ]
     }
   },
   "include": [
@@ -28,5 +40,7 @@
     "../app.module.ts",
     "../common/**/*"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
