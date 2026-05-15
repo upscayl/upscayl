@@ -1,4 +1,3 @@
-import prepareNext from "electron-next";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
 import { app, ipcMain, protocol } from "electron";
@@ -12,7 +11,6 @@ import getModelsList from "./commands/get-models-list";
 import customModelsSelect from "./commands/custom-models-select";
 import imageUpscayl from "./commands/image-upscayl";
 import { createMainWindow } from "./main-window";
-import electronIsDev from "electron-is-dev";
 import { execPath, modelsPath } from "./utils/get-resource-paths";
 import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
@@ -25,26 +23,22 @@ import path from "path";
 // INITIALIZATION
 log.initialize({ preload: true });
 
-app.on("ready", async () => {
-  await prepareNext("./renderer");
-
-  app.whenReady().then(() => {
-    protocol.registerFileProtocol("file", (request, callback) => {
-      const pathname = decodeURI(request.url.replace("file:///", ""));
-      callback(pathname);
-    });
-    protocol.registerFileProtocol("public", (request, callback) => {
-      const filePath = decodeURI(request.url.replace("public:///", ""));
-      const asarPath = path.join(
-        app.getAppPath(),
-        "renderer",
-        process.env.NODE_ENV === "development" ? "public" : "out",
-        filePath,
-      );
-      callback(asarPath);
-    });
-    logit("🚃 App Path: ", app.getAppPath());
+app.whenReady().then(async () => {
+  protocol.registerFileProtocol("file", (request, callback) => {
+    const pathname = decodeURI(request.url.replace("file:///", ""));
+    callback(pathname);
   });
+  protocol.registerFileProtocol("public", (request, callback) => {
+    const filePath = decodeURI(request.url.replace("public:///", ""));
+    const publicRoot = path.join(
+      app.getAppPath(),
+      "renderer",
+      app.isPackaged ? "out" : "public",
+    );
+
+    callback(path.join(publicRoot, filePath));
+  });
+  logit("🚃 App Path: ", app.getAppPath());
 
   createMainWindow();
 

@@ -1,6 +1,5 @@
 import { join, dirname, resolve } from "path";
 import { getPlatform } from "./get-device-specs";
-import isDev from "electron-is-dev";
 import { app } from "electron";
 
 /**
@@ -11,14 +10,14 @@ import { app } from "electron";
  */
 const appRootDir = app.getAppPath();
 
-const binariesPath = isDev
-  ? join(appRootDir, "resources", getPlatform()!, "bin")
-  : join(dirname(appRootDir), "bin");
+const binariesPath = app.isPackaged
+  ? join(dirname(appRootDir), "bin")
+  : join(appRootDir, "resources", getPlatform()!, "bin");
 
-const execPath = resolve(join(binariesPath, `./upscayl-bin`));
+const execPath = resolve(join(binariesPath, "./upscayl-bin"));
 
-const modelsPath = isDev
-  ? resolve(join(appRootDir, "resources", "models"))
-  : resolve(join(dirname(appRootDir), "models"));
+const modelsPath = app.isPackaged
+  ? resolve(join(dirname(appRootDir), "models"))
+  : resolve(join(appRootDir, "resources", "models"));
 
 export { execPath, modelsPath };
