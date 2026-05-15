@@ -4,8 +4,7 @@ const daisyuiColorObj = require("daisyui/src/theming/index");
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./renderer/pages/**/*.{js,ts,jsx,tsx}",
-    "./renderer/components/**/*.{js,ts,jsx,tsx}",
+    "./renderer/**/*.{html,js,ts,jsx,tsx}",
   ],
   safelist: [
     ...[...Array(101).keys()].flatMap((index) => [

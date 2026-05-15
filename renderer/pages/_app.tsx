@@ -1,23 +1,16 @@
 import "../styles/globals.css";
-import Head from "next/head";
-import { AppProps } from "next/app";
 import { Provider } from "jotai";
 import "react-tooltip/dist/react-tooltip.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Tooltip } from "react-tooltip";
 import PostHogProviderWrapper from "@/components/posthog-provider-wrapper";
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
-      <Head>
-        <title>Upscayl</title>
-      </Head>
-      <base href="./" />
-
+    <div data-theme="upscayl">
       <Provider>
         <PostHogProviderWrapper>
-          <Component {...pageProps} data-theme="upscayl" />
+          {children}
           <Toaster />
           <Tooltip
             className="z-[999] max-w-sm break-words !bg-secondary"
@@ -25,8 +18,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           />
         </PostHogProviderWrapper>
       </Provider>
-    </>
+    </div>
   );
 };
 
-export default MyApp;
+export default AppProviders;

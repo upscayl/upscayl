@@ -45,7 +45,7 @@ const createMainWindow = () => {
   if (!app.isPackaged && rendererUrl) {
     mainWindow.loadURL(rendererUrl);
   } else {
-    mainWindow.loadFile(join(__dirname, "../../renderer/out/index.html"));
+    mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
   }
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {

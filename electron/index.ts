@@ -30,11 +30,9 @@ app.whenReady().then(async () => {
   });
   protocol.registerFileProtocol("public", (request, callback) => {
     const filePath = decodeURI(request.url.replace("public:///", ""));
-    const publicRoot = path.join(
-      app.getAppPath(),
-      "renderer",
-      app.isPackaged ? "out" : "public",
-    );
+    const publicRoot = app.isPackaged
+      ? path.join(app.getAppPath(), "out", "renderer")
+      : path.join(app.getAppPath(), "renderer", "public");
 
     callback(path.join(publicRoot, filePath));
   });

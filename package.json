@@ -38,12 +38,9 @@
   "scripts": {
     "clean": "rimraf dist out renderer/.next renderer/out",
     "start": "npm run build && electron .",
-    "dev:renderer": "next dev renderer -p 8000",
-    "dev:electron": "cross-env UPSCAYL_RENDERER_URL=http://localhost:8000 electron-vite dev",
-    "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
-    "build:renderer": "npm run validate-schema && next build renderer",
+    "dev": "electron-vite dev",
     "build:electron": "electron-vite build",
-    "build": "npm run build:renderer && npm run build:electron",
+    "build": "npm run validate-schema && npm run build:electron",
     "tsc": "tsc --noEmit",
     "pack-app": "npm run build && electron-builder --dir",
     "dist": "npm run build && cross-env DEBUG=* electron-builder",
@@ -198,8 +195,7 @@
       "perMachine": true
     },
     "files": [
-      "out",
-      "renderer/out"
+      "out"
     ],
     "publish": {
       "provider": "github",
@@ -213,15 +209,14 @@
     "@types/node": "^18.15.12",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.3.4",
     "ajv": "^6.12.6",
     "autoprefixer": "^10.4.20",
-    "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "daisyui": "^4.12.23",
     "electron": "^33.2.1",
     "electron-builder": "^25.1.8",
     "electron-vite": "^2.3.0",
-    "next": "^15.2.4",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
@@ -243,7 +238,6 @@
     "electron-log": "^5.2.4",
     "electron-settings": "^4.0.4",
     "electron-updater": "^6.3.9",
-    "eslint-config-next": "^14.2.7",
     "exiftool-vendored": "^29.3.0",
     "firebase": "^11.1.0",
     "gray-matter": "^4.0.3",

@@ -1,8 +1,11 @@
-import ResetButton from "@/components/main-content/reset-button";
 import { ResetSettingsButton } from "@/components/sidebar/settings-tab/reset-settings-button";
 import { SkullIcon } from "lucide-react";
 
-function Error({ statusCode }) {
+type ErrorPageProps = {
+  statusCode?: number;
+};
+
+function ErrorPage({ statusCode }: ErrorPageProps) {
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center overflow-hidden bg-base-300">
       <div className="flex flex-col items-center justify-center gap-2">
@@ -22,9 +25,4 @@ function Error({ statusCode }) {
   );
 }
 
-Error.getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-  return { statusCode };
-};
-
-export default Error;
+export default ErrorPage;
