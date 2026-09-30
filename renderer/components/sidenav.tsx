@@ -1,8 +1,9 @@
-import { cn } from "@/lib/utils";
-import { HomeIcon, ImageOffIcon, LucideIcon, SettingsIcon } from "lucide-react";
-import { Button } from "./ui/button";
 import { useSetAtom } from "jotai";
+import { HomeIcon, ImageOffIcon, SettingsIcon } from "lucide-react";
+
 import { showSettingsDialogAtom } from "@/atoms/toggle-settings";
+import useTranslation from "@/components/hooks/use-translation";
+import NavItem from "@/components/nav-item";
 
 export type AppTab = "home" | "remove-background";
 
@@ -13,62 +14,32 @@ const Sidenav = ({
   activeTab: AppTab;
   onTabChange: (tab: AppTab) => void;
 }) => {
+  const t = useTranslation();
   const setShowSettings = useSetAtom(showSettingsDialogAtom);
 
-  const navItems: {
-    name: string;
-    Icon: LucideIcon;
-    onClick?: () => void;
-    tab?: AppTab;
-  }[] = [
-    {
-      name: "Home",
-      Icon: HomeIcon,
-      tab: "home" as const,
-    },
-    {
-      name: "Remove BG",
-      Icon: ImageOffIcon,
-      tab: "remove-background" as const,
-    },
-    {
-      name: "Settings",
-      Icon: SettingsIcon,
-      onClick: () => setShowSettings(true),
-    },
-  ];
   return (
-    <div
-      className={cn(
-        "rounded-box w-18 p-2",
-        window.electron.platform === "mac" && "mt-0",
-      )}
-    >
-      {/* NAV ITEMS */}
-      <div className="flex flex-col items-center gap-2">
-        {navItems.map((item) => (
-          <Button
-            key={item.name}
-            variant={
-              item.tab && item.tab === activeTab ? "secondary" : "outline"
-            }
-            size="lg"
-            className={cn(
-              "flex size-18 max-w-32 flex-col rounded-xl text-xs",
-              item.tab && item.tab === activeTab && "ring-2 ring-primary/20",
-            )}
-            onClick={() => {
-              item.onClick?.();
-              if (item.tab) onTabChange(item.tab);
-            }}
-            aria-current={item.tab === activeTab ? "page" : undefined}
-          >
-            <item.Icon className="size-5" />
-            {item.name}
-          </Button>
-        ))}
+    <nav className="flex w-14 shrink-0 flex-col items-center justify-between py-2">
+      <div className="flex flex-col gap-2">
+        <NavItem
+          label={t("Home")}
+          icon={HomeIcon}
+          active={activeTab === "home"}
+          onClick={() => onTabChange("home")}
+        />
+        <NavItem
+          label={t("Remove background")}
+          icon={ImageOffIcon}
+          active={activeTab === "remove-background"}
+          onClick={() => onTabChange("remove-background")}
+        />
       </div>
-    </div>
+
+      <NavItem
+        label={t("Settings")}
+        icon={SettingsIcon}
+        onClick={() => setShowSettings(true)}
+      />
+    </nav>
   );
 };
 

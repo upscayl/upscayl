@@ -25,10 +25,11 @@ const createMainWindow = () => {
 
   mainWindow = new BrowserWindow({
     icon: getWindowIcon(),
-    width: 1300,
-    height: 940,
-    minHeight: 500,
-    minWidth: 600,
+    width: 960,
+    height: 720,
+    minHeight: 640,
+    minWidth: 760,
+    center: true,
     show: false,
     backgroundColor: "#171717",
     webPreferences: {
@@ -53,8 +54,20 @@ const createMainWindow = () => {
     return { action: "deny" };
   });
 
-  mainWindow.once("ready-to-show", () => {
+  mainWindow.once("ready-to-show", async () => {
     if (!mainWindow) return;
+
+    const showOnboarding = await mainWindow.webContents.executeJavaScript(
+      'localStorage.getItem("showOnboarding") !== "false";',
+      true,
+    );
+
+    if (!showOnboarding) {
+      mainWindow.maximize();
+    } else if (process.platform === "darwin") {
+      mainWindow.setWindowButtonVisibility(false);
+    }
+
     mainWindow.show();
   });
 

@@ -12,7 +12,7 @@ export default function Header({ version }: { version: string }) {
       className={`outline-none focus-visible:ring-2`}
     >
       <div className="flex gap-2">
-        <img src="/logo.svg" className="size-10 self-center" />
+        <img src="./logo.svg" className="size-10 self-center" />
 
         <div className="flex flex-col items-start justify-start">
           <h1 className="text-lg font-medium text-foreground/80">

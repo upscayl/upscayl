@@ -10,7 +10,7 @@ import selectFile from "./commands/select-file";
 import getModelsList from "./commands/get-models-list";
 import customModelsSelect from "./commands/custom-models-select";
 import imageUpscayl from "./commands/image-upscayl";
-import { createMainWindow } from "./main-window";
+import { createMainWindow, getMainWindow } from "./main-window";
 import { execPath, modelsPath } from "./utils/get-resource-paths";
 import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
@@ -115,6 +115,18 @@ ipcMain.handle(
   ELECTRON_COMMANDS.EXPORT_REMOVE_BACKGROUND,
   exportRemoveBackground,
 );
+
+ipcMain.on(ELECTRON_COMMANDS.ONBOARDING_COMPLETE, () => {
+  const mainWindow = getMainWindow();
+  if (process.platform === "darwin") {
+    mainWindow?.setWindowButtonVisibility(true);
+  }
+  mainWindow?.maximize();
+});
+
+ipcMain.on(ELECTRON_COMMANDS.QUIT_APP, () => {
+  app.quit();
+});
 
 ipcMain.on(ELECTRON_COMMANDS.GET_IMAGE_PATHS, getImagePaths);
 

@@ -40,6 +40,8 @@ const ELECTRON_COMMANDS = {
   REMOVE_BACKGROUND_ERROR: "Remove background error",
   REMOVE_BACKGROUND_STOP: "Stop background removal",
   EXPORT_REMOVE_BACKGROUND: "Export background removal",
+  ONBOARDING_COMPLETE: "Onboarding complete",
+  QUIT_APP: "Quit app",
 } as const;
 
 export { ELECTRON_COMMANDS };

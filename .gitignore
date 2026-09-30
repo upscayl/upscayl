@@ -58,3 +58,6 @@ flags.ts
 *.p12
 dockerfile
 .plan
+
+AGENTS.md
+CLAUDE.md
