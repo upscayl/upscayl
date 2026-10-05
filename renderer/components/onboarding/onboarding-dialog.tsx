@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Dialog as DialogPrimitive } from "radix-ui";
 
 import useTranslation from "@/components/hooks/use-translation";
@@ -22,7 +22,7 @@ const ARROW_OPT_OUT = 'input, select, textarea, [role="combobox"]';
 export function OnboardingDialog() {
   const t = useTranslation();
   const [currentStep, setCurrentStep] = useState(0);
-  const [direction, setDirection] = useState<"forward" | "back">("forward");
+  const [direction, setDirection] = useState<"forward" | "back" | null>(null);
   const [open, setOpen] = useState(
     () => localStorage.getItem("showOnboarding") !== "false",
   );
@@ -46,6 +46,11 @@ export function OnboardingDialog() {
   };
 
   const goNext = () => (isLastStep ? finishSetup() : goTo(currentStep + 1));
+
+  useLayoutEffect(() => {
+    document.documentElement.toggleAttribute("data-onboarding", open);
+    return () => document.documentElement.removeAttribute("data-onboarding");
+  }, [open]);
 
   useEffect(() => {
     contentRef.current
@@ -82,7 +87,7 @@ export function OnboardingDialog() {
           ref={contentRef}
           aria-describedby={undefined}
           onEscapeKeyDown={(event) => event.preventDefault()}
-          className="fixed inset-0 z-[100] flex flex-col overflow-hidden bg-background text-foreground outline-none"
+          className="fixed inset-0 z-[100] flex flex-col overflow-hidden text-foreground outline-none"
         >
           <DialogPrimitive.Title className="sr-only">
             {t("First-run setup")}
@@ -116,10 +121,11 @@ export function OnboardingDialog() {
             <div
               key={currentStep}
               className={cn(
-                "m-auto w-full animate-in px-8 py-4 duration-300 fade-in-0 motion-reduce:animate-none lg:px-12",
-                direction === "forward"
-                  ? "slide-in-from-right-4"
-                  : "slide-in-from-left-4",
+                "m-auto w-full px-8 py-4 lg:px-12",
+                direction &&
+                  "animate-in duration-300 fade-in-0 motion-reduce:animate-none",
+                direction === "forward" && "slide-in-from-right-4",
+                direction === "back" && "slide-in-from-left-4",
               )}
             >
               <Step />

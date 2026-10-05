@@ -376,11 +376,7 @@ const Home = () => {
   const isMac = window.electron.platform === "mac";
 
   return (
-    <div
-      className={cn(
-        "flex h-screen w-screen flex-col overflow-hidden bg-background p-2",
-      )}
-    >
+    <div className={cn("flex h-screen w-screen flex-col overflow-hidden p-2")}>
       <div className={cn({ "pl-22": isMac })}>
         <Header version={version} />
       </div>

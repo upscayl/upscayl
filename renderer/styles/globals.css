@@ -4,10 +4,11 @@
 @import "tailwindcss";
 
 @import "./themes.css";
+@import "./upscayl-theme.css";
 
 @plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *, .upscayl *));
 @custom-variant data-vertical (&[data-orientation="vertical"]);
 @custom-variant data-horizontal (&[data-orientation="horizontal"]);
 
@@ -58,6 +59,11 @@
 
 /* </SHADCN> */
 
+@utility glass-panel {
+  backdrop-filter: var(--glass-filter, none);
+  box-shadow: var(--panel-shadow, none);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50 select-none;
@@ -65,7 +71,13 @@
 
   body {
     font-family: var(--font-sans);
-    @apply bg-background text-foreground;
+    background: var(--app-backdrop, var(--background));
+    @apply text-foreground;
+  }
+
+  /* The setup wizard has no backdrop of its own, so hide the app beneath it. */
+  html[data-onboarding] #root {
+    visibility: hidden;
   }
 
   button:not(:disabled),

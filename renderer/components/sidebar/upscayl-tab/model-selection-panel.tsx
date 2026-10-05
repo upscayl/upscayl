@@ -40,7 +40,7 @@ const ModelSelectionPanel = ({
           value={modelFilter}
           onValueChange={(value) => onModelFilterChange(value as ModelFilter)}
         >
-          <SelectTrigger className="ml-auto h-11 w-full rounded-full bg-secondary sm:w-[12rem]">
+          <SelectTrigger className="ml-auto h-11 w-full rounded-full bg-secondary sm:w-[9rem]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

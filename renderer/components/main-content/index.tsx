@@ -409,7 +409,7 @@ const MainContent = ({
       {/*   resetImagePaths={resetImagePaths} */}
       {/* /> */}
       <div className="flex size-full gap-2 overflow-hidden">
-        <div className="flex h-full w-full flex-col gap-2 overflow-hidden rounded-4xl border bg-secondary p-2">
+        <div className="flex h-full w-full flex-col gap-2 overflow-hidden rounded-4xl border bg-secondary p-2 glass-panel">
           {(selectedBatchImage.length > 0 || imagePath.length > 0) && (
             <div className="inline-flex items-center gap-2">
               <div className="space-y-1.5 px-1.5 text-sm">

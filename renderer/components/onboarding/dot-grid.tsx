@@ -28,7 +28,7 @@ export default function DotGrid() {
 
     const draw = () => {
       context.clearRect(0, 0, width, height);
-      context.fillStyle = "currentColor";
+      context.fillStyle = getComputedStyle(canvas).color;
       context.beginPath();
 
       let settled = true;
@@ -137,7 +137,7 @@ export default function DotGrid() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 size-full [mask-image:radial-gradient(80%_65%_at_50%_0%,black,transparent)] text-foreground opacity-25 dark:opacity-15"
+      className="pointer-events-none absolute inset-0 size-full [mask-image:radial-gradient(80%_65%_at_50%_0%,black,transparent)] text-foreground opacity-25 dark:text-white dark:opacity-35"
     />
   );
 }

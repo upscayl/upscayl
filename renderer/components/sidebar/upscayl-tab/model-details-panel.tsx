@@ -62,7 +62,7 @@ const ModelDetailsPanel = ({
                 afterLabel={t("After")}
                 isBeforeUnavailable={isBeforePreviewUnavailable}
                 isAfterUnavailable={isAfterPreviewUnavailable}
-                className="aspect-[16/9] min-h-0 rounded-[1.2rem] bg-card ring-1 ring-border/80"
+                className="aspect-[4/3] min-h-0 rounded-[1.2rem] bg-card ring-1 ring-border/80"
                 onPreviewUnavailable={onPreviewUnavailable}
               />
               <div className="rounded-[1.2rem] bg-card/60 p-4 ring-1 ring-border/70">

@@ -10,7 +10,12 @@ import selectFile from "./commands/select-file";
 import getModelsList from "./commands/get-models-list";
 import customModelsSelect from "./commands/custom-models-select";
 import imageUpscayl from "./commands/image-upscayl";
-import { createMainWindow, getMainWindow } from "./main-window";
+import {
+  createMainWindow,
+  getMainWindow,
+  setWindowButtonsHidden,
+} from "./main-window";
+import setVibrancy from "./commands/set-vibrancy";
 import { execPath, modelsPath } from "./utils/get-resource-paths";
 import batchUpscayl from "./commands/batch-upscayl";
 import doubleUpscayl from "./commands/double-upscayl";
@@ -117,16 +122,15 @@ ipcMain.handle(
 );
 
 ipcMain.on(ELECTRON_COMMANDS.ONBOARDING_COMPLETE, () => {
-  const mainWindow = getMainWindow();
-  if (process.platform === "darwin") {
-    mainWindow?.setWindowButtonVisibility(true);
-  }
-  mainWindow?.maximize();
+  setWindowButtonsHidden(false);
+  getMainWindow()?.maximize();
 });
 
 ipcMain.on(ELECTRON_COMMANDS.QUIT_APP, () => {
   app.quit();
 });
+
+ipcMain.on(ELECTRON_COMMANDS.SET_VIBRANCY, setVibrancy);
 
 ipcMain.on(ELECTRON_COMMANDS.GET_IMAGE_PATHS, getImagePaths);
 

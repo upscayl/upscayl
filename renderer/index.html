@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="./" />
     <title>Upscayl</title>
+    <script>
+      // Hide the app from the first paint while the setup wizard is pending.
+      if (localStorage.getItem("showOnboarding") !== "false")
+        document.documentElement.setAttribute("data-onboarding", "");
+    </script>
   </head>
   <body>
     <div id="root"></div>

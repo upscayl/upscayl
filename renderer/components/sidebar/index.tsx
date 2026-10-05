@@ -186,7 +186,7 @@ const Sidebar = ({
   };
 
   return (
-    <div className="relative flex min-w-xs flex-col overflow-hidden rounded-4xl border bg-secondary">
+    <div className="relative flex min-w-xs flex-col overflow-hidden rounded-4xl border bg-secondary glass-panel">
       {selectedTab === 0 && (
         <UpscaylSteps
           selectImageHandler={selectImageHandler}

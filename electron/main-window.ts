@@ -1,11 +1,17 @@
-import { app, BrowserWindow, shell } from "electron";
+import { app, BrowserWindow, nativeTheme, shell } from "electron";
 import { getPlatform } from "./utils/get-device-specs";
 import { join } from "path";
 import { ELECTRON_COMMANDS } from "../common/electron-commands";
 import { fetchLocalStorage } from "./utils/config-variables";
 import { autoUpdater } from "electron-updater";
+import settings from "electron-settings";
 
 let mainWindow: BrowserWindow | undefined;
+let windowButtonsHidden = false;
+
+// macOS can't change a window's transparency after creation, so remember the choice for next launch.
+const isVibrant = () =>
+  process.platform === "darwin" && settings.getSync("vibrancy") !== false;
 
 const getRendererUrl = () => {
   return process.env.UPSCAYL_RENDERER_URL || process.env.ELECTRON_RENDERER_URL;
@@ -23,6 +29,9 @@ const createMainWindow = () => {
   console.log("📂 DIRNAME", __dirname);
   console.log("🚃 App Path: ", app.getAppPath());
 
+  const vibrant = isVibrant();
+  if (vibrant) nativeTheme.themeSource = "dark";
+
   mainWindow = new BrowserWindow({
     icon: getWindowIcon(),
     width: 960,
@@ -31,7 +40,10 @@ const createMainWindow = () => {
     minWidth: 760,
     center: true,
     show: false,
-    backgroundColor: "#171717",
+    backgroundColor: vibrant ? "#00000000" : "#171717",
+    vibrancy: vibrant ? "under-window" : undefined,
+    hasShadow: !vibrant,
+    visualEffectState: "active",
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInWorker: true,
@@ -54,6 +66,8 @@ const createMainWindow = () => {
     return { action: "deny" };
   });
 
+  nativeTheme.on("updated", () => setWindowButtonsHidden());
+
   mainWindow.once("ready-to-show", async () => {
     if (!mainWindow) return;
 
@@ -64,8 +78,8 @@ const createMainWindow = () => {
 
     if (!showOnboarding) {
       mainWindow.maximize();
-    } else if (process.platform === "darwin") {
-      mainWindow.setWindowButtonVisibility(false);
+    } else {
+      setWindowButtonsHidden(true);
     }
 
     mainWindow.show();
@@ -99,4 +113,13 @@ const getMainWindow = () => {
   return mainWindow;
 };
 
-export { createMainWindow, getMainWindow };
+// macOS can bring the traffic lights back when the title bar re-lays out
+// (vibrancy, appearance changes), so call this without an argument to re-apply.
+const setWindowButtonsHidden = (hidden = windowButtonsHidden) => {
+  windowButtonsHidden = hidden;
+  if (process.platform === "darwin") {
+    mainWindow?.setWindowButtonVisibility(!hidden);
+  }
+};
+
+export { createMainWindow, getMainWindow, isVibrant, setWindowButtonsHidden };

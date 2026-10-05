@@ -6,7 +6,7 @@ import { Check } from "lucide-react";
 import React, { useEffect } from "react";
 import { themeChange } from "theme-change";
 const availableThemes = [
-  // { label: "Upscvayl", value: "upscayl" },
+  { label: "Upscayl", value: "upscayl" },
   { label: "Light", value: "light" },
   { label: "Dark", value: "dark" },
   { label: "Claude", value: "claude" },

@@ -20,7 +20,7 @@ export default function NavItem({
   onClick: () => void;
 }) {
   return (
-    <Tooltip>
+    <Tooltip delayDuration={400}>
       <TooltipTrigger asChild>
         <Button
           variant="ghost"

@@ -42,6 +42,7 @@ const ELECTRON_COMMANDS = {
   EXPORT_REMOVE_BACKGROUND: "Export background removal",
   ONBOARDING_COMPLETE: "Onboarding complete",
   QUIT_APP: "Quit app",
+  SET_VIBRANCY: "Set window vibrancy",
 } as const;
 
 export { ELECTRON_COMMANDS };

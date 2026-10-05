@@ -1,0 +1,130 @@
+/*
+ * Upscayl (glass) theme, built on Tailwind's zinc scale.
+ * Standard tokens use alpha, so shadcn surfaces turn translucent on their own.
+ * --app-backdrop, --glass-filter and --panel-shadow are read with fallbacks in
+ * globals.css, so every other theme keeps its flat look.
+ */
+.upscayl {
+  --background: var(--color-zinc-900);
+  --foreground: var(--color-zinc-50);
+  --card: color-mix(in oklab, var(--color-zinc-800) 80%, transparent);
+  --card-foreground: var(--color-zinc-50);
+  --popover: color-mix(in oklab, var(--color-zinc-800) 94%, transparent);
+  --popover-foreground: var(--color-zinc-50);
+  --primary: var(--color-zinc-500);
+  --primary-foreground: var(--color-zinc-50);
+  --secondary: color-mix(in oklab, var(--color-zinc-800) 90%, transparent);
+  --secondary-foreground: var(--color-zinc-50);
+  --muted: color-mix(in oklab, var(--color-zinc-700) 65%, transparent);
+  --muted-foreground: var(--color-zinc-400);
+  --accent: color-mix(in oklab, var(--color-zinc-700) 65%, transparent);
+  --accent-foreground: var(--color-zinc-50);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 11%);
+  --ring: var(--color-zinc-400);
+  --chart-1: var(--color-zinc-300);
+  --chart-2: var(--color-zinc-400);
+  --chart-3: var(--color-zinc-500);
+  --chart-4: var(--color-zinc-600);
+  --chart-5: var(--color-zinc-700);
+  --sidebar: color-mix(in oklab, var(--color-zinc-800) 90%, transparent);
+  --sidebar-foreground: var(--color-zinc-50);
+  --sidebar-primary: var(--color-zinc-500);
+  --sidebar-primary-foreground: var(--color-zinc-50);
+  --sidebar-accent: color-mix(in oklab, var(--color-zinc-700) 65%, transparent);
+  --sidebar-accent-foreground: var(--color-zinc-50);
+  --sidebar-border: oklch(1 0 0 / 9%);
+  --sidebar-ring: var(--color-zinc-400);
+
+  --app-tint: var(--color-zinc-900);
+  --app-backdrop:
+    radial-gradient(
+      55% 50% at 8% 0%,
+      color-mix(in oklab, var(--color-zinc-600) 35%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      50% 50% at 92% 100%,
+      color-mix(in oklab, var(--color-zinc-700) 40%, transparent),
+      transparent
+    ),
+    var(--app-tint);
+  --glass-filter: blur(24px);
+  --panel-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 7%), 0 24px 60px oklch(0 0 0 / 28%);
+}
+
+/* Overlays are portalled out of the panels, so give them the glass blur too. */
+.upscayl [data-slot="dialog-content"],
+.upscayl [data-slot="popover-content"],
+.upscayl [data-slot="sheet-content"],
+.upscayl [data-slot="drawer-content"] {
+  backdrop-filter: var(--glass-filter);
+}
+
+/* Stacked toasts overlap, so they must stay opaque. */
+.upscayl [data-sonner-toast] {
+  --normal-bg: var(--color-zinc-800);
+}
+
+/*
+ * macOS vibrancy: the window and the main panels let the native material show
+ * through. Popovers and toasts stay opaque so text over them stays readable.
+ */
+.upscayl[data-vibrancy] {
+  --app-tint: color-mix(in oklab, var(--color-zinc-900) 1%, transparent);
+  --app-backdrop: var(--app-tint);
+  --card: color-mix(in oklab, var(--color-zinc-800) 35%, transparent);
+  --secondary: color-mix(in oklab, var(--color-zinc-800) 60%, transparent);
+  --sidebar: color-mix(in oklab, var(--color-zinc-800) 60%, transparent);
+  --popover: var(--color-zinc-800);
+  --panel-shadow: inset 0 1px 0 oklch(1 0 0 / 7%);
+}
+
+/*
+ * Blend modes and filters read what is behind them, which in a see-through
+ * window is transparent, and a permanent will-change keeps a GPU layer alive.
+ * Keep the button's tilt and moving sheen, but without those three.
+ */
+.upscayl[data-vibrancy] .upscayl-button {
+  filter: none;
+  will-change: auto;
+}
+
+.upscayl[data-vibrancy] .upscayl-button::before {
+  mix-blend-mode: normal;
+}
+
+.upscayl[data-vibrancy] .upscayl-button:hover::before,
+.upscayl[data-vibrancy] .upscayl-button:focus-visible::before {
+  opacity: 35%;
+}
+
+/*
+ * With vibrancy the window is see-through, and CSS backdrop-filter layers leave
+ * stale pixels (ghost toasts, hover trails). The native material already blurs
+ * the desktop, so drop every CSS blur here.
+ */
+.upscayl[data-vibrancy] *,
+.upscayl[data-vibrancy] *::before,
+.upscayl[data-vibrancy] *::after {
+  backdrop-filter: none !important;
+}
+
+/*
+ * Tooltips fade, zoom and rotate an arrow into a see-through gutter, which
+ * leaves stale triangles and dark blocks when you hover back and forth.
+ * Show them instantly and without the arrow, and keep rail hovers instant.
+ */
+.upscayl[data-vibrancy] [data-slot="tooltip-content"] {
+  animation: none;
+}
+
+.upscayl[data-vibrancy] [data-slot="tooltip-content"] svg {
+  visibility: hidden;
+}
+
+.upscayl[data-vibrancy] nav [data-slot="tooltip-trigger"] {
+  transition: none;
+}

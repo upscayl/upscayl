@@ -161,7 +161,7 @@ const SelectModelDialog = () => {
             </div>
           </DialogHeader>
           <div className="min-h-0 flex-1 p-4 sm:p-5">
-            <div className="grid h-full min-h-0 gap-3 rounded-[1.5rem] bg-secondary p-2 lg:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.95fr)] lg:border lg:border-border/10">
+            <div className="grid h-full min-h-0 gap-3 rounded-[1.5rem] bg-secondary p-2 min-[700px]:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)] min-[700px]:border min-[700px]:border-border/10">
               <ModelSelectionPanel
                 searchQuery={searchQuery}
                 modelFilter={modelFilter}

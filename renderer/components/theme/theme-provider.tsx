@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { type Theme, ThemeProviderContext } from "./theme-context";
 
 type ThemeProviderProps = {
@@ -9,7 +10,7 @@ type ThemeProviderProps = {
 
 export default function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "upscayl",
   storageKey = "theme",
   ...props
 }: ThemeProviderProps) {
@@ -20,6 +21,10 @@ export default function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement;
     root.className = theme;
+
+    const vibrant = theme === "upscayl" && window.electron.platform === "mac";
+    root.toggleAttribute("data-vibrancy", vibrant);
+    window.electron.send(ELECTRON_COMMANDS.SET_VIBRANCY, vibrant);
   }, [theme]);
 
   const value = {

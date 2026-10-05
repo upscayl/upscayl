@@ -14,8 +14,7 @@ export default function AppearanceToggle() {
       variant="outline"
       size="sm"
       spacing={0}
-      // "system" (the provider default) has no stylesheet of its own and renders the light tokens.
-      value={theme === "system" ? "light" : theme}
+      value={theme}
       onValueChange={(value) => value && setTheme(value)}
       aria-label={t("Appearance")}
     >
@@ -23,7 +22,7 @@ export default function AppearanceToggle() {
         <SunIcon />
         {t("Light")}
       </ToggleGroupItem>
-      <ToggleGroupItem value="dark">
+      <ToggleGroupItem value="upscayl">
         <MoonIcon />
         {t("Dark")}
       </ToggleGroupItem>

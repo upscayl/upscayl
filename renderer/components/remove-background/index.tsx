@@ -261,7 +261,7 @@ const RemoveBackground = () => {
   }, [t]);
 
   return (
-    <section className="flex size-full min-h-0 flex-col overflow-hidden rounded-4xl border bg-secondary">
+    <section className="flex size-full min-h-0 flex-col overflow-hidden rounded-4xl border bg-secondary glass-panel">
       <header className="flex shrink-0 items-start justify-between gap-4 border-b border-border/70 px-5 py-4 sm:px-6">
         <div className="flex items-start gap-3">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">

@@ -6,7 +6,7 @@ function InstructionsCard({ batchMode }: { batchMode: boolean }) {
   const t = useAtomValue(translationAtom);
 
   return (
-    <div className="flex h-full flex-col items-center justify-center rounded-3xl border-2 border-dashed border-foreground/15 bg-[radial-gradient(ellipse_at_center,var(--background),var(--secondary))] p-6 text-center shadow-inner">
+    <div className="flex h-full flex-col items-center justify-center rounded-3xl border-2 border-dashed border-foreground/15 bg-background/40 p-6 text-center shadow-inner">
       {batchMode ? (
         <FolderOpenIcon
           className="mb-4 size-16 text-muted-foreground/70"
