@@ -9,9 +9,9 @@ import {
   ImagesIcon,
   ImageIcon,
   LayersIcon,
-  SparklesIcon,
   TimerIcon,
   HistoryIcon,
+  ChartNoAxesColumnIncreasingIcon,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { userStatsAtom, viewTypeAtom } from "@/atoms/user-settings-atom";
@@ -27,6 +27,7 @@ import {
 import { translationAtom } from "@/atoms/translations-atom";
 import React from "react";
 import CountUp from "../ui/count-up";
+import { Badge } from "../ui/badge";
 
 const formatDuration = (seconds: number): string => {
   if (seconds < 60) return `${seconds.toFixed(1)}s`;
@@ -116,39 +117,60 @@ export default function ToolBar({
               <InfoIcon />
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="mx-auto w-full max-w-xl p-2">
+          <DrawerContent className="mx-auto w-full max-w-md rounded-4xl p-1">
             <DrawerHeader>
-              <DrawerTitle className="text-start">Stats</DrawerTitle>
+              <DrawerTitle className="relative px-2 pt-2 pb-0.5 text-start">
+                <p>Upscayl Overview</p>
+                <p className="text-sm font-normal text-muted-foreground">
+                  Your activity at a glance
+                </p>
+                <Badge
+                  variant="outline"
+                  className="absolute top-1/2 right-3 -translate-y-1/2"
+                >
+                  <div className="size-2 rounded-full bg-green-500"></div> Ready
+                </Badge>
+              </DrawerTitle>
             </DrawerHeader>
-            <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pb-5">
-              <div className="rounded-3xl border bg-card p-5 shadow-sm">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">
-                      {t("Total Upscayls")}
-                    </p>
-                    <p className="mt-2 text-5xl font-semibold tracking-tight">
-                      <CountUp
-                        from={0}
-                        to={userStats.totalUpscayls}
-                        separator=","
-                        direction="up"
-                        duration={1}
-                        className="count-up-text"
-                        delay={0}
-                      />
-                    </p>
-                  </div>
-                  <div className="rounded-2xl bg-muted p-3 text-muted-foreground">
-                    <SparklesIcon className="size-6" />
+            <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-4 pb-5">
+              <div className="relative rounded-2xl border bg-card p-3 shadow-sm">
+                <div>
+                  <p>{t`Total Upscayls`}</p>
+                  <p className="mt-1 text-3xl font-semibold tracking-tight">
+                    <CountUp
+                      from={0}
+                      to={userStats.totalUpscayls}
+                      separator=","
+                      direction="up"
+                      duration={1}
+                      className="count-up-text"
+                      delay={0}
+                    />
+                  </p>
+                  <div className="absolute top-1/2 right-2 -translate-y-1/2">
+                    <ChartNoAxesColumnIncreasingIcon
+                      className="size-14 text-primary/60"
+                      strokeWidth={4}
+                      style={{
+                        maskImage:
+                          "linear-gradient(to top, transparent, black 85%)",
+                        WebkitMaskImage:
+                          "linear-gradient(to top, transparent, black 85%)",
+                      }}
+                    />
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-2xl border bg-card p-4 shadow-sm">
-                  <ImagesIcon className="size-4 text-primary" />
-                  <p className="mt-5 text-2xl font-semibold tracking-tight">
+              <div className="grid grid-cols-2 gap-3 [&>div]:pb-1.5">
+                <div className="rounded-2xl border bg-card p-3 shadow-sm">
+                  <div className="inline-flex items-center gap-2">
+                    <ImagesIcon className="size-4 text-primary" />
+                    <p className="text-xs leading-snug text-muted-foreground">
+                      {t("Total Batch Upscayls")}
+                    </p>
+                  </div>
+                  <p className="mt-3 text-2xl font-semibold tracking-tight">
                     <CountUp
                       from={0}
                       to={userStats.batchUpscayls}
@@ -159,14 +181,16 @@ export default function ToolBar({
                       delay={0}
                     />
                   </p>
-                  <p className="mt-1 text-xs leading-snug text-muted-foreground">
-                    {t("Total Batch Upscayls")}
-                  </p>
                 </div>
 
-                <div className="rounded-2xl border bg-card p-4 shadow-sm">
-                  <ImageIcon className="size-4 text-primary" />
-                  <p className="mt-5 text-2xl font-semibold tracking-tight">
+                <div className="rounded-2xl border bg-card p-3 shadow-sm">
+                  <div className="inline-flex items-center gap-1.5">
+                    <ImageIcon className="size-4 text-primary" />
+                    <p className="text-xs leading-snug text-muted-foreground">
+                      {t("Total Image Upscayls")}
+                    </p>
+                  </div>
+                  <p className="mt-3 text-2xl font-semibold tracking-tight">
                     <CountUp
                       from={0}
                       to={userStats.imageUpscayls}
@@ -177,40 +201,39 @@ export default function ToolBar({
                       delay={0}
                     />
                   </p>
-                  <p className="mt-1 text-xs leading-snug text-muted-foreground">
-                    {t("Total Image Upscayls")}
-                  </p>
                 </div>
 
-                <div className="col-span-2 flex items-center gap-4 rounded-2xl border bg-card p-4 shadow-sm">
-                  <div className="rounded-xl bg-primary/10 p-2.5 text-primary">
-                    <LayersIcon className="size-5" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-semibold tracking-tight">
-                      <CountUp
-                        from={0}
-                        to={userStats.doubleUpscayls}
-                        separator=","
-                        direction="up"
-                        duration={1}
-                        className="count-up-text"
-                        delay={0}
-                      />
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {t("Total Double Upscayls")}
-                    </p>
-                  </div>
+                <div className="col-span-2 flex items-center gap-2 rounded-2xl border bg-card p-1.5 pr-3 shadow-sm">
+                  <Button className="rounded-lg" size="icon-sm" asChild>
+                    <div>
+                      <LayersIcon />
+                    </div>
+                  </Button>
+                  <p className="text-muted-foreground">
+                    {t("Total Double Upscayls")}
+                  </p>
+                  <p className="ml-auto text-2xl font-semibold tracking-tight">
+                    <CountUp
+                      from={0}
+                      to={userStats.doubleUpscayls}
+                      separator=","
+                      direction="up"
+                      duration={1}
+                      className="count-up-text"
+                      delay={0}
+                    />
+                  </p>
                 </div>
               </div>
 
-              <div className="rounded-2xl border bg-card p-4 shadow-sm">
-                <div className="flex items-center gap-2">
+              <div className="rounded-2xl border bg-card p-3 shadow-sm">
+                <div className="flex items-center gap-2 border-b pb-2">
                   <TimerIcon className="size-4 text-primary" />
-                  <p className="text-sm font-semibold">Performance</p>
+                  <p className="text-sm font-semibold text-muted-foreground">
+                    Performance
+                  </p>
                 </div>
-                <div className="mt-4 grid grid-cols-2 divide-x divide-border">
+                <div className="mt-2 grid grid-cols-2 divide-x divide-border">
                   <div className="pr-4">
                     <p className="text-xl font-semibold tracking-tight">
                       {formatDuration(userStats.averageUpscaylTime / 1000)}
@@ -230,18 +253,18 @@ export default function ToolBar({
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 rounded-2xl bg-muted/60 p-4">
-                <HistoryIcon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground">
-                    {t("Last Used At")}
-                  </p>
-                  <p className="mt-1 text-sm font-medium">
-                    {userStats.lastUsedAt
-                      ? new Date(userStats.lastUsedAt).toLocaleString()
-                      : "—"}
-                  </p>
+              <div className="inline-flex items-center gap-2 px-2 pt-1">
+                <div className="rounded-full border bg-secondary p-1.5">
+                  <HistoryIcon className="size-4 shrink-0 text-muted-foreground" />
                 </div>
+                <p className="text-xs font-medium text-muted-foreground">
+                  {t("Last Used At")}
+                </p>
+                <p className="ml-auto text-xs font-medium">
+                  {userStats.lastUsedAt
+                    ? new Date(userStats.lastUsedAt).toLocaleString()
+                    : "—"}
+                </p>
               </div>
             </div>
           </DrawerContent>
