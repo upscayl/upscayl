@@ -58,7 +58,7 @@ npm run compare:coreml  # runs it next to upscayl-bin on a small picture and che
 ```
 
 `npm run build` and `npm run dev` call the first one. It needs the Xcode command line tools. Without them it
-prints a warning and the app simply uses ncnn.
+prints a warning. The app then uses the engine that is already built, or ncnn if there is none.
 
 If you change what `ModelConverter` writes, bump `version` in `ModelCache`, otherwise old converted models
 stay in the cache.
