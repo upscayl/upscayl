@@ -43,6 +43,7 @@
     "build:electron": "electron-vite build",
     "build:coreml": "node scripts/build-coreml.js",
     "test:coreml": "swift test --package-path native/coreml",
+    "compare:coreml": "node scripts/compare-engines.js",
     "build": "npm run validate-schema && npm run build:coreml && npm run build:electron",
     "tsc": "tsc --noEmit",
     "pack-app": "npm run build && electron-builder --dir",

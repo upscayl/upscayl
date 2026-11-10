@@ -54,6 +54,7 @@ From the repository root:
 ```
 npm run build:coreml    # writes resources/mac/bin/upscayl-coreml
 npm run test:coreml     # unit tests, including a conversion of every bundled model
+npm run compare:coreml  # runs it next to upscayl-bin on a small picture and checks the results
 ```
 
 `npm run build` and `npm run dev` call the first one. It needs the Xcode command line tools. Without them it
