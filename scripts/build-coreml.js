@@ -1,7 +1,7 @@
 // Builds the Core ML engine from native/coreml into resources/mac/bin/upscayl-coreml.
 //
-// It does nothing outside macOS. Without a Swift toolchain it only prints a warning, and the app then runs
-// everything with ncnn. A real compile error stops the build.
+// It does nothing outside macOS. Without a Swift toolchain it only prints a warning: the app keeps using the
+// upscayl-coreml that is already there, or ncnn when there is none. A real compile error stops the build.
 const { execFileSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
