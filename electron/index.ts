@@ -13,6 +13,7 @@ import imageUpscayl from "./commands/image-upscayl";
 import {
   createMainWindow,
   getMainWindow,
+  restrictPagePermissions,
   setWindowButtonsHidden,
 } from "./main-window";
 import setVibrancy from "./commands/set-vibrancy";
@@ -45,6 +46,7 @@ app.on("web-contents-created", (_event, contents) => {
 
 app.whenReady().then(async () => {
   registerProtocols();
+  restrictPagePermissions();
   logit("🚃 App Path: ", app.getAppPath());
 
   createMainWindow();

@@ -29,6 +29,21 @@ const getWindowIcon = () => {
   return join(app.getAppPath(), "resources", "icons", "512x512.png");
 };
 
+/**
+ * No camera, location and the like for the page. Copying text out of it still works. The handlers belong to the
+ * session, not to a window, so they are set once at startup.
+ */
+const restrictPagePermissions = () => {
+  const isAllowed = (permission: string) =>
+    permission === "clipboard-sanitized-write";
+  session.defaultSession.setPermissionRequestHandler(
+    (_webContents, permission, callback) => callback(isAllowed(permission)),
+  );
+  session.defaultSession.setPermissionCheckHandler((_webContents, permission) =>
+    isAllowed(permission),
+  );
+};
+
 const createMainWindow = () => {
   console.log("📂 DIRNAME", __dirname);
   console.log("🚃 App Path: ", app.getAppPath());
@@ -95,16 +110,6 @@ const createMainWindow = () => {
     return { action: "deny" };
   });
 
-  // No camera, location and the like for the page. Copying text out of it still works.
-  const isAllowed = (permission: string) =>
-    permission === "clipboard-sanitized-write";
-  session.defaultSession.setPermissionRequestHandler(
-    (_webContents, permission, callback) => callback(isAllowed(permission)),
-  );
-  session.defaultSession.setPermissionCheckHandler((_webContents, permission) =>
-    isAllowed(permission),
-  );
-
   nativeTheme.on("updated", () => setWindowButtonsHidden());
 
   mainWindow.once("ready-to-show", async () => {
@@ -161,4 +166,10 @@ const setWindowButtonsHidden = (hidden = windowButtonsHidden) => {
   }
 };
 
-export { createMainWindow, getMainWindow, isVibrant, setWindowButtonsHidden };
+export {
+  createMainWindow,
+  getMainWindow,
+  isVibrant,
+  restrictPagePermissions,
+  setWindowButtonsHidden,
+};
