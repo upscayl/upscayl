@@ -16,7 +16,7 @@ import { modelsPath } from "../utils/get-resource-paths";
 import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
-import { MODELS } from "../../common/models-list";
+import { isBundledModel } from "../../common/models-list";
 import { copyMetadata } from "../utils/copy-metadata";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
@@ -55,7 +55,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     fs.mkdirSync(outputFolderPath, { recursive: true });
   }
 
-  const isDefaultModel = model in MODELS;
+  const isDefaultModel = isBundledModel(model);
 
   // UPSCALE
   const upscayl = spawnUpscayl(

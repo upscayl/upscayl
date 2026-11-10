@@ -22,7 +22,7 @@ import showNotification from "../utils/show-notification";
 import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
-import { MODELS } from "../../common/models-list";
+import { isBundledModel } from "../../common/models-list";
 import { copyMetadata } from "../utils/copy-metadata";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
@@ -54,7 +54,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const fullfileName = getFilenameFromPath(imagePath);
   const fileName = parse(fullfileName).name;
 
-  const isDefaultModel = model in MODELS;
+  const isDefaultModel = isBundledModel(model);
 
   // COPY IMAGE TO TMP FOLDER
 

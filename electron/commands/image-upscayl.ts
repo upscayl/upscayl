@@ -20,7 +20,7 @@ import showNotification from "../utils/show-notification";
 import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
-import { MODELS } from "../../common/models-list";
+import { isBundledModel } from "../../common/models-list";
 import { getPlatform } from "../utils/get-device-specs";
 import { copyMetadata } from "../utils/copy-metadata";
 
@@ -69,7 +69,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     "." +
     saveImageAs;
 
-  const isDefaultModel = model in MODELS;
+  const isDefaultModel = isBundledModel(model);
 
   // Check if filename is too long
   if (outFile.length >= 255) {

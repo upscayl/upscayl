@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { MODELS } from "../../common/models-list";
+import { isBundledModel } from "../../common/models-list";
 import decodePath from "../../common/decode-path";
 import { savedCustomModelsPath } from "./config-variables";
 import { modelsPath } from "./get-resource-paths";
@@ -52,7 +52,7 @@ const isNumberBetween = (value: unknown, min: number, max: number) => {
 /** A model is a bundled one, or a pair of files in the custom models folder. The name never has a path in it. */
 const isKnownModel = (model: unknown) => {
   if (typeof model !== "string" || model === "" || model.length > 128) return false;
-  if (model in MODELS) return true;
+  if (isBundledModel(model)) return true;
   if (/[\\/\0]/.test(model) || model === "." || model === "..") return false;
   const folder = savedCustomModelsPath ?? modelsPath;
   return (
