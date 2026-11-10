@@ -96,7 +96,8 @@ final class TileUpscaler {
             return
         }
 
-        while let tile = queue.take() {
+        // the main worker waits while a helper still holds a tile, in case it has to give it back
+        while let tile = queue.take(canWait: !isHelper) {
             do {
                 try worker.process(tile: tile, from: source, into: destination)
             } catch {

@@ -91,6 +91,58 @@ final class TileQueueTests: XCTestCase {
         XCTAssertNotNil(queue.failure)
     }
 
+    /// Runs `queue.take(canWait: true)` on another thread and reports what it got.
+    private func waitingTake(_ queue: TileQueue) -> (arrived: DispatchSemaphore, result: () -> Int?) {
+        let arrived = DispatchSemaphore(value: 0)
+        let box = Box()
+        DispatchQueue.global().async {
+            box.value = queue.take(canWait: true)
+            arrived.signal()
+        }
+        return (arrived, { box.value })
+    }
+
+    private final class Box {
+        var value: Int?
+    }
+
+    func testAWaitingWorkerGetsATileThatIsGivenBackLate() {
+        let queue = TileQueue(total: 1)
+        XCTAssertEqual(queue.take(), 0)  // a helper holds the only tile
+
+        let (arrived, result) = waitingTake(queue)
+        XCTAssertEqual(arrived.wait(timeout: .now() + 0.2), .timedOut, "it should still be waiting")
+
+        queue.giveBack(0)
+        XCTAssertEqual(arrived.wait(timeout: .now() + 5), .success)
+        XCTAssertEqual(result(), 0)
+    }
+
+    func testAWaitingWorkerLeavesWhenTheLastTileIsDone() {
+        let queue = TileQueue(total: 1)
+        XCTAssertEqual(queue.take(), 0)
+
+        let (arrived, result) = waitingTake(queue)
+        XCTAssertEqual(arrived.wait(timeout: .now() + 0.2), .timedOut)
+
+        XCTAssertEqual(queue.markDone(), 1)
+        XCTAssertEqual(arrived.wait(timeout: .now() + 5), .success)
+        XCTAssertNil(result())
+    }
+
+    func testAWaitingWorkerLeavesOnFailure() {
+        struct Boom: Error {}
+        let queue = TileQueue(total: 1)
+        XCTAssertEqual(queue.take(), 0)
+
+        let (arrived, result) = waitingTake(queue)
+        XCTAssertEqual(arrived.wait(timeout: .now() + 0.2), .timedOut)
+
+        queue.fail(Boom())
+        XCTAssertEqual(arrived.wait(timeout: .now() + 5), .success)
+        XCTAssertNil(result())
+    }
+
     func testCountsFinishedTilesFromManyThreads() {
         let queue = TileQueue(total: 400)
         DispatchQueue.concurrentPerform(iterations: 4) { _ in

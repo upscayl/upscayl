@@ -2,10 +2,11 @@ import Foundation
 
 /// Hands out tile numbers to the worker threads. A worker that can't finish a tile may give it back.
 final class TileQueue {
-    private let lock = NSLock()
+    private let condition = NSCondition()
     private let total: Int
     private var nextTile = 0
     private var returned: [Int] = []
+    private var inFlight = 0
     private var done = 0
     private var firstFailure: Error?
 
@@ -14,47 +15,63 @@ final class TileQueue {
     }
 
     /// The next tile to work on, or nil when there is nothing left or a worker has failed.
-    func take() -> Int? {
-        lock.lock()
-        defer { lock.unlock() }
-        if firstFailure != nil { return nil }
-        if let tile = returned.popLast() { return tile }
-        if nextTile < total {
-            nextTile += 1
-            return nextTile - 1
+    ///
+    /// When the queue is empty but another worker still holds a tile it may give back, a worker that passes
+    /// `canWait` sleeps until that is settled. Otherwise a tile given back after everybody else has left would
+    /// never be done.
+    func take(canWait: Bool = false) -> Int? {
+        condition.lock()
+        defer { condition.unlock() }
+        while true {
+            if firstFailure != nil { return nil }
+            if let tile = returned.popLast() {
+                inFlight += 1
+                return tile
+            }
+            if nextTile < total {
+                nextTile += 1
+                inFlight += 1
+                return nextTile - 1
+            }
+            if !canWait || inFlight == 0 { return nil }
+            condition.wait()
         }
-        return nil
     }
 
     func giveBack(_ tile: Int) {
-        lock.lock()
+        condition.lock()
         returned.append(tile)
-        lock.unlock()
+        inFlight -= 1
+        condition.broadcast()
+        condition.unlock()
     }
 
     /// Marks one tile as done and returns how many are done now.
     func markDone() -> Int {
-        lock.lock()
-        defer { lock.unlock() }
+        condition.lock()
+        defer { condition.unlock() }
         done += 1
+        inFlight -= 1
+        condition.broadcast()
         return done
     }
 
     func fail(_ error: Error) {
-        lock.lock()
+        condition.lock()
         firstFailure = firstFailure ?? error
-        lock.unlock()
+        condition.broadcast()
+        condition.unlock()
     }
 
     var failure: Error? {
-        lock.lock()
-        defer { lock.unlock() }
+        condition.lock()
+        defer { condition.unlock() }
         return firstFailure
     }
 
     var finished: Int {
-        lock.lock()
-        defer { lock.unlock() }
+        condition.lock()
+        defer { condition.unlock() }
         return done
     }
 }
