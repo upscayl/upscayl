@@ -99,10 +99,13 @@ public final class CommandLineTool {
             }
     }
 
-    /// Drops the pictures whose result would not fit in memory, and tells the app about them.
+    /// Drops the pictures whose result would not fit in memory, and tells the app about them. The messages come
+    /// after every input has been looked at: the app stops a run at the first error line, and a later fallback
+    /// to ncnn (a WebP that can't be decoded here) must still be possible.
     private func jobsThatFit(_ jobs: [Job], scale: Int) throws -> [Job] {
         let memoryBudget = Double(ProcessInfo.processInfo.physicalMemory) / 2
         var fitting: [Job] = []
+        var tooBig: [String] = []
         for job in jobs {
             guard let size = ImageReader.size(atPath: job.input) else {
                 // no decoder for it here, ncnn may have one (WebP on an old macOS)
@@ -114,11 +117,12 @@ public final class CommandLineTool {
             }
             let needed = Double(size.width * scale) * Double(size.height * scale) * CommandLineTool.bytesPerOutputPixel
             if needed > memoryBudget {
-                console.say("Error: '\(job.input)' is too big for this Mac, the result needs about \(Int(needed / 1_000_000_000)) GB")
+                tooBig.append("Error: '\(job.input)' is too big for this Mac, the result needs about \(Int(needed / 1_000_000_000)) GB")
                 continue
             }
             fitting.append(job)
         }
+        tooBig.forEach { console.say($0) }
         return fitting
     }
 
