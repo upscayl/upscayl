@@ -19,10 +19,18 @@ export function SelectEngine() {
 
   // Only Apple Silicon builds have the Core ML engine. Ask the main process before showing the choice.
   useEffect(() => {
+    let unmounted = false;
     window.electron
       .invoke(ELECTRON_COMMANDS.ENGINE_INFO)
-      .then((info: EngineInfo) => setCoremlAvailable(info.coreml))
-      .catch(() => setCoremlAvailable(false));
+      .then((info: EngineInfo) => {
+        if (!unmounted) setCoremlAvailable(info.coreml);
+      })
+      .catch(() => {
+        if (!unmounted) setCoremlAvailable(false);
+      });
+    return () => {
+      unmounted = true;
+    };
   }, []);
 
   if (!coremlAvailable) return null;
