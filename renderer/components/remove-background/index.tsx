@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { localFileUrl } from "@/lib/file-url";
 import { toast } from "sonner";
 import {
   AlertCircleIcon,
@@ -47,7 +48,7 @@ const formatBytes = (bytes: number | null) => {
 };
 
 const imageUrl = (filePath: string) =>
-  filePath ? `file:///${sanitizePath(filePath)}` : "";
+  filePath ? localFileUrl(sanitizePath(filePath)) : "";
 
 const RemoveBackground = () => {
   const t = useTranslation();
