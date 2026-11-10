@@ -74,6 +74,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       tileSize,
     }),
     logit,
+    payload.engine,
   );
 
   let upscayl2: ReturnType<typeof spawnUpscayl>;
@@ -212,6 +213,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           ttaMode,
         }),
         logit,
+        payload.engine,
       );
       logit("🚀 Upscaling Second Pass");
       childProcesses.push(upscayl2);

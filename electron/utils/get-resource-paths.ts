@@ -17,6 +17,9 @@ const binariesPath = app.isPackaged
 
 const execPath = resolve(join(binariesPath, "./upscayl-bin"));
 
+// Core ML engine, built from native/coreml. Only macOS builds have it.
+const coremlExecPath = resolve(join(binariesPath, "./upscayl-coreml"));
+
 const modelsPath = app.isPackaged
   ? resolve(join(dirname(appRootDir), "models"))
   : resolve(join(appRootDir, "resources", "models"));
@@ -75,6 +78,7 @@ const withoutBgModelPath = firstExistingFileOrFirst(withoutBgModelCandidates);
 
 export {
   execPath,
+  coremlExecPath,
   modelsPath,
   withoutBgBinaryPath,
   withoutBgModelPath,
