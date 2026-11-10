@@ -60,6 +60,9 @@ export const turnOffNotificationsAtom = atomWithStorage(
 
 export const ttaModeAtom = atomWithStorage("ttaMode", false);
 
+// "auto" uses Core ML on Apple Silicon and falls back to ncnn by itself when Core ML can't do something.
+export const engineAtom = atomWithStorage<"auto" | "ncnn">("engine", "auto");
+
 export const viewTypeAtom = atomWithStorage<"slider" | "lens">(
   "viewType",
   "slider",

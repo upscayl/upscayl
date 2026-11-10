@@ -5,6 +5,7 @@ import { InputGpuId } from "../input-gpu-id";
 import { InputTileSize } from "../input-tile-size";
 import { CustomModelsFolderSelect } from "../select-custom-models-folder";
 import TTAModeToggle from "../tta-mode-toggle";
+import { SelectEngine } from "../select-engine";
 
 interface IProps {
   gpuId: string;
@@ -24,6 +25,7 @@ function AIModelsSection({ gpuId, setGpuId }: IProps) {
       <InputGpuId gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />
       <InputTileSize />
       <TTAModeToggle />
+      <SelectEngine />
       <CustomModelsFolderSelect
         customModelsPath={customModelsPath}
         setCustomModelsPath={setCustomModelsPath}
