@@ -22,12 +22,19 @@ const isImageFormatValid = (format: string): format is ImageFormat => {
   return (imageFormats as readonly string[]).includes(format);
 };
 
-const pasteDirectory = () => path.join(app.getPath("temp"), "upscayl-paste");
+// mkdtemp picks a random name and makes the folder for this user only. A fixed name in a shared temp folder
+// (/tmp on Linux) could be made by someone else first.
+let sessionPasteDirectory: string | null = null;
+const pasteDirectory = () =>
+  (sessionPasteDirectory ??= fs.mkdtempSync(
+    path.join(app.getPath("temp"), "upscayl-paste-"),
+  ));
 
 /** Pasted images live in the system's temp folder, not in the user's folders; removed at quit. */
 export const cleanUpPastedImages = () => {
+  if (!sessionPasteDirectory) return;
   try {
-    fs.rmSync(pasteDirectory(), { recursive: true, force: true });
+    fs.rmSync(sessionPasteDirectory, { recursive: true, force: true });
   } catch {
     // Nothing to remove, or in use: the system's temp cleaning takes it.
   }
@@ -68,7 +75,7 @@ const pasteImage = async (
 
   try {
     const directory = pasteDirectory();
-    await fs.promises.mkdir(directory, { recursive: true });
+    await fs.promises.mkdir(directory, { recursive: true, mode: 0o700 });
     const tempFilePath = path.join(directory, name);
     await fs.promises.writeFile(
       tempFilePath,
