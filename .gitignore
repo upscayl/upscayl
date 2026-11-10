@@ -19,6 +19,11 @@ out/
 
 # production
 /dist/
+
+# core ml engine
+native/coreml/.build/
+resources/mac/bin/upscayl-coreml
+
 /export/electron
 /export/common
 
