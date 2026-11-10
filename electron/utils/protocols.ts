@@ -2,7 +2,7 @@ import { app, net, protocol } from "electron";
 import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 
-const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".jfif", ".webp"]);
+export const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".jfif", ".webp"]);
 
 const forbidden = () => new Response("Forbidden", { status: 403 });
 

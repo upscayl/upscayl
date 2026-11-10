@@ -1,5 +1,6 @@
 import { parse } from "path";
 import { getMainWindow } from "../main-window";
+import { checkUpscalePayload } from "../utils/check-upscale-payload";
 import {
   childProcesses,
   savedCustomModelsPath,
@@ -27,6 +28,16 @@ import { copyMetadata } from "../utils/copy-metadata";
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
+
+  const problem = checkUpscalePayload(payload, "image");
+  if (problem) {
+    logit("Refused an upscale request: ", problem);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.UPSCAYL_ERROR,
+      `Invalid request: ${problem}`,
+    );
+    return;
+  }
 
   const tileSize = payload.tileSize;
   const compression = payload.compression;

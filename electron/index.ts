@@ -22,7 +22,7 @@ import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
 import { FEATURE_FLAGS } from "../common/feature-flags";
 import settings from "electron-settings";
-import pasteImage from "./commands/paste-image";
+import pasteImage, { cleanUpPastedImages } from "./commands/paste-image";
 import getImagePaths from "./commands/get-image-paths";
 import getDroppedPathType from "./commands/get-dropped-path-type";
 import getFileSize from "./commands/get-file-size";
@@ -34,6 +34,9 @@ import removeBackground, {
 
 // INITIALIZATION
 log.initialize({ preload: true });
+
+// Pasted pictures are kept in the temp folder and removed when the app quits.
+app.on("before-quit", cleanUpPastedImages);
 
 // There is no <webview> in the app, so none may be attached.
 app.on("web-contents-created", (_event, contents) => {
