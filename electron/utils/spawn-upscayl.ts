@@ -2,6 +2,7 @@ import { ChildProcess, spawn } from "child_process";
 import { EventEmitter } from "events";
 import { existsSync } from "fs";
 import { join } from "path";
+import { StringDecoder } from "string_decoder";
 import { app } from "electron";
 import { coremlExecPath, execPath } from "./get-resource-paths";
 import { FEATURE_FLAGS } from "../../common/feature-flags";
@@ -88,16 +89,23 @@ class UpscaylRun extends EventEmitter implements UpscaylProcess {
     this.logit("Engine: Core ML");
     const child = this.launch(coremlExecPath, args);
 
-    child.stderr!.on("data", (chunk: Buffer) => {
-      // the commands look at the start of every piece for a percentage, so pass one line at a time
-      for (const line of chunk.toString().split("\n")) {
-        if (line.trim() === "") continue;
-        if (line.startsWith(FALLBACK_PREFIX)) {
-          reason = line.slice(FALLBACK_PREFIX.length).trim();
-        } else {
-          this.stderr.emit("data", line + "\n");
-        }
+    // The commands look at the start of every piece for a percentage, so pass one line at a time. A chunk can
+    // end in the middle of a line, that part waits for the next chunk.
+    const decoder = new StringDecoder("utf8");
+    let unfinished = "";
+    const handleLine = (line: string) => {
+      if (line.trim() === "") return;
+      if (line.startsWith(FALLBACK_PREFIX)) {
+        reason = line.slice(FALLBACK_PREFIX.length).trim();
+      } else {
+        this.stderr.emit("data", line + "\n");
       }
+    };
+
+    child.stderr!.on("data", (chunk: Buffer) => {
+      const lines = (unfinished + decoder.write(chunk)).split("\n");
+      unfinished = lines.pop() ?? "";
+      lines.forEach(handleLine);
     });
     child.on("error", (error) => {
       if (this.killed) return;
@@ -105,6 +113,8 @@ class UpscaylRun extends EventEmitter implements UpscaylProcess {
     });
     child.on("close", (code, signal) => {
       if (switchedToNcnn) return;
+      handleLine(unfinished + decoder.end());
+      unfinished = "";
       if (code === NOT_FOR_COREML && !this.killed) {
         useNcnnInstead(reason || "not supported");
         return;
