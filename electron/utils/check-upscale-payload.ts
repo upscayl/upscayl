@@ -35,6 +35,10 @@ const isImageFile = (target: unknown): target is string =>
   IMAGE_EXTENSIONS.has(path.extname(target).toLowerCase()) &&
   !!statOf(target)?.isFile();
 
+// the tile size and the GPU id are empty (null) until the user sets them
+const isUnset = (value: unknown) =>
+  value === null || value === undefined || value === "";
+
 const isNumberBetween = (value: unknown, min: number, max: number) => {
   const number = typeof value === "string" ? Number(value) : value;
   return (
@@ -81,13 +85,17 @@ export const checkUpscalePayload = (
   if (!OUTPUT_FORMATS.has(payload.saveImageAs)) return "unsupported output format";
   if (!isNumberBetween(payload.scale, 1, 64)) return "wrong scale";
   if (!isNumberBetween(payload.compression, 0, 100)) return "wrong compression";
-  if (!isNumberBetween(payload.tileSize, 0, 8192)) return "wrong tile size";
+  if (!isUnset(payload.tileSize) && !isNumberBetween(payload.tileSize, 0, 8192))
+    return "wrong tile size";
   if (
     payload.useCustomWidth &&
     !isNumberBetween(payload.customWidth, 1, 65535)
   )
     return "wrong width";
-  if (typeof payload.gpuId !== "string" || !/^[0-9,:-]{0,32}$/.test(payload.gpuId))
+  if (
+    !isUnset(payload.gpuId) &&
+    (typeof payload.gpuId !== "string" || !/^[0-9,:-]{0,32}$/.test(payload.gpuId))
+  )
     return "wrong GPU id";
 
   for (const flag of ["overwrite", "ttaMode", "useCustomWidth", "copyMetadata"]) {
