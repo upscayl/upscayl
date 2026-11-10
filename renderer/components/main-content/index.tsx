@@ -1,5 +1,6 @@
 "use client";
 import useLogger from "../hooks/use-logger";
+import { bytesToBase64 } from "@/lib/base64";
 import { useState, useMemo, useEffect, useId } from "react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { useAtom, useAtomValue } from "jotai";
@@ -226,13 +227,9 @@ const MainContent = ({
           reader.onload = async (event) => {
             const result = event.target?.result;
             if (typeof result === "string") {
-              file.encodedBuffer = Buffer.from(result, "utf-8").toString(
-                "base64",
-              );
+              file.encodedBuffer = bytesToBase64(new TextEncoder().encode(result));
             } else if (result instanceof ArrayBuffer) {
-              file.encodedBuffer = Buffer.from(new Uint8Array(result)).toString(
-                "base64",
-              );
+              file.encodedBuffer = bytesToBase64(new Uint8Array(result));
             } else {
               logit("🚫 Invalid file pasted");
               toast(t("Invalid Image"), {
