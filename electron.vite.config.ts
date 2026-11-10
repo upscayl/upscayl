@@ -11,6 +11,7 @@ import type { Plugin } from "vite";
 //
 // Other hosts are the ones the app talks to: PostHog, the news file, the log upload. The Firebase hosts of the
 // cloud sign-in are not listed, it is switched off (FEATURE_FLAGS.SHOW_UPSCAYL_CLOUD_INFO).
+// PostHog's own extra scripts are not allowed either (disable_external_dependency_loading in its setup).
 const buildContentSecurityPolicy = (dev: boolean, inlineScripts: string[]) => {
   const hashes = inlineScripts.map(
     (code) => `'sha256-${createHash("sha256").update(code).digest("base64")}'`,
@@ -26,7 +27,7 @@ const buildContentSecurityPolicy = (dev: boolean, inlineScripts: string[]) => {
 
   return [
     "default-src 'self'",
-    `script-src 'self' https://us-assets.i.posthog.com ${scripts.join(" ")}`.trim(),
+    `script-src 'self' ${scripts.join(" ")}`.trim(),
     "style-src 'self' 'unsafe-inline'",
     // https: is for the pictures in the news
     "img-src 'self' data: blob: https: upscayl-file: public:",
