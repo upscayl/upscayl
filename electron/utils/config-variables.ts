@@ -3,7 +3,7 @@
  * Our goal is to send as many variables as possible from the renderer process to the main process to avoid using local storage variables.
  */
 
-import { ChildProcessWithoutNullStreams } from "child_process";
+import type { UpscaylProcess } from "./spawn-upscayl";
 import { getMainWindow } from "../main-window";
 import logit from "./logit";
 
@@ -45,7 +45,7 @@ export let stopped = false;
  * The child processes array to store the spawned upscayl processes.
  */
 export let childProcesses: {
-  process: ChildProcessWithoutNullStreams;
+  process: UpscaylProcess;
   kill: () => boolean;
 }[] = [];
 
@@ -65,7 +65,7 @@ export function setStopped(value: boolean): void {
 }
 
 export function setChildProcesses(value: {
-  process: ChildProcessWithoutNullStreams;
+  process: UpscaylProcess;
   kill: () => boolean;
 }): void {
   childProcesses.push(value);
