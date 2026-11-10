@@ -12,25 +12,16 @@ const root = path.join(__dirname, "..");
 const packageDir = path.join(root, "native", "coreml");
 const output = path.join(root, "resources", "mac", "bin", "upscayl-coreml");
 
-const newestModification = (dir) =>
-  fs.readdirSync(dir, { withFileTypes: true }).reduce((newest, entry) => {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      return entry.name === ".build" ? newest : Math.max(newest, newestModification(full));
-    }
-    return Math.max(newest, fs.statSync(full).mtimeMs);
-  }, 0);
-
-if (fs.existsSync(output) && fs.statSync(output).mtimeMs > newestModification(packageDir)) {
-  console.log("upscayl-coreml is up to date");
-  process.exit(0);
-}
-
 try {
   execFileSync("swift", ["--version"], { stdio: "ignore" });
 } catch {
   console.warn(
-    "Swift was not found (install the Xcode command line tools). upscayl-coreml was not built, the app will use ncnn only.",
+    "Swift was not found (install the Xcode command line tools), so upscayl-coreml was not built.",
+  );
+  console.warn(
+    fs.existsSync(output)
+      ? "The upscayl-coreml that is already there stays in use, it may be out of date."
+      : "The app will use ncnn only.",
   );
   process.exit(0);
 }
@@ -43,10 +34,15 @@ const swiftBuild = (extra) =>
     { encoding: "utf8", stdio: ["ignore", "pipe", "inherit"] },
   );
 
+// SwiftPM knows what changed (and what was deleted), and does nothing when it is all up to date
 swiftBuild([]);
-const binPath = swiftBuild(["--show-bin-path"]).trim();
+const built = path.join(swiftBuild(["--show-bin-path"]).trim(), "upscayl-coreml");
 
 fs.mkdirSync(path.dirname(output), { recursive: true });
-fs.copyFileSync(path.join(binPath, "upscayl-coreml"), output);
-fs.chmodSync(output, 0o755);
-console.log("built", output);
+if (!fs.existsSync(output) || !fs.readFileSync(output).equals(fs.readFileSync(built))) {
+  fs.copyFileSync(built, output);
+  fs.chmodSync(output, 0o755);
+  console.log("built", output);
+} else {
+  console.log("upscayl-coreml is up to date");
+}
