@@ -47,8 +47,16 @@ final class ModelCache {
     /// Earlier conversions of the same model (an edited custom model, an older converter) are of no use any more.
     private func removeOldEntries(prefix: String, keeping current: String) {
         guard let entries = try? FileManager.default.contentsOfDirectory(atPath: folder.path) else { return }
-        for entry in entries where entry.hasPrefix(prefix) && entry.hasSuffix(".mlmodelc") && entry != current {
+        for entry in entries where entry != current && ModelCache.isEntry(entry, withPrefix: prefix) {
             try? FileManager.default.removeItem(at: folder.appendingPathComponent(entry))
         }
+    }
+
+    /// True for "<prefix><fingerprint>-t<tile>-v<version>.mlmodelc". A plain prefix test isn't enough, the entries
+    /// of a model called "name-anime" also start with "name-".
+    static func isEntry(_ file: String, withPrefix prefix: String) -> Bool {
+        guard file.hasPrefix(prefix) else { return false }
+        let rest = file.dropFirst(prefix.count)
+        return rest.range(of: "^[0-9a-f]{16}-t[0-9]+-v[0-9]+\\.mlmodelc$", options: .regularExpression) != nil
     }
 }
