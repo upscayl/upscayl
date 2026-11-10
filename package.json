@@ -79,7 +79,9 @@
     "afterSign": "./notarize.js",
     "asar": true,
     "asarUnpack": [
-      "**/node_modules/sharp/**/*"
+      "**/node_modules/sharp/**/*",
+      "**/node_modules/exiftool-vendored.pl/**/*",
+      "**/node_modules/exiftool-vendored.exe/**/*"
     ],
     "extraFiles": [
       {
