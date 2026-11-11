@@ -117,8 +117,8 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     );
     const upscayl = spawnUpscayl(
       getSingleImageArguments({
-        inputDir: decodeURIComponent(inputDir),
-        fileNameWithExt: decodeURIComponent(fileNameWithExt),
+        inputDir,
+        fileNameWithExt,
         outFile,
         modelsPath: isDefaultModel
           ? modelsPath

@@ -76,7 +76,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   let upscayl = spawnUpscayl(
     getDoubleUpscaleArguments({
       inputDir,
-      fullfileName: decodeURIComponent(fullfileName),
+      fullfileName,
       outFile,
       modelsPath: isDefaultModel
         ? modelsPath

@@ -17,6 +17,7 @@ import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
 import { isBundledModel } from "../../common/models-list";
+import decodePath from "../../common/decode-path";
 import { copyMetadata } from "../utils/copy-metadata";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
@@ -47,9 +48,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const gpuId = payload.gpuId;
   const saveImageAs = payload.saveImageAs;
   // GET THE IMAGE DIRECTORY
-  let inputDir = decodeURIComponent(payload.batchFolderPath);
+  let inputDir = decodePath(payload.batchFolderPath);
   // GET THE OUTPUT DIRECTORY
-  let outputFolderPath = decodeURIComponent(payload.outputPath);
+  let outputFolderPath = decodePath(payload.outputPath);
   const outputFolderName = `upscayl_${saveImageAs}_${model}_${
     useCustomWidth ? `${customWidth}px` : `${scale}x`
   }`;
