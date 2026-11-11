@@ -1,6 +1,6 @@
 // Starts the app and tries, one by one, the attacks that the hardening is there to stop. A check that FAILS means
 // the weakness is still in the build it ran against; on a build without the fixes several of them fail.
-// No dependencies; needs Node 22 (global fetch and WebSocket, zlib.crc32).
+// No dependencies; needs Node 22 (global fetch and WebSocket).
 //
 //   node scripts/security-check.js --project <folder>     a built project, started with `electron .`
 //   node scripts/security-check.js <app executable>       a packaged app (the window settings can't be read there)
@@ -29,6 +29,8 @@ if (!project && !(exe && fs.existsSync(exe))) {
 
 const root = path.join(__dirname, "..");
 const PORT = 9227;
+const REQUEST_TIMEOUT = 30000;
+const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1"]);
 const INSPECT_PORT = 9231;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const tmp = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "upscayl-security-")));
@@ -41,6 +43,18 @@ const commandsSource = fs.readFileSync(path.join(root, "common", "electron-comma
 const C = Object.fromEntries([...commandsSource.matchAll(/^\s*([A-Z_]+):\s*"([^"]+)"/gm)].map((m) => [m[1], m[2]]));
 const modelsSource = fs.readFileSync(path.join(root, "common", "models-list.ts"), "utf8");
 const bundledModel = modelsSource.match(/^\s*"?([a-z0-9-]+)"?:\s*\{/m)?.[1];
+
+const required = [
+  "UPSCAYL", "FOLDER_UPSCAYL", "UPSCAYL_ERROR", "UPSCAYL_DONE", "STOP", "PASTE_IMAGE", "PASTE_IMAGE_SAVE_SUCCESS",
+  "PASTE_IMAGE_SAVE_ERROR", "OPEN_FOLDER", "GET_MODELS_LIST", "CUSTOM_MODEL_FILES_LIST", "SELECT_CUSTOM_MODEL_FOLDER",
+];
+const missing = required.filter((key) => !C[key]);
+if (!bundledModel) missing.push("a bundled model in common/models-list.ts");
+if (missing.length) {
+  console.error(`FAIL  the checks cannot be built, the sources have no: ${missing.join(", ")}`);
+  fs.rmSync(tmp, { recursive: true, force: true });
+  process.exit(2);
+}
 
 /** Runs one check and prints PASS, or FAIL with what was wrong. */
 const check = async (name, fn) => {
@@ -56,6 +70,18 @@ const check = async (name, fn) => {
 /** Prints a check that cannot run here, with the reason. */
 const skip = (name, why) => console.log(`SKIP  ${name}  ${why}`);
 
+const CRC_TABLE = Array.from({ length: 256 }, (_, n) => {
+  let c = n;
+  for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+  return c >>> 0;
+});
+/** The CRC-32 of a buffer (zlib.crc32 only exists from Node 22.2). */
+const crc32 = (buffer) => {
+  let c = 0xffffffff;
+  for (const byte of buffer) c = CRC_TABLE[(c ^ byte) & 0xff] ^ (c >>> 8);
+  return (c ^ 0xffffffff) >>> 0;
+};
+
 /** Writes a small RGB picture by hand, so that the test needs no packages. */
 const makePng = (file, size) => {
   const chunk = (type, data) => {
@@ -63,7 +89,7 @@ const makePng = (file, size) => {
     const out = Buffer.alloc(8 + data.length + 4);
     out.writeUInt32BE(data.length, 0);
     body.copy(out, 4);
-    out.writeUInt32BE(zlib.crc32(body) >>> 0, 8 + data.length);
+    out.writeUInt32BE(crc32(body), 8 + data.length);
     return out;
   };
   const rows = [];
@@ -123,17 +149,34 @@ const connect = async (wsUrl) => {
   let id = 0;
   const pending = new Map();
   const events = [];
+  /** Fails every request that has not been answered, because no answer is coming any more. */
+  const failPending = (reason) => {
+    for (const { reject, timer } of pending.values()) {
+      clearTimeout(timer);
+      reject(new Error(reason));
+    }
+    pending.clear();
+  };
+  ws.onclose = () => failPending("the DevTools connection was closed");
+  ws.onerror = () => failPending("the DevTools connection failed");
   ws.onmessage = (message) => {
     const data = JSON.parse(message.data);
-    if (data.id && pending.has(data.id)) {
-      pending.get(data.id)(data);
+    const request = data.id && pending.get(data.id);
+    if (request) {
+      clearTimeout(request.timer);
       pending.delete(data.id);
+      request.resolve(data);
     } else if (data.method) events.push(data);
   };
   const send = (method, params = {}) =>
-    new Promise((resolve) => {
+    new Promise((resolve, reject) => {
+      if (ws.readyState !== WebSocket.OPEN) return reject(new Error("the DevTools connection is not open"));
       const i = ++id;
-      pending.set(i, resolve);
+      const timer = setTimeout(() => {
+        pending.delete(i);
+        reject(new Error(`${method} got no answer in ${REQUEST_TIMEOUT / 1000} s`));
+      }, REQUEST_TIMEOUT);
+      pending.set(i, { resolve, reject, timer });
       ws.send(JSON.stringify({ id: i, method, params }));
     });
   const evaluate = async (expression) => {
@@ -157,11 +200,15 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
     `--remote-debugging-port=${PORT}`,
     ...(project ? [`--inspect=${INSPECT_PORT}`] : []),
   ];
+  // what the app prints is kept: it shows the arguments the engine was started with
+  let appLog = "";
   const child = spawn(command, appArgs, {
-    stdio: "ignore",
+    stdio: ["ignore", "pipe", "pipe"],
     // a project run unpackaged would look for the dev server of its renderer
     env: { ...process.env, ELECTRON_IS_DEV: "0" },
   });
+  child.stdout.on("data", (chunk) => (appLog += chunk));
+  child.stderr.on("data", (chunk) => (appLog += chunk));
   let exited = false;
   child.on("exit", () => (exited = true));
   /** Ends the app and what it started. */
@@ -199,6 +246,17 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
     }
     return true;
   })()`);
+  /**
+   * The input files and folders (-i) that the engine was started with, after the first `mark` characters of the
+   * log. The command is printed when the engine starts; the list of child processes only shows the first one.
+   */
+  const engineInputs = (mark) => {
+    const text = appLog.slice(mark);
+    return [
+      ...[...text.matchAll(/'-i',\s*'([^']*)'/g)].map((m) => m[1]),
+      ...[...text.matchAll(/"-i","((?:[^"\\]|\\.)*)"/g)].map((m) => JSON.parse(`"${m[1]}"`)),
+    ];
+  };
   /** How many events from the main process the page has collected so far. */
   const eventCount = () => page.evaluate("window.__events.length");
   /** The events collected after the first `count`. */
@@ -349,7 +407,7 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
     if (pngWidth(first.data) !== 16 || pngWidth(second.data) !== 32) throw new Error("a pasted picture was changed by the next paste");
   });
 
-  if (process.platform === "darwin" && C.OPEN_FOLDER) {
+  if (process.platform === "darwin") {
     await check("opening a folder does not start an application", async () => {
       if (spawnSync("pgrep", ["-x", "Calculator"]).status === 0) throw new Error("Calculator is already running, close it and run again");
       await sendToMain(C.OPEN_FOLDER, "/System/Applications/Calculator.app");
@@ -374,7 +432,7 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
     if (event && JSON.stringify(event.data).includes("planted")) throw new Error("the main process listed the models of a folder that only the page named");
   });
 
-  if (main && C.SELECT_CUSTOM_MODEL_FOLDER) {
+  if (main) {
     await check("a models folder chosen in the dialog is used", async () => {
       const models = path.join(tmp, "models");
       // the dialog is answered from here, the way a user would
@@ -392,45 +450,64 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
   }
 
   // --- what an upscale request may ask for ------------------------------------------------------------------
-  if (bundledModel && C.UPSCAYL) {
-    await check("a normal upscale request is not refused", async () => {
-      const text = await refusal(C.UPSCAYL, upscaleRequest({}));
-      // what the engine itself says (it may not run here) is not a refusal of the request
-      if (text && /Invalid request/.test(text)) throw new Error(text);
+  await check("a normal upscale request is not refused", async () => {
+    const text = await refusal(C.UPSCAYL, upscaleRequest({}));
+    // what the engine itself says (it may not run here) is not a refusal of the request
+    if (text && /Invalid request/.test(text)) throw new Error(text);
+  });
+
+  for (const model of ["constructor", "__proto__", "../../etc/passwd"]) {
+    await check(`a model that is not bundled is refused: ${model}`, async () => {
+      const text = await refusal(C.UPSCAYL, upscaleRequest({ model }));
+      if (!text || !/Invalid request/.test(text)) throw new Error(text ? `answered "${text}" instead of refusing it` : "not refused, the request went on");
     });
-
-    for (const model of ["constructor", "__proto__", "../../etc/passwd"]) {
-      await check(`a model that is not bundled is refused: ${model}`, async () => {
-        const text = await refusal(C.UPSCAYL, upscaleRequest({ model }));
-        if (!text || !/Invalid request/.test(text)) throw new Error(text ? `answered "${text}" instead of refusing it` : "not refused, the request went on");
-      });
-    }
-
-    await check("an output folder that does not exist is refused", async () => {
-      const text = await refusal(C.UPSCAYL, upscaleRequest({ outputPath: path.join(tmp, "nowhere") }));
-      if (!text || !/Invalid request/.test(text)) throw new Error("not refused");
-    });
-
-    await check("a GIF with a .png name is refused", async () => {
-      const disguised = path.join(tmp, "disguised.png");
-      makeDisguisedGif(disguised);
-      const text = await refusal(C.UPSCAYL, upscaleRequest({ imagePath: disguised }));
-      if (!text || !/Invalid request/.test(text)) throw new Error("not refused, the engine would decode it by what is inside");
-    });
-
-    if (C.FOLDER_UPSCAYL) {
-      await check("a folder with a GIF named like a PNG inside is refused", async () => {
-        const folder = path.join(tmp, "batch");
-        fs.mkdirSync(folder);
-        makePng(path.join(folder, "fine.png"), 16);
-        makeDisguisedGif(path.join(folder, "disguised.png"));
-        const text = await refusal(C.FOLDER_UPSCAYL, upscaleRequest({ batchFolderPath: folder, imagePath: "" }));
-        if (!text || !/Invalid request/.test(text)) throw new Error("not refused, the engine would decode every file by what is inside");
-      });
-    }
-  } else {
-    skip("the upscale request checks", "no bundled model or upscale channel found in the sources");
   }
+
+  await check("an output folder that does not exist is refused", async () => {
+    const text = await refusal(C.UPSCAYL, upscaleRequest({ outputPath: path.join(tmp, "nowhere") }));
+    if (!text || !/Invalid request/.test(text)) throw new Error("not refused");
+  });
+
+  await check("a GIF with a .png name is refused", async () => {
+    const disguised = path.join(tmp, "disguised.png");
+    makeDisguisedGif(disguised);
+    const text = await refusal(C.UPSCAYL, upscaleRequest({ imagePath: disguised }));
+    if (!text || !/Invalid request/.test(text)) throw new Error("not refused, the engine would decode it by what is inside");
+  });
+
+  await check("a folder with a GIF named like a PNG inside is refused", async () => {
+    const folder = path.join(tmp, "batch");
+    fs.mkdirSync(folder);
+    makePng(path.join(folder, "fine.png"), 16);
+    makeDisguisedGif(path.join(folder, "disguised.png"));
+    const text = await refusal(C.FOLDER_UPSCAYL, upscaleRequest({ batchFolderPath: folder, imagePath: "" }));
+    if (!text || !/Invalid request/.test(text)) throw new Error("not refused, the engine would decode every file by what is inside");
+  });
+
+  // What is checked has to be what the engine reads. These two put a different file behind the name once the
+  // path is decoded a second time, or when only one side decodes it; the log of the app shows what the engine got.
+  await check("the engine reads the picture that was checked, not another one", async () => {
+    // decoded once the name is a PNG; decoded twice it is the GIF in the folder a
+    makePng(path.join(tmp, "a%2Fevil.png"), 16);
+    fs.mkdirSync(path.join(tmp, "a"));
+    const hidden = path.join(tmp, "a", "evil.png");
+    makeDisguisedGif(hidden);
+    const mark = appLog.length;
+    await refusal(C.UPSCAYL, upscaleRequest({ imagePath: path.join(tmp, "a%252Fevil.png") }));
+    if (engineInputs(mark).includes(hidden)) throw new Error("the engine was given a file that nobody checked");
+  });
+
+  await check("the engine reads the folder that was checked, not another one", async () => {
+    // the folder safe/er has a PNG, the folder that is really called safe%2Fer has a GIF
+    fs.mkdirSync(path.join(tmp, "safe", "er"), { recursive: true });
+    makePng(path.join(tmp, "safe", "er", "fine.png"), 16);
+    const gifFolder = path.join(tmp, "safe%2Fer");
+    fs.mkdirSync(gifFolder);
+    makeDisguisedGif(path.join(gifFolder, "disguised.png"));
+    const mark = appLog.length;
+    await refusal(C.FOLDER_UPSCAYL, upscaleRequest({ batchFolderPath: gifFolder, imagePath: "" }));
+    if (engineInputs(mark).includes(gifFolder)) throw new Error("the engine was given a folder that nobody checked");
+  });
 
   // --- what the page loads (last: it reloads the page) ---------------------------------------------------------
   await check("no script is loaded from another host", async () => {
@@ -441,7 +518,7 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
     const foreign = page.events
       .filter((e) => e.method === "Network.requestWillBeSent" && e.params.type === "Script")
       .map((e) => e.params.request.url)
-      .filter((url) => /^https?:/.test(url) && !/^https?:\/\/(localhost|127\.0\.0\.1)/.test(url));
+      .filter((url) => /^https?:/.test(url) && !LOCAL_HOSTS.has(new URL(url).hostname));
     if (foreign.length) throw new Error(`scripts from ${[...new Set(foreign.map((u) => new URL(u).host))].join(", ")}`);
   });
 
