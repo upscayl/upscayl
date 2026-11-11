@@ -28,6 +28,7 @@ import getImagePaths from "./commands/get-image-paths";
 import getDroppedPathType from "./commands/get-dropped-path-type";
 import getFileSize from "./commands/get-file-size";
 import { registerProtocols } from "./utils/protocols";
+import { getDeviceSpecs } from "./utils/get-device-specs";
 import removeBackground, {
   exportRemoveBackground,
   stopRemoveBackground,
@@ -133,13 +134,15 @@ ipcMain.on(ELECTRON_COMMANDS.SET_VIBRANCY, setVibrancy);
 
 ipcMain.on(ELECTRON_COMMANDS.GET_IMAGE_PATHS, getImagePaths);
 
-ipcMain.handle("get-gpu-info", async () => {
+// The page is sandboxed and cannot read the system itself, so it asks for this.
+ipcMain.handle("get-system-info", async () => {
+  let gpuInfo: Parameters<typeof getDeviceSpecs>[0] = null;
   try {
-    return await app.getGPUInfo("complete");
+    gpuInfo = (await app.getGPUInfo("complete")) as typeof gpuInfo;
   } catch (error) {
     console.error("Failed to get GPU info:", error);
-    return null;
   }
+  return getDeviceSpecs(gpuInfo);
 });
 
 ipcMain.handle("get-app-version", () => {

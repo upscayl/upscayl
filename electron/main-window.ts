@@ -67,8 +67,9 @@ const createMainWindow = () => {
       nodeIntegration: false,
       nodeIntegrationInWorker: false,
       contextIsolation: true,
-      // the preload loads Node modules (os and the like), so it can't run in the sandbox
-      sandbox: false,
+      // The preload is one bundled file that needs only electron's own modules, so the page sits in
+      // Chromium's sandbox: a bug in the renderer then does not hand over everything the user can do.
+      sandbox: true,
       webSecurity: true,
       preload: join(__dirname, "../preload/index.js"),
     },
