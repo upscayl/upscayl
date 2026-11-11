@@ -43,6 +43,7 @@
     "build:electron": "electron-vite build",
     "build": "npm run validate-schema && npm run build:electron",
     "tsc": "tsc --noEmit",
+  "test:security": "node scripts/security-check.js --project .",
     "pack-app": "npm run build && electron-builder --dir",
     "dist": "npm run build && cross-env DEBUG=* electron-builder",
     "dist:appimage": "npm run build && cross-env DEBUG=* electron-builder build -l AppImage",
