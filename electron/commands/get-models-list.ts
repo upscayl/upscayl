@@ -29,6 +29,12 @@ const getModelsList = async (event, payload) => {
   const trusted = await settings.get(CUSTOM_MODELS_FOLDER_KEY);
   if (trusted !== folder || !isDirectory(folder)) {
     logit("Refused a custom models folder that was not chosen: ", folder);
+    // The page asks for the folder it remembers at every start; after an update that is one the user has not
+    // chosen in the dialog, and the models would silently be missing.
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.UPSCAYL_WARNING,
+      "The custom models folder is not available. Choose it again in the settings.",
+    );
     return;
   }
 
