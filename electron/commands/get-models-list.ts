@@ -23,18 +23,13 @@ const getModelsList = async (event, payload) => {
   if (!mainWindow || typeof payload !== "string" || payload === "") return;
 
   // The page may only ask for the folder the user chose in the dialog. Otherwise a page that was taken over
-  // could point the engine at any folder. One that was remembered before this check existed is taken over
-  // once, while no folder has been chosen yet.
+  // could point the engine at any folder. A folder the page remembers itself proves nothing, it could have
+  // been written by that page, so there is no taking it over: it has to be chosen in the dialog once.
   const folder = path.normalize(payload);
   const trusted = await settings.get(CUSTOM_MODELS_FOLDER_KEY);
-  if (typeof trusted === "string") {
-    if (trusted !== folder) {
-      logit("Refused a custom models folder that was not chosen: ", folder);
-      return;
-    }
-  } else {
-    if (!isDirectory(folder)) return;
-    await settings.set(CUSTOM_MODELS_FOLDER_KEY, folder);
+  if (trusted !== folder || !isDirectory(folder)) {
+    logit("Refused a custom models folder that was not chosen: ", folder);
+    return;
   }
 
   setSavedCustomModelsPath(folder);
