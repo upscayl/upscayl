@@ -74,8 +74,11 @@ const pasteImage = async (
   }
 
   try {
-    const directory = pasteDirectory();
-    await fs.promises.mkdir(directory, { recursive: true, mode: 0o700 });
+    const sessionDirectory = pasteDirectory();
+    await fs.promises.mkdir(sessionDirectory, { recursive: true, mode: 0o700 });
+    // A folder for each paste: clipboard pictures all come with the same name, and a second paste must not
+    // overwrite the first one while that is being upscaled.
+    const directory = await fs.promises.mkdtemp(path.join(sessionDirectory, "paste-"));
     const tempFilePath = path.join(directory, name);
     await fs.promises.writeFile(
       tempFilePath,
