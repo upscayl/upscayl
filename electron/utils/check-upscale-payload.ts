@@ -4,6 +4,7 @@ import { isBundledModel } from "../../common/models-list";
 import decodePath from "../../common/decode-path";
 import { savedCustomModelsPath } from "./config-variables";
 import { modelsPath } from "./get-resource-paths";
+import { findForeignPicture, hasImageHeader } from "./image-header";
 import { IMAGE_EXTENSIONS } from "./protocols";
 
 const OUTPUT_FORMATS = new Set(["png", "jpg", "jpeg", "webp"]);
@@ -66,16 +67,16 @@ const isKnownModel = (model: unknown) => {
  * the page is not trusted with it: a page that was taken over must not be able to write anywhere or pass
  * something odd on. Returns the first thing that is wrong, or null when the request is fine.
  */
-export const checkUpscalePayload = (
+export const checkUpscalePayload = async (
   payload: any,
   kind: "image" | "folder",
-): string | null => {
+): Promise<string | null> => {
   if (!payload || typeof payload !== "object") return "no request";
 
+  const input = decode(kind === "folder" ? payload.batchFolderPath : payload.imagePath);
   if (kind === "folder") {
-    if (!isDirectory(decode(payload.batchFolderPath)))
-      return "the folder to upscale does not exist";
-  } else if (!isImageFile(decode(payload.imagePath))) {
+    if (!isDirectory(input)) return "the folder to upscale does not exist";
+  } else if (!isImageFile(input)) {
     return "the picture to upscale is not an image that exists";
   }
   if (!isDirectory(decode(payload.outputPath)))
@@ -104,6 +105,19 @@ export const checkUpscalePayload = (
   }
   if (payload.engine !== undefined && !["auto", "ncnn"].includes(payload.engine))
     return "unknown engine";
+
+  // Last, because it reads the files: what the engine is given has to start like a PNG, a JPEG or a WebP
+  if (kind === "folder") {
+    let foreign: string | null;
+    try {
+      foreign = await findForeignPicture(input);
+    } catch {
+      return "the folder to upscale cannot be read";
+    }
+    if (foreign) return `${foreign} is not a PNG, JPEG or WebP picture`;
+  } else if (!(await hasImageHeader(input))) {
+    return "the picture is not a PNG, JPEG or WebP file";
+  }
 
   return null;
 };

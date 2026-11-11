@@ -32,7 +32,11 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     return;
   }
 
-  const problem = checkUpscalePayload(payload, "image");
+  // A Stop pressed while the files are being checked still has to cancel this run, so the flag is cleared
+  // before the check and looked at after it.
+  setStopped(false);
+  const problem = await checkUpscalePayload(payload, "image");
+  if (stopped || mainWindow.isDestroyed()) return;
   if (problem) {
     logit("Refused an upscale request: ", problem);
     mainWindow.webContents.send(
