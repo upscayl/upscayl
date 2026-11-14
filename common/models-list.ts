@@ -40,3 +40,7 @@ export const MODELS = {
 };
 
 export type ModelId = keyof typeof MODELS;
+
+/** Own keys only: a name like "constructor" or "__proto__" is not a bundled model. */
+export const isBundledModel = (model: string): model is ModelId =>
+  Object.prototype.hasOwnProperty.call(MODELS, model);

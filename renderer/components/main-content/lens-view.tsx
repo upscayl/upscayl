@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState } from "react";
+import { localFileUrl } from "@/lib/file-url";
 
 const LensViewer = ({
   sanitizedImagePath,
@@ -91,11 +92,11 @@ const LensViewer = ({
   };
 
   const originalImage = useMemo(
-    () => "file:///" + sanitizedImagePath,
+    () => localFileUrl(sanitizedImagePath),
     [sanitizedImagePath],
   );
   const upscaledImage = useMemo(
-    () => "file:///" + sanitizedUpscaledImagePath,
+    () => localFileUrl(sanitizedUpscaledImagePath),
     [sanitizedUpscaledImagePath],
   );
 

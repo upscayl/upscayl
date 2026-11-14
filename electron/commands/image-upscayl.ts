@@ -13,13 +13,14 @@ import slash from "../utils/slash";
 import { spawnUpscayl } from "../utils/spawn-upscayl";
 import { parse } from "path";
 import { getMainWindow } from "../main-window";
+import { checkUpscalePayload } from "../utils/check-upscale-payload";
 import { ImageUpscaylPayload } from "../../common/types/types";
 import { ImageFormat } from "../types/types";
 import showNotification from "../utils/show-notification";
 import getFilenameFromPath from "../../common/get-file-name";
 import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
-import { MODELS } from "../../common/models-list";
+import { isBundledModel } from "../../common/models-list";
 import { getPlatform } from "../utils/get-device-specs";
 import { copyMetadata } from "../utils/copy-metadata";
 
@@ -28,6 +29,16 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
 
   if (!mainWindow) {
     logit("No main window found");
+    return;
+  }
+
+  const problem = checkUpscalePayload(payload, "image");
+  if (problem) {
+    logit("Refused an upscale request: ", problem);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.UPSCAYL_ERROR,
+      `Invalid request: ${problem}`,
+    );
     return;
   }
 
@@ -58,7 +69,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
     "." +
     saveImageAs;
 
-  const isDefaultModel = model in MODELS;
+  const isDefaultModel = isBundledModel(model);
 
   // Check if filename is too long
   if (outFile.length >= 255) {

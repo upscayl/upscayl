@@ -1,6 +1,7 @@
-import { app, BrowserWindow, nativeTheme, shell } from "electron";
+import { app, BrowserWindow, nativeTheme, session, shell } from "electron";
 import { getPlatform } from "./utils/get-device-specs";
 import { join } from "path";
+import { pathToFileURL } from "url";
 import { ELECTRON_COMMANDS } from "../common/electron-commands";
 import { fetchLocalStorage } from "./utils/config-variables";
 import { autoUpdater } from "electron-updater";
@@ -8,6 +9,9 @@ import settings from "electron-settings";
 
 let mainWindow: BrowserWindow | undefined;
 let windowButtonsHidden = false;
+
+const isWebUrl = (target: string) => /^https?:\/\//i.test(target);
+const withoutQuery = (target: string) => target.split(/[?#]/)[0];
 
 // macOS can't change a window's transparency after creation, so remember the choice for next launch.
 const isVibrant = () =>
@@ -23,6 +27,21 @@ const getWindowIcon = () => {
   }
 
   return join(app.getAppPath(), "resources", "icons", "512x512.png");
+};
+
+/**
+ * No camera, location and the like for the page. Copying text out of it still works. The handlers belong to the
+ * session, not to a window, so they are set once at startup.
+ */
+const restrictPagePermissions = () => {
+  const isAllowed = (permission: string) =>
+    permission === "clipboard-sanitized-write";
+  session.defaultSession.setPermissionRequestHandler(
+    (_webContents, permission, callback) => callback(isAllowed(permission)),
+  );
+  session.defaultSession.setPermissionCheckHandler((_webContents, permission) =>
+    isAllowed(permission),
+  );
 };
 
 const createMainWindow = () => {
@@ -45,24 +64,49 @@ const createMainWindow = () => {
     hasShadow: !vibrant,
     visualEffectState: "active",
     webPreferences: {
-      nodeIntegration: true,
-      nodeIntegrationInWorker: true,
-      webSecurity: false,
+      nodeIntegration: false,
+      nodeIntegrationInWorker: false,
+      contextIsolation: true,
+      // the preload loads Node modules (os and the like), so it can't run in the sandbox
+      sandbox: false,
+      webSecurity: true,
       preload: join(__dirname, "../preload/index.js"),
     },
     titleBarStyle: getPlatform() === "mac" ? "hiddenInset" : "default",
   });
 
-  const rendererUrl = getRendererUrl();
+  const rendererUrl = !app.isPackaged ? getRendererUrl() : undefined;
+  const rendererFile = join(__dirname, "../renderer/index.html");
 
-  if (!app.isPackaged && rendererUrl) {
+  if (rendererUrl) {
     mainWindow.loadURL(rendererUrl);
   } else {
-    mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
+    mainWindow.loadFile(rendererFile);
   }
 
+  // The window shows the app and nothing else. A link or a redirect to any other page opens in the user's
+  // browser and never loads here, because this window has the IPC bridge.
+  const isAppPage = (target: string) => {
+    try {
+      return rendererUrl
+        ? new URL(target).origin === new URL(rendererUrl).origin
+        : withoutQuery(target) === pathToFileURL(rendererFile).toString();
+    } catch {
+      return false;
+    }
+  };
+  const guardNavigation = (
+    event: { preventDefault: () => void },
+    target: string,
+  ) => {
+    if (isAppPage(target)) return;
+    event.preventDefault();
+    if (isWebUrl(target)) shell.openExternal(target);
+  };
+  mainWindow.webContents.on("will-navigate", guardNavigation);
+  mainWindow.webContents.on("will-redirect", guardNavigation);
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    shell.openExternal(url);
+    if (isWebUrl(url) || url.startsWith("mailto:")) shell.openExternal(url);
     return { action: "deny" };
   });
 
@@ -122,4 +166,10 @@ const setWindowButtonsHidden = (hidden = windowButtonsHidden) => {
   }
 };
 
-export { createMainWindow, getMainWindow, isVibrant, setWindowButtonsHidden };
+export {
+  createMainWindow,
+  getMainWindow,
+  isVibrant,
+  restrictPagePermissions,
+  setWindowButtonsHidden,
+};

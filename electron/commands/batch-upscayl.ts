@@ -1,5 +1,7 @@
 import fs from "fs";
 import { getMainWindow } from "../main-window";
+import { allowOpeningFolder } from "../utils/openable-folder";
+import { checkUpscalePayload } from "../utils/check-upscale-payload";
 import {
   childProcesses,
   savedCustomModelsPath,
@@ -14,12 +16,22 @@ import { modelsPath } from "../utils/get-resource-paths";
 import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
-import { MODELS } from "../../common/models-list";
+import { isBundledModel } from "../../common/models-list";
 import { copyMetadata } from "../utils/copy-metadata";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
+
+  const problem = checkUpscalePayload(payload, "folder");
+  if (problem) {
+    logit("Refused an upscale request: ", problem);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.UPSCAYL_ERROR,
+      `Invalid request: ${problem}`,
+    );
+    return;
+  }
 
   const tileSize = payload.tileSize;
   const compression = payload.compression;
@@ -43,7 +55,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     fs.mkdirSync(outputFolderPath, { recursive: true });
   }
 
-  const isDefaultModel = model in MODELS;
+  const isDefaultModel = isBundledModel(model);
 
   // UPSCALE
   const upscayl = spawnUpscayl(
@@ -134,6 +146,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           logit("❌ Error in batch metadata copy: ", err);
         }
       }
+      allowOpeningFolder(outputFolderPath);
       mainWindow.webContents.send(
         ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
         outputFolderPath,
