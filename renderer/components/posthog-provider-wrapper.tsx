@@ -19,6 +19,8 @@ const PostHogProviderWrapper = ({
       capture_pageview: false,
       capture_pageleave: false,
       disable_session_recording: true,
+      // no scripts from PostHog's servers in a page that has the bridge to the main process
+      disable_external_dependency_loading: true,
       loaded: async (posthog) => {
         // if (process.env.NODE_ENV === "development") posthog.debug();
         const systemInfo = await window.electron.getSystemInfo();

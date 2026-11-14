@@ -1,4 +1,5 @@
 import { useAtom, useAtomValue } from "jotai";
+import { localFileUrl } from "@/lib/file-url";
 import React, { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 import useLogger from "../../hooks/use-logger";
@@ -143,8 +144,7 @@ function UpscaylSteps({
         // The renderer can refresh before Electron restarts its main process.
       }
 
-      const response = await fetch("file:///" + sanitizePath(imagePath));
-      return (await response.blob()).size;
+      return null;
     };
 
     void getFileSize()
@@ -225,7 +225,7 @@ function UpscaylSteps({
         {!batchMode && imagePath && (
           <div className="mt-2 flex items-start gap-2 rounded-2xl border bg-background/40 p-2">
             <img
-              src={"file:///" + sanitizePath(imagePath)}
+              src={localFileUrl(sanitizePath(imagePath))}
               alt=""
               className="size-16 shrink-0 rounded-xl object-cover"
             />

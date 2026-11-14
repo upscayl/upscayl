@@ -1,5 +1,7 @@
 import fs from "fs";
 import { getMainWindow } from "../main-window";
+import { allowOpeningFolder } from "../utils/openable-folder";
+import { checkUpscalePayload } from "../utils/check-upscale-payload";
 import {
   childProcesses,
   savedCustomModelsPath,
@@ -14,12 +16,27 @@ import { modelsPath } from "../utils/get-resource-paths";
 import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
-import { MODELS } from "../../common/models-list";
+import { isBundledModel } from "../../common/models-list";
+import decodePath from "../../common/decode-path";
 import { copyMetadata } from "../utils/copy-metadata";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
+
+  // A Stop pressed while the files are being checked still has to cancel this run, so the flag is cleared
+  // before the check and looked at after it.
+  setStopped(false);
+  const problem = await checkUpscalePayload(payload, "folder");
+  if (stopped || mainWindow.isDestroyed()) return;
+  if (problem) {
+    logit("Refused an upscale request: ", problem);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.UPSCAYL_ERROR,
+      `Invalid request: ${problem}`,
+    );
+    return;
+  }
 
   const tileSize = payload.tileSize;
   const compression = payload.compression;
@@ -31,9 +48,9 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const gpuId = payload.gpuId;
   const saveImageAs = payload.saveImageAs;
   // GET THE IMAGE DIRECTORY
-  let inputDir = decodeURIComponent(payload.batchFolderPath);
+  let inputDir = decodePath(payload.batchFolderPath);
   // GET THE OUTPUT DIRECTORY
-  let outputFolderPath = decodeURIComponent(payload.outputPath);
+  let outputFolderPath = decodePath(payload.outputPath);
   const outputFolderName = `upscayl_${saveImageAs}_${model}_${
     useCustomWidth ? `${customWidth}px` : `${scale}x`
   }`;
@@ -43,7 +60,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
     fs.mkdirSync(outputFolderPath, { recursive: true });
   }
 
-  const isDefaultModel = model in MODELS;
+  const isDefaultModel = isBundledModel(model);
 
   // UPSCALE
   const upscayl = spawnUpscayl(
@@ -134,6 +151,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
           logit("❌ Error in batch metadata copy: ", err);
         }
       }
+      allowOpeningFolder(outputFolderPath);
       mainWindow.webContents.send(
         ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
         outputFolderPath,
