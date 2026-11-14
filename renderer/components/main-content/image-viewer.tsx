@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { localFileUrl } from "@/lib/file-url";
 import { sanitizePath } from "@common/sanitize-path";
 import { useCallback, useState } from "react";
 
@@ -31,7 +32,7 @@ const ImageViewer = ({
   return (
     <div className="compare-slider-group size-full overflow-hidden">
       <img
-        src={"file:///" + sanitizePath(imagePath)}
+        src={localFileUrl(sanitizePath(imagePath))}
         onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
           setDimensions({
             width: e.currentTarget.naturalWidth,
@@ -51,7 +52,7 @@ const ImageViewer = ({
         )}
       />
       <img
-        src={"file:///" + sanitizePath(imagePath)}
+        src={localFileUrl(sanitizePath(imagePath))}
         draggable="false"
         alt=""
         className="h-full object-cover"
