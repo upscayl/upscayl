@@ -1,6 +1,6 @@
 import { app, net, protocol } from "electron";
 import path from "path";
-import { pathToFileURL } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".jfif", ".webp"]);
 
@@ -23,8 +23,24 @@ const readFile = (filePath: string) =>
  *
  * public:///<path> is for the static files of the app itself (renderer/public, out/renderer when packaged),
  * and a request can't leave that folder.
+ *
+ * file:// is still how the built window loads its own page, and Electron lets a page loaded from a file read
+ * any other file:// URL (connect-src 'self' matches them all). So file:// is answered by us too, and only for
+ * the files of the built page in out/renderer.
  */
 export const registerProtocols = () => {
+  const pageRoot = path.join(app.getAppPath(), "out", "renderer");
+
+  protocol.handle("file", async (request) => {
+    try {
+      const filePath = path.resolve(fileURLToPath(request.url));
+      if (!filePath.startsWith(pageRoot + path.sep)) return forbidden();
+      return await readFile(filePath);
+    } catch {
+      return new Response("Bad request", { status: 400 });
+    }
+  });
+
   protocol.handle("upscayl-file", async (request) => {
     try {
       let filePath = pathnameOf(request.url);
