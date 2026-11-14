@@ -17,6 +17,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const zlib = require("zlib");
+const { pathToFileURL } = require("url");
 
 const args = process.argv.slice(2);
 const projectIndex = args.indexOf("--project");
@@ -257,6 +258,18 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
       ...[...text.matchAll(/"-i","((?:[^"\\]|\\.)*)"/g)].map((m) => JSON.parse(`"${m[1]}"`)),
     ];
   };
+  /** The `-i` arguments of the engine runs started after `mark`, waiting up to `ms` for the first one. */
+  const waitForEngineInputs = async (mark, ms = 5000) => {
+    const end = Date.now() + ms;
+    for (;;) {
+      const inputs = engineInputs(mark);
+      if (inputs.length || Date.now() > end) return inputs;
+      await sleep(200);
+    }
+  };
+  /** What a check that saw neither a refusal nor the expected engine run says. */
+  const engineGot = (inputs) =>
+    inputs.length ? `the engine was given ${inputs.join(", ")}` : "nothing was observed: the request was neither refused nor given to the engine";
   /** How many events from the main process the page has collected so far. */
   const eventCount = () => page.evaluate("window.__events.length");
   /** The events collected after the first `count`. */
@@ -358,6 +371,22 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
     if (!info.version || !info.platform || !(info.cpus > 0) || !info.system) throw new Error(`incomplete: ${JSON.stringify(info)}`);
   });
 
+  // The built page is loaded from a file, and Electron lets such a page fetch any other file:// URL unless the app
+  // answers file:// itself (connect-src 'self' matches them all).
+  await check("the page can't read other files through file://", async () => {
+    const secretFile = path.join(tmp, "secret.txt");
+    fs.writeFileSync(secretFile, "secret");
+    const urls = [pathToFileURL(secretFile).href, pathToFileURL(path.join(project ?? root, "package.json")).href];
+    const read = await page.evaluate(`(async () => {
+      const read = [];
+      for (const url of ${JSON.stringify(urls)}) {
+        try { if ((await fetch(url)).ok) read.push(url); } catch {}
+      }
+      return read;
+    })()`);
+    if (read.length) throw new Error(`the page read ${read.join(", ")}`);
+  });
+
   await check("a channel that is not on the list is refused", async () => {
     const accepted = await page.evaluate(`(() => { try { window.electron.send("not-a-channel"); return true; } catch { return false; } })()`);
     if (accepted) throw new Error("the bridge passes any channel on to the main process");
@@ -451,9 +480,13 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
 
   // --- what an upscale request may ask for ------------------------------------------------------------------
   await check("a normal upscale request is not refused", async () => {
+    const mark = appLog.length;
     const text = await refusal(C.UPSCAYL, upscaleRequest({}));
     // what the engine itself says (it may not run here) is not a refusal of the request
     if (text && /Invalid request/.test(text)) throw new Error(text);
+    // silence is not a pass: the engine has to have been started with the picture
+    const inputs = await waitForEngineInputs(mark);
+    if (!inputs.includes(picture)) throw new Error(engineGot(inputs));
   });
 
   for (const model of ["constructor", "__proto__", "../../etc/passwd"]) {
@@ -493,8 +526,11 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
     const hidden = path.join(tmp, "a", "evil.png");
     makeDisguisedGif(hidden);
     const mark = appLog.length;
-    await refusal(C.UPSCAYL, upscaleRequest({ imagePath: path.join(tmp, "a%252Fevil.png") }));
-    if (engineInputs(mark).includes(hidden)) throw new Error("the engine was given a file that nobody checked");
+    const text = await refusal(C.UPSCAYL, upscaleRequest({ imagePath: path.join(tmp, "a%252Fevil.png") }));
+    if (text && /Invalid request/.test(text)) return; // refused before the engine, nothing unchecked was read
+    const inputs = await waitForEngineInputs(mark);
+    if (inputs.includes(hidden)) throw new Error("the engine was given a file that nobody checked");
+    if (!inputs.includes(path.join(tmp, "a%2Fevil.png"))) throw new Error(engineGot(inputs));
   });
 
   await check("the engine reads the folder that was checked, not another one", async () => {
@@ -505,8 +541,11 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
     fs.mkdirSync(gifFolder);
     makeDisguisedGif(path.join(gifFolder, "disguised.png"));
     const mark = appLog.length;
-    await refusal(C.FOLDER_UPSCAYL, upscaleRequest({ batchFolderPath: gifFolder, imagePath: "" }));
-    if (engineInputs(mark).includes(gifFolder)) throw new Error("the engine was given a folder that nobody checked");
+    const text = await refusal(C.FOLDER_UPSCAYL, upscaleRequest({ batchFolderPath: gifFolder, imagePath: "" }));
+    if (text && /Invalid request/.test(text)) return; // refused before the engine, nothing unchecked was read
+    const inputs = await waitForEngineInputs(mark);
+    if (inputs.includes(gifFolder)) throw new Error("the engine was given a folder that nobody checked");
+    if (!inputs.includes(path.join(tmp, "safe", "er"))) throw new Error(engineGot(inputs));
   });
 
   // --- what the page loads (last: it reloads the page) ---------------------------------------------------------
