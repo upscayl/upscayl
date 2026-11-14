@@ -9,9 +9,6 @@ const useElectron = ({
   func: (...args: any[]) => void;
 }) => {
   useEffect(() => {
-    window.electron.on(command, func);
-    return () => {
-      window.electron.off(command, func);
-    };
+    return window.electron.on(command, func);
   }, []);
 };

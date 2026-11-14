@@ -243,20 +243,17 @@ const RemoveBackground = () => {
       cancelRequested.current = false;
     };
 
-    window.electron.on(
-      ELECTRON_COMMANDS.REMOVE_BACKGROUND_PROGRESS,
-      onProgress,
-    );
-    window.electron.on(ELECTRON_COMMANDS.REMOVE_BACKGROUND_DONE, onDone);
-    window.electron.on(ELECTRON_COMMANDS.REMOVE_BACKGROUND_ERROR, onError);
-
-    return () => {
-      window.electron.off(
+    const unsubscribe = [
+      window.electron.on(
         ELECTRON_COMMANDS.REMOVE_BACKGROUND_PROGRESS,
         onProgress,
-      );
-      window.electron.off(ELECTRON_COMMANDS.REMOVE_BACKGROUND_DONE, onDone);
-      window.electron.off(ELECTRON_COMMANDS.REMOVE_BACKGROUND_ERROR, onError);
+      ),
+      window.electron.on(ELECTRON_COMMANDS.REMOVE_BACKGROUND_DONE, onDone),
+      window.electron.on(ELECTRON_COMMANDS.REMOVE_BACKGROUND_ERROR, onError),
+    ];
+
+    return () => {
+      unsubscribe.forEach((off) => off());
       window.electron.send(ELECTRON_COMMANDS.REMOVE_BACKGROUND_STOP);
     };
   }, [t]);

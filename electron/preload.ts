@@ -64,31 +64,21 @@ const refuse = (kind: string, command: string): never => {
 
 type Listener = (...args: any) => any;
 
-// the page's callbacks and the listeners we registered for them, so off() can take the right one away
-const registered = new Map<Listener, Map<string, Listener>>();
-
 contextBridge.exposeInMainWorld("electron", {
   send: (command: string, payload?: any) => {
     if (!SEND.has(command)) refuse("send", command);
     ipcRenderer.send(command, payload);
   },
-  // the page gets an empty object in place of the IPC event, nothing of the event itself
+  // The page gets an empty object in place of the IPC event, nothing of the event itself.
+  // Returns the only way to remove the listener: contextBridge hands the preload a new proxy of the page's
+  // function on every call, so a later off(command, func) could never find the listener registered here.
   on: (command: string, func: Listener) => {
     if (!ON.has(command)) refuse("on", command);
     const listener: Listener = (_event, ...args) => func({}, ...args);
     ipcRenderer.on(command, listener);
-
-    const byCommand = registered.get(func) ?? new Map<string, Listener>();
-    byCommand.set(command, listener);
-    registered.set(func, byCommand);
-
     return () => {
       ipcRenderer.removeListener(command, listener);
     };
-  },
-  off: (command: string, func: Listener) => {
-    const listener = registered.get(func)?.get(command);
-    if (listener) ipcRenderer.removeListener(command, listener);
   },
   invoke: (command: string, payload?: any) => {
     if (!INVOKE.has(command)) refuse("invoke", command);
