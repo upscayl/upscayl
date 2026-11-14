@@ -255,7 +255,8 @@ const targets = async (port) => (await fetch(`http://127.0.0.1:${port}/json`)).j
     const text = appLog.slice(mark);
     return [
       // the log prints a string the way util.inspect does: a backslash of a Windows path is doubled
-      ...[...text.matchAll(/'-i',\s*'((?:[^'\\]|\\.)*)'/g)].map((m) => m[1].replace(/\\(.)/g, "$1")),
+      // (and puts a string with an apostrophe in double quotes)
+      ...[...text.matchAll(/'-i',\s*(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")/g)].map((m) => (m[1] ?? m[2]).replace(/\\(.)/g, "$1")),
       ...[...text.matchAll(/"-i","((?:[^"\\]|\\.)*)"/g)].map((m) => JSON.parse(`"${m[1]}"`)),
     ];
   };
