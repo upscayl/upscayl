@@ -2,6 +2,15 @@
   "appId": "org.upscayl.Upscayl",
   "afterSign": "./notarize.js",
   "asar": true,
+  "electronFuses": {
+    "runAsNode": false,
+    "enableNodeOptionsEnvironmentVariable": false,
+    "enableNodeCliInspectArguments": false,
+    "enableEmbeddedAsarIntegrityValidation": true,
+    "onlyLoadAppFromAsar": true,
+    "grantFileProtocolExtraPrivileges": true,
+    "resetAdHocDarwinSignature": true
+  },
   "artifactName": "${name}-${version}-${os}.${ext}",
   "asarUnpack": ["**/node_modules/sharp/**/*"],
   "extraFiles": [

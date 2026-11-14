@@ -62,10 +62,10 @@ const refuse = (kind: string, command: string): never => {
   throw new Error(`IPC ${kind} on "${command}" is not allowed`);
 };
 
-type Listener = (...args: any) => any;
+type Listener = (...args: unknown[]) => unknown;
 
 contextBridge.exposeInMainWorld("electron", {
-  send: (command: string, payload?: any) => {
+  send: (command: string, payload?: unknown) => {
     if (!SEND.has(command)) refuse("send", command);
     ipcRenderer.send(command, payload);
   },
@@ -80,7 +80,7 @@ contextBridge.exposeInMainWorld("electron", {
       ipcRenderer.removeListener(command, listener);
     };
   },
-  invoke: (command: string, payload?: any) => {
+  invoke: (command: string, payload?: unknown) => {
     if (!INVOKE.has(command)) refuse("invoke", command);
     return ipcRenderer.invoke(command, payload);
   },
