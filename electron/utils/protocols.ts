@@ -15,6 +15,15 @@ const readFile = (filePath: string) =>
     bypassCustomProtocolHandlers: true,
   });
 
+// On Windows c:\app and C:\App are the same folder, and a file URL need not spell it the way the app path does.
+const isInside = (filePath: string, folder: string) => {
+  const [file, root] =
+    process.platform === "win32"
+      ? [filePath.toLowerCase(), folder.toLowerCase()]
+      : [filePath, folder];
+  return file.startsWith(root + path.sep);
+};
+
 /**
  * The page loads local files through two schemes of ours, never through file://.
  *
@@ -34,7 +43,7 @@ export const registerProtocols = () => {
   protocol.handle("file", async (request) => {
     try {
       const filePath = path.resolve(fileURLToPath(request.url));
-      if (!filePath.startsWith(pageRoot + path.sep)) return forbidden();
+      if (!isInside(filePath, pageRoot)) return forbidden();
       return await readFile(filePath);
     } catch {
       return new Response("Bad request", { status: 400 });
@@ -68,7 +77,7 @@ export const registerProtocols = () => {
   protocol.handle("public", async (request) => {
     try {
       const filePath = path.resolve(publicRoot, "." + pathnameOf(request.url));
-      if (!filePath.startsWith(publicRoot + path.sep)) return forbidden();
+      if (!isInside(filePath, publicRoot)) return forbidden();
       return await readFile(filePath);
     } catch {
       return new Response("Bad request", { status: 400 });
