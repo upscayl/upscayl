@@ -295,5 +295,10 @@
   "Don't like the background?": "Arka plan hoşuna gitmedi mi?",
   "Me neither. There, removed it for you!": "Benim de. İşte, senin için kaldırdım!",
   "Go on, hover over it": "Hadi, üzerine gel",
-  "Home": "Ana sayfa"
+  "Home": "Ana sayfa",
+  "Send to Remove Background": "Arka Plan Kaldırma'ya gönder",
+  "Send to Upscayl": "Upscayl'a gönder",
+  "Finish the current job first": "Önce mevcut işi bitirin",
+  "Transparency will be lost": "Şeffaflık kaybolacak",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Çıktı biçiminiz JPG. Şeffaf arka planı korumak için ayarlardan PNG veya WEBP'ye geçin."
 }

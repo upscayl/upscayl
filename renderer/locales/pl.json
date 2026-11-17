@@ -295,5 +295,10 @@
   "Don't like the background?": "Nie podoba Ci się tło?",
   "Me neither. There, removed it for you!": "Mnie też nie. Proszę, usunięte!",
   "Go on, hover over it": "Śmiało, najedź kursorem",
-  "Home": "Start"
+  "Home": "Start",
+  "Send to Remove Background": "Wyślij do Usuwania tła",
+  "Send to Upscayl": "Wyślij do Upscayl",
+  "Finish the current job first": "Najpierw zakończ bieżące zadanie",
+  "Transparency will be lost": "Przezroczystość zostanie utracona",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Format wyjściowy to JPG. Przełącz na PNG lub WEBP w ustawieniach, aby zachować przezroczyste tło."
 }

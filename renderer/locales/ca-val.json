@@ -295,5 +295,10 @@
   "Don't like the background?": "No t'agrada el fons?",
   "Me neither. There, removed it for you!": "A mi tampoc. Ja està, l'he llevat!",
   "Go on, hover over it": "Au, passa-hi el ratolí",
-  "Home": "Inici"
+  "Home": "Inici",
+  "Send to Remove Background": "Envia a Elimina el fons",
+  "Send to Upscayl": "Envia a Upscayl",
+  "Finish the current job first": "Acaba primer la tasca actual",
+  "Transparency will be lost": "Es perdrà la transparència",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "El format de sortida és JPG. Canvia a PNG o WEBP als ajustos per mantindre el fons transparent."
 }

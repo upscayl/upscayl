@@ -295,5 +295,10 @@
   "Don't like the background?": "Não gosta do fundo?",
   "Me neither. There, removed it for you!": "Eu também não. Pronto, removi pra você!",
   "Go on, hover over it": "Vai, passa o mouse",
-  "Home": "Início"
+  "Home": "Início",
+  "Send to Remove Background": "Enviar para Remover fundo",
+  "Send to Upscayl": "Enviar para o Upscayl",
+  "Finish the current job first": "Conclua primeiro a tarefa atual",
+  "Transparency will be lost": "A transparência será perdida",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Seu formato de saída é JPG. Mude para PNG ou WEBP nas configurações para manter o fundo transparente."
 }

@@ -295,5 +295,10 @@
   "Don't like the background?": "Не подобається тло?",
   "Me neither. There, removed it for you!": "Мені теж. Готово, прибрав!",
   "Go on, hover over it": "Ну ж бо, наведіть курсор",
-  "Home": "Головна"
+  "Home": "Головна",
+  "Send to Remove Background": "Надіслати до «Видалення фону»",
+  "Send to Upscayl": "Надіслати до Upscayl",
+  "Finish the current job first": "Спершу завершіть поточне завдання",
+  "Transparency will be lost": "Прозорість буде втрачено",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Вибрано формат виводу JPG. Щоб зберегти прозорий фон, перемкніться на PNG або WEBP у налаштуваннях."
 }

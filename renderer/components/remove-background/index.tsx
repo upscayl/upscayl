@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import useTranslation from "../hooks/use-translation";
 
-type RemoveBackgroundStatus =
+export type RemoveBackgroundStatus =
   | "empty"
   | "ready"
   | "processing"
@@ -49,7 +49,23 @@ const formatBytes = (bytes: number | null) => {
 const imageUrl = (filePath: string) =>
   filePath ? `file:///${sanitizePath(filePath)}` : "";
 
-const RemoveBackground = () => {
+// An image sent here from another tool. `id` changes on every send so the
+// same path can be sent twice in a row.
+export type RemoveBackgroundIncoming = { path: string; id: number };
+
+type RemoveBackgroundProps = {
+  incoming?: RemoveBackgroundIncoming | null;
+  onSendToUpscayl?: (path: string) => void;
+  upscaylBusy?: boolean;
+  onStatusChange?: (status: RemoveBackgroundStatus) => void;
+};
+
+const RemoveBackground = ({
+  incoming,
+  onSendToUpscayl,
+  upscaylBusy = false,
+  onStatusChange,
+}: RemoveBackgroundProps) => {
   const t = useTranslation();
   const [status, setStatus] = useState<RemoveBackgroundStatus>("empty");
   const [inputPath, setInputPath] = useState("");
@@ -61,6 +77,8 @@ const RemoveBackground = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [showOriginal, setShowOriginal] = useState(false);
   const cancelRequested = useRef(false);
+  // Latest path asked for. Lets a slow import notice it was superseded.
+  const latestImportPath = useRef("");
 
   const filename = useMemo(
     () => getFilenameFromPath(inputPath) || t("No image selected"),
@@ -73,8 +91,9 @@ const RemoveBackground = () => {
       ? t("Background removed preview")
       : t("Original image preview");
 
-  const importImage = async (path: string) => {
-    if (!path) return;
+  // Returns true when the image was accepted and is ready to process.
+  const importImage = async (path: string): Promise<boolean> => {
+    if (!path) return false;
 
     if (status === "processing") {
       window.electron.send(ELECTRON_COMMANDS.REMOVE_BACKGROUND_STOP);
@@ -92,9 +111,10 @@ const RemoveBackground = () => {
           "This image format is not supported. Choose a PNG, JPG, JPEG, JFIF, or WEBP image.",
         ),
       );
-      return;
+      return false;
     }
 
+    latestImportPath.current = path;
     setInputPath(path);
     setResultPath("");
     setDimensions({ width: 0, height: 0 });
@@ -113,7 +133,25 @@ const RemoveBackground = () => {
     } catch {
       setFileSize(null);
     }
+    // A newer import or a reset replaced this one while the size lookup ran.
+    return latestImportPath.current === path;
   };
+
+  // Load an image handed over from the upscale tool and start removing its
+  // background right away, so one click does the whole handoff.
+  useEffect(() => {
+    if (!incoming?.path) return;
+    const path = incoming.path;
+    void importImage(path).then((ready) => {
+      if (ready) startProcessing(path);
+    });
+    // Only react to a new send, not to importImage being recreated.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [incoming?.id]);
+
+  useEffect(() => {
+    onStatusChange?.(status);
+  }, [status, onStatusChange]);
 
   const browseForImage = async () => {
     const path = await window.electron.invoke(ELECTRON_COMMANDS.SELECT_FILE);
@@ -141,15 +179,16 @@ const RemoveBackground = () => {
     await importImage(path);
   };
 
-  const startProcessing = () => {
-    if (!inputPath || status === "processing") return;
+  // `path` lets a freshly imported image start before `inputPath` state updates.
+  const startProcessing = (path: string = inputPath) => {
+    if (!path || status === "processing") return;
     cancelRequested.current = false;
     setStatus("processing");
     setStage("decode");
     setError("");
     setResultPath("");
     window.electron.send(ELECTRON_COMMANDS.REMOVE_BACKGROUND, {
-      inputPath,
+      inputPath: path,
     });
   };
 
@@ -163,6 +202,7 @@ const RemoveBackground = () => {
   const reset = () => {
     if (status === "processing")
       window.electron.send(ELECTRON_COMMANDS.REMOVE_BACKGROUND_STOP);
+    latestImportPath.current = "";
     setStatus("empty");
     setInputPath("");
     setResultPath("");
@@ -595,6 +635,22 @@ const RemoveBackground = () => {
                         <RefreshCwIcon aria-hidden="true" />
                         {t("Replace image")}
                       </Button>
+                      {onSendToUpscayl && (
+                        <Button
+                          variant="outline"
+                          className="w-full"
+                          disabled={upscaylBusy}
+                          title={
+                            upscaylBusy
+                              ? t("Finish the current job first")
+                              : undefined
+                          }
+                          onClick={() => onSendToUpscayl(resultPath)}
+                        >
+                          <SparklesIcon aria-hidden="true" />
+                          {t("Send to Upscayl")}
+                        </Button>
+                      )}
                     </div>
                     <div className="mt-5 rounded-2xl bg-muted/60 p-3 text-xs leading-relaxed text-muted-foreground">
                       <span className="font-medium text-foreground">
@@ -617,7 +673,7 @@ const RemoveBackground = () => {
                       <Button
                         variant="outline"
                         className="w-full"
-                        onClick={startProcessing}
+                        onClick={() => startProcessing()}
                         disabled={!inputPath}
                       >
                         <RefreshCwIcon aria-hidden="true" />
@@ -642,7 +698,7 @@ const RemoveBackground = () => {
                     </p>
                     <Button
                       className="mt-5 h-11 w-full"
-                      onClick={startProcessing}
+                      onClick={() => startProcessing()}
                     >
                       <SparklesIcon aria-hidden="true" />
                       {t("Remove background")}

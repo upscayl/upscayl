@@ -8,6 +8,7 @@ import {
   savedOutputPathAtom,
   progressAtom,
   rememberOutputFolderAtom,
+  saveImageAsAtom,
   userStatsAtom,
 } from "./atoms/user-settings-atom";
 import useLogger from "./components/hooks/use-logger";
@@ -28,7 +29,10 @@ import Sidebar from "./components/sidebar";
 import Header from "./components/header";
 import useUpscaylVersion from "./components/hooks/use-upscayl-version";
 import MainContent from "./components/main-content";
-import RemoveBackground from "./components/remove-background";
+import RemoveBackground, {
+  type RemoveBackgroundIncoming,
+  type RemoveBackgroundStatus,
+} from "./components/remove-background";
 
 const Home = () => {
   const t = useAtomValue(translationAtom);
@@ -51,7 +55,12 @@ const Home = () => {
   const [batchMode, setBatchMode] = useAtom(batchModeAtom);
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
-  const setProgress = useSetAtom(progressAtom);
+  const [progress, setProgress] = useAtom(progressAtom);
+  const saveImageAs = useAtomValue(saveImageAsAtom);
+  const [removeBgIncoming, setRemoveBgIncoming] =
+    useState<RemoveBackgroundIncoming | null>(null);
+  const [removeBgStatus, setRemoveBgStatus] =
+    useState<RemoveBackgroundStatus>("empty");
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const setModelIds = useSetAtom(customModelIdsAtom);
   const setUserStats = useSetAtom(userStatsAtom);
@@ -109,21 +118,56 @@ const Home = () => {
     }
 
     if (pathType === "file") {
-      resetImagePaths();
       logit("🖼 Dropped Image Path: ", path);
-      setImagePath(path);
-      const dirname = getDirectoryFromPath(path);
-      if (!FEATURE_FLAGS.APP_STORE_BUILD && !rememberOutputFolder) {
-        setOutputPath(dirname);
-      }
-      validateImagePath(path);
-      setBatchMode(false);
+      loadImageIntoUpscayl(path);
       return;
     }
 
     toast(t("Invalid Image"), {
       description: t("Please drag and drop an image"),
     });
+  };
+
+  // Loads a single image file into the upscale tool. Shared by drag-drop and
+  // the "Send to Upscayl" button on the Remove Background tool.
+  // `useSourceFolderAsOutput` is false for temp files, so results are not
+  // saved where the OS may clean them up.
+  const loadImageIntoUpscayl = (
+    path: string,
+    useSourceFolderAsOutput = true,
+  ) => {
+    resetImagePaths();
+    setImagePath(path);
+    const dirname = getDirectoryFromPath(path);
+    if (
+      useSourceFolderAsOutput &&
+      !FEATURE_FLAGS.APP_STORE_BUILD &&
+      !rememberOutputFolder
+    ) {
+      setOutputPath(dirname);
+    }
+    validateImagePath(path);
+    setBatchMode(false);
+  };
+
+  const sendToUpscayl = (path: string) => {
+    logit("🔁 Sending Remove Background result to Upscayl: ", path);
+    loadImageIntoUpscayl(path, false);
+    setActiveTab("home");
+    if (saveImageAs === "jpg" || saveImageAs === "jpeg") {
+      toast(t("Transparency will be lost"), {
+        description: t(
+          "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.",
+        ),
+      });
+    }
+  };
+
+  const sendToRemoveBackground = (path: string) => {
+    logit("🔁 Sending upscayled image to Remove Background: ", path);
+    // A fresh id lets the same file be sent twice in a row.
+    setRemoveBgIncoming({ path, id: Date.now() });
+    setActiveTab("remove-background");
   };
 
   const validateImagePath = (path: string) => {
@@ -399,6 +443,12 @@ const Home = () => {
               selectImageHandler={selectImageHandler}
               selectFolderHandler={selectFolderHandler}
               importDroppedPath={importDroppedPath}
+              onSendToRemoveBackground={
+                !batchMode && upscaledImagePath.length > 0
+                  ? () => sendToRemoveBackground(upscaledImagePath)
+                  : undefined
+              }
+              removeBackgroundBusy={removeBgStatus === "processing"}
             />
 
             <MainContent
@@ -417,6 +467,8 @@ const Home = () => {
               doubleUpscaylCounter={doubleUpscaylCounter}
               setDimensions={setDimensions}
               dimensions={dimensions}
+              onSendToRemoveBackground={sendToRemoveBackground}
+              removeBackgroundBusy={removeBgStatus === "processing"}
             />
           </div>
           <div
@@ -425,7 +477,12 @@ const Home = () => {
               activeTab !== "remove-background" && "hidden",
             )}
           >
-            <RemoveBackground />
+            <RemoveBackground
+              incoming={removeBgIncoming}
+              onSendToUpscayl={sendToUpscayl}
+              upscaylBusy={progress.length > 0}
+              onStatusChange={setRemoveBgStatus}
+            />
           </div>
         </div>
         {activeTab === "home" && <OnboardingDialog />}

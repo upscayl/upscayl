@@ -295,5 +295,10 @@
   "Don't like the background?": "不喜欢背景？",
   "Me neither. There, removed it for you!": "我也是。好啦，帮你去掉了！",
   "Go on, hover over it": "来，把鼠标移上去",
-  "Home": "主页"
+  "Home": "主页",
+  "Send to Remove Background": "发送到背景移除",
+  "Send to Upscayl": "发送到 Upscayl",
+  "Finish the current job first": "请先完成当前任务",
+  "Transparency will be lost": "透明度将丢失",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "你的输出格式是 JPG。请在设置中切换为 PNG 或 WEBP，以保留透明背景。"
 }
