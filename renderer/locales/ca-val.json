@@ -295,5 +295,19 @@
   "Don't like the background?": "No t'agrada el fons?",
   "Me neither. There, removed it for you!": "A mi tampoc. Ja està, l'he llevat!",
   "Go on, hover over it": "Au, passa-hi el ratolí",
-  "Home": "Inici"
+  "Home": "Inici",
+  "History": "Historial",
+  "File not found": "No s'ha trobat el fitxer",
+  "Open image": "Obri la imatge",
+  "Open folder": "Obri la carpeta",
+  "Show in folder": "Mostra a la carpeta",
+  "Remove from history": "Elimina de l'historial",
+  "Clear all": "Esborra-ho tot",
+  "Clear all history?": "Vols esborrar tot l'historial?",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "Això elimina totes les còpies guardades a la carpeta de l'historial. Les teues imatges i els fitxers ampliats no es toquen.",
+  "Copies of your upscayls and background removals, kept in your History folder.": "Còpies dels teus escalats i eliminacions de fons, guardades a la carpeta de l'historial.",
+  "HISTORY FOLDER": "CARPETA DE L'HISTORIAL",
+  "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl guarda ací una còpia de cada original i resultat per a la pestanya Historial.",
+  "No history yet": "Encara no hi ha historial",
+  "Finished images will show up here.": "Les imatges acabades apareixeran ací."
 }

@@ -295,5 +295,19 @@
   "Don't like the background?": "Don't like the background?",
   "Me neither. There, removed it for you!": "Me neither. There, removed it for you!",
   "Go on, hover over it": "Dai, passaci sopra",
-  "Home": "Home"
+  "Home": "Home",
+  "History": "Cronologia",
+  "File not found": "File non trovato",
+  "Open image": "Apri immagine",
+  "Open folder": "Apri cartella",
+  "Show in folder": "Mostra nella cartella",
+  "Remove from history": "Rimuovi dalla cronologia",
+  "Clear all": "Cancella tutto",
+  "Clear all history?": "Cancellare tutta la cronologia?",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "Questo elimina ogni copia salvata nella cartella della cronologia. Le tue immagini e i file ingranditi non vengono toccati.",
+  "Copies of your upscayls and background removals, kept in your History folder.": "Copie dei tuoi upscale e delle rimozioni dello sfondo, conservate nella cartella della cronologia.",
+  "HISTORY FOLDER": "CARTELLA CRONOLOGIA",
+  "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl salva qui una copia di ogni originale e risultato per la scheda Cronologia.",
+  "No history yet": "Ancora nessuna cronologia",
+  "Finished images will show up here.": "Le immagini completate compariranno qui."
 }

@@ -295,5 +295,19 @@
   "Don't like the background?": "Don't like the background?",
   "Me neither. There, removed it for you!": "Me neither. There, removed it for you!",
   "Go on, hover over it": "Go on, hover over it",
-  "Home": "Home"
+  "Home": "Home",
+  "History": "History",
+  "File not found": "File not found",
+  "Open image": "Open image",
+  "Open folder": "Open folder",
+  "Show in folder": "Show in folder",
+  "Remove from history": "Remove from history",
+  "Clear all": "Clear all",
+  "Clear all history?": "Clear all history?",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.",
+  "Copies of your upscayls and background removals, kept in your History folder.": "Copies of your upscayls and background removals, kept in your History folder.",
+  "HISTORY FOLDER": "HISTORY FOLDER",
+  "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl saves a copy of each original and result here for the History tab.",
+  "No history yet": "No history yet",
+  "Finished images will show up here.": "Finished images will show up here."
 }

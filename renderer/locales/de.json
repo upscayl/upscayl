@@ -295,5 +295,19 @@
   "Don't like the background?": "Der Hintergrund gefällt dir nicht?",
   "Me neither. There, removed it for you!": "Mir auch nicht. Bitte, für dich entfernt!",
   "Go on, hover over it": "Fahr mal drüber",
-  "Home": "Start"
+  "Home": "Start",
+  "History": "Verlauf",
+  "File not found": "Datei nicht gefunden",
+  "Open image": "Bild öffnen",
+  "Open folder": "Ordner öffnen",
+  "Show in folder": "Im Ordner anzeigen",
+  "Remove from history": "Aus dem Verlauf entfernen",
+  "Clear all": "Alles löschen",
+  "Clear all history?": "Gesamten Verlauf löschen?",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "Dadurch wird jede gespeicherte Kopie in deinem Verlaufsordner gelöscht. Deine eigenen Bilder und hochskalierten Dateien bleiben unberührt.",
+  "Copies of your upscayls and background removals, kept in your History folder.": "Kopien deiner Upscayls und Hintergrundentfernungen, gespeichert in deinem Verlaufsordner.",
+  "HISTORY FOLDER": "VERLAUFSORDNER",
+  "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl speichert hier eine Kopie von jedem Original und Ergebnis für den Tab „Verlauf“.",
+  "No history yet": "Noch kein Verlauf",
+  "Finished images will show up here.": "Fertige Bilder erscheinen hier."
 }

@@ -7,6 +7,7 @@ import { SelectImageScale } from "../select-image-scale";
 import { InputCustomResolution } from "../input-custom-resolution";
 import { InputCompression } from "../input-compression";
 import { SaveOutputFolderToggle } from "../save-output-folder-toggle";
+import { HistoryFolderSelect } from "../select-history-folder";
 import OverwriteToggle from "../overwrite-toggle";
 import { ImageFormat } from "@/lib/valid-formats";
 
@@ -53,6 +54,7 @@ function ImageSettingsSection({
         handleCompressionChange={handleCompressionChange}
       />
       <SaveOutputFolderToggle />
+      <HistoryFolderSelect />
       <OverwriteToggle />
     </div>
   );

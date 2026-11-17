@@ -64,6 +64,8 @@ export default function ToolBar({
   const userStats = useAtomValue(userStatsAtom);
 
   const [viewType, setViewType] = useAtom(viewTypeAtom);
+  // Lens only applies when there is an upscayled image to compare.
+  const isLens = viewType === "lens" && hasUpscayledImage;
 
   return (
     <div className="absolute right-0 bottom-0 left-0 z-20 flex items-center pb-8">
@@ -79,7 +81,7 @@ export default function ToolBar({
         <Separator orientation="vertical" className="h-6 w-px shrink-0" />
         <Button
           disabled={
-            !hasImage || viewType === "lens" || parseInt(zoomAmount) === 100
+            !hasImage || isLens || parseInt(zoomAmount) === 100
           }
           variant="outline"
           size="icon"
@@ -91,7 +93,7 @@ export default function ToolBar({
         </Button>
         <Button
           disabled={
-            !hasImage || viewType === "lens" || parseInt(zoomAmount) === 1000
+            !hasImage || isLens || parseInt(zoomAmount) === 1000
           }
           variant="outline"
           size="icon"

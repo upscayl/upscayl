@@ -16,6 +16,7 @@ import {
 } from "../utils/get-resource-paths";
 import { removeBackground } from "../utils/remove-background";
 import logit from "../utils/logit";
+import { saveHistoryEntry } from "../utils/history";
 
 let activeJob: ReturnType<typeof removeBackground> | null = null;
 let activeOutputPath = "";
@@ -111,9 +112,16 @@ const removeBackgroundCommand = async (
 
     job.promise
       .then((result) => {
-        const payload: RemoveBackgroundDone = result;
         completedOutputPaths.add(resolve(result.outputPath));
+        const payload: RemoveBackgroundDone = { ...result, inputPath };
         send(ELECTRON_COMMANDS.REMOVE_BACKGROUND_DONE, payload);
+        void saveHistoryEntry({
+          kind: "remove-background",
+          originalPath: inputPath,
+          outputPath: result.outputPath,
+          width: result.width,
+          height: result.height,
+        });
       })
       .catch((error: unknown) => {
         if (

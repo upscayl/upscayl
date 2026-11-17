@@ -295,5 +295,19 @@
   "Don't like the background?": "لا تعجبك الخلفية؟",
   "Me neither. There, removed it for you!": "ولا تعجبني أنا أيضًا. تفضّل، أزلتها لك!",
   "Go on, hover over it": "هيا، مرّر المؤشر",
-  "Home": "الرئيسية"
+  "Home": "الرئيسية",
+  "History": "السجل",
+  "File not found": "الملف غير موجود",
+  "Open image": "فتح الصورة",
+  "Open folder": "فتح المجلد",
+  "Show in folder": "إظهار في المجلد",
+  "Remove from history": "إزالة من السجل",
+  "Clear all": "مسح الكل",
+  "Clear all history?": "مسح كل السجل؟",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "سيؤدي هذا إلى حذف كل نسخة محفوظة في مجلد السجل. صورك الخاصة والملفات المكبّرة لن تتأثر.",
+  "Copies of your upscayls and background removals, kept in your History folder.": "نسخ من عمليات التكبير وإزالة الخلفية، محفوظة في مجلد السجل.",
+  "HISTORY FOLDER": "مجلد السجل",
+  "Upscayl saves a copy of each original and result here for the History tab.": "يحفظ Upscayl هنا نسخة من كل صورة أصلية ونتيجة لعرضها في علامة تبويب السجل.",
+  "No history yet": "لا يوجد سجل بعد",
+  "Finished images will show up here.": "ستظهر الصور المكتملة هنا."
 }

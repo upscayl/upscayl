@@ -4,6 +4,13 @@ import { app, ipcMain, protocol } from "electron";
 import { ELECTRON_COMMANDS } from "../common/electron-commands";
 import logit from "./utils/logit";
 import openFolder from "./commands/open-folder";
+import showInFolder from "./commands/show-in-folder";
+import {
+  deleteHistoryEntry,
+  getHistoryFolder,
+  openHistoryFolder,
+  selectHistoryFolder,
+} from "./commands/history-folder";
 import stop from "./commands/stop";
 import selectFolder from "./commands/select-folder";
 import selectFile from "./commands/select-file";
@@ -72,6 +79,17 @@ app.whenReady().then(async () => {
       logit("📁 Folder Bookmarks Error: ", error);
     }
   }
+
+  const historyFolderBookmarks = await settings.get("history-folder-bookmarks");
+  if (FEATURE_FLAGS.APP_STORE_BUILD && historyFolderBookmarks) {
+    try {
+      app.startAccessingSecurityScopedResource(
+        historyFolderBookmarks as string,
+      );
+    } catch (error) {
+      logit("📁 History Folder Bookmarks Error: ", error);
+    }
+  }
 });
 
 // Quit the app once all windows are closed
@@ -88,6 +106,12 @@ if (FEATURE_FLAGS.APP_STORE_BUILD) {
 ipcMain.on(ELECTRON_COMMANDS.STOP, stop);
 
 ipcMain.on(ELECTRON_COMMANDS.OPEN_FOLDER, openFolder);
+ipcMain.on(ELECTRON_COMMANDS.SHOW_IN_FOLDER, showInFolder);
+ipcMain.on(ELECTRON_COMMANDS.DELETE_HISTORY_ENTRY, deleteHistoryEntry);
+ipcMain.on(ELECTRON_COMMANDS.OPEN_HISTORY_FOLDER, openHistoryFolder);
+
+ipcMain.handle(ELECTRON_COMMANDS.GET_HISTORY_FOLDER, getHistoryFolder);
+ipcMain.handle(ELECTRON_COMMANDS.SELECT_HISTORY_FOLDER, selectHistoryFolder);
 
 ipcMain.handle(ELECTRON_COMMANDS.SELECT_FOLDER, selectFolder);
 

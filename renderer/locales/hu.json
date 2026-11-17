@@ -295,5 +295,19 @@
   "Don't like the background?": "Nem tetszik a háttér?",
   "Me neither. There, removed it for you!": "Nekem sem. Tessék, eltávolítottam!",
   "Go on, hover over it": "Na, vidd rá az egeret",
-  "Home": "Kezdőlap"
+  "Home": "Kezdőlap",
+  "History": "Előzmények",
+  "File not found": "A fájl nem található",
+  "Open image": "Kép megnyitása",
+  "Open folder": "Mappa megnyitása",
+  "Show in folder": "Megjelenítés a mappában",
+  "Remove from history": "Eltávolítás az előzményekből",
+  "Clear all": "Összes törlése",
+  "Clear all history?": "Törlöd az összes előzményt?",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "Ez törli az Előzmények mappában mentett összes másolatot. A saját képeid és a felskálázott fájljaid érintetlenek maradnak.",
+  "Copies of your upscayls and background removals, kept in your History folder.": "Az upscale-ek és háttéreltávolítások másolatai, az Előzmények mappában tárolva.",
+  "HISTORY FOLDER": "ELŐZMÉNYEK MAPPA",
+  "Upscayl saves a copy of each original and result here for the History tab.": "Az Upscayl itt menti az eredeti és az eredmény másolatát az Előzmények fülhöz.",
+  "No history yet": "Még nincsenek előzmények",
+  "Finished images will show up here.": "A kész képek itt jelennek meg."
 }

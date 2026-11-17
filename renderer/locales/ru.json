@@ -295,5 +295,19 @@
   "Don't like the background?": "Не нравится фон?",
   "Me neither. There, removed it for you!": "Мне тоже. Готово, убрал!",
   "Go on, hover over it": "Давайте, наведите курсор",
-  "Home": "Главная"
+  "Home": "Главная",
+  "History": "История",
+  "File not found": "Файл не найден",
+  "Open image": "Открыть изображение",
+  "Open folder": "Открыть папку",
+  "Show in folder": "Показать в папке",
+  "Remove from history": "Удалить из истории",
+  "Clear all": "Очистить всё",
+  "Clear all history?": "Очистить всю историю?",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "Будут удалены все сохранённые копии в папке истории. Ваши собственные изображения и увеличенные файлы не затрагиваются.",
+  "Copies of your upscayls and background removals, kept in your History folder.": "Копии ваших увеличений и удалений фона хранятся в папке истории.",
+  "HISTORY FOLDER": "ПАПКА ИСТОРИИ",
+  "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl сохраняет здесь копию каждого оригинала и результата для вкладки «История».",
+  "No history yet": "История пока пуста",
+  "Finished images will show up here.": "Готовые изображения появятся здесь."
 }

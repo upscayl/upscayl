@@ -60,8 +60,30 @@ export type RemoveBackgroundProgress = {
   stage: "decode" | "inference" | "encode";
 };
 
+export type HistoryEntryKind =
+  | "upscayl"
+  | "double-upscayl"
+  | "batch-upscayl"
+  | "remove-background";
+
+export type HistoryEntry = {
+  id: string;
+  kind: HistoryEntryKind;
+  name: string;
+  originalPath: string;
+  outputPath: string;
+  folderPath?: string;
+  createdAt: number;
+  model?: string;
+  scale?: string;
+  saveImageAs?: ImageFormat;
+  width?: number;
+  height?: number;
+};
+
 export type RemoveBackgroundDone = {
   outputPath: string;
+  inputPath: string;
   width: number;
   height: number;
 };

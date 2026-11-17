@@ -1,59 +1,42 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import { HistoryEntry } from "@common/types/types";
 
-const MAX_HISTORY_ITEMS = 50;
+export type HistoryItem = HistoryEntry;
 
-export interface UpscaylHistoryItemMetadata {
-  original: { width: string; height: string };
-  upscayl: { width: string; height: string };
-  scale: string;
-}
+const deleteHistoryEntry = (item: HistoryItem) => {
+  if (item.folderPath)
+    window.electron.send(
+      ELECTRON_COMMANDS.DELETE_HISTORY_ENTRY,
+      item.folderPath,
+    );
+};
 
-export interface UpscaylHistoryItem {
-  id: string;
-  originalPath: string;
-  upscayledPath: string;
-  createdAt: number;
-  metadata?: UpscaylHistoryItemMetadata;
-}
-
-export const upscaylHistoryAtom = atomWithStorage<UpscaylHistoryItem[]>(
+export const historyAtom = atomWithStorage<HistoryItem[]>(
   "upscayl-history",
   [],
 );
 
-export const addUpscaylHistoryItemAtom = atom(
-  null,
-  (get, set, item: Omit<UpscaylHistoryItem, "id" | "createdAt">) => {
-    const current = get(upscaylHistoryAtom);
+export const addHistoryItemAtom = atom(null, (get, set, item: HistoryItem) => {
+  set(historyAtom, [
+    item,
+    ...get(historyAtom).filter((entry) => entry.outputPath !== item.outputPath),
+  ]);
+});
 
-    if (item.originalPath.length === 0 || item.upscayledPath.length === 0)
-      return;
-    if (current.some((item) => item.upscayledPath === item.upscayledPath))
-      return;
+export const removeHistoryItemAtom = atom(null, (get, set, id: string) => {
+  const current = get(historyAtom);
+  const item = current.find((entry) => entry.id === id);
+  set(
+    historyAtom,
+    current.filter((entry) => entry.id !== id),
+  );
+  if (item) deleteHistoryEntry(item);
+});
 
-    const newItem: UpscaylHistoryItem = {
-      id: crypto.randomUUID(),
-      createdAt: Date.now(),
-      ...item,
-    };
-
-    const updated = [newItem, ...current.slice(0, MAX_HISTORY_ITEMS)];
-    set(upscaylHistoryAtom, updated);
-  },
-);
-
-export const reoveUpscaylHistoryItemAtom = atom(
-  null,
-  (get, set, id: string) => {
-    const current = get(upscaylHistoryAtom);
-    set(
-      upscaylHistoryAtom,
-      current.filter((entry) => entry.id === id),
-    );
-  },
-);
-
-export const clearUpscaylHistoryAtom = atom(null, (_get, set) => {
-  set(upscaylHistoryAtom, []);
+export const clearHistoryAtom = atom(null, (get, set) => {
+  const current = get(historyAtom);
+  set(historyAtom, []);
+  current.forEach(deleteHistoryEntry);
 });

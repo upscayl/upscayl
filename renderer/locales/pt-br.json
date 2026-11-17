@@ -295,5 +295,19 @@
   "Don't like the background?": "Não gosta do fundo?",
   "Me neither. There, removed it for you!": "Eu também não. Pronto, removi pra você!",
   "Go on, hover over it": "Vai, passa o mouse",
-  "Home": "Início"
+  "Home": "Início",
+  "History": "Histórico",
+  "File not found": "Arquivo não encontrado",
+  "Open image": "Abrir imagem",
+  "Open folder": "Abrir pasta",
+  "Show in folder": "Mostrar na pasta",
+  "Remove from history": "Remover do histórico",
+  "Clear all": "Limpar tudo",
+  "Clear all history?": "Limpar todo o histórico?",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "Isso exclui todas as cópias salvas na sua pasta de histórico. Suas próprias imagens e arquivos ampliados não são afetados.",
+  "Copies of your upscayls and background removals, kept in your History folder.": "Cópias das suas ampliações e remoções de fundo, guardadas na sua pasta de histórico.",
+  "HISTORY FOLDER": "PASTA DO HISTÓRICO",
+  "Upscayl saves a copy of each original and result here for the History tab.": "O Upscayl salva aqui uma cópia de cada original e resultado para a aba Histórico.",
+  "No history yet": "Ainda não há histórico",
+  "Finished images will show up here.": "As imagens concluídas vão aparecer aqui."
 }

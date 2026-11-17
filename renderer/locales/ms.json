@@ -295,5 +295,19 @@
   "Don't like the background?": "Don't like the background?",
   "Me neither. There, removed it for you!": "Me neither. There, removed it for you!",
   "Go on, hover over it": "Cuba halakan tetikus",
-  "Home": "Utama"
+  "Home": "Utama",
+  "History": "Sejarah",
+  "File not found": "Fail tidak ditemui",
+  "Open image": "Buka imej",
+  "Open folder": "Buka folder",
+  "Show in folder": "Tunjuk dalam folder",
+  "Remove from history": "Alih keluar daripada sejarah",
+  "Clear all": "Kosongkan semua",
+  "Clear all history?": "Kosongkan semua sejarah?",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "Ini memadam setiap salinan tersimpan dalam folder Sejarah anda. Imej anda sendiri dan fail yang telah dinaik taraf tidak disentuh.",
+  "Copies of your upscayls and background removals, kept in your History folder.": "Salinan upscale dan pembuangan latar belakang anda, disimpan dalam folder Sejarah.",
+  "HISTORY FOLDER": "FOLDER SEJARAH",
+  "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl menyimpan salinan setiap imej asal dan hasil di sini untuk tab Sejarah.",
+  "No history yet": "Belum ada sejarah",
+  "Finished images will show up here.": "Imej yang siap akan dipaparkan di sini."
 }

@@ -295,5 +295,19 @@
   "Don't like the background?": "背景が気に入らない？",
   "Me neither. There, removed it for you!": "僕もだよ。はい、消しておいたよ！",
   "Go on, hover over it": "さあ、カーソルを乗せてみて",
-  "Home": "ホーム"
+  "Home": "ホーム",
+  "History": "履歴",
+  "File not found": "ファイルが見つかりません",
+  "Open image": "画像を開く",
+  "Open folder": "フォルダを開く",
+  "Show in folder": "フォルダ内で表示",
+  "Remove from history": "履歴から削除",
+  "Clear all": "すべて消去",
+  "Clear all history?": "履歴をすべて消去しますか？",
+  "This deletes every saved copy in your History folder. Your own images and upscayled files stay untouched.": "履歴フォルダ内に保存されているコピーがすべて削除されます。あなた自身の画像やアップスケール済みファイルには影響しません。",
+  "Copies of your upscayls and background removals, kept in your History folder.": "アップスケールと背景削除のコピーを履歴フォルダに保存しています。",
+  "HISTORY FOLDER": "履歴フォルダ",
+  "Upscayl saves a copy of each original and result here for the History tab.": "Upscaylは履歴タブ用に、元画像と結果のコピーをここに保存します。",
+  "No history yet": "まだ履歴はありません",
+  "Finished images will show up here.": "完了した画像はここに表示されます。"
 }

@@ -46,7 +46,8 @@ const LensViewer = ({
 
     // Find relative mouse position within the image
     const relativeMouseX = mouseX - containerLeft;
-    const relativeMouseY = mouseY - imageTop;
+    const containerMouseY = mouseY - containerTop;
+    const relativeMouseY = containerMouseY - imageTop;
 
     // Check if the mouse is within the actual image boundaries
     const isWithinImage =
@@ -84,7 +85,7 @@ const LensViewer = ({
       relativeMouseXPercent,
       relativeMouseYPercent,
       relativeMouseX,
-      mouseY,
+      mouseY: containerMouseY,
       originalImageMouseX: bgPosX,
       originalImageMouseY: bgPosY,
     });
