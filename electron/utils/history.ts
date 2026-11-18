@@ -7,10 +7,22 @@ import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import { HistoryEntry } from "../../common/types/types";
 import { getMainWindow } from "../main-window";
 import logit from "./logit";
+import { homedir } from "node:os";
+
+export const getDefaultHistoryDir = () => {
+  if (process.platform === "linux") {
+    return join(
+      process.env.XDG_DATA_HOME || join(homedir(), ".local", "share"),
+      "upscayl",
+    );
+  }
+
+  return app.getPath("appData");
+};
 
 export const getHistoryDir = () =>
   (settings.getSync("history-folder") as string | undefined) ||
-  join(app.getPath("pictures"), "Upscayl History");
+  getDefaultHistoryDir();
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -56,6 +68,7 @@ export const saveHistoryEntry = async (
       input.kind === "batch-upscayl" ? input.outputPath : input.originalPath,
     ),
   };
+
   let folderPath: string | undefined;
   try {
     if (input.kind !== "batch-upscayl") {
