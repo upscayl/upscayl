@@ -25,6 +25,7 @@ import LensViewer from "./lens-view";
 import ImageViewer from "./image-viewer";
 import useTranslation from "../hooks/use-translation";
 import SliderView from "./slider-view";
+import { CopyIcon, FolderOpenIcon } from "lucide-react";
 
 type MainContentProps = {
   imagePath: string;
@@ -81,7 +82,34 @@ const MainContent = ({
     if (!batchMode) {
       return imagePath.length === 0 && upscaledImagePath.length === 0;
     } else {
-      return (
+      const copyImageHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (upscaledImagePath) {
+      window.electron.send(ELECTRON_COMMANDS.COPY_IMAGE, upscaledImagePath);
+      toast({
+        title: "Copied!",
+        description: "Image copied to clipboard successfully.",
+      });
+    }
+  };
+
+  const openUpscaledFolderHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (upscaledImagePath) {
+      window.electron.send(ELECTRON_COMMANDS.OPEN_FOLDER, upscaledImagePath);
+    }
+  };
+
+  const handleContextMenu = (e: React.MouseEvent) => {
+    if (upscaledImagePath) {
+      e.preventDefault();
+      window.electron.send(ELECTRON_COMMANDS.SHOW_UPSCAYL_CONTEXT_MENU, {
+        imagePath: upscaledImagePath,
+      });
+    }
+  };
+
+  return (
         batchFolderPath.length === 0 && upscaledBatchFolderPath.length === 0
       );
     }
@@ -273,6 +301,7 @@ const MainContent = ({
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDoubleClick={batchMode ? selectFolderHandler : selectImageHandler}
+      onContextMenu={handleContextMenu}
     >
       <MacTitlebarDragRegion />
 
@@ -335,6 +364,28 @@ const MainContent = ({
           sanitizedImagePath={sanitizedImagePath}
           sanitizedUpscaledImagePath={sanitizedUpscaledImagePath}
         />
+      )}
+
+            {/* QUICK ACTIONS FOR UPSCALED IMAGE */}
+      {!batchMode && upscaledImagePath.length > 0 && (
+        <div className="absolute top-4 right-16 z-40 flex items-center gap-2 rounded-xl border border-base-300 bg-base-100/90 p-2 shadow-2xl backdrop-blur-md">
+          <button
+            className="btn btn-sm btn-primary flex items-center gap-1.5"
+            onClick={copyImageHandler}
+            title="Copy upscaled image to clipboard"
+          >
+            <CopyIcon className="h-4 w-4" />
+            <span>Copy Image</span>
+          </button>
+          <button
+            className="btn btn-sm btn-outline flex items-center gap-1.5"
+            onClick={openUpscaledFolderHandler}
+            title="Open image output folder"
+          >
+            <FolderOpenIcon className="h-4 w-4" />
+            <span>Open Folder</span>
+          </button>
+        </div>
       )}
 
       {/* COMPARISON SLIDER */}
