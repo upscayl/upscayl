@@ -1,3 +1,4 @@
+import { app } from "electron";
 import { getMainWindow } from "../main-window";
 import logit from "../utils/logit";
 import fs from "fs";
@@ -15,18 +16,28 @@ interface IClipboardFileParameters {
   encodedBuffer: string;
 }
 
+const MAX_PASTED_BYTES = 200 * 1024 * 1024;
+
 const isImageFormatValid = (format: string): format is ImageFormat => {
   return (imageFormats as readonly string[]).includes(format);
 };
 
-const createTempFileFromClipboard = async (
-  inputFileParams: IClipboardFileParameters,
-): Promise<string> => {
-  const tempFilePath = path.join(inputFileParams.path, inputFileParams.name);
-  const buffer = Buffer.from(inputFileParams.encodedBuffer, "base64");
+// mkdtemp picks a random name and makes the folder for this user only. A fixed name in a shared temp folder
+// (/tmp on Linux) could be made by someone else first.
+let sessionPasteDirectory: string | null = null;
+const pasteDirectory = () =>
+  (sessionPasteDirectory ??= fs.mkdtempSync(
+    path.join(app.getPath("temp"), "upscayl-paste-"),
+  ));
 
-  await fs.promises.writeFile(tempFilePath, buffer);
-  return tempFilePath;
+/** Pasted images live in the system's temp folder, not in the user's folders; removed at quit. */
+export const cleanUpPastedImages = () => {
+  if (!sessionPasteDirectory) return;
+  try {
+    fs.rmSync(sessionPasteDirectory, { recursive: true, force: true });
+  } catch {
+    // Nothing to remove, or in use: the system's temp cleaning takes it.
+  }
 };
 
 const pasteImage = async (
@@ -35,25 +46,53 @@ const pasteImage = async (
 ) => {
   const mainWindow = getMainWindow();
   if (!mainWindow) return;
-  if (!file || !file.name || !file.encodedBuffer) return;
-  if (isImageFormatValid(file.extension)) {
-    try {
-      const imageFilePath = await createTempFileFromClipboard(file);
-      mainWindow.webContents.send(
-        ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_SUCCESS,
-        imageFilePath,
-      );
-    } catch (error: any) {
-      logit(error.message);
-      mainWindow.webContents.send(
-        ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
-        error.message,
-      );
-    }
-  } else {
+  if (
+    !file ||
+    typeof file.name !== "string" ||
+    typeof file.encodedBuffer !== "string" ||
+    !file.encodedBuffer
+  )
+    return;
+
+  // Only the last part of the name counts, and the extension is the name's own, not the one the page claims.
+  const name = path.basename(file.name);
+  const extension = path.extname(name).slice(1).toLowerCase();
+  if (!isImageFormatValid(extension)) {
     mainWindow.webContents.send(
       ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
       "Unsupported Image Format",
+    );
+    return;
+  }
+  // base64 is a third longer than what it holds
+  if (file.encodedBuffer.length > (MAX_PASTED_BYTES * 4) / 3) {
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
+      "The pasted image is too large",
+    );
+    return;
+  }
+
+  try {
+    const sessionDirectory = pasteDirectory();
+    await fs.promises.mkdir(sessionDirectory, { recursive: true, mode: 0o700 });
+    // A folder for each paste: clipboard pictures all come with the same name, and a second paste must not
+    // overwrite the first one while that is being upscaled.
+    const directory = await fs.promises.mkdtemp(path.join(sessionDirectory, "paste-"));
+    const tempFilePath = path.join(directory, name);
+    await fs.promises.writeFile(
+      tempFilePath,
+      Buffer.from(file.encodedBuffer, "base64"),
+    );
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_SUCCESS,
+      tempFilePath,
+    );
+  } catch (error: any) {
+    logit(error.message);
+    mainWindow.webContents.send(
+      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
+      error.message,
     );
   }
 };

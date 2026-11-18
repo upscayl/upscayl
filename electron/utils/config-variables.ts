@@ -31,6 +31,8 @@ export function setSavedBatchUpscaylFolderPath(
  * The saved custom models folder path so that we can load the list of custom models from that folder on startup.
  */
 export let savedCustomModelsPath: string | undefined = undefined;
+/** Where the folder the user chose for custom models is remembered (electron-settings). */
+export const CUSTOM_MODELS_FOLDER_KEY = "custom-models-folder";
 export function setSavedCustomModelsPath(value: string | undefined): void {
   savedCustomModelsPath = value;
   logit("📁 Updating Custom Models Folder Path: ", savedCustomModelsPath);
@@ -103,14 +105,6 @@ export function fetchLocalStorage(): void {
         lastSavedBatchUpscaylFolderPath.length > 0
       ) {
         setSavedBatchUpscaylFolderPath(lastSavedBatchUpscaylFolderPath);
-      }
-    });
-  // GET LAST CUSTOM MODELS FOLDER PATH TO LOCAL STORAGE
-  mainWindow.webContents
-    .executeJavaScript('localStorage.getItem("customModelsFolderPath");', true)
-    .then((value: string | null) => {
-      if (value && value.length > 0) {
-        setSavedCustomModelsPath(value);
       }
     });
 
