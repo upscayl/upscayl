@@ -1,10 +1,11 @@
 import prepareNext from "electron-next";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
-import { app, ipcMain, protocol } from "electron";
+import { app, ipcMain, protocol, Menu, nativeImage, clipboard, shell } from "electron";
 import { ELECTRON_COMMANDS } from "../common/electron-commands";
 import logit from "./utils/logit";
 import openFolder from "./commands/open-folder";
+import copyImage from "./commands/copy-image";
 import stop from "./commands/stop";
 import selectFolder from "./commands/select-folder";
 import selectFile from "./commands/select-file";
@@ -21,6 +22,7 @@ import { FEATURE_FLAGS } from "../common/feature-flags";
 import settings from "electron-settings";
 import pasteImage from "./commands/paste-image";
 import path from "path";
+import fs from "fs";
 
 // INITIALIZATION
 log.initialize({ preload: true });
@@ -85,6 +87,8 @@ ipcMain.on(ELECTRON_COMMANDS.STOP, stop);
 
 ipcMain.on(ELECTRON_COMMANDS.OPEN_FOLDER, openFolder);
 
+ipcMain.on(ELECTRON_COMMANDS.COPY_IMAGE, copyImage);
+
 ipcMain.handle(ELECTRON_COMMANDS.SELECT_FOLDER, selectFolder);
 
 ipcMain.handle(ELECTRON_COMMANDS.SELECT_FILE, selectFile);
@@ -103,6 +107,47 @@ ipcMain.on(ELECTRON_COMMANDS.FOLDER_UPSCAYL, batchUpscayl);
 ipcMain.on(ELECTRON_COMMANDS.DOUBLE_UPSCAYL, doubleUpscayl);
 
 ipcMain.on(ELECTRON_COMMANDS.PASTE_IMAGE, pasteImage);
+
+ipcMain.on(
+  ELECTRON_COMMANDS.SHOW_UPSCAYL_CONTEXT_MENU,
+  (event, payload) => {
+    try {
+      const target = payload?.imagePath;
+      if (!target) return;
+      let clean = decodeURIComponent(
+        String(target).replace(/^file:\/\/\/?/, ""),
+      );
+      clean = path.win32 ? path.win32.normalize(clean) : path.normalize(clean);
+
+      const template: Electron.MenuItemConstructorOptions[] = [
+        {
+          label: "Copy Image",
+          click: () => {
+            if (fs.existsSync(clean)) {
+              const img = nativeImage.createFromPath(clean);
+              clipboard.writeImage(img);
+              event.sender.send("COPY_IMAGE_SUCCESS", clean);
+            }
+          },
+        },
+        {
+          label: "Open Output Folder",
+          click: () => {
+            if (fs.existsSync(clean)) {
+              shell.showItemInFolder(clean);
+            }
+            const folder = path.dirname(clean);
+            shell.openPath(folder);
+          },
+        },
+      ];
+      const menu = Menu.buildFromTemplate(template);
+      menu.popup();
+    } catch (error: any) {
+      logit("Error showing context menu:", error?.message || error);
+    }
+  },
+);
 
 ipcMain.handle("get-gpu-info", async () => {
   try {
