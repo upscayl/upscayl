@@ -118,6 +118,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         ttaMode,
       }),
       logit,
+      payload.engine,
     );
 
     setChildProcesses(upscayl);

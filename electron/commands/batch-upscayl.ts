@@ -63,6 +63,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       ttaMode,
     }),
     logit,
+    payload.engine,
   );
 
   childProcesses.push(upscayl);

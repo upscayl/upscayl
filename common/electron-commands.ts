@@ -2,6 +2,7 @@ const ELECTRON_COMMANDS = {
   SELECT_FILE: "Select a File",
   SELECT_FOLDER: "Select a Folder",
   GET_FILE_SIZE: "Get File Size",
+  ENGINE_INFO: "Ask which engines this build can use",
   GET_DROPPED_PATH_TYPE: "Get Dropped Path Type",
   UPSCAYL: "Upscale the Image",
   UPSCAYL_DONE: "Upscaling Done",
