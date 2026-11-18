@@ -6,6 +6,7 @@ import { customModelIdsAtom } from "./atoms/models-list-atom";
 import {
   batchModeAtom,
   savedOutputPathAtom,
+  isProcessingAtom,
   progressAtom,
   rememberOutputFolderAtom,
   saveImageAsAtom,
@@ -55,7 +56,8 @@ const Home = () => {
   const [batchMode, setBatchMode] = useAtom(batchModeAtom);
   const [batchFolderPath, setBatchFolderPath] = useState("");
   const [upscaledBatchFolderPath, setUpscaledBatchFolderPath] = useState("");
-  const [progress, setProgress] = useAtom(progressAtom);
+  const setProgress = useSetAtom(progressAtom);
+  const upscaylRunning = useAtomValue(isProcessingAtom);
   const saveImageAs = useAtomValue(saveImageAsAtom);
   const [removeBgIncoming, setRemoveBgIncoming] =
     useState<RemoveBackgroundIncoming | null>(null);
@@ -480,7 +482,7 @@ const Home = () => {
             <RemoveBackground
               incoming={removeBgIncoming}
               onSendToUpscayl={sendToUpscayl}
-              upscaylBusy={progress.length > 0}
+              upscaylBusy={upscaylRunning}
               onStatusChange={setRemoveBgStatus}
             />
           </div>
