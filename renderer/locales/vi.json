@@ -295,5 +295,10 @@
   "Don't like the background?": "Không thích phần nền?",
   "Me neither. There, removed it for you!": "Mình cũng vậy. Xong rồi, xóa giúp bạn rồi nhé!",
   "Go on, hover over it": "Thử rê chuột vào đi",
-  "Home": "Trang chủ"
+  "Home": "Trang chủ",
+  "Send to Remove Background": "Gửi đến Xóa nền",
+  "Send to Upscayl": "Gửi đến Upscayl",
+  "Finish the current job first": "Hãy hoàn tất tác vụ hiện tại trước",
+  "Transparency will be lost": "Độ trong suốt sẽ bị mất",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Định dạng đầu ra của bạn là JPG. Hãy chuyển sang PNG hoặc WEBP trong phần cài đặt để giữ nền trong suốt."
 }

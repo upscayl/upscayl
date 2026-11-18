@@ -295,5 +295,10 @@
   "Don't like the background?": "背景が気に入らない？",
   "Me neither. There, removed it for you!": "僕もだよ。はい、消しておいたよ！",
   "Go on, hover over it": "さあ、カーソルを乗せてみて",
-  "Home": "ホーム"
+  "Home": "ホーム",
+  "Send to Remove Background": "背景削除に送る",
+  "Send to Upscayl": "Upscaylに送る",
+  "Finish the current job first": "先に現在の処理を完了してください",
+  "Transparency will be lost": "透明部分は失われます",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "出力形式がJPGになっています。透明な背景を維持するには、設定でPNGまたはWEBPに切り替えてください。"
 }

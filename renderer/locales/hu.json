@@ -295,5 +295,10 @@
   "Don't like the background?": "Nem tetszik a háttér?",
   "Me neither. There, removed it for you!": "Nekem sem. Tessék, eltávolítottam!",
   "Go on, hover over it": "Na, vidd rá az egeret",
-  "Home": "Kezdőlap"
+  "Home": "Kezdőlap",
+  "Send to Remove Background": "Küldés a Háttéreltávolítóba",
+  "Send to Upscayl": "Küldés az Upscayl-be",
+  "Finish the current job first": "Előbb fejezd be a jelenlegi feladatot",
+  "Transparency will be lost": "Az átlátszóság elvész",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "A kimeneti formátum JPG. A beállításokban válts PNG-re vagy WEBP-re az átlátszó háttér megtartásához."
 }

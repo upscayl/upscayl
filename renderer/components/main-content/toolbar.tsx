@@ -12,6 +12,7 @@ import {
   TimerIcon,
   HistoryIcon,
   ChartNoAxesColumnIncreasingIcon,
+  EraserIcon,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { userStatsAtom, viewTypeAtom } from "@/atoms/user-settings-atom";
@@ -49,6 +50,9 @@ interface ToolBarProps {
   setMaximize: React.Dispatch<React.SetStateAction<boolean>>;
   hasImage: boolean;
   hasUpscayledImage: boolean;
+  // Set only when a single upscayled image is ready to hand over.
+  onSendToRemoveBackground?: () => void;
+  removeBackgroundBusy?: boolean;
 }
 
 export default function ToolBar({
@@ -59,6 +63,8 @@ export default function ToolBar({
   setMaximize,
   hasImage,
   hasUpscayledImage,
+  onSendToRemoveBackground,
+  removeBackgroundBusy = false,
 }: ToolBarProps) {
   const t = useAtomValue(translationAtom);
   const userStats = useAtomValue(userStatsAtom);
@@ -269,6 +275,22 @@ export default function ToolBar({
             </div>
           </DrawerContent>
         </Drawer>
+        {onSendToRemoveBackground && (
+          <Button
+            variant="secondary"
+            size="icon"
+            disabled={removeBackgroundBusy}
+            title={
+              removeBackgroundBusy
+                ? t("Finish the current job first")
+                : t("Send to Remove Background")
+            }
+            aria-label={t("Send to Remove Background")}
+            onClick={onSendToRemoveBackground}
+          >
+            <EraserIcon />
+          </Button>
+        )}
         <Separator orientation="vertical" className="h-6 w-px shrink-0" />
         <Button
           disabled={!hasImage}

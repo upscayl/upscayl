@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import useUpscaylResolution from "@/components/hooks/use-upscayl-resolution";
 import {
   CloudUpload,
+  EraserIcon,
   FolderIcon,
   SparklesIcon,
   UploadIcon,
@@ -68,6 +69,8 @@ interface IProps {
   };
   setSaveImageAs: React.Dispatch<React.SetStateAction<ImageFormat>>;
   setGpuId: React.Dispatch<React.SetStateAction<string>>;
+  onSendToRemoveBackground?: () => void;
+  removeBackgroundBusy?: boolean;
 }
 
 function UpscaylSteps({
@@ -81,6 +84,8 @@ function UpscaylSteps({
   doubleUpscayl,
   setDoubleUpscayl,
   dimensions,
+  onSendToRemoveBackground,
+  removeBackgroundBusy = false,
 }: IProps) {
   const [scale, setScale] = useAtom(scaleAtom);
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
@@ -360,7 +365,7 @@ function UpscaylSteps({
         </Button>
       </div>
       {/* STEP 4 */}
-      <div className="animate-step-in flex h-full items-end">
+      <div className="animate-step-in flex h-full flex-col justify-end gap-2">
         <p className="step-heading sr-only">{t("Step 4")}</p>
         {/* {dimensions.width && dimensions.height && ( */}
         {/*   <p className="mb-2 text-sm"> */}
@@ -374,6 +379,21 @@ function UpscaylSteps({
         {/*     </span> */}
         {/*   </p> */}
         {/* )} */}
+        {onSendToRemoveBackground && (
+          <Button
+            className="h-14 w-full rounded-full"
+            disabled={removeBackgroundBusy}
+            title={
+              removeBackgroundBusy
+                ? t("Finish the current job first")
+                : undefined
+            }
+            onClick={onSendToRemoveBackground}
+          >
+            <EraserIcon aria-hidden="true" />
+            <span>{t("Remove Background")}</span>
+          </Button>
+        )}
         <Button
           className="upscayl-button"
           onPointerMove={(event) => {

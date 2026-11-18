@@ -45,6 +45,8 @@ const Sidebar = ({
   selectImageHandler,
   selectFolderHandler,
   importDroppedPath,
+  onSendToRemoveBackground,
+  removeBackgroundBusy,
 }: {
   setUpscaledImagePath: React.Dispatch<React.SetStateAction<string>>;
   batchFolderPath: string;
@@ -57,6 +59,8 @@ const Sidebar = ({
   selectImageHandler: () => Promise<void>;
   selectFolderHandler: () => Promise<void>;
   importDroppedPath: (path: string) => Promise<void>;
+  onSendToRemoveBackground?: () => void;
+  removeBackgroundBusy?: boolean;
 }) => {
   const t = useTranslation();
   const logit = useLogger();
@@ -201,6 +205,8 @@ const Sidebar = ({
           dimensions={dimensions}
           setGpuId={setGpuId}
           setSaveImageAs={setSaveImageAs}
+          onSendToRemoveBackground={onSendToRemoveBackground}
+          removeBackgroundBusy={removeBackgroundBusy}
         />
       )}
 

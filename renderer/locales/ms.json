@@ -295,5 +295,10 @@
   "Don't like the background?": "Don't like the background?",
   "Me neither. There, removed it for you!": "Me neither. There, removed it for you!",
   "Go on, hover over it": "Cuba halakan tetikus",
-  "Home": "Utama"
+  "Home": "Utama",
+  "Send to Remove Background": "Hantar ke Buang Latar Belakang",
+  "Send to Upscayl": "Hantar ke Upscayl",
+  "Finish the current job first": "Selesaikan tugas semasa dahulu",
+  "Transparency will be lost": "Ketelusan akan hilang",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Format output anda ialah JPG. Tukar kepada PNG atau WEBP dalam tetapan untuk mengekalkan latar belakang lut sinar."
 }

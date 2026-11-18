@@ -63,6 +63,8 @@ type MainContentProps = {
       height: number;
     }>
   >;
+  onSendToRemoveBackground?: (path: string) => void;
+  removeBackgroundBusy?: boolean;
 };
 
 const MainContent = ({
@@ -81,6 +83,8 @@ const MainContent = ({
   dimensions,
   doubleUpscaylCounter,
   setDimensions,
+  onSendToRemoveBackground,
+  removeBackgroundBusy = false,
 }: MainContentProps) => {
   const componentId = useId();
   const t = useTranslation();
@@ -529,6 +533,14 @@ const MainContent = ({
                 sanitizedUpscaledImagePath.length > 0 ||
                 selectedUpscayldBatchImage.length > 0
               }
+              onSendToRemoveBackground={
+                onSendToRemoveBackground &&
+                !batchMode &&
+                upscaledImagePath.length > 0
+                  ? () => onSendToRemoveBackground(upscaledImagePath)
+                  : undefined
+              }
+              removeBackgroundBusy={removeBackgroundBusy}
             />
 
             {/* BATCH UPSCALE SHOW SELECTED FOLDER */}

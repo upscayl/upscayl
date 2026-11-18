@@ -1,7 +1,7 @@
 import { ImageFormat } from "@/lib/valid-formats";
 import { ModelId } from "@common/models-list";
 import { atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+import { atomWithStorage, selectAtom } from "jotai/utils";
 
 export const customModelsPathAtom = atomWithStorage<string | null>(
   "customModelsPath",
@@ -33,6 +33,13 @@ export const savedOutputPathAtom = atomWithStorage<string | null>(
 );
 
 export const progressAtom = atom<string>("");
+
+// Boolean view of progressAtom: subscribers only re-render when the value
+// flips, not on every progress tick.
+export const isProcessingAtom = selectAtom(
+  progressAtom,
+  (progress) => progress.length > 0,
+);
 
 export const rememberOutputFolderAtom = atomWithStorage<boolean>(
   "rememberOutputFolder",
