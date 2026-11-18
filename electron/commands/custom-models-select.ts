@@ -1,5 +1,6 @@
 import { MessageBoxOptions, dialog } from "electron";
 import {
+  CUSTOM_MODELS_FOLDER_KEY,
   savedCustomModelsPath,
   setSavedCustomModelsPath,
 } from "../utils/config-variables";
@@ -9,6 +10,7 @@ import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import getModels from "../utils/get-models";
 import { getMainWindow } from "../main-window";
 import settings from "electron-settings";
+import path from "path";
 import { FEATURE_FLAGS } from "../../common/feature-flags";
 
 const customModelsSelect = async (event, message) => {
@@ -36,8 +38,6 @@ const customModelsSelect = async (event, message) => {
     logit("🚫 Select Custom Models Folder Operation Cancelled");
     return null;
   } else {
-    setSavedCustomModelsPath(folderPaths[0]);
-
     if (
       !folderPaths[0].endsWith(slash + "models") &&
       !folderPaths[0].endsWith(slash + "models" + slash)
@@ -53,6 +53,10 @@ const customModelsSelect = async (event, message) => {
       dialog.showMessageBoxSync(options);
       return null;
     }
+
+    // from here on this is the folder the page may ask for (see get-models-list.ts)
+    await settings.set(CUSTOM_MODELS_FOLDER_KEY, path.normalize(folderPaths[0]));
+    setSavedCustomModelsPath(folderPaths[0]);
 
     const models = await getModels(savedCustomModelsPath);
     mainWindow.webContents.send(

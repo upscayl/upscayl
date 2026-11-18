@@ -1,6 +1,6 @@
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
-import { app, ipcMain, protocol } from "electron";
+import { app, ipcMain } from "electron";
 import { ELECTRON_COMMANDS } from "../common/electron-commands";
 import logit from "./utils/logit";
 import openFolder from "./commands/open-folder";
@@ -13,6 +13,7 @@ import imageUpscayl from "./commands/image-upscayl";
 import {
   createMainWindow,
   getMainWindow,
+  restrictPagePermissions,
   setWindowButtonsHidden,
 } from "./main-window";
 import setVibrancy from "./commands/set-vibrancy";
@@ -22,11 +23,11 @@ import doubleUpscayl from "./commands/double-upscayl";
 import autoUpdate from "./commands/auto-update";
 import { FEATURE_FLAGS } from "../common/feature-flags";
 import settings from "electron-settings";
-import pasteImage from "./commands/paste-image";
-import path from "path";
+import pasteImage, { cleanUpPastedImages } from "./commands/paste-image";
 import getImagePaths from "./commands/get-image-paths";
 import getDroppedPathType from "./commands/get-dropped-path-type";
 import getFileSize from "./commands/get-file-size";
+import { registerProtocols } from "./utils/protocols";
 import removeBackground, {
   exportRemoveBackground,
   stopRemoveBackground,
@@ -35,19 +36,17 @@ import removeBackground, {
 // INITIALIZATION
 log.initialize({ preload: true });
 
-app.whenReady().then(async () => {
-  protocol.registerFileProtocol("file", (request, callback) => {
-    const pathname = decodeURI(request.url.replace("file:///", ""));
-    callback(pathname);
-  });
-  protocol.registerFileProtocol("public", (request, callback) => {
-    const filePath = decodeURI(request.url.replace("public:///", ""));
-    const publicRoot = app.isPackaged
-      ? path.join(app.getAppPath(), "out", "renderer")
-      : path.join(app.getAppPath(), "renderer", "public");
+// Pasted pictures are kept in the temp folder and removed when the app quits.
+app.on("before-quit", cleanUpPastedImages);
 
-    callback(path.join(publicRoot, filePath));
-  });
+// There is no <webview> in the app, so none may be attached.
+app.on("web-contents-created", (_event, contents) => {
+  contents.on("will-attach-webview", (event) => event.preventDefault());
+});
+
+app.whenReady().then(async () => {
+  registerProtocols();
+  restrictPagePermissions();
   logit("🚃 App Path: ", app.getAppPath());
 
   createMainWindow();
