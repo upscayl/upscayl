@@ -310,4 +310,9 @@
   "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl 会在此保存每张原图和结果的副本，用于历史记录标签页。",
   "No history yet": "暂无历史记录",
   "Finished images will show up here.": "完成的图片会显示在这里。"
+  "Send to Remove Background": "发送到背景移除",
+  "Send to Upscayl": "发送到 Upscayl",
+  "Finish the current job first": "请先完成当前任务",
+  "Transparency will be lost": "透明度将丢失",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "你的输出格式是 JPG。请在设置中切换为 PNG 或 WEBP，以保留透明背景。"
 }

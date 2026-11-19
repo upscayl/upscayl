@@ -310,4 +310,9 @@
   "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl จะบันทึกสำเนาของไฟล์ต้นฉบับและผลลัพธ์แต่ละรายการไว้ที่นี่สำหรับแท็บประวัติ",
   "No history yet": "ยังไม่มีประวัติ",
   "Finished images will show up here.": "รูปภาพที่เสร็จแล้วจะแสดงที่นี่"
+  "Send to Remove Background": "ส่งไปยังลบพื้นหลัง",
+  "Send to Upscayl": "ส่งไปยัง Upscayl",
+  "Finish the current job first": "โปรดทำงานปัจจุบันให้เสร็จก่อน",
+  "Transparency will be lost": "ความโปร่งใสจะหายไป",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "รูปแบบไฟล์ที่บันทึกคือ JPG โปรดเปลี่ยนเป็น PNG หรือ WEBP ในการตั้งค่าเพื่อคงพื้นหลังโปร่งใสไว้"
 }

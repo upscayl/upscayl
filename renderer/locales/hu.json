@@ -310,4 +310,9 @@
   "Upscayl saves a copy of each original and result here for the History tab.": "Az Upscayl itt menti az eredeti és az eredmény másolatát az Előzmények fülhöz.",
   "No history yet": "Még nincsenek előzmények",
   "Finished images will show up here.": "A kész képek itt jelennek meg."
+  "Send to Remove Background": "Küldés a Háttéreltávolítóba",
+  "Send to Upscayl": "Küldés az Upscayl-be",
+  "Finish the current job first": "Előbb fejezd be a jelenlegi feladatot",
+  "Transparency will be lost": "Az átlátszóság elvész",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "A kimeneti formátum JPG. A beállításokban válts PNG-re vagy WEBP-re az átlátszó háttér megtartásához."
 }

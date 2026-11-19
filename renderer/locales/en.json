@@ -310,4 +310,9 @@
   "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl saves a copy of each original and result here for the History tab.",
   "No history yet": "No history yet",
   "Finished images will show up here.": "Finished images will show up here."
+  "Send to Remove Background": "Send to Remove Background",
+  "Send to Upscayl": "Send to Upscayl",
+  "Finish the current job first": "Finish the current job first",
+  "Transparency will be lost": "Transparency will be lost",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background."
 }

@@ -310,4 +310,9 @@
   "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl menyimpan salinan setiap gambar asli dan hasilnya di sini untuk tab Riwayat.",
   "No history yet": "Belum ada riwayat",
   "Finished images will show up here.": "Gambar yang sudah selesai akan muncul di sini."
+  "Send to Remove Background": "Kirim ke Hapus Latar Belakang",
+  "Send to Upscayl": "Kirim ke Upscayl",
+  "Finish the current job first": "Selesaikan tugas saat ini terlebih dahulu",
+  "Transparency will be lost": "Transparansi akan hilang",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Format keluaran Anda adalah JPG. Ganti ke PNG atau WEBP di pengaturan untuk mempertahankan latar belakang transparan."
 }

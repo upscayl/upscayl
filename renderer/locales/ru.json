@@ -310,4 +310,9 @@
   "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl сохраняет здесь копию каждого оригинала и результата для вкладки «История».",
   "No history yet": "История пока пуста",
   "Finished images will show up here.": "Готовые изображения появятся здесь."
+  "Send to Remove Background": "Отправить в «Удаление фона»",
+  "Send to Upscayl": "Отправить в Upscayl",
+  "Finish the current job first": "Сначала завершите текущую задачу",
+  "Transparency will be lost": "Прозрачность будет потеряна",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Выбран формат вывода JPG. Чтобы сохранить прозрачный фон, переключитесь на PNG или WEBP в настройках."
 }

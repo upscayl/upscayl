@@ -1,7 +1,8 @@
 import { app, dialog } from "electron";
-import { copyFile, rm, stat } from "node:fs/promises";
+import { copyFile, mkdir, rm, stat } from "node:fs/promises";
+import { homedir } from "node:os";
 import { randomUUID } from "node:crypto";
-import { extname, join, resolve } from "node:path";
+import { extname, isAbsolute, join, relative, resolve } from "node:path";
 import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import {
   ExportRemoveBackgroundPayload,
@@ -20,7 +21,33 @@ import { saveHistoryEntry } from "../utils/history";
 
 let activeJob: ReturnType<typeof removeBackground> | null = null;
 let activeOutputPath = "";
-const completedOutputPaths = new Set<string>();
+
+
+const getRemoveBackgroundDir = () => {
+  const xdgDataHome = process.env.XDG_DATA_HOME;
+  const base =
+    process.platform === "linux"
+      ? join(
+          // XDG spec: ignore relative paths.
+          xdgDataHome && isAbsolute(xdgDataHome)
+            ? xdgDataHome
+            : join(homedir(), ".local", "share"),
+          "upscayl",
+        )
+      : app.getPath("userData");
+  return resolve(base, "remove-background");
+};
+
+const isRemoveBackgroundOutput = (filePath: string) => {
+  const rel = relative(getRemoveBackgroundDir(), resolve(filePath));
+  return (
+    rel.length > 0 &&
+    !rel.startsWith("..") &&
+    !isAbsolute(rel) &&
+    !rel.includes("/") &&
+    !rel.includes("\\")
+  );
+};
 
 const send = (command: string, payload: unknown) => {
   getMainWindow()?.webContents.send(command, payload);
@@ -84,8 +111,17 @@ const removeBackgroundCommand = async (
     return;
   }
 
+  const outputDir = getRemoveBackgroundDir();
+  try {
+    await mkdir(outputDir, { recursive: true });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    logit("❌ Remove Background: cannot create output folder: ", message);
+    sendError(`Could not create the output folder: ${outputDir}`);
+    return;
+  }
   const outputPath = join(
-    app.getPath("temp"),
+    outputDir,
     `upscayl-without-background-${randomUUID()}.png`,
   );
 
@@ -162,7 +198,13 @@ export const exportRemoveBackground = async (
   }
 
   const sourcePath = resolve(payload.sourcePath);
-  if (!completedOutputPaths.has(sourcePath)) {
+  if (
+    !isRemoveBackgroundOutput(sourcePath) ||
+    !(await stat(sourcePath).then(
+      (s) => s.isFile(),
+      () => false,
+    ))
+  ) {
     throw new Error(
       "This generated image is no longer available. Process the image again.",
     );

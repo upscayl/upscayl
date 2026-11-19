@@ -310,4 +310,9 @@
   "Upscayl saves a copy of each original and result here for the History tab.": "Upscayl salva qui una copia di ogni originale e risultato per la scheda Cronologia.",
   "No history yet": "Ancora nessuna cronologia",
   "Finished images will show up here.": "Le immagini completate compariranno qui."
+  "Send to Remove Background": "Invia a Rimuovi sfondo",
+  "Send to Upscayl": "Invia a Upscayl",
+  "Finish the current job first": "Termina prima l'attività corrente",
+  "Transparency will be lost": "La trasparenza andrà persa",
+  "Your output format is JPG. Switch to PNG or WEBP in settings to keep the transparent background.": "Il formato di output è JPG. Passa a PNG o WEBP nelle impostazioni per mantenere lo sfondo trasparente."
 }
