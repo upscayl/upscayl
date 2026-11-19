@@ -275,15 +275,6 @@ const MainContent = ({
         description: error,
       });
     };
-    window.addEventListener("paste", handlePasteEvent);
-    window.electron.on(
-      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_SUCCESS,
-      handlePasteImageSaveSuccess,
-    );
-    window.electron.on(
-      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
-      handlePasteImageSaveError,
-    );
     const handleCopyImageSuccess = () => {
       toast({
         title: "Copied!",
@@ -297,16 +288,31 @@ const MainContent = ({
         variant: "destructive",
       });
     };
-    window.electron.on(
+
+    window.addEventListener("paste", handlePasteEvent);
+    const unsubPasteSuccess = window.electron.on(
+      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_SUCCESS,
+      handlePasteImageSaveSuccess,
+    );
+    const unsubPasteError = window.electron.on(
+      ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
+      handlePasteImageSaveError,
+    );
+    const unsubCopySuccess = window.electron.on(
       ELECTRON_COMMANDS.COPY_IMAGE_SUCCESS,
       handleCopyImageSuccess,
     );
-    window.electron.on(
+    const unsubCopyError = window.electron.on(
       ELECTRON_COMMANDS.COPY_IMAGE_ERROR,
       handleCopyImageError,
     );
+
     return () => {
       window.removeEventListener("paste", handlePasteEvent);
+      if (typeof unsubPasteSuccess === "function") unsubPasteSuccess();
+      if (typeof unsubPasteError === "function") unsubPasteError();
+      if (typeof unsubCopySuccess === "function") unsubCopySuccess();
+      if (typeof unsubCopyError === "function") unsubCopyError();
     };
   }, [t, outputPath]);
 

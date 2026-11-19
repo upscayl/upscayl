@@ -109,6 +109,22 @@ ipcMain.on(ELECTRON_COMMANDS.DOUBLE_UPSCAYL, doubleUpscayl);
 
 ipcMain.on(ELECTRON_COMMANDS.PASTE_IMAGE, pasteImage);
 
+const loadContextMenuImage = (filePath: string) => {
+  if (/\.webp$/i.test(filePath)) {
+    try {
+      const buffer = fs.readFileSync(filePath);
+      const img = nativeImage.createFromBuffer(buffer);
+      if (!img.isEmpty()) return img;
+      return nativeImage.createFromDataURL(
+        `data:image/webp;base64,${buffer.toString("base64")}`,
+      );
+    } catch {
+      return nativeImage.createFromPath(filePath);
+    }
+  }
+  return nativeImage.createFromPath(filePath);
+};
+
 ipcMain.on(
   ELECTRON_COMMANDS.SHOW_UPSCAYL_CONTEXT_MENU,
   (event, payload) => {
@@ -131,7 +147,7 @@ ipcMain.on(
           label: "Copy Image",
           click: () => {
             if (fs.existsSync(clean)) {
-              const img = nativeImage.createFromPath(clean);
+              const img = loadContextMenuImage(clean);
               if (!img.isEmpty()) {
                 clipboard.writeImage(img);
                 event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_SUCCESS, clean);
