@@ -1,12 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { FolderOpenIcon, HistoryIcon, Trash2Icon } from "lucide-react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
-import { historyAtom, loadHistoryItems } from "@/atoms/history-atom";
+import {
+  historyAtom,
+  HistoryItem,
+  loadHistoryItems,
+} from "@/atoms/history-atom";
 import { Button } from "@/components/ui/button";
 import useTranslation from "../hooks/use-translation";
 import { ClearHistoryDialog } from "./clear-history-dialog";
 import { HistoryCard } from "./history-card";
+import HistoryFolderCard from "./history-folder-card";
+
+type HistoryGroup = {
+  type: "single" | "batch";
+  key: string;
+  createdAt: number;
+  items: HistoryItem[];
+};
+
+const toGroup = (
+  type: HistoryGroup["type"],
+  id: string,
+  group: HistoryItem[],
+): HistoryGroup => ({
+  type,
+  key: `${type}-${id}`,
+  createdAt: group[group.length - 1].createdAt,
+  items: group,
+});
 
 const History = () => {
   const [showClearDialog, setShowClearDialog] = useState(false);
@@ -18,12 +41,34 @@ const History = () => {
     (item) => item.kind && item.outputPath,
   );
 
+  const entries = useMemo((): HistoryGroup[] => {
+    const batches: Record<string, HistoryItem[]> = {};
+    const singles: HistoryItem[] = [];
+
+    for (const item of items) {
+      if (item.settings.entryKind === "batch-upscayl") {
+        (batches[item.batchId] ??= []).push(item);
+      } else {
+        singles.push(item);
+      }
+    }
+
+    return [
+      ...Object.entries(batches).map(([batchId, items]) =>
+        toGroup("batch", batchId, items),
+      ),
+      ...(singles.map((item) =>
+        toGroup("single", item.id.toString(), [item]),
+      ) as HistoryGroup[]),
+    ].sort((a, b) => b.createdAt - a.createdAt);
+  }, [items]);
+
   useEffect(() => {
     load();
   }, []);
 
   return (
-    <section className="flex size-full min-h-0 flex-col overflow-hidden rounded-4xl border bg-secondary glass-panel">
+    <section className="flex size-full min-h-0 flex-col overflow-y-auto rounded-4xl border bg-secondary glass-panel">
       <header className="flex shrink-0 items-start justify-between gap-4 border-b border-border/70 px-5 py-4 sm:px-6">
         <div className="flex items-start gap-3">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
@@ -65,7 +110,7 @@ const History = () => {
       </header>
 
       <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
-        {items.length === 0 ? (
+        {entries.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center text-center">
             <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
               <HistoryIcon
@@ -81,9 +126,15 @@ const History = () => {
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {items.map((item) => (
-              <HistoryCard key={item.id} item={item} />
-            ))}
+            {entries.map((entry) => {
+              if (entry.type === "single") {
+                return entry.items.map((item) => (
+                  <HistoryCard key={`${entry.key}-${item.id}`} item={item} />
+                ));
+              }
+
+              return <HistoryFolderCard key={entry.key} items={entry.items} />;
+            })}
           </div>
         )}
       </div>

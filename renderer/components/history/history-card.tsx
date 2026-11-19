@@ -28,7 +28,6 @@ export const HistoryCard = ({ item }: { item: HistoryItem }) => {
   const [missing, setMissing] = useState(false);
   const [open, setOpen] = useState(false);
   const [maximize, setMaximize] = useState(false);
-  // const isBatch = item.kind === "batch-upscayl";
   const isRemoveBackground = item.kind === "remove-background";
   const title = getFilenameFromPath(item.outputPath);
   const kindLabel = {
@@ -53,7 +52,6 @@ export const HistoryCard = ({ item }: { item: HistoryItem }) => {
       <button
         type="button"
         disabled={missing}
-        // onClick={() => (isBatch ? openItem() : setOpen(true))}
         onClick={() => setOpen(true)}
         className="block w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
