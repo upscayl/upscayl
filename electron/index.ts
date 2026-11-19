@@ -23,6 +23,7 @@ import settings from "electron-settings";
 import pasteImage from "./commands/paste-image";
 import path from "path";
 import fs from "fs";
+import { fileURLToPath } from "url";
 
 // INITIALIZATION
 log.initialize({ preload: true });
@@ -114,10 +115,16 @@ ipcMain.on(
     try {
       const target = payload?.imagePath;
       if (!target) return;
-      let clean = decodeURIComponent(
-        String(target).replace(/^file:\/\/\/?/, ""),
-      );
-      clean = path.win32 ? path.win32.normalize(clean) : path.normalize(clean);
+
+      let clean = String(target).trim();
+      if (clean.startsWith("file://")) {
+        try {
+          clean = fileURLToPath(clean);
+        } catch {
+          clean = clean.replace(/^file:\/\/\/?/, "");
+        }
+      }
+      clean = path.normalize(clean);
 
       const template: Electron.MenuItemConstructorOptions[] = [
         {
@@ -125,9 +132,13 @@ ipcMain.on(
           click: () => {
             if (fs.existsSync(clean)) {
               const img = nativeImage.createFromPath(clean);
-              clipboard.writeImage(img);
-              event.sender.send("COPY_IMAGE_SUCCESS", clean);
+              if (!img.isEmpty()) {
+                clipboard.writeImage(img);
+                event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_SUCCESS, clean);
+                return;
+              }
             }
+            event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_ERROR, "Failed to copy image");
           },
         },
         {
@@ -135,9 +146,10 @@ ipcMain.on(
           click: () => {
             if (fs.existsSync(clean)) {
               shell.showItemInFolder(clean);
+            } else {
+              const folder = path.dirname(clean);
+              shell.openPath(folder);
             }
-            const folder = path.dirname(clean);
-            shell.openPath(folder);
           },
         },
       ];

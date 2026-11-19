@@ -82,34 +82,7 @@ const MainContent = ({
     if (!batchMode) {
       return imagePath.length === 0 && upscaledImagePath.length === 0;
     } else {
-      const copyImageHandler = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (upscaledImagePath) {
-      window.electron.send(ELECTRON_COMMANDS.COPY_IMAGE, upscaledImagePath);
-      toast({
-        title: "Copied!",
-        description: "Image copied to clipboard successfully.",
-      });
-    }
-  };
-
-  const openUpscaledFolderHandler = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (upscaledImagePath) {
-      window.electron.send(ELECTRON_COMMANDS.OPEN_FOLDER, upscaledImagePath);
-    }
-  };
-
-  const handleContextMenu = (e: React.MouseEvent) => {
-    if (upscaledImagePath) {
-      e.preventDefault();
-      window.electron.send(ELECTRON_COMMANDS.SHOW_UPSCAYL_CONTEXT_MENU, {
-        imagePath: upscaledImagePath,
-      });
-    }
-  };
-
-  return (
+      return (
         batchFolderPath.length === 0 && upscaledBatchFolderPath.length === 0
       );
     }
@@ -142,6 +115,29 @@ const MainContent = ({
       ELECTRON_COMMANDS.OPEN_FOLDER,
       upscaledBatchFolderPath,
     );
+  };
+
+  const copyImageHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (upscaledImagePath) {
+      window.electron.send(ELECTRON_COMMANDS.COPY_IMAGE, upscaledImagePath);
+    }
+  };
+
+  const openUpscaledFolderHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (upscaledImagePath) {
+      window.electron.send(ELECTRON_COMMANDS.OPEN_FOLDER, upscaledImagePath);
+    }
+  };
+
+  const handleContextMenu = (e: React.MouseEvent) => {
+    if (upscaledImagePath) {
+      e.preventDefault();
+      window.electron.send(ELECTRON_COMMANDS.SHOW_UPSCAYL_CONTEXT_MENU, {
+        imagePath: upscaledImagePath,
+      });
+    }
   };
 
   const sanitizedImagePath = useMemo(
@@ -288,6 +284,27 @@ const MainContent = ({
       ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
       handlePasteImageSaveError,
     );
+    const handleCopyImageSuccess = () => {
+      toast({
+        title: "Copied!",
+        description: "Image copied to clipboard successfully.",
+      });
+    };
+    const handleCopyImageError = (_: any, error: string) => {
+      toast({
+        title: "Copy Failed",
+        description: error || "Failed to copy image to clipboard.",
+        variant: "destructive",
+      });
+    };
+    window.electron.on(
+      ELECTRON_COMMANDS.COPY_IMAGE_SUCCESS,
+      handleCopyImageSuccess,
+    );
+    window.electron.on(
+      ELECTRON_COMMANDS.COPY_IMAGE_ERROR,
+      handleCopyImageError,
+    );
     return () => {
       window.removeEventListener("paste", handlePasteEvent);
     };
@@ -359,14 +376,7 @@ const MainContent = ({
         </div>
       )}
 
-      {!batchMode && viewType === "lens" && upscaledImagePath && imagePath && (
-        <LensViewer
-          sanitizedImagePath={sanitizedImagePath}
-          sanitizedUpscaledImagePath={sanitizedUpscaledImagePath}
-        />
-      )}
-
-            {/* QUICK ACTIONS FOR UPSCALED IMAGE */}
+      {/* QUICK ACTIONS FOR UPSCALED IMAGE */}
       {!batchMode && upscaledImagePath.length > 0 && (
         <div className="absolute top-4 right-16 z-40 flex items-center gap-2 rounded-xl border border-base-300 bg-base-100/90 p-2 shadow-2xl backdrop-blur-md">
           <button
@@ -388,6 +398,13 @@ const MainContent = ({
         </div>
       )}
 
+      {!batchMode && viewType === "lens" && upscaledImagePath && imagePath && (
+        <LensViewer
+          sanitizedImagePath={sanitizedImagePath}
+          sanitizedUpscaledImagePath={sanitizedUpscaledImagePath}
+        />
+      )}
+
       {/* COMPARISON SLIDER */}
       {!batchMode &&
         viewType === "slider" &&
@@ -404,3 +421,5 @@ const MainContent = ({
 };
 
 export default MainContent;
+
+

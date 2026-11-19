@@ -1,26 +1,45 @@
 import { clipboard, nativeImage } from "electron";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+import { ELECTRON_COMMANDS } from "../../common/electron-commands";
 import logit from "../utils/logit";
 
 const copyImage = (event: any, imagePath: string) => {
   try {
-    if (!imagePath) return;
-    let clean = decodeURIComponent(
-      String(imagePath).replace(/^file:\/\/\/?/, ""),
-    );
-    clean = path.win32 ? path.win32.normalize(clean) : path.normalize(clean);
+    if (!imagePath) {
+      event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_ERROR, "No image path provided");
+      return;
+    }
+
+    let clean = String(imagePath).trim();
+    if (clean.startsWith("file://")) {
+      try {
+        clean = fileURLToPath(clean);
+      } catch {
+        clean = clean.replace(/^file:\/\/\/?/, "");
+      }
+    }
+    clean = path.normalize(clean);
 
     if (fs.existsSync(clean)) {
       const img = nativeImage.createFromPath(clean);
+      if (img.isEmpty()) {
+        logit("❌ Failed to create image from path: ", clean);
+        event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_ERROR, "Invalid image format");
+        return;
+      }
       clipboard.writeImage(img);
       logit("📋 Image copied to clipboard: ", clean);
-      event.sender.send("COPY_IMAGE_SUCCESS", clean);
+      event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_SUCCESS, clean);
     } else {
       logit("❌ File not found for copying: ", clean);
+      event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_ERROR, "Image file not found on disk");
     }
   } catch (error: any) {
-    logit("Error copying image: ", error?.message || error);
+    const msg = error?.message || String(error);
+    logit("Error copying image: ", msg);
+    event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_ERROR, msg);
   }
 };
 
