@@ -50,7 +50,7 @@ export default function HistoryFolderCard({ items }: { items: HistoryItem[] }) {
 
           <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 via-black/30 to-transparent px-4 pt-10 pb-3 text-white">
             <p className="truncate text-sm font-semibold">
-              {t("Batch")} · {items.length} {t("images")}
+              {t("Batch Upscayl")} · {items.length}
             </p>
             <p className="mt-0.5 truncate text-xs text-white/70">
               {[date, ...details].join(" · ")}
@@ -90,7 +90,7 @@ export default function HistoryFolderCard({ items }: { items: HistoryItem[] }) {
         <DialogContent className="flex h-[88vh] w-[92vw] flex-col gap-3 rounded-3xl p-3 sm:max-w-[min(92vw,1400px)]">
           <div className="pr-10 pl-1">
             <DialogTitle className="text-base font-semibold">
-              {t("Batch")} · {items.length} {t("images")}
+              {t("Batch Upscayl")} · {items.length}
             </DialogTitle>
             <DialogDescription className="mt-0.5 text-xs">
               {[date, ...details].join(" · ")}
