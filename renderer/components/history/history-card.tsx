@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useSetAtom } from "jotai";
 import {
   ExternalLinkIcon,
-  FolderIcon,
   FolderSearchIcon,
   ImageOffIcon,
   XIcon,
@@ -29,9 +28,9 @@ export const HistoryCard = ({ item }: { item: HistoryItem }) => {
   const [missing, setMissing] = useState(false);
   const [open, setOpen] = useState(false);
   const [maximize, setMaximize] = useState(false);
-  const isBatch = item.kind === "batch-upscayl";
+  // const isBatch = item.kind === "batch-upscayl";
   const isRemoveBackground = item.kind === "remove-background";
-  const title = item.settings?.name || getFilenameFromPath(item.outputPath);
+  const title = getFilenameFromPath(item.outputPath);
   const kindLabel = {
     upscayl: t("Upscayl"),
     "double-upscayl": t("Double Upscayl"),
@@ -54,7 +53,8 @@ export const HistoryCard = ({ item }: { item: HistoryItem }) => {
       <button
         type="button"
         disabled={missing}
-        onClick={() => (isBatch ? openItem() : setOpen(true))}
+        // onClick={() => (isBatch ? openItem() : setOpen(true))}
+        onClick={() => setOpen(true)}
         className="block w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         <div
@@ -63,15 +63,7 @@ export const HistoryCard = ({ item }: { item: HistoryItem }) => {
             isRemoveBackground && "transparency-grid",
           )}
         >
-          {isBatch ? (
-            <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-primary/15 to-transparent text-primary">
-              <FolderIcon
-                className="size-12"
-                strokeWidth={1.5}
-                aria-hidden="true"
-              />
-            </div>
-          ) : missing ? (
+          {missing ? (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
               <ImageOffIcon className="size-8" aria-hidden="true" />
               {t("File not found")}
@@ -106,7 +98,7 @@ export const HistoryCard = ({ item }: { item: HistoryItem }) => {
           variant="ghost"
           size="icon-sm"
           disabled={missing}
-          aria-label={isBatch ? t("Open folder") : t("Open image")}
+          aria-label={t("Open image")}
           className="bg-black/40 text-white backdrop-blur-md hover:bg-black/60 hover:text-white"
           onClick={openItem}
         >
@@ -133,56 +125,54 @@ export const HistoryCard = ({ item }: { item: HistoryItem }) => {
         </Button>
       </div>
 
-      {!isBatch && (
-        <Dialog
-          open={open}
-          onOpenChange={(value) => {
-            setOpen(value);
-            if (!value) setMaximize(false);
-          }}
+      <Dialog
+        open={open}
+        onOpenChange={(value) => {
+          setOpen(value);
+          if (!value) setMaximize(false);
+        }}
+      >
+        <DialogContent
+          className={cn(
+            "flex flex-col gap-3 p-3",
+            maximize
+              ? "h-screen w-screen max-w-none rounded-none sm:max-w-none"
+              : "h-[88vh] w-[92vw] rounded-3xl sm:max-w-[min(92vw,1400px)]",
+          )}
         >
-          <DialogContent
-            className={cn(
-              "flex flex-col gap-3 p-3",
-              maximize
-                ? "h-screen w-screen max-w-none rounded-none sm:max-w-none"
-                : "h-[88vh] w-[92vw] rounded-3xl sm:max-w-[min(92vw,1400px)]",
-            )}
-          >
-            <div className="flex items-start justify-between gap-4 pr-10 pl-1">
-              <div className="min-w-0">
-                <DialogTitle className="truncate text-base font-semibold">
-                  {title}
-                </DialogTitle>
-                <DialogDescription className="mt-0.5 truncate text-xs">
-                  {[kindLabel, date, ...details].join(" · ")}
-                </DialogDescription>
-              </div>
-              <div className="flex shrink-0 gap-1">
-                <Button variant="ghost" size="sm" onClick={openItem}>
-                  <ExternalLinkIcon aria-hidden="true" />
-                  {t("Open image")}
-                </Button>
-                <Button variant="ghost" size="sm" onClick={showItem}>
-                  <FolderSearchIcon aria-hidden="true" />
-                  {t("Show in folder")}
-                </Button>
-              </div>
+          <div className="flex items-start justify-between gap-4 pr-10 pl-1">
+            <div className="min-w-0">
+              <DialogTitle className="truncate text-base font-semibold">
+                {title}
+              </DialogTitle>
+              <DialogDescription className="mt-0.5 truncate text-xs">
+                {[kindLabel, date, ...details].join(" · ")}
+              </DialogDescription>
             </div>
-            <div className="min-h-0 flex-1">
-              <HistoryViewer
-                item={item}
-                maximize={maximize}
-                setMaximize={setMaximize}
-                onMissing={() => {
-                  setMissing(true);
-                  setOpen(false);
-                }}
-              />
+            <div className="flex shrink-0 gap-1">
+              <Button variant="ghost" size="sm" onClick={openItem}>
+                <ExternalLinkIcon aria-hidden="true" />
+                {t("Open image")}
+              </Button>
+              <Button variant="ghost" size="sm" onClick={showItem}>
+                <FolderSearchIcon aria-hidden="true" />
+                {t("Show in folder")}
+              </Button>
             </div>
-          </DialogContent>
-        </Dialog>
-      )}
+          </div>
+          <div className="min-h-0 flex-1">
+            <HistoryViewer
+              item={item}
+              maximize={maximize}
+              setMaximize={setMaximize}
+              onMissing={() => {
+                setMissing(true);
+                setOpen(false);
+              }}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
