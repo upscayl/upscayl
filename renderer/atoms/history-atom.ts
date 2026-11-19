@@ -46,6 +46,17 @@ export const removeHistoryItemAtom = atom(null, (get, set, id: number) => {
   if (item) deleteHistoryEntry({ mode: "single", id: item.id });
 });
 
+export const removeHistoryBatchAtom = atom(
+  null,
+  (get, set, batchId: string) => {
+    deleteHistoryEntry({ mode: "batch", batch_id: batchId });
+    set(
+      historyAtom,
+      get(historyAtom).filter((item) => item.batchId !== batchId),
+    );
+  },
+);
+
 export const clearHistoryAtom = atom(null, (_, set) => {
   set(historyAtom, []);
   deleteHistoryEntry({ mode: "all" });

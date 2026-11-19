@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FolderIcon } from "lucide-react";
-import { HistoryItem } from "@/atoms/history-atom";
+import { FolderIcon, FolderSearchIcon, XIcon } from "lucide-react";
+import { HistoryItem, removeHistoryBatchAtom } from "@/atoms/history-atom";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -10,22 +10,32 @@ import {
 } from "@/components/ui/dialog";
 import useTranslation from "../hooks/use-translation";
 import { HistoryCard } from "./history-card";
-import { imageUrl } from "./image-utils";
+import { Button } from "../ui/button";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import { useSetAtom } from "jotai";
 
 export default function HistoryFolderCard({ items }: { items: HistoryItem[] }) {
   const t = useTranslation();
   const [open, setOpen] = useState(false);
 
-  const cover = items[0];
   const latest = items[items.length - 1];
   const date = new Date(latest.createdAt).toLocaleString();
+  const removeHistoryItem = useSetAtom(removeHistoryBatchAtom);
+  const batchId = items[0]?.batchId;
+
   const details = [
     latest.settings.model,
     latest.settings.scale && `${latest.settings.scale}x`,
   ].filter(Boolean);
 
+  const showInFolder = () =>
+    window.electron.send(
+      ELECTRON_COMMANDS.SHOW_IN_FOLDER,
+      items[0]?.outputPath,
+    );
+
   return (
-    <div className="relative">
+    <div className="group relative">
       <button
         type="button"
         onClick={() => setOpen(true)}
@@ -53,6 +63,28 @@ export default function HistoryFolderCard({ items }: { items: HistoryItem[] }) {
         <FolderIcon className="mr-1 size-3" aria-hidden="true" />
         {items.length}
       </Badge>
+
+      <div className="absolute top-2 right-2 flex gap-1 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          aria-label={t("Show in folder")}
+          className="bg-black/40 text-white backdrop-blur-md hover:bg-black/60 hover:text-white"
+          onClick={showInFolder}
+        >
+          <FolderSearchIcon aria-hidden="true" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          aria-label={t("Remove from history")}
+          className="bg-black/40 text-white backdrop-blur-md hover:bg-destructive hover:text-white"
+          disabled={typeof batchId === "undefined"}
+          onClick={() => batchId && removeHistoryItem(batchId)}
+        >
+          <XIcon aria-hidden="true" />
+        </Button>
+      </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="flex h-[88vh] w-[92vw] flex-col gap-3 rounded-3xl p-3 sm:max-w-[min(92vw,1400px)]">
