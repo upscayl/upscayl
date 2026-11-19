@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { localFileUrl } from "@/lib/file-url";
 import { ReactCompareSlider } from "react-compare-slider";
 import useTranslation from "../hooks/use-translation";
 import { Button } from "../ui/button";
@@ -53,7 +54,7 @@ const SliderView = ({
 
           <img
             /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-            src={"file:///" + sanitizedImagePath}
+            src={localFileUrl(sanitizedImagePath)}
             alt={t("Original")}
             onMouseMove={handleMouseMove}
             style={{
@@ -98,7 +99,7 @@ const SliderView = ({
           )}
           <img
             /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
-            src={"file:///" + sanitizedUpscaledImagePath}
+            src={localFileUrl(sanitizedUpscaledImagePath)}
             alt={t("Upscayled")}
             style={{
               objectFit: "contain",

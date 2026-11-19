@@ -1,8 +1,8 @@
 import { IpcRenderer } from "electron";
 
 export interface IElectronAPI {
-  on: (command, func?) => IpcRenderer;
-  off: (command, func?) => IpcRenderer;
+  /** Returns a function that removes the listener again. */
+  on: (command, func?) => () => void;
   send: <T>(command, func?: T) => IpcRenderer;
   invoke: (command, func?) => any;
   getPathForFile: (file: File) => string;

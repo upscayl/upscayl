@@ -3,6 +3,15 @@
   "appId": "org.upscayl.Upscayl",
   "buildVersion": "25.06.01",
   "asar": true,
+  "electronFuses": {
+    "runAsNode": false,
+    "enableNodeOptionsEnvironmentVariable": false,
+    "enableNodeCliInspectArguments": false,
+    "enableEmbeddedAsarIntegrityValidation": true,
+    "onlyLoadAppFromAsar": true,
+    "grantFileProtocolExtraPrivileges": true,
+    "resetAdHocDarwinSignature": true
+  },
   "asarUnpack": ["**/node_modules/sharp/**/*", "**/node_modules/@img/**/*"],
   "extraFiles": [
     {
