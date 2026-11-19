@@ -119,16 +119,16 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             const outFile = outputFolderPath + slash + file;
             const originalFile = inputDir + slash + file;
             if (fs.existsSync(outFile) && fs.existsSync(originalFile)) {
-                try {
-                  await copyMetadata(inputDir, outFile);
-                  logit("✅ Metadata copied to: ", outFile);
-                } catch (error) {
-                  logit("❌ Error copying metadata: ", error);
-                  mainWindow.webContents.send(
-                    ELECTRON_COMMANDS.METADATA_ERROR,
-                    error,
-                  );
-                } 
+              try {
+                await copyMetadata(inputDir, outFile);
+                logit("✅ Metadata copied to: ", outFile);
+              } catch (error) {
+                logit("❌ Error copying metadata: ", error);
+                mainWindow.webContents.send(
+                  ELECTRON_COMMANDS.METADATA_ERROR,
+                  error,
+                );
+              }
             }
           }
         } catch (err) {
@@ -141,7 +141,7 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
       );
       void saveHistoryEntry({
         kind: "batch-upscayl",
-        originalPath: inputDir,
+        inputPath: inputDir,
         outputPath: outputFolderPath,
         model,
         scale,

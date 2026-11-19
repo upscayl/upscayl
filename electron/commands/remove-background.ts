@@ -117,7 +117,7 @@ const removeBackgroundCommand = async (
         send(ELECTRON_COMMANDS.REMOVE_BACKGROUND_DONE, payload);
         void saveHistoryEntry({
           kind: "remove-background",
-          originalPath: inputPath,
+          inputPath: inputPath,
           outputPath: result.outputPath,
           width: result.width,
           height: result.height,

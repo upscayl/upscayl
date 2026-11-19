@@ -138,10 +138,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           logit("✅ Metadata copied to: ", outFile);
         } catch (error) {
           logit("❌ Error copying metadata: ", error);
-          mainWindow.webContents.send(
-            ELECTRON_COMMANDS.METADATA_ERROR,
-            error,
-          );
+          mainWindow.webContents.send(ELECTRON_COMMANDS.METADATA_ERROR, error);
         }
       }
       mainWindow.webContents.send(
@@ -150,7 +147,7 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
       );
       void saveHistoryEntry({
         kind: "double-upscayl",
-        originalPath: imagePath,
+        inputPath: imagePath,
         outputPath: outFile,
         model,
         scale,

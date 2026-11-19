@@ -1,28 +1,35 @@
-import { app, dialog, shell } from "electron";
+import { app, dialog, IpcMainEvent, shell } from "electron";
 import settings from "electron-settings";
-import { lstat, mkdir, readdir, rm } from "node:fs/promises";
-import { isAbsolute } from "node:path";
+import { mkdir } from "node:fs/promises";
 import { FEATURE_FLAGS } from "../../common/feature-flags";
 import { getHistoryDir } from "../utils/history";
 import logit from "../utils/logit";
+import {
+  listHistoryEntries,
+  deleteHistoryEntry as deleteEntry,
+  deleteHistoryEntriesByBatch,
+  clearHistoryEntries,
+} from "../../database/history";
+import { DeleteHistoryTarget } from "@common/types/types";
 
-const ENTRY_FILE = /^(original|result)(\.[a-z0-9]+)?$/i;
+export const getHistoryEntries = () => listHistoryEntries();
 
-export const deleteHistoryEntry = async (_event, payload) => {
-  if (typeof payload !== "string" || !isAbsolute(payload)) return;
+export const deleteHistoryEntry = async (
+  _: IpcMainEvent,
+  payload: DeleteHistoryTarget,
+) => {
+  const suffix = payload.mode === "single" ? "y" : "ies";
+
   try {
-    const stats = await lstat(payload);
-    if (!stats.isDirectory() || stats.isSymbolicLink()) return;
-    const files = await readdir(payload, { withFileTypes: true });
-    if (
-      files.length === 0 ||
-      !files.every((file) => file.isFile() && ENTRY_FILE.test(file.name))
-    )
-      return;
-    logit("🗑️ Deleting History Entry: ", payload);
-    await rm(payload, { recursive: true, force: true });
+    if (payload.mode === "single") {
+      deleteEntry(payload.id);
+    } else if (payload.mode === "batch") {
+      deleteHistoryEntriesByBatch(payload.batch_id);
+    } else clearHistoryEntries();
+
+    logit(`🗑️ Deleting History Entr${suffix}`);
   } catch (error) {
-    logit("❌ Delete History Entry Error: ", error);
+    logit(`❌ Delete History Entry${suffix} Error: `, error);
   }
 };
 

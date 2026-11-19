@@ -7,6 +7,7 @@ import openFolder from "./commands/open-folder";
 import showInFolder from "./commands/show-in-folder";
 import {
   deleteHistoryEntry,
+  getHistoryEntries,
   getHistoryFolder,
   openHistoryFolder,
   selectHistoryFolder,
@@ -107,9 +108,10 @@ ipcMain.on(ELECTRON_COMMANDS.STOP, stop);
 
 ipcMain.on(ELECTRON_COMMANDS.OPEN_FOLDER, openFolder);
 ipcMain.on(ELECTRON_COMMANDS.SHOW_IN_FOLDER, showInFolder);
-ipcMain.on(ELECTRON_COMMANDS.DELETE_HISTORY_ENTRY, deleteHistoryEntry);
 ipcMain.on(ELECTRON_COMMANDS.OPEN_HISTORY_FOLDER, openHistoryFolder);
+ipcMain.on(ELECTRON_COMMANDS.DELETE_HISTORY_ENTRY, deleteHistoryEntry);
 
+ipcMain.handle(ELECTRON_COMMANDS.GET_HISTORY_ENTRIES, getHistoryEntries);
 ipcMain.handle(ELECTRON_COMMANDS.GET_HISTORY_FOLDER, getHistoryFolder);
 ipcMain.handle(ELECTRON_COMMANDS.SELECT_HISTORY_FOLDER, selectHistoryFolder);
 

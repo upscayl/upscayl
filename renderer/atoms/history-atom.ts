@@ -1,21 +1,32 @@
 import { atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
-import { HistoryEntry } from "@common/types/types";
+import { DeleteHistoryTarget, HistoryEntry } from "@common/types/types";
 
 export type HistoryItem = HistoryEntry;
 
-const deleteHistoryEntry = (item: HistoryItem) => {
-  if (item.folderPath)
-    window.electron.send(
-      ELECTRON_COMMANDS.DELETE_HISTORY_ENTRY,
-      item.folderPath,
-    );
+const deleteHistoryEntry = (payload: DeleteHistoryTarget) => {
+  window.electron.send(ELECTRON_COMMANDS.DELETE_HISTORY_ENTRY, payload);
 };
 
-export const historyAtom = atomWithStorage<HistoryItem[]>(
-  "upscayl-history",
-  [],
+export const historyAtom = atom<HistoryItem[]>([]);
+
+export const loadHistoryItems = atom(null, (_, set) => {
+  window.electron
+    .invoke(ELECTRON_COMMANDS.GET_HISTORY_ENTRIES)
+    .then((items: HistoryItem[]) => set(historyAtom, items));
+});
+
+const itemKey = (entry: HistoryEntry) =>
+  entry.kind === "batch-upscayl" ? `batch:${entry.batchId}` : `run:${entry.id}`;
+
+export const addHistoryItemsAtom = atom(
+  null,
+  (get, set, items: HistoryEntry[]) => {
+    const existing = new Set(get(historyAtom).map((e) => itemKey(e)));
+    const fresh = items.filter((e) => !existing.has(itemKey(e)));
+    if (fresh.length === 0) return;
+    set(historyAtom, [...fresh, ...get(historyAtom)]);
+  },
 );
 
 export const addHistoryItemAtom = atom(null, (get, set, item: HistoryItem) => {
@@ -25,18 +36,17 @@ export const addHistoryItemAtom = atom(null, (get, set, item: HistoryItem) => {
   ]);
 });
 
-export const removeHistoryItemAtom = atom(null, (get, set, id: string) => {
+export const removeHistoryItemAtom = atom(null, (get, set, id: number) => {
   const current = get(historyAtom);
   const item = current.find((entry) => entry.id === id);
   set(
     historyAtom,
     current.filter((entry) => entry.id !== id),
   );
-  if (item) deleteHistoryEntry(item);
+  if (item) deleteHistoryEntry({ mode: "single", id: item.id });
 });
 
-export const clearHistoryAtom = atom(null, (get, set) => {
-  const current = get(historyAtom);
+export const clearHistoryAtom = atom(null, (_, set) => {
   set(historyAtom, []);
-  current.forEach(deleteHistoryEntry);
+  deleteHistoryEntry({ mode: "all" });
 });

@@ -1,20 +1,26 @@
-import { useState } from "react";
-import { useAtomValue } from "jotai";
+import { useEffect, useState } from "react";
+import { useAtomValue, useSetAtom } from "jotai";
 import { FolderOpenIcon, HistoryIcon, Trash2Icon } from "lucide-react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
-import { historyAtom } from "@/atoms/history-atom";
+import { historyAtom, loadHistoryItems } from "@/atoms/history-atom";
 import { Button } from "@/components/ui/button";
 import useTranslation from "../hooks/use-translation";
 import { ClearHistoryDialog } from "./clear-history-dialog";
 import { HistoryCard } from "./history-card";
 
 const History = () => {
+  const [showClearDialog, setShowClearDialog] = useState(false);
   const t = useTranslation();
+  const load = useSetAtom(loadHistoryItems);
+
   // Entries saved by an earlier build have no kind/outputPath.
   const items = useAtomValue(historyAtom).filter(
     (item) => item.kind && item.outputPath,
   );
-  const [showClearDialog, setShowClearDialog] = useState(false);
+
+  useEffect(() => {
+    load();
+  }, []);
 
   return (
     <section className="flex size-full min-h-0 flex-col overflow-hidden rounded-4xl border bg-secondary glass-panel">

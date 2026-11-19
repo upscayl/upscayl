@@ -26,15 +26,12 @@ export const HistoryViewer = ({
   const [zoomAmount, setZoomAmount] = useState("100");
   const [sizes, setSizes] = useState<{ before: ImageSize; after: ImageSize }>();
   const isRemoveBackground = item.kind === "remove-background";
-  const sanitizedImagePath = sanitizePath(item.originalPath);
+  const sanitizedImagePath = sanitizePath(item.inputPath);
   const sanitizedUpscaledImagePath = sanitizePath(item.outputPath);
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([
-      loadImageSize(item.originalPath),
-      loadImageSize(item.outputPath),
-    ])
+    Promise.all([loadImageSize(item.inputPath), loadImageSize(item.outputPath)])
       .then(([before, after]) => {
         if (!cancelled) setSizes({ before, after });
       })
@@ -44,7 +41,7 @@ export const HistoryViewer = ({
     return () => {
       cancelled = true;
     };
-  }, [item.originalPath, item.outputPath]);
+  }, [item.inputPath, item.outputPath]);
 
   const aspectRatio = sizes && sizes.after.width / sizes.after.height;
 
@@ -82,7 +79,7 @@ export const HistoryViewer = ({
               afterSize={
                 sizes ? `${sizes.after.width} x ${sizes.after.height}` : ""
               }
-              scale={item.scale ?? ""}
+              scale={item.settings?.scale ?? ""}
               isMaximized={maximize}
               zoomAmount={zoomAmount}
               afterLabel={isRemoveBackground ? t("After") : undefined}

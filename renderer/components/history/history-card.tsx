@@ -31,7 +31,7 @@ export const HistoryCard = ({ item }: { item: HistoryItem }) => {
   const [maximize, setMaximize] = useState(false);
   const isBatch = item.kind === "batch-upscayl";
   const isRemoveBackground = item.kind === "remove-background";
-  const title = item.name || getFilenameFromPath(item.outputPath);
+  const title = item.settings?.name || getFilenameFromPath(item.outputPath);
   const kindLabel = {
     upscayl: t("Upscayl"),
     "double-upscayl": t("Double Upscayl"),
@@ -40,9 +40,8 @@ export const HistoryCard = ({ item }: { item: HistoryItem }) => {
   }[item.kind];
   const date = new Date(item.createdAt).toLocaleString();
   const details = [
-    item.model,
-    item.scale && `${item.scale}x`,
-    item.width && item.height && `${item.width} × ${item.height}`,
+    item.settings.model,
+    item.settings.scale && `${item.settings.scale}x`,
   ].filter(Boolean);
 
   const openItem = () =>

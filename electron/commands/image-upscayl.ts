@@ -175,7 +175,7 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
         mainWindow.webContents.send(ELECTRON_COMMANDS.UPSCAYL_DONE, outFile);
         void saveHistoryEntry({
           kind: "upscayl",
-          originalPath: imagePath,
+          inputPath: imagePath,
           outputPath: outFile,
           model,
           scale,

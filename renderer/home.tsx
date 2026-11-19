@@ -31,7 +31,7 @@ import useUpscaylVersion from "./components/hooks/use-upscayl-version";
 import MainContent from "./components/main-content";
 import RemoveBackground from "./components/remove-background";
 import History from "./components/history";
-import { addHistoryItemAtom } from "./atoms/history-atom";
+import { addHistoryItemAtom, addHistoryItemsAtom } from "./atoms/history-atom";
 
 const Home = () => {
   const t = useAtomValue(translationAtom);
@@ -59,6 +59,7 @@ const Home = () => {
   const setModelIds = useSetAtom(customModelIdsAtom);
   const setUserStats = useSetAtom(userStatsAtom);
   const addHistoryItem = useSetAtom(addHistoryItemAtom);
+  const addHistoryItems = useSetAtom(addHistoryItemsAtom);
 
   const selectImageHandler = async () => {
     resetImagePaths();
@@ -349,6 +350,11 @@ const Home = () => {
     window.electron.on(
       ELECTRON_COMMANDS.HISTORY_ENTRY_ADDED,
       (_, entry: HistoryEntry) => addHistoryItem(entry),
+    );
+
+    window.electron.on(
+      ELECTRON_COMMANDS.HISTORY_ENTRIES_ADDED,
+      (_, entries: HistoryEntry[]) => addHistoryItems(entries),
     );
   }, []);
 
