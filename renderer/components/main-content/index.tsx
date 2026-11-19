@@ -25,6 +25,7 @@ import LensViewer from "./lens-view";
 import ImageViewer from "./image-viewer";
 import useTranslation from "../hooks/use-translation";
 import SliderView from "./slider-view";
+import { CopyIcon, FolderOpenIcon } from "lucide-react";
 
 type MainContentProps = {
   imagePath: string;
@@ -114,6 +115,29 @@ const MainContent = ({
       ELECTRON_COMMANDS.OPEN_FOLDER,
       upscaledBatchFolderPath,
     );
+  };
+
+  const copyImageHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (upscaledImagePath) {
+      window.electron.send(ELECTRON_COMMANDS.COPY_IMAGE, upscaledImagePath);
+    }
+  };
+
+  const openUpscaledFolderHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (upscaledImagePath) {
+      window.electron.send(ELECTRON_COMMANDS.OPEN_FOLDER, upscaledImagePath);
+    }
+  };
+
+  const handleContextMenu = (e: React.MouseEvent) => {
+    if (upscaledImagePath) {
+      e.preventDefault();
+      window.electron.send(ELECTRON_COMMANDS.SHOW_UPSCAYL_CONTEXT_MENU, {
+        imagePath: upscaledImagePath,
+      });
+    }
   };
 
   const sanitizedImagePath = useMemo(
@@ -251,17 +275,44 @@ const MainContent = ({
         description: error,
       });
     };
+    const handleCopyImageSuccess = () => {
+      toast({
+        title: "Copied!",
+        description: "Image copied to clipboard successfully.",
+      });
+    };
+    const handleCopyImageError = (_: any, error: string) => {
+      toast({
+        title: "Copy Failed",
+        description: error || "Failed to copy image to clipboard.",
+        variant: "destructive",
+      });
+    };
+
     window.addEventListener("paste", handlePasteEvent);
-    window.electron.on(
+    const unsubPasteSuccess = window.electron.on(
       ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_SUCCESS,
       handlePasteImageSaveSuccess,
     );
-    window.electron.on(
+    const unsubPasteError = window.electron.on(
       ELECTRON_COMMANDS.PASTE_IMAGE_SAVE_ERROR,
       handlePasteImageSaveError,
     );
+    const unsubCopySuccess = window.electron.on(
+      ELECTRON_COMMANDS.COPY_IMAGE_SUCCESS,
+      handleCopyImageSuccess,
+    );
+    const unsubCopyError = window.electron.on(
+      ELECTRON_COMMANDS.COPY_IMAGE_ERROR,
+      handleCopyImageError,
+    );
+
     return () => {
       window.removeEventListener("paste", handlePasteEvent);
+      if (typeof unsubPasteSuccess === "function") unsubPasteSuccess();
+      if (typeof unsubPasteError === "function") unsubPasteError();
+      if (typeof unsubCopySuccess === "function") unsubCopySuccess();
+      if (typeof unsubCopyError === "function") unsubCopyError();
     };
   }, [t, outputPath]);
 
@@ -273,6 +324,7 @@ const MainContent = ({
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDoubleClick={batchMode ? selectFolderHandler : selectImageHandler}
+      onContextMenu={handleContextMenu}
     >
       <MacTitlebarDragRegion />
 
@@ -330,6 +382,28 @@ const MainContent = ({
         </div>
       )}
 
+      {/* QUICK ACTIONS FOR UPSCALED IMAGE */}
+      {!batchMode && upscaledImagePath.length > 0 && (
+        <div className="absolute top-4 right-16 z-40 flex items-center gap-2 rounded-xl border border-base-300 bg-base-100/90 p-2 shadow-2xl backdrop-blur-md">
+          <button
+            className="btn btn-sm btn-primary flex items-center gap-1.5"
+            onClick={copyImageHandler}
+            title="Copy upscaled image to clipboard"
+          >
+            <CopyIcon className="h-4 w-4" />
+            <span>Copy Image</span>
+          </button>
+          <button
+            className="btn btn-sm btn-outline flex items-center gap-1.5"
+            onClick={openUpscaledFolderHandler}
+            title="Open image output folder"
+          >
+            <FolderOpenIcon className="h-4 w-4" />
+            <span>Open Folder</span>
+          </button>
+        </div>
+      )}
+
       {!batchMode && viewType === "lens" && upscaledImagePath && imagePath && (
         <LensViewer
           sanitizedImagePath={sanitizedImagePath}
@@ -353,3 +427,5 @@ const MainContent = ({
 };
 
 export default MainContent;
+
+

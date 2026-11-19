@@ -1,10 +1,11 @@
 import prepareNext from "electron-next";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
-import { app, ipcMain, protocol } from "electron";
+import { app, ipcMain, protocol, Menu, nativeImage, clipboard, shell } from "electron";
 import { ELECTRON_COMMANDS } from "../common/electron-commands";
 import logit from "./utils/logit";
 import openFolder from "./commands/open-folder";
+import copyImage from "./commands/copy-image";
 import stop from "./commands/stop";
 import selectFolder from "./commands/select-folder";
 import selectFile from "./commands/select-file";
@@ -21,6 +22,8 @@ import { FEATURE_FLAGS } from "../common/feature-flags";
 import settings from "electron-settings";
 import pasteImage from "./commands/paste-image";
 import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
 
 // INITIALIZATION
 log.initialize({ preload: true });
@@ -85,6 +88,8 @@ ipcMain.on(ELECTRON_COMMANDS.STOP, stop);
 
 ipcMain.on(ELECTRON_COMMANDS.OPEN_FOLDER, openFolder);
 
+ipcMain.on(ELECTRON_COMMANDS.COPY_IMAGE, copyImage);
+
 ipcMain.handle(ELECTRON_COMMANDS.SELECT_FOLDER, selectFolder);
 
 ipcMain.handle(ELECTRON_COMMANDS.SELECT_FILE, selectFile);
@@ -103,6 +108,74 @@ ipcMain.on(ELECTRON_COMMANDS.FOLDER_UPSCAYL, batchUpscayl);
 ipcMain.on(ELECTRON_COMMANDS.DOUBLE_UPSCAYL, doubleUpscayl);
 
 ipcMain.on(ELECTRON_COMMANDS.PASTE_IMAGE, pasteImage);
+
+const loadContextMenuImage = (filePath: string) => {
+  if (/\.webp$/i.test(filePath)) {
+    try {
+      const buffer = fs.readFileSync(filePath);
+      const img = nativeImage.createFromBuffer(buffer);
+      if (!img.isEmpty()) return img;
+      return nativeImage.createFromDataURL(
+        `data:image/webp;base64,${buffer.toString("base64")}`,
+      );
+    } catch {
+      return nativeImage.createFromPath(filePath);
+    }
+  }
+  return nativeImage.createFromPath(filePath);
+};
+
+ipcMain.on(
+  ELECTRON_COMMANDS.SHOW_UPSCAYL_CONTEXT_MENU,
+  (event, payload) => {
+    try {
+      const target = payload?.imagePath;
+      if (!target) return;
+
+      let clean = String(target).trim();
+      if (clean.startsWith("file://")) {
+        try {
+          clean = fileURLToPath(clean);
+        } catch {
+          clean = clean.replace(/^file:\/\/\/?/, "");
+        }
+      }
+      clean = path.normalize(clean);
+
+      const template: Electron.MenuItemConstructorOptions[] = [
+        {
+          label: "Copy Image",
+          click: () => {
+            if (fs.existsSync(clean)) {
+              const img = loadContextMenuImage(clean);
+              if (!img.isEmpty()) {
+                clipboard.writeImage(img);
+                event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_SUCCESS, clean);
+                return;
+              }
+            }
+            event.sender.send(ELECTRON_COMMANDS.COPY_IMAGE_ERROR, "Failed to copy image");
+          },
+        },
+        {
+          label: "Open Output Folder",
+          click: () => {
+            if (fs.existsSync(clean)) {
+              shell.showItemInFolder(clean);
+            } else {
+              const folder = path.dirname(clean);
+              shell.openPath(folder);
+            }
+          },
+        },
+      ];
+      const menu = Menu.buildFromTemplate(template);
+      menu.popup();
+    } catch (error: any) {
+      logit("Error showing context menu:", error?.message || error);
+    }
+  },
+);
 
 ipcMain.handle("get-gpu-info", async () => {
   try {

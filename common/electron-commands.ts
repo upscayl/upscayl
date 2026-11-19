@@ -30,6 +30,10 @@ const ELECTRON_COMMANDS = {
   PASTE_IMAGE: "Paste Image from clipboard",
   PASTE_IMAGE_SAVE_SUCCESS: "Clipboard Image saved successfully",
   PASTE_IMAGE_SAVE_ERROR: "Clipboard Image save failed",
+  COPY_IMAGE: "Copy Image to clipboard",
+  COPY_IMAGE_SUCCESS: "Image copied to clipboard successfully",
+  COPY_IMAGE_ERROR: "Failed to copy image to clipboard",
+  SHOW_UPSCAYL_CONTEXT_MENU: "Show Upscayl Context Menu",
 } as const;
 
 export { ELECTRON_COMMANDS };
