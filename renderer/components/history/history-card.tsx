@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import { useSetAtom } from "jotai";
+import dayjs from "dayjs";
 import {
   ExternalLinkIcon,
   FolderIcon,
@@ -7,7 +8,7 @@ import {
   ImageOffIcon,
   XIcon,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { EasingDefinition, motion } from "motion/react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import getFilenameFromPath from "@common/get-file-name";
 import {
@@ -17,7 +18,6 @@ import {
 } from "@/atoms/history-atom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogClose,
@@ -30,7 +30,10 @@ import useTranslation from "../hooks/use-translation";
 import { HistoryViewer } from "./history-viewer";
 import { imageUrl } from "./image-utils";
 import { Separator } from "../ui/separator";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
+
+const EASE = [0.25, 0.46, 0.45, 0.94] as EasingDefinition;
+const SOFT_MASK = "linear-gradient(to top, #000 45%, transparent 100%)";
 
 export const HistoryCard = ({ items }: { items: HistoryItem[] }) => {
   const t = useTranslation();
@@ -54,7 +57,7 @@ export const HistoryCard = ({ items }: { items: HistoryItem[] }) => {
   const kindLabel = {
     upscayl: t("Upscayl"),
     "double-upscayl": t("Double Upscayl"),
-    "batch-upscayl": t("Batch Upscayl"),
+    // "batch-upscayl": t("Batch Upscayl"),
     "remove-background": t("Remove background"),
   }[item.kind];
 
@@ -67,7 +70,9 @@ export const HistoryCard = ({ items }: { items: HistoryItem[] }) => {
     ].filter(Boolean);
   })();
 
-  const summary = [date, ...details].join(" · ");
+  const summary = [isBatch ? date : null, ...details]
+    .filter(Boolean)
+    .join(" · ");
 
   const openItem = () =>
     targetPath &&
@@ -112,207 +117,209 @@ export const HistoryCard = ({ items }: { items: HistoryItem[] }) => {
   };
 
   return (
-    <div
-      className="group relative overflow-hidden rounded-4xl bg-card shadow-sm transition-all duration-300 hover:ring-primary/40"
-      style={{ clipPath: "inset(0 round 1.3rem)", isolation: "isolate" }}
-      onFocus={() => setShowDetails(true)}
-      onMouseEnter={() => setShowDetails(true)}
-      onMouseLeave={() => setShowDetails(false)}
-      onBlur={() => setShowDetails(false)}
-    >
-      <button
-        type="button"
-        disabled={missing}
-        // A single image opens straight into the fullscreen preview; the dialog
-        // is only there to browse a batch.
-        onClick={() => setOpen(true)}
-        className="block w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-primary"
+    <div className="rounded-4xl border border-border/40 bg-card p-1">
+      <div
+        className="group relative overflow-hidden rounded-3xl bg-card shadow-sm transition-all duration-300 hover:ring-primary/40"
+        style={{ clipPath: "inset(0 round 0.5rem)", isolation: "isolate" }}
+        onFocus={() => setShowDetails(true)}
+        onMouseEnter={() => setShowDetails(true)}
+        onMouseLeave={() => setShowDetails(false)}
+        onBlur={() => setShowDetails(false)}
       >
-        <div
-          className={cn(
-            "relative aspect-10/7 overflow-hidden bg-muted/40",
-            isRemoveBackground && "transparency-grid",
-          )}
+        <button
+          type="button"
+          disabled={missing}
+          // A single image opens straight into the fullscreen preview; the dialog
+          // is only there to browse a batch.
+          onClick={() => setOpen(true)}
+          className="block w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
-          {isBatch ? (
-            <div className="flex size-full items-center justify-center bg-linear-to-br from-primary/15 to-transparent text-primary">
-              <FolderIcon
-                className="size-12"
-                strokeWidth={1.5}
-                aria-hidden="true"
+          <div
+            className={cn(
+              "relative aspect-10/7 overflow-hidden bg-muted/40",
+              isRemoveBackground && "transparency-grid",
+            )}
+          >
+            {isBatch ? (
+              <div className="flex size-full items-center justify-center bg-linear-to-br from-primary/15 to-transparent text-primary">
+                <FolderIcon
+                  className="size-12"
+                  strokeWidth={1.5}
+                  aria-hidden="true"
+                />
+              </div>
+            ) : missing ? (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
+                <ImageOffIcon className="size-8" aria-hidden="true" />
+                {t("File not found")}
+              </div>
+            ) : (
+              <img
+                src={imageUrl(item.outputPath)}
+                alt={title}
+                loading="lazy"
+                draggable={false}
+                onError={() => setMissing(true)}
+                className={cn(
+                  "size-full transition-transform duration-500",
+                  isRemoveBackground ? "object-contain p-3" : "object-cover",
+                )}
               />
-            </div>
-          ) : missing ? (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
-              <ImageOffIcon className="size-8" aria-hidden="true" />
-              {t("File not found")}
-            </div>
-          ) : (
-            <img
-              src={imageUrl(item.outputPath)}
-              alt={title}
-              loading="lazy"
-              draggable={false}
-              onError={() => setMissing(true)}
-              className={cn(
-                "size-full transition-transform duration-500",
-                isRemoveBackground ? "object-contain p-3" : "object-cover",
-              )}
-            />
-          )}
-        </div>
-      </button>
+            )}
+          </div>
+        </button>
 
-      <Badge className="pointer-events-none absolute top-3 left-3 border-0 bg-black/40 text-white backdrop-blur-md">
         {isBatch ? (
-          <>
-            <FolderIcon className="mr-1 size-3" aria-hidden="true" />
-            {items.length}
-          </>
+          <div className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-background py-1 pr-3 pl-1 text-sm font-medium">
+            <div className="rounded-full bg-primary p-1 text-primary-foreground">
+              <FolderIcon className="size-4" />
+            </div>
+            {items.length} Images
+          </div>
         ) : (
-          kindLabel
+          kindLabel && (
+            <>
+              <div className="absolute top-2 left-3 z-1 font-semibold">
+                {dayjs(item.createdAt).format("DD.MM.YYYY")}
+              </div>
+
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-[20%] bg-linear-to-b from-black/80 via-black/40 to-transparent" />
+            </>
+          )
         )}
-      </Badge>
 
-      <motion.div
-        animate={
-          showDetails
-            ? { height: "38%", opacity: 1 }
-            : { height: 0, opacity: 0 }
-        }
-        transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-2"
-        style={{
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
-          maskImage: "linear-gradient(to top, black 40%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to top, black 40%, transparent 100%)",
-          isolation: "isolate",
-          transform: "translateZ(0)",
-        }}
-      />
+        <motion.div
+          initial={false}
+          animate={{ opacity: showDetails ? 1 : 0 }}
+          transition={{ duration: 0.3, ease: EASE }}
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[38%] backdrop-blur-[6px]"
+          style={{ maskImage: SOFT_MASK, WebkitMaskImage: SOFT_MASK }}
+        />
 
-      <motion.div
-        animate={{ opacity: showDetails ? 1 : 0, y: showDetails ? 0 : 8 }}
-        transition={{ ease: "easeInOut" }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-[22%] bg-linear-to-t from-black/75 via-black/30 to-transparent"
-      />
+        <motion.div
+          initial={false}
+          animate={{ opacity: showDetails ? 1 : 0 }}
+          transition={{ duration: 0.3, ease: EASE }}
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-[38%] bg-linear-to-t from-black/80 via-black/40 to-transparent"
+        />
 
-      <motion.div
-        initial={false}
-        animate={
-          showDetails
-            ? { opacity: 1, y: 0, scale: 1 }
-            : { opacity: 0, y: 10, scale: 0.98 }
-        }
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-3 px-4 pt-10 pb-3 text-white"
-      >
-        <p className="truncate text-sm font-semibold">{title}</p>
-        <p className="mt-0.5 truncate text-xs text-white/70 capitalize">
-          {summary}
-        </p>
-      </motion.div>
+        <motion.div
+          initial={false}
+          animate={
+            showDetails
+              ? { opacity: 1, y: 0, scale: 1 }
+              : { opacity: 0, y: 6, scale: 0.99 }
+          }
+          transition={{ duration: showDetails ? 0.3 : 0.18, ease: "easeOut" }}
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-2 px-4 pt-10 pb-3 text-white"
+        >
+          <p className="truncate text-sm font-semibold capitalize">{title}</p>
+          <p className="mt-0.5 truncate text-xs text-white/70 capitalize">
+            {summary}
+          </p>
+        </motion.div>
 
-      <div className="absolute top-2 right-2 flex gap-1 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
-        {!isBatch && (
+        <div className="absolute top-2 right-2 flex gap-1 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
+          {!isBatch && (
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              disabled={missing}
+              aria-label={t("Open image")}
+              className="bg-black/40 text-white backdrop-blur-md hover:bg-black/60 hover:text-white"
+              onClick={openItem}
+            >
+              <ExternalLinkIcon aria-hidden="true" />
+            </Button>
+          )}
           <Button
             variant="ghost"
             size="icon-sm"
             disabled={missing}
-            aria-label={t("Open image")}
+            aria-label={t("Show in folder")}
             className="bg-black/40 text-white backdrop-blur-md hover:bg-black/60 hover:text-white"
-            onClick={openItem}
+            onClick={showItem}
           >
-            <ExternalLinkIcon aria-hidden="true" />
+            <FolderSearchIcon aria-hidden="true" />
           </Button>
-        )}
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          disabled={missing}
-          aria-label={t("Show in folder")}
-          className="bg-black/40 text-white backdrop-blur-md hover:bg-black/60 hover:text-white"
-          onClick={showItem}
-        >
-          <FolderSearchIcon aria-hidden="true" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          disabled={isBatch && !batchId}
-          aria-label={t("Remove from history")}
-          className="bg-black/40 text-white backdrop-blur-md hover:bg-destructive hover:text-white"
-          onClick={removeItem}
-        >
-          <XIcon aria-hidden="true" />
-        </Button>
-      </div>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            disabled={isBatch && !batchId}
+            aria-label={t("Remove from history")}
+            className="bg-black/40 text-white backdrop-blur-md hover:bg-destructive hover:text-white"
+            onClick={removeItem}
+          >
+            <XIcon aria-hidden="true" />
+          </Button>
+        </div>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent
-          style={dialogStyle}
-          className={cn(isBatch && "shadow-2xl")}
-        >
-          <div className="flex items-center justify-between gap-4 pr-8 pl-1">
-            <div className={cn("min-w-0", !isBatch && "sr-only")}>
-              <DialogTitle
-                className={cn(
-                  "truncate font-semibold",
-                  isBatch ? "text-sm" : "text-base",
-                )}
-              >
-                {title}
-              </DialogTitle>
-              <DialogDescription
-                className={cn(
-                  "mt-0.5 truncate text-xs",
-                  isBatch && "text-muted-foreground",
-                )}
-              >
-                {isBatch ? summary : [kindLabel, date, ...details].join(" · ")}
-              </DialogDescription>
-            </div>
-          </div>
-
-          {isBatch && <Separator />}
-
-          <div className={cn("min-h-0 flex-1", isBatch && "overflow-y-auto")}>
-            {isBatch ? (
-              <ScrollArea className="max-h-[40vh]">
-                <div className="grid grid-cols-2 gap-2.5 p-0.5 sm:grid-cols-3">
-                  {items.map((child) => (
-                    <HistoryCard key={child.id} items={[child]} />
-                  ))}
-                </div>
-              </ScrollArea>
-            ) : (
-              <HistoryViewer
-                item={item}
-                maximize
-                onMissing={() => {
-                  setMissing(true);
-                  setOpen(false);
-                }}
-              />
-            )}
-          </div>
-          {isBatch && (
-            <DialogFooter>
-              <div className="flex shrink-0 gap-1">
-                <DialogClose>
-                  <Button variant="secondary">Close</Button>
-                </DialogClose>
-                <Button onClick={showItem}>
-                  <FolderSearchIcon aria-hidden="true" />
-                  {t("Show in folder")}
-                </Button>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent
+            style={dialogStyle}
+            className={cn(isBatch && "shadow-2xl")}
+          >
+            <div className="flex items-center justify-between gap-4 pr-8 pl-1">
+              <div className={cn("min-w-0", !isBatch && "sr-only")}>
+                <DialogTitle
+                  className={cn(
+                    "truncate font-semibold",
+                    isBatch ? "text-sm" : "text-base",
+                  )}
+                >
+                  {title}
+                </DialogTitle>
+                <DialogDescription
+                  className={cn(
+                    "mt-0.5 truncate text-xs",
+                    isBatch && "text-muted-foreground",
+                  )}
+                >
+                  {isBatch
+                    ? summary
+                    : [kindLabel, date, ...details].join(" · ")}
+                </DialogDescription>
               </div>
-            </DialogFooter>
-          )}
-        </DialogContent>
-      </Dialog>
+            </div>
+
+            {isBatch && <Separator />}
+
+            <div className={cn("min-h-0 flex-1", isBatch && "overflow-y-auto")}>
+              {isBatch ? (
+                <ScrollArea className="max-h-[40vh]">
+                  <div className="grid grid-cols-2 gap-2.5 p-0.5 sm:grid-cols-3">
+                    {items.map((child) => (
+                      <HistoryCard key={child.id} items={[child]} />
+                    ))}
+                  </div>
+                </ScrollArea>
+              ) : (
+                <HistoryViewer
+                  item={item}
+                  maximize
+                  onMissing={() => {
+                    setMissing(true);
+                    setOpen(false);
+                  }}
+                />
+              )}
+            </div>
+            {isBatch && (
+              <DialogFooter>
+                <div className="flex shrink-0 gap-1">
+                  <DialogClose>
+                    <Button variant="secondary">Close</Button>
+                  </DialogClose>
+                  <Button onClick={showItem}>
+                    <FolderSearchIcon aria-hidden="true" />
+                    {t("Show in folder")}
+                  </Button>
+                </div>
+              </DialogFooter>
+            )}
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };

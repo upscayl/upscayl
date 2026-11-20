@@ -1,7 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { FolderOpenIcon, HistoryIcon, Trash2Icon } from "lucide-react";
-import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import {
+  ArrowDownWideNarrow,
+  ArrowUpNarrowWide,
+  Eraser,
+  HistoryIcon,
+  Images,
+  LayoutGrid,
+  LucideIcon,
+  Trash2Icon,
+  ZoomIn,
+} from "lucide-react";
 import {
   historyAtom,
   HistoryItem,
@@ -11,6 +20,10 @@ import { Button } from "@/components/ui/button";
 import useTranslation from "../hooks/use-translation";
 import { ClearHistoryDialog } from "./clear-history-dialog";
 import { HistoryCard } from "./history-card";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { cn } from "@/lib/utils";
+import { HistoryEntryKind } from "@common/types/types";
+import { motion } from "motion/react";
 
 type HistoryGroup = {
   type: "single" | "batch";
@@ -30,12 +43,36 @@ const toGroup = (
   items: group,
 });
 
+const FILTERS = [
+  { key: "all", label: "All", icon: LayoutGrid },
+  { key: "upscayl", label: "Upscayl", icon: ZoomIn },
+  { key: "batch-upscayl", label: "Batch Upscayl", icon: Images },
+  { key: "remove-background", label: "Background Remove", icon: Eraser },
+] as const satisfies readonly {
+  key: HistoryEntryKind | "all";
+  label: string;
+  icon: LucideIcon;
+}[];
+
+const SORTING = [
+  { key: "newest", label: "Newest first", icon: ArrowDownWideNarrow },
+  { key: "oldest", label: "Oldest first", icon: ArrowUpNarrowWide },
+] as const satisfies readonly {
+  key: string;
+  label: string;
+  icon: LucideIcon;
+}[];
+
+type Filter = (typeof FILTERS)[number]["key"];
+type Sorting = (typeof SORTING)[number]["key"];
+
 const History = () => {
   const [showClearDialog, setShowClearDialog] = useState(false);
   const t = useTranslation();
   const load = useSetAtom(loadHistoryItems);
+  const [selectedFilter, setSelectedFilter] = useState<Filter>("all");
+  const [selectedSorting, setSelectedSorting] = useState<Sorting>("newest");
 
-  // Entries saved by an earlier build have no kind/outputPath.
   const items = useAtomValue(historyAtom).filter(
     (item) => item.kind && item.outputPath,
   );
@@ -52,15 +89,36 @@ const History = () => {
       }
     }
 
-    return [
+    let historyItems = [
       ...Object.entries(batches).map(([batchId, items]) =>
         toGroup("batch", batchId, items),
       ),
       ...(singles.map((item) =>
         toGroup("single", item.id.toString(), [item]),
       ) as HistoryGroup[]),
-    ].sort((a, b) => b.createdAt - a.createdAt);
-  }, [items]);
+    ];
+
+    if (selectedFilter !== "all") {
+      historyItems = historyItems.map((item) =>
+        item.type === "batch" && selectedFilter !== "remove-background"
+          ? item
+          : {
+              ...item,
+              items: item.items.filter(
+                (i) => i.settings.entryKind === selectedFilter,
+              ),
+            },
+      );
+    }
+
+    return historyItems
+      .filter((item) => item.items.length !== 0)
+      .sort((a, b) =>
+        selectedSorting === "newest"
+          ? b.createdAt - a.createdAt
+          : a.createdAt - b.createdAt,
+      );
+  }, [items, selectedFilter, selectedSorting]);
 
   useEffect(() => {
     load();
@@ -68,42 +126,102 @@ const History = () => {
 
   return (
     <section className="flex size-full min-h-0 flex-col overflow-y-auto rounded-4xl border bg-secondary glass-panel">
-      <header className="flex shrink-0 items-start justify-between gap-4 border-b border-border/70 px-5 py-4 sm:px-6">
-        <div className="flex items-start gap-3">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
-            <HistoryIcon className="size-5" aria-hidden="true" />
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold tracking-tight">
-              {t("History")}
-            </h2>
-            <p className="mt-0.5 text-sm text-muted-foreground">
-              {t(
-                "Copies of your upscayls and background removals, kept in your History folder.",
-              )}
-            </p>
-          </div>
+      <header className="pt inline-flex items-center justify-between gap-3 p-5 pb-0">
+        <div className="inline-flex gap-0.5 rounded-full border border-border/50 bg-card p-1">
+          {FILTERS.map((filter) => {
+            const isActive = filter.key === selectedFilter;
+
+            return (
+              <Tooltip key={filter.key}>
+                <TooltipTrigger>
+                  <Button
+                    role="tab"
+                    aria-selected={isActive}
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setSelectedFilter(filter.key)}
+                    className={cn(
+                      "relative isolate rounded-full px-4 transition-colors duration-200 hover:bg-transparent!",
+                      isActive
+                        ? "text-secondary-foreground hover:text-secondary-foreground"
+                        : "text-muted-foreground hover:text-muted-foreground",
+                    )}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="filter-active-tab-highlight"
+                        className="absolute inset-0 -z-10 rounded-full bg-muted"
+                        transition={{
+                          type: "spring",
+                          stiffness: 500,
+                          damping: 40,
+                        }}
+                      />
+                    )}
+                    <filter.icon />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{filter.label}</TooltipContent>
+              </Tooltip>
+            );
+          })}
         </div>
-        <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() =>
-              window.electron.send(ELECTRON_COMMANDS.OPEN_HISTORY_FOLDER)
-            }
-          >
-            <FolderOpenIcon aria-hidden="true" />
-            {t("Open folder")}
-          </Button>
+        <div className="inline-flex gap-2">
+          <div className="inline-flex gap-1 rounded-full bg-background p-1">
+            {SORTING.map((sort) => {
+              const isActive = sort.key === selectedSorting;
+
+              return (
+                <Tooltip key={sort.key}>
+                  <TooltipTrigger>
+                    <Button
+                      role="tab"
+                      aria-selected={isActive}
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setSelectedSorting(sort.key)}
+                      className={cn(
+                        "relative isolate rounded-full px-4 transition-colors duration-200 hover:bg-transparent!",
+                        isActive
+                          ? "text-secondary-foreground hover:text-secondary-foreground"
+                          : "text-muted-foreground hover:text-muted-foreground",
+                      )}
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="sorting-active-tab-highlight"
+                          className="absolute inset-0 -z-10 rounded-full bg-muted"
+                          transition={{
+                            type: "spring",
+                            stiffness: 500,
+                            damping: 40,
+                          }}
+                        />
+                      )}
+                      <sort.icon />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{sort.label}</TooltipContent>
+                </Tooltip>
+              );
+            })}
+          </div>
           {items.length > 0 && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowClearDialog(true)}
-            >
-              <Trash2Icon aria-hidden="true" />
-              {t("Clear all")}
-            </Button>
+            <div className="rounded-full bg-background p-1">
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setShowClearDialog(true)}
+                  >
+                    <Trash2Icon aria-hidden="true" />
+                    <span className="sr-only">{t("Clear all")}</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{t("Clear all")}</TooltipContent>
+              </Tooltip>
+            </div>
           )}
         </div>
       </header>
