@@ -13,12 +13,11 @@ import { ImageSize, loadImageSize } from "./image-utils";
 export const HistoryViewer = ({
   item,
   maximize,
-  setMaximize,
   onMissing,
 }: {
   item: HistoryItem;
   maximize: boolean;
-  setMaximize: React.Dispatch<React.SetStateAction<boolean>>;
+  // Omitted when the view is fixed to the fullscreen preview.
   onMissing: () => void;
 }) => {
   const t = useTranslation();
@@ -44,13 +43,27 @@ export const HistoryViewer = ({
   }, [item.inputPath, item.outputPath]);
 
   const aspectRatio = sizes && sizes.after.width / sizes.after.height;
+  // Maximized fills the viewport; otherwise the view is sized by the image so
+  // the dialog can grow to fit it.
+  const fillsViewport = maximize;
 
   return (
-    <div className="relative size-full">
+    <div className={cn("relative", fillsViewport ? "size-full" : "w-full")}>
       {/* Size the view to the image so the slider stops at its edges. */}
       <div
-        className="flex size-full items-center justify-center"
-        style={{ containerType: "size" }}
+        className={cn(
+          "flex items-center justify-center",
+          fillsViewport ? "size-full" : "w-full",
+        )}
+        style={{
+          containerType: "size",
+          ...(fillsViewport
+            ? undefined
+            : {
+                aspectRatio: aspectRatio ?? 16 / 9,
+                maxHeight: "70vh",
+              }),
+        }}
       >
         <div
           className={cn(
@@ -92,10 +105,8 @@ export const HistoryViewer = ({
         setZoomAmount={setZoomAmount}
         resetImagePaths={() => {
           setZoomAmount("100");
-          setMaximize(false);
         }}
         maximize={maximize}
-        setMaximize={setMaximize}
         hasImage
         hasUpscayledImage={!isRemoveBackground}
       />

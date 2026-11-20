@@ -22,7 +22,6 @@ import { saveHistoryEntry } from "../utils/history";
 let activeJob: ReturnType<typeof removeBackground> | null = null;
 let activeOutputPath = "";
 
-
 const getRemoveBackgroundDir = () => {
   const xdgDataHome = process.env.XDG_DATA_HOME;
   const base =
@@ -148,7 +147,6 @@ const removeBackgroundCommand = async (
 
     job.promise
       .then((result) => {
-        completedOutputPaths.add(resolve(result.outputPath));
         const payload: RemoveBackgroundDone = { ...result, inputPath };
         send(ELECTRON_COMMANDS.REMOVE_BACKGROUND_DONE, payload);
         void saveHistoryEntry({

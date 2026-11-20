@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import useTranslation from "../hooks/use-translation";
 import { ClearHistoryDialog } from "./clear-history-dialog";
 import { HistoryCard } from "./history-card";
-import HistoryFolderCard from "./history-folder-card";
 
 type HistoryGroup = {
   type: "single" | "batch";
@@ -126,15 +125,9 @@ const History = () => {
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {entries.map((entry) => {
-              if (entry.type === "single") {
-                return entry.items.map((item) => (
-                  <HistoryCard key={`${entry.key}-${item.id}`} item={item} />
-                ));
-              }
-
-              return <HistoryFolderCard key={entry.key} items={entry.items} />;
-            })}
+            {entries.map((entry) => (
+              <HistoryCard key={entry.key} items={entry.items} />
+            ))}
           </div>
         )}
       </div>

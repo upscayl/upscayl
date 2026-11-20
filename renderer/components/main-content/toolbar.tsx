@@ -47,10 +47,9 @@ interface ToolBarProps {
   setZoomAmount: (arg: any) => void;
   resetImagePaths: () => void;
   maximize: boolean;
-  setMaximize: React.Dispatch<React.SetStateAction<boolean>>;
+  setMaximize?: React.Dispatch<React.SetStateAction<boolean>>;
   hasImage: boolean;
   hasUpscayledImage: boolean;
-  // Set only when a single upscayled image is ready to hand over.
   onSendToRemoveBackground?: () => void;
   removeBackgroundBusy?: boolean;
 }
@@ -86,9 +85,7 @@ export default function ToolBar({
         </Button>
         <Separator orientation="vertical" className="h-6 w-px shrink-0" />
         <Button
-          disabled={
-            !hasImage || isLens || parseInt(zoomAmount) === 100
-          }
+          disabled={!hasImage || isLens || parseInt(zoomAmount) === 100}
           variant="outline"
           size="icon"
           onClick={() =>
@@ -98,9 +95,7 @@ export default function ToolBar({
           <MinusIcon />
         </Button>
         <Button
-          disabled={
-            !hasImage || isLens || parseInt(zoomAmount) === 1000
-          }
+          disabled={!hasImage || isLens || parseInt(zoomAmount) === 1000}
           variant="outline"
           size="icon"
           onClick={() =>
@@ -110,15 +105,17 @@ export default function ToolBar({
           <PlusIcon />
         </Button>
         <Separator orientation="vertical" className="h-6 w-px shrink-0" />
-        <Button
-          disabled={!hasImage}
-          variant="outline"
-          size="icon"
-          className="group"
-          onClick={() => setMaximize((prev) => !prev)}
-        >
-          {maximize ? <MinimizeIcon /> : <MaximizeIcon />}
-        </Button>
+        {setMaximize && (
+          <Button
+            disabled={!hasImage}
+            variant="outline"
+            size="icon"
+            className="group"
+            onClick={() => setMaximize((prev) => !prev)}
+          >
+            {maximize ? <MinimizeIcon /> : <MaximizeIcon />}
+          </Button>
+        )}
         <Drawer>
           <DrawerTrigger asChild>
             <Button variant="outline" size="icon">
