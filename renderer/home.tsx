@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import { HistoryEntry } from "@common/types/types";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { customModelIdsAtom } from "./atoms/models-list-atom";
 import {
@@ -30,6 +31,8 @@ import Sidebar from "./components/sidebar";
 import Header from "./components/header";
 import useUpscaylVersion from "./components/hooks/use-upscayl-version";
 import MainContent from "./components/main-content";
+import History from "./components/history";
+import { addHistoryItemAtom, addHistoryItemsAtom } from "./atoms/history-atom";
 import RemoveBackground, {
   type RemoveBackgroundIncoming,
   type RemoveBackgroundStatus,
@@ -66,6 +69,8 @@ const Home = () => {
   const [doubleUpscaylCounter, setDoubleUpscaylCounter] = useState(0);
   const setModelIds = useSetAtom(customModelIdsAtom);
   const setUserStats = useSetAtom(userStatsAtom);
+  const addHistoryItem = useSetAtom(addHistoryItemAtom);
+  const addHistoryItems = useSetAtom(addHistoryItemsAtom);
 
   const selectImageHandler = async () => {
     resetImagePaths();
@@ -387,6 +392,16 @@ const Home = () => {
         setModelIds(data);
       },
     );
+    // HISTORY ENTRY ADDED
+    window.electron.on(
+      ELECTRON_COMMANDS.HISTORY_ENTRY_ADDED,
+      (_, entry: HistoryEntry) => addHistoryItem(entry),
+    );
+
+    window.electron.on(
+      ELECTRON_COMMANDS.HISTORY_ENTRIES_ADDED,
+      (_, entries: HistoryEntry[]) => addHistoryItems(entries),
+    );
   }, []);
 
   // LOADING STATE
@@ -485,6 +500,9 @@ const Home = () => {
               upscaylBusy={upscaylRunning}
               onStatusChange={setRemoveBgStatus}
             />
+          </div>
+          <div className={cn("size-full", activeTab !== "history" && "hidden")}>
+            <History />
           </div>
         </div>
         {activeTab === "home" && <OnboardingDialog />}

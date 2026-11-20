@@ -16,6 +16,7 @@ import { BatchUpscaylPayload } from "../../common/types/types";
 import showNotification from "../utils/show-notification";
 import { MODELS } from "../../common/models-list";
 import { copyMetadata } from "../utils/copy-metadata";
+import { saveHistoryEntry } from "../utils/history";
 
 const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -118,16 +119,16 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
             const outFile = outputFolderPath + slash + file;
             const originalFile = inputDir + slash + file;
             if (fs.existsSync(outFile) && fs.existsSync(originalFile)) {
-                try {
-                  await copyMetadata(inputDir, outFile);
-                  logit("✅ Metadata copied to: ", outFile);
-                } catch (error) {
-                  logit("❌ Error copying metadata: ", error);
-                  mainWindow.webContents.send(
-                    ELECTRON_COMMANDS.METADATA_ERROR,
-                    error,
-                  );
-                } 
+              try {
+                await copyMetadata(inputDir, outFile);
+                logit("✅ Metadata copied to: ", outFile);
+              } catch (error) {
+                logit("❌ Error copying metadata: ", error);
+                mainWindow.webContents.send(
+                  ELECTRON_COMMANDS.METADATA_ERROR,
+                  error,
+                );
+              }
             }
           }
         } catch (err) {
@@ -138,6 +139,14 @@ const batchUpscayl = async (event, payload: BatchUpscaylPayload) => {
         ELECTRON_COMMANDS.FOLDER_UPSCAYL_DONE,
         outputFolderPath,
       );
+      void saveHistoryEntry({
+        kind: "batch-upscayl",
+        inputPath: inputDir,
+        outputPath: outputFolderPath,
+        model,
+        scale,
+        saveImageAs,
+      });
       if (!encounteredError) {
         showNotification("Upscayled", "Images upscayled successfully!");
       } else {

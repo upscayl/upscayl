@@ -23,6 +23,7 @@ import decodePath from "../../common/decode-path";
 import getDirectoryFromPath from "../../common/get-directory-from-path";
 import { MODELS } from "../../common/models-list";
 import { copyMetadata } from "../utils/copy-metadata";
+import { saveHistoryEntry } from "../utils/history";
 
 const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -137,16 +138,21 @@ const doubleUpscayl = async (event, payload: DoubleUpscaylPayload) => {
           logit("✅ Metadata copied to: ", outFile);
         } catch (error) {
           logit("❌ Error copying metadata: ", error);
-          mainWindow.webContents.send(
-            ELECTRON_COMMANDS.METADATA_ERROR,
-            error,
-          );
+          mainWindow.webContents.send(ELECTRON_COMMANDS.METADATA_ERROR, error);
         }
       }
       mainWindow.webContents.send(
         ELECTRON_COMMANDS.DOUBLE_UPSCAYL_DONE,
         outFile,
       );
+      void saveHistoryEntry({
+        kind: "double-upscayl",
+        inputPath: imagePath,
+        outputPath: outFile,
+        model,
+        scale,
+        saveImageAs,
+      });
       showNotification("Upscayled", "Image upscayled successfully!");
     }
   };

@@ -60,8 +60,42 @@ export type RemoveBackgroundProgress = {
   stage: "decode" | "inference" | "encode";
 };
 
+export type DeleteHistoryTarget =
+  | { mode: "single"; id: number }
+  | { mode: "batch"; batch_id: string }
+  | { mode: "all" };
+
+export type HistoryEntryKind =
+  | "upscayl"
+  | "double-upscayl"
+  | "batch-upscayl"
+  | "remove-background";
+
+export type HistoryEntrySettings = {
+  entryKind?: HistoryEntryKind;
+  model?: string;
+  scale?: string;
+  saveImageAs?: ImageFormat;
+  width?: number;
+  height?: number;
+};
+
+export type HistoryEntry = {
+  id: number;
+  batchId: string | null;
+  inputPath: string;
+  inputSha256: string | null;
+  kind: HistoryEntryKind;
+  outputPath: string;
+  parentRunId: number | null;
+  settings: HistoryEntrySettings;
+  thumbPath: string | null;
+  createdAt: number;
+};
+
 export type RemoveBackgroundDone = {
   outputPath: string;
+  inputPath: string;
   width: number;
   height: number;
 };

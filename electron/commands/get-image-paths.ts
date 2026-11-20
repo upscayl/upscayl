@@ -1,3 +1,4 @@
+import { IMAGE_EXTENSIONS } from "@common/constants";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { getMainWindow } from "@electron/main-window";
 import logit from "@electron/utils/logit";
@@ -10,12 +11,10 @@ const getImagePaths = (_, folderPath: string) => {
 
   logit("📂 Getting image paths from folder: " + folderPath);
 
-  const imageExtensions = [".jpg", ".jpeg", ".png", ".webp", ".avif", ".jfif"];
-
   let imageFiles: string[];
   try {
     imageFiles = readdirSync(folderPath).filter((file) =>
-      imageExtensions.includes(path.extname(file).toLowerCase()),
+      IMAGE_EXTENSIONS.has(path.extname(file).toLowerCase()),
     );
   } catch (err) {
     logit("⚠️ Failed to read folder: " + folderPath + " — " + err);

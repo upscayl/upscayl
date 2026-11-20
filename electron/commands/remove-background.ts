@@ -17,10 +17,10 @@ import {
 } from "../utils/get-resource-paths";
 import { removeBackground } from "../utils/remove-background";
 import logit from "../utils/logit";
+import { saveHistoryEntry } from "../utils/history";
 
 let activeJob: ReturnType<typeof removeBackground> | null = null;
 let activeOutputPath = "";
-
 
 const getRemoveBackgroundDir = () => {
   const xdgDataHome = process.env.XDG_DATA_HOME;
@@ -147,8 +147,15 @@ const removeBackgroundCommand = async (
 
     job.promise
       .then((result) => {
-        const payload: RemoveBackgroundDone = result;
+        const payload: RemoveBackgroundDone = { ...result, inputPath };
         send(ELECTRON_COMMANDS.REMOVE_BACKGROUND_DONE, payload);
+        void saveHistoryEntry({
+          kind: "remove-background",
+          inputPath: inputPath,
+          outputPath: result.outputPath,
+          width: result.width,
+          height: result.height,
+        });
       })
       .catch((error: unknown) => {
         if (

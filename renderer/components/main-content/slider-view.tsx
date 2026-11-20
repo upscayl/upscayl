@@ -11,6 +11,7 @@ const SliderView = ({
   scale,
   isMaximized,
   zoomAmount,
+  afterLabel,
 }: {
   sanitizedImagePath: string;
   sanitizedUpscaledImagePath: string;
@@ -19,8 +20,10 @@ const SliderView = ({
   scale: string;
   isMaximized: boolean;
   zoomAmount: string;
+  afterLabel?: string;
 }) => {
   const t = useTranslation();
+  const upscayledLabel = afterLabel ?? t("Upscayled");
 
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
 
@@ -71,9 +74,7 @@ const SliderView = ({
           {isMaximized && afterSize.length > 0 ? (
             <div className="absolute top-2 right-2 z-10 flex min-w-32 items-center justify-end gap-3 rounded-2xl bg-black/30 px-3 py-2 text-end text-sm backdrop-blur-md">
               <div>
-                <p className="font-semibold">
-                  {t("Upscayled")}
-                </p>
+                <p className="font-semibold">{upscayledLabel}</p>
                 <p className="text-sm text-foreground/80">{afterSize}</p>
               </div>
 
@@ -93,13 +94,13 @@ const SliderView = ({
               className="borer-none pointer-events-none absolute top-2 right-2 z-10 bg-linear-to-r from-teal-500 to-teal-300 font-semibold text-zinc-900 backdrop-blur-md"
               asChild
             >
-              <p>{t("Upscayled")}</p>
+              <p>{upscayledLabel}</p>
             </Button>
           )}
           <img
             /* USE REGEX TO GET THE FILENAME AND ENCODE IT INTO PROPER FORM IN ORDER TO AVOID ERRORS DUE TO SPECIAL CHARACTERS */
             src={"file:///" + sanitizedUpscaledImagePath}
-            alt={t("Upscayled")}
+            alt={upscayledLabel}
             style={{
               objectFit: "contain",
               backgroundPosition: "0% 0%",

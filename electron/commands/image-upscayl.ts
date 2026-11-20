@@ -22,6 +22,7 @@ import getDirectoryFromPath from "../../common/get-directory-from-path";
 import { MODELS } from "../../common/models-list";
 import { getPlatform } from "../utils/get-device-specs";
 import { copyMetadata } from "../utils/copy-metadata";
+import { saveHistoryEntry } from "../utils/history";
 
 const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
   const mainWindow = getMainWindow();
@@ -172,6 +173,14 @@ const imageUpscayl = async (event, payload: ImageUpscaylPayload) => {
           }
         }
         mainWindow.webContents.send(ELECTRON_COMMANDS.UPSCAYL_DONE, outFile);
+        void saveHistoryEntry({
+          kind: "upscayl",
+          inputPath: imagePath,
+          outputPath: outFile,
+          model,
+          scale,
+          saveImageAs,
+        });
         showNotification("Upscayl", "Image upscayled successfully!");
       }
     };

@@ -1,59 +1,63 @@
 import { atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+import { ELECTRON_COMMANDS } from "@common/electron-commands";
+import { DeleteHistoryTarget, HistoryEntry } from "@common/types/types";
 
-const MAX_HISTORY_ITEMS = 50;
+export type HistoryItem = HistoryEntry;
 
-export interface UpscaylHistoryItemMetadata {
-  original: { width: string; height: string };
-  upscayl: { width: string; height: string };
-  scale: string;
-}
+const deleteHistoryEntry = (payload: DeleteHistoryTarget) => {
+  window.electron.send(ELECTRON_COMMANDS.DELETE_HISTORY_ENTRY, payload);
+};
 
-export interface UpscaylHistoryItem {
-  id: string;
-  originalPath: string;
-  upscayledPath: string;
-  createdAt: number;
-  metadata?: UpscaylHistoryItemMetadata;
-}
+export const historyAtom = atom<HistoryItem[]>([]);
 
-export const upscaylHistoryAtom = atomWithStorage<UpscaylHistoryItem[]>(
-  "upscayl-history",
-  [],
-);
+export const loadHistoryItems = atom(null, (_, set) => {
+  window.electron
+    .invoke(ELECTRON_COMMANDS.GET_HISTORY_ENTRIES)
+    .then((items: HistoryItem[]) => set(historyAtom, items));
+});
 
-export const addUpscaylHistoryItemAtom = atom(
+const itemKey = (entry: HistoryEntry) =>
+  entry.kind === "batch-upscayl" ? `batch:${entry.batchId}` : `run:${entry.id}`;
+
+export const addHistoryItemsAtom = atom(
   null,
-  (get, set, item: Omit<UpscaylHistoryItem, "id" | "createdAt">) => {
-    const current = get(upscaylHistoryAtom);
-
-    if (item.originalPath.length === 0 || item.upscayledPath.length === 0)
-      return;
-    if (current.some((item) => item.upscayledPath === item.upscayledPath))
-      return;
-
-    const newItem: UpscaylHistoryItem = {
-      id: crypto.randomUUID(),
-      createdAt: Date.now(),
-      ...item,
-    };
-
-    const updated = [newItem, ...current.slice(0, MAX_HISTORY_ITEMS)];
-    set(upscaylHistoryAtom, updated);
+  (get, set, items: HistoryEntry[]) => {
+    const existing = new Set(get(historyAtom).map((e) => itemKey(e)));
+    const fresh = items.filter((e) => !existing.has(itemKey(e)));
+    if (fresh.length === 0) return;
+    set(historyAtom, [...fresh, ...get(historyAtom)]);
   },
 );
 
-export const reoveUpscaylHistoryItemAtom = atom(
+export const addHistoryItemAtom = atom(null, (get, set, item: HistoryItem) => {
+  set(historyAtom, [
+    item,
+    ...get(historyAtom).filter((entry) => entry.outputPath !== item.outputPath),
+  ]);
+});
+
+export const removeHistoryItemAtom = atom(null, (get, set, id: number) => {
+  const current = get(historyAtom);
+  const item = current.find((entry) => entry.id === id);
+  set(
+    historyAtom,
+    current.filter((entry) => entry.id !== id),
+  );
+  if (item) deleteHistoryEntry({ mode: "single", id: item.id });
+});
+
+export const removeHistoryBatchAtom = atom(
   null,
-  (get, set, id: string) => {
-    const current = get(upscaylHistoryAtom);
+  (get, set, batchId: string) => {
+    deleteHistoryEntry({ mode: "batch", batch_id: batchId });
     set(
-      upscaylHistoryAtom,
-      current.filter((entry) => entry.id === id),
+      historyAtom,
+      get(historyAtom).filter((item) => item.batchId !== batchId),
     );
   },
 );
 
-export const clearUpscaylHistoryAtom = atom(null, (_get, set) => {
-  set(upscaylHistoryAtom, []);
+export const clearHistoryAtom = atom(null, (_, set) => {
+  set(historyAtom, []);
+  deleteHistoryEntry({ mode: "all" });
 });

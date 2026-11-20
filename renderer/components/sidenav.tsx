@@ -1,11 +1,16 @@
 import { useSetAtom } from "jotai";
-import { HomeIcon, ImageOffIcon, SettingsIcon } from "lucide-react";
+import {
+  HistoryIcon,
+  HomeIcon,
+  ImageOffIcon,
+  SettingsIcon,
+} from "lucide-react";
 
 import { showSettingsDialogAtom } from "@/atoms/toggle-settings";
 import useTranslation from "@/components/hooks/use-translation";
 import NavItem from "@/components/nav-item";
 
-export type AppTab = "home" | "remove-background";
+export type AppTab = "home" | "remove-background" | "history";
 
 const Sidenav = ({
   activeTab,
@@ -31,6 +36,12 @@ const Sidenav = ({
           icon={ImageOffIcon}
           active={activeTab === "remove-background"}
           onClick={() => onTabChange("remove-background")}
+        />
+        <NavItem
+          label={t("History")}
+          icon={HistoryIcon}
+          active={activeTab === "history"}
+          onClick={() => onTabChange("history")}
         />
       </div>
 
