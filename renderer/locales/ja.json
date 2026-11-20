@@ -309,7 +309,7 @@
   "HISTORY FOLDER": "履歴フォルダ",
   "Upscayl saves a copy of each original and result here for the History tab.": "Upscaylは履歴タブ用に、元画像と結果のコピーをここに保存します。",
   "No history yet": "まだ履歴はありません",
-  "Finished images will show up here.": "完了した画像はここに表示されます。"
+  "Finished images will show up here.": "完了した画像はここに表示されます。",
   "Send to Remove Background": "背景削除に送る",
   "Send to Upscayl": "Upscaylに送る",
   "Finish the current job first": "先に現在の処理を完了してください",
