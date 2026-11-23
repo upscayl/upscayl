@@ -1,5 +1,12 @@
 import { ImageFormat } from "@electron/types/types";
 
+/** "auto" tries Core ML first (Apple Silicon only) and falls back to ncnn, "ncnn" always uses ncnn. */
+export type UpscaleEngine = "auto" | "ncnn";
+
+export type EngineInfo = {
+  coreml: boolean;
+};
+
 export type ImageUpscaylPayload = {
   imagePath: string;
   outputPath: string;
@@ -15,6 +22,7 @@ export type ImageUpscaylPayload = {
   tileSize: number;
   ttaMode: boolean;
   copyMetadata: boolean;
+  engine?: UpscaleEngine;
 };
 
 export type DoubleUpscaylPayload = {
@@ -34,6 +42,7 @@ export type DoubleUpscaylPayload = {
   tileSize: number;
   ttaMode: boolean;
   copyMetadata: boolean;
+  engine?: UpscaleEngine;
 };
 
 export type BatchUpscaylPayload = {
@@ -50,6 +59,7 @@ export type BatchUpscaylPayload = {
   tileSize: number;
   ttaMode: boolean;
   copyMetadata: boolean;
+  engine?: UpscaleEngine;
 };
 
 export type RemoveBackgroundPayload = {

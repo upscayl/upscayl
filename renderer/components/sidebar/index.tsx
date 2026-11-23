@@ -21,6 +21,7 @@ import {
   userStatsAtom,
   ttaModeAtom,
   copyMetadataAtom,
+  engineAtom,
 } from "../../atoms/user-settings-atom";
 import useLogger from "../hooks/use-logger";
 import {
@@ -91,6 +92,7 @@ const Sidebar = ({
   const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
   const setUserStats = useSetAtom(userStatsAtom);
   const ttaMode = useAtomValue(ttaModeAtom);
+  const engine = useAtomValue(engineAtom);
   const [copyMetadata] = useAtom(copyMetadataAtom);
 
   const upscaylHandler = async () => {
@@ -117,6 +119,7 @@ const Sidebar = ({
             tileSize,
             ttaMode,
             copyMetadata,
+            engine,
           },
         );
         setUserStats((prev) => ({
@@ -146,6 +149,7 @@ const Sidebar = ({
             tileSize,
             ttaMode,
             copyMetadata,
+            engine,
           },
         );
         setUserStats((prev) => ({
@@ -172,6 +176,7 @@ const Sidebar = ({
           tileSize,
           ttaMode,
           copyMetadata,
+          engine,
         });
         setUserStats((prev) => ({
           ...prev,
