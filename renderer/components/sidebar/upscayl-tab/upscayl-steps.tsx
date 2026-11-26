@@ -10,6 +10,7 @@ import {
   customWidthAtom,
   useCustomWidthAtom,
   saveImageAsAtom,
+  reduceAnimationsAtom,
 } from "../../../atoms/user-settings-atom";
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
@@ -20,13 +21,13 @@ import SelectModelDialog from "./select-model-dialog";
 import { ImageFormat } from "@/lib/valid-formats";
 import { Button } from "@/components/ui/button";
 import useUpscaylResolution from "@/components/hooks/use-upscayl-resolution";
+import { motion, useAnimation, type Variants } from "motion/react";
+import { CloudUpload, EraserIcon, SparklesIcon } from "lucide-react";
 import {
-  CloudUpload,
-  EraserIcon,
-  FolderIcon,
-  SparklesIcon,
+  FoldersIcon,
   UploadIcon,
-} from "lucide-react";
+  useIconHover,
+} from "@/components/animated-icons";
 import { Badge } from "@/components/ui/badge";
 import { SelectImageFormat } from "../settings-tab/select-image-format";
 import {
@@ -73,6 +74,19 @@ interface IProps {
   removeBackgroundBusy?: boolean;
 }
 
+const ROCKET_LAUNCH: Variants = {
+  normal: { x: 0, y: 0 },
+  animate: {
+    x: [0, 70, -70, 0],
+    y: [0, -70, 70, 0],
+    transition: {
+      duration: 0.5,
+      ease: ["easeIn", "linear", "easeOut"],
+      times: [0, 0.5, 0.5001, 1],
+    },
+  },
+};
+
 function UpscaylSteps({
   selectImageHandler,
   selectFolderHandler,
@@ -99,6 +113,11 @@ function UpscaylSteps({
 
   const logit = useLogger();
   const t = useAtomValue(translationAtom);
+  const uploadHover = useIconHover();
+  const foldersHover = useIconHover();
+  const rocketControls = useAnimation();
+  const [launching, setLaunching] = useState(false);
+  const reduceAnimations = useAtomValue(reduceAnimationsAtom);
 
   // HANDLERS
   const setExportType = (format: ImageFormat) => {
@@ -216,12 +235,18 @@ function UpscaylSteps({
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="center" className="w-56">
-            <DropdownMenuItem onSelect={() => void selectImageHandler()}>
-              <UploadIcon />
+            <DropdownMenuItem
+              onSelect={() => void selectImageHandler()}
+              {...uploadHover.hoverProps}
+            >
+              <UploadIcon ref={uploadHover.ref} className="size-4" />
               {t("Upload Image")}
             </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => void selectFolderHandler()}>
-              <FolderIcon />
+            <DropdownMenuItem
+              onSelect={() => void selectFolderHandler()}
+              {...foldersHover.hoverProps}
+            >
+              <FoldersIcon ref={foldersHover.ref} className="size-4" />
               {t("Choose Folder")}
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -431,16 +456,40 @@ function UpscaylSteps({
             event.currentTarget.style.setProperty("--tilt-y", "0deg");
             event.currentTarget.style.setProperty("--skew-x", "0deg");
           }}
-          onClick={
-            progress.length > 0 || !outputPath
-              ? () => toast(t("Please select an output folder first"))
-              : upscaylHandler
-          }
+          onClick={() => {
+            if (progress.length > 0 || !outputPath) {
+              toast(t("Please select an output folder first"));
+              return;
+            }
+            // Keep the "Upscayl 🚀" label mounted until the launch finishes.
+            // With "Reduce animations" on, the rocket stays put.
+            if (!reduceAnimations) {
+              setLaunching(true);
+              void rocketControls
+                .start("animate")
+                .catch(() => undefined)
+                .finally(() => setLaunching(false));
+            }
+            void upscaylHandler();
+          }}
         >
           <SparklesIcon aria-hidden="true" />
-          <span>
-            {progress.length > 0 ? t("Upscayling ⏳") : t("Upscayl 🚀")}
-          </span>
+          {progress.length > 0 && !launching ? (
+            <span>{t("Upscayling ⏳")}</span>
+          ) : (
+            <span>
+              {/* Animate the translation's own 🚀; if a locale drops it, show the text as-is. */}
+              {t("Upscayl 🚀").replace("🚀", "")}
+              <motion.span
+                animate={rocketControls}
+                className="inline-block"
+                initial="normal"
+                variants={ROCKET_LAUNCH}
+              >
+                {t("Upscayl 🚀").includes("🚀") ? "🚀" : null}
+              </motion.span>
+            </span>
+          )}
         </Button>
       </div>
     </div>

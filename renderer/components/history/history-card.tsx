@@ -2,11 +2,8 @@ import { useState, type CSSProperties } from "react";
 import { useSetAtom } from "jotai";
 import dayjs from "dayjs";
 import {
-  ExternalLinkIcon,
   FolderIcon,
-  FolderSearchIcon,
   ImageOffIcon,
-  XIcon,
 } from "lucide-react";
 import { EasingDefinition, motion } from "motion/react";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
@@ -18,6 +15,12 @@ import {
 } from "@/atoms/history-atom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import {
+  FolderSearchIcon,
+  SquareArrowOutUpRightIcon,
+  TrashIcon,
+  useIconHover,
+} from "@/components/animated-icons";
 import {
   Dialog,
   DialogClose,
@@ -41,6 +44,10 @@ export const HistoryCard = ({ items }: { items: HistoryItem[] }) => {
   const removeHistoryBatch = useSetAtom(removeHistoryBatchAtom);
   const [missing, setMissing] = useState(false);
   const [open, setOpen] = useState(false);
+  const openHover = useIconHover();
+  const showHover = useIconHover();
+  const removeHover = useIconHover();
+  const showDialogHover = useIconHover();
   const [showDetails, setShowDetails] = useState(false);
 
   const isBatch = items.length > 1;
@@ -228,8 +235,12 @@ export const HistoryCard = ({ items }: { items: HistoryItem[] }) => {
               aria-label={t("Open image")}
               className="bg-black/40 text-white backdrop-blur-md hover:bg-black/60 hover:text-white"
               onClick={openItem}
+              {...openHover.hoverProps}
             >
-              <ExternalLinkIcon aria-hidden="true" />
+              <SquareArrowOutUpRightIcon
+                ref={openHover.ref}
+                className="size-4"
+              />
             </Button>
           )}
           <Button
@@ -239,8 +250,9 @@ export const HistoryCard = ({ items }: { items: HistoryItem[] }) => {
             aria-label={t("Show in folder")}
             className="bg-black/40 text-white backdrop-blur-md hover:bg-black/60 hover:text-white"
             onClick={showItem}
+            {...showHover.hoverProps}
           >
-            <FolderSearchIcon aria-hidden="true" />
+            <FolderSearchIcon ref={showHover.ref} className="size-4" />
           </Button>
           <Button
             variant="ghost"
@@ -249,8 +261,9 @@ export const HistoryCard = ({ items }: { items: HistoryItem[] }) => {
             aria-label={t("Remove from history")}
             className="bg-black/40 text-white backdrop-blur-md hover:bg-destructive hover:text-white"
             onClick={removeItem}
+            {...removeHover.hoverProps}
           >
-            <XIcon aria-hidden="true" />
+            <TrashIcon ref={removeHover.ref} className="size-4" />
           </Button>
         </div>
 
@@ -310,8 +323,11 @@ export const HistoryCard = ({ items }: { items: HistoryItem[] }) => {
                   <DialogClose>
                     <Button variant="secondary">Close</Button>
                   </DialogClose>
-                  <Button onClick={showItem}>
-                    <FolderSearchIcon aria-hidden="true" />
+                  <Button onClick={showItem} {...showDialogHover.hoverProps}>
+                    <FolderSearchIcon
+                      ref={showDialogHover.ref}
+                      className="size-4"
+                    />
                     {t("Show in folder")}
                   </Button>
                 </div>

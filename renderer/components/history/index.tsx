@@ -1,16 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import {
-  ArrowDownWideNarrow,
-  ArrowUpNarrowWide,
-  Eraser,
-  HistoryIcon,
-  Images,
-  LayoutGrid,
-  LucideIcon,
-  Trash2Icon,
-  ZoomIn,
-} from "lucide-react";
+import { HistoryIcon } from "lucide-react";
 import {
   historyAtom,
   HistoryItem,
@@ -24,6 +14,17 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { cn } from "@/lib/utils";
 import { HistoryEntryKind } from "@common/types/types";
 import { motion } from "motion/react";
+import {
+  ArrowDownWideNarrowIcon,
+  ArrowUpNarrowWideIcon,
+  EraserIcon,
+  FoldersIcon,
+  LayoutGridIcon,
+  SearchPlusIcon,
+  Trash2Icon,
+  useIconHover,
+  type AnimatedIcon,
+} from "@/components/animated-icons";
 
 type HistoryGroup = {
   type: "single" | "batch";
@@ -44,23 +45,23 @@ const toGroup = (
 });
 
 const FILTERS = [
-  { key: "all", label: "All", icon: LayoutGrid },
-  { key: "upscayl", label: "Upscayl", icon: ZoomIn },
-  { key: "batch-upscayl", label: "Batch Upscayl", icon: Images },
-  { key: "remove-background", label: "Background Remove", icon: Eraser },
+  { key: "all", label: "All", icon: LayoutGridIcon },
+  { key: "upscayl", label: "Upscayl", icon: SearchPlusIcon },
+  { key: "batch-upscayl", label: "Batch Upscayl", icon: FoldersIcon },
+  { key: "remove-background", label: "Background Remove", icon: EraserIcon },
 ] as const satisfies readonly {
   key: HistoryEntryKind | "all";
   label: string;
-  icon: LucideIcon;
+  icon: AnimatedIcon;
 }[];
 
 const SORTING = [
-  { key: "newest", label: "Newest first", icon: ArrowDownWideNarrow },
-  { key: "oldest", label: "Oldest first", icon: ArrowUpNarrowWide },
+  { key: "newest", label: "Newest first", icon: ArrowDownWideNarrowIcon },
+  { key: "oldest", label: "Oldest first", icon: ArrowUpNarrowWideIcon },
 ] as const satisfies readonly {
   key: string;
   label: string;
-  icon: LucideIcon;
+  icon: AnimatedIcon;
 }[];
 
 type Filter = (typeof FILTERS)[number]["key"];
@@ -70,6 +71,18 @@ const History = () => {
   const [showClearDialog, setShowClearDialog] = useState(false);
   const t = useTranslation();
   const load = useSetAtom(loadHistoryItems);
+  // One hover handle per tab. Hook order stays fixed: the keys never change.
+  const filterHovers: Record<Filter, ReturnType<typeof useIconHover>> = {
+    all: useIconHover(),
+    upscayl: useIconHover(),
+    "batch-upscayl": useIconHover(),
+    "remove-background": useIconHover(),
+  };
+  const sortHovers: Record<Sorting, ReturnType<typeof useIconHover>> = {
+    newest: useIconHover(),
+    oldest: useIconHover(),
+  };
+  const clearHover = useIconHover();
   const [selectedFilter, setSelectedFilter] = useState<Filter>("all");
   const [selectedSorting, setSelectedSorting] = useState<Sorting>("newest");
 
@@ -135,6 +148,7 @@ const History = () => {
               <Tooltip key={filter.key}>
                 <TooltipTrigger>
                   <Button
+                    {...filterHovers[filter.key].hoverProps}
                     role="tab"
                     aria-selected={isActive}
                     variant="ghost"
@@ -158,7 +172,10 @@ const History = () => {
                         }}
                       />
                     )}
-                    <filter.icon />
+                    <filter.icon
+                      ref={filterHovers[filter.key].ref}
+                      className="size-4"
+                    />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>{filter.label}</TooltipContent>
@@ -175,6 +192,7 @@ const History = () => {
                 <Tooltip key={sort.key}>
                   <TooltipTrigger>
                     <Button
+                      {...sortHovers[sort.key].hoverProps}
                       role="tab"
                       aria-selected={isActive}
                       variant="ghost"
@@ -198,7 +216,10 @@ const History = () => {
                           }}
                         />
                       )}
-                      <sort.icon />
+                      <sort.icon
+                        ref={sortHovers[sort.key].ref}
+                        className="size-4"
+                      />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>{sort.label}</TooltipContent>
@@ -214,8 +235,9 @@ const History = () => {
                     variant="ghost"
                     size="icon"
                     onClick={() => setShowClearDialog(true)}
+                    {...clearHover.hoverProps}
                   >
-                    <Trash2Icon aria-hidden="true" />
+                    <Trash2Icon ref={clearHover.ref} className="size-4" />
                     <span className="sr-only">{t("Clear all")}</span>
                   </Button>
                 </TooltipTrigger>

@@ -38,24 +38,38 @@ function ImageSettingsSection({
 
   return (
     <div className="flex flex-col gap-5">
-      <SelectImageFormat
-        batchMode={batchMode}
-        saveImageAs={saveImageAs}
-        setExportType={setExportType}
-      />
-      <CopyMetadataToggle
-        saveImageAs={saveImageAs}
-        setExportType={setExportType}
-      />
-      <SelectImageScale scale={scale} setScale={setScale} />
-      <InputCustomResolution />
-      <InputCompression
-        compression={compression}
-        handleCompressionChange={handleCompressionChange}
-      />
-      <SaveOutputFolderToggle />
+      <div data-setting="image-format">
+        <SelectImageFormat
+          batchMode={batchMode}
+          saveImageAs={saveImageAs}
+          setExportType={setExportType}
+        />
+      </div>
+      <div data-setting="copy-metadata">
+        <CopyMetadataToggle
+          saveImageAs={saveImageAs}
+          setExportType={setExportType}
+        />
+      </div>
+      <div data-setting="image-scale">
+        <SelectImageScale scale={scale} setScale={setScale} />
+      </div>
+      <div data-setting="custom-resolution">
+        <InputCustomResolution />
+      </div>
+      <div data-setting="compression">
+        <InputCompression
+          compression={compression}
+          handleCompressionChange={handleCompressionChange}
+        />
+      </div>
+      <div data-setting="save-output-folder">
+        <SaveOutputFolderToggle />
+      </div>
       <HistoryFolderSelect />
-      <OverwriteToggle />
+      <div data-setting="overwrite">
+        <OverwriteToggle />
+      </div>
     </div>
   );
 }

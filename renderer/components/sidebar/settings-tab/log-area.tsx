@@ -2,7 +2,11 @@ import { translationAtom } from "@/atoms/translations-atom";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAtomValue } from "jotai";
-import { ClipboardIcon, CopyCheckIcon, CopyIcon } from "lucide-react";
+import {
+  CopyCheckIcon,
+  CopyIcon,
+  useIconHover,
+} from "@/components/animated-icons";
 import React, { useEffect, useRef } from "react";
 
 type LogAreaProps = {
@@ -26,6 +30,12 @@ export function LogArea({
 }: LogAreaProps) {
   const bottomRef = useRef<HTMLParagraphElement>(null);
   const t = useAtomValue(translationAtom);
+  const copyHover = useIconHover();
+
+  // Draw the check when the logs have just been copied.
+  useEffect(() => {
+    if (isCopied) copyHover.ref.current?.startAnimation();
+  }, [isCopied]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "instant" });
@@ -35,15 +45,20 @@ export function LogArea({
     <div className="relative flex flex-col gap-2">
       <div className="flex items-center justify-between gap-2">
         <p className="text-sm font-medium">LOGS</p>
-        <Button variant="outline" size="xs" onClick={copyOnClickHandler}>
+        <Button
+          variant="outline"
+          size="xs"
+          onClick={copyOnClickHandler}
+          {...copyHover.hoverProps}
+        >
           {isCopied ? (
             <>
-              <CopyCheckIcon />
+              <CopyCheckIcon ref={copyHover.ref} className="size-3" />
               <span>{t("COPIED ✅")}</span>
             </>
           ) : (
             <>
-              <CopyIcon />
+              <CopyIcon ref={copyHover.ref} className="size-3" />
               <span>{t("COPY LOGS 📋")}</span>
             </>
           )}

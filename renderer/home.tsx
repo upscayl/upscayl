@@ -30,6 +30,7 @@ import { cn } from "./lib/utils";
 import Sidebar from "./components/sidebar";
 import Header from "./components/header";
 import useUpscaylVersion from "./components/hooks/use-upscayl-version";
+import CommandPalette from "./components/command-palette";
 import MainContent from "./components/main-content";
 import History from "./components/history";
 import { addHistoryItemAtom, addHistoryItemsAtom } from "./atoms/history-atom";
@@ -438,8 +439,14 @@ const Home = () => {
 
   return (
     <div className={cn("flex h-screen w-screen flex-col overflow-hidden p-2")}>
-      <div className={cn({ "pl-22": isMac })}>
-        <Header version={version} />
+      <div className={cn("pr-2", { "pl-22": isMac })}>
+        <Header version={version}>
+          <CommandPalette
+            onTabChange={setActiveTab}
+            onSelectImage={selectImageHandler}
+            onSelectFolder={selectFolderHandler}
+          />
+        </Header>
       </div>
       <div className="flex size-full min-h-0 flex-row">
         <Sidenav activeTab={activeTab} onTabChange={setActiveTab} />
