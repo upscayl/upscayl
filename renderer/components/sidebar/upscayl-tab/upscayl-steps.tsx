@@ -74,15 +74,12 @@ interface IProps {
 }
 
 const ROCKET_LAUNCH: Variants = {
-  normal: { x: 0, y: 0 },
+  normal: { x: 0, y: 0, opacity: 1 },
   animate: {
-    x: [0, 70, -70, 0],
-    y: [0, -70, 70, 0],
-    transition: {
-      duration: 0.5,
-      ease: ["easeIn", "linear", "easeOut"],
-      times: [0, 0.5, 0.5001, 1],
-    },
+    x: 70,
+    y: -70,
+    opacity: 0,
+    transition: { duration: 0.35, ease: "easeIn" },
   },
 };
 
