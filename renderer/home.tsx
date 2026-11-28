@@ -467,12 +467,6 @@ const Home = () => {
               selectImageHandler={selectImageHandler}
               selectFolderHandler={selectFolderHandler}
               importDroppedPath={importDroppedPath}
-              onSendToRemoveBackground={
-                !batchMode && upscaledImagePath.length > 0
-                  ? () => sendToRemoveBackground(upscaledImagePath)
-                  : undefined
-              }
-              removeBackgroundBusy={removeBgStatus === "processing"}
             />
 
             <MainContent
