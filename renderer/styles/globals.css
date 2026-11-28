@@ -443,3 +443,21 @@
     -webkit-transform: perspective(120px) rotateX(-360deg) rotateY(-359.9deg);
   }
 } */
+
+/* Flash a setting the command palette jumped to. */
+.setting-highlight {
+  border-radius: 0.75rem;
+  animation: setting-highlight 1.6s ease-out;
+}
+
+@keyframes setting-highlight {
+  0%,
+  40% {
+    box-shadow: 0 0 0 2px var(--primary);
+    background-color: color-mix(in oklch, var(--primary) 10%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 2px transparent;
+    background-color: transparent;
+  }
+}

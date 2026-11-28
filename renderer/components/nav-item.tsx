@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import { useIconHover, type AnimatedIcon } from "@/components/animated-icons";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,10 +15,12 @@ export default function NavItem({
   onClick,
 }: {
   label: string;
-  icon: LucideIcon;
+  icon: AnimatedIcon;
   active?: boolean;
   onClick: () => void;
 }) {
+  const iconHover = useIconHover();
+
   return (
     <Tooltip delayDuration={400}>
       <TooltipTrigger asChild>
@@ -32,8 +34,9 @@ export default function NavItem({
               "bg-primary/10 text-primary ring-1 ring-primary/15 hover:bg-primary/15 hover:text-primary",
           )}
           onClick={onClick}
+          {...iconHover.hoverProps}
         >
-          <Icon className="size-5" />
+          <Icon ref={iconHover.ref} className="size-5" />
         </Button>
       </TooltipTrigger>
       <TooltipContent side="right">{label}</TooltipContent>

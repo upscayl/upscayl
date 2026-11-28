@@ -10,7 +10,8 @@ import {
   customWidthAtom,
   useCustomWidthAtom,
   saveImageAsAtom,
-} from "../../../atoms/user-settings-atom";
+  reduceAnimationsAtom,
+} from "@/atoms/user-settings-atom";
 import { FEATURE_FLAGS } from "@common/feature-flags";
 import { ELECTRON_COMMANDS } from "@common/electron-commands";
 import { toast } from "sonner";
@@ -19,14 +20,13 @@ import { SelectImageScale } from "../settings-tab/select-image-scale";
 import SelectModelDialog from "./select-model-dialog";
 import { ImageFormat } from "@/lib/valid-formats";
 import { Button } from "@/components/ui/button";
-import useUpscaylResolution from "@/components/hooks/use-upscayl-resolution";
+import { motion, useAnimation, type Variants } from "motion/react";
+import { CloudUpload, SparklesIcon } from "lucide-react";
 import {
-  CloudUpload,
-  EraserIcon,
-  FolderIcon,
-  SparklesIcon,
+  FoldersIcon,
   UploadIcon,
-} from "lucide-react";
+  useIconHover,
+} from "@/components/animated-icons";
 import { Badge } from "@/components/ui/badge";
 import { SelectImageFormat } from "../settings-tab/select-image-format";
 import {
@@ -73,6 +73,16 @@ interface IProps {
   removeBackgroundBusy?: boolean;
 }
 
+const ROCKET_LAUNCH: Variants = {
+  normal: { x: 0, y: 0, opacity: 1 },
+  animate: {
+    x: 70,
+    y: -70,
+    opacity: 0,
+    transition: { duration: 0.35, ease: "easeIn" },
+  },
+};
+
 function UpscaylSteps({
   selectImageHandler,
   selectFolderHandler,
@@ -84,8 +94,6 @@ function UpscaylSteps({
   doubleUpscayl,
   setDoubleUpscayl,
   dimensions,
-  onSendToRemoveBackground,
-  removeBackgroundBusy = false,
 }: IProps) {
   const [scale, setScale] = useAtom(scaleAtom);
   const [outputPath, setOutputPath] = useAtom(savedOutputPathAtom);
@@ -99,6 +107,11 @@ function UpscaylSteps({
 
   const logit = useLogger();
   const t = useAtomValue(translationAtom);
+  const uploadHover = useIconHover();
+  const foldersHover = useIconHover();
+  const rocketControls = useAnimation();
+  const [launching, setLaunching] = useState(false);
+  const reduceAnimations = useAtomValue(reduceAnimationsAtom);
 
   // HANDLERS
   const setExportType = (format: ImageFormat) => {
@@ -216,12 +229,18 @@ function UpscaylSteps({
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="center" className="w-56">
-            <DropdownMenuItem onSelect={() => void selectImageHandler()}>
-              <UploadIcon />
+            <DropdownMenuItem
+              onSelect={() => void selectImageHandler()}
+              {...uploadHover.hoverProps}
+            >
+              <UploadIcon ref={uploadHover.ref} className="size-4" />
               {t("Upload Image")}
             </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => void selectFolderHandler()}>
-              <FolderIcon />
+            <DropdownMenuItem
+              onSelect={() => void selectFolderHandler()}
+              {...foldersHover.hoverProps}
+            >
+              <FoldersIcon ref={foldersHover.ref} className="size-4" />
               {t("Choose Folder")}
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -256,7 +275,7 @@ function UpscaylSteps({
       {/* UPSCALE SETTINGS */}
       <div className="animate-step-in group flex flex-col gap-4">
         <div className="step-heading flex flex-row text-sm">
-          <p className="max-w-full rounded-lg bg-foreground/10 px-2 text-sm leading-snug font-medium break-words">
+          <p className="max-w-full rounded-lg bg-foreground/10 px-2 text-sm leading-snug font-medium wrap-break-word">
             {t("Step 2")} - {t("Select AI Model")}
           </p>
         </div>
@@ -367,33 +386,6 @@ function UpscaylSteps({
       {/* STEP 4 */}
       <div className="animate-step-in flex h-full flex-col justify-end gap-2">
         <p className="step-heading sr-only">{t("Step 4")}</p>
-        {/* {dimensions.width && dimensions.height && ( */}
-        {/*   <p className="mb-2 text-sm"> */}
-        {/*     {t("Upscayl from ")} */}
-        {/*     <span className="font-bold"> */}
-        {/*       {dimensions.width}x{dimensions.height} */}
-        {/*     </span> */}
-        {/*     {t(" to ")} */}
-        {/*     <span className="font-bold"> */}
-        {/*       {upscaylResolution.width}x{upscaylResolution.height} */}
-        {/*     </span> */}
-        {/*   </p> */}
-        {/* )} */}
-        {onSendToRemoveBackground && (
-          <Button
-            className="h-14 w-full rounded-full"
-            disabled={removeBackgroundBusy}
-            title={
-              removeBackgroundBusy
-                ? t("Finish the current job first")
-                : undefined
-            }
-            onClick={onSendToRemoveBackground}
-          >
-            <EraserIcon aria-hidden="true" />
-            <span>{t("Remove Background")}</span>
-          </Button>
-        )}
         <Button
           className="upscayl-button"
           onPointerMove={(event) => {
@@ -431,16 +423,38 @@ function UpscaylSteps({
             event.currentTarget.style.setProperty("--tilt-y", "0deg");
             event.currentTarget.style.setProperty("--skew-x", "0deg");
           }}
-          onClick={
-            progress.length > 0 || !outputPath
-              ? () => toast(t("Please select an output folder first"))
-              : upscaylHandler
-          }
+          onClick={() => {
+            if (progress.length > 0 || !outputPath) {
+              toast(t("Please select an output folder first"));
+              return;
+            }
+
+            if (imagePath && !reduceAnimations) {
+              setLaunching(true);
+              void rocketControls
+                .start("animate")
+                .catch(() => undefined)
+                .finally(() => setLaunching(false));
+            }
+            void upscaylHandler();
+          }}
         >
           <SparklesIcon aria-hidden="true" />
-          <span>
-            {progress.length > 0 ? t("Upscayling ⏳") : t("Upscayl 🚀")}
-          </span>
+          {progress.length > 0 && !launching ? (
+            <span>{t("Upscayling ⏳")}</span>
+          ) : (
+            <span>
+              {t("Upscayl 🚀").replace("🚀", "")}
+              <motion.span
+                animate={rocketControls}
+                className="inline-block"
+                initial="normal"
+                variants={ROCKET_LAUNCH}
+              >
+                {t("Upscayl 🚀").includes("🚀") ? "🚀" : null}
+              </motion.span>
+            </span>
+          )}
         </Button>
       </div>
     </div>

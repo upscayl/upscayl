@@ -21,13 +21,21 @@ function AIModelsSection({ gpuId, setGpuId }: IProps) {
 
   return (
     <div className="flex flex-col gap-5">
-      <InputGpuId gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />
-      <InputTileSize />
-      <TTAModeToggle />
-      <CustomModelsFolderSelect
-        customModelsPath={customModelsPath}
-        setCustomModelsPath={setCustomModelsPath}
-      />
+      <div data-setting="gpu-id">
+        <InputGpuId gpuId={gpuId} handleGpuIdChange={handleGpuIdChange} />
+      </div>
+      <div data-setting="tile-size">
+        <InputTileSize />
+      </div>
+      <div data-setting="tta-mode">
+        <TTAModeToggle />
+      </div>
+      <div data-setting="custom-models-folder">
+        <CustomModelsFolderSelect
+          customModelsPath={customModelsPath}
+          setCustomModelsPath={setCustomModelsPath}
+        />
+      </div>
     </div>
   );
 }

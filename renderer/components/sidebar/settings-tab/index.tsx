@@ -87,13 +87,15 @@ function SettingsTab({
   return (
     <Dialog open={showSettings} onOpenChange={setShowSettings}>
       <DialogContent className="overflow-hidden p-0 sm:max-w-3xl md:max-h-125 lg:max-h-screen lg:max-w-3xl">
-        <DialogHeader className="h-8 px-6 pt-4">
+        <DialogHeader className="h-8 px-6 pt-5">
           <DialogTitle>{t("Settings")}</DialogTitle>
         </DialogHeader>
-        <div className="flex h-100 gap-4 overflow-hidden pr-2 pb-6 pl-4">
+        <div className="flex h-100 overflow-hidden pr-2 pb-6 pl-4">
           <SettingsSidebar />
           <ScrollArea className="w-full overflow-x-hidden">
-            <div className="pr-4">{renderSection()}</div>
+            <div className="px-2 pt-0.5 [&>div]:gap-2 [&>div>div]:py-2 [&>div>div]:pr-1.5 [&>div>div]:pl-3">
+              {renderSection()}
+            </div>
             <ScrollBar orientation="vertical" />
           </ScrollArea>
         </div>

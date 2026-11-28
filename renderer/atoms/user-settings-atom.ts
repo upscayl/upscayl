@@ -60,6 +60,18 @@ export const compressionAtom = atomWithStorage<number>("compression", 0);
 
 export const overwriteAtom = atomWithStorage("overwrite", false);
 
+// Swaps animated icons for static ones. Defaults to the OS "reduce motion"
+// setting (macOS, Windows and Linux all expose it to Electron).
+// `getOnInit` reads the saved value on the first render, so icons do not
+// flash the OS default before switching to the user's choice.
+export const reduceAnimationsAtom = atomWithStorage(
+  "reduceAnimations",
+  typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  undefined,
+  { getOnInit: true },
+);
+
 export const turnOffNotificationsAtom = atomWithStorage(
   "turnOffNotifications",
   false,

@@ -20,13 +20,21 @@ function SystemSection({ show, setShow, setDontShowCloudModal }: IProps) {
 
   return (
     <div className="flex flex-col gap-5">
-      <TurnOffNotificationsToggle />
-      <AutoUpdateToggle />
-      <EnableContributionToggle />
+      <div data-setting="notifications">
+        <TurnOffNotificationsToggle />
+      </div>
+      <div data-setting="auto-update">
+        <AutoUpdateToggle />
+      </div>
+      <div data-setting="contributions">
+        <EnableContributionToggle />
+      </div>
 
       <hr />
 
-      <ResetSettingsButton />
+      <div data-setting="reset-settings">
+        <ResetSettingsButton />
+      </div>
 
       <hr />
 
@@ -47,7 +55,9 @@ function SystemSection({ show, setShow, setDontShowCloudModal }: IProps) {
         </>
       )}
 
-      <SystemInfo />
+      <div data-setting="system-info">
+        <SystemInfo />
+      </div>
     </div>
   );
 }

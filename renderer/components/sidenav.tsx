@@ -4,7 +4,7 @@ import {
   HomeIcon,
   ImageOffIcon,
   SettingsIcon,
-} from "lucide-react";
+} from "@/components/animated-icons";
 
 import { showSettingsDialogAtom } from "@/atoms/toggle-settings";
 import useTranslation from "@/components/hooks/use-translation";
