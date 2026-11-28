@@ -12,6 +12,7 @@ import {
   MonitorCogIcon,
   PaletteIcon,
   ScrollTextIcon,
+  SearchIcon,
   SettingsIcon,
   type LucideIcon,
 } from "lucide-react";
@@ -26,11 +27,11 @@ import useTranslation from "@/components/hooks/use-translation";
 import type { AppTab } from "@/components/sidenav";
 import {
   CommandIcon,
-  SearchIcon,
   useIconHover,
   type AnimatedIconHandle,
 } from "@/components/animated-icons";
 import { cn } from "@/lib/utils";
+import { KbdGroup, Kbd } from "./ui/kbd";
 
 type CommandItem = {
   id: string;
@@ -305,10 +306,10 @@ const CommandPalette = ({
   };
 
   const onInputKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowDown") {
+    if (e.key === "ArrowDown" || (e.ctrlKey && e.key === "n")) {
       e.preventDefault();
       setActiveIndex((i) => Math.max(0, Math.min(i + 1, filtered.length - 1)));
-    } else if (e.key === "ArrowUp") {
+    } else if (e.key === "ArrowUp" || (e.ctrlKey && e.key === "p")) {
       e.preventDefault();
       setActiveIndex((i) => Math.max(i - 1, 0));
     } else if (e.key === "Enter") {
@@ -325,14 +326,21 @@ const CommandPalette = ({
         type="button"
         onClick={() => setOpen(true)}
         {...searchHover.hoverProps}
-        className="flex h-9 items-center gap-2 rounded-xl border bg-background/40 px-3 text-sm text-muted-foreground outline-none hover:bg-accent focus-visible:ring-2"
+        className="flex h-9 min-w-62 items-center gap-2 rounded-xl border bg-background/40 px-3 text-sm text-muted-foreground outline-none hover:bg-accent focus-visible:ring-2"
       >
-        <SearchIcon ref={searchHover.ref} className="size-4" />
+        <SearchIcon className="size-4" />
         <span>{t("Search")}</span>
-        <kbd className="flex items-center gap-0.5 rounded-md border px-1.5 py-0.5 font-sans text-xs">
-          {isMac ? <CommandIcon className="size-3" /> : <span>Ctrl</span>}
-          <span>K</span>
-        </kbd>
+        <KbdGroup className="ml-auto">
+          {isMac ? (
+            <Kbd>
+              <CommandIcon className="size-3" />
+            </Kbd>
+          ) : (
+            <Kbd>Ctrl</Kbd>
+          )}
+          <span>+</span>
+          <Kbd>K</Kbd>
+        </KbdGroup>
       </button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
@@ -342,10 +350,7 @@ const CommandPalette = ({
         >
           <DialogTitle className="sr-only">{t("Command palette")}</DialogTitle>
           <div className="flex items-center gap-2 border-b px-3">
-            <SearchIcon
-              ref={dialogSearchRef}
-              className="size-4 shrink-0 text-muted-foreground"
-            />
+            <SearchIcon className="size-4" />
             <input
               autoFocus
               value={query}

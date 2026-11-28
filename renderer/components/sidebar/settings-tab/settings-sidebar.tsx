@@ -1,6 +1,4 @@
-import React from "react";
 import { useAtom } from "jotai";
-import { useAtomValue } from "jotai";
 import {
   PaletteIcon,
   CpuIcon,
@@ -8,15 +6,14 @@ import {
   MonitorCogIcon,
   FileTextIcon,
   HelpIcon,
-  useIconHover,
   type AnimatedIcon,
+  useIconActive,
 } from "@/components/animated-icons";
 import { cn } from "@/lib/utils";
 import {
   settingsCategoryAtom,
   SettingsCategory,
 } from "@/atoms/settings-category-atom";
-import { translationAtom } from "@/atoms/translations-atom";
 
 interface NavItem {
   id: SettingsCategory;
@@ -33,13 +30,13 @@ function SettingsNavButton({
   isActive: boolean;
   onClick: () => void;
 }) {
-  const iconHover = useIconHover();
+  const iconHover = useIconActive();
 
   return (
     <button
       type="button"
       onClick={onClick}
-      {...iconHover.hoverProps}
+      {...iconHover.activeProps}
       className={cn(
         "flex items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors",
         isActive
@@ -55,10 +52,7 @@ function SettingsNavButton({
 
 function SettingsSidebar() {
   const [activeCategory, setActiveCategory] = useAtom(settingsCategoryAtom);
-  const t = useAtomValue(translationAtom);
 
-  // Add translations for these navigation labels when they become localized.
-  // corresponding keys exist in your translation files.
   const navItems: NavItem[] = [
     { id: "appearance", label: "Appearance", icon: PaletteIcon },
     { id: "ai-models", label: "AI Models", icon: CpuIcon },
@@ -69,7 +63,7 @@ function SettingsSidebar() {
   ];
 
   return (
-    <nav className="flex h-full w-48 shrink-0 flex-col gap-1 border-r pr-3">
+    <nav className="flex h-full w-48 shrink-0 flex-col gap-1 border-r pt-2 pr-3">
       {navItems.map((item) => (
         <SettingsNavButton
           key={item.id}

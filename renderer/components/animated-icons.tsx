@@ -4,7 +4,13 @@ import {
   type Transition,
   type Variants,
 } from "motion/react";
-import { forwardRef, useImperativeHandle, useRef, type ReactNode } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  type ReactNode,
+} from "react";
 import {
   ArrowDownWideNarrowIcon as StaticArrowDownWideNarrowIcon,
   ArrowUpNarrowWideIcon as StaticArrowUpNarrowWideIcon,
@@ -63,8 +69,35 @@ export function useIconHover() {
     hoverProps: {
       onMouseEnter: () => ref.current?.startAnimation(),
       onMouseLeave: () => ref.current?.stopAnimation(),
-      onFocus: () => ref.current?.startAnimation(),
-      onBlur: () => ref.current?.stopAnimation(),
+    },
+  };
+}
+
+export function useIconActive(delay = 200) {
+  const ref = useRef<AnimatedIconHandle>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  return {
+    ref,
+    activeProps: {
+      onFocus: () => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+          ref.current?.startAnimation();
+          timeoutRef.current = undefined;
+        }, delay);
+      },
+      onBlur: () => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = undefined;
+        ref.current?.stopAnimation();
+      },
     },
   };
 }
@@ -1115,10 +1148,6 @@ const SHAKE_TRANSITION: Transition = { duration: 0.5, ease: "easeInOut" };
 const shake: Variants = {
   normal: { rotate: 0 },
   animate: { rotate: [0, -10, 10, -10, 0], transition: SHAKE_TRANSITION },
-};
-const pulse: Variants = {
-  normal: { scale: 1 },
-  animate: { scale: [1, 1.2, 1], transition: SHAKE_TRANSITION },
 };
 
 const IMAGE_OFF_BODY: Variants = {
